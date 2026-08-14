@@ -4,6 +4,7 @@ import { HbwRuntime } from "@/components/HbwRuntime";
 import "@/styles/document.css";
 import "@/styles/webflow.css";
 import "@/styles/hbw-custom.css";
+import "@/styles/hbw-evolution-01.css";
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +30,8 @@ const ROUTE_BOOT = `
     if (p === '/') root.classList.add('hbw-route-home');
     if (p === '/projects' || p.indexOf('/projects/') === 0) root.classList.add('hbw-route-projects');
     root.classList.toggle('hbw-route-intake-start', p === '/intake/start');
-    if (p.indexOf('/projects/') === 0 && p !== '/projects') {
+    if (p === '/projects/sub-3') root.classList.add('hbw-route-sub3');
+    if (p.indexOf('/projects/') === 0 && p !== '/projects' && p !== '/projects/sub-3') {
       root.classList.add('hbw-project-page-loading');
     }
     document.addEventListener('DOMContentLoaded', function () {
@@ -42,11 +44,18 @@ const ROUTE_BOOT = `
     });
     window.addEventListener('load', function () {
       window.setTimeout(function () {
-        if (document.querySelector('script[data-hbw-runtime]')) return;
-        var s = document.createElement('script');
-        s.src = '/runtime/hbw-runtime.js';
-        s.dataset.hbwRuntime = 'true';
-        document.body.appendChild(s);
+        if (!document.querySelector('script[src=\"/runtime/hbw-runtime.js\"]')) {
+          var s = document.createElement('script');
+          s.src = '/runtime/hbw-runtime.js';
+          s.dataset.hbwRuntime = 'true';
+          document.body.appendChild(s);
+        }
+        if (!document.querySelector('script[src=\"/runtime/hbw-evolution-01.js\"]')) {
+          var evo = document.createElement('script');
+          evo.src = '/runtime/hbw-evolution-01.js';
+          evo.dataset.hbwEvolution = '01';
+          document.body.appendChild(evo);
+        }
       }, 50);
     });
   } catch (e) {}
@@ -63,6 +72,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: ROUTE_BOOT }} />
         <Script src="/runtime/hbw-runtime.js" strategy="beforeInteractive" />
+        <Script src="/runtime/hbw-evolution-01.js" strategy="beforeInteractive" />
       </head>
       <body className="body" suppressHydrationWarning>
         {children}

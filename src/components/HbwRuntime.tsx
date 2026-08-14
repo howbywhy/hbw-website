@@ -2,19 +2,21 @@
 
 import { useEffect } from "react";
 
+function ensureScript(src: string, datasetKey: string, datasetValue: string) {
+  const selector = `script[src="${src}"]`;
+  if (document.querySelector(selector)) return;
+  const script = document.createElement("script");
+  script.src = src;
+  script.async = false;
+  script.dataset[datasetKey] = datasetValue;
+  document.body.appendChild(script);
+}
+
 export function HbwRuntime() {
   useEffect(() => {
-    const existing = document.querySelector(
-      'script[data-hbw-runtime="true"]'
-    ) as HTMLScriptElement | null;
-    if (existing) return;
-
-    const script = document.createElement("script");
-    script.src = "/runtime/hbw-runtime.js";
-    script.async = false;
-    script.dataset.hbwRuntime = "true";
     const timer = window.setTimeout(() => {
-      document.body.appendChild(script);
+      ensureScript("/runtime/hbw-runtime.js", "hbwRuntime", "true");
+      ensureScript("/runtime/hbw-evolution-01.js", "hbwEvolution", "01");
     }, 0);
     return () => {
       window.clearTimeout(timer);

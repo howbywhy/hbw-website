@@ -1,0 +1,179 @@
+/* Evolution 01 — rail, float nav, SUB:3 only. Does not replace recovered visual language. */
+
+/* -------------------------------------------------------------------------- */
+/* 01 — Selected Works rail                                                    */
+/* -------------------------------------------------------------------------- */
+
+.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block {
+  opacity: 0.58;
+  transition: opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block.is-hbw-rail-active,
+.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block:hover,
+.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block:focus-within {
+  opacity: 1;
+}
+
+@media screen and (min-width: 768px) and (hover: hover) {
+  .folder-tab-container .folder-projects-list .project-link-block.is-hbw-rail-active .project-card-description,
+  .folder-tab-container .folder-projects-list .project-link-block.is-hbw-rail-active .project-card-note {
+    max-height: var(--project-card-expand-max) !important;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block {
+    transition: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 02 — Centre pill: grow from a fixed centre; items ease in without reflow   */
+/* -------------------------------------------------------------------------- */
+
+.hbw-floatnav__balance {
+  display: block;
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hbw-floatnav__menu {
+  justify-content: center;
+  text-align: center;
+}
+
+.hbw-floatnav__menu:focus-visible,
+.hbw-floatnav__link:focus-visible {
+  outline: 1px solid #333;
+  outline-offset: 2px;
+}
+
+/*
+  Keep the current-route tray item in flow while collapsing it, so siblings
+  do not jump when .is-hidden is applied. Manifesto remains display:none
+  via its own route rule.
+*/
+.hbw-floatnav__tray .hbw-floatnav__link.is-hidden:not([data-hbw-route="manifesto"]) {
+  display: inline-flex !important;
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  opacity: 0 !important;
+  overflow: hidden;
+  pointer-events: none !important;
+  transform: none;
+  border: 0;
+}
+
+.hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link {
+  transform: translateX(0);
+}
+
+.hbw-floatnav__inner:not(.is-open) .hbw-floatnav__tray .hbw-floatnav__link {
+  transform: translateX(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-floatnav__tray .hbw-floatnav__link.is-hidden {
+    transition: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 03 — SUB:3: reserved ratios, contain full assets, no global media hide      */
+/* -------------------------------------------------------------------------- */
+
+html.hbw-route-sub3.hbw-project-page-loading .swup {
+  filter: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+html.hbw-route-sub3.hbw-project-page-loading .project-gallery-section:not(.hbw-panel),
+html.hbw-route-sub3.hbw-project-page-loading .project-page-gallery:not(.hbw-panel),
+html.hbw-route-sub3.hbw-project-page-loading .project-gallery:not(.hbw-panel) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEB-SUB326"]) {
+  --hbw-item-ratio: 1200 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEB-SUB320"]) {
+  --hbw-item-ratio: 1200 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEBR2-SUB34"]) {
+  --hbw-item-ratio: 2472 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEBR2-SUB33"]) {
+  --hbw-item-ratio: 2472 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEB-SUB330"]) {
+  --hbw-item-ratio: 1200 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEBR2-SUB36"]) {
+  --hbw-item-ratio: 1200 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEB-SUB35"]) {
+  --hbw-item-ratio: 2472 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEB-SUB315"]) {
+  --hbw-item-ratio: 1200 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="TCCWEB-SUB3-PackGIF"]) {
+  --hbw-item-ratio: 2472 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(img[src*="SUB3-BG-1080x1350"]) {
+  --hbw-item-ratio: 1080 / 1350;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(video[src*="SUB3-Type-Stretch-Texture"]) {
+  --hbw-item-ratio: 2472 / 1500;
+}
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item:has(video[src*="SUB3-SKUBAR-Type-Count"]) {
+  --hbw-item-ratio: 1200 / 1500;
+}
+
+html.hbw-route-sub3 .project-gallery__track .hbw-hscroll__item {
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+  aspect-ratio: var(--hbw-item-ratio, auto);
+}
+
+html.hbw-route-sub3 .project-gallery__track .hbw-hscroll__item img {
+  height: 100%;
+  width: auto;
+  max-width: none;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item .media-box {
+  position: relative;
+  width: auto;
+  height: 100%;
+  aspect-ratio: var(--hbw-item-ratio, auto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item .media,
+html.hbw-route-sub3 .project-gallery .hbw-hscroll__item video.media {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
