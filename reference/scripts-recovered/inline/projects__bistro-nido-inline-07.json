@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Bistro Nido — Brand Identity by How by Why",
+  "url": "https://www.hbw.works/projects/bistro-nido",
+  "description": "Brand identity for Bistro Nido, a twice-cooked hospitality concept. The brand balances warmth and refinement, capturing the spirit of a neighbourhood bistro with character, confidence, and a sense of place. Developed with The Colour Club.",
+  "creator": {
+    "@type": "Organization",
+    "name": "How by Why (HBW)",
+    "url": "https://www.hbw.works"
+  },
+  "dateCreated": "2024",
+  "genre": "Brand Identity",
+  "keywords": ["restaurant branding", "bistro branding", "hospitality branding", "brand identity Sydney", "food branding"]
+}

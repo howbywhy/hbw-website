@@ -1,0 +1,16 @@
+.archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade {
+    opacity: 0 !important;
+    transition: opacity 0.52s var(--hbw-gallery-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    transition-delay: calc(var(--hbw-af-i, 0) * 42ms);
+  }
+
+  .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade.archive-gallery-item--hbw-fade-visible {
+    opacity: 1 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade {
+      transition-duration: 0.12s;
+      transition-delay: 0ms !important;
+    }
+  }

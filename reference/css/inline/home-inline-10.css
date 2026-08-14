@@ -1,0 +1,237 @@
+:root {
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --folder-tab-swipe-duration: var(--hbw-panel-swipe-duration);
+    --folder-tab-swipe-ease: var(--hbw-panel-swipe-ease);
+    --folder-tab-swipe-distance: var(--hbw-panel-swipe-distance);
+    --folder-tab-swipe-leave-duration: 440ms;
+    --folder-tab-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+    --folder-tab-dur: var(--folder-tab-swipe-duration);
+    --folder-tab-ease: var(--folder-tab-swipe-ease);
+    --project-card-expand-max: 12rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .swup:has(.folder-tab-container) {
+      overflow-x: visible !important;
+    }
+  }
+
+  /*
+    Webflow sometimes hides or overrides display on breakpoints — keep the panel a flex column.
+    Lives on document.body after JS portaling (escapes Swup filter/overflow containing blocks on iOS).
+  */
+  #folder-tab-container,
+  .folder-tab-container {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    right: auto !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    max-height: none;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: hidden;
+    will-change: transform;
+    z-index: 99990;
+    touch-action: manipulation;
+    -webkit-transform: translateZ(0);
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0);
+    transition: transform var(--folder-tab-swipe-duration) var(--folder-tab-swipe-ease);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Width: Webflow owns it ≤767px; embed keeps a cap from tablet up. */
+  @media screen and (min-width: 768px) {
+    #folder-tab-container,
+    .folder-tab-container {
+      width: min(90vw, 360px) !important;
+    }
+  }
+
+  #folder-tab-container .folder-projects-list,
+  .folder-tab-container .folder-projects-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #folder-tab-container .folder-projects-list::-webkit-scrollbar,
+  .folder-tab-container .folder-projects-list::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /*
+    Desktop (real hover only): collapse .project-card-description / .project-card-note until row or card hover (or focus-within).
+  */
+  @media screen and (min-width: 768px) and (hover: hover) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      max-height: 0 !important;
+      opacity: 0;
+      transition:
+        max-height 280ms var(--folder-tab-ease),
+        opacity var(--folder-tab-dur) var(--folder-tab-ease);
+    }
+
+    #folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    #folder-tab-container .folder-projects-list .project-card-note .pcn-type,
+    .folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    .folder-tab-container .folder-projects-list .project-card-note .pcn-type {
+      margin: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #folder-tab-container .folder-projects-list .project-link-block:hover .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block:hover .project-card-note,
+    #folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-note,
+    #folder-tab-container .folder-projects-list .project-card-container:hover .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-container:hover .project-card-note,
+    #folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block:hover .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block:hover .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-container:hover .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-container:hover .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (hover: hover) and (prefers-reduced-motion: reduce) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+  /*
+    Mobile: same collapse/expand as desktop, but JS sets .is-hbw-folder-row-inview when the row
+    intersects the viewport (actually on-screen), including while scrolling the gallery list.
+  */
+  @media screen and (max-width: 767px) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      max-height: 0 !important;
+      opacity: 0;
+      transition:
+        max-height 280ms var(--folder-tab-ease),
+        opacity var(--folder-tab-dur) var(--folder-tab-ease);
+    }
+
+    #folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    #folder-tab-container .folder-projects-list .project-card-note .pcn-type,
+    .folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    .folder-tab-container .folder-projects-list .project-card-note .pcn-type {
+      margin: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+  #folder-tab-container.is-booting,
+  .folder-tab-container.is-booting {
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #folder-tab-container.is-visible,
+  .folder-tab-container.is-visible {
+    transform: translateX(0) translateZ(0) !important;
+  }
+
+  #folder-tab-container.is-leaving,
+  .folder-tab-container.is-leaving {
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0);
+    transition: transform var(--folder-tab-swipe-leave-duration) var(--folder-tab-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #folder-tab-container,
+    .folder-tab-container {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #folder-tab-container.is-booting,
+    .folder-tab-container.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #folder-tab-container.is-visible,
+    #folder-tab-container.is-leaving,
+    .folder-tab-container.is-visible,
+    .folder-tab-container.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }

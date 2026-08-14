@@ -1,0 +1,24 @@
+{
+  "name": "hbw-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Faithful local reconstruction of the current public HBW site (hbw.works).",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "crawl": "node scripts/crawl-live.mjs",
+    "recover": "node scripts/build-from-recovery.mjs"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.8.0"
+  }
+}

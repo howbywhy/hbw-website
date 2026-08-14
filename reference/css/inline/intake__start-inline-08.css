@@ -1,0 +1,17 @@
+img, video {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+  }
+  .scope-pill {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .scope-pill.is-hidden {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+  }

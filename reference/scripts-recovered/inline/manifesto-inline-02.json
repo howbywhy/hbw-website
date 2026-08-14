@@ -1,0 +1,19 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Manifesto — HBW",
+  "description": "Brand is often reduced to what's visible — a logo, a colour palette, a system delivered at the end.But that was never the point. Brand is the feeling people leave with. The impression that stays once the interaction is over.",
+  "url": "/manifesto",
+  "inLanguage": "en",
+  "about": {
+    "@type": "Organization",
+    "@id": "https://schema.org/Organization",
+    "name": "HBW",
+    "description": "Sydney based brand and design practice working with founders, startups, and hospitality brands to define what they stand for through strategy, identity, naming, and design",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sydney",
+      "addressCountry": "AU"
+    }
+  }
+}

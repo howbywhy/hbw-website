@@ -1,0 +1,10 @@
+/* display only — do not set opacity here; form:has(.step) .step beats .step.is-entering
+     and would keep steps permanently invisible */
+  form:has(.step) .step {
+    display: none !important;
+    pointer-events: none;
+  }
+  form:has(.step) .step.active {
+    display: block !important;
+    pointer-events: auto;
+  }

@@ -1,0 +1,551 @@
+/*
+    Fill parent when it has height; never collapse to 0 (flex + height:100% alone often yields 0px).
+    max(100%,100dvh) keeps the block at least one viewport tall when the parent has no usable height.
+  */
+  .archive-gallery.archive-world {
+    position: relative;
+    z-index: 100;
+    isolation: isolate;
+    width: 100%;
+    height: 100%;
+    /* svh = stable viewport — less jump when mobile browser chrome shows/hides */
+    min-height: 100vh;
+    min-height: max(100%, 100vh);
+    min-height: 100svh;
+    min-height: max(100%, 100svh);
+    flex: 1 1 auto;
+    flex-shrink: 0;
+    align-self: stretch;
+    box-sizing: border-box;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: transparent;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+
+  .archive-gallery.archive-world.is-dragging {
+    cursor: grabbing;
+  }
+
+  .archive-gallery__viewport {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+    /* Inset keeps 3D content away from edges; bottom padding reduces “cut off” on mobile / safe areas */
+    padding: max(0px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px))
+      max(12px, env(safe-area-inset-bottom, 0px)) max(0px, env(safe-area-inset-left, 0px));
+    box-sizing: border-box;
+    perspective: 1600px;
+    /* Slightly above center compensates for rotateX() — avoids the cluster feeling “half below” the fold */
+    perspective-origin: 50% 42%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .archive-gallery__world {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .archive-gallery__world > .archive-gallery-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: auto;
+    -webkit-user-drag: none;
+    /* Sized by JS to match media aspect ratio (prevents big empty rectangles). */
+    width: auto;
+    height: auto;
+    max-width: min(320px, 42vw);
+    max-height: min(420px, 52vh);
+    background: transparent !important;
+    opacity: 1 !important;
+    box-shadow: none;
+    border-radius: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    cursor: pointer;
+  }
+
+  .archive-gallery__world > .archive-gallery-item > img,
+  .archive-gallery__world > .archive-gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+    background: transparent !important;
+  }
+
+  .archive-gallery__world > .archive-gallery-item > video,
+  .archive-gallery__world > .archive-gallery-item video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+    background: transparent !important;
+  }
+
+  /* Signature anchor: 30% bigger in the 3D world only */
+  .archive-gallery__world .signature {
+    transform: scale(1.3);
+    transform-origin: center center;
+  }
+
+  /* Webflow Code Embed blocks often render via an iframe. */
+  .archive-gallery__world > .archive-gallery-item iframe,
+  .archive-gallery__world > .archive-gallery-item embed,
+  .archive-gallery__world > .archive-gallery-item object {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  /* Webflow embed wrappers sometimes apply a background */
+  .archive-gallery__world > .archive-gallery-item .w-embed,
+  .archive-gallery__world > .archive-gallery-item .w-embed-inner {
+    background: transparent !important;
+  }
+
+  /* Webflow image wrappers can apply translucent backgrounds/overlays */
+  .archive-gallery__world > .archive-gallery-item :is(div, figure, picture, source) {
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+
+  .archive-gallery__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: var(--hbw-ls, -0.01em);
+    text-transform: none;
+    color: var(--hbw-text, #111);
+    pointer-events: none;
+    white-space: nowrap;
+    margin: 0;
+    height: var(--hbw-h, 2.5rem);
+    padding: 0 var(--hbw-pad-x, 1rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    border-radius: 0;
+  }
+
+  .archive-gallery__lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    --lb-thumbs-h: 120px;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0);
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .archive-gallery__lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .archive-gallery__lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .archive-gallery__lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 4;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--hbw-font, system-ui, -apple-system, "Segoe UI", sans-serif);
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: var(--hbw-ls, -0.01em);
+    color: var(--hbw-text, #111);
+  }
+
+  .archive-gallery__lightbox-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    pointer-events: none;
+  }
+
+  .archive-gallery__lightbox-inner > * {
+    pointer-events: auto;
+  }
+
+  .archive-gallery__lightbox-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Full-bleed media; thumbnails float over the top */
+    border-radius: 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .archive-gallery__lightbox-stage img,
+  .archive-gallery__lightbox-stage video {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  .archive-gallery__lightbox-stage .archive-lightbox-landscape {
+    object-fit: cover;
+  }
+
+  .archive-gallery__lightbox-thumbs {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    bottom: env(safe-area-inset-bottom, 0px);
+    transform: translateX(-50%);
+    width: clamp(60vw, 70vw, 80vw);
+    height: var(--lb-thumbs-h);
+    box-sizing: border-box;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    border-top: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    scrollbar-width: none;
+  }
+
+  .archive-gallery__lightbox-thumbs::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .archive-gallery__lightbox-thumb {
+    flex: 0 0 auto;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: rgba(255, 255, 255, 0.86);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    height: 50px; /* ~10% smaller */
+    aspect-ratio: 3 / 5;
+    width: auto;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .archive-gallery__lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-gallery__lightbox-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-gallery__lightbox-thumb span {
+    display: block;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .archive-gallery__lightbox-stage iframe,
+  .archive-gallery__lightbox-stage embed,
+  .archive-gallery__lightbox-stage object {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  .archive-gallery__lightbox-stage .archive-gallery__lightbox-html {
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    color: #111;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    user-select: text;
+  }
+
+  .archive-gallery__lightbox-bar {
+    display: none;
+  }
+
+  .archive-gallery__lightbox-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 0;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    color: var(--hbw-text, #111);
+    width: var(--hbw-h, 2.5rem);
+    height: var(--hbw-h, 2.5rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+
+  .archive-gallery__lightbox-btn:hover {
+    background: var(--hbw-surface-hover, rgba(255, 255, 255, 0.93));
+  }
+
+  .archive-gallery__lightbox-btn:focus-visible {
+    outline: 2px solid var(--hbw-text, #111);
+    outline-offset: 2px;
+  }
+
+  /* Close button removed (click off media closes). */
+
+  .archive-gallery__lightbox-counter {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.65);
+    min-width: 5rem;
+    text-align: center;
+  }
+
+  .archive-gallery__lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 0;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    color: var(--hbw-text, #111);
+  }
+
+  .archive-gallery__lightbox-nav--prev {
+    left: 1rem;
+  }
+
+  .archive-gallery__lightbox-nav--next {
+    right: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .archive-gallery__world > .archive-gallery-item {
+      max-width: min(260px, 70vw);
+      max-height: min(340px, 48vh);
+    }
+
+    .archive-gallery__world > .archive-gallery-item > img,
+    .archive-gallery__world > .archive-gallery-item img {
+      max-height: min(340px, 48vh);
+    }
+
+    .archive-gallery__hint {
+      font-size: 0.68rem;
+      bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    }
+
+    .archive-gallery__lightbox-nav {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: 1.25rem;
+    }
+
+    /* No prev/next buttons on mobile */
+    .archive-gallery__lightbox-nav {
+      display: none !important;
+    }
+
+    .archive-gallery__lightbox-thumbs {
+      --lb-thumbs-h: 92px;
+      width: clamp(85vw, 88vw, 90vw);
+    }
+
+    .archive-gallery__lightbox-thumb {
+      height: 54px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-gallery__world {
+      will-change: auto;
+    }
+
+    .archive-gallery__lightbox {
+      transition: none;
+    }
+  }
+
+  /* Blur the page behind the lightbox (mobile-safe via filter) */
+  body.archive-lightbox-open .swup {
+    filter: blur(10px);
+  }
+
+  /* Olafur-like fallback overlay (UI/typography only) */
+  .archive-gallery__webgl-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0);
+    box-sizing: border-box;
+    background: rgba(246, 239, 230, 0.97);
+    color: #111;
+    text-align: left;
+  }
+
+  .archive-gallery__webgl-overlay.is-open {
+    display: flex;
+  }
+
+  .archive-gallery__webgl-card {
+    width: min(920px, 100%);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .archive-gallery__webgl-title {
+    margin: 0 0 0.75rem 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+    letter-spacing: -0.02em;
+  }
+
+  .archive-gallery__webgl-body {
+    margin: 0 0 1.25rem 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.72);
+  }
+
+  .archive-gallery__webgl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .archive-gallery__webgl-link,
+  .archive-gallery__webgl-return {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: rgba(0, 0, 0, 0.85);
+    text-decoration: underline;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .archive-gallery__webgl-return {
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.9);
+    display: inline-flex;
+  }
+
+  @media (max-width: 767px) {
+    .archive-gallery__webgl-card {
+      padding: 1.25rem 1rem;
+    }
+  }

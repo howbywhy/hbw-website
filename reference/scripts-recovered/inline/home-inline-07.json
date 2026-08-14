@@ -1,0 +1,26 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "How by Why (HBW)",
+  "url": "https://www.hbw.works",
+  "logo": "https://www.hbw.works/favicon.ico",
+  "description": "HBW is a Sydney-based brand and design practice working with founders, startups, and hospitality brands to define what they stand for — through strategy, identity, naming, and design.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Sydney",
+    "addressRegion": "NSW",
+    "addressCountry": "AU"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Mark Blackler"
+  },
+  "email": "mark@hbw.works",
+  "sameAs": [
+    "https://www.instagram.com/howbywhy/",
+    "https://howbywhy.com"
+  ],
+  "areaServed": "Australia",
+  "serviceType": ["Brand Strategy", "Brand Identity", "Naming", "Packaging Design", "Art Direction"],
+  "knowsAbout": ["Hospitality Branding", "Food & Beverage Branding", "Startup Branding", "Sports Branding"]
+}

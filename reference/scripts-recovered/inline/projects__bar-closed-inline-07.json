@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Bar Closed — Brand Identity by How by Why",
+  "url": "https://www.hbw.works/projects/bar-closed",
+  "description": "Brand identity for CLOSED, a hospitality venue built on the concept of A Smuggler's House — where secrecy meets elegance. The brand uses torn edges, layered compositions, and contrasting materials to create a sense of intimacy, discovery, and belonging.",
+  "creator": {
+    "@type": "Organization",
+    "name": "How by Why (HBW)",
+    "url": "https://www.hbw.works"
+  },
+  "dateCreated": "2024",
+  "genre": "Brand Identity",
+  "keywords": ["hospitality branding", "bar branding", "brand identity Sydney", "restaurant branding", "venue branding"]
+}

@@ -1,0 +1,10 @@
+.svg-wrap {
+  width: 100%;
+  color: #ffffff;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

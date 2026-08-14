@@ -1,0 +1,924 @@
+<div class="collections-fade w-embed w-script"><!--
+  Archive gallery items — fade in after Swup / page settle, fade out when a visit starts.
+  Complements "Archive Gallery Code Improved" (items live under .archive-gallery__world).
+
+  Paste in Webflow footer AFTER the Archive Gallery embed so the gallery has built
+  .archive-gallery__viewport / .archive-gallery__world first.
+
+  Uses: page:swup-complete (HBW), swup:page:view / swup:visit:start / swup:visit:abort (Swup DOM events).
+-->
+<style id="hbw-archive-gallery-item-fade">
+  .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade {
+    opacity: 0 !important;
+    transition: opacity 0.52s var(--hbw-gallery-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    transition-delay: calc(var(--hbw-af-i, 0) * 42ms);
+  }
+
+  .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade.archive-gallery-item--hbw-fade-visible {
+    opacity: 1 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade {
+      transition-duration: 0.12s;
+      transition-delay: 0ms !important;
+    }
+  }
+</style>
+
+</div><div class="swup"><div class="archive-gallery"><div id="signature" class="archive-gallery-item close w-node-_7f99863d-8a5e-836a-8b75-6354ed5a36e9-bb952f69"><div class="logo-signature w-embed"><style>
+  #hbw-logo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0;
+    color: #1d1d1d;
+    touch-action: none;
+  }
+
+  #hbw-logo-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #hbw-logo-path {
+    filter: url(#hbw-logo-displace-filter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-logo-path {
+      filter: none !important;
+    }
+  }
+</style>
+
+<div id="hbw-logo-wrap" aria-label="HBW interactive logo">
+  <svg id="hbw-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1369.25 914.65" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="hbw-logo-displace-filter" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence id="hbw-logo-turbulence" type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="3" seed="11" result="noise"/>
+        <feDisplacementMap id="hbw-logo-displace-map" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+
+    <path id="hbw-logo-path" d="M914.1,239.12l-91.77,83.6c-.33.3-.99,1.27-1.19,1.59-.3.49-.66,1.9-.09,1.97s2.42.07,3.25-.23l59.22-21.68c76.28-27.93,159.4-46.89,240.72-39.66,27.58,2.45,53.96,9.45,77.26,23.06,30.94,18.08,45.51,50.62,38.86,85.7-12.03,63.5-60.44,117.29-110.25,156.15-63.64,49.66-149.6,90.85-231.8,97.22-18.07,56.05-38.42,113.03-45.39,171.18-1.64,14.76-1.68,28.92,1.91,43.14,8.62,34.15,56.9,16.81,79.34,7.66,65.4-26.67,148.08-86.24,205.04-130.04,62.18-47.81,122.44-97.13,182.76-147.01,13.19-10.91,25.61-21.08,39.15-31.02-8.52,8.73-17.16,15.65-26.24,23.85-69.57,62.78-141.23,122.74-216,179.56-37.99,28.87-232.07,175.13-268.52,111.28-17.35-30.38-3.65-82.64,3.35-115.58,9.88-37.95,21.34-74.49,34.25-112.12-30.79,1.52-60.43-2.97-88.23-15.03l-63.42,74.14c-21.02,23.84-97.81,119.9-132.17,98.25-17.88-11.27-11.86-50.11-8.66-68.73,6.09-35.41,15.95-69.13,25.97-103.77l44.76-144.96-64.86,22.26c-55.15,120.25-130.73,229.55-222.25,324.51-33.3,32.8-88.94,84.83-134.92,92.39-17.9,2.94-32.3-7.61-33.84-25.27-1.36-15.51.69-30.16,4.72-45.55,21.67-82.8,73.71-174.24,120.34-248.66-72.23,21.5-142.16,41.61-216.36,36.66-50.46-3.56-104.25-26.38-110.28-82.77-4.63-43.31,15.71-95.12,36.46-132.83,35.02-63.65,82.28-119.03,138.35-165.19,56.71-46.69,133.89-90.77,208.39-93.7,35.8-33.53,75.24-59.73,123.63-67.87,39.02-6.02,77.84,5.64,106.26,33.19,22.13,21.46,34.04,49.34,41.28,80.23,32.35-29.33,63.72-56.25,97.37-82.2,5.11-32.72,8.8-72.71-4.11-101.88-.29-.66-.19-2.46-.06-2.78.2-.48,1-1.01,1.45-.75l2.43,1.39c17.36,22.59,13,67.1,10.84,95.91,15.82-10.78,100.85-74.16,112.43-65.26,3.55,2.73-6.14,11.28-10.03,11.95.54-.75,1.19-5.17-.24-4.58-27.15,11.03-78.49,48.85-103.8,68.5-4.86,33.86-12.2,66.36-20.56,99.56-20.36,80.85-44.01,159.57-68.16,240.57,118.29-36.08,235.27-57.92,357.72-54.23-124.82,3.4-240.51,23.69-360.33,62.34l-43.05,138.25c-10.68,34.31-19.85,67.85-27.35,102.78-2.69,16-10.95,57.51.81,69.37,11.79,11.89,45.09-14.91,54.7-23.33,23.17-20.8,43.71-43.25,64.03-67.06l64.06-75.07c-41.96-21.39-69.09-74.2-62.26-120.42.89-4.16,4.08-9.53,7.15-10.74.32-.12,2.31,1.35,2.14,1.65l-.77,1.4c-1.91,3.48-3.82,8.15-3.64,12.72,1.69,42.85,23.07,82.59,58.93,105.84,1.87,1.21,5.08,2.58,6.51,1.04,16.87-18.25,110.7-119.95,132.54-106.69,10.42,6.33-2.1,41.2-5.92,52.54l-24.76,73.39c87.79-7.21,181.81-54.89,246.36-112.93,37.21-33.49,76.71-83.5,82.25-134.28,2.05-18.76-.9-37.49-10.94-53.17-19.47-30.4-64.48-41.6-98.38-45.27-85.95-9.3-174.8,15.15-254.61,45.45-18.41,6.99-35.51,14.29-54.28,19.89-2.66.79-6.61-.02-7.75-1.82s-1.14-6.4.53-8.28c9.91-11.13,20.35-20.4,31.76-30.29,42.95-37.19,84.73-74.71,123.7-116.1,6.79-7.21,35.56-38.38,31.49-46.49-.97-1.92-5.02-3.35-7.66-3.18-24.9,1.62-46.5,9.01-70.38,18.45-37.7,14.9-78.84,36.55-112.98,56.18-1.73,1-2.29,2.83-2.6,2.63l-1.03-.67c-.5-.33.48-2,1.57-2.69,45.91-29.38,114.46-68.18,168.5-79.89,8.1-1.76,29.89-5.03,34.2,3.54,1.26,2.5,1.73,7.94.37,10.73-13.5,27.47-62.87,75.9-87.24,98.09ZM271.71,311.31c12.18-24.06,26.43-45.28,41.14-67.17,20.29-30.18,42.55-57.53,68.43-84.26-43.68.19-101.95,27.43-137.95,49.92-75.27,47.01-138.38,112.14-183.46,188.53-13.29,22.51-24.02,45.56-32.17,70.1-15.8,47.55-19.69,100.54,30.44,128.46,18.87,10.51,39.92,15.18,61.89,17.12,73.01,4.94,154.46-17.7,224.32-40.13,88.7-136.2,190.64-260.12,309.72-370.71-.95-11.6-4.31-21.1-7.89-31.56-15.92-46.43-58.08-79.81-107.6-82.27s-102.22,27.57-136.5,60.66c15.43,1.49,29.83,5.27,40.17,16.24,11.39,12.09,13.63,28.49,11.99,45.02-14.56,100.08-132.27,217.29-214.22,268.92-17.82,11.23-64.74,39.43-85.1,35.72,27.85-6.18,67.09-29.55,90.05-45.54,56.12-39.08,105.95-87.42,145.85-142.98,26.02-36.23,51.79-87.27,49.47-132.27-1.4-27.06-24.85-36.52-48.85-35.6-47.84,45.83-82.55,97.85-119.74,151.8ZM605.94,479.82l62.79-20.51c26.46-86.17,51.06-171.23,73.54-257.95,1.62-6.9,18.93-76.23,14.93-75.38-7.22,1.53-80.84,67.09-91.52,77.11-1.39,6.65.17,11.64.55,17.95,4.95,83.1-27.07,180.87-60.29,258.79ZM595.25,483.85c29.49-67.97,53.23-136.64,60.7-208.91,2.09-21.04,3.06-41.19-.37-62.63-114.06,106.86-212.84,225.59-299.16,357.33,39.31-11.81,75.08-25.95,112.06-39.37l126.77-46.43ZM286.24,878.79c26.2-16.09,48.66-35.81,71.32-56.86,33.4-32.32,64.72-66.8,93.58-103.5,54.78-68.97,101.59-142.62,139.13-224.38l-121.4,44.99-121.07,43.8c-29.62,45.4-56.33,91.51-79.9,139.67-16.58,33.88-30.67,67.94-41.32,103.86-4.26,15.98-13.76,53.91-.37,65.58,14.39,12.55,45.57-4.28,60.03-13.16ZM890.84,619.31c10.93-32.15,21.96-62.08,30.75-93.52,2.06-7.69,3.81-14.04,3.56-22.55-7.23,1.87-12.05,4.84-17.95,8.4-22.84,16.33-43.55,34.58-63.32,54.68l-37.8,39.41c26.88,12.15,55.31,15.79,84.75,13.58Z" fill="currentColor"/>
+</svg>
+</div></div></div><div id="w-node-d332c4e9-dd94-bf3f-fc6b-39b591773eac-bb952f69" class="archive-gallery-item"><img src="/collections/69c8cea179fec76c054387ec_shampooch_transition.gif" loading="lazy" alt=""/></div><div id="w-node-fe88ccc0-6c23-401c-0921-3213fbe44411-bb952f69" class="archive-gallery-item"><div class="w-embed"><div class="media-box">
+  <video
+    class="media"
+    src="/global/HD-Icon-Sping.mp4"
+    autoplay muted playsinline loop preload="metadata"
+  ></video>
+</div>
+
+
+
+<style>
+  .media-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .media {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+</style></div></div><div class="archive-gallery-item"><div class="w-embed"><div class="media-box">
+  <video
+    class="media"
+    src="https://www.dropbox.com/scl/fi/a727lufqt3trweawpl08h/HBWCSHOME-Website.mp4?rlkey=16aw4hz3cpbqas2lz722iiw92&raw=1"
+    autoplay muted playsinline loop preload="metadata"
+  ></video>
+</div>
+
+
+
+<style>
+  .media-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .media {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+</style></div></div><div class="archive-gallery-item"><img src="/global/66602eb195ca29e654a6aa99_HBWxTDL-Portfolio5.jpg" loading="lazy" alt=""/></div><div id="w-node-bcef5015-5652-82a1-41bb-ec2c6519e91a-bb952f69" class="archive-gallery-item"><img src="/collections/69c8cdda45800c8c7e6555ae_mochi_animation.gif" loading="lazy" alt=""/></div><div id="w-node-f78cc957-3c2b-d11b-02f5-8b45a7076218-bb952f69" class="archive-gallery-item"><img src="/collections/69c8d589466577d0d4681b4b_tyg_animation_optimized.gif" loading="lazy" width="361" alt=""/></div><div class="archive-gallery-item"><img src="/global/69c8ef85f0541ddd80228f5c_560894787_122179647536379506_2796353869980560857_n.jpg" loading="lazy" sizes="(max-width: 1440px) 100vw, 1440px" srcset="/global/69c8ef85f0541ddd80228f5c_560894787_122179647536379506_2796353869980560857_n-p-500.jpg 500w, /global/69c8ef85f0541ddd80228f5c_560894787_122179647536379506_2796353869980560857_n-p-800.jpg 800w, /global/69c8ef85f0541ddd80228f5c_560894787_122179647536379506_2796353869980560857_n-p-1080.jpg 1080w, /global/69c8ef85f0541ddd80228f5c_560894787_122179647536379506_2796353869980560857_n.jpg 1440w" alt=""/></div><div class="archive-gallery-item"><img src="/projects/chris-sisarich/665d9348c2837af5dd92883f_HBWxChrisSisarich-Portfolio7.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/chris-sisarich/665d9348c2837af5dd92883f_HBWxChrisSisarich-Portfolio7-p-500.jpg 500w, /projects/chris-sisarich/665d9348c2837af5dd92883f_HBWxChrisSisarich-Portfolio7-p-800.jpg 800w, /projects/chris-sisarich/665d9348c2837af5dd92883f_HBWxChrisSisarich-Portfolio7.jpg 1080w" alt="HBWxChrisSisarich-Branding"/></div><div id="w-node-c13eedc9-6584-3ae9-5f81-8414c0175e74-bb952f69" class="archive-gallery-item"><img src="/projects/bistro-nido/692797615567c41bbffa8d4b_TCCxBistro-Nido-Post-3.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/bistro-nido/692797615567c41bbffa8d4b_TCCxBistro-Nido-Post-3-p-500.jpg 500w, /projects/bistro-nido/692797615567c41bbffa8d4b_TCCxBistro-Nido-Post-3-p-800.jpg 800w, /projects/bistro-nido/692797615567c41bbffa8d4b_TCCxBistro-Nido-Post-3.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/global/69c8d7f1b77c69adf12f8d89_TYGC2-Apparel-Mockups-05.jpg" loading="lazy" sizes="(max-width: 1314px) 100vw, 1314px" srcset="/global/69c8d7f1b77c69adf12f8d89_TYGC2-Apparel-Mockups-05-p-500.jpg 500w, /global/69c8d7f1b77c69adf12f8d89_TYGC2-Apparel-Mockups-05-p-800.jpg 800w, /global/69c8d7f1b77c69adf12f8d89_TYGC2-Apparel-Mockups-05-p-1080.jpg 1080w, /global/69c8d7f1b77c69adf12f8d89_TYGC2-Apparel-Mockups-05.jpg 1314w" alt=""/></div><div id="w-node-_09b17a0e-1709-63d0-763a-5ba3a46a3653-bb952f69" class="archive-gallery-item"><img src="/projects/bistro-nido/68db910cdb3e4277c78c8373_TCCWEB-Portfolio-Bistro-Nido8.jpg" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px" srcset="/projects/bistro-nido/68db910cdb3e4277c78c8373_TCCWEB-Portfolio-Bistro-Nido8-p-500.jpg 500w, /projects/bistro-nido/68db910cdb3e4277c78c8373_TCCWEB-Portfolio-Bistro-Nido8-p-800.jpg 800w, /projects/bistro-nido/68db910cdb3e4277c78c8373_TCCWEB-Portfolio-Bistro-Nido8.jpg 1200w" alt=""/></div><div class="archive-gallery-item"><img src="/collections/68f75a0e777f6053da020ffd_HBWxShampooch-Portfolio257.jpg" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px" srcset="/collections/68f75a0e777f6053da020ffd_HBWxShampooch-Portfolio257-p-500.jpg 500w, /collections/68f75a0e777f6053da020ffd_HBWxShampooch-Portfolio257-p-800.jpg 800w, /collections/68f75a0e777f6053da020ffd_HBWxShampooch-Portfolio257.jpg 1200w" alt=""/></div><div class="archive-gallery-item"><img src="/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13-p-500.jpg 500w, /projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13-p-800.jpg 800w, /projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg 1080w" alt="HBWxChrisSisarich-Branding"/></div><div id="w-node-_1289b0f3-b938-2989-a503-3c943df4cab1-bb952f69" class="archive-gallery-item"><div class="kcs-logo w-embed"><!-- SVG: Editable Color via CSS Variable -->
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="0 0 745.5 608.6"
+  style="width:100%; height:auto; --svg-color:#ffffff;"
+>
+  <g fill="var(--svg-color)">
+    <path d="M142.11,144.96c14.79,0,24.71-5.85,24.71-17.39s-10.08-18.86-33.16-24.71c-18.86-4.71-35.93-13.98-35.93-32.51,0-19.51,15.61-31.7,37.72-31.7,24.71,0,41.13,15.44,43.57,36.74l-14.63.97c-2.11-14.47-13.17-24.06-29.1-24.06-13.17,0-22.92,6.99-22.92,18.05,0,13.98,16.74,17.88,31.38,21.95,20.97,5.85,37.72,16.26,37.72,33.82,0,21.46-19.51,32.52-40.48,32.52-25.2,0-43.73-15.44-45.68-38.86l14.63-.98c2.93,15.61,13.98,26.17,32.19,26.17Z"/>
+    <path d="M277.7,54.89h-35.93v101.77h-13.98V54.89h-35.93v-13.66h85.84v13.66Z"/>
+    <path d="M337.86,159.26c-26.82,0-43.57-16.58-43.57-42.92V41.07h13.98v75.27c0,18.7,10.73,29.26,29.59,29.26s29.43-10.57,29.43-29.26V41.07h13.98v75.27c0,26.34-16.74,42.92-43.41,42.92Z"/>
+    <path d="M499.95,99.11c0,36.9-19.51,57.55-54.46,57.55h-36.74V41.24h35.77c35.44,0,55.44,20.81,55.44,57.88ZM444.51,143.01c27.15,0,40.81-14.63,40.81-43.89s-13.66-44.22-40.81-44.22h-21.78v88.11h21.78Z"/>
+    <path d="M532.79,41.24v115.43h-13.98V41.24h13.98Z"/>
+    <path d="M553.27,99.11c0-37.55,19.83-60.48,52.67-60.48s52.84,22.92,52.84,60.48-19.83,60.15-52.84,60.15-52.67-22.92-52.67-60.15ZM605.95,145.61c23.9,0,38.21-17.72,38.21-46.5s-14.31-46.82-38.21-46.82-38.04,17.72-38.04,46.82,14.31,46.5,38.04,46.5Z"/>
+  </g>
+
+  <g fill="var(--svg-color)">
+    <path d="M102.2,365.92c-33.16,0-52.19-26.66-52.19-60.15s18.86-60.48,52.19-60.48c24.55,0,40.64,15.28,45.68,38.04l-14.79.97c-3.74-16.26-14.96-25.36-30.89-25.36-26.34,0-37.55,21.78-37.55,46.82s11.38,46.5,37.55,46.5c16.91,0,28.29-10.08,31.7-27.96l14.96.98c-4.23,24.22-20,40.64-46.66,40.64Z"/>
+    <path d="M196.98,247.89h18.86l41.62,115.43h-15.28l-11.54-32.84h-48.45l-11.54,32.84h-15.28l41.62-115.43ZM225.92,316.82l-19.51-56.74-19.51,56.74h39.02Z"/>
+    <path d="M356.47,282.84c0,13.49-9.27,23.74-19.51,26.66,11.22,1.79,16.26,7.64,17.4,19.83l3.25,33.98h-14.14l-2.93-32.52c-.97-10.57-7.97-13.98-24.87-13.98h-28.29v46.5h-13.98v-115.43h43.73c24.22,0,39.34,13.49,39.34,34.95ZM317.13,303.16c15.77,0,24.71-7.32,24.71-20.65s-8.78-20.97-24.71-20.97h-29.75v41.62h29.75Z"/>
+    <path d="M421.67,351.61c14.79,0,24.71-5.85,24.71-17.4s-10.08-18.86-33.17-24.71c-18.86-4.72-35.93-13.98-35.93-32.52,0-19.51,15.61-31.7,37.72-31.7,24.71,0,41.13,15.44,43.57,36.74l-14.63.98c-2.11-14.47-13.17-24.06-29.1-24.06-13.17,0-22.92,6.99-22.92,18.05,0,13.98,16.75,17.88,31.38,21.95,20.97,5.85,37.72,16.26,37.72,33.82,0,21.46-19.51,32.51-40.48,32.51-25.2,0-43.73-15.44-45.68-38.86l14.63-.97c2.93,15.61,13.98,26.17,32.19,26.17Z"/>
+    <path d="M478.57,305.77c0-37.55,19.83-60.48,52.67-60.48s52.84,22.92,52.84,60.48-19.83,60.15-52.84,60.15-52.67-22.92-52.67-60.15ZM531.24,352.26c23.9,0,38.21-17.72,38.21-46.5s-14.31-46.82-38.21-46.82-38.04,17.72-38.04,46.82,14.31,46.5,38.04,46.5Z"/>
+    <path d="M624.89,247.89l56.58,98.84v-98.84h13.98v115.43h-20.32l-55.76-97.22v97.22h-13.98v-115.43h19.51Z"/>
+  </g>
+
+  <g fill="var(--svg-color)">
+    <path d="M165.77,454.54v57.39l51.86-57.39h17.72l-45.19,50.07,48.28,65.35h-17.07l-40.64-54.95-14.96,16.42v38.53h-13.98v-115.43h13.98Z"/>
+    <path d="M327.05,454.54v13.66h-58.53v37.23h56.58v13.33h-56.58v37.55h59.83v13.66h-73.81v-115.43h72.51Z"/>
+    <path d="M352.57,454.54h13.98v101.77h57.71v13.66h-71.7v-115.43Z"/>
+    <path d="M446.87,454.54h13.98v101.77h57.71v13.66h-71.69v-115.43Z"/>
+    <path d="M533.2,454.54l31.21,53.49,31.21-53.49h16.58l-40.81,68.28v47.15h-13.98v-47.15l-40.81-68.28h16.58Z"/>
+  </g>
+</svg></div><img src="/global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02.jpg" loading="lazy" width="1028" sizes="100vw" alt="" srcset="/global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02-p-500.jpg 500w, /global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02-p-800.jpg 800w, /global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02-p-1080.jpg 1080w, /global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02-p-1600.jpg 1600w, /global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02-p-2000.jpg 2000w, /global/69c8cc5a8058a1678578089c_2025_02_Klaus-Carson-Ulladulla-House_Final-Imagery_Web-Size_02.jpg 2457w" class="image-6"/></div><div class="archive-gallery-item"><img src="/projects/chris-sisarich/665d9349886725dd1f1143c6_HBWxChrisSisarich-Portfolio12.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/chris-sisarich/665d9349886725dd1f1143c6_HBWxChrisSisarich-Portfolio12-p-500.jpg 500w, /projects/chris-sisarich/665d9349886725dd1f1143c6_HBWxChrisSisarich-Portfolio12-p-800.jpg 800w, /projects/chris-sisarich/665d9349886725dd1f1143c6_HBWxChrisSisarich-Portfolio12.jpg 1080w" alt="HBWxChrisSisarich-Branding"/></div><div class="archive-gallery-item"><div class="w-embed"><div class="media-box">
+  <video
+    class="media"
+    src="/global/TYG-Talks.mp4"
+    autoplay muted playsinline loop preload="metadata"
+  ></video>
+</div>
+
+
+<style>
+  .media-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .media {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+</style></div></div><div class="archive-gallery-item"><img src="/global/66602eb121ef720b39eaa9ea_HBWxTDL-Portfolio6.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/global/66602eb121ef720b39eaa9ea_HBWxTDL-Portfolio6-p-500.jpg 500w, /global/66602eb121ef720b39eaa9ea_HBWxTDL-Portfolio6-p-800.jpg 800w, /global/66602eb121ef720b39eaa9ea_HBWxTDL-Portfolio6.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/projects/bistro-nido/68db910de42ba9fd6c175f68_TCCWEB-Portfolio-Bistro-Nido12.jpg" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px" srcset="/projects/bistro-nido/68db910de42ba9fd6c175f68_TCCWEB-Portfolio-Bistro-Nido12-p-500.jpg 500w, /projects/bistro-nido/68db910de42ba9fd6c175f68_TCCWEB-Portfolio-Bistro-Nido12-p-800.jpg 800w, /projects/bistro-nido/68db910de42ba9fd6c175f68_TCCWEB-Portfolio-Bistro-Nido12-p-1080.jpg 1080w, /projects/bistro-nido/68db910de42ba9fd6c175f68_TCCWEB-Portfolio-Bistro-Nido12.jpg 1200w" alt=""/></div><div class="archive-gallery-item"><img src="/global/69c8ef851409932960da2377_566220040_122179647566379506_2250328970669321740_n.jpg" loading="lazy" sizes="(max-width: 1440px) 100vw, 1440px" srcset="/global/69c8ef851409932960da2377_566220040_122179647566379506_2250328970669321740_n-p-500.jpg 500w, /global/69c8ef851409932960da2377_566220040_122179647566379506_2250328970669321740_n-p-800.jpg 800w, /global/69c8ef851409932960da2377_566220040_122179647566379506_2250328970669321740_n-p-1080.jpg 1080w, /global/69c8ef851409932960da2377_566220040_122179647566379506_2250328970669321740_n.jpg 1440w" alt=""/></div><div class="archive-gallery-item"><div class="w-embed"><div class="media-box">
+  <video
+    class="media"
+    src="/projects/chris-sisarich/HBWxChrisSisarich-System-1080x1350px.mp4"
+    autoplay muted playsinline loop preload="metadata"
+  ></video>
+</div>
+
+
+
+<style>
+  .media-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .media {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+</style></div></div><div class="archive-gallery-item"><img src="/collections/69c8e726a53561d113d4f991_Option2.gif" loading="lazy" alt=""/></div><div class="archive-gallery-item"><img src="/projects/bistro-nido/69279761bd547c1f0b857ac2_TCCxBistro-Nido-Post-.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/bistro-nido/69279761bd547c1f0b857ac2_TCCxBistro-Nido-Post--p-500.jpg 500w, /projects/bistro-nido/69279761bd547c1f0b857ac2_TCCxBistro-Nido-Post--p-800.jpg 800w, /projects/bistro-nido/69279761bd547c1f0b857ac2_TCCxBistro-Nido-Post-.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/global/66602eb176204de323769b02_HBWxTDL-Portfolio9.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/global/66602eb176204de323769b02_HBWxTDL-Portfolio9-p-500.jpg 500w, /global/66602eb176204de323769b02_HBWxTDL-Portfolio9-p-800.jpg 800w, /global/66602eb176204de323769b02_HBWxTDL-Portfolio9.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/collections/68f75a0d5451c02a98d8706e_HBWxShampooch-Portfolio258.jpg" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px" srcset="/collections/68f75a0d5451c02a98d8706e_HBWxShampooch-Portfolio258-p-500.jpg 500w, /collections/68f75a0d5451c02a98d8706e_HBWxShampooch-Portfolio258-p-800.jpg 800w, /collections/68f75a0d5451c02a98d8706e_HBWxShampooch-Portfolio258.jpg 1200w" alt=""/></div><div class="archive-gallery-item"><img src="/global/66602eb12f003c40086f469c_HBWxTDL-Portfolio11.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/global/66602eb12f003c40086f469c_HBWxTDL-Portfolio11-p-500.jpg 500w, /global/66602eb12f003c40086f469c_HBWxTDL-Portfolio11-p-800.jpg 800w, /global/66602eb12f003c40086f469c_HBWxTDL-Portfolio11.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/global/6660640d1bf2d6b2dddaa765_HBWxTDL-Portfolio8.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/global/6660640d1bf2d6b2dddaa765_HBWxTDL-Portfolio8-p-500.jpg 500w, /global/6660640d1bf2d6b2dddaa765_HBWxTDL-Portfolio8-p-800.jpg 800w, /global/6660640d1bf2d6b2dddaa765_HBWxTDL-Portfolio8.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/projects/bistro-nido/68db910c73582ae75e5e1e51_TCCWEB-Portfolio-Bistro-Nido11.jpg" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px" srcset="/projects/bistro-nido/68db910c73582ae75e5e1e51_TCCWEB-Portfolio-Bistro-Nido11-p-500.jpg 500w, /projects/bistro-nido/68db910c73582ae75e5e1e51_TCCWEB-Portfolio-Bistro-Nido11-p-800.jpg 800w, /projects/bistro-nido/68db910c73582ae75e5e1e51_TCCWEB-Portfolio-Bistro-Nido11-p-1080.jpg 1080w, /projects/bistro-nido/68db910c73582ae75e5e1e51_TCCWEB-Portfolio-Bistro-Nido11.jpg 1200w" alt=""/></div><div class="archive-gallery-item"><img src="/global/66602eb057d0fca524165dc1_HBWxTDL-Portfolio4.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/global/66602eb057d0fca524165dc1_HBWxTDL-Portfolio4-p-500.jpg 500w, /global/66602eb057d0fca524165dc1_HBWxTDL-Portfolio4-p-800.jpg 800w, /global/66602eb057d0fca524165dc1_HBWxTDL-Portfolio4.jpg 1080w" alt=""/></div><div class="archive-gallery-item"><img src="/global/69c8d7e76f145397ec41c784_TYGC2-Apparel-Mockups-12.jpg" loading="lazy" sizes="100vw" srcset="/global/69c8d7e76f145397ec41c784_TYGC2-Apparel-Mockups-12-p-500.jpg 500w, /global/69c8d7e76f145397ec41c784_TYGC2-Apparel-Mockups-12-p-800.jpg 800w, /global/69c8d7e76f145397ec41c784_TYGC2-Apparel-Mockups-12-p-1080.jpg 1080w, /global/69c8d7e76f145397ec41c784_TYGC2-Apparel-Mockups-12.jpg 1313w" alt=""/></div><div class="archive-gallery-item"><img src="/projects/chris-sisarich/665d934bb61c2c045693fc45_HBWxChrisSisarich-Portfolio14.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/chris-sisarich/665d934bb61c2c045693fc45_HBWxChrisSisarich-Portfolio14-p-500.jpg 500w, /projects/chris-sisarich/665d934bb61c2c045693fc45_HBWxChrisSisarich-Portfolio14-p-800.jpg 800w, /projects/chris-sisarich/665d934bb61c2c045693fc45_HBWxChrisSisarich-Portfolio14.jpg 1080w" alt="HBWxChrisSisarich-Branding"/></div></div></div><div class="hbw-signature"><div class="signature w-embed"><style>
+  #hbw-logo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0;
+    color: #1d1d1d;
+    touch-action: none;
+  }
+
+  #hbw-logo-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #hbw-logo-path {
+    filter: url(#hbw-logo-displace-filter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-logo-path {
+      filter: none !important;
+    }
+  }
+</style>
+
+<div id="hbw-logo-wrap" aria-label="HBW interactive logo">
+  <svg id="hbw-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1369.25 914.65" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="hbw-logo-displace-filter" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence id="hbw-logo-turbulence" type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="3" seed="11" result="noise"/>
+        <feDisplacementMap id="hbw-logo-displace-map" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+
+    <path id="hbw-logo-path" d="M914.1,239.12l-91.77,83.6c-.33.3-.99,1.27-1.19,1.59-.3.49-.66,1.9-.09,1.97s2.42.07,3.25-.23l59.22-21.68c76.28-27.93,159.4-46.89,240.72-39.66,27.58,2.45,53.96,9.45,77.26,23.06,30.94,18.08,45.51,50.62,38.86,85.7-12.03,63.5-60.44,117.29-110.25,156.15-63.64,49.66-149.6,90.85-231.8,97.22-18.07,56.05-38.42,113.03-45.39,171.18-1.64,14.76-1.68,28.92,1.91,43.14,8.62,34.15,56.9,16.81,79.34,7.66,65.4-26.67,148.08-86.24,205.04-130.04,62.18-47.81,122.44-97.13,182.76-147.01,13.19-10.91,25.61-21.08,39.15-31.02-8.52,8.73-17.16,15.65-26.24,23.85-69.57,62.78-141.23,122.74-216,179.56-37.99,28.87-232.07,175.13-268.52,111.28-17.35-30.38-3.65-82.64,3.35-115.58,9.88-37.95,21.34-74.49,34.25-112.12-30.79,1.52-60.43-2.97-88.23-15.03l-63.42,74.14c-21.02,23.84-97.81,119.9-132.17,98.25-17.88-11.27-11.86-50.11-8.66-68.73,6.09-35.41,15.95-69.13,25.97-103.77l44.76-144.96-64.86,22.26c-55.15,120.25-130.73,229.55-222.25,324.51-33.3,32.8-88.94,84.83-134.92,92.39-17.9,2.94-32.3-7.61-33.84-25.27-1.36-15.51.69-30.16,4.72-45.55,21.67-82.8,73.71-174.24,120.34-248.66-72.23,21.5-142.16,41.61-216.36,36.66-50.46-3.56-104.25-26.38-110.28-82.77-4.63-43.31,15.71-95.12,36.46-132.83,35.02-63.65,82.28-119.03,138.35-165.19,56.71-46.69,133.89-90.77,208.39-93.7,35.8-33.53,75.24-59.73,123.63-67.87,39.02-6.02,77.84,5.64,106.26,33.19,22.13,21.46,34.04,49.34,41.28,80.23,32.35-29.33,63.72-56.25,97.37-82.2,5.11-32.72,8.8-72.71-4.11-101.88-.29-.66-.19-2.46-.06-2.78.2-.48,1-1.01,1.45-.75l2.43,1.39c17.36,22.59,13,67.1,10.84,95.91,15.82-10.78,100.85-74.16,112.43-65.26,3.55,2.73-6.14,11.28-10.03,11.95.54-.75,1.19-5.17-.24-4.58-27.15,11.03-78.49,48.85-103.8,68.5-4.86,33.86-12.2,66.36-20.56,99.56-20.36,80.85-44.01,159.57-68.16,240.57,118.29-36.08,235.27-57.92,357.72-54.23-124.82,3.4-240.51,23.69-360.33,62.34l-43.05,138.25c-10.68,34.31-19.85,67.85-27.35,102.78-2.69,16-10.95,57.51.81,69.37,11.79,11.89,45.09-14.91,54.7-23.33,23.17-20.8,43.71-43.25,64.03-67.06l64.06-75.07c-41.96-21.39-69.09-74.2-62.26-120.42.89-4.16,4.08-9.53,7.15-10.74.32-.12,2.31,1.35,2.14,1.65l-.77,1.4c-1.91,3.48-3.82,8.15-3.64,12.72,1.69,42.85,23.07,82.59,58.93,105.84,1.87,1.21,5.08,2.58,6.51,1.04,16.87-18.25,110.7-119.95,132.54-106.69,10.42,6.33-2.1,41.2-5.92,52.54l-24.76,73.39c87.79-7.21,181.81-54.89,246.36-112.93,37.21-33.49,76.71-83.5,82.25-134.28,2.05-18.76-.9-37.49-10.94-53.17-19.47-30.4-64.48-41.6-98.38-45.27-85.95-9.3-174.8,15.15-254.61,45.45-18.41,6.99-35.51,14.29-54.28,19.89-2.66.79-6.61-.02-7.75-1.82s-1.14-6.4.53-8.28c9.91-11.13,20.35-20.4,31.76-30.29,42.95-37.19,84.73-74.71,123.7-116.1,6.79-7.21,35.56-38.38,31.49-46.49-.97-1.92-5.02-3.35-7.66-3.18-24.9,1.62-46.5,9.01-70.38,18.45-37.7,14.9-78.84,36.55-112.98,56.18-1.73,1-2.29,2.83-2.6,2.63l-1.03-.67c-.5-.33.48-2,1.57-2.69,45.91-29.38,114.46-68.18,168.5-79.89,8.1-1.76,29.89-5.03,34.2,3.54,1.26,2.5,1.73,7.94.37,10.73-13.5,27.47-62.87,75.9-87.24,98.09ZM271.71,311.31c12.18-24.06,26.43-45.28,41.14-67.17,20.29-30.18,42.55-57.53,68.43-84.26-43.68.19-101.95,27.43-137.95,49.92-75.27,47.01-138.38,112.14-183.46,188.53-13.29,22.51-24.02,45.56-32.17,70.1-15.8,47.55-19.69,100.54,30.44,128.46,18.87,10.51,39.92,15.18,61.89,17.12,73.01,4.94,154.46-17.7,224.32-40.13,88.7-136.2,190.64-260.12,309.72-370.71-.95-11.6-4.31-21.1-7.89-31.56-15.92-46.43-58.08-79.81-107.6-82.27s-102.22,27.57-136.5,60.66c15.43,1.49,29.83,5.27,40.17,16.24,11.39,12.09,13.63,28.49,11.99,45.02-14.56,100.08-132.27,217.29-214.22,268.92-17.82,11.23-64.74,39.43-85.1,35.72,27.85-6.18,67.09-29.55,90.05-45.54,56.12-39.08,105.95-87.42,145.85-142.98,26.02-36.23,51.79-87.27,49.47-132.27-1.4-27.06-24.85-36.52-48.85-35.6-47.84,45.83-82.55,97.85-119.74,151.8ZM605.94,479.82l62.79-20.51c26.46-86.17,51.06-171.23,73.54-257.95,1.62-6.9,18.93-76.23,14.93-75.38-7.22,1.53-80.84,67.09-91.52,77.11-1.39,6.65.17,11.64.55,17.95,4.95,83.1-27.07,180.87-60.29,258.79ZM595.25,483.85c29.49-67.97,53.23-136.64,60.7-208.91,2.09-21.04,3.06-41.19-.37-62.63-114.06,106.86-212.84,225.59-299.16,357.33,39.31-11.81,75.08-25.95,112.06-39.37l126.77-46.43ZM286.24,878.79c26.2-16.09,48.66-35.81,71.32-56.86,33.4-32.32,64.72-66.8,93.58-103.5,54.78-68.97,101.59-142.62,139.13-224.38l-121.4,44.99-121.07,43.8c-29.62,45.4-56.33,91.51-79.9,139.67-16.58,33.88-30.67,67.94-41.32,103.86-4.26,15.98-13.76,53.91-.37,65.58,14.39,12.55,45.57-4.28,60.03-13.16ZM890.84,619.31c10.93-32.15,21.96-62.08,30.75-93.52,2.06-7.69,3.81-14.04,3.56-22.55-7.23,1.87-12.05,4.84-17.95,8.4-22.84,16.33-43.55,34.58-63.32,54.68l-37.8,39.41c26.88,12.15,55.31,15.79,84.75,13.58Z" fill="currentColor"/>
+</svg>
+</div></div><p class="paragraph-10">HBW works with founders and teams at moments of change, when something important needs to be decided, clarified, or redefined.</p></div><!--
+  Order: sitewide media helpers → body fade → scroll rail → favicon → screensaver → float nav.
+  Optional: paste Project Gallery SECTION B then C from root `Project Gallery Code` on templates that need the horizontal gallery (after this block).
+-->
+<!-- =========================================================
+= SECTION 1: Disable right-click / drag on images & videos only
+  (Context menu + drag still work elsewhere on the page)
+========================================================= -->
+
+
+
+<!-- Mobile autoplay attrs + .loaded on img/video (one DOMContentLoaded) -->
+
+
+<!-- =========================================================
+= SECTION 7 — BODY FADE: run transition after DOM ready; mark session so later pages skip
+========================================================= -->
+
+
+<!-- =========================================================
+= SECTION 1 — SCROLL PROGRESS BAR LOGIC (desktop-only)
+========================================================= -->
+
+
+
+
+
+<!-- =========================================================
+RAINBOW FAVICON (animated favicon color cycle)
+Webflow’s light/dark favicon slots inject <link rel="icon" media="(prefers-color-scheme: …)">
+which override a single generic icon — we remove those and replace with animated PNGs
+that register for the same media queries (plus a no-media fallback).
+========================================================= -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =========================================================
+Screensaver (animated)
+========================================================= -->
+<style>
+  #hbw-ss {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    opacity: 0;
+    transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    height: -webkit-fill-available;
+    overscroll-behavior: none;
+    touch-action: none;
+    background: transparent;
+  }
+  #hbw-ss.on {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #hbw-ss canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-ss { transition: none; }
+  }
+
+  /* Blur/dim Swup content while screensaver is active */
+  html.hbw-ss-active .swup {
+    filter: blur(10px);
+    opacity: 0.35;
+    transition: filter 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: filter, opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.hbw-ss-active .swup {
+      transition: none;
+      filter: none;
+      opacity: 1;
+    }
+  }
+  </style>
+  
+
+<!-- Float nav: /manifesto link is conditionally shown ONLY on /manifesto. -->
+<nav class="hbw-floatnav" aria-label="Primary">
+  <div class="hbw-floatnav__inner" data-hbw-nav>
+    <button type="button" class="hbw-floatnav__menu" data-hbw-menu-label aria-expanded="false">Menu</button>
+    <div class="hbw-floatnav__tray" aria-label="Menu links">
+      <span class="hbw-floatnav__pill" aria-hidden="true"></span>
+      <a class="hbw-floatnav__link" href="/" data-hbw-route="home">Home</a>
+      <a class="hbw-floatnav__link" href="/projects" data-hbw-route="projects">Projects</a>
+      <a class="hbw-floatnav__link" href="/studio" data-hbw-route="studio">Studio</a>
+      <a class="hbw-floatnav__link" href="/collections" data-hbw-route="collections">Collections</a>
+      <a class="hbw-floatnav__link" href="/manifesto" data-hbw-route="manifesto">Manifesto</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Hide Collections in float nav only on /projects/<slug> pages. */
+  html.hbw-route-project-detail .hbw-floatnav [data-hbw-route="collections"] {
+    display: none !important;
+  }
+</style>
+
+
+<!--
+  Archive World — .archive-gallery only. Each slide must be a direct child with class .archive-gallery-item.
+  Paste embed outside .archive-gallery (footer / before </body>). Raise z-index below if a logo covers the scene.
+-->
+<style id="archive-world-styles">
+  /*
+    Fill parent when it has height; never collapse to 0 (flex + height:100% alone often yields 0px).
+    max(100%,100dvh) keeps the block at least one viewport tall when the parent has no usable height.
+  */
+  .archive-gallery.archive-world {
+    position: relative;
+    z-index: 100;
+    isolation: isolate;
+    width: 100%;
+    height: 100%;
+    /* svh = stable viewport — less jump when mobile browser chrome shows/hides */
+    min-height: 100vh;
+    min-height: max(100%, 100vh);
+    min-height: 100svh;
+    min-height: max(100%, 100svh);
+    flex: 1 1 auto;
+    flex-shrink: 0;
+    align-self: stretch;
+    box-sizing: border-box;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: transparent;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+
+  .archive-gallery.archive-world.is-dragging {
+    cursor: grabbing;
+  }
+
+  .archive-gallery__viewport {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+    /* Inset keeps 3D content away from edges; bottom padding reduces “cut off” on mobile / safe areas */
+    padding: max(0px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px))
+      max(12px, env(safe-area-inset-bottom, 0px)) max(0px, env(safe-area-inset-left, 0px));
+    box-sizing: border-box;
+    perspective: 1600px;
+    /* Slightly above center compensates for rotateX() — avoids the cluster feeling “half below” the fold */
+    perspective-origin: 50% 42%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .archive-gallery__world {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .archive-gallery__world > .archive-gallery-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: auto;
+    -webkit-user-drag: none;
+    /* Sized by JS to match media aspect ratio (prevents big empty rectangles). */
+    width: auto;
+    height: auto;
+    max-width: min(320px, 42vw);
+    max-height: min(420px, 52vh);
+    background: transparent !important;
+    opacity: 1 !important;
+    box-shadow: none;
+    border-radius: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    cursor: pointer;
+  }
+
+  .archive-gallery__world > .archive-gallery-item > img,
+  .archive-gallery__world > .archive-gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+    background: transparent !important;
+  }
+
+  .archive-gallery__world > .archive-gallery-item > video,
+  .archive-gallery__world > .archive-gallery-item video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+    background: transparent !important;
+  }
+
+  /* Signature anchor: 30% bigger in the 3D world only */
+  .archive-gallery__world .signature {
+    transform: scale(1.3);
+    transform-origin: center center;
+  }
+
+  /* Webflow Code Embed blocks often render via an iframe. */
+  .archive-gallery__world > .archive-gallery-item iframe,
+  .archive-gallery__world > .archive-gallery-item embed,
+  .archive-gallery__world > .archive-gallery-item object {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  /* Webflow embed wrappers sometimes apply a background */
+  .archive-gallery__world > .archive-gallery-item .w-embed,
+  .archive-gallery__world > .archive-gallery-item .w-embed-inner {
+    background: transparent !important;
+  }
+
+  /* Webflow image wrappers can apply translucent backgrounds/overlays */
+  .archive-gallery__world > .archive-gallery-item :is(div, figure, picture, source) {
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+
+  .archive-gallery__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: var(--hbw-ls, -0.01em);
+    text-transform: none;
+    color: var(--hbw-text, #111);
+    pointer-events: none;
+    white-space: nowrap;
+    margin: 0;
+    height: var(--hbw-h, 2.5rem);
+    padding: 0 var(--hbw-pad-x, 1rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    border-radius: 0;
+  }
+
+  .archive-gallery__lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    --lb-thumbs-h: 120px;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0);
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .archive-gallery__lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .archive-gallery__lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .archive-gallery__lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 4;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--hbw-font, system-ui, -apple-system, "Segoe UI", sans-serif);
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: var(--hbw-ls, -0.01em);
+    color: var(--hbw-text, #111);
+  }
+
+  .archive-gallery__lightbox-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    pointer-events: none;
+  }
+
+  .archive-gallery__lightbox-inner > * {
+    pointer-events: auto;
+  }
+
+  .archive-gallery__lightbox-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Full-bleed media; thumbnails float over the top */
+    border-radius: 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .archive-gallery__lightbox-stage img,
+  .archive-gallery__lightbox-stage video {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  .archive-gallery__lightbox-stage .archive-lightbox-landscape {
+    object-fit: cover;
+  }
+
+  .archive-gallery__lightbox-thumbs {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    bottom: env(safe-area-inset-bottom, 0px);
+    transform: translateX(-50%);
+    width: clamp(60vw, 70vw, 80vw);
+    height: var(--lb-thumbs-h);
+    box-sizing: border-box;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    border-top: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    scrollbar-width: none;
+  }
+
+  .archive-gallery__lightbox-thumbs::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .archive-gallery__lightbox-thumb {
+    flex: 0 0 auto;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: rgba(255, 255, 255, 0.86);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    height: 50px; /* ~10% smaller */
+    aspect-ratio: 3 / 5;
+    width: auto;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .archive-gallery__lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-gallery__lightbox-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-gallery__lightbox-thumb span {
+    display: block;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .archive-gallery__lightbox-stage iframe,
+  .archive-gallery__lightbox-stage embed,
+  .archive-gallery__lightbox-stage object {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  .archive-gallery__lightbox-stage .archive-gallery__lightbox-html {
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    color: #111;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    user-select: text;
+  }
+
+  .archive-gallery__lightbox-bar {
+    display: none;
+  }
+
+  .archive-gallery__lightbox-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 0;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    color: var(--hbw-text, #111);
+    width: var(--hbw-h, 2.5rem);
+    height: var(--hbw-h, 2.5rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+
+  .archive-gallery__lightbox-btn:hover {
+    background: var(--hbw-surface-hover, rgba(255, 255, 255, 0.93));
+  }
+
+  .archive-gallery__lightbox-btn:focus-visible {
+    outline: 2px solid var(--hbw-text, #111);
+    outline-offset: 2px;
+  }
+
+  /* Close button removed (click off media closes). */
+
+  .archive-gallery__lightbox-counter {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.65);
+    min-width: 5rem;
+    text-align: center;
+  }
+
+  .archive-gallery__lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 0;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    color: var(--hbw-text, #111);
+  }
+
+  .archive-gallery__lightbox-nav--prev {
+    left: 1rem;
+  }
+
+  .archive-gallery__lightbox-nav--next {
+    right: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .archive-gallery__world > .archive-gallery-item {
+      max-width: min(260px, 70vw);
+      max-height: min(340px, 48vh);
+    }
+
+    .archive-gallery__world > .archive-gallery-item > img,
+    .archive-gallery__world > .archive-gallery-item img {
+      max-height: min(340px, 48vh);
+    }
+
+    .archive-gallery__hint {
+      font-size: 0.68rem;
+      bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    }
+
+    .archive-gallery__lightbox-nav {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: 1.25rem;
+    }
+
+    /* No prev/next buttons on mobile */
+    .archive-gallery__lightbox-nav {
+      display: none !important;
+    }
+
+    .archive-gallery__lightbox-thumbs {
+      --lb-thumbs-h: 92px;
+      width: clamp(85vw, 88vw, 90vw);
+    }
+
+    .archive-gallery__lightbox-thumb {
+      height: 54px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-gallery__world {
+      will-change: auto;
+    }
+
+    .archive-gallery__lightbox {
+      transition: none;
+    }
+  }
+
+  /* Blur the page behind the lightbox (mobile-safe via filter) */
+  body.archive-lightbox-open .swup {
+    filter: blur(10px);
+  }
+
+  /* Olafur-like fallback overlay (UI/typography only) */
+  .archive-gallery__webgl-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0);
+    box-sizing: border-box;
+    background: rgba(246, 239, 230, 0.97);
+    color: #111;
+    text-align: left;
+  }
+
+  .archive-gallery__webgl-overlay.is-open {
+    display: flex;
+  }
+
+  .archive-gallery__webgl-card {
+    width: min(920px, 100%);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .archive-gallery__webgl-title {
+    margin: 0 0 0.75rem 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+    letter-spacing: -0.02em;
+  }
+
+  .archive-gallery__webgl-body {
+    margin: 0 0 1.25rem 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.72);
+  }
+
+  .archive-gallery__webgl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .archive-gallery__webgl-link,
+  .archive-gallery__webgl-return {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: rgba(0, 0, 0, 0.85);
+    text-decoration: underline;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .archive-gallery__webgl-return {
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.9);
+    display: inline-flex;
+  }
+
+  @media (max-width: 767px) {
+    .archive-gallery__webgl-card {
+      padding: 1.25rem 1rem;
+    }
+  }
+</style>
+

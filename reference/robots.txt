@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /log-in/
+Disallow: /sign-up/
+
+
+Sitemap: https://www.hbw.works/sitemap.xml
+
+
+Sitemap: https://www.hbw.works/sitemap.xml

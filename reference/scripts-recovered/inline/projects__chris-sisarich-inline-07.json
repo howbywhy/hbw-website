@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Chris Sisarich — Brand Identity by How by Why",
+  "url": "https://www.hbw.works/projects/chris-sisarich",
+  "description": "Brand identity and website for photographer Chris Sisarich, built on the concept of Beauty Amongst The Mundane. A deliberately restrained identity that lets the photography lead, with considered typography, reduced palette, and layouts that guide without dictating.",
+  "creator": {
+    "@type": "Organization",
+    "name": "How by Why (HBW)",
+    "url": "https://www.hbw.works"
+  },
+  "dateCreated": "2024",
+  "genre": "Brand Identity",
+  "keywords": ["photographer branding", "portfolio branding", "brand identity", "website design", "photography brand"]
+}

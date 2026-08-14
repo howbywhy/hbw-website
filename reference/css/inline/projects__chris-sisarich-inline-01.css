@@ -1,0 +1,448 @@
+@font-face {
+    font-family: "Geist";
+    src: url("Geist.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --hbw-unit: 0.5rem;
+    --hbw-h: calc(var(--hbw-unit) * 5);
+    --hbw-pad-x: calc(var(--hbw-unit) * 1.6);
+    --hbw-gap: calc(var(--hbw-unit) * 0.5);
+    --hbw-top: max(calc(var(--hbw-unit) * 1.125), env(safe-area-inset-top, 0px));
+    --hbw-edge: max(calc(var(--hbw-unit) * 1.125), env(safe-area-inset-left, 0px));
+    --hbw-edge-right: max(calc(var(--hbw-unit) * 1.125), env(safe-area-inset-right, 0px));
+
+    --hbw-font: "Geist", system-ui, -apple-system, Segoe UI, sans-serif;
+    --hbw-font-size: 0.94rem;
+    --hbw-ls: -0.01em;
+
+    --hbw-surface: rgba(255, 255, 255, 0.82);
+    --hbw-surface-hover: rgba(255, 255, 255, 0.92);
+    --hbw-border: rgba(51, 51, 51, 0.18);
+    --hbw-text: #333;
+    --hbw-text-active: #333;
+
+    --hbw-radius: 999px;
+    --hbw-z: 99998;
+    --hbw-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --hbw-motion: 180ms;
+    /* Float tray: faster open, slower premium collapse (base = closing / idle). */
+    --hbw-floatnav-tray-open-ms: 360ms;
+    --hbw-floatnav-tray-close-ms: 560ms;
+    --hbw-floatnav-tray-close-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --hbw-pill-ms: 240ms;
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --hbw-gallery-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  .hbw-floatnav {
+    position: fixed;
+    top: var(--hbw-top);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--hbw-z);
+    pointer-events: none;
+  }
+
+  html.hbw-route-intake-start .hbw-floatnav {
+    display: none !important;
+  }
+
+  /* positioning variants removed */
+
+  .hbw-floatnav__inner {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    height: auto;
+    /* Slightly larger hit box so pointer can move Menu → tray without accidental close. */
+    padding: 4px;
+    margin: -2px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    font-family: var(--hbw-font);
+    font-size: var(--hbw-font-size);
+    letter-spacing: var(--hbw-ls);
+    transition:
+      transform var(--hbw-motion) var(--hbw-ease);
+    position: relative;
+  }
+
+  .hbw-floatnav__inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    border: 1px solid #333;
+    opacity: 1;
+    transition:
+      opacity calc(var(--hbw-motion) * 1.2) var(--hbw-ease);
+    pointer-events: none;
+  }
+
+  .hbw-floatnav__inner.is-open::before,
+  .hbw-floatnav__inner:focus-within::before {
+    opacity: 1;
+  }
+
+  .hbw-floatnav__menu {
+    display: inline-flex;
+    align-items: center;
+    height: calc(var(--hbw-h) - (var(--hbw-unit) * 2));
+    padding: 0 calc(var(--hbw-unit) * 1.45);
+    border-radius: 999px;
+    color: var(--hbw-text-active);
+    background: transparent;
+    border: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    user-select: none;
+    white-space: nowrap;
+    letter-spacing: var(--hbw-ls);
+    transition:
+      opacity calc(var(--hbw-motion) * 0.9) var(--hbw-ease),
+      transform calc(var(--hbw-motion) * 1.2) var(--hbw-ease-out);
+    will-change: opacity, transform;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    touch-action: manipulation;
+  }
+
+  .hbw-floatnav__menu.is-changing {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  /*
+    When the tray is open, .hbw-floatnav__inner.is-open .hbw-floatnav__menu sets opacity: 0.45.
+    That rule beats .hbw-floatnav__menu.is-changing (same specificity, earlier in cascade),
+    which killed the label cross-fade. This override restores the animation.
+  */
+  .hbw-floatnav__inner.is-open .hbw-floatnav__menu.is-changing {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__menu {
+    opacity: 0.45;
+  }
+
+  .hbw-floatnav__tray {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--hbw-gap);
+    margin-left: 0;
+    padding: 1px;
+    max-width: 0;
+    min-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    /* Default = closing / idle: margin + width share one duration (avoids “snap” vs width). */
+    transition:
+      max-width var(--hbw-floatnav-tray-close-ms) var(--hbw-floatnav-tray-close-ease),
+      margin-left var(--hbw-floatnav-tray-close-ms) var(--hbw-floatnav-tray-close-ease),
+      opacity calc(var(--hbw-motion) * 1.35) var(--hbw-ease);
+    position: relative;
+  }
+
+  .hbw-floatnav__pill {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    z-index: 0;
+    height: calc(var(--hbw-h) - (var(--hbw-unit) * 2));
+    width: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.06);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(0);
+    transition:
+      transform var(--hbw-pill-ms) var(--hbw-ease-out),
+      width var(--hbw-pill-ms) var(--hbw-ease-out),
+      opacity calc(var(--hbw-motion) * 0.9) var(--hbw-ease);
+    will-change: transform, width;
+  }
+
+  .hbw-floatnav__inner.is-locked .hbw-floatnav__tray {
+    max-width: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    margin-left: 0 !important;
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray {
+    margin-left: var(--hbw-gap);
+    max-width: 60rem;
+    opacity: 1;
+    pointer-events: auto;
+    transition:
+      max-width var(--hbw-floatnav-tray-open-ms) var(--hbw-ease-out),
+      margin-left var(--hbw-floatnav-tray-open-ms) var(--hbw-ease-out),
+      opacity calc(var(--hbw-motion) * 1) var(--hbw-ease-out);
+  }
+
+  .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 0;
+    transition:
+      opacity calc(var(--hbw-motion) * 1.15) var(--hbw-ease),
+      color var(--hbw-motion) var(--hbw-ease),
+      transform calc(var(--hbw-motion) * 0.9) var(--hbw-ease-out);
+    pointer-events: none;
+    will-change: opacity;
+    transform: translateX(4px);
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(1) { transition-delay: 10ms; }
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(2) { transition-delay: 30ms; }
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(3) { transition-delay: 50ms; }
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(4) { transition-delay: 70ms; }
+
+  /* Close phase 1 (JS): tray still open, links/pill hidden — then phase 2 removes .is-open (tray collapses). */
+  .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(3px);
+    transition:
+      opacity 70ms cubic-bezier(0.4, 0, 0.55, 1),
+      transform 70ms cubic-bezier(0.4, 0, 0.55, 1),
+      color var(--hbw-motion) var(--hbw-ease);
+    transition-delay: 0ms !important;
+  }
+
+  .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__pill {
+    opacity: 0 !important;
+    transition: opacity 65ms cubic-bezier(0.4, 0, 0.55, 1);
+  }
+
+  /* Closing: links vanish before tray width collapses (no stagger — stagger read as “late” items). */
+  .hbw-floatnav__inner:not(.is-open) .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 0 !important;
+    transform: translateX(3px);
+    pointer-events: none;
+    transition:
+      opacity 85ms cubic-bezier(0.4, 0, 0.55, 1),
+      transform 85ms cubic-bezier(0.4, 0, 0.55, 1),
+      color var(--hbw-motion) var(--hbw-ease);
+    transition-delay: 0ms !important;
+  }
+
+  .hbw-floatnav__link {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    height: calc(var(--hbw-h) - (var(--hbw-unit) * 2));
+    padding: 0 calc(var(--hbw-unit) * 1.45);
+    border-radius: 999px;
+    border: 0;
+    text-decoration: none;
+    color: var(--hbw-text);
+    opacity: 1;
+    background: transparent;
+    transition:
+      opacity var(--hbw-motion) var(--hbw-ease),
+      color var(--hbw-motion) var(--hbw-ease),
+      transform var(--hbw-motion) var(--hbw-ease-out);
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hbw-floatnav__link:hover {
+    color: var(--hbw-text-active);
+    transform: none;
+  }
+
+  .hbw-floatnav__link.is-active {
+    opacity: 1;
+    color: var(--hbw-text-active);
+  }
+
+  .hbw-floatnav__link.is-hidden {
+    display: none;
+  }
+
+  /* Show Manifesto nav item only on /manifesto. */
+  .hbw-floatnav__link[data-hbw-route="manifesto"] {
+    display: none;
+  }
+  /* Keep Manifesto nav item hidden on /manifesto too. */
+
+  .swup {
+    transition:
+      filter calc(var(--hbw-motion) * 1.4) var(--hbw-ease-out),
+      opacity calc(var(--hbw-motion) * 1.2) var(--hbw-ease);
+    will-change: filter, opacity;
+    /* Stops double/triple-click from selecting large blocks (blue browser highlight). */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .swup input,
+  .swup textarea,
+  .swup select,
+  .swup [contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+  }
+
+  /*
+    Full-bleed fixed signature shell (e.g. manifesto): Webflow uses 100vw×100vh + inset 0.
+    Without this, the layer can win hit-testing over the centered float nav. Descendants
+    keep pointer-events: auto and remain interactive.
+  */
+  .hbw-signature {
+    pointer-events: none;
+  }
+
+  body:has(.hbw-floatnav__inner.is-open) .swup {
+    filter: blur(6px);
+    opacity: 0.55;
+  }
+
+  /*
+    Project detail (Swup): blur .swup while SECTION C waits for media (html.hbw-project-page-loading).
+    Placed after menu-open blur so this wins when navigating to a project (incl. from /home).
+  */
+  html.hbw-project-page-loading .swup {
+    filter: blur(14px) saturate(0.92);
+    opacity: 0.82;
+    transition:
+      filter 420ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  html.hbw-project-page-loading .project-gallery-section:not(.hbw-panel),
+  html.hbw-project-page-loading .project-page-gallery:not(.hbw-panel),
+  html.hbw-project-page-loading .project-gallery:not(.hbw-panel) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /*
+    Prevent first-paint flash of inactive shell on /projects.
+    Don't hide it (causes a hard "pop"); instead, keep it measurable but off-canvas
+    until JS applies .hbw-panel lifecycle classes.
+  */
+  @media (prefers-reduced-motion: no-preference) {
+    html.hbw-route-projects .project-gallery-container:not(.hbw-panel) {
+      pointer-events: none !important;
+      transition: none !important;
+      transform: translateX(var(--hbw-panel-swipe-distance, 110%)) translateZ(0) !important;
+      will-change: transform;
+    }
+
+    /*
+      /projects index uses `.home-page-portfolio` *inside* `.project-gallery-container`.
+      Keep the container in-flow so the portfolio panel can animate vertically.
+    */
+    html.hbw-route-projects .project-gallery-container:has(.home-page-portfolio) {
+      pointer-events: auto !important;
+      transform: none !important;
+      will-change: auto;
+    }
+
+    /*
+      /projects index: prevent first-paint flash of the portfolio panel itself.
+      JS adds `.hbw-panel` after DOM is ready; without this, the panel can paint once
+      in its final position and then snap to the boot (off-canvas) position.
+    */
+    html.hbw-route-projects .home-page-portfolio:not(.hbw-panel) {
+      pointer-events: none !important;
+      transition: none !important;
+      transform: translateY(var(--hbw-panel-swipe-distance, 110%)) translateZ(0) !important;
+      will-change: transform;
+    }
+
+    /*
+      Home: same idea for the active gallery shell container on first load.
+      Keep it off-canvas until the footer shell script applies `.hbw-panel` lifecycle classes.
+    */
+    html.hbw-route-home .project-gallery-container:not(.hbw-panel):not(:has(.home-page-portfolio)) {
+      pointer-events: none !important;
+      transition: none !important;
+      transform: translateX(var(--hbw-panel-swipe-distance, 110%)) translateZ(0) !important;
+      will-change: transform;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.hbw-project-page-loading .swup {
+      filter: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hbw-floatnav {
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: calc(100vw - (var(--hbw-edge) * 2));
+    }
+    .hbw-floatnav__inner {
+      padding: 6px; /* base 2px + 4px mobile */
+    }
+    .hbw-floatnav__inner {
+      width: fit-content;
+      max-width: calc(100vw - 1rem);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .hbw-floatnav__inner::-webkit-scrollbar {
+      display: none;
+    }
+
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hbw-floatnav__inner,
+    .hbw-floatnav__link,
+    .hbw-floatnav__tray,
+    .hbw-floatnav__pill {
+      transition-duration: 0.01ms !important;
+    }
+
+    .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link {
+      transition-delay: 0ms !important;
+    }
+
+    .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__tray .hbw-floatnav__link,
+    .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__pill {
+      transition-duration: 0.01ms !important;
+    }
+  }

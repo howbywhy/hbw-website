@@ -1,0 +1,36 @@
+.scroll-progress {
+    position: fixed;
+    right: 10px;               /* was 12px */
+    top: 12px;
+    bottom: 12px;
+    width: 4px;
+    background: rgba(0,0,0,.2);  /* Track background */
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: .9;
+    transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+  .scroll-progress__bar {
+    position: absolute;
+    left: 0; 
+    bottom: 0;
+    width: 100%; 
+    height: 0%;                 /* Fills dynamically as you scroll */
+    background: #ff7852;        /* Fill color (orange) */
+    border-radius: inherit;
+    transform: translateZ(0);
+  }
+  /* Fade when idle (not scrolling) */
+  .scroll-progress.is-idle { opacity: .34; }
+  /* Hide completely at bottom or when no scroll needed */
+  .scroll-progress.is-complete {
+    opacity: 0;
+    transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 🚫 Mobile: never show (JS also doesn't create it) */
+  @media (max-width: 767px){
+    .scroll-progress{ display:none !important; }
+  }

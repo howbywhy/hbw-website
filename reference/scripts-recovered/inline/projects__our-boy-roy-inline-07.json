@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Our Boy Roy — Brand Identity by How by Why",
+  "url": "https://www.hbw.works/projects/our-boy-roy",
+  "description": "Brand identity for Our Boy Roy, a neighbourhood deli and café in Adelaide. Built around a playful character named Roy with interchangeable outfits, the brand captures warmth, personality, and everyday charm through bold typography, expressive patterns, and a flexible visual system.",
+  "creator": {
+    "@type": "Organization",
+    "name": "How by Why (HBW)",
+    "url": "https://www.hbw.works"
+  },
+  "dateCreated": "2024",
+  "genre": "Brand Identity",
+  "keywords": ["cafe branding", "hospitality branding", "character design", "brand identity", "deli branding"]
+}

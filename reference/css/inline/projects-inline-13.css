@@ -1,0 +1,20 @@
+/*
+    Fix "first load flash" (FOUC) on the horizontal gallery:
+    The track's initial transform is applied by JS after media/fonts settle, so it can paint once in
+    an unpositioned state and then snap. Hide the track (and its UI) until the JS sets the first
+    inline transform style.
+  */
+  .project-gallery .project-gallery__track {
+    opacity: 0;
+  }
+  .project-gallery .project-gallery__track[style*="transform"] {
+    opacity: 1;
+  }
+  .project-gallery .project-gallery__progress,
+  .project-gallery .project-gallery__counter {
+    opacity: 0;
+  }
+  .project-gallery[data-hbw-gallery-init="1"] .project-gallery__progress,
+  .project-gallery[data-hbw-gallery-init="1"] .project-gallery__counter {
+    opacity: 1;
+  }

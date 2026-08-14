@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "KOJA — Brand Identity by How by Why",
+  "url": "https://www.hbw.works/projects/koja",
+  "description": "Brand identity, packaging, and visual system for KOJA, a health snack brand built on the idea of Unapologetically Good. The rebrand stripped back category complexity to create a confident, personality-led brand now stocked nationwide across Australia.",
+  "creator": {
+    "@type": "Organization",
+    "name": "How by Why (HBW)",
+    "url": "https://www.hbw.works"
+  },
+  "dateCreated": "2024",
+  "genre": "Brand Identity",
+  "keywords": ["food branding", "FMCG packaging design", "health food branding", "brand identity Sydney", "packaging design"]
+}

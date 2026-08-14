@@ -1,0 +1,64 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Projects — HBW",
+  "description": "When decisions matter, we work across strategy, storytelling, and design to make sense of what's being built, why it exists, and how it should live in the world.",
+  "url": "/projects",
+  "inLanguage": "en",
+  "hasPart": [
+    {
+      "@type": "CreativeWork",
+      "name": "SUB:3 Bending Space & Time",
+      "url": "/projects/sub-3",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/66587cf3c4f4a7905421e299/68db91322535abe236944c80_TCCWEB-SUB320.jpg"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "KOJA Unapologetically Good.",
+      "url": "/projects/koja",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/66587cf3c4f4a7905421e299/68fb0e8496c96da9204aac92_KOJA-Protein-Bar-Choc-Hazel%202.jpeg"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Bar Closed A Smuggler's House",
+      "url": "/projects/bar-closed",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/66587cf3c4f4a7905421e299/670ca0216039543847129ecd_HBWxCLOSED-Portfolio24.jpg"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Our Boy Roy The Friendly Neighbour",
+      "url": "/projects/our-boy-roy",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/66587cf3c4f4a7905421e299/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Chris Sisarich Beauty Amongst The Mundane",
+      "url": "/projects/chris-sisarich",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/66587cf3c4f4a7905421e299/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Bistro Nido Twice Cooked",
+      "url": "/projects/bistro-nido",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn.prod.website-files.com/66587cf3c4f4a7905421e299/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg"
+      }
+    }
+  ]
+}

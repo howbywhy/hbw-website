@@ -1,0 +1,74 @@
+{
+  "/": {
+    "file": "src/recovered/html/home.html",
+    "title": "HBW — Clarity for brands at a turning point",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/projects": {
+    "file": "src/recovered/html/projects.html",
+    "title": "Projects — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/studio": {
+    "file": "src/recovered/html/studio.html",
+    "title": "Studio — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/collections": {
+    "file": "src/recovered/html/collections.html",
+    "title": "Collections — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/manifesto": {
+    "file": "src/recovered/html/manifesto.html",
+    "title": "Manifesto — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/intake/start": {
+    "file": "src/recovered/html/intake__start.html",
+    "title": "Hello. Hiya. Welcome",
+    "bodyAttrs": "",
+    "htmlClass": ""
+  },
+  "/projects/sub-3": {
+    "file": "src/recovered/html/projects__sub-3.html",
+    "title": "SUB:3 — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/projects/koja": {
+    "file": "src/recovered/html/projects__koja.html",
+    "title": "KOJA — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/projects/bar-closed": {
+    "file": "src/recovered/html/projects__bar-closed.html",
+    "title": "Bar Closed — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/projects/our-boy-roy": {
+    "file": "src/recovered/html/projects__our-boy-roy.html",
+    "title": "Our Boy Roy  — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/projects/chris-sisarich": {
+    "file": "src/recovered/html/projects__chris-sisarich.html",
+    "title": "Chris Sisarich  — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  },
+  "/projects/bistro-nido": {
+    "file": "src/recovered/html/projects__bistro-nido.html",
+    "title": "Bistro Nido — HBW",
+    "bodyAttrs": "class=\"body\"",
+    "htmlClass": ""
+  }
+}

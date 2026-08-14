@@ -1,0 +1,53 @@
+html, body {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE / old Edge */
+    -ms-overflow-style: none;
+  }
+
+  /*
+    Reduce scroll chaining + overscroll “rubber band” where supported.
+    (iOS Safari still needs JS prevention on affected pages.)
+  */
+  @media (hover: none) and (pointer: coarse) {
+    html, body {
+      overscroll-behavior: none;
+    }
+  }
+
+  /*
+    Global horizontal overflow guard.
+    Prevents the entire page from becoming wider than the viewport (which creates the
+    “sideways scroll” even when page-specific scripts are removed).
+    This does NOT prevent intentional horizontal scrolling on inner elements (e.g.
+    `.project-page-gallery`), it only clamps the root scroller.
+  */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Prefer clip when supported (no scrollbars, no inertial bounce). */
+  @supports (overflow: clip) {
+    html, body {
+      overflow-x: clip;
+    }
+  }
+
+  /* Swup container should never force horizontal overflow. */
+  .swup {
+    overflow-x: hidden;
+  }
+  @supports (overflow: clip) {
+    .swup {
+      overflow-x: clip;
+    }
+  }
+  /* Chrome / Safari */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+  /* Re-enable scrollbar for specific containers if needed */
+  .allow-scrollbar { scrollbar-width: thin; }
+  .allow-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }

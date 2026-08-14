@@ -1,0 +1,130 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.hbw.works/#organization",
+      "name": "HBW — How by Why",
+      "alternateName": ["HBW", "How by Why"],
+      "url": "https://www.hbw.works",
+      "logo": "https://www.hbw.works/logo.png",
+      "description": "HBW is a Sydney-based brand strategy and design studio working with founders and teams at moments of change. We offer brand strategy, visual identity, naming, copywriting, and web design.",
+      "foundingLocation": {
+        "@type": "Place",
+        "name": "Sydney, Australia"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sydney",
+        "addressRegion": "New South Wales",
+        "addressCountry": "AU"
+      },
+      "telephone": "+61414833791",
+      "sameAs": [
+        "https://www.instagram.com/howbywhy"
+      ],
+      "knowsAbout": [
+        "Brand Strategy",
+        "Visual Identity Design",
+        "Logo Design",
+        "Brand Naming",
+        "Copywriting",
+        "Tone of Voice",
+        "Web Design",
+        "Brand Positioning",
+        "Rebranding"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Brand Design Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Brand Strategy",
+              "description": "Positioning, audience definition, brand architecture, values and purpose for startups and established businesses."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Visual Identity and Logo Design",
+              "description": "Brand systems, typography, colour, and iconography for businesses at a turning point."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Naming",
+              "description": "Company names, product names, and campaign names."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Copywriting and Messaging",
+              "description": "Tone of voice, taglines, web copy, and brand narratives."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Web Design",
+              "description": "Brand-led website design and creative direction."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.hbw.works/#localbusiness",
+      "name": "HBW — How by Why",
+      "url": "https://www.hbw.works",
+      "description": "Sydney brand strategy and design studio working with founders, startups, and hospitality brands.",
+      "telephone": "+61414833791",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sydney",
+        "addressRegion": "New South Wales",
+        "addressCountry": "AU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -33.8688,
+        "longitude": 151.2093
+      },
+      "openingHours": "Mo-Fr 10:00-17:00",
+      "priceRange": "$$",
+      "currenciesAccepted": "AUD",
+      "areaServed": [
+        "Sydney",
+        "Melbourne",
+        "Australia"
+      ],
+      "serviceType": [
+        "Brand Strategy",
+        "Visual Identity Design",
+        "Logo Design",
+        "Naming",
+        "Copywriting",
+        "Web Design"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.hbw.works/#website",
+      "url": "https://www.hbw.works",
+      "name": "HBW — How by Why",
+      "description": "Clarity for brands at a turning point.",
+      "publisher": {
+        "@id": "https://www.hbw.works/#organization"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+:root { --hbw-descfade-ms: 420ms; }
+
+  /* Targets: allow ID or class, since Webflow “name” ≠ selector. */
+  /* Use case-insensitive attribute selectors to survive ID/class capitalization differences. */
+  [id="HBW-description" i], [class~="HBW-description" i],
+  [id="hbw-description" i], [class~="hbw-description" i],
+  [id="contact-info" i], [class~="contact-info" i] {
+    opacity: 0 !important;
+    transition: opacity var(--hbw-descfade-ms) cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  .hbw-descfade-visible {
+    opacity: 1 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [id="HBW-description" i], [class~="HBW-description" i],
+    [id="hbw-description" i], [class~="hbw-description" i],
+    [id="contact-info" i], [class~="contact-info" i] {
+      transition-duration: 0.01ms !important;
+    }
+  }

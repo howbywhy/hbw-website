@@ -1,0 +1,25 @@
+#hbw-logo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0;
+    color: #1d1d1d;
+    cursor: none;
+    touch-action: none;
+  }
+
+  #hbw-logo-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #hbw-logo-path {
+    filter: url(#hbw-logo-displace-filter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-logo-path {
+      filter: none !important;
+    }
+  }

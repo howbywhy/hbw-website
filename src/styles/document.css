@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist.woff2") format("woff2"),
+    url("/fonts/671a30d745cd22c8cc5c570e_Geist-Regular.woff2") format("woff2"),
+    url("/fonts/671a30d6ef2a1073319beaeb_Geist-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visual";
+  src: url("/fonts/Visual-Regular.woff2") format("woff2"),
+    url("/fonts/671a309624f56951eca0f32b_Visual-Regular.woff2") format("woff2"),
+    url("/fonts/671a3096622924625da2894c_Visual-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neuebit";
+  src: url("/fonts/NeueBit-Regular.woff2") format("woff2"),
+    url("/fonts/696b6dfbaec8448fc9a90596_NeueBit-Regular.woff2") format("woff2"),
+    url("/fonts/696b6dfb82c96b816a83d561_NeueBit-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: rgb(242, 236, 222);
+  color: #333;
+}
+
+body.body {
+  margin: 0;
+}
+
+/* Keep recovered body children in the same box tree as the live site. */
+#hbw-recovered {
+  display: contents;
+}

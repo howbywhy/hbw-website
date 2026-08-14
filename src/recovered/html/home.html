@@ -1,0 +1,1120 @@
+<div class="pop-up-code w-embed w-script"></div><div class="description-contact-fade w-embed w-script"><style>
+  :root { --hbw-descfade-ms: 420ms; }
+
+  /* Targets: allow ID or class, since Webflow “name” ≠ selector. */
+  /* Use case-insensitive attribute selectors to survive ID/class capitalization differences. */
+  [id="HBW-description" i], [class~="HBW-description" i],
+  [id="hbw-description" i], [class~="hbw-description" i],
+  [id="contact-info" i], [class~="contact-info" i] {
+    opacity: 0 !important;
+    transition: opacity var(--hbw-descfade-ms) cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  .hbw-descfade-visible {
+    opacity: 1 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [id="HBW-description" i], [class~="HBW-description" i],
+    [id="hbw-description" i], [class~="hbw-description" i],
+    [id="contact-info" i], [class~="contact-info" i] {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+</div><div class="tab-gallery-code w-embed w-script"><style>
+  :root {
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --folder-tab-swipe-duration: var(--hbw-panel-swipe-duration);
+    --folder-tab-swipe-ease: var(--hbw-panel-swipe-ease);
+    --folder-tab-swipe-distance: var(--hbw-panel-swipe-distance);
+    --folder-tab-swipe-leave-duration: 440ms;
+    --folder-tab-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+    --folder-tab-dur: var(--folder-tab-swipe-duration);
+    --folder-tab-ease: var(--folder-tab-swipe-ease);
+    --project-card-expand-max: 12rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .swup:has(.folder-tab-container) {
+      overflow-x: visible !important;
+    }
+  }
+
+  /*
+    Webflow sometimes hides or overrides display on breakpoints — keep the panel a flex column.
+    Lives on document.body after JS portaling (escapes Swup filter/overflow containing blocks on iOS).
+  */
+  #folder-tab-container,
+  .folder-tab-container {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    right: auto !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    max-height: none;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: hidden;
+    will-change: transform;
+    z-index: 99990;
+    touch-action: manipulation;
+    -webkit-transform: translateZ(0);
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0);
+    transition: transform var(--folder-tab-swipe-duration) var(--folder-tab-swipe-ease);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Width: Webflow owns it ≤767px; embed keeps a cap from tablet up. */
+  @media screen and (min-width: 768px) {
+    #folder-tab-container,
+    .folder-tab-container {
+      width: min(90vw, 360px) !important;
+    }
+  }
+
+  #folder-tab-container .folder-projects-list,
+  .folder-tab-container .folder-projects-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #folder-tab-container .folder-projects-list::-webkit-scrollbar,
+  .folder-tab-container .folder-projects-list::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /*
+    Desktop (real hover only): collapse .project-card-description / .project-card-note until row or card hover (or focus-within).
+  */
+  @media screen and (min-width: 768px) and (hover: hover) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      max-height: 0 !important;
+      opacity: 0;
+      transition:
+        max-height 280ms var(--folder-tab-ease),
+        opacity var(--folder-tab-dur) var(--folder-tab-ease);
+    }
+
+    #folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    #folder-tab-container .folder-projects-list .project-card-note .pcn-type,
+    .folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    .folder-tab-container .folder-projects-list .project-card-note .pcn-type {
+      margin: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #folder-tab-container .folder-projects-list .project-link-block:hover .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block:hover .project-card-note,
+    #folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-note,
+    #folder-tab-container .folder-projects-list .project-card-container:hover .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-container:hover .project-card-note,
+    #folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block:hover .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block:hover .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-container:hover .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-container:hover .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (hover: hover) and (prefers-reduced-motion: reduce) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+  /*
+    Mobile: same collapse/expand as desktop, but JS sets .is-hbw-folder-row-inview when the row
+    intersects the viewport (actually on-screen), including while scrolling the gallery list.
+  */
+  @media screen and (max-width: 767px) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      max-height: 0 !important;
+      opacity: 0;
+      transition:
+        max-height 280ms var(--folder-tab-ease),
+        opacity var(--folder-tab-dur) var(--folder-tab-ease);
+    }
+
+    #folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    #folder-tab-container .folder-projects-list .project-card-note .pcn-type,
+    .folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    .folder-tab-container .folder-projects-list .project-card-note .pcn-type {
+      margin: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+  #folder-tab-container.is-booting,
+  .folder-tab-container.is-booting {
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #folder-tab-container.is-visible,
+  .folder-tab-container.is-visible {
+    transform: translateX(0) translateZ(0) !important;
+  }
+
+  #folder-tab-container.is-leaving,
+  .folder-tab-container.is-leaving {
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0);
+    transition: transform var(--folder-tab-swipe-leave-duration) var(--folder-tab-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #folder-tab-container,
+    .folder-tab-container {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #folder-tab-container.is-booting,
+    .folder-tab-container.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #folder-tab-container.is-visible,
+    #folder-tab-container.is-leaving,
+    .folder-tab-container.is-visible,
+    .folder-tab-container.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }
+</style>
+
+</div><div class="popup-overlay"><div id="Email-Popup" class="popup-form w-form"><div id="popup-box" class="popup-box"><div class="close"><div class="popup-close"><a id="CLOSE" href="#" class="link">X</a></div></div><div class="popup-title"><p class="display-type">Get updates from<br/>How by why</p></div><div class="popup-illustration"><img src="/identity/693a5909c39179688efb67a1_HBW-Computer-Illo.svg" loading="lazy" alt=""/></div></div><form id="wf-form-email-input" name="wf-form-email-input" data-name="email-input" method="get" class="popup-input" data-wf-page-id="68ba5aea8a8a5b93f6de4916" data-wf-element-id="8ca11f00-b491-085f-8997-e0505519b71f"><input class="email-input w-input" maxlength="256" name="email-input" data-name="email-input" placeholder="Enter your email" type="email" id="email-input" required=""/><input type="submit" data-wait="Please wait..." class="popup-submit w-button" value="Submit"/></form><div class="success-message w-form-done"><div>Thank you! Your submission has been received!</div></div><div class="error-message w-form-fail"><div>Oops! Something went wrong while submitting the form.</div></div></div></div><div class="swup"><div class="folder-tab-container is-visible"><div class="pct-type selectedworks">Selected Works</div><div class="folder-projects-list"><a id="NEW-WINDOW" href="https://www.bouncepadel.com.au/" target="_blank" class="project-link-block coming-soon w-inline-block"><div class="project-card-container"><div class="project-card-contents"><div class="project-card-image"><div class="logo-archive-overlay bounce w-embed"><div class="svg-wrap">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.08 575.02" preserveAspectRatio="xMidYMid meet">
+    
+    <polygon fill="#f75c4a" points="53.45 158.22 53.45 265.65 73.89 265.65 73.89 211.05 91.95 211.05 91.95 293.37 112.38 293.37 112.38 156.49 113.96 156.49 163.72 106.73 149.28 92.28 105.5 136.06 46.72 136.06 6.92 175.85 21.37 190.3 53.45 158.22"/>
+    
+    <path fill="#f75c4a" d="M82.92,125.17c13.03,0,23.64-10.6,23.64-23.64s-10.6-23.64-23.64-23.64-23.64,10.61-23.64,23.64,10.6,23.64,23.64,23.64Z"/>
+    
+    <polygon fill="#f75c4a" points="327.8 92.28 313.35 106.73 363.12 156.49 364.7 156.49 364.7 293.37 385.13 293.37 385.13 211.05 403.19 211.05 403.19 265.65 423.63 265.65 423.63 158.22 455.71 190.3 470.16 175.85 430.36 136.06 371.58 136.06 327.8 92.28"/>
+    
+    <path fill="#f75c4a" d="M394.16,125.17c13.03,0,23.64-10.6,23.64-23.64s-10.6-23.64-23.64-23.64-23.64,10.61-23.64,23.64,10.6,23.64,23.64,23.64h0Z"/>
+    
+    <polygon fill="#f75c4a" points="378.24 417.71 319.46 417.71 279.67 457.5 294.11 471.95 326.2 439.86 326.2 575.02 346.63 575.02 346.63 492.7 364.7 492.7 364.7 547.29 385.13 547.29 385.13 438.14 386.71 438.14 436.47 388.37 422.02 373.93 378.24 417.71"/>
+    
+    <path fill="#f75c4a" d="M332.03,383.18c0,13.03,10.6,23.64,23.64,23.64s23.64-10.6,23.64-23.64-10.6-23.64-23.64-23.64-23.64,10.61-23.64,23.64h0Z"/>
+    
+    <polygon fill="#f75c4a" points="98.84 417.71 55.06 373.93 40.61 388.37 90.37 438.14 91.95 438.14 91.95 547.29 112.38 547.29 112.38 492.7 130.45 492.7 130.45 575.02 150.88 575.02 150.88 439.86 182.96 471.95 197.41 457.5 157.62 417.71 98.84 417.71"/>
+    
+    <path fill="#f75c4a" d="M97.78,383.18c0,13.03,10.6,23.64,23.64,23.64s23.64-10.6,23.64-23.64-10.6-23.64-23.64-23.64-23.64,10.61-23.64,23.64Z"/>
+    
+    <path fill="#f75c4a" d="M145.78,65.88c6.78-6.78,15.8-10.54,25.39-10.58l13.98-.05h.12l19.06-19.06.09-.09v-19.71L188.13.09l-.09-.09h-19.71l-19.06,19.06-.09.09-.06,14.1c-.04,9.59-3.79,18.61-10.58,25.4l-6.09,6.09,7.23,7.23,6.09-6.09h.01Z"/>
+    
+    <path fill="#f75c4a" d="M305.9,55.3c9.59.04,18.61,3.8,25.39,10.58l6.09,6.09,7.23-7.23-6.09-6.09c-6.78-6.78-10.54-15.8-10.58-25.4l-.05-13.98v-.12L308.83.09l-.09-.09h-19.71l-16.3,16.3-.09.09v19.71l19.15,19.15,14.1.06h0Z"/>
+    
+    <path fill="#f75c4a" d="M460.78,279.64l-.09-.09h-19.71l-19.06,19.06-.09.09-.05,14.1c-.04,9.59-3.79,18.61-10.58,25.4l-6.09,6.09,7.23,7.23,6.09-6.09c6.78-6.78,15.8-10.54,25.39-10.58l13.98-.05h.12l19.06-19.06.09-.09v-19.71l-16.3-16.3h0Z"/>
+    
+    <path fill="#f75c4a" d="M64.73,351.52l7.23-7.23-6.09-6.09c-6.78-6.78-10.54-15.8-10.58-25.4l-.05-13.98v-.12l-19.06-19.06-.09-.09h-19.71L.09,295.86l-.09.09v19.71l19.15,19.15,14.1.06c9.59.04,18.61,3.8,25.39,10.58l6.09,6.09v-.02Z"/>
+    
+    <polygon fill="#f75c4a" points="304.9 163.65 261.12 207.43 215.96 207.43 172.18 163.65 157.73 178.1 207.5 227.86 209.07 227.86 209.07 364.75 229.51 364.75 229.51 282.43 247.57 282.43 247.57 364.75 268 364.75 268 227.86 269.58 227.86 319.35 178.1 304.9 163.65"/>
+    
+    <path fill="#f75c4a" d="M238.67,196.55c13.03,0,23.64-10.6,23.64-23.64s-10.6-23.64-23.64-23.64-23.64,10.61-23.64,23.64,10.6,23.64,23.64,23.64Z"/>
+  
+  </svg>
+</div>
+
+<style>
+.svg-wrap {
+  width: 100%;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style></div><img sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px-p-500.jpg 500w, /projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px-p-800.jpg 800w, /projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px.jpg 1080w" alt="" src="/projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px.jpg" loading="lazy" class="image-8"/></div><div class="project-information"><div class="card-title-container"><div class="project-card-title"><div class="pct-type">Bounce Padel Club</div></div><div class="project-card-description"><div class="pcd-type">Ignite Ritual</div></div><div class="project-card-note"><div class="pcn-type">Coming Soon</div></div></div></div></div></div></a><a href="/projects/sub-3" class="project-link-block w-inline-block"><div class="project-card-container"><div class="project-card-contents"><div class="project-card-image"><div class="project-card-image"><div class="logo-archive-overlay sub3 w-embed"><div class="svg-wrap">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1545 924" preserveAspectRatio="xMidYMid meet">
+    
+    <path fill="#ffffff" d="M78.81,920L12.68,740.47v-102.22h63.85l6.84,66.83,18.7,38h23.72l18.7-38,6.84-57.66-5.93-34.07L18.61,416.79v-233.26L84.74,4h58.38l66.13,179.53v85.18h-63.85l-5.93-55.04-15.51-32.76h-20.07l-15.51,32.76-5.93,55.04,4.56,39.31,15.51,32.76,112.65,170.36v229.33l-66.13,179.53h-70.24Z"/>
+    <path fill="#ffffff" d="M320.07,920l-66.13-179.53V4h63.85v634.25l6.38,65.52,19.16,39.31h23.72l19.16-39.31,6.84-65.52V4h63.85v736.47l-65.67,179.53h-71.15Z"/>
+    <path fill="#ffffff" d="M636.59,4l66.13,179.53v170.36l-30.56,83.87,36.49,98.29v204.43l-66.13,179.53h-135.46V4h129.53ZM617.44,356.51l15.51-32.76,5.93-55.04-5.93-55.04-15.51-32.76h-46.52v175.6h46.52ZM619.26,743.09l18.7-38,6.84-66.83-6.84-66.83-18.7-38h-48.35v209.67h48.35Z"/>
+    <path fill="#ffffff" d="M797.13,337.51h-31.01l-20.98-60.28v-89.11l20.98-60.28h31.01l20.98,60.28v89.11l-20.98,60.28ZM797.13,796.16h-31.01l-20.98-60.28v-89.11l20.98-60.28h31.01l20.98,60.28v89.11l-20.98,60.28Z"/>
+    <path fill="#ffffff" d="M920.73,920l-66.13-179.53v-102.22h63.85l6.84,66.83,18.7,38h23.72l18.7-38,6.84-66.83-6.84-66.83-18.7-38h-20.98v-176.91h19.16l15.51-32.76,5.93-55.04-5.93-55.04-15.51-32.76h-20.07l-15.51,32.76-5.93,55.04h-63.85v-85.18L926.65,4h58.38l66.13,179.53v170.36l-30.56,82.56,36.49,99.6v204.43l-66.13,179.53h-70.24Z"/>
+    <path fill="#ffffff" d="M1532.32,461.34c0,250.29-70.69,453.41-157.8,453.41s-157.8-203.12-157.8-453.41S1287.41,7.93,1374.52,7.93s157.8,203.12,157.8,453.41ZM1506.32,461.34c0-210.98-58.38-378.72-131.81-378.72s-131.81,167.74-131.81,378.72,58.38,378.72,131.81,378.72,131.81-167.74,131.81-378.72ZM1436.54,439.07l-32.38,86.49,37.4,180.84h-38.31l-33.29-171.67h-7.3v171.67h-34.21V216.29h72.52l35.57,95.66v127.11ZM1362.66,310.64v131.05h26l10.03-20.97,3.65-44.55-3.65-44.55-10.03-20.97h-26Z"/>
+  
+  </svg>
+</div>
+
+<style>
+.svg-wrap {
+  width: 100%;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style></div><img src="/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px" srcset="/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-500.jpg 500w, /projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-800.jpg 800w, /projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg 1080w, /projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg 1200w" alt="" class="image-8"/></div></div><div class="project-information"><div class="card-title-container"><div class="project-card-title"><div class="pct-type">SUB:3</div></div><div class="project-card-description"><div class="pcd-type">Bending Space &amp; Time</div></div><div class="project-card-note"><div class="pcn-type">2025</div></div></div></div></div></div></a><a href="/projects/bar-closed" class="project-link-block w-inline-block"><div class="project-card-container"><div class="project-card-contents"><div class="project-card-image"><img src="/projects/closed/670ca0210eb902c5118af249_HBWxCLOSED-Portfolio27.jpg" loading="lazy" sizes="(max-width: 1080px) 100vw, 1080px" srcset="/projects/closed/670ca0210eb902c5118af249_HBWxCLOSED-Portfolio27-p-500.jpg 500w, /projects/closed/670ca0210eb902c5118af249_HBWxCLOSED-Portfolio27-p-800.jpg 800w, /projects/closed/670ca0210eb902c5118af249_HBWxCLOSED-Portfolio27.jpg 1080w" alt=""/><div class="logo-archive-overlay closed w-embed"><div class="svg-wrap">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 252.1" preserveAspectRatio="xMidYMid meet" fill="currentColor">
+    <g>
+      <g>
+        <path d="M72.8,101.4h6.3l26-41.5h-6.3v-2.2h6.1l4.2,0.1l4.5-0.1h4.4v2.2h-6.3l-26,41.5h6.3v2.2h-6.2l-4.2-0.1l-4.5,0.1h-4.4V101.4z"/>
+        <path d="M100.6,101.4h5.1l16-25.8h-5.1v-2.2h8l4.1-1.1l0.5,0.6l-4.4,6.7h0.3c3.6-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.3l-3.7-0.1l-4.1,0.1h-3v-2.2h5.1l14-22.4c1.8-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.8-0.1l-4.1,0.1h-3V101.4z"/>
+        <path d="M345.1,99.9c0-1.2,0.3-2.3,1.3-3.9l12.7-20.3h-6.7v-2.2h2.6c5.9,0,11.5-4.7,16.9-13.3h2.8l-8.4,13.3h8v2.2H365l-13.4,21.4c-2,3.2-1.5,5.1,1,5.1c3.6,0,7.5-3.2,11.3-9.2l2.8-4.4h2.6l-3.2,5.2c-5.3,8.4-9.8,10.9-14.6,10.9C347.5,104.7,345.1,102.4,345.1,99.9z"/>
+        <path d="M367.2,101.4h5.1l25.9-41.5h-5.1v-2.2h8.2l4-1.3l0.5,0.5l-14.3,22.8h0.1c3.7-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.2l-3.8-0.1l-4,0.1h-3.1v-2.2h5.1l14-22.4c1.7-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2H378l-3.9-0.1l-4.1,0.1h-2.8V101.4z"/>
+        <path d="M417.8,86.5c4-6.4,12.2-14.2,20.8-14.2c7.8,0,10.2,7.6,5.9,15.4l-0.5,0.3h-20l-3.5,5.7c-2.9,4.6-1.3,8.7,3.1,8.7c4.9,0,11.3-3.9,15.4-10.4h2.7c-5.5,8.6-12.1,12.7-18.6,12.7C414.9,104.7,412.3,95.6,417.8,86.5z M438,85.9l1.3-2.1c3.6-5.6,2.1-9.2-1.3-9.2c-1.9,0-3.8,0.9-5.1,1.9c-1.8,1.3-3.8,3.4-5.8,6.7l-1.7,2.7H438z"/>
+        <path d="M648.5,90.7h2c-3.5,7.5-1.5,11.8,4.1,11.8c3.7,0,7.7-3.7,7.7-7.3c0-1.5-0.4-3-2-4.6l-3-2.8c-1.4-1.3-2.2-2.6-2.2-5c0-5.7,5.3-10.4,11.5-10.4c3,0,5.2,1.1,6.9,3l3.8-2.8h2.1l-6.9,10.9h-1.4c2.2-6.3-0.7-9-4.9-9c-3.4,0-6.3,2.2-6.3,5.3c0,1.1,0.2,2.2,1.8,3.6l4.3,3.9c1.1,0.9,1.8,2.3,1.9,4.4c0.1,5.2-5.9,13.1-13.9,13.1c-2.5,0-6.2-1.3-7.9-4.2l-3.9,3.7H640L648.5,90.7z"/>
+        <path d="M671,101.4h5.1L702,59.9h-5.1v-2.2h8.2l4-1.3l0.5,0.5l-14.3,22.8h0.1c3.7-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.2l-3.8-0.1l-4,0.1h-3.1v-2.2h5.1l14-22.4c1.7-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.9-0.1l-4.1,0.1H671V101.4z"/>
+        <path d="M716.8,95.9l1.3-2.4c1.9-3.2,4.9-4.4,9.2-4.8c8.5-0.7,13.3-2.9,15.8-6.8l1.4-2.2c1.8-2.7-0.1-5.1-4.2-5.1c-3.2,0-5.9,1-7.8,2.2V77l1.3,1.1c0.9,0.7,1.2,1.6,1.2,2.8c0,2.1-1.6,3.8-3.9,3.8c-2.2,0-3.6-1.6-3.6-3.9c0-5,7.5-8.4,14.1-8.4c4.8,0,7.2,1.8,8.2,3.4c1.1,1.9,0.3,3.9-1.1,6.3l-10.1,16.2c-1.2,1.9-0.3,3.2,1.3,3.2c1.8,0,3-1.3,4.9-4.3l5.4-8.6h2.6l-6.1,9.7c-2.5,4-5.3,6-9.2,6c-3,0-5.4-2.2-4.4-4.7h-0.1c-3.2,3.2-7.5,5.1-11.5,5.1C716.5,104.7,713.6,101.4,716.8,95.9z M723.9,102.3c4.3,0,9.1-3.8,12.3-8.9l3.5-5.7h-0.1c-1.4,1.1-4.2,2.2-9.3,3c-3.5,0.5-5.2,1.7-6.9,4.7l-0.9,1.6C720.4,100.2,721.1,102.3,723.9,102.3z"/>
+        <path d="M762.2,85.6c4.9-7.9,12.3-13.2,18.7-13.2c3.9,0,6.7,2.7,6.9,6.9h0.1l12.1-19.4h-6.3v-2.2h9.2l4.1-1.1l0.5,0.6L780,101.4h5.2v2.2h-8.4l-2.4,0.6l-0.6-0.7l1.6-2.7H775c-2.9,2.4-6.3,3.9-9.3,3.9C758.5,104.7,756.3,95.1,762.2,85.6z M766.2,102.5c4.4,0,11.3-5.5,15.3-12.3l1.3-2.3c3.8-6.5,3.2-13.3-2.2-13.3c-1.6,0-2.9,0.7-3.9,1.4c-1.8,1.3-3.3,3.2-5.4,6.5l-6.8,11c-1.3,2.1-2.1,3.8-2,5.6C762.6,100.9,763.8,102.5,766.2,102.5z"/>
+        <path d="M801.9,86.5c4-6.4,12.2-14.2,21-14.2c8,0,10.9,9.1,5.3,18.2c-4,6.4-12.1,14.2-21,14.2C799.1,104.7,796.3,95.6,801.9,86.5z M807.6,102.5c2.2,0,4-0.6,6.1-2.1c1.1-0.9,2.4-1.9,5.3-6.7l6.7-10.7c1.7-2.7,2.2-4.3,1.2-6.2c-0.7-1.3-2.4-2.2-4.5-2.2c-2.2,0-4,0.6-6,2.1c-1.1,0.9-2.4,1.9-5.4,6.7l-6.7,10.7c-1.7,2.7-2.1,4.3-1.1,6.2C803.9,101.6,805.5,102.5,807.6,102.5z"/>
+        <path d="M841.7,73.5h3.3l3.4,0.1l4.1-0.1h3v2.2h-4.4l-4.2,18.6h0.2l15.1-15.5l0.7-3.1h-3.8v-2.2h3.4l3.4,0.1l4.3-0.1h3v2.2h-4.9l-4.5,18.5h0.3l17.9-18.5H877v-2.2h11.9v2.2h-3.8l-27.9,28.8h-1.3l5.2-21.1h-0.2l-20.5,21.1h-1.3l6.7-28.8h-4.1V73.5z"/>
+        <path d="M888.6,90.7h2c-3.5,7.5-1.6,11.8,4.1,11.8c3.7,0,7.7-3.7,7.7-7.3c0-1.5-0.4-3-2-4.6l-3-2.8c-1.4-1.3-2.2-2.6-2.2-5c0-5.7,5.3-10.4,11.5-10.4c3,0,5.2,1.1,6.9,3l3.8-2.8h2.1l-6.9,10.9h-1.4c2.2-6.3-0.7-9-4.9-9c-3.4,0-6.3,2.2-6.3,5.3c0,1.1,0.2,2.2,1.8,3.6l4.3,3.9c1.1,0.9,1.8,2.3,1.9,4.4c0.1,5.2-5.9,13.1-13.9,13.1c-2.5,0-6.2-1.3-7.9-4.2l-3.9,3.7h-2.2L888.6,90.7z"/>
+        <path d="M1117.4,86.5c4-6.4,12.2-14.2,21-14.2c8,0,10.9,9.1,5.3,18.2c-4,6.4-12.1,14.2-21,14.2C1114.6,104.7,1111.8,95.6,1117.4,86.5z M1123.1,102.5c2.2,0,4-0.6,6.1-2.1c1.1-0.9,2.4-1.9,5.3-6.7l6.7-10.7c1.7-2.7,2.2-4.3,1.2-6.2c-0.7-1.3-2.4-2.2-4.5-2.2c-2.2,0-4,0.6-6,2.1c-1.1,0.9-2.4,1.9-5.4,6.7l-6.7,10.7c-1.7,2.7-2.1,4.3-1.1,6.2C1119.3,101.6,1121,102.5,1123.1,102.5z"/>
+        <path d="M1167,73.5l6-9.6c1.7-2.7,3.2-4.2,4.3-5.1c1.6-1.1,3.9-2.2,6.7-2.2c4,0,8.1,2.7,8.1,6.4c0,2.4-1.8,4.4-4,4.4c-2.1,0-3.8-1.7-3.8-3.8c0-1.2,0.7-2.3,1.8-3l1.2-0.7v-0.1c-0.3-0.3-1.3-0.9-2.2-0.9c-2.4,0-3.9,1-6.4,5.1l-5.9,9.6h8.3v2.2h-9.7l-16,25.8h7.4v2.2h-7.5l-3.8-0.1l-4.1,0.1h-3v-2.2h5.1l16-25.8h-3.7v-2.2H1167z"/>
+        <path d="M1375.2,99.9c0-1.2,0.3-2.3,1.3-3.9l12.7-20.3h-6.7v-2.2h2.6c5.9,0,11.5-4.7,16.9-13.3h2.8l-8.4,13.3h8v2.2h-9.3l-13.4,21.4c-2,3.2-1.6,5.1,1,5.1c3.6,0,7.5-3.2,11.3-9.2l2.8-4.4h2.6l-3.2,5.2c-5.3,8.4-9.8,10.9-14.6,10.9C1377.5,104.7,1375.2,102.4,1375.2,99.9z"/>
+        <path d="M1397.2,101.4h5.1l25.9-41.5h-5.1v-2.2h8.2l4-1.3l0.5,0.5l-14.3,22.8h0.1c3.7-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.2l-3.8-0.1l-4,0.1h-3.1v-2.2h5.1l14-22.4c1.7-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.9-0.1l-4.1,0.1h-2.8V101.4z"/>
+        <path d="M1447.9,86.5c4-6.4,12.2-14.2,20.8-14.2c7.8,0,10.2,7.6,5.9,15.4l-0.5,0.3h-20l-3.5,5.7c-2.9,4.6-1.3,8.7,3.1,8.7c4.9,0,11.3-3.9,15.4-10.4h2.7c-5.5,8.6-12.1,12.7-18.6,12.7C1445,104.7,1442.3,95.6,1447.9,86.5z M1468,85.9l1.3-2.1c3.6-5.6,2.1-9.2-1.3-9.2c-1.9,0-3.8,0.9-5.1,1.9c-1.8,1.3-3.8,3.4-5.8,6.7l-1.7,2.7H1468z"/>
+        <path d="M1669.2,101.4h5.1l16-25.8h-5.1v-2.2h8l4.1-1.1l0.5,0.6l-4.4,6.7h0.3c3.6-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.3l-3.7-0.1l-4.1,0.1h-3v-2.2h5.1l14-22.4c1.8-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.8-0.1l-4.1,0.1h-3V101.4z"/>
+        <path d="M1709.2,101.4h5.1l16-25.8h-5.1v-2.2h8l4.1-1.1l0.5,0.6l-17.7,28.4h5.1v2.2h-5.2l-3.8-0.1l-4.1,0.1h-3V101.4z M1739.5,59.1c2.2,0,4.1,1.9,4.1,4.2c0,2.3-1.9,4.2-4.1,4.2c-2.3,0-4.2-1.9-4.2-4.2C1735.3,61,1737.2,59.1,1739.5,59.1z"/>
+        <path d="M1737.4,105.2V105c-2.8-1-4.2-4.9-2.1-8.2c2.2-3.5,5.5-5.3,11.8-5.1v-0.1c-1.7-2.3-1.9-5.9,0.5-9.7c3.2-5.1,10.7-9.5,16.6-9.5c2.3,0,4.2,0.7,5.5,2c2.2-2.6,5.3-4.6,8.4-4.6c2.4,0,3.7,1.6,3.7,3.4c0,2-1.7,3.5-3.2,3.5c-1.3,0-2.2-0.5-2.9-2.1l-0.7-1.6c-1.5,0.5-2.9,1.6-4,3c1.3,2.3,1.2,5.5-0.8,8.8c-3.2,5.1-11.3,9.6-17.4,9.6c-1.9,0-4.3-0.4-7.5-0.4c-3.4,0-5.3,1.1-6.2,2.6c-0.8,1.3-0.3,3.2,1.8,3.2h13.7c4,0,6.7,4.4,3.6,9.5c-3.5,6-10.7,9.7-20,9.7c-7.5,0-12.6-4.4-9.9-8.8C1729.3,108.5,1731.8,106.7,1737.4,105.2z M1738.6,116.7c6.5,0,12.6-2.2,15.4-6.7c1.6-2.6,0.2-4.4-2.1-4.4h-11.1c-2.6,0.6-5.9,2.2-7.3,4.4l-0.9,1.5C1731.2,113.8,1732,116.7,1738.6,116.7z M1762.5,86l3.4-5.6c2-3.2,0.9-5.8-2.3-5.8c-3.2,0-6.3,2-8.1,5l-4,6.5c-2.4,3.9-1.6,5.9,1.5,5.9C1756.7,92.1,1759.9,90.3,1762.5,86z"/>
+        <path d="M1770.4,101.4h5.1l25.9-41.5h-5.1v-2.2h8.2l4-1.3l0.5,0.5l-14.3,22.8h0.1c3.7-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.2l-3.8-0.1l-4,0.1h-3.1v-2.2h5.1l14-22.4c1.7-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.9-0.1l-4.1,0.1h-2.8V101.4z"/>
+        <path d="M1817.6,99.9c0-1.2,0.3-2.3,1.3-3.9l12.7-20.3h-6.7v-2.2h2.6c5.9,0,11.5-4.7,16.9-13.3h2.8l-8.4,13.3h8v2.2h-9.3l-13.4,21.4c-2,3.2-1.6,5.1,1,5.1c3.6,0,7.5-3.2,11.3-9.2l2.8-4.4h2.6l-3.2,5.2c-5.3,8.4-9.8,10.9-14.6,10.9C1819.9,104.7,1817.6,102.4,1817.6,99.9z"/>
+        <path d="M87,137.2h3.3l3.4,0.1l4.1-0.1h3v2.2h-4.4l-4.2,18.6h0.2l15.1-15.5l0.7-3.1h-3.8v-2.2h3.4l3.4,0.1l4.3-0.1h3v2.2h-4.9l-4.5,18.5h0.3l17.9-18.5h-5.1v-2.2h11.9v2.2h-3.8l-27.9,28.8h-1.3l5.2-21.1h-0.2l-20.5,21.1h-1.3l6.7-28.8H87V137.2z"/>
+        <path d="M123.7,165.2h5.1l25.9-41.5h-5.1v-2.2h8.2l4-1.3l0.5,0.5l-14.3,22.8h0.1c3.7-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9L153,165.2h5.1v2.2h-5.2l-3.8-0.1l-4,0.1h-3.1v-2.2h5.1l14-22.4c1.7-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.9-0.1l-4.1,0.1h-2.8V165.2z"/>
+        <path d="M174.4,150.3c4-6.4,12.2-14.2,20.8-14.2c7.8,0,10.2,7.6,5.9,15.4l-0.5,0.3h-20l-3.5,5.7c-2.9,4.7-1.3,8.7,3.1,8.7c4.9,0,11.3-3.9,15.4-10.4h2.7c-5.5,8.6-12.1,12.7-18.6,12.7C171.5,168.5,168.9,159.3,174.4,150.3z M194.6,149.7l1.3-2.1c3.6-5.6,2.1-9.2-1.3-9.2c-1.9,0-3.8,0.9-5.1,1.9c-1.8,1.3-3.8,3.4-5.8,6.7l-1.7,2.7H194.6z"/>
+        <path d="M200.4,165.2h5.1l16-25.8h-5.1v-2.2h8l4.1-1.1l0.5,0.6l-4.5,7.1h0.3c3.9-3.8,7.7-6.9,10.6-6.9c3.1,0,4.7,3.3,3.5,5.5c-0.7,1.2-1.8,2.4-3.8,2.4c-1.2,0-2.5-0.5-3.2-2.2l-0.6-1.4h-0.1c-2.6,1.5-5.5,4-8.4,7.3c-2.6,3-5.3,6.6-8,11l-3.6,5.7h7.2v2.2h-6.9l-4.1-0.1l-4.1,0.1h-3V165.2z"/>
+        <path d="M243.5,150.3c4-6.4,12.2-14.2,20.8-14.2c7.8,0,10.2,7.6,5.9,15.4l-0.5,0.3h-20l-3.5,5.7c-2.9,4.7-1.3,8.7,3.1,8.7c4.9,0,11.3-3.9,15.4-10.4h2.7c-5.5,8.6-12.1,12.7-18.6,12.7C240.6,168.5,238,159.3,243.5,150.3z M263.7,149.7l1.3-2.1c3.6-5.6,2.1-9.2-1.3-9.2c-1.9,0-3.8,0.9-5.1,1.9c-1.8,1.3-3.8,3.4-5.8,6.7l-1.7,2.7H263.7z"/>
+        <path d="M1192.6,149.4c4.9-7.9,12.3-13.2,18.7-13.2c3.9,0,6.7,2.7,6.9,6.9h0.1l12.1-19.4h-6.3v-2.2h9.2l4.1-1.1l0.5,0.6l-27.6,44.2h5.2v2.2h-8.4l-2.4,0.6l-0.6-0.7l1.6-2.7h-0.3c-2.9,2.4-6.3,3.9-9.3,3.9C1188.9,168.5,1186.7,158.9,1192.6,149.4z M1196.5,166.3c4.4,0,11.3-5.5,15.3-12.3l1.3-2.3c3.8-6.5,3.2-13.3-2.2-13.3c-1.5,0-2.9,0.7-3.9,1.4c-1.8,1.3-3.3,3.2-5.4,6.5l-6.8,11c-1.3,2.1-2.1,3.8-2,5.6C1193,164.7,1194.2,166.3,1196.5,166.3z"/>
+        <path d="M1232.3,150.3c4-6.4,12.2-14.2,21-14.2c8,0,10.9,9.1,5.3,18.2c-4,6.4-12.1,14.2-21,14.2C1229.5,168.5,1226.7,159.4,1232.3,150.3z M1238,166.3c2.2,0,4-0.6,6.1-2.1c1.1-0.9,2.4-1.9,5.3-6.7l6.7-10.7c1.7-2.7,2.2-4.3,1.2-6.2c-0.7-1.3-2.4-2.2-4.5-2.2c-2.2,0-4,0.6-6,2.1c-1.1,0.9-2.4,1.9-5.4,6.7l-6.7,10.7c-1.7,2.7-2.1,4.3-1.1,6.2C1234.2,165.4,1235.9,166.3,1238,166.3z"/>
+        <path d="M1270,150.3c4-6.4,12.2-14.2,21-14.2c8,0,10.9,9.1,5.3,18.2c-4,6.4-12.1,14.2-21,14.2C1267.2,168.5,1264.4,159.4,1270,150.3z M1275.7,166.3c2.2,0,4-0.6,6.1-2.1c1.1-0.9,2.4-1.9,5.3-6.7l6.7-10.7c1.7-2.7,2.2-4.3,1.2-6.2c-0.7-1.3-2.4-2.2-4.5-2.2c-2.2,0-4,0.6-6,2.1c-1.1,0.9-2.4,1.9-5.4,6.7l-6.7,10.7c-1.7,2.7-2.1,4.3-1.1,6.2C1271.9,165.4,1273.6,166.3,1275.7,166.3z"/>
+        <path d="M1297,165.2h5.1l16-25.8h-5.1v-2.2h8l4.1-1.1l0.5,0.6l-4.4,7.1h0.3c3.9-3.8,7.7-6.9,10.6-6.9c3.1,0,4.7,3.3,3.5,5.5c-0.7,1.2-1.8,2.4-3.8,2.4c-1.2,0-2.5-0.5-3.2-2.2l-0.6-1.4h-0.1c-2.6,1.5-5.5,4-8.4,7.3c-2.6,3-5.3,6.6-8,11l-3.6,5.7h7.2v2.2h-6.9l-4.1-0.1l-4.1,0.1h-3V165.2z"/>
+        <path d="M1339.2,154.4h2c-3.5,7.5-1.6,11.8,4.1,11.8c3.7,0,7.7-3.7,7.7-7.3c0-1.6-0.4-3-2-4.6l-3-2.8c-1.4-1.3-2.2-2.6-2.2-5c0-5.7,5.3-10.4,11.5-10.4c3,0,5.2,1.1,6.9,3l3.8-2.8h2.1l-6.9,10.9h-1.4c2.2-6.3-0.7-9-4.9-9c-3.4,0-6.3,2.2-6.3,5.3c0,1.1,0.2,2.2,1.8,3.6l4.3,3.9c1.1,0.9,1.8,2.3,1.9,4.4c0.1,5.2-5.9,13.1-13.9,13.1c-2.5,0-6.2-1.3-7.9-4.2l-3.9,3.7h-2.2L1339.2,154.4z"/>
+        <path d="M1677.9,150.3c4-6.4,12.2-14.2,21-14.2c8,0,10.9,9.1,5.3,18.2c-4,6.4-12.1,14.2-21,14.2C1675.1,168.5,1672.3,159.4,1677.9,150.3z M1683.6,166.3c2.2,0,4-0.6,6.1-2.1c1.1-0.9,2.4-1.9,5.3-6.7l6.7-10.7c1.7-2.7,2.2-4.3,1.2-6.2c-0.7-1.3-2.4-2.2-4.5-2.2c-2.2,0-4,0.6-6,2.1c-1.1,0.9-2.4,1.9-5.4,6.7l-6.7,10.7c-1.7,2.7-2.1,4.3-1.1,6.2C1679.9,165.4,1681.6,166.3,1683.6,166.3z"/>
+        <path d="M1696.1,179.4h5.1l24.9-39.9h-5.1v-2.2h8l3.8-1.1l0.5,0.6l-2.4,3.4h0.3c3-2.6,6.5-4,9.2-4c7.5,0,9.4,9.6,3.6,19.1c-4.8,7.8-12.5,13.3-19,13.3c-3.6,0-6.3-2.4-6.6-7.1h-0.3l-11.1,17.9h7.3v2.2h-7.1l-4.5-0.1l-3.8,0.1h-2.8V179.4z M1725.2,166.3c1.4,0,2.6-0.5,4.1-1.4c1.5-0.9,3.4-3.4,5-5.9l7.2-11.6c1.4-2.3,2.3-4.2,2-6.1c-0.2-1.6-1.3-2.9-3.6-2.9c-4.1,0-11,5.5-14.2,10.7l-0.9,1.6C1719.5,159.3,1720,166.3,1725.2,166.3z"/>
+        <path d="M1755.7,150.3c4-6.4,12.2-14.2,20.8-14.2c7.8,0,10.2,7.6,5.9,15.4l-0.5,0.3h-20l-3.5,5.7c-2.9,4.7-1.3,8.7,3.1,8.7c4.9,0,11.3-3.9,15.4-10.4h2.7c-5.5,8.6-12.1,12.7-18.6,12.7C1752.8,168.5,1750.1,159.3,1755.7,150.3z M1775.8,149.7l1.3-2.1c3.6-5.6,2.1-9.2-1.3-9.2c-1.9,0-3.8,0.9-5.1,1.9c-1.8,1.3-3.8,3.4-5.8,6.7l-1.7,2.7H1775.8z"/>
+        <path d="M1781.7,165.2h5.1l16-25.8h-5.1v-2.2h8l4.1-1.1l0.5,0.6l-4.4,6.7h0.3c3.6-3.6,8.6-7.3,13.3-7.3c2.2,0,3.8,0.7,5,2c1.2,1.5,1.3,3.2,0.3,4.9l-13.8,22.2h5.1v2.2h-5.3l-3.7-0.1l-4.1,0.1h-3v-2.2h5.1l14-22.4c1.8-2.8,0.9-4.2-1.3-4.2c-4.8,0-14.4,9.3-20.2,18.6l-5.1,8.1h5.1v2.2h-5.2l-3.8-0.1l-4.1,0.1h-3V165.2z"/>
+        <path d="M1826,163.6c0-2.2,1.8-3.9,4-3.9c2.1,0,3.9,1.8,3.9,3.9c0,2.2-1.8,4-3.9,4C1827.7,167.6,1826,165.8,1826,163.6z"/>
+        <g>
+          <path d="M579.9,163.5c0-18.8,10.6-27.1,22.6-27.1c11.4,0,18.1,6.6,19.9,14.7h-8.3c-1.4-4.2-5.3-7.5-11.6-7.5c-8.8,0-14.7,7.6-14.7,20c0,12.4,5.9,20,14.7,20c6.3,0,10.2-3.3,11.6-7.5h8.3c-1.8,8.1-8.5,14.7-19.9,14.7C590.5,190.7,579.9,182.3,579.9,163.5z"/>
+          <path d="M627.9,189.9v-52.7h7.5v37.7c0,4.1,3.4,7.5,7.5,7.5h15.1v7.5H627.9z"/>
+          <path d="M659.3,163.5c0-18.8,10.6-27.1,22.6-27.1c12,0,22.6,8.4,22.6,27.1s-10.6,27.1-22.6,27.1C669.9,190.7,659.3,182.3,659.3,163.5z M696.5,163.5c0-12.4-5.9-20-14.7-20c-8.8,0-14.7,7.6-14.7,20c0,12.4,5.9,20,14.7,20C690.7,183.5,696.5,175.9,696.5,163.5z"/>
+          <path d="M709.1,189.9v-7.5h10.3c2,0,3.9-0.8,5.3-2.2c2.9-2.9,2.9-7.8,0-10.7l-15.7-15.7v-16.6h30.1v7.5h-10.3c-2,0-3.9,0.8-5.3,2.2c-2.9,2.9-2.9,7.8,0,10.7l15.7,15.7v16.6H709.1z"/>
+          <path d="M746.2,189.9v-52.7h33.9v7.5h-18.8c-4.1,0-7.5,3.4-7.5,7.5s3.4,7.5,7.5,7.5h18.8v7.5h-18.8c-4.1,0-7.5,3.4-7.5,7.5s3.4,7.5,7.5,7.5h18.8v7.5H746.2z"/>
+          <path d="M826.7,163.5c0,18.2-10.6,26.4-22.6,26.4h-16.9v-52.7h16.9C816,137.2,826.7,145.3,826.7,163.5z M804.1,182.4c8.8,0,14.7-7.2,14.7-18.8c0-11.7-5.9-18.8-14.7-18.8h-1.9c-4.1,0-7.5,3.4-7.5,7.5v22.6c0,4.1,3.4,7.5,7.5,7.5H804.1z"/>
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+.svg-wrap {
+  width: 100%;
+  color: #ffffff;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style></div></div><div class="project-information"><div class="card-title-container"><div class="project-card-title"><div class="pct-type">Bar Closed</div></div><div class="project-card-description"><div class="pcd-type">A Smuggler&#x27;s House</div></div><div class="project-card-note"><div class="pcn-type">2024</div></div></div></div></div></div></a><a href="/projects/koja" class="project-link-block w-inline-block"><div class="project-card-container"><div class="project-card-contents"><div class="project-card-image"><img src="/projects/koja/69268bc51cdc8791a27f715c_HBWKOJA1125-Oat-Bite-compressed.gif" loading="lazy" alt=""/><div class="logo-archive-overlay closed w-embed"><div class="svg-wrap">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864 191.2" preserveAspectRatio="xMidYMid meet">
+    
+    <polygon fill="#ffffff" points="198.9,5.2 115.2,5.2 85,56.8 77.5,56.8 77.5,5.2 0,5.2 0,186 77.5,186 77.5,134.3 
+      84.5,134.3 113.7,186 201.5,186 145.7,91.7"/>
+    
+    <path fill="#ffffff" d="M299.9,0c-65.9,0-101,33.8-101,95.6c0,61.7,35.1,95.6,106.2,95.6
+      c65.9,0,100.5-33.8,100.5-95.6C405.6,33.8,371,0,299.9,0z M302.3,120.1c-9,0-15.5-7.8-15.5-24.5c0-16.8,6.5-24.5,15.5-24.5
+      c9,0,15.5,7.8,15.5,24.5C317.8,112.4,311.3,120.1,302.3,120.1z"/>
+    
+    <path fill="#ffffff" d="M807.2,5.2H694.8L639.2,186h80.1l4.7-15.5h50.1l4.7,15.5H864L807.2,5.2z M737.4,124
+      l10.9-36.9l11.4,36.9H737.4z"/>
+    
+    <path fill="#ffffff" d="M644,84.6c0-26.3,0-52.6,0-78.9c-63.2,5.6-135.3,6.1-198.2-0.5c0,26.6,0,52.9,0,79.5
+      c25.5,2.7,58.7,4.3,87.2,4.3v6.4c0,19.1-5.6,23.1-11.4,23.1c-6.6,0-12-4.5-12-17.8v-2.1l-83.7,9c1.1,43.3,31.1,83.7,99.4,83.7
+      c48.9,0,97.5-31.1,97.5-88v-17C624.4,86.2,637.1,85.4,644,84.6z"/>
+  
+  </svg>
+</div>
+
+<style>
+.svg-wrap {
+  width: 100%;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style></div></div><div class="project-information"><div class="card-title-container"><div class="project-card-title"><div class="pct-type">KOJA</div></div><div class="project-card-description"><div class="pcd-type">Unapologetically Good.</div></div><div class="project-card-note"><div class="pcn-type">2024</div></div></div></div></div></div></a></div></div></div><div class="hbw-signature"><div class="signature w-embed"><style>
+  #hbw-logo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0;
+    color: #1d1d1d;
+    touch-action: none;
+  }
+
+  #hbw-logo-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #hbw-logo-path {
+    filter: url(#hbw-logo-displace-filter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-logo-path {
+      filter: none !important;
+    }
+  }
+</style>
+
+<div id="hbw-logo-wrap" aria-label="HBW interactive logo">
+  <svg id="hbw-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1369.25 914.65" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="hbw-logo-displace-filter" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence id="hbw-logo-turbulence" type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="3" seed="11" result="noise"/>
+        <feDisplacementMap id="hbw-logo-displace-map" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+
+    <path id="hbw-logo-path" d="M914.1,239.12l-91.77,83.6c-.33.3-.99,1.27-1.19,1.59-.3.49-.66,1.9-.09,1.97s2.42.07,3.25-.23l59.22-21.68c76.28-27.93,159.4-46.89,240.72-39.66,27.58,2.45,53.96,9.45,77.26,23.06,30.94,18.08,45.51,50.62,38.86,85.7-12.03,63.5-60.44,117.29-110.25,156.15-63.64,49.66-149.6,90.85-231.8,97.22-18.07,56.05-38.42,113.03-45.39,171.18-1.64,14.76-1.68,28.92,1.91,43.14,8.62,34.15,56.9,16.81,79.34,7.66,65.4-26.67,148.08-86.24,205.04-130.04,62.18-47.81,122.44-97.13,182.76-147.01,13.19-10.91,25.61-21.08,39.15-31.02-8.52,8.73-17.16,15.65-26.24,23.85-69.57,62.78-141.23,122.74-216,179.56-37.99,28.87-232.07,175.13-268.52,111.28-17.35-30.38-3.65-82.64,3.35-115.58,9.88-37.95,21.34-74.49,34.25-112.12-30.79,1.52-60.43-2.97-88.23-15.03l-63.42,74.14c-21.02,23.84-97.81,119.9-132.17,98.25-17.88-11.27-11.86-50.11-8.66-68.73,6.09-35.41,15.95-69.13,25.97-103.77l44.76-144.96-64.86,22.26c-55.15,120.25-130.73,229.55-222.25,324.51-33.3,32.8-88.94,84.83-134.92,92.39-17.9,2.94-32.3-7.61-33.84-25.27-1.36-15.51.69-30.16,4.72-45.55,21.67-82.8,73.71-174.24,120.34-248.66-72.23,21.5-142.16,41.61-216.36,36.66-50.46-3.56-104.25-26.38-110.28-82.77-4.63-43.31,15.71-95.12,36.46-132.83,35.02-63.65,82.28-119.03,138.35-165.19,56.71-46.69,133.89-90.77,208.39-93.7,35.8-33.53,75.24-59.73,123.63-67.87,39.02-6.02,77.84,5.64,106.26,33.19,22.13,21.46,34.04,49.34,41.28,80.23,32.35-29.33,63.72-56.25,97.37-82.2,5.11-32.72,8.8-72.71-4.11-101.88-.29-.66-.19-2.46-.06-2.78.2-.48,1-1.01,1.45-.75l2.43,1.39c17.36,22.59,13,67.1,10.84,95.91,15.82-10.78,100.85-74.16,112.43-65.26,3.55,2.73-6.14,11.28-10.03,11.95.54-.75,1.19-5.17-.24-4.58-27.15,11.03-78.49,48.85-103.8,68.5-4.86,33.86-12.2,66.36-20.56,99.56-20.36,80.85-44.01,159.57-68.16,240.57,118.29-36.08,235.27-57.92,357.72-54.23-124.82,3.4-240.51,23.69-360.33,62.34l-43.05,138.25c-10.68,34.31-19.85,67.85-27.35,102.78-2.69,16-10.95,57.51.81,69.37,11.79,11.89,45.09-14.91,54.7-23.33,23.17-20.8,43.71-43.25,64.03-67.06l64.06-75.07c-41.96-21.39-69.09-74.2-62.26-120.42.89-4.16,4.08-9.53,7.15-10.74.32-.12,2.31,1.35,2.14,1.65l-.77,1.4c-1.91,3.48-3.82,8.15-3.64,12.72,1.69,42.85,23.07,82.59,58.93,105.84,1.87,1.21,5.08,2.58,6.51,1.04,16.87-18.25,110.7-119.95,132.54-106.69,10.42,6.33-2.1,41.2-5.92,52.54l-24.76,73.39c87.79-7.21,181.81-54.89,246.36-112.93,37.21-33.49,76.71-83.5,82.25-134.28,2.05-18.76-.9-37.49-10.94-53.17-19.47-30.4-64.48-41.6-98.38-45.27-85.95-9.3-174.8,15.15-254.61,45.45-18.41,6.99-35.51,14.29-54.28,19.89-2.66.79-6.61-.02-7.75-1.82s-1.14-6.4.53-8.28c9.91-11.13,20.35-20.4,31.76-30.29,42.95-37.19,84.73-74.71,123.7-116.1,6.79-7.21,35.56-38.38,31.49-46.49-.97-1.92-5.02-3.35-7.66-3.18-24.9,1.62-46.5,9.01-70.38,18.45-37.7,14.9-78.84,36.55-112.98,56.18-1.73,1-2.29,2.83-2.6,2.63l-1.03-.67c-.5-.33.48-2,1.57-2.69,45.91-29.38,114.46-68.18,168.5-79.89,8.1-1.76,29.89-5.03,34.2,3.54,1.26,2.5,1.73,7.94.37,10.73-13.5,27.47-62.87,75.9-87.24,98.09ZM271.71,311.31c12.18-24.06,26.43-45.28,41.14-67.17,20.29-30.18,42.55-57.53,68.43-84.26-43.68.19-101.95,27.43-137.95,49.92-75.27,47.01-138.38,112.14-183.46,188.53-13.29,22.51-24.02,45.56-32.17,70.1-15.8,47.55-19.69,100.54,30.44,128.46,18.87,10.51,39.92,15.18,61.89,17.12,73.01,4.94,154.46-17.7,224.32-40.13,88.7-136.2,190.64-260.12,309.72-370.71-.95-11.6-4.31-21.1-7.89-31.56-15.92-46.43-58.08-79.81-107.6-82.27s-102.22,27.57-136.5,60.66c15.43,1.49,29.83,5.27,40.17,16.24,11.39,12.09,13.63,28.49,11.99,45.02-14.56,100.08-132.27,217.29-214.22,268.92-17.82,11.23-64.74,39.43-85.1,35.72,27.85-6.18,67.09-29.55,90.05-45.54,56.12-39.08,105.95-87.42,145.85-142.98,26.02-36.23,51.79-87.27,49.47-132.27-1.4-27.06-24.85-36.52-48.85-35.6-47.84,45.83-82.55,97.85-119.74,151.8ZM605.94,479.82l62.79-20.51c26.46-86.17,51.06-171.23,73.54-257.95,1.62-6.9,18.93-76.23,14.93-75.38-7.22,1.53-80.84,67.09-91.52,77.11-1.39,6.65.17,11.64.55,17.95,4.95,83.1-27.07,180.87-60.29,258.79ZM595.25,483.85c29.49-67.97,53.23-136.64,60.7-208.91,2.09-21.04,3.06-41.19-.37-62.63-114.06,106.86-212.84,225.59-299.16,357.33,39.31-11.81,75.08-25.95,112.06-39.37l126.77-46.43ZM286.24,878.79c26.2-16.09,48.66-35.81,71.32-56.86,33.4-32.32,64.72-66.8,93.58-103.5,54.78-68.97,101.59-142.62,139.13-224.38l-121.4,44.99-121.07,43.8c-29.62,45.4-56.33,91.51-79.9,139.67-16.58,33.88-30.67,67.94-41.32,103.86-4.26,15.98-13.76,53.91-.37,65.58,14.39,12.55,45.57-4.28,60.03-13.16ZM890.84,619.31c10.93-32.15,21.96-62.08,30.75-93.52,2.06-7.69,3.81-14.04,3.56-22.55-7.23,1.87-12.05,4.84-17.95,8.4-22.84,16.33-43.55,34.58-63.32,54.68l-37.8,39.41c26.88,12.15,55.31,15.79,84.75,13.58Z" fill="currentColor"/>
+</svg>
+</div></div></div><div id="HBW-description" class="hbw-description hbw-descfade-visible"><h1 class="h1">Clarity for brands at a turning point.</h1><p class="p-small">HBW (How by why) is a Sydney-based brand and design practice led by Mark Blackler, working with founders, startups, and hospitality brands at moments where clarity matters most. Through strategy, identity, naming, storytelling, and design, we define what’s being built, why it exists, and how it lives in the world.</p></div><!--
+  Order: sitewide media helpers → body fade → scroll rail → favicon → screensaver → float nav.
+  Optional: paste Project Gallery SECTION B then C from root `Project Gallery Code` on templates that need the horizontal gallery (after this block).
+-->
+<!-- =========================================================
+= SECTION 1: Disable right-click / drag on images & videos only
+  (Context menu + drag still work elsewhere on the page)
+========================================================= -->
+
+
+
+<!-- Mobile autoplay attrs + .loaded on img/video (one DOMContentLoaded) -->
+
+
+<!-- =========================================================
+= SECTION 7 — BODY FADE: run transition after DOM ready; mark session so later pages skip
+========================================================= -->
+
+
+<!-- =========================================================
+= SECTION 1 — SCROLL PROGRESS BAR LOGIC (desktop-only)
+========================================================= -->
+
+
+
+
+
+<!-- =========================================================
+RAINBOW FAVICON (animated favicon color cycle)
+Webflow’s light/dark favicon slots inject <link rel="icon" media="(prefers-color-scheme: …)">
+which override a single generic icon — we remove those and replace with animated PNGs
+that register for the same media queries (plus a no-media fallback).
+========================================================= -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =========================================================
+Screensaver (animated)
+========================================================= -->
+<style>
+  #hbw-ss {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    opacity: 0;
+    transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    height: -webkit-fill-available;
+    overscroll-behavior: none;
+    touch-action: none;
+    background: transparent;
+  }
+  #hbw-ss.on {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #hbw-ss canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-ss { transition: none; }
+  }
+
+  /* Blur/dim Swup content while screensaver is active */
+  html.hbw-ss-active .swup {
+    filter: blur(10px);
+    opacity: 0.35;
+    transition: filter 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: filter, opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.hbw-ss-active .swup {
+      transition: none;
+      filter: none;
+      opacity: 1;
+    }
+  }
+  </style>
+  
+
+<!-- Float nav: /manifesto link is conditionally shown ONLY on /manifesto. -->
+<nav class="hbw-floatnav" aria-label="Primary">
+  <div class="hbw-floatnav__inner" data-hbw-nav>
+    <button type="button" class="hbw-floatnav__menu" data-hbw-menu-label aria-expanded="false">Menu</button>
+    <div class="hbw-floatnav__tray" aria-label="Menu links">
+      <span class="hbw-floatnav__pill" aria-hidden="true"></span>
+      <a class="hbw-floatnav__link" href="/" data-hbw-route="home">Home</a>
+      <a class="hbw-floatnav__link" href="/projects" data-hbw-route="projects">Projects</a>
+      <a class="hbw-floatnav__link" href="/studio" data-hbw-route="studio">Studio</a>
+      <a class="hbw-floatnav__link" href="/collections" data-hbw-route="collections">Collections</a>
+      <a class="hbw-floatnav__link" href="/manifesto" data-hbw-route="manifesto">Manifesto</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Hide Collections in float nav only on /projects/<slug> pages. */
+  html.hbw-route-project-detail .hbw-floatnav [data-hbw-route="collections"] {
+    display: none !important;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- HBW — Page Settings → Footer (Home / portfolio template). Paste AFTER Site Settings Footer. SECTION A must be in Head (from `Project Gallery Code` or Site Head if you merged it). -->
+<!-- ========== SECTION B — Footer: horizontal gallery ========== -->
+<style>
+  /*
+    Fix "first load flash" (FOUC) on the horizontal gallery:
+    The track's initial transform is applied by JS after media/fonts settle, so it can paint once in
+    an unpositioned state and then snap. Hide the track (and its UI) until the JS sets the first
+    inline transform style.
+  */
+  .project-gallery .project-gallery__track {
+    opacity: 0;
+  }
+  .project-gallery .project-gallery__track[style*="transform"] {
+    opacity: 1;
+  }
+  .project-gallery .project-gallery__progress,
+  .project-gallery .project-gallery__counter {
+    opacity: 0;
+  }
+  .project-gallery[data-hbw-gallery-init="1"] .project-gallery__progress,
+  .project-gallery[data-hbw-gallery-init="1"] .project-gallery__counter {
+    opacity: 1;
+  }
+</style>
+
+<!-- ========== SECTION C — Footer: portfolio shell + nav (Swup optional) ========== -->
+<script>
+(function () {
+  'use strict';
+
+  /** Single source for nav class lists — edit window.HBW_NAV in SECTION B only. */
+  var NAV_LEAVE =
+    window.HBW_NAV && window.HBW_NAV.leave
+      ? window.HBW_NAV.leave
+      : '.hbw-back, .hbw-bottom-back';
+
+  var C_BOOT = 'hbw-pgc-booting';
+  var C_VIS = 'hbw-pgc-visible';
+  var C_LEAVE = 'hbw-pgc-leaving';
+
+  var scheduleSeq = 0;
+
+  function normPath(p) {
+    p = (p || '/').trim();
+    p = p.replace(/[?#].*$/, '');
+    p = p.replace(/\/+$/, '') || '/';
+    return p;
+  }
+
+  function isProjectsIndex(path) {
+    return path === '/projects' || path === '/project';
+  }
+
+  function isProjectDetail(path) {
+    if (path.indexOf('/projects/') === 0 && path !== '/projects') return true;
+    if (path.indexOf('/project/') === 0 && path !== '/project') return true;
+    return false;
+  }
+
+  function getActivePanelForCurrentRoute() {
+    var path = normPath(window.location && window.location.pathname);
+
+    if (isProjectDetail(path)) {
+      return (
+        document.querySelector('.project-gallery-section') ||
+        document.querySelector('.project-page-gallery') ||
+        document.querySelector('.project-gallery') ||
+        null
+      );
+    }
+
+    if (isProjectsIndex(path)) {
+      return document.querySelector('.home-page-portfolio');
+    }
+
+    return document.querySelector('.project-gallery-container');
+  }
+
+  function prefersReducedMotion() {
+    try {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function primeProjectsPortfolioShell() {
+    try {
+      if (prefersReducedMotion()) return;
+      var path = normPath(window.location && window.location.pathname);
+      if (!isProjectsIndex(path)) return;
+      var el = document.querySelector('.home-page-portfolio');
+      if (!el || !el.isConnected) return;
+      el.classList.add('hbw-panel');
+      el.classList.add(C_BOOT);
+      el.classList.remove(C_VIS);
+      el.classList.remove(C_LEAVE);
+    } catch (e) {}
+  }
+
+  function primeProjectDetailShell() {
+    try {
+      var path = normPath(window.location && window.location.pathname);
+      if (!isProjectDetail(path)) return;
+      var el = getActivePanelForCurrentRoute();
+      if (!el || !el.isConnected) return;
+      el.classList.add('hbw-panel');
+      el.classList.add(C_BOOT);
+      el.classList.remove(C_VIS);
+      el.classList.remove(C_LEAVE);
+    } catch (e) {}
+  }
+
+  /** Same double-rAF release as About Swipe — enables transition after paint settles. */
+  function releaseBootAndShow(el) {
+    if (!el || !el.isConnected) return;
+
+    el.classList.add('hbw-panel');
+
+    if (prefersReducedMotion()) {
+      try {
+        document.documentElement.classList.remove('hbw-project-page-loading');
+      } catch (e) {}
+      el.classList.remove(C_BOOT);
+      el.classList.add(C_VIS);
+      el.classList.remove(C_LEAVE);
+      return;
+    }
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (!el.isConnected) return;
+        try {
+          document.documentElement.classList.remove('hbw-project-page-loading');
+        } catch (e) {}
+        el.classList.remove(C_BOOT);
+        el.classList.add(C_VIS);
+        el.classList.remove(C_LEAVE);
+      });
+    });
+  }
+
+  /**
+   * Enter: default CSS is off-screen (right); lock with booting, then show.
+   * Skip if already settled visible — avoids duplicate swup events snapping the shell again.
+   */
+  function initGalleryShell() {
+    var el = getActivePanelForCurrentRoute();
+    if (!el || !el.isConnected) {
+      try {
+        document.documentElement.classList.remove('hbw-project-page-loading');
+      } catch (e) {}
+      return;
+    }
+
+    if (
+      el.classList.contains(C_VIS) &&
+      !el.classList.contains(C_LEAVE) &&
+      !el.classList.contains(C_BOOT)
+    ) {
+      try {
+        document.documentElement.classList.remove('hbw-project-page-loading');
+      } catch (e) {}
+      return;
+    }
+
+    el.classList.add('hbw-panel');
+    el.classList.add(C_BOOT);
+    el.classList.remove(C_VIS);
+    el.classList.remove(C_LEAVE);
+
+    releaseBootAndShow(el);
+  }
+
+  var MEDIA_WAIT_MS = 10000;
+
+  function mediaOnce(el, ev, fn, opts) {
+    if (!el || !el.addEventListener) return;
+    var o = opts || {};
+    el.addEventListener(ev, fn, Object.assign({ once: true }, o));
+  }
+
+  function waitForImages(root, deadlineMs) {
+    var imgs = Array.prototype.slice.call((root || document).querySelectorAll('img'));
+    if (!imgs.length) return Promise.resolve();
+    var t0 = Date.now();
+    return new Promise(function (resolve) {
+      var left = 0;
+      function doneOne() {
+        left--;
+        if (left <= 0) resolve();
+      }
+      function timeLeft() {
+        return Math.max(0, deadlineMs - (Date.now() - t0));
+      }
+      imgs.forEach(function (img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        left++;
+        mediaOnce(img, 'load', doneOne);
+        mediaOnce(img, 'error', doneOne);
+        setTimeout(doneOne, timeLeft());
+      });
+      if (left <= 0) resolve();
+    });
+  }
+
+  function waitForVideos(root, deadlineMs) {
+    var vids = Array.prototype.slice.call((root || document).querySelectorAll('video'));
+    if (!vids.length) return Promise.resolve();
+    var t0 = Date.now();
+    return new Promise(function (resolve) {
+      var left = 0;
+      function doneOne() {
+        left--;
+        if (left <= 0) resolve();
+      }
+      function timeLeft() {
+        return Math.max(0, deadlineMs - (Date.now() - t0));
+      }
+      vids.forEach(function (v) {
+        if (v.readyState >= 2) return;
+        left++;
+        mediaOnce(v, 'loadeddata', doneOne);
+        mediaOnce(v, 'canplay', doneOne);
+        mediaOnce(v, 'error', doneOne);
+        try {
+          if (!v.getAttribute('preload')) v.setAttribute('preload', 'auto');
+          if (v.load) v.load();
+        } catch (e) {}
+        setTimeout(doneOne, timeLeft());
+      });
+      if (left <= 0) resolve();
+    });
+  }
+
+  function getProjectMediaScope() {
+    return (
+      document.querySelector('.project-gallery-section') ||
+      document.querySelector('.project-page-gallery') ||
+      document.querySelector('.project-gallery') ||
+      document.querySelector('.swup') ||
+      document.body
+    );
+  }
+
+  function waitForFontsReady() {
+    try {
+      if (document.fonts && document.fonts.ready) return document.fonts.ready;
+    } catch (e) {}
+    return Promise.resolve();
+  }
+
+  function waitForProjectReady(done) {
+    if (prefersReducedMotion()) {
+      done();
+      return;
+    }
+    var scope = getProjectMediaScope();
+    var safety = window.setTimeout(done, MEDIA_WAIT_MS);
+    Promise.all([
+      waitForImages(scope, MEDIA_WAIT_MS),
+      waitForVideos(scope, MEDIA_WAIT_MS),
+      waitForFontsReady()
+    ])
+      .catch(function () {})
+      .then(function () {
+        window.clearTimeout(safety);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              done();
+            });
+          });
+        });
+      });
+  }
+
+  function armProjectLoadingBlurEarly() {
+    try {
+      if (isProjectDetail(normPath(window.location && window.location.pathname))) {
+        document.documentElement.classList.add('hbw-project-page-loading');
+      }
+    } catch (e) {}
+  }
+
+  function onIncomingProjectVisit(e) {
+    try {
+      var toUrl = null;
+      if (e && e.detail) {
+        if (e.detail.to && e.detail.to.url) toUrl = e.detail.to.url;
+        else if (e.detail.visit && e.detail.visit.to && e.detail.visit.to.url)
+          toUrl = e.detail.visit.to.url;
+      }
+      if (toUrl) {
+        var p = normPath(new URL(toUrl, location.origin).pathname);
+        if (isProjectDetail(p)) document.documentElement.classList.add('hbw-project-page-loading');
+      }
+    } catch (err) {}
+  }
+
+  /** Coalesce swup:page:view + page:swup-complete; on project detail wait for media then init shell + slide. */
+  function scheduleEnter() {
+    try {
+      if (typeof window.__HBW_updateVH__ === 'function') window.__HBW_updateVH__();
+    } catch (e) {}
+    scheduleSeq++;
+    var seq = scheduleSeq;
+    var path = normPath(window.location && window.location.pathname);
+
+    if (isProjectDetail(path)) {
+      primeProjectDetailShell();
+    }
+
+    function runInit() {
+      if (seq !== scheduleSeq) return;
+      requestAnimationFrame(function () {
+        if (seq !== scheduleSeq) return;
+        requestAnimationFrame(function () {
+          if (seq !== scheduleSeq) return;
+          initGalleryShell();
+        });
+      });
+    }
+
+    function clearLoadingAndRun() {
+      runInit();
+    }
+
+    if (isProjectDetail(path)) {
+      waitForProjectReady(function () {
+        if (seq !== scheduleSeq) return;
+        clearLoadingAndRun();
+      });
+    } else {
+      document.documentElement.classList.remove('hbw-project-page-loading');
+      runInit();
+    }
+  }
+
+  function liftPgcOutOfSwupForLeave(c) {
+    if (!c || c.dataset.hbwPgcLeaveLayer) return;
+    var swupEl = document.querySelector('.swup');
+    if (!swupEl || !swupEl.contains(c)) return;
+    var rect = c.getBoundingClientRect();
+    c.dataset.hbwPgcLeaveLayer = '1';
+    c._hbwPgcRestoreParent = c.parentNode;
+    c._hbwPgcRestoreNext = c.nextSibling;
+    document.body.appendChild(c);
+    c.style.position = 'fixed';
+    c.style.top = rect.top + 'px';
+    c.style.left = rect.left + 'px';
+    c.style.width = rect.width + 'px';
+    c.style.height = rect.height + 'px';
+    c.style.margin = '0';
+    c.style.boxSizing = 'border-box';
+    c.style.zIndex = '9999999990';
+    c.style.pointerEvents = 'none';
+  }
+
+  function restorePgcLiftIfNeeded(c) {
+    if (!c || !c.dataset.hbwPgcLeaveLayer) return;
+    var par = c._hbwPgcRestoreParent;
+    var next = c._hbwPgcRestoreNext;
+    delete c._hbwPgcRestoreParent;
+    delete c._hbwPgcRestoreNext;
+    c.removeAttribute('data-hbw-pgc-leave-layer');
+    c.style.cssText = '';
+    if (par && par.isConnected) {
+      try {
+        par.insertBefore(c, next && next.parentNode === par ? next : null);
+      } catch (e) {
+        par.appendChild(c);
+      }
+    }
+  }
+
+  function cleanupLiftedPgcNodes() {
+    document.querySelectorAll('[data-hbw-pgc-leave-layer]').forEach(function (n) {
+      n.remove();
+    });
+  }
+
+  /** Match About / Manifesto leave: lift above swup fade, then transition off-screen. */
+  function startLeaveOnly() {
+    scheduleSeq++;
+    if (prefersReducedMotion()) return;
+    var el = getActivePanelForCurrentRoute();
+    if (!el || !el.isConnected) return;
+    el.classList.add('hbw-panel');
+    /*
+      Fast clicks can happen while the panel is still in BOOT state (off-canvas with transitions disabled).
+      Force a stable visible baseline so the leave swipe always animates instead of flashing off.
+    */
+    el.classList.remove(C_LEAVE);
+    el.classList.remove(C_BOOT);
+    el.classList.add(C_VIS);
+    liftPgcOutOfSwupForLeave(el);
+    requestAnimationFrame(function () {
+      if (!el.isConnected) return;
+      el.classList.remove(C_VIS);
+      el.classList.add(C_LEAVE);
+    });
+  }
+
+  function shouldLeaveForClick(ev, a) {
+    try {
+      if (!a || !a.href) return false;
+      if (a.hasAttribute('download')) return false;
+      if ((a.getAttribute('target') || '').toLowerCase() === '_blank') return false;
+      if (ev && (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey)) return false;
+      if (ev && typeof ev.button === 'number' && ev.button !== 0) return false;
+      var u = new URL(a.href, location.origin);
+      if (u.origin !== location.origin) return false;
+      var fromP = normPath(location.pathname);
+      var toP = normPath(u.pathname);
+      if (fromP === toP && u.hash) return false;
+      if (u.href === location.href) return false;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function onVisitStart() {
+    startLeaveOnly();
+  }
+
+  function onVisitAbort() {
+    scheduleSeq++;
+    document.documentElement.classList.remove('hbw-project-page-loading');
+    var el = getActivePanelForCurrentRoute();
+    if (!el || !el.isConnected) return;
+
+    restorePgcLiftIfNeeded(el);
+
+    if (prefersReducedMotion()) {
+      el.classList.remove(C_BOOT, C_LEAVE);
+      el.classList.add(C_VIS);
+      return;
+    }
+
+    el.classList.remove(C_LEAVE);
+    el.classList.add(C_VIS);
+  }
+
+  primeProjectsPortfolioShell();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', primeProjectsPortfolioShell, false);
+  }
+
+  document.addEventListener('swup:visit:start', onIncomingProjectVisit, false);
+  document.addEventListener('swup:visit:start', onVisitStart, false);
+  document.addEventListener('swup:visit:abort', onVisitAbort, false);
+
+  if (!window.__HBW_PGC_PROJECT_LINK__) {
+    window.__HBW_PGC_PROJECT_LINK__ = true;
+    document.addEventListener(
+      'click',
+      function (event) {
+        var t = event.target;
+        if (!t || !t.closest) return;
+        var a = t.closest('a[href]');
+        if (!a) return;
+        try {
+          var u = new URL(a.href, location.origin);
+          if (u.origin !== location.origin) return;
+          var tp = normPath(u.pathname);
+          if (isProjectDetail(tp)) document.documentElement.classList.add('hbw-project-page-loading');
+        } catch (e) {}
+      },
+      true
+    );
+  }
+  document.addEventListener('page:swup-complete', scheduleEnter, false);
+  document.addEventListener('swup:page:view', scheduleEnter, false);
+  document.addEventListener('page:swup-complete', cleanupLiftedPgcNodes, false);
+  document.addEventListener('about:leave', startLeaveOnly, false);
+  document.addEventListener('manifesto:leave', startLeaveOnly, false);
+
+  if (!window.__HBW_PGC_NAV_CLICK__) {
+    window.__HBW_PGC_NAV_CLICK__ = true;
+    document.addEventListener(
+      'click',
+      function (event) {
+        var t = event.target;
+        if (!t || !t.closest) return;
+        if (NAV_LEAVE && t.closest(NAV_LEAVE)) startLeaveOnly();
+        // Any same-origin navigation should swipe the current panel out (gallery links, etc).
+        var a = t.closest('a[href]');
+        if (a && shouldLeaveForClick(event, a)) startLeaveOnly();
+      },
+      true
+    );
+  }
+
+  function onPageShow(ev) {
+    var el = getActivePanelForCurrentRoute();
+    if (!el || !el.isConnected) return;
+    if (!ev.persisted) return;
+    el.classList.add('hbw-panel');
+    el.classList.add(C_BOOT);
+    el.classList.remove(C_LEAVE);
+    el.classList.remove(C_VIS);
+    releaseBootAndShow(el);
+  }
+
+  window.addEventListener('pageshow', onPageShow, false);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      function () {
+        armProjectLoadingBlurEarly();
+        primeProjectsPortfolioShell();
+        scheduleEnter();
+      },
+      false
+    );
+  } else {
+    armProjectLoadingBlurEarly();
+    primeProjectsPortfolioShell();
+    scheduleEnter();
+  }
+})();

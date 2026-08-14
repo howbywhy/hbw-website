@@ -1,0 +1,36 @@
+/* Smooth hover transitions — desktop */
+  .footer-link,
+  .button { 
+    transition:
+      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .footer-link:hover { 
+    opacity: .58; 
+  }
+
+  .button:hover { 
+    background-color: rgba(255,255,255,1) !important; 
+  }
+
+  /* =========================================================
+     MOBILE / TOUCH STATES — tactile tap feedback
+     ========================================================= */
+  @media (hover:none) and (pointer:coarse) {
+    .footer-link:active,
+    .button:active {
+      opacity: .72;                       /* fade slightly */
+      transform: scale(0.97);            /* subtle “press in” */
+      transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* optional rebound effect when released */
+    .footer-link,
+    .button {
+      transition:
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }

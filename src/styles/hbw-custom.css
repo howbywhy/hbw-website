@@ -1,0 +1,2178 @@
+/* from collections-inline-01.css */
+@font-face {
+    font-family: "Geist";
+    src: url("/fonts/Geist.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --hbw-unit: 0.5rem;
+    --hbw-h: calc(var(--hbw-unit) * 5);
+    --hbw-pad-x: calc(var(--hbw-unit) * 1.6);
+    --hbw-gap: calc(var(--hbw-unit) * 0.5);
+    --hbw-top: max(calc(var(--hbw-unit) * 1.125), env(safe-area-inset-top, 0px));
+    --hbw-edge: max(calc(var(--hbw-unit) * 1.125), env(safe-area-inset-left, 0px));
+    --hbw-edge-right: max(calc(var(--hbw-unit) * 1.125), env(safe-area-inset-right, 0px));
+
+    --hbw-font: "Geist", system-ui, -apple-system, Segoe UI, sans-serif;
+    --hbw-font-size: 0.94rem;
+    --hbw-ls: -0.01em;
+
+    --hbw-surface: rgba(255, 255, 255, 0.82);
+    --hbw-surface-hover: rgba(255, 255, 255, 0.92);
+    --hbw-border: rgba(51, 51, 51, 0.18);
+    --hbw-text: #333;
+    --hbw-text-active: #333;
+
+    --hbw-radius: 999px;
+    --hbw-z: 99998;
+    --hbw-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --hbw-motion: 180ms;
+    /* Float tray: faster open, slower premium collapse (base = closing / idle). */
+    --hbw-floatnav-tray-open-ms: 360ms;
+    --hbw-floatnav-tray-close-ms: 560ms;
+    --hbw-floatnav-tray-close-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --hbw-pill-ms: 240ms;
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --hbw-gallery-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  .hbw-floatnav {
+    position: fixed;
+    top: var(--hbw-top);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--hbw-z);
+    pointer-events: none;
+  }
+
+  html.hbw-route-intake-start .hbw-floatnav {
+    display: none !important;
+  }
+
+  /* positioning variants removed */
+
+  .hbw-floatnav__inner {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    height: auto;
+    /* Slightly larger hit box so pointer can move Menu → tray without accidental close. */
+    padding: 4px;
+    margin: -2px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    font-family: var(--hbw-font);
+    font-size: var(--hbw-font-size);
+    letter-spacing: var(--hbw-ls);
+    transition:
+      transform var(--hbw-motion) var(--hbw-ease);
+    position: relative;
+  }
+
+  .hbw-floatnav__inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    border: 1px solid #333;
+    opacity: 1;
+    transition:
+      opacity calc(var(--hbw-motion) * 1.2) var(--hbw-ease);
+    pointer-events: none;
+  }
+
+  .hbw-floatnav__inner.is-open::before,
+  .hbw-floatnav__inner:focus-within::before {
+    opacity: 1;
+  }
+
+  .hbw-floatnav__menu {
+    display: inline-flex;
+    align-items: center;
+    height: calc(var(--hbw-h) - (var(--hbw-unit) * 2));
+    padding: 0 calc(var(--hbw-unit) * 1.45);
+    border-radius: 999px;
+    color: var(--hbw-text-active);
+    background: transparent;
+    border: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    user-select: none;
+    white-space: nowrap;
+    letter-spacing: var(--hbw-ls);
+    transition:
+      opacity calc(var(--hbw-motion) * 0.9) var(--hbw-ease),
+      transform calc(var(--hbw-motion) * 1.2) var(--hbw-ease-out);
+    will-change: opacity, transform;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    touch-action: manipulation;
+  }
+
+  .hbw-floatnav__menu.is-changing {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  /*
+    When the tray is open, .hbw-floatnav__inner.is-open .hbw-floatnav__menu sets opacity: 0.45.
+    That rule beats .hbw-floatnav__menu.is-changing (same specificity, earlier in cascade),
+    which killed the label cross-fade. This override restores the animation.
+  */
+  .hbw-floatnav__inner.is-open .hbw-floatnav__menu.is-changing {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__menu {
+    opacity: 0.45;
+  }
+
+  .hbw-floatnav__tray {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--hbw-gap);
+    margin-left: 0;
+    padding: 1px;
+    max-width: 0;
+    min-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    /* Default = closing / idle: margin + width share one duration (avoids “snap” vs width). */
+    transition:
+      max-width var(--hbw-floatnav-tray-close-ms) var(--hbw-floatnav-tray-close-ease),
+      margin-left var(--hbw-floatnav-tray-close-ms) var(--hbw-floatnav-tray-close-ease),
+      opacity calc(var(--hbw-motion) * 1.35) var(--hbw-ease);
+    position: relative;
+  }
+
+  .hbw-floatnav__pill {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    z-index: 0;
+    height: calc(var(--hbw-h) - (var(--hbw-unit) * 2));
+    width: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.06);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(0);
+    transition:
+      transform var(--hbw-pill-ms) var(--hbw-ease-out),
+      width var(--hbw-pill-ms) var(--hbw-ease-out),
+      opacity calc(var(--hbw-motion) * 0.9) var(--hbw-ease);
+    will-change: transform, width;
+  }
+
+  .hbw-floatnav__inner.is-locked .hbw-floatnav__tray {
+    max-width: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    margin-left: 0 !important;
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray {
+    margin-left: var(--hbw-gap);
+    max-width: 60rem;
+    opacity: 1;
+    pointer-events: auto;
+    transition:
+      max-width var(--hbw-floatnav-tray-open-ms) var(--hbw-ease-out),
+      margin-left var(--hbw-floatnav-tray-open-ms) var(--hbw-ease-out),
+      opacity calc(var(--hbw-motion) * 1) var(--hbw-ease-out);
+  }
+
+  .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 0;
+    transition:
+      opacity calc(var(--hbw-motion) * 1.15) var(--hbw-ease),
+      color var(--hbw-motion) var(--hbw-ease),
+      transform calc(var(--hbw-motion) * 0.9) var(--hbw-ease-out);
+    pointer-events: none;
+    will-change: opacity;
+    transform: translateX(4px);
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(1) { transition-delay: 10ms; }
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(2) { transition-delay: 30ms; }
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(3) { transition-delay: 50ms; }
+  .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link:nth-of-type(4) { transition-delay: 70ms; }
+
+  /* Close phase 1 (JS): tray still open, links/pill hidden — then phase 2 removes .is-open (tray collapses). */
+  .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(3px);
+    transition:
+      opacity 70ms cubic-bezier(0.4, 0, 0.55, 1),
+      transform 70ms cubic-bezier(0.4, 0, 0.55, 1),
+      color var(--hbw-motion) var(--hbw-ease);
+    transition-delay: 0ms !important;
+  }
+
+  .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__pill {
+    opacity: 0 !important;
+    transition: opacity 65ms cubic-bezier(0.4, 0, 0.55, 1);
+  }
+
+  /* Closing: links vanish before tray width collapses (no stagger — stagger read as “late” items). */
+  .hbw-floatnav__inner:not(.is-open) .hbw-floatnav__tray .hbw-floatnav__link {
+    opacity: 0 !important;
+    transform: translateX(3px);
+    pointer-events: none;
+    transition:
+      opacity 85ms cubic-bezier(0.4, 0, 0.55, 1),
+      transform 85ms cubic-bezier(0.4, 0, 0.55, 1),
+      color var(--hbw-motion) var(--hbw-ease);
+    transition-delay: 0ms !important;
+  }
+
+  .hbw-floatnav__link {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    height: calc(var(--hbw-h) - (var(--hbw-unit) * 2));
+    padding: 0 calc(var(--hbw-unit) * 1.45);
+    border-radius: 999px;
+    border: 0;
+    text-decoration: none;
+    color: var(--hbw-text);
+    opacity: 1;
+    background: transparent;
+    transition:
+      opacity var(--hbw-motion) var(--hbw-ease),
+      color var(--hbw-motion) var(--hbw-ease),
+      transform var(--hbw-motion) var(--hbw-ease-out);
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hbw-floatnav__link:hover {
+    color: var(--hbw-text-active);
+    transform: none;
+  }
+
+  .hbw-floatnav__link.is-active {
+    opacity: 1;
+    color: var(--hbw-text-active);
+  }
+
+  .hbw-floatnav__link.is-hidden {
+    display: none;
+  }
+
+  /* Show Manifesto nav item only on /manifesto. */
+  .hbw-floatnav__link[data-hbw-route="manifesto"] {
+    display: none;
+  }
+  /* Keep Manifesto nav item hidden on /manifesto too. */
+
+  .swup {
+    transition:
+      filter calc(var(--hbw-motion) * 1.4) var(--hbw-ease-out),
+      opacity calc(var(--hbw-motion) * 1.2) var(--hbw-ease);
+    will-change: filter, opacity;
+    /* Stops double/triple-click from selecting large blocks (blue browser highlight). */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .swup input,
+  .swup textarea,
+  .swup select,
+  .swup [contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+  }
+
+  /*
+    Full-bleed fixed signature shell (e.g. manifesto): Webflow uses 100vw×100vh + inset 0.
+    Without this, the layer can win hit-testing over the centered float nav. Descendants
+    keep pointer-events: auto and remain interactive.
+  */
+  .hbw-signature {
+    pointer-events: none;
+  }
+
+  body:has(.hbw-floatnav__inner.is-open) .swup {
+    filter: blur(6px);
+    opacity: 0.55;
+  }
+
+  /*
+    Project detail (Swup): blur .swup while SECTION C waits for media (html.hbw-project-page-loading).
+    Placed after menu-open blur so this wins when navigating to a project (incl. from /home).
+  */
+  html.hbw-project-page-loading .swup {
+    filter: blur(14px) saturate(0.92);
+    opacity: 0.82;
+    transition:
+      filter 420ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  html.hbw-project-page-loading .project-gallery-section:not(.hbw-panel),
+  html.hbw-project-page-loading .project-page-gallery:not(.hbw-panel),
+  html.hbw-project-page-loading .project-gallery:not(.hbw-panel) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /*
+    Prevent first-paint flash of inactive shell on /projects.
+    Don't hide it (causes a hard "pop"); instead, keep it measurable but off-canvas
+    until JS applies .hbw-panel lifecycle classes.
+  */
+  @media (prefers-reduced-motion: no-preference) {
+    html.hbw-route-projects .project-gallery-container:not(.hbw-panel) {
+      pointer-events: none !important;
+      transition: none !important;
+      transform: translateX(var(--hbw-panel-swipe-distance, 110%)) translateZ(0) !important;
+      will-change: transform;
+    }
+
+    /*
+      /projects index uses `.home-page-portfolio` *inside* `.project-gallery-container`.
+      Keep the container in-flow so the portfolio panel can animate vertically.
+    */
+    html.hbw-route-projects .project-gallery-container:has(.home-page-portfolio) {
+      pointer-events: auto !important;
+      transform: none !important;
+      will-change: auto;
+    }
+
+    /*
+      /projects index: prevent first-paint flash of the portfolio panel itself.
+      JS adds `.hbw-panel` after DOM is ready; without this, the panel can paint once
+      in its final position and then snap to the boot (off-canvas) position.
+    */
+    html.hbw-route-projects .home-page-portfolio:not(.hbw-panel) {
+      pointer-events: none !important;
+      transition: none !important;
+      transform: translateY(var(--hbw-panel-swipe-distance, 110%)) translateZ(0) !important;
+      will-change: transform;
+    }
+
+    /*
+      Home: same idea for the active gallery shell container on first load.
+      Keep it off-canvas until the footer shell script applies `.hbw-panel` lifecycle classes.
+    */
+    html.hbw-route-home .project-gallery-container:not(.hbw-panel):not(:has(.home-page-portfolio)) {
+      pointer-events: none !important;
+      transition: none !important;
+      transform: translateX(var(--hbw-panel-swipe-distance, 110%)) translateZ(0) !important;
+      will-change: transform;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.hbw-project-page-loading .swup {
+      filter: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hbw-floatnav {
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: calc(100vw - (var(--hbw-edge) * 2));
+    }
+    .hbw-floatnav__inner {
+      padding: 6px; /* base 2px + 4px mobile */
+    }
+    .hbw-floatnav__inner {
+      width: fit-content;
+      max-width: calc(100vw - 1rem);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .hbw-floatnav__inner::-webkit-scrollbar {
+      display: none;
+    }
+
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hbw-floatnav__inner,
+    .hbw-floatnav__link,
+    .hbw-floatnav__tray,
+    .hbw-floatnav__pill {
+      transition-duration: 0.01ms !important;
+    }
+
+    .hbw-floatnav__inner.is-open .hbw-floatnav__tray .hbw-floatnav__link {
+      transition-delay: 0ms !important;
+    }
+
+    .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__tray .hbw-floatnav__link,
+    .hbw-floatnav__inner.is-open.hbw-floatnav--items-out .hbw-floatnav__pill {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+/* from collections-inline-02.css */
+html.hbw-body-fade-pending body {
+    opacity: 0;
+    transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  html.hbw-body-fade-pending.hbw-body-fade-in body {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.hbw-body-fade-pending body,
+    html.hbw-body-fade-pending.hbw-body-fade-in body {
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+/* from collections-inline-03.css */
+.scroll-progress {
+    position: fixed;
+    right: 10px;               /* was 12px */
+    top: 12px;
+    bottom: 12px;
+    width: 4px;
+    background: rgba(0,0,0,.2);  /* Track background */
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: .9;
+    transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+  .scroll-progress__bar {
+    position: absolute;
+    left: 0; 
+    bottom: 0;
+    width: 100%; 
+    height: 0%;                 /* Fills dynamically as you scroll */
+    background: #ff7852;        /* Fill color (orange) */
+    border-radius: inherit;
+    transform: translateZ(0);
+  }
+  /* Fade when idle (not scrolling) */
+  .scroll-progress.is-idle { opacity: .34; }
+  /* Hide completely at bottom or when no scroll needed */
+  .scroll-progress.is-complete {
+    opacity: 0;
+    transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 🚫 Mobile: never show (JS also doesn't create it) */
+  @media (max-width: 767px){
+    .scroll-progress{ display:none !important; }
+  }
+
+/* from collections-inline-04.css */
+html, body {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE / old Edge */
+    -ms-overflow-style: none;
+  }
+
+  /*
+    Reduce scroll chaining + overscroll “rubber band” where supported.
+    (iOS Safari still needs JS prevention on affected pages.)
+  */
+  @media (hover: none) and (pointer: coarse) {
+    html, body {
+      overscroll-behavior: none;
+    }
+  }
+
+  /*
+    Global horizontal overflow guard.
+    Prevents the entire page from becoming wider than the viewport (which creates the
+    “sideways scroll” even when page-specific scripts are removed).
+    This does NOT prevent intentional horizontal scrolling on inner elements (e.g.
+    `.project-page-gallery`), it only clamps the root scroller.
+  */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Prefer clip when supported (no scrollbars, no inertial bounce). */
+  @supports (overflow: clip) {
+    html, body {
+      overflow-x: clip;
+    }
+  }
+
+  /* Swup container should never force horizontal overflow. */
+  .swup {
+    overflow-x: hidden;
+  }
+  @supports (overflow: clip) {
+    .swup {
+      overflow-x: clip;
+    }
+  }
+  /* Chrome / Safari */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+  /* Re-enable scrollbar for specific containers if needed */
+  .allow-scrollbar { scrollbar-width: thin; }
+  .allow-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+
+/* from collections-inline-05.css */
+/* Remove default focus outlines and active styles */
+  a:focus, a:active,
+  button:focus, button:active,
+  input:focus, input:active {
+    outline: none; 
+    box-shadow: none; 
+    text-decoration: none; 
+    background: none;
+  }
+
+/* from collections-inline-06.css */
+/* Smooth hover transitions — desktop */
+  .footer-link,
+  .button { 
+    transition:
+      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .footer-link:hover { 
+    opacity: .58; 
+  }
+
+  .button:hover { 
+    background-color: rgba(255,255,255,1) !important; 
+  }
+
+  /* =========================================================
+     MOBILE / TOUCH STATES — tactile tap feedback
+     ========================================================= */
+  @media (hover:none) and (pointer:coarse) {
+    .footer-link:active,
+    .button:active {
+      opacity: .72;                       /* fade slightly */
+      transform: scale(0.97);            /* subtle “press in” */
+      transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* optional rebound effect when released */
+    .footer-link,
+    .button {
+      transition:
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+
+/* from collections-inline-07.css */
+.project-gallery-section {
+    position: relative;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    overflow: hidden;
+    padding: 0;
+    overscroll-behavior-y: contain;
+  }
+
+  .project-gallery {
+    position: relative;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    cursor: grab;
+    touch-action: pan-x;
+    overscroll-behavior-y: contain;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .project-gallery.is-dragging {
+    cursor: grabbing;
+  }
+
+  .project-gallery__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.08);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .project-gallery__progress span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #ff7852;
+    transition: width 0.08s linear;
+    will-change: width;
+  }
+
+  .project-gallery__track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate3d(0, -50%, 0);
+    display: flex;
+    align-items: center;
+    gap: var(--pg-gap, 0px);
+    height: 100%;
+    will-change: transform;
+  }
+
+  .project-gallery__track .hbw-hscroll__item,
+  .project-gallery__track .project-gallery__item {
+    flex: 0 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-gallery__track img {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: block;
+    object-fit: cover;
+    background: #f5f5f5;
+    pointer-events: none;
+  }
+
+  .project-gallery__counter {
+    position: absolute;
+    top: 0;
+    right: 1.1rem;
+    background: transparent;
+    color: #fff;
+    height: var(--hbw-h, 2.5rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--hbw-pad-x, 1rem);
+    font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 15;
+    opacity: 1;
+    transition: opacity 200ms var(--hbw-ease, ease);
+  }
+
+  .project-gallery__counter.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    .project-gallery-section {
+      height: calc(var(--vh, 1vh) * 100);
+      min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .project-gallery {
+      height: calc(var(--vh, 1vh) * 100);
+      min-height: calc(var(--vh, 1vh) * 100);
+      overflow: hidden;
+      touch-action: pan-x;
+    }
+
+    .project-gallery__track {
+      gap: 0;
+    }
+
+    .project-gallery__progress span {
+      transition: none;
+    }
+  }
+
+  /*
+    Home portfolio: type label hover + slide-in shell classes (hbw-pgc-*).
+  */
+  .home-page-portfolio .pcd-type,
+  .home-page-portfolio .pcn-type {
+    opacity: 0;
+    transition: opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Hover / keyboard focus only — :focus-within caused stray flashes when Swup or children grabbed focus */
+  @media (hover: hover) and (pointer: fine) {
+    .home-page-portfolio .gallery-item-link:hover .pcd-type,
+    .home-page-portfolio .gallery-item-link:hover .pcn-type {
+      opacity: 1;
+    }
+  }
+
+  .home-page-portfolio .gallery-item-link:focus-visible .pcd-type,
+  .home-page-portfolio .gallery-item-link:focus-visible .pcn-type {
+    opacity: 1;
+  }
+
+  /* Dim non-hovered project cards when one is active (desktop only). */
+  @media (hover: hover) and (pointer: fine) {
+    /* Put transition on the base state so it eases both in AND out. */
+    .home-page-portfolio .gallery-item-link {
+      transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: 0ms;
+    }
+
+    .home-page-portfolio:has(.gallery-item-link:hover) .gallery-item-link,
+    .home-page-portfolio:has(.gallery-item-link:focus-visible) .gallery-item-link {
+      opacity: 0.84;
+      transition-delay: 60ms;
+    }
+
+    .home-page-portfolio:has(.gallery-item-link:hover) .gallery-item-link:hover,
+    .home-page-portfolio:has(.gallery-item-link:focus-visible) .gallery-item-link:focus-visible {
+      opacity: 1;
+      transition-duration: 220ms;
+      transition-delay: 0ms;
+    }
+  }
+
+  .home-page-portfolio .project-card-description {
+    position: relative;
+    min-height: 1.35em;
+  }
+
+  .home-page-portfolio .project-card-description .pcd-type {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0;
+  }
+
+  .home-page-portfolio .project-card-note {
+    position: relative;
+    min-height: 1.35em;
+  }
+
+  .home-page-portfolio .project-card-note .pcn-type {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%) translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Panels (system): shared lifecycle classes. JS adds .hbw-panel to the active panel. */
+  .hbw-panel {
+    will-change: transform;
+    /* Keep below the floating nav (nav is ~99998) so nav stays clickable. */
+    z-index: 99980;
+    touch-action: manipulation;
+    backface-visibility: hidden;
+    transform: var(--hbw-panel-enter-transform, translateX(var(--hbw-panel-swipe-distance, 110%))) translateZ(0);
+    transition: transform var(--hbw-panel-swipe-duration, 380ms)
+      var(--hbw-panel-swipe-ease, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+
+  .hbw-panel.hbw-pgc-booting {
+    transform: var(--hbw-panel-enter-transform, translateX(var(--hbw-panel-swipe-distance, 110%))) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  .hbw-panel.hbw-pgc-visible {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .hbw-panel.hbw-pgc-leaving {
+    transform: var(--hbw-panel-leave-transform, translateX(var(--hbw-panel-swipe-distance, 110%))) translateZ(0);
+  }
+
+  /* Default shell panel: enter right, leave right. */
+  .project-gallery-container {
+    --hbw-panel-enter-transform: translateX(var(--hbw-panel-swipe-distance, 110%));
+    --hbw-panel-leave-transform: translateX(var(--hbw-panel-swipe-distance, 110%));
+  }
+
+  /* Projects index: portfolio slides UP into view, DOWN out of view. */
+  .home-page-portfolio {
+    --hbw-panel-enter-transform: translateY(var(--hbw-panel-swipe-distance, 110%));
+    --hbw-panel-leave-transform: translateY(var(--hbw-panel-swipe-distance, 110%));
+  }
+
+  /* Project detail: gallery enters from left, leaves to right. */
+  .project-gallery-section,
+  .project-page-gallery,
+  .project-gallery {
+    --hbw-panel-enter-transform: translateX(calc(-1 * var(--hbw-panel-swipe-distance, 110%)));
+    --hbw-panel-leave-transform: translateX(var(--hbw-panel-swipe-distance, 110%));
+  }
+
+  @media screen and (max-width: 767px) {
+    .home-page-portfolio .pcd-type,
+    .home-page-portfolio .pcn-type {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hbw-panel,
+    .project-gallery-container,
+    .home-page-portfolio,
+    .project-gallery-section,
+    .project-page-gallery,
+    .project-gallery {
+      transition: none !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+  }
+
+/* from collections-inline-08.css */
+img, video {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+  }
+  .scope-pill {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .scope-pill.is-hidden {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+  }
+
+/* from collections-inline-09.css */
+.archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade {
+    opacity: 0 !important;
+    transition: opacity 0.52s var(--hbw-gallery-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    transition-delay: calc(var(--hbw-af-i, 0) * 42ms);
+  }
+
+  .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade.archive-gallery-item--hbw-fade-visible {
+    opacity: 1 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-gallery__world > .archive-gallery-item.archive-gallery-item--hbw-fade {
+      transition-duration: 0.12s;
+      transition-delay: 0ms !important;
+    }
+  }
+
+/* from collections-inline-10.css */
+#hbw-logo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0;
+    color: #1d1d1d;
+    touch-action: none;
+  }
+
+  #hbw-logo-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #hbw-logo-path {
+    filter: url(#hbw-logo-displace-filter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-logo-path {
+      filter: none !important;
+    }
+  }
+
+/* from collections-inline-11.css */
+.media-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .media {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+/* from collections-inline-16.css */
+#hbw-ss {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    opacity: 0;
+    transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    height: -webkit-fill-available;
+    overscroll-behavior: none;
+    touch-action: none;
+    background: transparent;
+  }
+  #hbw-ss.on {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #hbw-ss canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-ss { transition: none; }
+  }
+
+  /* Blur/dim Swup content while screensaver is active */
+  html.hbw-ss-active .swup {
+    filter: blur(10px);
+    opacity: 0.35;
+    transition: filter 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: filter, opacity;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.hbw-ss-active .swup {
+      transition: none;
+      filter: none;
+      opacity: 1;
+    }
+  }
+
+/* from collections-inline-17.css */
+/* Hide Collections in float nav only on /projects/<slug> pages. */
+  html.hbw-route-project-detail .hbw-floatnav [data-hbw-route="collections"] {
+    display: none !important;
+  }
+
+/* from collections-inline-18.css */
+/*
+    Fill parent when it has height; never collapse to 0 (flex + height:100% alone often yields 0px).
+    max(100%,100dvh) keeps the block at least one viewport tall when the parent has no usable height.
+  */
+  .archive-gallery.archive-world {
+    position: relative;
+    z-index: 100;
+    isolation: isolate;
+    width: 100%;
+    height: 100%;
+    /* svh = stable viewport — less jump when mobile browser chrome shows/hides */
+    min-height: 100vh;
+    min-height: max(100%, 100vh);
+    min-height: 100svh;
+    min-height: max(100%, 100svh);
+    flex: 1 1 auto;
+    flex-shrink: 0;
+    align-self: stretch;
+    box-sizing: border-box;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: transparent;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+
+  .archive-gallery.archive-world.is-dragging {
+    cursor: grabbing;
+  }
+
+  .archive-gallery__viewport {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+    /* Inset keeps 3D content away from edges; bottom padding reduces “cut off” on mobile / safe areas */
+    padding: max(0px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px))
+      max(12px, env(safe-area-inset-bottom, 0px)) max(0px, env(safe-area-inset-left, 0px));
+    box-sizing: border-box;
+    perspective: 1600px;
+    /* Slightly above center compensates for rotateX() — avoids the cluster feeling “half below” the fold */
+    perspective-origin: 50% 42%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .archive-gallery__world {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .archive-gallery__world > .archive-gallery-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: auto;
+    -webkit-user-drag: none;
+    /* Sized by JS to match media aspect ratio (prevents big empty rectangles). */
+    width: auto;
+    height: auto;
+    max-width: min(320px, 42vw);
+    max-height: min(420px, 52vh);
+    background: transparent !important;
+    opacity: 1 !important;
+    box-shadow: none;
+    border-radius: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    cursor: pointer;
+  }
+
+  .archive-gallery__world > .archive-gallery-item > img,
+  .archive-gallery__world > .archive-gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+    background: transparent !important;
+  }
+
+  .archive-gallery__world > .archive-gallery-item > video,
+  .archive-gallery__world > .archive-gallery-item video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+    background: transparent !important;
+  }
+
+  /* Signature anchor: 30% bigger in the 3D world only */
+  .archive-gallery__world .signature {
+    transform: scale(1.3);
+    transform-origin: center center;
+  }
+
+  /* Webflow Code Embed blocks often render via an iframe. */
+  .archive-gallery__world > .archive-gallery-item iframe,
+  .archive-gallery__world > .archive-gallery-item embed,
+  .archive-gallery__world > .archive-gallery-item object {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  /* Webflow embed wrappers sometimes apply a background */
+  .archive-gallery__world > .archive-gallery-item .w-embed,
+  .archive-gallery__world > .archive-gallery-item .w-embed-inner {
+    background: transparent !important;
+  }
+
+  /* Webflow image wrappers can apply translucent backgrounds/overlays */
+  .archive-gallery__world > .archive-gallery-item :is(div, figure, picture, source) {
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+
+  .archive-gallery__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: var(--hbw-ls, -0.01em);
+    text-transform: none;
+    color: var(--hbw-text, #111);
+    pointer-events: none;
+    white-space: nowrap;
+    margin: 0;
+    height: var(--hbw-h, 2.5rem);
+    padding: 0 var(--hbw-pad-x, 1rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    border-radius: 0;
+  }
+
+  .archive-gallery__lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    --lb-thumbs-h: 120px;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0);
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .archive-gallery__lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .archive-gallery__lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .archive-gallery__lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 4;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--hbw-font, system-ui, -apple-system, "Segoe UI", sans-serif);
+    font-size: var(--hbw-font-size-body, 0.94rem);
+    letter-spacing: var(--hbw-ls, -0.01em);
+    color: var(--hbw-text, #111);
+  }
+
+  .archive-gallery__lightbox-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    pointer-events: none;
+  }
+
+  .archive-gallery__lightbox-inner > * {
+    pointer-events: auto;
+  }
+
+  .archive-gallery__lightbox-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Full-bleed media; thumbnails float over the top */
+    border-radius: 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .archive-gallery__lightbox-stage img,
+  .archive-gallery__lightbox-stage video {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  .archive-gallery__lightbox-stage .archive-lightbox-landscape {
+    object-fit: cover;
+  }
+
+  .archive-gallery__lightbox-thumbs {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    bottom: env(safe-area-inset-bottom, 0px);
+    transform: translateX(-50%);
+    width: clamp(60vw, 70vw, 80vw);
+    height: var(--lb-thumbs-h);
+    box-sizing: border-box;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    border-top: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    scrollbar-width: none;
+  }
+
+  .archive-gallery__lightbox-thumbs::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .archive-gallery__lightbox-thumb {
+    flex: 0 0 auto;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: rgba(255, 255, 255, 0.86);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    height: 50px; /* ~10% smaller */
+    aspect-ratio: 3 / 5;
+    width: auto;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .archive-gallery__lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-gallery__lightbox-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-gallery__lightbox-thumb span {
+    display: block;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .archive-gallery__lightbox-stage iframe,
+  .archive-gallery__lightbox-stage embed,
+  .archive-gallery__lightbox-stage object {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  .archive-gallery__lightbox-stage .archive-gallery__lightbox-html {
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    color: #111;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    user-select: text;
+  }
+
+  .archive-gallery__lightbox-bar {
+    display: none;
+  }
+
+  .archive-gallery__lightbox-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 0;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    color: var(--hbw-text, #111);
+    width: var(--hbw-h, 2.5rem);
+    height: var(--hbw-h, 2.5rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+
+  .archive-gallery__lightbox-btn:hover {
+    background: var(--hbw-surface-hover, rgba(255, 255, 255, 0.93));
+  }
+
+  .archive-gallery__lightbox-btn:focus-visible {
+    outline: 2px solid var(--hbw-text, #111);
+    outline-offset: 2px;
+  }
+
+  /* Close button removed (click off media closes). */
+
+  .archive-gallery__lightbox-counter {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.65);
+    min-width: 5rem;
+    text-align: center;
+  }
+
+  .archive-gallery__lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0;
+    border-radius: 0;
+    background: var(--hbw-surface, rgba(255, 255, 255, 0.86));
+    color: var(--hbw-text, #111);
+  }
+
+  .archive-gallery__lightbox-nav--prev {
+    left: 1rem;
+  }
+
+  .archive-gallery__lightbox-nav--next {
+    right: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .archive-gallery__world > .archive-gallery-item {
+      max-width: min(260px, 70vw);
+      max-height: min(340px, 48vh);
+    }
+
+    .archive-gallery__world > .archive-gallery-item > img,
+    .archive-gallery__world > .archive-gallery-item img {
+      max-height: min(340px, 48vh);
+    }
+
+    .archive-gallery__hint {
+      font-size: 0.68rem;
+      bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    }
+
+    .archive-gallery__lightbox-nav {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: 1.25rem;
+    }
+
+    /* No prev/next buttons on mobile */
+    .archive-gallery__lightbox-nav {
+      display: none !important;
+    }
+
+    .archive-gallery__lightbox-thumbs {
+      --lb-thumbs-h: 92px;
+      width: clamp(85vw, 88vw, 90vw);
+    }
+
+    .archive-gallery__lightbox-thumb {
+      height: 54px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .archive-gallery__world {
+      will-change: auto;
+    }
+
+    .archive-gallery__lightbox {
+      transition: none;
+    }
+  }
+
+  /* Blur the page behind the lightbox (mobile-safe via filter) */
+  body.archive-lightbox-open .swup {
+    filter: blur(10px);
+  }
+
+  /* Olafur-like fallback overlay (UI/typography only) */
+  .archive-gallery__webgl-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0);
+    box-sizing: border-box;
+    background: rgba(246, 239, 230, 0.97);
+    color: #111;
+    text-align: left;
+  }
+
+  .archive-gallery__webgl-overlay.is-open {
+    display: flex;
+  }
+
+  .archive-gallery__webgl-card {
+    width: min(920px, 100%);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .archive-gallery__webgl-title {
+    margin: 0 0 0.75rem 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+    letter-spacing: -0.02em;
+  }
+
+  .archive-gallery__webgl-body {
+    margin: 0 0 1.25rem 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.72);
+  }
+
+  .archive-gallery__webgl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .archive-gallery__webgl-link,
+  .archive-gallery__webgl-return {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: rgba(0, 0, 0, 0.85);
+    text-decoration: underline;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .archive-gallery__webgl-return {
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.9);
+    display: inline-flex;
+  }
+
+  @media (max-width: 767px) {
+    .archive-gallery__webgl-card {
+      padding: 1.25rem 1rem;
+    }
+  }
+
+/* from home-inline-09.css */
+:root { --hbw-descfade-ms: 420ms; }
+
+  /* Targets: allow ID or class, since Webflow “name” ≠ selector. */
+  /* Use case-insensitive attribute selectors to survive ID/class capitalization differences. */
+  [id="HBW-description" i], [class~="HBW-description" i],
+  [id="hbw-description" i], [class~="hbw-description" i],
+  [id="contact-info" i], [class~="contact-info" i] {
+    opacity: 0 !important;
+    transition: opacity var(--hbw-descfade-ms) cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity;
+  }
+
+  .hbw-descfade-visible {
+    opacity: 1 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [id="HBW-description" i], [class~="HBW-description" i],
+    [id="hbw-description" i], [class~="hbw-description" i],
+    [id="contact-info" i], [class~="contact-info" i] {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+/* from home-inline-10.css */
+:root {
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --folder-tab-swipe-duration: var(--hbw-panel-swipe-duration);
+    --folder-tab-swipe-ease: var(--hbw-panel-swipe-ease);
+    --folder-tab-swipe-distance: var(--hbw-panel-swipe-distance);
+    --folder-tab-swipe-leave-duration: 440ms;
+    --folder-tab-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+    --folder-tab-dur: var(--folder-tab-swipe-duration);
+    --folder-tab-ease: var(--folder-tab-swipe-ease);
+    --project-card-expand-max: 12rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .swup:has(.folder-tab-container) {
+      overflow-x: visible !important;
+    }
+  }
+
+  /*
+    Webflow sometimes hides or overrides display on breakpoints — keep the panel a flex column.
+    Lives on document.body after JS portaling (escapes Swup filter/overflow containing blocks on iOS).
+  */
+  #folder-tab-container,
+  .folder-tab-container {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    right: auto !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    max-height: none;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: hidden;
+    will-change: transform;
+    z-index: 99990;
+    touch-action: manipulation;
+    -webkit-transform: translateZ(0);
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0);
+    transition: transform var(--folder-tab-swipe-duration) var(--folder-tab-swipe-ease);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Width: Webflow owns it ≤767px; embed keeps a cap from tablet up. */
+  @media screen and (min-width: 768px) {
+    #folder-tab-container,
+    .folder-tab-container {
+      width: min(90vw, 360px) !important;
+    }
+  }
+
+  #folder-tab-container .folder-projects-list,
+  .folder-tab-container .folder-projects-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #folder-tab-container .folder-projects-list::-webkit-scrollbar,
+  .folder-tab-container .folder-projects-list::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /*
+    Desktop (real hover only): collapse .project-card-description / .project-card-note until row or card hover (or focus-within).
+  */
+  @media screen and (min-width: 768px) and (hover: hover) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      max-height: 0 !important;
+      opacity: 0;
+      transition:
+        max-height 280ms var(--folder-tab-ease),
+        opacity var(--folder-tab-dur) var(--folder-tab-ease);
+    }
+
+    #folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    #folder-tab-container .folder-projects-list .project-card-note .pcn-type,
+    .folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    .folder-tab-container .folder-projects-list .project-card-note .pcn-type {
+      margin: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #folder-tab-container .folder-projects-list .project-link-block:hover .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block:hover .project-card-note,
+    #folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-note,
+    #folder-tab-container .folder-projects-list .project-card-container:hover .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-container:hover .project-card-note,
+    #folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block:hover .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block:hover .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block:focus-within .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-container:hover .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-container:hover .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-container:focus-within .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (hover: hover) and (prefers-reduced-motion: reduce) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+  /*
+    Mobile: same collapse/expand as desktop, but JS sets .is-hbw-folder-row-inview when the row
+    intersects the viewport (actually on-screen), including while scrolling the gallery list.
+  */
+  @media screen and (max-width: 767px) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      max-height: 0 !important;
+      opacity: 0;
+      transition:
+        max-height 280ms var(--folder-tab-ease),
+        opacity var(--folder-tab-dur) var(--folder-tab-ease);
+    }
+
+    #folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    #folder-tab-container .folder-projects-list .project-card-note .pcn-type,
+    .folder-tab-container .folder-projects-list .project-card-description .pcd-type,
+    .folder-tab-container .folder-projects-list .project-card-note .pcn-type {
+      margin: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    #folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-description,
+    #folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-note,
+    .folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-description,
+    .folder-tab-container .folder-projects-list .project-link-block.is-hbw-folder-row-inview .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    #folder-tab-container .folder-projects-list .project-card-description,
+    #folder-tab-container .folder-projects-list .project-card-note,
+    .folder-tab-container .folder-projects-list .project-card-description,
+    .folder-tab-container .folder-projects-list .project-card-note {
+      max-height: var(--project-card-expand-max) !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+
+  #folder-tab-container.is-booting,
+  .folder-tab-container.is-booting {
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #folder-tab-container.is-visible,
+  .folder-tab-container.is-visible {
+    transform: translateX(0) translateZ(0) !important;
+  }
+
+  #folder-tab-container.is-leaving,
+  .folder-tab-container.is-leaving {
+    transform: translateX(calc(-1 * var(--folder-tab-swipe-distance))) translateZ(0);
+    transition: transform var(--folder-tab-swipe-leave-duration) var(--folder-tab-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #folder-tab-container,
+    .folder-tab-container {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #folder-tab-container.is-booting,
+    .folder-tab-container.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #folder-tab-container.is-visible,
+    #folder-tab-container.is-leaving,
+    .folder-tab-container.is-visible,
+    .folder-tab-container.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }
+
+/* from home-inline-11.css */
+.svg-wrap {
+  width: 100%;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* from home-inline-13.css */
+.svg-wrap {
+  width: 100%;
+  color: #ffffff;
+}
+
+.svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* from home-inline-18.css */
+/*
+    Fix "first load flash" (FOUC) on the horizontal gallery:
+    The track's initial transform is applied by JS after media/fonts settle, so it can paint once in
+    an unpositioned state and then snap. Hide the track (and its UI) until the JS sets the first
+    inline transform style.
+  */
+  .project-gallery .project-gallery__track {
+    opacity: 0;
+  }
+  .project-gallery .project-gallery__track[style*="transform"] {
+    opacity: 1;
+  }
+  .project-gallery .project-gallery__progress,
+  .project-gallery .project-gallery__counter {
+    opacity: 0;
+  }
+  .project-gallery[data-hbw-gallery-init="1"] .project-gallery__progress,
+  .project-gallery[data-hbw-gallery-init="1"] .project-gallery__counter {
+    opacity: 1;
+  }
+
+/* from intake__start-inline-09.css */
+/* display only — do not set opacity here; form:has(.step) .step beats .step.is-entering
+     and would keep steps permanently invisible */
+  form:has(.step) .step {
+    display: none !important;
+    pointer-events: none;
+  }
+  form:has(.step) .step.active {
+    display: block !important;
+    pointer-events: auto;
+  }
+
+/* from intake__start-inline-12.css */
+/* Prevent iOS zoom on input focus */
+  @media screen and (max-width: 991px) {
+    .intake-container input,
+    .intake-container textarea,
+    .intake-container select {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Step wrapper */
+  .step {
+    display: none;
+    opacity: 0;
+    transform: translateY(16px);
+    width: 100%;
+    max-width: 100%;
+    pointer-events: none;
+  }
+
+  .step.active {
+    display: block;
+    pointer-events: auto;
+  }
+
+  /* Inner elements fade in nicely */
+  .step > * {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  /* Smooth spacing between direct children */
+  .step > * + * {
+    margin-top: 14px;
+  }
+
+  /* Slightly more breathing room above buttons */
+  .step .next-btn,
+  .step .back-btn,
+  .step input[type="submit"],
+  .step button[type="submit"] {
+    margin-top: 20px;
+  }
+
+  /* Active step animation */
+  .step.is-entering {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .step.is-entering > * {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  /* Stagger inner elements */
+  .step.is-entering > *:nth-child(1) { transition-delay: 0.04s; }
+  .step.is-entering > *:nth-child(2) { transition-delay: 0.08s; }
+  .step.is-entering > *:nth-child(3) { transition-delay: 0.12s; }
+  .step.is-entering > *:nth-child(4) { transition-delay: 0.16s; }
+  .step.is-entering > *:nth-child(5) { transition-delay: 0.20s; }
+  .step.is-entering > *:nth-child(6) { transition-delay: 0.24s; }
+
+  /* Exit animation */
+  .step.is-leaving {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.24s ease, transform 0.24s ease;
+  }
+
+  .step.is-leaving > * {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+/* from manifesto-inline-09.css */
+:root {
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --manifesto-swipe-duration: var(--hbw-panel-swipe-duration);
+    --manifesto-swipe-ease: var(--hbw-panel-swipe-ease);
+    --manifesto-swipe-distance: var(--hbw-panel-swipe-distance);
+    --manifesto-swipe-leave-duration: 440ms;
+    --manifesto-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  /* Motion only — enters from left, leaves to left */
+  #manifesto-contents,
+  .manifesto-contents {
+    will-change: transform;
+    /* Keep below the floating nav so nav remains clickable. */
+    z-index: 99980;
+    touch-action: manipulation;
+    transform: translateX(calc(-1 * var(--manifesto-swipe-distance))) translateZ(0);
+    transition: transform var(--manifesto-swipe-duration) var(--manifesto-swipe-ease);
+    backface-visibility: hidden;
+  }
+
+  #manifesto-contents.is-booting,
+  .manifesto-contents.is-booting {
+    transform: translateX(calc(-1 * var(--manifesto-swipe-distance))) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #manifesto-contents.is-visible,
+  .manifesto-contents.is-visible {
+    transform: translateX(0) translateZ(0);
+  }
+
+  #manifesto-contents.is-leaving,
+  .manifesto-contents.is-leaving {
+    transform: translateX(calc(-1 * var(--manifesto-swipe-distance))) translateZ(0);
+    transition: transform var(--manifesto-swipe-leave-duration) var(--manifesto-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #manifesto-contents,
+    .manifesto-contents {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #manifesto-contents.is-booting,
+    .manifesto-contents.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #manifesto-contents.is-visible,
+    #manifesto-contents.is-leaving,
+    .manifesto-contents.is-visible,
+    .manifesto-contents.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }
+
+/* from projects__bar-closed-inline-09.css */
+.media-box {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* from studio-inline-09.css */
+:root {
+    /* Shared with Manifesto / Tab — same family as Nav --hbw-ease */
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --about-swipe-duration: var(--hbw-panel-swipe-duration);
+    --about-swipe-ease: var(--hbw-panel-swipe-ease);
+    --about-swipe-distance: var(--hbw-panel-swipe-distance);
+    /* Exit: slightly longer + ease-in so the panel accelerates off-screen (enter is ease-out). */
+    --about-swipe-leave-duration: 440ms;
+    --about-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  /* Motion only — enters from right, leaves to right */
+  #about-contents,
+  .about-contents,
+  #about-container,
+  .about-container {
+    will-change: transform;
+    /* Keep below the floating nav so nav remains clickable. */
+    z-index: 99980;
+    touch-action: manipulation;
+    transform: translateX(var(--about-swipe-distance)) translateZ(0);
+    transition: transform var(--about-swipe-duration) var(--about-swipe-ease);
+    backface-visibility: hidden;
+  }
+
+  #about-contents.is-booting,
+  .about-contents.is-booting,
+  #about-container.is-booting,
+  .about-container.is-booting {
+    transform: translateX(var(--about-swipe-distance)) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #about-contents.is-visible,
+  .about-contents.is-visible,
+  #about-container.is-visible,
+  .about-container.is-visible {
+    transform: translateX(0) translateZ(0);
+  }
+
+  #about-contents.is-leaving,
+  .about-contents.is-leaving,
+  #about-container.is-leaving,
+  .about-container.is-leaving {
+    transform: translateX(var(--about-swipe-distance)) translateZ(0);
+    transition: transform var(--about-swipe-leave-duration) var(--about-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #about-contents,
+    .about-contents,
+    #about-container,
+    .about-container {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #about-contents.is-booting,
+    .about-contents.is-booting,
+    #about-container.is-booting,
+    .about-container.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #about-contents.is-visible,
+    #about-contents.is-leaving,
+    .about-contents.is-visible,
+    .about-contents.is-leaving,
+    #about-container.is-visible,
+    #about-container.is-leaving,
+    .about-container.is-visible,
+    .about-container.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }
+
+/* from studio-inline-10.css */
+#hbw-logo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0;
+    color: #1d1d1d;
+    cursor: none;
+    touch-action: none;
+  }
+
+  #hbw-logo-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #hbw-logo-path {
+    filter: url(#hbw-logo-displace-filter);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hbw-logo-path {
+      filter: none !important;
+    }
+  }

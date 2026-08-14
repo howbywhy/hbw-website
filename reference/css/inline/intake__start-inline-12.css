@@ -1,0 +1,78 @@
+/* Prevent iOS zoom on input focus */
+  @media screen and (max-width: 991px) {
+    .intake-container input,
+    .intake-container textarea,
+    .intake-container select {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Step wrapper */
+  .step {
+    display: none;
+    opacity: 0;
+    transform: translateY(16px);
+    width: 100%;
+    max-width: 100%;
+    pointer-events: none;
+  }
+
+  .step.active {
+    display: block;
+    pointer-events: auto;
+  }
+
+  /* Inner elements fade in nicely */
+  .step > * {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  /* Smooth spacing between direct children */
+  .step > * + * {
+    margin-top: 14px;
+  }
+
+  /* Slightly more breathing room above buttons */
+  .step .next-btn,
+  .step .back-btn,
+  .step input[type="submit"],
+  .step button[type="submit"] {
+    margin-top: 20px;
+  }
+
+  /* Active step animation */
+  .step.is-entering {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .step.is-entering > * {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  /* Stagger inner elements */
+  .step.is-entering > *:nth-child(1) { transition-delay: 0.04s; }
+  .step.is-entering > *:nth-child(2) { transition-delay: 0.08s; }
+  .step.is-entering > *:nth-child(3) { transition-delay: 0.12s; }
+  .step.is-entering > *:nth-child(4) { transition-delay: 0.16s; }
+  .step.is-entering > *:nth-child(5) { transition-delay: 0.20s; }
+  .step.is-entering > *:nth-child(6) { transition-delay: 0.24s; }
+
+  /* Exit animation */
+  .step.is-leaving {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.24s ease, transform 0.24s ease;
+  }
+
+  .step.is-leaving > * {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }

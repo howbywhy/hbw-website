@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "SUB:3 — Brand Identity by How by Why",
+  "url": "https://www.hbw.works/projects/sub-3",
+  "description": "Brand identity and packaging design for SUB:3, a performance nutrition brand built on the concept of Bending Time & Space. Named after breaking the three-hour marathon mark, the brand turns time into form through distorted typography, timecodes, and reflective packaging. Developed with The Colour Club.",
+  "creator": {
+    "@type": "Organization",
+    "name": "How by Why (HBW)",
+    "url": "https://www.hbw.works"
+  },
+  "dateCreated": "2025",
+  "genre": "Brand Identity",
+  "keywords": ["performance nutrition branding", "sports branding", "packaging design", "marathon", "brand identity Sydney"]
+}

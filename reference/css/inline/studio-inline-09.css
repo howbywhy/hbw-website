@@ -1,0 +1,91 @@
+:root {
+    /* Shared with Manifesto / Tab — same family as Nav --hbw-ease */
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --about-swipe-duration: var(--hbw-panel-swipe-duration);
+    --about-swipe-ease: var(--hbw-panel-swipe-ease);
+    --about-swipe-distance: var(--hbw-panel-swipe-distance);
+    /* Exit: slightly longer + ease-in so the panel accelerates off-screen (enter is ease-out). */
+    --about-swipe-leave-duration: 440ms;
+    --about-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  /* Motion only — enters from right, leaves to right */
+  #about-contents,
+  .about-contents,
+  #about-container,
+  .about-container {
+    will-change: transform;
+    /* Keep below the floating nav so nav remains clickable. */
+    z-index: 99980;
+    touch-action: manipulation;
+    transform: translateX(var(--about-swipe-distance)) translateZ(0);
+    transition: transform var(--about-swipe-duration) var(--about-swipe-ease);
+    backface-visibility: hidden;
+  }
+
+  #about-contents.is-booting,
+  .about-contents.is-booting,
+  #about-container.is-booting,
+  .about-container.is-booting {
+    transform: translateX(var(--about-swipe-distance)) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #about-contents.is-visible,
+  .about-contents.is-visible,
+  #about-container.is-visible,
+  .about-container.is-visible {
+    transform: translateX(0) translateZ(0);
+  }
+
+  #about-contents.is-leaving,
+  .about-contents.is-leaving,
+  #about-container.is-leaving,
+  .about-container.is-leaving {
+    transform: translateX(var(--about-swipe-distance)) translateZ(0);
+    transition: transform var(--about-swipe-leave-duration) var(--about-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #about-contents,
+    .about-contents,
+    #about-container,
+    .about-container {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #about-contents.is-booting,
+    .about-contents.is-booting,
+    #about-container.is-booting,
+    .about-container.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #about-contents.is-visible,
+    #about-contents.is-leaving,
+    .about-contents.is-visible,
+    .about-contents.is-leaving,
+    #about-container.is-visible,
+    #about-container.is-leaving,
+    .about-container.is-visible,
+    .about-container.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }

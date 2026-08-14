@@ -1,0 +1,73 @@
+:root {
+    --hbw-panel-swipe-duration: 380ms;
+    --hbw-panel-swipe-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hbw-panel-swipe-distance: 110%;
+    --manifesto-swipe-duration: var(--hbw-panel-swipe-duration);
+    --manifesto-swipe-ease: var(--hbw-panel-swipe-ease);
+    --manifesto-swipe-distance: var(--hbw-panel-swipe-distance);
+    --manifesto-swipe-leave-duration: 440ms;
+    --manifesto-swipe-leave-ease: cubic-bezier(0.32, 0, 0.67, 0);
+  }
+
+  @media screen and (max-width: 767px) {
+    :root {
+      --hbw-panel-swipe-distance: 105vw;
+    }
+  }
+
+  @supports (width: 100dvw) {
+    @media screen and (max-width: 767px) {
+      :root {
+        --hbw-panel-swipe-distance: 105dvw;
+      }
+    }
+  }
+
+  /* Motion only — enters from left, leaves to left */
+  #manifesto-contents,
+  .manifesto-contents {
+    will-change: transform;
+    /* Keep below the floating nav so nav remains clickable. */
+    z-index: 99980;
+    touch-action: manipulation;
+    transform: translateX(calc(-1 * var(--manifesto-swipe-distance))) translateZ(0);
+    transition: transform var(--manifesto-swipe-duration) var(--manifesto-swipe-ease);
+    backface-visibility: hidden;
+  }
+
+  #manifesto-contents.is-booting,
+  .manifesto-contents.is-booting {
+    transform: translateX(calc(-1 * var(--manifesto-swipe-distance))) translateZ(0) !important;
+    transition: none !important;
+  }
+
+  #manifesto-contents.is-visible,
+  .manifesto-contents.is-visible {
+    transform: translateX(0) translateZ(0);
+  }
+
+  #manifesto-contents.is-leaving,
+  .manifesto-contents.is-leaving {
+    transform: translateX(calc(-1 * var(--manifesto-swipe-distance))) translateZ(0);
+    transition: transform var(--manifesto-swipe-leave-duration) var(--manifesto-swipe-leave-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #manifesto-contents,
+    .manifesto-contents {
+      transition: none !important;
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #manifesto-contents.is-booting,
+    .manifesto-contents.is-booting {
+      transform: translateX(0) translateZ(0) !important;
+    }
+
+    #manifesto-contents.is-visible,
+    #manifesto-contents.is-leaving,
+    .manifesto-contents.is-visible,
+    .manifesto-contents.is-leaving {
+      transform: translateX(0) translateZ(0) !important;
+    }
+  }

@@ -1,0 +1,4 @@
+/* Hide Collections in float nav only on /projects/<slug> pages. */
+  html.hbw-route-project-detail .hbw-floatnav [data-hbw-route="collections"] {
+    display: none !important;
+  }
