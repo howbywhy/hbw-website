@@ -38,8 +38,15 @@ export function NavRegister({
     openPanel("info");
   }
 
+  const sheetOwnsRegister = panel === "studio";
+
   return (
-    <div className="hbw-nav-sub" data-face={face} aria-hidden={idle ? true : undefined} inert={idle || undefined}>
+    <div
+      className="hbw-nav-sub"
+      data-face={face}
+      aria-hidden={idle || sheetOwnsRegister ? true : undefined}
+      inert={idle || sheetOwnsRegister || undefined}
+    >
       <div className="hbw-nav-sub__browse" inert={face !== "browse" || undefined}>
         <div className="hbw-nav-sub__row" role="tablist" aria-label="View">
           <button
@@ -68,7 +75,13 @@ export function NavRegister({
         </div>
       </div>
       <div className="hbw-nav-sub__view" inert={face !== "view" || undefined}>
-        <button type="button" aria-pressed={panel === "info"} onClick={onInfo}>
+        <button
+          type="button"
+          className={panel === "info" ? "is-sheet-close" : undefined}
+          data-hbw-sheet-close={panel === "info" ? "info" : undefined}
+          aria-pressed={panel === "info"}
+          onClick={onInfo}
+        >
           {panel === "info" ? "Close" : "Info"}
         </button>
         {panel !== "info" ? (

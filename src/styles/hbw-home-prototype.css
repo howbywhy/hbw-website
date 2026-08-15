@@ -35,7 +35,7 @@ html.hbw-workspace {
   --hbw-pad-work: calc((100% - var(--hbw-work-col)) / 2);
   --hbw-context-w: var(--hbw-pad-work);
   --hbw-inspector-w: var(--hbw-context-w);
-  --hbw-studio-w: calc(100% - var(--hbw-doc-slice));
+  --hbw-studio-w: calc(var(--hbw-x-edge) - var(--hbw-x-studio));
   --hbw-radius: 0px;
   --hbw-lg: 0.9375rem;
   --hbw-sm: 0.8125rem;
@@ -132,45 +132,34 @@ html.hbw-workspace.hbw-project-page-loading .project-gallery {
 @keyframes hbw-intro-mark {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(var(--hbw-space-1));
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
 @keyframes hbw-intro-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(var(--hbw-space-2));
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
 @keyframes hbw-intro-toolbar {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(var(--hbw-space-2));
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
-}
-
-html.hbw-intro .hbw-home-strip__mark {
-  animation: hbw-intro-mark var(--hbw-motion-ui) var(--hbw-ease) both;
-}
-
-html.hbw-intro .hbw-nav-projects,
-html.hbw-intro .hbw-nav-studio,
-html.hbw-intro .hbw-home-strip__time {
-  opacity: 0;
-  pointer-events: none;
 }
 
 html.hbw-intro .hbw-window {
@@ -178,15 +167,50 @@ html.hbw-intro .hbw-window {
   transform: none;
 }
 
-html.hbw-intro .hbw-poster-toolbar,
-html.hbw-intro .hbw-poster-frozen {
+html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__mark,
+html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-projects,
+html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-studio,
+html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__time {
   opacity: 0;
+  transform: translateY(var(--hbw-space-1));
   pointer-events: none;
-  transform: translateY(10px);
+}
+
+html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-field,
+html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-toolbar,
+html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-frozen,
+html:not(.hbw-entered):not(.hbw-intro) .hbw-projects.is-open {
+  opacity: 0;
+  transform: translateY(var(--hbw-space-2));
+  pointer-events: none;
+}
+
+html.hbw-intro .hbw-home-strip {
+  pointer-events: none;
+}
+
+html.hbw-intro .hbw-home-strip__mark,
+html.hbw-intro .hbw-nav-projects,
+html.hbw-intro .hbw-nav-studio,
+html.hbw-intro .hbw-home-strip__time {
+  animation: hbw-intro-mark var(--hbw-motion-spatial) var(--hbw-ease) var(--hbw-motion-micro) both;
+}
+
+html.hbw-intro .hbw-poster-field,
+html.hbw-intro .hbw-poster-toolbar,
+html.hbw-intro .hbw-poster-frozen,
+html.hbw-intro .hbw-projects.is-open {
+  animation: hbw-intro-toolbar var(--hbw-motion-continuity) var(--hbw-ease) var(--hbw-motion-spatial) both;
+  pointer-events: none;
+}
+
+html.hbw-intro .hbw-projects {
+  transition: none;
+  transform: none;
 }
 
 html.hbw-intro .hbw-arrive {
-  display: flex;
+  display: none;
 }
 
 html:not(.hbw-intro):not(.hbw-arriving-make):not(.hbw-arriving-browse) .hbw-arrive {
@@ -272,7 +296,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 /* --- Navigation: the site grid --- */
 .hbw-home-strip {
   position: relative;
-  z-index: 40;
+  z-index: auto;
   display: grid;
   grid-template-columns:
     [full-start] var(--hbw-edge)
@@ -298,6 +322,8 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 .hbw-home-strip__brand {
   grid-column: brand-start;
   grid-row: 1;
+  position: relative;
+  z-index: 40;
   justify-self: start;
   display: flex;
   flex-direction: column;
@@ -381,6 +407,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   grid-column: projects-start;
   grid-row: 1;
   position: relative;
+  z-index: 40;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -392,6 +419,8 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 .hbw-nav-studio {
   grid-column: studio-start;
   grid-row: 1;
+  position: relative;
+  z-index: 40;
   justify-self: start;
   align-self: start;
   min-width: 4.6rem;
@@ -399,10 +428,43 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   transition: opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
+/* Sheet Close uses the existing nav control, stacked on the active sheet edge. */
+.hbw-nav-studio.is-sheet-close,
+.hbw-nav-projects.is-sheet-close,
+.hbw-nav-projects.is-sheet-close .hbw-nav-projects__hit,
+.hbw-nav-sub__view button.is-sheet-close {
+  z-index: 60;
+}
+
+.hbw-home.is-inspect .hbw-nav-projects,
+.hbw-home.is-inspect .hbw-nav-sub {
+  z-index: auto;
+}
+
+.hbw-home.is-inspect .hbw-nav-sub__view button.is-sheet-close {
+  position: fixed;
+  left: var(--hbw-x-studio);
+  top: var(--hbw-header-pad-y);
+  z-index: 60;
+  height: var(--hbw-nav-line);
+  display: inline-flex;
+  align-items: center;
+}
+
+.hbw-home.is-manifesto .hbw-nav-projects.is-sheet-close .hbw-nav-projects__hit {
+  transform: translateX(-100%);
+}
+
 .hbw-home.is-inspect .hbw-nav-studio,
-.hbw-home.is-studio .hbw-nav-projects,
-.hbw-home.is-manifesto .hbw-nav-projects {
+.hbw-home.is-studio .hbw-nav-projects:not(.is-sheet-close),
+.hbw-home.is-manifesto .hbw-nav-projects:not(.is-sheet-close) {
   opacity: 0;
+  pointer-events: none;
+}
+
+.hbw-home.is-manifesto .hbw-home-strip__brand,
+.hbw-home.is-inspect .hbw-home-strip__time,
+.hbw-home.is-studio:not(.is-manifesto) .hbw-home-strip__time {
   pointer-events: none;
 }
 
@@ -420,6 +482,8 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 .hbw-home-strip__time {
   grid-column: studio-start;
   grid-row: 1;
+  position: relative;
+  z-index: 40;
   justify-self: end;
   align-self: start;
   height: var(--hbw-nav-line);
@@ -601,6 +665,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 /* --- Shared communication window --- */
 .hbw-window {
   position: relative;
+  z-index: 1;
   flex: 1 1 0%;
   min-height: 0;
   margin: 0 var(--hbw-edge) var(--hbw-edge);
@@ -610,10 +675,6 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   border-radius: var(--hbw-radius, 0px);
   isolation: isolate;
   transform: translateZ(0);
-  --hbw-pad-work: calc((100% - var(--hbw-work-col)) / 2);
-  --hbw-context-w: var(--hbw-pad-work);
-  --hbw-inspector-w: var(--hbw-context-w);
-  --hbw-studio-w: calc(100% - var(--hbw-doc-slice));
 }
 
 .hbw-poster-field {
@@ -1311,88 +1372,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   pointer-events: none;
   transform: none;
   opacity: 0;
-  transition: transform var(--hbw-motion-continuity) var(--hbw-ease), opacity var(--hbw-motion-spatial) var(--hbw-ease),
-    width var(--hbw-motion-spatial) var(--hbw-ease);
-}
-
-.hbw-window.is-inspect .hbw-project-view.is-rising,
-.hbw-window.is-inspect .hbw-project-view.is-assembling,
-.hbw-window.is-inspect .hbw-project-view.is-active,
-.hbw-window.is-inspect .hbw-project-view.is-handoff-in {
-  left: 0;
-  right: auto;
-  width: 65%;
-  opacity: 1;
-}
-
-@media screen and (min-width: 768px) {
-  .hbw-window.is-inspect .hbw-project-view.is-rising,
-  .hbw-window.is-inspect .hbw-project-view.is-assembling,
-  .hbw-window.is-inspect .hbw-project-view.is-active,
-  .hbw-window.is-inspect .hbw-project-view.is-handoff-in {
-    overflow-x: hidden;
-    overflow-y: auto;
-    cursor: default;
-  }
-
-  .hbw-window.is-inspect .hbw-project-view__track {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    width: 100%;
-    height: auto;
-    min-height: 100%;
-    gap: var(--hbw-gallery-gap);
-    transform: none !important;
-    padding: 0 0 var(--hbw-space-5);
-  }
-
-  .hbw-window.is-inspect .hbw-mv,
-  .hbw-window.is-inspect .hbw-mv--narrow,
-  .hbw-window.is-inspect .hbw-mv--contained,
-  .hbw-window.is-inspect .hbw-mv--wide,
-  .hbw-window.is-inspect .hbw-mv--full {
-    width: 100%;
-    max-width: none;
-    height: auto;
-    aspect-ratio: var(--hbw-mv-ratio, 4 / 5);
-    transition: opacity var(--hbw-motion-ui) var(--hbw-ease);
-  }
-
-  .hbw-window.is-inspect .hbw-mv:not(.is-current) {
-    opacity: 0.58;
-    transition: opacity var(--hbw-motion-ui) var(--hbw-ease);
-  }
-
-  .hbw-window.is-inspect .hbw-mv.is-current {
-    opacity: 1;
-  }
-
-  .hbw-window.is-inspect .hbw-mv--wide,
-  .hbw-window.is-inspect .hbw-mv--full,
-  .hbw-window.is-inspect .hbw-mv--landscape,
-  .hbw-window.is-inspect .hbw-mv--film {
-    grid-column: span 2;
-  }
-
-  .hbw-window.is-inspect .hbw-mv__media,
-  .hbw-window.is-inspect .hbw-mv__film,
-  .hbw-window.is-inspect .hbw-mv__poster {
-    width: 100%;
-    height: auto;
-    max-height: none;
-    object-fit: contain;
-  }
-
-  .hbw-window.is-inspect .hbw-mv__film .hbw-mv__media,
-  .hbw-window.is-inspect .hbw-mv__film .hbw-mv__poster {
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .hbw-window.is-inspect .hbw-outro {
-    display: none;
-  }
+  transition: transform var(--hbw-motion-continuity) var(--hbw-ease), opacity var(--hbw-motion-spatial) var(--hbw-ease);
 }
 
 .hbw-project-view.is-rising,
@@ -1421,10 +1401,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   cursor: e-resize;
 }
 
-.hbw-project-view.is-read,
-.hbw-window.is-inspect .hbw-project-view.is-active,
-.hbw-window.is-inspect .hbw-project-view.is-rising,
-.hbw-window.is-inspect .hbw-project-view.is-assembling {
+.hbw-project-view.is-read {
   cursor: default;
 }
 
@@ -1684,16 +1661,17 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   object-fit: cover;
 }
 
-/* --- Information family: Info splits View; Studio overlays from the right --- */
+/* --- Information family: sheets pass over the workspace and frame --- */
 html.hbw-workspace .hbw-inspector {
   position: absolute;
   top: 0;
-  right: 0;
   bottom: 0;
-  width: var(--hbw-inspector-w);
-  height: 100%;
-  max-height: 100%;
-  z-index: 30;
+  left: var(--hbw-x-studio);
+  right: var(--hbw-edge);
+  width: auto;
+  height: auto;
+  max-height: none;
+  z-index: 50;
   background: var(--hbw-info, #fcfa9b);
   color: #1d1d1d;
   padding: var(--hbw-space-2) var(--hbw-space-3) var(--hbw-space-4);
@@ -1709,21 +1687,13 @@ html.hbw-workspace .hbw-inspector {
   backface-visibility: hidden;
 }
 
-html.hbw-workspace .hbw-inspector.is-overlay {
-  width: calc(100% - var(--hbw-doc-slice));
-}
-
-html.hbw-workspace .hbw-inspector.is-overlay:not(.is-manifesto) {
-  padding-left: calc(var(--hbw-pad-work) + var(--hbw-work-col) - var(--hbw-doc-slice));
-}
-
 html.hbw-workspace .hbw-inspector.is-overlay.is-manifesto {
-  right: auto;
-  left: 0;
+  left: var(--hbw-edge);
+  right: calc(100% - var(--hbw-x-projects));
+  width: auto;
   border-left: 0;
   border-right: 0;
   padding-left: var(--hbw-space-4);
-  padding-right: calc(var(--hbw-pad-work) * 0.35);
   transform: translateX(-110%) translateZ(0);
 }
 
@@ -1754,16 +1724,10 @@ html.hbw-workspace .hbw-inspector.is-overlay.is-manifesto.is-leaving {
   transform: translateX(-110%) translateZ(0);
 }
 
-.hbw-home.is-studio .hbw-window > :not(.hbw-inspector):not(.hbw-sheet),
-.hbw-home.is-manifesto .hbw-window > :not(.hbw-inspector):not(.hbw-sheet) {
-  filter: none;
-  opacity: 0.22;
+.hbw-home.is-studio .hbw-window,
+.hbw-home.is-manifesto .hbw-window,
+.hbw-home.is-inspect .hbw-window {
   pointer-events: none;
-  transition: opacity var(--hbw-t-spatial) var(--hbw-ease);
-}
-
-.hbw-window > :not(.hbw-inspector) {
-  transition: filter var(--hbw-t-spatial) var(--hbw-ease), opacity var(--hbw-t-spatial) var(--hbw-ease);
 }
 
 html.hbw-workspace .hbw-inspector h2 {
@@ -1846,17 +1810,6 @@ html.hbw-workspace .hbw-inspector .hbw-inspector__mail {
 
 html.hbw-workspace .hbw-inspector section {
   margin: 0 0 var(--hbw-space-4);
-}
-
-html.hbw-workspace .hbw-inspector.hbw-sheet.is-project-right {
-  left: auto;
-  right: 0;
-  width: 35%;
-}
-
-html.hbw-workspace .hbw-sheet.is-global-left,
-html.hbw-workspace .hbw-sheet.is-global-right {
-  width: var(--hbw-studio-w);
 }
 
 html.hbw-workspace .hbw-sheet .hbw-sheet__lead,
@@ -1985,7 +1938,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     transition: none;
   }
 
-  .hbw-home.is-studio .hbw-window > :not(.hbw-inspector),
+  .hbw-home.is-studio .hbw-window,
   .hbw-project-view.is-handoff-out,
   .hbw-project-view.is-handoff-in {
     filter: none;
@@ -1993,11 +1946,25 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   html.hbw-intro .hbw-home-strip__mark,
   html.hbw-intro .hbw-home-strip__nav,
+  html.hbw-intro .hbw-nav-projects,
+  html.hbw-intro .hbw-nav-studio,
   html.hbw-intro .hbw-home-strip__time,
   html.hbw-intro .hbw-window,
+  html.hbw-intro .hbw-poster-field,
   html.hbw-intro .hbw-poster-toolbar,
+  html.hbw-intro .hbw-poster-frozen,
+  html.hbw-intro .hbw-projects,
+  html.hbw-intro .hbw-projects.is-open,
   html.hbw-intro .hbw-arrive__line,
-  html.hbw-intro .hbw-arrive__paths {
+  html.hbw-intro .hbw-arrive__paths,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__mark,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-projects,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-studio,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__time,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-field,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-toolbar,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-frozen,
+  html:not(.hbw-entered):not(.hbw-intro) .hbw-projects.is-open {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -2110,6 +2077,23 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     grid-row: 2;
     min-width: 0;
     justify-self: end;
+  }
+
+  .hbw-home.is-inspect .hbw-nav-sub {
+    z-index: 60;
+  }
+
+  .hbw-home.is-inspect .hbw-nav-sub__view button.is-sheet-close {
+    position: static;
+    left: auto;
+    top: auto;
+    height: auto;
+    display: inline-flex;
+  }
+
+  .hbw-home.is-manifesto .hbw-nav-projects.is-sheet-close .hbw-nav-projects__hit {
+    transform: none;
+    z-index: 60;
   }
 
   .hbw-home-strip__time {
@@ -2339,6 +2323,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   html.hbw-workspace .hbw-inspector,
   html.hbw-workspace .hbw-inspector.is-overlay,
+  html.hbw-workspace .hbw-inspector.is-overlay.is-manifesto,
   html.hbw-workspace .hbw-inspector.hbw-sheet.is-project-right,
   html.hbw-workspace .hbw-sheet {
     position: absolute;
@@ -2348,20 +2333,9 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     bottom: 0;
     width: 100%;
     max-width: 100%;
-    height: 100%;
-    max-height: 100%;
+    height: auto;
+    max-height: none;
     padding: var(--hbw-space-3) var(--hbw-space-3) var(--hbw-space-4);
-    z-index: 30;
-  }
-
-  .hbw-window.is-inspect .hbw-project-view.is-rising,
-  .hbw-window.is-inspect .hbw-project-view.is-assembling,
-  .hbw-window.is-inspect .hbw-project-view.is-active,
-  .hbw-window.is-inspect .hbw-project-view.is-handoff-in {
-    left: 0;
-    right: 0;
-    width: 100%;
-    opacity: 0;
-    pointer-events: none;
+    z-index: 50;
   }
 }

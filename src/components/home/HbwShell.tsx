@@ -43,6 +43,7 @@ const INTRO_KEY = "hbw.entered.v2";
 function completeIntro() {
   if (typeof document === "undefined") return;
   document.documentElement.classList.remove("hbw-intro");
+  document.documentElement.classList.add("hbw-entered");
   try {
     sessionStorage.setItem(INTRO_KEY, "1");
   } catch {
@@ -313,7 +314,12 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
 
   useLayoutEffect(() => {
     if (!document.documentElement.classList.contains("hbw-intro")) return;
-    if (reduceMotion()) completeIntro();
+    if (reduceMotion()) {
+      completeIntro();
+      return;
+    }
+    const id = window.setTimeout(completeIntro, HBW_T.spatial + HBW_T.continuity + HBW_T.ui);
+    return () => window.clearTimeout(id);
   }, []);
 
   useEffect(() => {
@@ -722,7 +728,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (panel !== "info") return;
-    const inspector = document.querySelector<HTMLElement>(".hbw-inspector:not(.is-overlay)");
+    const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
     const node = inspector?.querySelector<HTMLElement>(`[data-hbw-info-section="${infoAnchor}"]`);
     if (inspector && node) inspector.scrollTop = Math.max(0, node.offsetTop - 24);
   }, [panel, infoAnchor]);
@@ -751,8 +757,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     Boolean(experience) && !preparingView && (windowMode === "view" || phase !== "idle");
   const viewExit = navFace === "view" && panel !== "info" && panel !== "studio";
   const manifestoOpen = panel === "studio" && studioView === "manifesto" && !panelLeaving;
-  const studioClose = panel === "studio" && !manifestoOpen;
-  const muteProjects = panel === "studio" && !panelLeaving;
+  const manifestoSheet = panel === "studio" && studioView === "manifesto";
+  const studioClose = panel === "studio" && studioView !== "manifesto";
+  const muteProjects = panel === "studio" && studioView !== "manifesto";
   const muteStudio = inspecting;
 
   return (
@@ -783,7 +790,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         data-hbw-to={swap?.to}
       >
         <header className="hbw-home-strip">
-          <div className="hbw-home-strip__brand">
+          <div className="hbw-home-strip__brand" inert={manifestoSheet || undefined}>
             <button type="button" className="hbw-home-strip__home" aria-label="How by Why" onClick={navFace === "view" ? undefined : returnToMake}>
               <span className="hbw-home-strip__mark">How by Why</span>
               <span className={`hbw-home-strip__identity${navFace === "view" && experience ? " is-on" : ""}`}>
@@ -809,13 +816,22 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
             </button>
           </div>
           <nav className="hbw-home-strip__nav" aria-label="Primary">
-            <div className="hbw-nav-projects" inert={muteProjects || undefined} aria-hidden={muteProjects || undefined}>
+            <div
+              className={`hbw-nav-projects${manifestoSheet ? " is-sheet-close" : ""}`}
+              inert={muteProjects || undefined}
+              aria-hidden={muteProjects || undefined}
+            >
               <button
                 ref={projectsRef}
                 type="button"
                 className="hbw-nav-projects__hit"
                 data-hbw-peek-enabled={peekEnabled ? "true" : "false"}
-                aria-label={navFace === "browse" || (swap?.from === "browse" && swap.to === "make") ? "Close" : "Projects"}
+                data-hbw-sheet-close={manifestoSheet ? "manifesto" : undefined}
+                aria-label={
+                  manifestoSheet || navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
+                    ? "Close"
+                    : "Projects"
+                }
                 aria-expanded={windowMode === "browse" || peek.open}
                 aria-controls="hbw-projects-layer"
                 tabIndex={muteProjects ? -1 : undefined}
@@ -835,11 +851,17 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 onClick={() => {
                   if (muteProjects) return;
                   peek.hideNow();
+                  if (manifestoSheet) {
+                    closePanel();
+                    return;
+                  }
                   if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
                   else openProjects();
                 }}
               >
-                {navFace === "browse" || (swap?.from === "browse" && swap.to === "make") ? "Close" : "Projects"}
+                {manifestoSheet || navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
+                  ? "Close"
+                  : "Projects"}
               </button>
               <NavRegister
                 face={navFace}
@@ -860,7 +882,8 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
             </div>
             <button
               type="button"
-              className="hbw-nav-studio"
+              className={`hbw-nav-studio${studioClose ? " is-sheet-close" : ""}`}
+              data-hbw-sheet-close={studioClose ? "studio" : undefined}
               aria-pressed={panel === "studio"}
               aria-label={studioClose ? "Close" : "Studio"}
               aria-hidden={muteStudio || undefined}
@@ -880,7 +903,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           </span>
         </header>
 
-        <div className={`hbw-window${inspecting ? " is-inspect" : ""}`}>
+        <div className="hbw-window">
           <PosterTool dormant={!makeActive} />
           <Arrival onMake={arriveMake} onBrowse={arriveBrowse} />
           <ProjectsLayer
@@ -920,16 +943,16 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               onCommitNext={commitNext}
             />
           ) : null}
-          <WorkspacePanel
-            panel={panel}
-            leaving={panelLeaving}
-            studioView={studioView}
-            infoAnchor={infoAnchor}
-            experience={experience}
-            onShowManifesto={showManifesto}
-            onShowStudio={showStudioContent}
-          />
         </div>
+        <WorkspacePanel
+          panel={panel}
+          leaving={panelLeaving}
+          studioView={studioView}
+          infoAnchor={infoAnchor}
+          experience={experience}
+          onShowManifesto={showManifesto}
+          onShowStudio={showStudioContent}
+        />
         <MotionDebug
           mode={windowMode}
           project={viewSlug}

@@ -26,7 +26,7 @@ export function InformationSheet({
   const visible = open && !leaving;
   return (
     <aside
-      className={`hbw-sheet hbw-inspector is-${variant}${variant !== "project-right" ? " is-overlay" : ""}${
+      className={`hbw-sheet hbw-inspector is-${variant} is-overlay${
         variant === "global-left" ? " is-manifesto" : ""
       }${held ? " is-held" : ""}${visible ? " is-visible" : ""}${leaving ? " is-leaving" : ""}`}
       data-hbw-sheet={variant}

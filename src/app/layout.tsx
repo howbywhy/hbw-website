@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { HbwShell } from "@/components/home/HbwShell";
 import { HbwRuntime } from "@/components/HbwRuntime";
 import "@/styles/document.css";
@@ -30,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script src="/runtime/hbw-workspace-boot.js" strategy="beforeInteractive" />
+        <script src="/runtime/hbw-workspace-boot.js" />
       </head>
       <body className="body" suppressHydrationWarning>
         <HbwShell>{children}</HbwShell>

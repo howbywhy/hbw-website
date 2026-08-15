@@ -27,14 +27,23 @@
       root.classList.add("hbw-workspace");
       root.classList.add("hbw-home-prototype");
     }
-    var q = location.search || "";
     if (sessionStorage.getItem("hbw.entered.v2")) {
+      root.classList.add("hbw-entered");
     } else if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       sessionStorage.setItem("hbw.entered.v2", "1");
-    } else if (p === "/" && q.indexOf("layer=") === -1) {
+      root.classList.add("hbw-entered");
+    } else if (p === "/") {
       root.classList.add("hbw-intro");
+      window.setTimeout(function () {
+        root.classList.remove("hbw-intro");
+        root.classList.add("hbw-entered");
+        try {
+          sessionStorage.setItem("hbw.entered.v2", "1");
+        } catch (e2) {}
+      }, 1140);
     } else {
       sessionStorage.setItem("hbw.entered.v2", "1");
+      root.classList.add("hbw-entered");
     }
   } catch (e) {}
 })();

@@ -38,8 +38,6 @@ export function ProjectView({
   const offsets = useRef<number[]>([]);
   const outroLeft = useRef(0);
   const drag = useRef<{ x: number; from: number } | null>(null);
-  const inspectX = useRef(0);
-  const inspectY = useRef(0);
   const mobile = useRef(false);
   const committed = useRef(false);
   const movingTimer = useRef(0);
@@ -176,25 +174,13 @@ export function ProjectView({
     if (inspecting && !wasInspecting.current) {
       wasInspecting.current = true;
       window.clearTimeout(movingTimer.current);
-      root?.closest(".hbw-home")?.classList.remove("is-moving");
-      if (mobile.current) inspectY.current = root.scrollTop;
-      else inspectX.current = xRef.current;
-      if (!mobile.current) {
-        const i = Math.min(indexRef.current, total - 1);
-        root.querySelectorAll<HTMLElement>(".hbw-mv")[i]?.scrollIntoView({ block: "start", behavior: "instant" });
-      }
+      root.closest(".hbw-home")?.classList.remove("is-moving");
       return;
     }
     if (!inspecting && wasInspecting.current) {
       wasInspecting.current = false;
-      if (mobile.current) {
-        root.scrollTop = inspectY.current;
-        return;
-      }
-      measure();
-      applyX(inspectX.current, false, true);
     }
-  }, [applyX, inspecting, measure, phase, total]);
+  }, [inspecting, phase]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -202,7 +188,7 @@ export function ProjectView({
     const ro = new ResizeObserver(() => {
       const track = trackRef.current;
       if (!track) return;
-      if (mobile.current || inspecting) {
+      if (mobile.current) {
         measure();
         return;
       }
@@ -231,7 +217,7 @@ export function ProjectView({
     });
     ro.observe(root);
     return () => ro.disconnect();
-  }, [applyX, inspecting, measure, total]);
+  }, [applyX, measure, total]);
 
   useEffect(() => {
     const node = rootRef.current;
