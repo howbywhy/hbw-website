@@ -29,12 +29,6 @@
     "bodyAttrs": "class=\"body\"",
     "htmlClass": ""
   },
-  "/intake/start": {
-    "file": "src/recovered/html/intake__start.html",
-    "title": "Hello. Hiya. Welcome",
-    "bodyAttrs": "",
-    "htmlClass": ""
-  },
   "/projects/sub-3": {
     "file": "src/recovered/html/projects__sub-3.html",
     "title": "SUB:3 — HBW",

@@ -51,10 +51,6 @@
       const norm = (p) => (p || "/").replace(/\/+$/, "") || "/";
       const path = norm(location.pathname);
 
-      try {
-        document.documentElement.classList.toggle("hbw-route-intake-start", path === "/intake/start");
-      } catch (eIntake) {}
-
       const isProjectDetail = (p) => p.startsWith("/projects/") && p !== "/projects";
 
       const isManifestoPath = (p) => {

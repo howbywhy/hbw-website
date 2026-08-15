@@ -16,5 +16,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
+  if (
+    slug === "sub-3" ||
+    slug === "koja" ||
+    slug === "bar-closed" ||
+    slug === "our-boy-roy" ||
+    slug === "chris-sisarich" ||
+    slug === "bistro-nido"
+  ) {
+    return null;
+  }
   return <RecoveredPage html={getRecoveredHtml(`/projects/${slug}`)} />;
 }

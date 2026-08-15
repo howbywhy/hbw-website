@@ -1,0 +1,281 @@
+"use client";
+
+import {
+  matchesFilter,
+  PROJECTS,
+  sortProjects,
+  visualSource,
+  type ProjectRecord,
+} from "@/components/home/catalog";
+import type { FilterDim, ProjectsMode, SortId } from "@/components/home/workspace";
+import { openingVisual, preloadProject } from "@/components/home/preload";
+import { useMemo } from "react";
+
+type Props = {
+  open: boolean;
+  dropping?: boolean;
+  entering?: boolean;
+  owning?: boolean;
+  mode: ProjectsMode;
+  selectedId: string;
+  hoveredId: string | null;
+  filterDim: FilterDim;
+  filterValue: string;
+  sort: SortId;
+  onHover: (id: string | null) => void;
+  onSelect: (id: string) => void;
+  onEnterProject: (id: string) => void;
+  onLens: (dim: FilterDim, value: string) => void;
+};
+
+function enterClick(event: React.MouseEvent, id: string, href: string, onEnter: (id: string) => void) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+    if (event.metaKey || event.ctrlKey) window.open(href, "_blank", "noopener");
+    return;
+  }
+  if (event.button !== 0) return;
+  event.preventDefault();
+  onEnter(id);
+}
+
+function hoverFromTarget(target: EventTarget | null, onHover: (id: string) => void) {
+  const node = target instanceof Element ? target.closest("[data-hbw-project]") : null;
+  const id = node instanceof HTMLElement ? node.dataset.hbwProject : undefined;
+  if (id) onHover(id);
+}
+
+export function ProjectsLayer({
+  open,
+  dropping = false,
+  entering = false,
+  owning = false,
+  mode,
+  selectedId,
+  hoveredId,
+  filterDim,
+  filterValue,
+  sort,
+  onHover,
+  onSelect,
+  onEnterProject,
+  onLens,
+}: Props) {
+  const filtered = useMemo(() => {
+    const next = PROJECTS.filter((project) => matchesFilter(project, filterDim, filterValue));
+    return sortProjects(next, sort);
+  }, [filterDim, filterValue, sort]);
+
+  function activate(id: string) {
+    onSelect(id);
+    onEnterProject(id);
+  }
+
+  function onRowHover(id: string) {
+    onHover(id);
+    preloadProject(id);
+  }
+
+  return (
+    <div
+      id="hbw-projects-layer"
+      className={`hbw-projects${open ? " is-open" : ""}${dropping ? " is-dropping" : ""}${
+        entering ? " is-entering" : ""
+      } is-${mode}`}
+      aria-hidden={!open || dropping ? true : undefined}
+      inert={!open || dropping || entering}
+    >
+      <div className="hbw-browse">
+        <div
+          className={`hbw-browse__archive hbw-browse__grid${mode === "index" ? " hbw-browse__index" : ""}`}
+          role="list"
+          onPointerOver={(event) => hoverFromTarget(event.target, onRowHover)}
+          onPointerLeave={() => onHover(null)}
+        >
+          {filtered.map((project, index) => (
+            <ArchiveItem
+              key={project.id}
+              project={project}
+              mode={mode}
+              selected={project.id === selectedId}
+              hovered={project.id === hoveredId}
+              filterDim={filterDim}
+              filterValue={filterValue}
+              eager={mode === "visual" && index < 4}
+              entering={entering}
+              owning={owning}
+              onHover={onRowHover}
+              onActivate={activate}
+              onLens={onLens}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RelValue({
+  dim,
+  value,
+  currentDim,
+  currentValue,
+  onLens,
+}: {
+  dim: FilterDim;
+  value: string;
+  currentDim: FilterDim;
+  currentValue: string;
+  onLens: (dim: FilterDim, value: string) => void;
+}) {
+  const active = currentDim === dim && currentValue === value;
+  return (
+    <button
+      type="button"
+      className={`hbw-browse__rel${active ? " is-active" : ""}`}
+      data-hbw-rel={dim}
+      data-hbw-rel-value={value}
+      aria-pressed={active}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onLens(active ? "all" : dim, active ? "" : value);
+      }}
+    >
+      {value}
+    </button>
+  );
+}
+
+function ArchiveItem({
+  project,
+  mode,
+  selected,
+  hovered,
+  filterDim,
+  filterValue,
+  eager = false,
+  entering = false,
+  owning = false,
+  onHover,
+  onActivate,
+  onLens,
+}: {
+  project: ProjectRecord;
+  mode: ProjectsMode;
+  selected: boolean;
+  hovered: boolean;
+  filterDim: FilterDim;
+  filterValue: string;
+  eager?: boolean;
+  entering?: boolean;
+  owning?: boolean;
+  onHover: (id: string) => void;
+  onActivate: (id: string) => void;
+  onLens: (dim: FilterDim, value: string) => void;
+}) {
+  const visual = mode === "visual";
+  const media = visual ? openingVisual(project.id) : visualSource(project);
+  const layout = project.layout;
+  const span = project.visualSpan ?? (layout === "wide" ? 8 : layout === "landscape" ? 6 : layout === "contained" ? 4 : 7);
+  const start = project.visualStart;
+  const before = project.visualBefore;
+  const disciplines = project.disciplines ?? [];
+  const collaborators = project.collaborators ?? [];
+  const sizes = visual
+    ? span >= 7
+      ? "(max-width: 767px) 94vw, 62vw"
+      : span >= 5
+        ? "(max-width: 767px) 94vw, 48vw"
+        : "(max-width: 767px) 46vw, 32vw"
+    : "40px";
+
+  return (
+    <div
+      role="listitem"
+      tabIndex={0}
+      data-hbw-project={project.id}
+      data-layout={layout}
+      data-span={span}
+      className={`hbw-browse__item ${visual ? "hbw-browse__cell" : "hbw-browse__row"} is-${layout}${
+        selected ? " is-active" : ""
+      }${hovered ? " is-hovered" : ""}`}
+      aria-label={project.name}
+      aria-current={selected ? "true" : undefined}
+      style={{
+        ["--hbw-crop" as string]: media.crop,
+        ["--hbw-span" as string]: String(span),
+        ...(visual && start ? { ["--hbw-start" as string]: String(start) } : {}),
+        ...(visual && before ? { marginTop: `var(--hbw-space-${before})` } : {}),
+      }}
+      onFocus={() => onHover(project.id)}
+      onPointerEnter={() => onHover(project.id)}
+      onBlur={(event) => {
+        if (!event.currentTarget.parentElement?.contains(event.relatedTarget as Node)) onHover("");
+      }}
+      onClick={(event) => enterClick(event, project.id, project.href, onActivate)}
+      onKeyDown={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        onActivate(project.id);
+      }}
+    >
+      <span className="hbw-browse__media hbw-browse__row-thumb" aria-hidden="true">
+        <img
+          src={media.src}
+          srcSet={media.srcSet}
+          sizes={sizes}
+          alt=""
+          width={media.width}
+          height={media.height}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={eager ? "high" : undefined}
+          style={
+            entering || (owning && !selected)
+              ? undefined
+              : { viewTransitionName: `hbw-media-${project.id}` }
+          }
+        />
+      </span>
+      <span className="hbw-browse__title hbw-browse__row-name">{project.name}</span>
+      <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
+      <span className="hbw-browse__row-disc">
+        {disciplines.map((value, i) => (
+          <span key={value}>
+            {i > 0 ? <span aria-hidden="true"> · </span> : null}
+            <RelValue
+              dim="discipline"
+              value={value}
+              currentDim={filterDim}
+              currentValue={filterValue}
+              onLens={onLens}
+            />
+          </span>
+        ))}
+      </span>
+      <span className="hbw-browse__row-collab">
+        {collaborators.map((value, i) => (
+          <span key={value}>
+            {i > 0 ? <span aria-hidden="true"> · </span> : null}
+            <RelValue
+              dim="collaborator"
+              value={value}
+              currentDim={filterDim}
+              currentValue={filterValue}
+              onLens={onLens}
+            />
+          </span>
+        ))}
+      </span>
+      <span className="hbw-browse__row-year">
+        <RelValue
+          dim="year"
+          value={project.year}
+          currentDim={filterDim}
+          currentValue={filterValue}
+          onLens={onLens}
+        />
+      </span>
+    </div>
+  );
+}

@@ -8,7 +8,6 @@
       if (p === '/projects' || p === '/project' || p.indexOf('/projects/') === 0 || p.indexOf('/project/') === 0) {
         document.documentElement.classList.add('hbw-route-projects');
       }
-      document.documentElement.classList.toggle('hbw-route-intake-start', p === '/intake/start');
       /*
         If we land directly on a project detail route, ensure the "loading" gate is
         applied before first paint. This prevents the gallery from rendering, then

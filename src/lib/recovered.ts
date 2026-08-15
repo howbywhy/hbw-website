@@ -10,7 +10,6 @@ const PAGE_FILES: Record<string, string> = {
   "/studio": "studio.html",
   "/collections": "collections.html",
   "/manifesto": "manifesto.html",
-  "/intake/start": "intake__start.html",
   "/projects/sub-3": "projects__sub-3.html",
   "/projects/koja": "projects__koja.html",
   "/projects/bar-closed": "projects__bar-closed.html",

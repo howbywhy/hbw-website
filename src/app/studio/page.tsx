@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { RecoveredPage } from "@/components/RecoveredPage";
-import { getRecoveredHtml, getRecoveredMeta } from "@/lib/recovered";
+import { getRecoveredMeta } from "@/lib/recovered";
 
 const meta = getRecoveredMeta("/studio");
 
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function StudioPage() {
-  return <RecoveredPage html={getRecoveredHtml("/studio")} />;
+  return null;
 }

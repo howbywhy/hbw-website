@@ -132,12 +132,6 @@
     "bytes": 35783
   },
   {
-    "file": "/runtime/23-intake.js",
-    "hint": "intake",
-    "source": "intake__start-inline-14.js",
-    "bytes": 4330
-  },
-  {
     "file": "/runtime/24-script-4dc8676b.js",
     "hint": "script-4dc8676b",
     "source": "collections-inline-01.js",

@@ -1,35 +1,6 @@
 /* Evolution 01 — rail, float nav, SUB:3 only. Does not replace recovered visual language. */
 
 /* -------------------------------------------------------------------------- */
-/* 01 — Selected Works rail                                                    */
-/* -------------------------------------------------------------------------- */
-
-.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block {
-  opacity: 0.58;
-  transition: opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block.is-hbw-rail-active,
-.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block:hover,
-.folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block:focus-within {
-  opacity: 1;
-}
-
-@media screen and (min-width: 768px) and (hover: hover) {
-  .folder-tab-container .folder-projects-list .project-link-block.is-hbw-rail-active .project-card-description,
-  .folder-tab-container .folder-projects-list .project-link-block.is-hbw-rail-active .project-card-note {
-    max-height: var(--project-card-expand-max) !important;
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .folder-tab-container.is-hbw-rail-has-active .folder-projects-list .project-link-block {
-    transition: none;
-  }
-}
-
-/* -------------------------------------------------------------------------- */
 /* 02 — Centre pill: grow from a fixed centre; items ease in without reflow   */
 /* -------------------------------------------------------------------------- */
 

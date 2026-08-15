@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { RecoveredPage } from "@/components/RecoveredPage";
-import { getRecoveredHtml, getRecoveredMeta } from "@/lib/recovered";
+import { getRecoveredMeta } from "@/lib/recovered";
 
 const meta = getRecoveredMeta("/");
 
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <RecoveredPage html={getRecoveredHtml("/")} />;
+  return null;
 }

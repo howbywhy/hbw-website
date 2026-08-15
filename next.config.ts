@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    optimizePackageImports: ["@phosphor-icons/react"],
+  },
+  async redirects() {
+    return [{ source: "/intake/start", destination: "/studio", permanent: true }];
+  },
 };
 
 export default nextConfig;

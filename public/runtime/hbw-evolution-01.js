@@ -240,7 +240,16 @@
     }
   }
 
+  function isWorkspace() {
+    try {
+      return document.documentElement.classList.contains("hbw-workspace");
+    } catch (e) {
+      return false;
+    }
+  }
+
   function prepareSub3() {
+    if (isWorkspace()) return;
     if (!isSub3()) return;
     try {
       document.documentElement.classList.add("hbw-route-sub3");
@@ -285,6 +294,7 @@
   }
 
   function onSub3Arrow(event) {
+    if (isWorkspace()) return;
     if (!isSub3()) return;
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
     if (event.target && event.target.closest && event.target.closest("input, textarea, select, [contenteditable='true'], .hbw-floatnav"))
@@ -317,7 +327,7 @@
 
   document.addEventListener("click", onRailClick, true);
   document.addEventListener("keydown", onNavKeydown, true);
-  document.addEventListener("keydown", onSub3Arrow, false);
+  if (!isWorkspace()) document.addEventListener("keydown", onSub3Arrow, false);
   document.addEventListener("page:swup-complete", boot, false);
   window.addEventListener("pageshow", boot, false);
   window.addEventListener("popstate", function () {

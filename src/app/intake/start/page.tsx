@@ -1,14 +1,5 @@
-import type { Metadata } from "next";
-import { RecoveredPage } from "@/components/RecoveredPage";
-import { getRecoveredHtml, getRecoveredMeta } from "@/lib/recovered";
-
-const meta = getRecoveredMeta("/intake/start");
-
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-};
+import { redirect } from "next/navigation";
 
 export default function IntakeStartPage() {
-  return <RecoveredPage html={getRecoveredHtml("/intake/start")} />;
+  redirect("/studio");
 }

@@ -1,0 +1,363 @@
+/* Evolution 02 — Work / Index / Inspector prototype. Isolated; reversible. */
+
+.hbw-mode-switch {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  padding: 10px 2px 8px;
+  font-family: Geist, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  line-height: 1rem;
+  color: #333;
+  z-index: 2;
+}
+
+.hbw-mode-switch__btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.38;
+  letter-spacing: inherit;
+}
+
+.hbw-mode-switch__btn.is-current {
+  opacity: 1;
+}
+
+.hbw-mode-switch__btn:focus-visible {
+  outline: 1px solid #333;
+  outline-offset: 2px;
+}
+
+.hbw-mode-switch__rule {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.folder-tab-container .hbw-mode-switch {
+  padding: 4px 0 10px;
+}
+
+/* Home INDEX: type list in the yellow rail; one image occupies the field.
+   IDs are required to beat recovered home.html inline collapse rules. */
+#folder-tab-container.is-hbw-mode-index,
+.folder-tab-container.is-hbw-mode-index {
+  position: relative;
+}
+
+#folder-tab-container.is-hbw-mode-index .folder-projects-list,
+.folder-tab-container.is-hbw-mode-index .folder-projects-list {
+  z-index: 1;
+  width: 100%;
+  align-self: stretch;
+  padding-bottom: 46%;
+}
+
+#folder-tab-container.is-hbw-mode-index .project-link-block,
+#folder-tab-container.is-hbw-mode-index .project-card-container,
+#folder-tab-container.is-hbw-mode-index .project-card-contents,
+.folder-tab-container.is-hbw-mode-index .project-link-block,
+.folder-tab-container.is-hbw-mode-index .project-card-container,
+.folder-tab-container.is-hbw-mode-index .project-card-contents {
+  position: static;
+  display: block;
+  height: auto;
+  border: 0;
+}
+
+#folder-tab-container.is-hbw-mode-index .project-link-block,
+.folder-tab-container.is-hbw-mode-index .project-link-block {
+  padding: 0.55rem 0 0.7rem;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.28);
+  width: 100%;
+}
+
+#folder-tab-container.is-hbw-mode-index .project-card-image,
+.folder-tab-container.is-hbw-mode-index .project-card-image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  max-width: none;
+  height: 42%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  transition: opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#folder-tab-container.is-hbw-mode-index .project-link-block.is-hbw-index-present .project-card-image,
+.folder-tab-container.is-hbw-mode-index .project-link-block.is-hbw-index-present .project-card-image {
+  opacity: 1;
+}
+
+#folder-tab-container.is-hbw-mode-index .project-card-image img,
+#folder-tab-container.is-hbw-mode-index .project-card-image .image-8,
+.folder-tab-container.is-hbw-mode-index .project-card-image img,
+.folder-tab-container.is-hbw-mode-index .project-card-image .image-8 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#folder-tab-container.is-hbw-mode-index .logo-archive-overlay,
+.folder-tab-container.is-hbw-mode-index .logo-archive-overlay {
+  display: none;
+}
+
+#folder-tab-container.is-hbw-mode-index .folder-projects-list .project-information,
+#folder-tab-container.is-hbw-mode-index .folder-projects-list .card-title-container,
+#folder-tab-container.is-hbw-mode-index .folder-projects-list .project-card-title,
+#folder-tab-container.is-hbw-mode-index .folder-projects-list .project-card-description,
+#folder-tab-container.is-hbw-mode-index .folder-projects-list .project-card-note,
+.folder-tab-container.is-hbw-mode-index .folder-projects-list .project-information,
+.folder-tab-container.is-hbw-mode-index .folder-projects-list .card-title-container,
+.folder-tab-container.is-hbw-mode-index .folder-projects-list .project-card-title,
+.folder-tab-container.is-hbw-mode-index .folder-projects-list .project-card-description,
+.folder-tab-container.is-hbw-mode-index .folder-projects-list .project-card-note {
+  position: relative;
+  max-height: none !important;
+  opacity: 1 !important;
+  overflow: visible;
+  height: auto;
+}
+
+#folder-tab-container.is-hbw-mode-index .pct-type,
+#folder-tab-container.is-hbw-mode-index .pcd-type,
+#folder-tab-container.is-hbw-mode-index .pcn-type,
+.folder-tab-container.is-hbw-mode-index .pct-type,
+.folder-tab-container.is-hbw-mode-index .pcd-type,
+.folder-tab-container.is-hbw-mode-index .pcn-type {
+  opacity: 1;
+}
+
+/* Projects IMAGE / INDEX */
+.hbw-projects-switch {
+  position: fixed;
+  top: calc(var(--hbw-h, 2.5rem) + var(--hbw-top, 0.6rem) + 0.2rem);
+  left: max(1.25rem, env(safe-area-inset-left, 0px));
+  transform: none;
+  z-index: 99970;
+  pointer-events: auto;
+}
+
+html.hbw-route-projects-index .hbw-projects-switch {
+  display: flex;
+}
+
+html:not(.hbw-route-projects-index) .hbw-projects-switch {
+  display: none;
+}
+
+html.hbw-projects-mode-index .home-page-portfolio .gallery-item-link {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: none !important;
+}
+
+html.hbw-projects-mode-index .home-page-portfolio .gallery-item-link.is-hbw-index-present {
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
+html.hbw-projects-mode-index .home-page-portfolio .gallery-item-link .project-information {
+  opacity: 0;
+}
+
+.hbw-projects-index {
+  display: none;
+  position: fixed;
+  left: max(1.25rem, env(safe-area-inset-left, 0px));
+  top: 22vh;
+  bottom: 8vh;
+  width: min(28rem, 42vw);
+  z-index: 99970;
+  overflow-y: auto;
+  overflow-x: hidden;
+  pointer-events: auto;
+  scrollbar-width: none;
+}
+
+.hbw-projects-index::-webkit-scrollbar {
+  display: none;
+}
+
+html.hbw-projects-mode-index .hbw-projects-index {
+  display: block;
+}
+
+.hbw-projects-index__row {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 0.7rem 0 0.85rem;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.22);
+  font-family: Geist, sans-serif;
+}
+
+.hbw-projects-index__row:focus-visible {
+  outline: 1px solid #333;
+  outline-offset: 3px;
+}
+
+.hbw-projects-index__name {
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  line-height: 1.2rem;
+}
+
+.hbw-projects-index__pos,
+.hbw-projects-index__year {
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  line-height: 1.2rem;
+  opacity: 0.72;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.hbw-projects-mode-index .home-page-portfolio .gallery-item-link,
+  .folder-tab-container.is-hbw-mode-index .project-card-image {
+    transition: none;
+  }
+}
+
+/* SUB:3 Info control + Inspector (Studio side-panel grammar) */
+.hbw-info-toggle {
+  position: fixed;
+  top: 0;
+  left: 1.1rem;
+  height: var(--hbw-h, 2.5rem);
+  display: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-family: Geist, system-ui, sans-serif;
+  font-size: var(--hbw-font-size-body, 0.94rem);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 99990;
+}
+
+html.hbw-route-sub3 .hbw-info-toggle {
+  display: inline-flex;
+}
+
+.hbw-info-toggle:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 3px;
+}
+
+html.hbw-info-open .hbw-info-toggle {
+  color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  html.hbw-info-open .hbw-info-toggle {
+    color: #333;
+    mix-blend-mode: normal;
+  }
+}
+
+.hbw-info {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  max-width: 80vw;
+  z-index: 99980;
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.hbw-info__panel {
+  width: 100%;
+  height: 100%;
+  background-color: #fcfa9b;
+  color: #333;
+  padding: 50px 40px 50px 30px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  pointer-events: auto;
+  will-change: transform;
+  transform: translateX(var(--about-swipe-distance, var(--hbw-panel-swipe-distance, 110%))) translateZ(0);
+  transition: transform var(--about-swipe-duration, var(--hbw-panel-swipe-duration, 380ms))
+    var(--about-swipe-ease, var(--hbw-panel-swipe-ease, cubic-bezier(0.4, 0, 0.2, 1)));
+  backface-visibility: hidden;
+}
+
+.hbw-info.is-visible .hbw-info__panel {
+  transform: translateX(0) translateZ(0);
+}
+
+.hbw-info.is-leaving .hbw-info__panel {
+  transform: translateX(var(--about-swipe-distance, var(--hbw-panel-swipe-distance, 110%))) translateZ(0);
+  transition: transform var(--about-swipe-leave-duration, 440ms)
+    var(--about-swipe-leave-ease, cubic-bezier(0.32, 0, 0.67, 0));
+}
+
+.hbw-info__kicker {
+  margin: 0 0 0.35rem;
+}
+
+.hbw-info__line {
+  margin: 0 0 2.2rem;
+}
+
+.hbw-info__section {
+  margin: 0 0 2rem;
+}
+
+.hbw-info__section .h1 {
+  margin: 0 0 0.65rem;
+}
+
+.hbw-info__section .p-small {
+  margin: 0;
+}
+
+.hbw-info__meta {
+  margin: 2.4rem 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .hbw-info {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .hbw-info__panel {
+    padding: 72px 22px 32px;
+  }
+
+  .hbw-projects-index {
+    width: calc(100vw - 2rem);
+    top: 18vh;
+  }
+
+  .folder-tab-container.is-hbw-mode-index .project-card-image {
+    height: 38%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-info__panel {
+    transition: none !important;
+  }
+}
