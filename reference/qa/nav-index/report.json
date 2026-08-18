@@ -1,0 +1,1172 @@
+{
+  "introSettled": {
+    "cls": "w-mod-js w-mod-touch hbw-route-home hbw-home-prototype hbw-workspace hbw-intro hbw-intro-live hbw-intro-yield hbw-intro-resolve",
+    "intent": "rest",
+    "identity": "How by Why ×",
+    "how": {
+      "x": 8,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 132.7,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 257.3,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 0,
+    "gapByWhy": 0,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "teach": {
+    "cls": "w-mod-js w-mod-touch hbw-route-home hbw-home-prototype hbw-workspace hbw-intro hbw-intro-live hbw-intro-yield hbw-intro-resolve hbw-nav-teach",
+    "intent": "teach",
+    "identity": "How Make by Work Why About ×",
+    "how": {
+      "x": 8,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "How",
+      "swap": "Make",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 132.7,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "by",
+      "swap": "Work",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 257.3,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "Why",
+      "swap": "About",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 0,
+    "gapByWhy": 0,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "returned": {
+    "cls": "w-mod-js w-mod-touch hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "rest",
+    "identity": "How by Why ×",
+    "how": {
+      "x": 8,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 132.7,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 257.3,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 0,
+    "gapByWhy": 0,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "hits": {
+    "cls": "w-mod-js w-mod-touch hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "rest",
+    "identity": "How by Why ×",
+    "how": {
+      "x": 8,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 132.7,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 257.3,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 0,
+    "gapByWhy": 0,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "tapHow": {
+    "cls": "w-mod-js w-mod-touch hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "rest",
+    "identity": "How Make by Why ×",
+    "how": {
+      "x": 8,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "How",
+      "swap": "Make",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 132.7,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 257.3,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 0,
+    "gapByWhy": 0,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "visual": {
+    "cls": "w-mod-js w-mod-touch hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "assembled",
+    "identity": "How by Why × Projects",
+    "how": {
+      "x": 8,
+      "y": 8,
+      "w": 32,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 46,
+      "y": 8,
+      "w": 17.3,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 69.3,
+      "y": 8,
+      "w": 31,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 6,
+    "gapByWhy": 6,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "index390": {
+    "cls": "w-mod-js w-mod-touch hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "assembled",
+    "identity": "How by Why × Projects",
+    "how": {
+      "x": 8,
+      "y": 8,
+      "w": 32,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 46,
+      "y": 8,
+      "w": 17.3,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 69.3,
+      "y": 8,
+      "w": 31,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 6,
+    "gapByWhy": 6,
+    "peek": null,
+    "index": {
+      "rows": 6,
+      "first": {
+        "x": 0,
+        "y": 56,
+        "w": 390,
+        "h": 106,
+        "text": "SUB:3Bending Time & SpaceBrand identity · Packaging · Art directionThe Colour Club2025",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "thumb": {
+        "x": 0,
+        "y": 64,
+        "w": 72,
+        "h": 90,
+        "text": "",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "name": "SUB:3",
+      "idea": "Bending Time & Space",
+      "gap": 8,
+      "visible": 6,
+      "overflowX": false
+    }
+  },
+  "index390scrolled": {
+    "cls": "w-mod-js w-mod-touch hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "assembled",
+    "identity": "How by Why × Projects",
+    "how": {
+      "x": 8,
+      "y": 8,
+      "w": 32,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 46,
+      "y": 8,
+      "w": 17.3,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 69.3,
+      "y": 8,
+      "w": 31,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 6,
+    "gapByWhy": 6,
+    "peek": null,
+    "index": {
+      "rows": 6,
+      "first": {
+        "x": 0,
+        "y": 56,
+        "w": 390,
+        "h": 106,
+        "text": "SUB:3Bending Time & SpaceBrand identity · Packaging · Art directionThe Colour Club2025",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "thumb": {
+        "x": 0,
+        "y": 64,
+        "w": 72,
+        "h": 90,
+        "text": "",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "name": "SUB:3",
+      "idea": "Bending Time & Space",
+      "gap": 8,
+      "visible": 6,
+      "overflowX": false
+    }
+  },
+  "indexOpen": {
+    "slug": "koja",
+    "identity": "How by Why × KOJA",
+    "first": "k01"
+  },
+  "tapWhy": {
+    "cls": "w-mod-js w-mod-touch hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "rest",
+    "identity": "How by Why ×",
+    "how": {
+      "x": 8,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 132.7,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 257.3,
+      "y": -5,
+      "w": 124.7,
+      "h": 44,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "124.656px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 0,
+    "gapByWhy": 0,
+    "peek": null,
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "index375": {
+    "cls": "w-mod-js w-mod-touch hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "assembled",
+    "identity": "How by Why × Projects",
+    "how": {
+      "x": 8,
+      "y": 8,
+      "w": 32,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 46,
+      "y": 8,
+      "w": 17.3,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 69.3,
+      "y": 8,
+      "w": 31,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 6,
+    "gapByWhy": 6,
+    "peek": null,
+    "index": {
+      "rows": 6,
+      "first": {
+        "x": 0,
+        "y": 56,
+        "w": 375,
+        "h": 106,
+        "text": "SUB:3Bending Time & SpaceBrand identity · Packaging · Art directionThe Colour Club2025",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "thumb": {
+        "x": 0,
+        "y": 64,
+        "w": 72,
+        "h": 90,
+        "text": "",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "name": "SUB:3",
+      "idea": "Bending Time & Space",
+      "gap": 8,
+      "visible": 6,
+      "overflowX": false
+    }
+  },
+  "index430": {
+    "cls": "w-mod-js w-mod-touch hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "assembled",
+    "identity": "How by Why × Projects",
+    "how": {
+      "x": 8,
+      "y": 8,
+      "w": 32,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "by": {
+      "x": 46,
+      "y": 8,
+      "w": 17.3,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "why": {
+      "x": 69.3,
+      "y": 8,
+      "w": 31,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "44px",
+        "h": "44px"
+      }
+    },
+    "gapHowBy": 6,
+    "gapByWhy": 6,
+    "peek": null,
+    "index": {
+      "rows": 6,
+      "first": {
+        "x": 0,
+        "y": 56,
+        "w": 430,
+        "h": 106,
+        "text": "SUB:3Bending Time & SpaceBrand identity · Packaging · Art directionThe Colour Club2025",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "thumb": {
+        "x": 0,
+        "y": 64,
+        "w": 72,
+        "h": 90,
+        "text": "",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "name": "SUB:3",
+      "idea": "Bending Time & Space",
+      "gap": 8,
+      "visible": 6,
+      "overflowX": false
+    }
+  },
+  "deskRest": {
+    "cls": "w-mod-js hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "gapHowBy": 652.3,
+    "gapByWhy": 653.3,
+    "peek": {
+      "open": false,
+      "x": 336,
+      "y": 96,
+      "w": 768,
+      "h": 168,
+      "text": "",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      },
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ]
+    },
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "deskMarks": {
+    "howX": 12,
+    "byCx": 720,
+    "whyRight": 1428,
+    "toolbar": {
+      "x": 384,
+      "y": 826,
+      "w": 672,
+      "h": 46
+    }
+  },
+  "deskHover": {
+    "cls": "w-mod-js hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "by",
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "How",
+      "swap": "Work",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": "by",
+      "swap": "by",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "Why",
+      "swap": "HBW",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "gapHowBy": 647.5,
+    "gapByWhy": 649.4,
+    "peek": {
+      "open": true,
+      "x": 336,
+      "y": 88,
+      "w": 768,
+      "h": 168,
+      "text": "",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      },
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ]
+    },
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "deskPointer": {
+    "cls": "w-mod-js hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "by",
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "How",
+      "swap": "Work",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": "by",
+      "swap": "by",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "Why",
+      "swap": "HBW",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "gapHowBy": 647.5,
+    "gapByWhy": 649.4,
+    "peek": {
+      "open": true,
+      "x": 336,
+      "y": 88,
+      "w": 768,
+      "h": 168,
+      "text": "",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      },
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ]
+    },
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "deskClear": {
+    "cls": "w-mod-js hbw-route-home hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "gapHowBy": 652.3,
+    "gapByWhy": 653.3,
+    "peek": {
+      "open": false,
+      "x": 336,
+      "y": 96,
+      "w": 768,
+      "h": 168,
+      "text": "",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      },
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "w": 128,
+          "h": 160,
+          "src": "http://127.0.0.1:3000/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ]
+    },
+    "index": {
+      "rows": 0,
+      "first": null,
+      "thumb": null,
+      "name": null,
+      "idea": null,
+      "gap": null,
+      "visible": 0,
+      "overflowX": false
+    }
+  },
+  "deskIndex": {
+    "cls": "w-mod-js hbw-home-prototype hbw-workspace hbw-entered",
+    "intent": "assembled",
+    "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 32,
+      "h": 18,
+      "text": "How",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "by": {
+      "x": 50,
+      "y": 8,
+      "w": 17.3,
+      "h": 18,
+      "text": "by",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "why": {
+      "x": 73.3,
+      "y": 8,
+      "w": 31,
+      "h": 18,
+      "text": "Why",
+      "swap": "",
+      "before": {
+        "w": "auto",
+        "h": "auto"
+      }
+    },
+    "gapHowBy": 6,
+    "gapByWhy": 6,
+    "peek": null,
+    "index": {
+      "rows": 6,
+      "first": {
+        "x": 592,
+        "y": 56,
+        "w": 836,
+        "h": 72.8,
+        "text": "SUB:3Bending Time & SpaceBrand identity · Packaging · Art directionThe Colour Club2025",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "thumb": {
+        "x": 592,
+        "y": 74.4,
+        "w": 28,
+        "h": 35,
+        "text": "",
+        "swap": "",
+        "before": {
+          "w": "auto",
+          "h": "auto"
+        }
+      },
+      "name": "SUB:3",
+      "idea": "Bending Time & Space",
+      "gap": 0,
+      "visible": 6,
+      "overflowX": false
+    }
+  }
+}

@@ -1,0 +1,2919 @@
+{
+  "desktop": {
+    "projects": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Visual",
+        "Index",
+        "Method",
+        "09:37:53 PM"
+      ],
+      "task": false,
+      "navSub": "Visual Index",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "idle",
+      "counter": null,
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "is-current",
+          "text": "Visual",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Index",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:53 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "hoversDone": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Visual",
+        "Index",
+        "Method",
+        "09:37:55 PM"
+      ],
+      "task": false,
+      "navSub": "Visual Index",
+      "previewSrc": "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "Bistro Nido Twice Cooked2024",
+      "grid": 6,
+      "phase": "idle",
+      "counter": null,
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "is-current",
+          "text": "Visual",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Index",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:55 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "index": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Visual",
+        "Index",
+        "Method",
+        "09:37:55 PM"
+      ],
+      "task": false,
+      "navSub": "Visual Index",
+      "previewSrc": "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "Bistro Nido Twice Cooked2024",
+      "grid": 6,
+      "phase": "idle",
+      "counter": null,
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Visual",
+          "size": "16.96px"
+        },
+        {
+          "cls": "is-current",
+          "text": "Index",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:55 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 66,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 99,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 133,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 166,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 199,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 233,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "indexHoversDone": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Visual",
+        "Index",
+        "Method",
+        "09:37:57 PM"
+      ],
+      "task": false,
+      "navSub": "Visual Index",
+      "previewSrc": "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "Bistro Nido Twice Cooked2024",
+      "grid": 6,
+      "phase": "idle",
+      "counter": null,
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Visual",
+          "size": "16.96px"
+        },
+        {
+          "cls": "is-current",
+          "text": "Index",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:57 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 66,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 99,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 133,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 166,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 199,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 233,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "visualAgain": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Visual",
+        "Index",
+        "Method",
+        "09:37:57 PM"
+      ],
+      "task": false,
+      "navSub": "Visual Index",
+      "previewSrc": "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "Bistro Nido Twice Cooked2024",
+      "grid": 6,
+      "phase": "idle",
+      "counter": null,
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "is-current",
+          "text": "Visual",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Index",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:57 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "enter": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Info",
+        "01 / 09",
+        "Method",
+        "09:37:58 PM"
+      ],
+      "task": false,
+      "navSub": "Info 01 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "active",
+      "counter": "01 / 09",
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Info",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-nav-sub__meta",
+          "text": "01 / 09",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:58 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "forward": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Info",
+        "03 / 09",
+        "Method",
+        "09:37:59 PM"
+      ],
+      "task": false,
+      "navSub": "Info 03 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "active",
+      "counter": "03 / 09",
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Info",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-nav-sub__meta",
+          "text": "03 / 09",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:37:59 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "back": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Info",
+        "01 / 09",
+        "Method",
+        "09:38:01 PM"
+      ],
+      "task": false,
+      "navSub": "Info 01 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "active",
+      "counter": "01 / 09",
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Info",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-nav-sub__meta",
+          "text": "01 / 09",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:38:01 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "info": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-panel is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Info",
+        "01 / 09",
+        "Method",
+        "09:38:01 PM"
+      ],
+      "task": false,
+      "navSub": "Info 01 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": -534,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "active",
+      "counter": "01 / 09",
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": true,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Info",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-nav-sub__meta",
+          "text": "01 / 09",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:38:01 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-panel__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-panel__line",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "The idea",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "CLOSED is built on the idea of A Smu",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "The shift",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Hospitality often competes on visibi",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "The system",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "The identity is shaped by the tensio",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "The outcome",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "CLOSED becomes more than a venue. It",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__meta",
+          "text": "Brand identity and art direction by ",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__meta",
+          "text": "2024",
+          "size": "14.08px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 43,
+          "ideaX": 291,
+          "yearX": 730
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "infoClosed": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Info",
+        "01 / 09",
+        "Method",
+        "09:38:02 PM"
+      ],
+      "task": false,
+      "navSub": "Info 01 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": -534,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "active",
+      "counter": "01 / 09",
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Info",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-nav-sub__meta",
+          "text": "01 / 09",
+          "size": "14.08px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:38:02 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 43,
+          "ideaX": 291,
+          "yearX": 730
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 39,
+          "ideaX": 287,
+          "yearX": 726
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    },
+    "exit": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Visual",
+        "Index",
+        "Method",
+        "09:38:04 PM"
+      ],
+      "task": false,
+      "navSub": "Visual Index",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 66,
+        "w": 535,
+        "h": 669
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "idle",
+      "counter": null,
+      "window": {
+        "x": 12,
+        "y": 63,
+        "w": 1416,
+        "h": 825,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "panel": false,
+      "uniqueFontSizes": [
+        "16.96px",
+        "14.08px"
+      ],
+      "sizes": [
+        {
+          "cls": "hbw-home-strip__brand",
+          "text": "How by Why",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Projects",
+          "size": "16.96px"
+        },
+        {
+          "cls": "is-current",
+          "text": "Visual",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Index",
+          "size": "16.96px"
+        },
+        {
+          "cls": "",
+          "text": "Method",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-home-strip__time",
+          "text": "09:38:04 PM",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-frame is-shown",
+          "text": "Better strategic decisions don't hap",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-freeze",
+          "text": "Freeze frame",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-poster-input",
+          "text": "",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-poster-reset",
+          "text": "Reset",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "SUB:3",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Bending Time & Space",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2025",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "KOJA",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Unapologetically Good.",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "CLOSED",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "A Smuggler's House",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Our Boy Roy",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "The Friendly Neighbour",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Chris Sisarich",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Beauty Amongst The Mundane",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-name",
+          "text": "Bistro Nido",
+          "size": "16.96px"
+        },
+        {
+          "cls": "hbw-browse__row-idea",
+          "text": "Twice Cooked",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-browse__row-year",
+          "text": "2024",
+          "size": "14.08px"
+        },
+        {
+          "cls": "hbw-panel__close",
+          "text": "Close",
+          "size": "16.96px"
+        }
+      ],
+      "rows": [
+        {
+          "text": "SUB:3Bending Time & Space2025",
+          "y": 71,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "KOJAUnapologetically Good.2024",
+          "y": 104,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "CLOSEDA Smuggler's House2024",
+          "y": 138,
+          "h": 33,
+          "nameX": 609,
+          "ideaX": 857,
+          "yearX": 1296
+        },
+        {
+          "text": "Our Boy RoyThe Friendly Neighbour2024",
+          "y": 171,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Chris SisarichBeauty Amongst The Mundane2024",
+          "y": 204,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        },
+        {
+          "text": "Bistro NidoTwice Cooked2024",
+          "y": 238,
+          "h": 33,
+          "nameX": 605,
+          "ideaX": 853,
+          "yearX": 1292
+        }
+      ],
+      "copyWrong": false,
+      "copyRight": true,
+      "split": "535.031px 802.578px"
+    }
+  },
+  "mobile": {
+    "projects": {
+      "mode": "hbw-home is-browse is-phase-idle",
+      "navSub": "Visual Index",
+      "record": "SUB:3 Bending Time & Space2025",
+      "counter": null,
+      "phase": "idle",
+      "panel": false,
+      "preview": {
+        "x": 22,
+        "y": 97,
+        "w": 257,
+        "h": 321
+      }
+    },
+    "enter": {
+      "mode": "hbw-home is-view is-phase-active",
+      "navSub": "Info 01 / 08",
+      "record": "KOJA Unapologetically Good.2024",
+      "counter": "01 / 08",
+      "phase": "active",
+      "panel": false,
+      "preview": {
+        "x": 22,
+        "y": 97,
+        "w": 257,
+        "h": 321
+      }
+    },
+    "scrolled": {
+      "mode": "hbw-home is-view is-phase-active",
+      "navSub": "Info 03 / 08",
+      "record": "KOJA Unapologetically Good.2024",
+      "counter": "03 / 08",
+      "phase": "active",
+      "panel": false,
+      "preview": {
+        "x": 22,
+        "y": 97,
+        "w": 257,
+        "h": 321
+      }
+    },
+    "info": {
+      "mode": "hbw-home is-view is-panel is-phase-active",
+      "navSub": "Info 01 / 08",
+      "record": "KOJA Unapologetically Good.2024",
+      "counter": "01 / 08",
+      "phase": "active",
+      "panel": true,
+      "preview": {
+        "x": -127,
+        "y": 97,
+        "w": 257,
+        "h": 321
+      }
+    },
+    "exit": {
+      "mode": "hbw-home is-browse is-phase-idle",
+      "navSub": "Visual Index",
+      "record": "KOJA Unapologetically Good.2024",
+      "counter": null,
+      "phase": "idle",
+      "panel": false,
+      "preview": {
+        "x": 22,
+        "y": 97,
+        "w": 257,
+        "h": 321
+      }
+    }
+  }
+}

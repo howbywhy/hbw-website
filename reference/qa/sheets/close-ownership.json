@@ -1,0 +1,976 @@
+{
+  "desktop": {
+    "name": "desktop",
+    "log": [
+      {
+        "label": "home-studio",
+        "metrics": {
+          "home": "hbw-home is-make is-panel is-studio is-phase-idle",
+          "meta": "01 / 01",
+          "track": "",
+          "sheet": {
+            "x": 848,
+            "y": 0,
+            "w": 580,
+            "h": 900,
+            "z": "50",
+            "pe": "auto",
+            "text": "You’ve built something r",
+            "variant": "global-right"
+          },
+          "close": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "studio"
+          },
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 112,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "11:07:49 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet__opening",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "home-manifesto",
+        "metrics": {
+          "home": "hbw-home is-make is-panel is-studio is-manifesto is-phase-idle",
+          "meta": "01 / 01",
+          "track": "",
+          "sheet": {
+            "x": 11.1,
+            "y": 0,
+            "w": 580,
+            "h": 900,
+            "z": "50",
+            "pe": "auto",
+            "text": "StudioBrand is not what ",
+            "variant": "global-left"
+          },
+          "close": {
+            "x": 550.8,
+            "y": 8,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "manifesto"
+          },
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 112,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "How by Why×"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:50 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet hbw-inspector is-global-left is-overlay is-manifesto is-held is-visible",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "home-after-manifesto-close",
+        "metrics": {
+          "home": "hbw-home is-make is-phase-idle",
+          "meta": "01 / 01",
+          "track": "",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 112,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:50 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": "hbw-home-strip",
+          "coveredIsSheet": false,
+          "coveredIsNav": true
+        }
+      },
+      {
+        "label": "project-before",
+        "metrics": {
+          "home": "hbw-home is-view is-phase-active",
+          "meta": "06 / 12",
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:53 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": "hbw-home-strip",
+          "coveredIsSheet": false,
+          "coveredIsNav": true
+        }
+      },
+      {
+        "label": "project-info",
+        "metrics": {
+          "home": "hbw-home is-view is-panel is-inspect is-phase-active",
+          "meta": null,
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": {
+            "x": 848,
+            "y": 0,
+            "w": 580,
+            "h": 900,
+            "z": "50",
+            "pe": "auto",
+            "text": "SUB:3PositionBending Tim",
+            "variant": "project-right"
+          },
+          "close": {
+            "x": 848,
+            "y": 8,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "info"
+          },
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "11:07:53 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet__lead",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "project-after-info",
+        "metrics": {
+          "home": "hbw-home is-view is-phase-active",
+          "meta": "06 / 12",
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:54 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": "hbw-home-strip",
+          "coveredIsSheet": false,
+          "coveredIsNav": true
+        }
+      },
+      {
+        "label": "project-studio",
+        "metrics": {
+          "home": "hbw-home is-view is-panel is-studio is-phase-active",
+          "meta": "06 / 12",
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": {
+            "x": 848,
+            "y": 0,
+            "w": 580,
+            "h": 900,
+            "z": "50",
+            "pe": "auto",
+            "text": "You’ve built something r",
+            "variant": "global-right"
+          },
+          "close": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "studio"
+          },
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "11:07:55 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet__opening",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "project-after-studio",
+        "metrics": {
+          "home": "hbw-home is-view is-phase-active",
+          "meta": "06 / 12",
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:56 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": "hbw-home-strip",
+          "coveredIsSheet": false,
+          "coveredIsNav": true
+        }
+      },
+      {
+        "label": "project-manifesto",
+        "metrics": {
+          "home": "hbw-home is-view is-panel is-studio is-manifesto is-phase-active",
+          "meta": "06 / 12",
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": {
+            "x": 12,
+            "y": 0,
+            "w": 580,
+            "h": 900,
+            "z": "50",
+            "pe": "auto",
+            "text": "StudioBrand is not what ",
+            "variant": "global-left"
+          },
+          "close": {
+            "x": 550.8,
+            "y": 8,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "manifesto"
+          },
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:57 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet hbw-inspector is-global-left is-overlay is-manifesto is-held is-visible",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "project-after-escape",
+        "metrics": {
+          "home": "hbw-home is-view is-phase-active",
+          "meta": "06 / 12",
+          "track": "translate3d(-4797px, 0px, 0px)",
+          "viewX": "4797",
+          "viewIndex": "5",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 848,
+            "y": 8,
+            "w": 73.6,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 12,
+            "y": 8,
+            "w": 157.4,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 12,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "time": {
+            "x": 1347.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:07:58 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": "hbw-home-strip",
+          "coveredIsSheet": false,
+          "coveredIsNav": true
+        }
+      }
+    ]
+  },
+  "mobile": {
+    "name": "mobile",
+    "log": [
+      {
+        "label": "home-studio",
+        "metrics": {
+          "home": "hbw-home is-make is-panel is-studio is-phase-idle",
+          "meta": "01 / 01",
+          "track": "",
+          "sheet": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 844,
+            "z": "50",
+            "pe": "auto",
+            "text": "You’ve built something r",
+            "variant": "global-right"
+          },
+          "close": {
+            "x": 340.8,
+            "y": 56,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "studio"
+          },
+          "studio": {
+            "x": 340.8,
+            "y": 56,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "brand": {
+            "x": 8,
+            "y": 8,
+            "w": 112,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×"
+          },
+          "exit": {
+            "x": 8,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 301.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "11:07:59 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet__opening",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "home-manifesto",
+        "metrics": {
+          "home": "hbw-home is-make is-panel is-studio is-manifesto is-phase-idle",
+          "meta": "01 / 01",
+          "track": "",
+          "sheet": {
+            "x": -0.2,
+            "y": 0,
+            "w": 390,
+            "h": 844,
+            "z": "50",
+            "pe": "auto",
+            "text": "StudioBrand is not what ",
+            "variant": "global-left"
+          },
+          "close": {
+            "x": 8,
+            "y": 56,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "manifesto"
+          },
+          "studio": {
+            "x": 335.9,
+            "y": 56,
+            "w": 46.1,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 8,
+            "y": 8,
+            "w": 112,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "How by Why×"
+          },
+          "exit": {
+            "x": 8,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 301.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:08:00 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet hbw-inspector is-global-left is-overlay is-manifesto is-held is-visible",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "home-after-close",
+        "metrics": {
+          "home": "hbw-home is-make is-phase-idle",
+          "meta": "01 / 01",
+          "track": "",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 335.9,
+            "y": 56,
+            "w": 46.1,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 8,
+            "y": 8,
+            "w": 112,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×"
+          },
+          "exit": {
+            "x": 8,
+            "y": 30,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 301.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:08:00 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": null,
+          "coveredIsSheet": false,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "project-before",
+        "metrics": {
+          "home": "hbw-home is-view is-phase-active is-moving",
+          "meta": "02 / 12",
+          "track": "translate3d(0px, 0px, 0px)",
+          "viewX": "0",
+          "viewIndex": "1",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 335.9,
+            "y": 74,
+            "w": 46.1,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 8,
+            "y": 8,
+            "w": 141.4,
+            "h": 36,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 8,
+            "y": 48,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "time": {
+            "x": 301.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:08:02 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": null,
+          "coveredIsSheet": false,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "project-info",
+        "metrics": {
+          "home": "hbw-home is-view is-panel is-inspect is-phase-active",
+          "meta": null,
+          "track": "translate3d(0px, 0px, 0px)",
+          "viewX": "0",
+          "viewIndex": "1",
+          "sheet": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 844,
+            "z": "50",
+            "pe": "auto",
+            "text": "SUB:3PositionBending Tim",
+            "variant": "project-right"
+          },
+          "close": {
+            "x": 8,
+            "y": 100,
+            "w": 41.3,
+            "h": 18,
+            "z": "60",
+            "pe": "auto",
+            "text": "Close",
+            "id": "info"
+          },
+          "studio": {
+            "x": 335.9,
+            "y": 74,
+            "w": 46.1,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 8,
+            "y": 8,
+            "w": 141.4,
+            "h": 36,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 8,
+            "y": 48,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "none",
+            "text": "Close"
+          },
+          "time": {
+            "x": 301.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "none",
+            "text": "11:08:02 PM"
+          },
+          "closeOwns": true,
+          "coveredClass": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "coveredIsSheet": true,
+          "coveredIsNav": false
+        }
+      },
+      {
+        "label": "project-after-info",
+        "metrics": {
+          "home": "hbw-home is-view is-phase-active",
+          "meta": "02 / 12",
+          "track": "translate3d(0px, 0px, 0px)",
+          "viewX": "0",
+          "viewIndex": "1",
+          "sheet": null,
+          "close": null,
+          "studio": {
+            "x": 335.9,
+            "y": 74,
+            "w": 46.1,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "Studio"
+          },
+          "brand": {
+            "x": 8,
+            "y": 8,
+            "w": 141.4,
+            "h": 36,
+            "z": "auto",
+            "pe": "auto",
+            "text": "How by Why×SUB:3"
+          },
+          "exit": {
+            "x": 8,
+            "y": 48,
+            "w": 41.3,
+            "h": 18,
+            "z": "auto",
+            "pe": "auto",
+            "text": "Close"
+          },
+          "time": {
+            "x": 301.2,
+            "y": 8,
+            "w": 80.8,
+            "h": 18,
+            "z": "40",
+            "pe": "auto",
+            "text": "11:08:03 PM"
+          },
+          "closeOwns": false,
+          "coveredClass": null,
+          "coveredIsSheet": false,
+          "coveredIsNav": false
+        }
+      }
+    ]
+  }
+}

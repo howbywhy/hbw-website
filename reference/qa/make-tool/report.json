@@ -1,0 +1,128 @@
+{
+  "typing": {
+    "afterType": {
+      "editing": true,
+      "value": "We decide how by understanding why. The canvas holds the problem.",
+      "count": 7,
+      "objectCount": null,
+      "active": true,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "",
+      "invalid": false
+    },
+    "afterEdit": {
+      "editing": true,
+      "value": "We decide how by understanding why. The canvas holds the problem still.",
+      "count": 7,
+      "objectCount": null,
+      "active": true,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "",
+      "invalid": false
+    },
+    "afterBackspace": {
+      "editing": true,
+      "value": "We decide how by understanding why. The canvas holds the problem sti.",
+      "count": 7,
+      "objectCount": null,
+      "active": true,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "",
+      "invalid": false
+    },
+    "afterReturn": {
+      "editing": true,
+      "value": "We decide how by understanding why. The canvas holds the problem sti.\nA second line.",
+      "count": 9,
+      "objectCount": null,
+      "active": true,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "",
+      "invalid": false
+    },
+    "afterExit": {
+      "editing": false,
+      "value": "",
+      "count": 0,
+      "objectCount": null,
+      "active": false,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "",
+      "invalid": false
+    },
+    "afterReenter": {
+      "editing": true,
+      "value": "We decide how by understanding why. The canvas holds the problem sti.\nA second line. again",
+      "count": 9,
+      "objectCount": null,
+      "active": true,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "",
+      "invalid": false
+    }
+  },
+  "send": {
+    "emptySend": {
+      "editing": false,
+      "value": "",
+      "count": 0,
+      "objectCount": null,
+      "active": false,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "Enter a valid email.",
+      "invalid": true
+    },
+    "badSend": {
+      "editing": false,
+      "value": "",
+      "count": 0,
+      "objectCount": null,
+      "active": false,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "Enter a valid email.",
+      "invalid": true
+    },
+    "validSend": {
+      "editing": false,
+      "value": "",
+      "count": 0,
+      "objectCount": null,
+      "active": false,
+      "placeholder": "Your email",
+      "inputType": "email",
+      "status": "Email sending is disabled until a mail provider is configured.",
+      "invalid": false
+    },
+    "responses": [
+      {
+        "status": 503,
+        "body": {
+          "ok": false,
+          "status": "disabled",
+          "reason": "Email sending is disabled until a mail provider is configured.",
+          "received": {
+            "email": "mark@howbywhy.com",
+            "name": "",
+            "hasDecision": false,
+            "hasPoster": true
+          }
+        }
+      }
+    ]
+  },
+  "mobile": {
+    "inputType": "email",
+    "inputMode": "email",
+    "placeholder": "Your email",
+    "toolbar": {},
+    "send": {}
+  }
+}

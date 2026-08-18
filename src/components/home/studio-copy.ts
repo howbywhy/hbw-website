@@ -4,6 +4,9 @@ export const STUDIO_COPY = {
   opening:
     "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.",
   role: "Our role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with founders and teams at moments of change, when something needs to be understood, aligned, or redefined.",
+  glimpse: "Our role is to create clarity where there’s noise and shape where there’s ambiguity.",
+  independent:
+    "How by Why is an independent practice led by Mark Blackler. I work directly with founders and teams to shape how brands are understood, expressed and experienced — from the decisions behind them through to the things people ultimately see and use.",
   philosophy: [
     "Every brand begins with a reason, though it’s not always immediately clear. We slow things down to understand what truly matters. Asking considered questions. Listening closely to people, context, and intent.",
     "Only then do we decide what should be said, shaped, or expressed. We don’t lead with assumptions or aesthetics. We begin with clarity and build through curiosity, collaboration, and care. That clarity creates alignment. And alignment allows brands to move forward with confidence, not just momentum.",

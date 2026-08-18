@@ -1,0 +1,60 @@
+{
+  "viewport": "1440x900",
+  "fromLaterMovement": {
+    "homeClass": "hbw-home is-view is-phase-active",
+    "phase": "active",
+    "project": "sub-3",
+    "title": "SUB:3",
+    "meta": "06 / 12",
+    "views": [
+      {
+        "phase": "is-active",
+        "className": "hbw-stage hbw-project-view is-active",
+        "index": "5",
+        "opacity": "1",
+        "transform": "none",
+        "vt": "none"
+      }
+    ]
+  },
+  "recordings": {
+    "recSub3": {
+      "dest": "/Users/markblackler/Documents/GitHub/hbw-website/reference/qa/handoff/sub3-to-koja.mp4",
+      "ok": true,
+      "frames": 64,
+      "fps": 42,
+      "elapsed": 1.522
+    },
+    "recKoja": {
+      "dest": "/Users/markblackler/Documents/GitHub/hbw-website/reference/qa/handoff/koja-to-closed.mp4",
+      "ok": true,
+      "frames": 54,
+      "fps": 35.7,
+      "elapsed": 1.511
+    },
+    "recChris": {
+      "dest": "/Users/markblackler/Documents/GitHub/hbw-website/reference/qa/handoff/chris-to-roy.mp4",
+      "ok": true,
+      "frames": 54,
+      "fps": 35.5,
+      "elapsed": 1.521
+    }
+  },
+  "beforeSub3": {
+    "homeClass": "hbw-home is-view is-phase-active",
+    "phase": "active",
+    "project": "sub-3",
+    "title": "SUB:3",
+    "meta": "12 / 12",
+    "views": [
+      {
+        "phase": "is-active",
+        "className": "hbw-stage hbw-project-view is-active",
+        "index": "11",
+        "opacity": "1",
+        "transform": "none",
+        "vt": "none"
+      }
+    ]
+  }
+}

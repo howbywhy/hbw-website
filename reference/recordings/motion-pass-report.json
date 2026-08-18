@@ -1,0 +1,660 @@
+{
+  "desktop": {
+    "projects": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index SUB:3",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "hovers": {
+      "KOJA": {
+        "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+        "record": "KOJA Unapologetically Good.2024",
+        "preview": {
+          "x": 32,
+          "y": 61,
+          "w": 564,
+          "h": 689
+        }
+      },
+      "CLOSED": {
+        "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+        "record": "CLOSED A Smuggler's House2024",
+        "preview": {
+          "x": 32,
+          "y": 61,
+          "w": 564,
+          "h": 689
+        }
+      },
+      "Our Boy Roy": {
+        "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg",
+        "record": "Our Boy Roy The Friendly Neighbour2024",
+        "preview": {
+          "x": 32,
+          "y": 61,
+          "w": 564,
+          "h": 689
+        }
+      },
+      "Chris Sisarich": {
+        "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg",
+        "record": "Chris Sisarich Beauty Amongst The Mundane2024",
+        "preview": {
+          "x": 32,
+          "y": 61,
+          "w": 564,
+          "h": 689
+        }
+      }
+    },
+    "index": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index Chris Sisarich",
+      "previewSrc": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "Chris Sisarich Beauty Amongst The Mundane2024",
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "visualBack": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index Chris Sisarich",
+      "previewSrc": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "Chris Sisarich Beauty Amongst The Mundane2024",
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "leftStable": true,
+    "sub3Rising": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-view is-phase-rising",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index SUB:3",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-rising",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "sub3View": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 01 / 12",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "mvWidths": [
+      615,
+      1267,
+      615,
+      1267,
+      1267
+    ],
+    "track": {
+      "scroll": 13913,
+      "client": 1416,
+      "transform": "translate3d(0px, 0px, 0px)",
+      "offsets": [
+        707,
+        1359,
+        2663,
+        3315,
+        4619,
+        6612
+      ]
+    },
+    "sub3Forward": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 04 / 12",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "sub3Back": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 01 / 12",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "info": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view is-panel is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 01 / 12",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": -534,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": true
+    },
+    "infoClosed": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 01 / 12",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": -534,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "backProjects": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index SUB:3",
+      "previewSrc": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+      "preview": {
+        "x": -534,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "SUB:3 Bending Time & Space2025",
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "closed": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 01 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(18, 18, 18)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "closedNav": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 02 / 09",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(18, 18, 18)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "home": {
+      "url": "http://127.0.0.1:3000/",
+      "mode": "hbw-home is-make is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": null,
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 32,
+        "y": 61,
+        "w": 564,
+        "h": 689
+      },
+      "record": null,
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "deskFrames": 398
+  },
+  "mobile": {
+    "projects": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index CLOSED",
+      "previewSrc": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+      "preview": {
+        "x": 22,
+        "y": 79,
+        "w": 347,
+        "h": 321
+      },
+      "record": "CLOSED A Smuggler's House2024",
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 8,
+        "y": 65,
+        "w": 374,
+        "h": 771,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "view": {
+      "url": "http://127.0.0.1:3000/projects/koja",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 01 / 08",
+      "previewSrc": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+      "preview": {
+        "x": 22,
+        "y": 79,
+        "w": 347,
+        "h": 321
+      },
+      "record": "KOJA Unapologetically Good.2024",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 8,
+        "y": 65,
+        "w": 374,
+        "h": 771,
+        "bg": "rgb(243, 236, 227)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "scrolled": {
+      "url": "http://127.0.0.1:3000/projects/koja",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 07 / 08",
+      "previewSrc": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+      "preview": {
+        "x": 22,
+        "y": 79,
+        "w": 347,
+        "h": 321
+      },
+      "record": "KOJA Unapologetically Good.2024",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 8,
+        "y": 65,
+        "w": 374,
+        "h": 771,
+        "bg": "rgb(243, 236, 227)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "back": {
+      "url": "http://127.0.0.1:3000/projects/koja",
+      "mode": "hbw-home is-view is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 03 / 08",
+      "previewSrc": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+      "preview": {
+        "x": 22,
+        "y": 79,
+        "w": 347,
+        "h": 321
+      },
+      "record": "KOJA Unapologetically Good.2024",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 8,
+        "y": 65,
+        "w": 374,
+        "h": 771,
+        "bg": "rgb(243, 236, 227)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "info": {
+      "url": "http://127.0.0.1:3000/projects/koja",
+      "mode": "hbw-home is-view is-panel is-phase-active",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Projects Info 03 / 08",
+      "previewSrc": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+      "preview": {
+        "x": -127,
+        "y": 79,
+        "w": 347,
+        "h": 321
+      },
+      "record": "KOJA Unapologetically Good.2024",
+      "grid": 6,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "window": {
+        "x": 8,
+        "y": 65,
+        "w": 374,
+        "h": 771,
+        "bg": "rgb(243, 236, 227)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": true
+    },
+    "return": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "task": "Visual Index KOJA",
+      "previewSrc": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+      "preview": {
+        "x": -127,
+        "y": 79,
+        "w": 347,
+        "h": 321
+      },
+      "record": "KOJA Unapologetically Good.2024",
+      "grid": 6,
+      "phase": null,
+      "window": {
+        "x": 8,
+        "y": 65,
+        "w": 374,
+        "h": 771,
+        "bg": "rgb(255, 255, 255)",
+        "r": "0px"
+      },
+      "sig": false,
+      "float": false,
+      "panel": false
+    },
+    "mobFrames": 200
+  }
+}

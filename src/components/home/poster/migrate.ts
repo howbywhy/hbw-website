@@ -18,7 +18,7 @@ type LegacyObj =
   | { id: string; kind: "text"; p: LegacyPt; text: string; color: string }
   | PosterObj;
 
-const TOOLS: PosterToolId[] = ["text", "pencil", "marker", "shape", "upload"];
+const TOOLS: PosterToolId[] = ["select", "text", "pencil", "marker", "shape", "upload"];
 const FONTS: PosterFont[] = ["Visual", "Geist", "Neuebit"];
 const ALIGNS: TextAlign[] = ["left", "center", "right"];
 const SHAPES: ShapeKind[] = ["rect", "ellipse", "line", "arrow"];
@@ -79,7 +79,7 @@ export function emptyPoster(): PosterState {
     decision: "",
     color: "#e23b2e",
     frozen: false,
-    tool: "pencil",
+    tool: "select",
     font: "Visual",
     textSize: 28,
     align: "left",
@@ -101,7 +101,7 @@ export function migratePoster(raw: unknown): PosterState {
     decision: typeof data.decision === "string" ? data.decision : "",
     color: typeof data.color === "string" ? data.color : base.color,
     frozen: false,
-    tool: TOOLS.includes(data.tool as PosterToolId) ? (data.tool as PosterToolId) : "pencil",
+    tool: TOOLS.includes(data.tool as PosterToolId) ? (data.tool as PosterToolId) : "select",
     font: FONTS.includes(data.font as PosterFont) ? (data.font as PosterFont) : "Visual",
     textSize: typeof data.textSize === "number" ? data.textSize : 28,
     align: ALIGNS.includes(data.align as TextAlign) ? (data.align as TextAlign) : "left",

@@ -1,0 +1,8360 @@
+{
+  "journeys": {
+    "A_rest": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_how": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How Make by with Why HBW × Brand Strategy & Creative Direction",
+      "intent": "how",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowMakebywithWhyHBW×Brand Strategy & Creative Di"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 46.1,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 696.2,
+          "y": 8,
+          "w": 47.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1386.2,
+          "y": 8,
+          "w": 41.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_how_leave": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_by": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How Work by by Why HBW × Selected projects · View all",
+      "intent": "by",
+      "assembled": false,
+      "descriptor": "Selected projects · View all",
+      "viewAll": true,
+      "close": null,
+      "register": null,
+      "peekOpen": true,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowWorkbybyWhyHBW×Selected projects · View all×C"
+      },
+      "tabCount": 14,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "View all",
+          "tab": 0
+        },
+        {
+          "tag": "A",
+          "label": "SUB:3",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "KOJA",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "CLOSED",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Chris Sisarich",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Our Boy Roy",
+          "tab": -1
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 43.6,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1386.2,
+          "y": 8,
+          "w": 41.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 196.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": {
+          "x": 150.7,
+          "y": 34,
+          "w": 57.4,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "inline-block"
+        },
+        "peek": {
+          "x": 507,
+          "y": 72,
+          "w": 426,
+          "h": 92.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_sub3": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How Work by by Why HBW × SUB:3 — Bending Time & Space",
+      "intent": "by",
+      "assembled": false,
+      "descriptor": "SUB:3 — Bending Time & Space",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": true,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowWorkbybyWhyHBW×SUB:3 — Bending Time & Space×C"
+      },
+      "tabCount": 13,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "A",
+          "label": "SUB:3",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "KOJA",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "CLOSED",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Chris Sisarich",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Our Boy Roy",
+          "tab": -1
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 43.6,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1386.2,
+          "y": 8,
+          "w": 41.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 227.8,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 72,
+          "w": 426,
+          "h": 92.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_koja": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How Work by by Why HBW × KOJA — Unapologetically Good.",
+      "intent": "by",
+      "assembled": false,
+      "descriptor": "KOJA — Unapologetically Good.",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": true,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowWorkbybyWhyHBW×KOJA — Unapologetically Good.×"
+      },
+      "tabCount": 13,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "A",
+          "label": "SUB:3",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "KOJA",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "CLOSED",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Chris Sisarich",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Our Boy Roy",
+          "tab": -1
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 43.6,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1386.2,
+          "y": 8,
+          "w": 41.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 230.4,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 72,
+          "w": 426,
+          "h": 92.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_why": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+      "intent": "why",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": true,
+      "sheetOpen": false,
+      "mode": "is-make is-practice-peek is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowAboutbytheWhyPractice×Brand Strategy & Creati"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 50.1,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 699.8,
+          "y": 8,
+          "w": 40.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1361.1,
+          "y": 8,
+          "w": 66.9,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1252,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_practice": {
+      "url": "/studio",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": true,
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 6,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "HBW Manifesto",
+          "tab": 0
+        },
+        {
+          "tag": "A",
+          "label": "mark@hbw.works",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 848,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "auto",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "A_practice_close": {
+      "url": "/studio",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+      "intent": "why",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": true,
+      "sheetOpen": false,
+      "mode": "is-make is-practice-peek is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowAboutbytheWhyPractice×Brand Strategy & Creati"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 50.1,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 699.8,
+          "y": 8,
+          "w": 40.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1361.1,
+          "y": 8,
+          "w": 66.9,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1264,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "B_visual": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×ProjectsBrand Strategy & Creative Di"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "B_index": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Index"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "C_entered": {
+      "url": "/projects/sub-3",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": "Close",
+      "register": "Info 01 / 12 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "0",
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×SUB:3Brand Strategy & Creative Direc"
+      },
+      "tabCount": 7,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Info",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Continue to KOJA",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": {
+          "x": 10268,
+          "y": 125.3,
+          "w": 554.8,
+          "h": 693.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": {
+          "x": 12,
+          "y": 30,
+          "w": 41.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "D_boundary": {
+      "url": "/projects/sub-3",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": "Close",
+      "register": "Info 12 / 12 Next KOJA",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-view is-boundary is-phase-active is-moving",
+      "project": "sub-3",
+      "index": "12",
+      "boundary": true,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×SUB:3Brand Strategy & Creative Direc"
+      },
+      "tabCount": 6,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Continue to KOJA",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": {
+          "x": 241,
+          "y": 125.3,
+          "w": 554.8,
+          "h": 693.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 94.6,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": {
+          "x": 12,
+          "y": 30,
+          "w": 41.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "D_cursors": {
+      "stage": "e-resize",
+      "preview": "pointer",
+      "nextPe": "none"
+    },
+    "D_reverse": {
+      "url": "/projects/sub-3",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": "Close",
+      "register": "Info 12 / 12 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "11",
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×SUB:3Brand Strategy & Creative Direc"
+      },
+      "tabCount": 7,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Info",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Continue to KOJA",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": {
+          "x": 694,
+          "y": 125.3,
+          "w": 554.8,
+          "h": 693.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": {
+          "x": 12,
+          "y": 30,
+          "w": 41.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "D_owned": {
+      "url": "/projects/koja",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × KOJA Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": "Close",
+      "register": "Info 01 / 08 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-view is-phase-active",
+      "project": "koja",
+      "index": "0",
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×KOJABrand Strategy & Creative Direct"
+      },
+      "tabCount": 7,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Info",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSEDA Smuggler's HouseInfo 08 / 08Next CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Continue to CLOSED",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": {
+          "x": 6373.2,
+          "y": 125.3,
+          "w": 554.8,
+          "h": 693.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": {
+          "x": 12,
+          "y": 30,
+          "w": 41.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    }
+  },
+  "close": {
+    "fromPreview": {
+      "url": "/projects/sub-3",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": "sub-3",
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Close"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "fromNextProject": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Close"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "fromDeepLink": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Close"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 50,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 73.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    }
+  },
+  "a11y": {
+    "tabOrderHome": [
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "Make with HBW"
+        },
+        "peek": false,
+        "intent": "how",
+        "descriptor": "Brand Strategy & Creative Direction"
+      },
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "Work by HBW"
+        },
+        "peek": true,
+        "intent": "by",
+        "descriptor": "Selected projects · View all"
+      },
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "About the Practice"
+        },
+        "peek": false,
+        "intent": "why",
+        "descriptor": "Brand Strategy & Creative Direction"
+      },
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "Write"
+        },
+        "peek": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction"
+      },
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "Draw"
+        },
+        "peek": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction"
+      },
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "Add"
+        },
+        "peek": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction"
+      },
+      {
+        "focus": {
+          "tag": "INPUT",
+          "label": "Your email"
+        },
+        "peek": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction"
+      },
+      {
+        "focus": {
+          "tag": "BUTTON",
+          "label": "Send"
+        },
+        "peek": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction"
+      }
+    ],
+    "peekInTabOrder": false,
+    "escapeAfterTabs": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Send"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "escapePeek": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "reducedBy": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How Work by by Why HBW × Selected projects · View all",
+      "intent": "by",
+      "assembled": false,
+      "descriptor": "Selected projects · View all",
+      "viewAll": true,
+      "close": null,
+      "register": null,
+      "peekOpen": true,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowWorkbybyWhyHBW×Selected projects · View all×C"
+      },
+      "tabCount": 14,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "View all",
+          "tab": 0
+        },
+        {
+          "tag": "A",
+          "label": "SUB:3",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "KOJA",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "CLOSED",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Chris Sisarich",
+          "tab": -1
+        },
+        {
+          "tag": "A",
+          "label": "Our Boy Roy",
+          "tab": -1
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 43.6,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1386.2,
+          "y": 8,
+          "w": 41.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 196.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": {
+          "x": 150.7,
+          "y": 34,
+          "w": 57.4,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "inline-block"
+        },
+        "peek": {
+          "x": 507,
+          "y": 72,
+          "w": 426,
+          "h": 92.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 72,
+            "w": 74,
+            "h": 92.5,
+            "pe": "auto",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    }
+  },
+  "hover": {
+    "distances": {
+      "byToFirstThumb": {
+        "dx": -176,
+        "dy": 46
+      },
+      "viewAllToThumbs": {
+        "dx": 356.3,
+        "dy": 38,
+        "viewAllUnderHow": true
+      },
+      "howToViewAll": {
+        "overlapX": false
+      }
+    },
+    "thumbToViewAllPath": [
+      {
+        "i": 0,
+        "peekOpen": true,
+        "intent": "by",
+        "descriptor": "KOJA — Unapologetically Good.",
+        "viewAll": false,
+        "identity": "How Work by by Why HBW × KOJA — Unapologetically Good."
+      },
+      {
+        "i": 1,
+        "peekOpen": true,
+        "intent": "by",
+        "descriptor": "Selected projects · View all",
+        "viewAll": true,
+        "identity": "How Work by by Why HBW × Selected projects · View all"
+      },
+      {
+        "i": 2,
+        "peekOpen": true,
+        "intent": "by",
+        "descriptor": "SUB:3 — Bending Time & Space",
+        "viewAll": false,
+        "identity": "How Work by by Why HBW × SUB:3 — Bending Time & Space"
+      },
+      {
+        "i": 3,
+        "peekOpen": true,
+        "intent": "by",
+        "descriptor": "Selected projects · View all",
+        "viewAll": true,
+        "identity": "How Work by by Why HBW × Selected projects · View all"
+      },
+      {
+        "i": 4,
+        "peekOpen": true,
+        "intent": "by",
+        "descriptor": "Selected projects · View all",
+        "viewAll": true,
+        "identity": "How Work by by Why HBW × Selected projects · View all"
+      },
+      {
+        "i": 5,
+        "peekOpen": false,
+        "intent": "by",
+        "descriptor": "Brand Strategy & Creative Direction",
+        "viewAll": false,
+        "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction"
+      },
+      {
+        "i": 6,
+        "peekOpen": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction",
+        "viewAll": false,
+        "identity": "How by Why × Brand Strategy & Creative Direction"
+      },
+      {
+        "i": 7,
+        "peekOpen": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction",
+        "viewAll": false,
+        "identity": "How by Why × Brand Strategy & Creative Direction"
+      },
+      {
+        "i": 8,
+        "peekOpen": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction",
+        "viewAll": false,
+        "identity": "How by Why × Brand Strategy & Creative Direction"
+      },
+      {
+        "i": 9,
+        "peekOpen": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction",
+        "viewAll": false,
+        "identity": "How by Why × Brand Strategy & Creative Direction"
+      },
+      {
+        "i": 10,
+        "peekOpen": false,
+        "intent": "rest",
+        "descriptor": "Brand Strategy & Creative Direction",
+        "viewAll": false,
+        "identity": "How by Why × Brand Strategy & Creative Direction"
+      }
+    ],
+    "howWhilePeekWould": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How Make by with Why HBW × Brand Strategy & Creative Direction",
+      "intent": "how",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowMakebywithWhyHBW×Brand Strategy & Creative Di"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 46.1,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 696.2,
+          "y": 8,
+          "w": 47.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1386.2,
+          "y": 8,
+          "w": 41.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 72.9,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0.851708",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 72.9,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 72.9,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 72.9,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 72.9,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 72.9,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    }
+  },
+  "make": {
+    "idle": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "clickIdleCanvas": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "sendEmpty": {
+      "status": "Enter a valid email.",
+      "invalid": "true"
+    },
+    "afterWrite": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "write",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Write"
+      },
+      "tabCount": 13,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        },
+        {
+          "tag": "SELECT",
+          "label": "Typeface",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Text size",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Alignment",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Colour",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "afterWriteClick": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "write",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Edit text"
+      },
+      "tabCount": 14,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "TEXTAREA",
+          "label": "Edit text",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        },
+        {
+          "tag": "SELECT",
+          "label": "Typeface",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Text size",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Alignment",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Colour",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    },
+    "afterTypeEscape": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 5,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": true,
+      "family": "write",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 15,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        },
+        {
+          "tag": "SELECT",
+          "label": "Typeface",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Text size",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Alignment",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Colour",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Delete",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Undo",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Reset",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 12,
+          "y": 8,
+          "w": 38.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 703.1,
+          "y": 8,
+          "w": 33.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 1390.2,
+          "y": 8,
+          "w": 37.8,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 12,
+          "y": 34,
+          "w": 256.1,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "viewAll": null,
+        "peek": {
+          "x": 507,
+          "y": 78,
+          "w": 426,
+          "h": 92.5,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "thumbs": [
+          {
+            "id": "sub-3",
+            "x": 507,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "koja",
+            "x": 595,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "bar-closed",
+            "x": 683,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "chris-sisarich",
+            "x": 771,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          },
+          {
+            "id": "our-boy-roy",
+            "x": 859,
+            "y": 78,
+            "w": 74,
+            "h": 92.5,
+            "pe": "none",
+            "op": "1",
+            "cur": "pointer",
+            "vis": "visible",
+            "disp": "block"
+          }
+        ],
+        "sheet": {
+          "x": 1486,
+          "y": 0,
+          "w": 580,
+          "h": 900,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 592,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 592,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        }
+      }
+    }
+  },
+  "mobile": {
+    "introEarly": {
+      "url": "/",
+      "entered": false,
+      "intro": true,
+      "teach": false,
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 3,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": -1
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": -1
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": -1
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 132.7,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 257.3,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "atEnter": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": true,
+      "identity": "How Make by Work Why About ×",
+      "intent": "teach",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "HowMakebyWorkWhyAbout×Brand Strategy & Creative "
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 132.7,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 257.3,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "afterTeachWindow": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 132.7,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 257.3,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "tapHow": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 132.7,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 257.3,
+          "y": -5,
+          "w": 124.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "tapWork": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×ProjectsBrand Strategy & Creative Di"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 46,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 69.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 281.4,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 281.4,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "peekDisplay": "absent",
+    "index": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BUTTON",
+        "label": "Index"
+      },
+      "tabCount": 12,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "Chris Sisarich",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "Our Boy Roy",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "Bistro Nido",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 46,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 69.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 281.4,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 281.4,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "project": {
+      "url": "/projects/sub-3",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × SUB:3",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": "Close",
+      "register": "Info 01 / 12 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "0",
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×SUB:3Brand Strategy & Creative Direc"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Info",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Continue to KOJA",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 46,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 69.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": {
+          "x": 0,
+          "y": 4775.8,
+          "w": 390,
+          "h": 487.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "nextFace": {
+          "x": 281.4,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": {
+          "x": 8,
+          "y": 30,
+          "w": 41.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "info": {
+          "x": 281.4,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "scrolledEnd": {
+      "url": "/projects/sub-3",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × SUB:3",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": "Close",
+      "register": "Info 12 / 12 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "12",
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×SUB:3Brand Strategy & Creative Direc"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Info",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "KOJAUnapologetically Good.Info 12 / 12Next KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Continue to KOJA",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 46,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 69.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 429,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": {
+          "x": 0,
+          "y": 340.8,
+          "w": 390,
+          "h": 487.5,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "block"
+        },
+        "nextFace": {
+          "x": 281.4,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": {
+          "x": 8,
+          "y": 30,
+          "w": 41.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "info": {
+          "x": 281.4,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "375_home": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": -5,
+          "w": 119.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 127.7,
+          "y": -5,
+          "w": 119.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 247.3,
+          "y": -5,
+          "w": 119.7,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 412.5,
+          "y": 0,
+          "w": 375,
+          "h": 812,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "375_work": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle is-swap-entering",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×ProjectsBrand Strategy & Creative Di"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 46,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 69.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 412.5,
+          "y": 0,
+          "w": 375,
+          "h": 812,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 266.4,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 266.4,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "430_home": {
+      "url": "/",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "assembled": false,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": null,
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×Brand Strategy & Creative Direction×"
+      },
+      "tabCount": 8,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Write",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Draw",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Add",
+          "tab": 0
+        },
+        {
+          "tag": "INPUT",
+          "label": "Your email",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Send",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": -5,
+          "w": 138,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 146,
+          "y": -5,
+          "w": 138,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 284,
+          "y": -5,
+          "w": 138,
+          "h": 44,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 473,
+          "y": 0,
+          "w": 430,
+          "h": 932,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    },
+    "430_work": {
+      "url": "/?layer=projects",
+      "entered": true,
+      "intro": false,
+      "teach": false,
+      "identity": "How by Why × Projects",
+      "intent": "assembled",
+      "assembled": true,
+      "descriptor": "Brand Strategy & Creative Direction",
+      "viewAll": false,
+      "close": null,
+      "register": "Visual Index Info 01 / 01 Next",
+      "peekOpen": false,
+      "peekThumbs": 0,
+      "practicePeek": false,
+      "sheetOpen": false,
+      "mode": "is-browse is-phase-idle is-swap-entering",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "toolbar": true,
+      "undo": false,
+      "family": "idle",
+      "canvasCursor": "crosshair",
+      "focus": {
+        "tag": "BODY",
+        "label": "How by Why ×ProjectsBrand Strategy & Creative Di"
+      },
+      "tabCount": 37,
+      "tabs": [
+        {
+          "tag": "BUTTON",
+          "label": "Make with HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Work by HBW",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "About the Practice",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Close",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Index",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "SUB:3",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "The Colour Club",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2025",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "KOJA",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Packaging",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Visual system",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "2024",
+          "tab": 0
+        },
+        {
+          "tag": "DIV",
+          "label": "CLOSED",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Brand identity",
+          "tab": 0
+        },
+        {
+          "tag": "BUTTON",
+          "label": "Art direction",
+          "tab": 0
+        }
+      ],
+      "geo": {
+        "how": {
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "by": {
+          "x": 46,
+          "y": 8,
+          "w": 17.3,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "why": {
+          "x": 69.3,
+          "y": 8,
+          "w": 31,
+          "h": 18,
+          "pe": "auto",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "grid"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "none"
+        },
+        "viewAll": null,
+        "peek": null,
+        "thumbs": [],
+        "sheet": {
+          "x": 473,
+          "y": 0,
+          "w": 430,
+          "h": 932,
+          "pe": "none",
+          "op": "1",
+          "cur": "auto",
+          "vis": "hidden",
+          "disp": "block"
+        },
+        "preview": null,
+        "nextFace": {
+          "x": 321.4,
+          "y": 30,
+          "w": 54.1,
+          "h": 18,
+          "pe": "none",
+          "op": "0",
+          "cur": "auto",
+          "vis": "visible",
+          "disp": "flex"
+        },
+        "close": null,
+        "info": {
+          "x": 321.4,
+          "y": 30,
+          "w": 27.7,
+          "h": 18,
+          "pe": "none",
+          "op": "1",
+          "cur": "pointer",
+          "vis": "visible",
+          "disp": "flex"
+        }
+      }
+    }
+  },
+  "errors": [
+    "B: No element found for selector: .hbw-browse__cell[data-hbw-project=\"sub-3\"]",
+    "index: Waiting failed: 8000ms exceeded"
+  ]
+}

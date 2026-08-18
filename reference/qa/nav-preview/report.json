@@ -1,0 +1,1329 @@
+{
+  "01-rest": {
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "02-by-hover": {
+    "intent": "by",
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18
+    },
+    "peek": {
+      "open": true,
+      "x": 314,
+      "y": 88,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 96,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 297,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "03-sub3-name": {
+    "intent": "by",
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18
+    },
+    "peek": {
+      "open": true,
+      "x": 314,
+      "y": 88,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 96,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": "true",
+          "x": 314,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 297,
+        "w": 812,
+        "h": 18,
+        "text": "SUB:3",
+        "on": true
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "04-closed-name": {
+    "intent": "by",
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18
+    },
+    "peek": {
+      "open": true,
+      "x": 314,
+      "y": 88,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 96,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": "true",
+          "x": 646,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 297,
+        "w": 812,
+        "h": 18,
+        "text": "CLOSED",
+        "on": true
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "05-obr-name": {
+    "intent": "by",
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18
+    },
+    "peek": {
+      "open": true,
+      "x": 314,
+      "y": 88,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 96,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": "true",
+          "x": 978,
+          "y": 96,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 297,
+        "w": 812,
+        "h": 18,
+        "text": "Our Boy Roy",
+        "on": true
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "06-pointer-into-field": {
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "12-return-rest-mid": {
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "07-why-early": {
+    "intent": "why",
+    "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-practice-peek is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 50.1,
+      "h": 18
+    },
+    "by": {
+      "x": 699.8,
+      "y": 8,
+      "w": 40.3,
+      "h": 18
+    },
+    "why": {
+      "x": 1361.1,
+      "y": 8,
+      "w": 66.9,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": "true",
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay is-preview",
+      "x": 1344.5,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": 95.5
+    }
+  },
+  "08-why-settled": {
+    "intent": "why",
+    "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-practice-peek is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 50.1,
+      "h": 18
+    },
+    "by": {
+      "x": 699.8,
+      "y": 8,
+      "w": 40.3,
+      "h": 18
+    },
+    "why": {
+      "x": 1361.1,
+      "y": 8,
+      "w": 66.9,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": "true",
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay is-preview",
+      "x": 1252,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": 188
+    }
+  },
+  "09-pointer-onto-sheet": {
+    "intent": "why",
+    "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-practice-peek is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 50.1,
+      "h": 18
+    },
+    "by": {
+      "x": 699.8,
+      "y": 8,
+      "w": 40.3,
+      "h": 18
+    },
+    "why": {
+      "x": 1361.1,
+      "y": 8,
+      "w": 66.9,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": "true",
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay is-preview",
+      "x": 1252,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": 188
+    }
+  },
+  "10-partial-to-full": {
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-panel is-studio is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+      "x": 878,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": 562
+    }
+  },
+  "11-full-practice": {
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-panel is-studio is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+      "x": 848,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": 580
+    }
+  },
+  "12-resting": {
+    "intent": "rest",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "home": "hbw-home is-make is-phase-idle",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18
+    },
+    "peek": {
+      "open": false,
+      "x": 314,
+      "y": 96,
+      "w": 812,
+      "h": 227,
+      "row": {
+        "x": 314,
+        "y": 104,
+        "w": 812,
+        "h": 185
+      },
+      "gap": 18,
+      "count": 5,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "active": null,
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg"
+        },
+        {
+          "id": "koja",
+          "active": null,
+          "x": 480,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-500.jpg"
+        },
+        {
+          "id": "bar-closed",
+          "active": null,
+          "x": 646,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg"
+        },
+        {
+          "id": "chris-sisarich",
+          "active": null,
+          "x": 812,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+        },
+        {
+          "id": "our-boy-roy",
+          "active": null,
+          "x": 978,
+          "y": 104,
+          "w": 148,
+          "h": 185,
+          "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5-p-500.jpg"
+        }
+      ],
+      "name": {
+        "x": 314,
+        "y": 305,
+        "w": 812,
+        "h": 18,
+        "text": "",
+        "on": false
+      }
+    },
+    "sheet": {
+      "preview": null,
+      "cls": "hbw-sheet hbw-inspector is-global-right is-overlay",
+      "x": 1486,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "exposed": -46
+    }
+  },
+  "sameDomSheet": "global-right"
+}

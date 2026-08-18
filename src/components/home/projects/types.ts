@@ -16,12 +16,43 @@ export type ProjectMedia = {
   type: "image" | "video" | "gif";
   src: string;
   srcSet?: string;
+  mp4?: string;
   webm?: string;
+  videoSrc?: string;
   width: number;
   height: number;
   poster?: string;
   fit: MediaFit;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
 };
+
+/** Shared archive/peek slot. `src` is always a raster (image or video poster). */
+export type ArchiveMedia = {
+  type: "image" | "video";
+  src: string;
+  srcSet?: string;
+  width: number;
+  height: number;
+  crop: string;
+  poster?: string;
+  videoSrc?: string;
+  mp4?: string;
+  webm?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+};
+
+export function isVideoMedia(media: { type?: string }) {
+  return media.type === "video";
+}
+
+export function videoSrc(media: { src: string; mp4?: string; videoSrc?: string }) {
+  const candidate = media.mp4 || media.videoSrc || media.src;
+  return /\.(mp4|webm|mov)(\?|$)/i.test(candidate) ? candidate : media.mp4 || media.videoSrc || "";
+}
 
 export type Movement = {
   id: string;

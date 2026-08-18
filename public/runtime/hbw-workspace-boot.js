@@ -35,12 +35,14 @@
     } else if (p === "/") {
       root.classList.add("hbw-intro");
       window.setTimeout(function () {
+        if (root.classList.contains("hbw-entered")) return;
         root.classList.remove("hbw-intro");
         root.classList.add("hbw-entered");
         try {
           sessionStorage.setItem("hbw.entered.v2", "1");
+          sessionStorage.removeItem("hbw.intro.media.v1");
         } catch (e2) {}
-      }, 1140);
+      }, 2800);
     } else {
       sessionStorage.setItem("hbw.entered.v2", "1");
       root.classList.add("hbw-entered");

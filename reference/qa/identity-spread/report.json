@@ -1,0 +1,3190 @@
+{
+  "timing": {
+    "composedMs": 2280,
+    "phases": {
+      "occupy": {
+        "token": "spatial",
+        "ms": 380,
+        "at": "0–380"
+      },
+      "read": {
+        "token": "continuity+ui+ui",
+        "ms": 1000,
+        "at": "380–1380"
+      },
+      "yield": {
+        "token": "ui",
+        "ms": 240,
+        "at": "1380–1620"
+      },
+      "expand": {
+        "token": "continuity",
+        "ms": 520,
+        "at": "1620–2140"
+      },
+      "toolbar": {
+        "token": "spatial",
+        "ms": 380,
+        "delay": 1860,
+        "at": "1860–2240"
+      },
+      "settle": {
+        "token": "micro",
+        "ms": 140,
+        "at": "2140–2280"
+      }
+    }
+  },
+  "desktop1440": {
+    "size": {
+      "width": 1440,
+      "height": 900
+    },
+    "lockup": {
+      "intro": true,
+      "yield": false,
+      "resolve": false,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 608.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 720,
+        "right": 831.7,
+        "opacity": "0.99",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "dismantle": {
+      "intro": true,
+      "yield": true,
+      "resolve": false,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 608.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 720,
+        "right": 831.7,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "travelling": {
+      "intro": true,
+      "yield": true,
+      "resolve": true,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 608.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 720,
+        "right": 831.7,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "arriving": {
+      "intro": true,
+      "yield": true,
+      "resolve": true,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 608.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 720,
+        "right": 831.7,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.58",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "0.32",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "settled": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "1.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "how": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "how",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowMakebywithWhyHBWBrand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 46.1,
+        "height": 18,
+        "cx": 35.1,
+        "right": 58.1,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowMake"
+      },
+      "by": {
+        "x": 696.2,
+        "y": 8,
+        "width": 47.7,
+        "height": 18,
+        "cx": 720,
+        "right": 743.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "bywith"
+      },
+      "why": {
+        "x": 1386.2,
+        "y": 8,
+        "width": 41.8,
+        "height": 18,
+        "cx": 1407.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "WhyHBW"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "1.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How Make by with Why HBW Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "by": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "by",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowWorkbybyWhyHBWBrand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 43.6,
+        "height": 18,
+        "cx": 33.8,
+        "right": 55.6,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowWork"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "byby"
+      },
+      "why": {
+        "x": 1386.2,
+        "y": 8,
+        "width": 41.8,
+        "height": 18,
+        "cx": 1407.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "WhyHBW"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "1.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How Work by by Why HBW Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "why": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "why",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowAboutbytheWhyPracticeBrand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 50.1,
+        "height": 18,
+        "cx": 37,
+        "right": 62.1,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowAbout"
+      },
+      "by": {
+        "x": 699.8,
+        "y": 8,
+        "width": 40.3,
+        "height": 18,
+        "cx": 720,
+        "right": 740.2,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "bythe"
+      },
+      "why": {
+        "x": 1361.1,
+        "y": 8,
+        "width": 66.9,
+        "height": 18,
+        "cx": 1394.6,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "WhyPractice"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "1.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How About by the Why Practice Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "projects": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "rest",
+      "homeClass": "hbw-home is-browse is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 844,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 10
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "practice": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-panel is-studio is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1416,
+        "height": 18,
+        "cx": 720,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 720,
+        "right": 736.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1390.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1409.1,
+        "right": 1428,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "right": 1056,
+        "opacity": "1.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    }
+  },
+  "desktop1728": {
+    "size": {
+      "width": 1728,
+      "height": 900
+    },
+    "lockup": {
+      "intro": true,
+      "yield": false,
+      "resolve": false,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 752.4,
+        "y": 443.4,
+        "width": 223.1,
+        "height": 57.1,
+        "cx": 864,
+        "right": 975.6,
+        "opacity": "0.89",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1704,
+        "height": 18,
+        "cx": 864,
+        "right": 1716,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 847.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 864,
+        "right": 880.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1678.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1697.1,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 528,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 864,
+        "right": 1200,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1728,
+        "h": 900
+      }
+    },
+    "dismantle": {
+      "intro": true,
+      "yield": true,
+      "resolve": false,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 752.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 864,
+        "right": 975.7,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1704,
+        "height": 18,
+        "cx": 864,
+        "right": 1716,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 847.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 864,
+        "right": 880.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1678.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1697.1,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 528,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 864,
+        "right": 1200,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1728,
+        "h": 900
+      }
+    },
+    "travelling": {
+      "intro": true,
+      "yield": true,
+      "resolve": true,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 752.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 864,
+        "right": 975.7,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1704,
+        "height": 18,
+        "cx": 864,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 847.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 864,
+        "right": 880.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1678.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1697.1,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 528,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 864,
+        "right": 1200,
+        "opacity": "0.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1728,
+        "h": 900
+      }
+    },
+    "arriving": {
+      "intro": true,
+      "yield": true,
+      "resolve": true,
+      "entered": false,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 752.3,
+        "y": 443.4,
+        "width": 223.3,
+        "height": 57.2,
+        "cx": 864,
+        "right": 975.7,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1704,
+        "height": 18,
+        "cx": 864,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 847.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 864,
+        "right": 880.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1678.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1697.1,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "0.17",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 528,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 864,
+        "right": 1200,
+        "opacity": "0.09",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1728,
+        "h": 900
+      }
+    },
+    "settled": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "intent": "rest",
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "right": 0,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+      },
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 1704,
+        "height": 18,
+        "cx": 864,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How by Why Brand Strategy & Creative Direction"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 38.8,
+        "height": 18,
+        "cx": 31.4,
+        "right": 50.8,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "How"
+      },
+      "by": {
+        "x": 847.1,
+        "y": 8,
+        "width": 33.8,
+        "height": 18,
+        "cx": 864,
+        "right": 880.9,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "by"
+      },
+      "why": {
+        "x": 1678.2,
+        "y": 8,
+        "width": 37.8,
+        "height": 18,
+        "cx": 1697.1,
+        "right": 1716,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "textTransform": "none",
+        "text": "Why"
+      },
+      "descriptor": {
+        "x": 12,
+        "y": 30,
+        "width": 223.3,
+        "height": 15.6,
+        "cx": 123.7,
+        "right": 235.3,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "textTransform": "none",
+        "text": "Brand Strategy & Creative Direction",
+        "display": "block"
+      },
+      "toolbar": {
+        "x": 528,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 864,
+        "right": 1200,
+        "opacity": "1.00",
+        "fontSize": "14px",
+        "textTransform": "none",
+        "text": "WriteDrawAddSend",
+        "bottom": 28
+      },
+      "overflow": {
+        "wrap": false,
+        "bodyScroll": false,
+        "markText": "How by Why Brand Strategy & Creative Direction"
+      },
+      "viewport": {
+        "w": 1728,
+        "h": 900
+      }
+    }
+  },
+  "mobile": {
+    "390x844": {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "lockup": {
+        "intro": true,
+        "yield": false,
+        "resolve": false,
+        "entered": false,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 83.3,
+          "y": 436.4,
+          "width": 223.3,
+          "height": 57.2,
+          "cx": 195,
+          "right": 306.7,
+          "opacity": "0.98",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 374,
+          "height": 44,
+          "cx": 195,
+          "right": 382,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 174.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 195,
+          "right": 215.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 340.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 361.2,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 692,
+          "width": 358,
+          "height": 136,
+          "cx": 195,
+          "right": 374,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "travelling": {
+        "intro": true,
+        "yield": true,
+        "resolve": true,
+        "entered": false,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 83.3,
+          "y": 436.4,
+          "width": 223.3,
+          "height": 57.2,
+          "cx": 195,
+          "right": 306.7,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 374,
+          "height": 44,
+          "cx": 195,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 174.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 195,
+          "right": 215.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 340.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 361.2,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 692,
+          "width": 358,
+          "height": 136,
+          "cx": 195,
+          "right": 374,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "settled": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 374,
+          "height": 44,
+          "cx": 195,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 174.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 195,
+          "right": 215.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 340.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 361.2,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 692,
+          "width": 358,
+          "height": 136,
+          "cx": 195,
+          "right": 374,
+          "opacity": "1.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "projects": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-browse is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 374,
+          "height": 44,
+          "cx": 195,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 174.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 195,
+          "right": 215.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 340.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 361.2,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 855.2,
+          "width": 358,
+          "height": 136,
+          "cx": 195,
+          "right": 374,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": -147.2
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "practice": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-panel is-studio is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 374,
+          "height": 44,
+          "cx": 195,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 174.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 195,
+          "right": 215.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 340.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 361.2,
+          "right": 382,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 692,
+          "width": 358,
+          "height": 136,
+          "cx": 195,
+          "right": 374,
+          "opacity": "1.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      }
+    },
+    "375x812": {
+      "size": {
+        "width": 375,
+        "height": 812
+      },
+      "lockup": {
+        "intro": true,
+        "yield": false,
+        "resolve": false,
+        "entered": false,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 75.9,
+          "y": 420.4,
+          "width": 223.1,
+          "height": 57.1,
+          "cx": 187.5,
+          "right": 299.1,
+          "opacity": "0.89",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 44,
+          "cx": 187.5,
+          "right": 367,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 166.9,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 187.5,
+          "right": 208.1,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 325.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 346.2,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 660,
+          "width": 343,
+          "height": 136,
+          "cx": 187.5,
+          "right": 359,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      },
+      "travelling": {
+        "intro": true,
+        "yield": true,
+        "resolve": true,
+        "entered": false,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 75.8,
+          "y": 420.4,
+          "width": 223.3,
+          "height": 57.2,
+          "cx": 187.5,
+          "right": 299.2,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 44,
+          "cx": 187.5,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 166.9,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 187.5,
+          "right": 208.1,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 325.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 346.2,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 660,
+          "width": 343,
+          "height": 136,
+          "cx": 187.5,
+          "right": 359,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      },
+      "settled": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 44,
+          "cx": 187.5,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 166.9,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 187.5,
+          "right": 208.1,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 325.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 346.2,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 660,
+          "width": 343,
+          "height": 136,
+          "cx": 187.5,
+          "right": 359,
+          "opacity": "1.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      },
+      "projects": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-browse is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 44,
+          "cx": 187.5,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 166.9,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 187.5,
+          "right": 208.1,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 325.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 346.2,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 823.2,
+          "width": 343,
+          "height": 136,
+          "cx": 187.5,
+          "right": 359,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": -147.2
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      },
+      "practice": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-panel is-studio is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 44,
+          "cx": 187.5,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 166.9,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 187.5,
+          "right": 208.1,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 325.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 346.2,
+          "right": 367,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 660,
+          "width": 343,
+          "height": 136,
+          "cx": 187.5,
+          "right": 359,
+          "opacity": "1.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      }
+    },
+    "430x932": {
+      "size": {
+        "width": 430,
+        "height": 932
+      },
+      "lockup": {
+        "intro": true,
+        "yield": false,
+        "resolve": false,
+        "entered": false,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 103.4,
+          "y": 480.4,
+          "width": 223.1,
+          "height": 57.1,
+          "cx": 215,
+          "right": 326.6,
+          "opacity": "0.89",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "How\nby\nWhy\nBrand Strategy & Creative Direction\nIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 414,
+          "height": 44,
+          "cx": 215,
+          "right": 422,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 194.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 215,
+          "right": 235.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 380.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 401.2,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 780,
+          "width": 398,
+          "height": 136,
+          "cx": 215,
+          "right": 414,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      },
+      "travelling": {
+        "intro": true,
+        "yield": true,
+        "resolve": true,
+        "entered": false,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 103.3,
+          "y": 480.4,
+          "width": 223.3,
+          "height": 57.2,
+          "cx": 215,
+          "right": 326.7,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "Brand Strategy & Creative Direction\nIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 414,
+          "height": 44,
+          "cx": 215,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 194.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 215,
+          "right": 235.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 380.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 401.2,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 780,
+          "width": 398,
+          "height": 136,
+          "cx": 215,
+          "right": 414,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      },
+      "settled": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 414,
+          "height": 44,
+          "cx": 215,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 194.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 215,
+          "right": 235.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 380.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 401.2,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 780,
+          "width": 398,
+          "height": 136,
+          "cx": 215,
+          "right": 414,
+          "opacity": "1.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      },
+      "projects": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-browse is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 414,
+          "height": 44,
+          "cx": 215,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 194.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 215,
+          "right": 235.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 380.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 401.2,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 943.2,
+          "width": 398,
+          "height": 136,
+          "cx": 215,
+          "right": 414,
+          "opacity": "0.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": -147.2
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      },
+      "practice": {
+        "intro": false,
+        "yield": false,
+        "resolve": false,
+        "entered": true,
+        "intent": "rest",
+        "homeClass": "hbw-home is-make is-panel is-studio is-phase-idle",
+        "thought": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "0.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "lines": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice"
+        },
+        "mark": {
+          "x": 8,
+          "y": 8,
+          "width": 414,
+          "height": 44,
+          "cx": 215,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How by Why Brand Strategy & Creative Direction"
+        },
+        "how": {
+          "x": 8,
+          "y": 8,
+          "width": 42.5,
+          "height": 44,
+          "cx": 29.3,
+          "right": 50.5,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "How"
+        },
+        "by": {
+          "x": 194.4,
+          "y": 8,
+          "width": 41.3,
+          "height": 44,
+          "cx": 215,
+          "right": 235.6,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "by"
+        },
+        "why": {
+          "x": 380.5,
+          "y": 8,
+          "width": 41.5,
+          "height": 44,
+          "cx": 401.2,
+          "right": 422,
+          "opacity": "1.00",
+          "fontSize": "15px",
+          "textTransform": "none",
+          "text": "Why"
+        },
+        "descriptor": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "right": 0,
+          "opacity": "1.00",
+          "fontSize": "13px",
+          "textTransform": "none",
+          "text": "Brand Strategy & Creative Direction",
+          "display": "none"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 780,
+          "width": 398,
+          "height": 136,
+          "cx": 215,
+          "right": 414,
+          "opacity": "1.00",
+          "fontSize": "14px",
+          "textTransform": "none",
+          "text": "WriteDrawAddSend",
+          "bottom": 16
+        },
+        "overflow": {
+          "wrap": false,
+          "bodyScroll": false,
+          "markText": "How by Why"
+        },
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4106 @@
+{
+  "name": "hbw",
+  "baseUrl": "http://127.0.0.1:3000",
+  "command": "audit",
+  "generatedAt": "2026-08-14T23:47:12.990Z",
+  "summary": {
+    "PASS": 400,
+    "FAIL": 4,
+    "PARTIAL": 0
+  },
+  "bySuite": {
+    "OVERFLOW": {
+      "PASS": 66,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 66
+    },
+    "CONSOLE": {
+      "PASS": 6,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 6
+    },
+    "NETWORK": {
+      "PASS": 12,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 12
+    },
+    "ROUTES": {
+      "PASS": 66,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 66
+    },
+    "INTERACTIONS": {
+      "PASS": 230,
+      "FAIL": 4,
+      "PARTIAL": 0,
+      "total": 234
+    },
+    "COUNTS": {
+      "PASS": 12,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 12
+    },
+    "HIT": {
+      "PASS": 3,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 3
+    },
+    "STABLE": {
+      "PASS": 5,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 5
+    }
+  },
+  "results": [
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/sub-3",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/koja",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/bar-closed",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/our-boy-roy",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/chris-sisarich",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/bistro-nido",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/studio",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/manifesto",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/intake/start",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "CONSOLE",
+      "name": "no app errors",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "expected": "clean console",
+      "actual": "clean"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no forbidden requests",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no failed requests",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "ROUTES",
+      "name": "home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "selector": ".hbw-home",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "projects-browse",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-browse\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sub-3",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/sub-3",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "koja",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/koja",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "closed",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/bar-closed",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "obr",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/our-boy-roy",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sisarich",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/chris-sisarich",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "nido",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/bistro-nido",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "studio",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/studio",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-studio\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "manifesto",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/manifesto",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-manifesto\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "intake-redirect",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/intake/start",
+      "expected": "location.pathname === \"/studio\" && !document.querySelector(\".intake-container\") && !document.querySelector(\"[href*='/intake']\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "FAIL",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": false
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six project cells exist",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-browse__cell",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six index rows exist",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-browse__row",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/sub-3",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/koja",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/bar-closed",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/our-boy-roy",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/chris-sisarich",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/bistro-nido",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/studio",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/manifesto",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/intake/start",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "CONSOLE",
+      "name": "no app errors",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "expected": "clean console",
+      "actual": "clean"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no forbidden requests",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no failed requests",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "ROUTES",
+      "name": "home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "selector": ".hbw-home",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "projects-browse",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-browse\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sub-3",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/sub-3",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "koja",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/koja",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "closed",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/bar-closed",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "obr",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/our-boy-roy",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sisarich",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/chris-sisarich",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "nido",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/bistro-nido",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "studio",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/studio",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-studio\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "manifesto",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/manifesto",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-manifesto\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "intake-redirect",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/intake/start",
+      "expected": "location.pathname === \"/studio\" && !document.querySelector(\".intake-container\") && !document.querySelector(\"[href*='/intake']\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "FAIL",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": false
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six project cells exist",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "selector": ".hbw-browse__cell",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six index rows exist",
+      "status": "PASS",
+      "viewport": "desktop-1280 1280×800",
+      "selector": ".hbw-browse__row",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/sub-3",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/koja",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/bar-closed",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/our-boy-roy",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/chris-sisarich",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/bistro-nido",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/studio",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/manifesto",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/intake/start",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "CONSOLE",
+      "name": "no app errors",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "expected": "clean console",
+      "actual": "clean"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no forbidden requests",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no failed requests",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "ROUTES",
+      "name": "home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "selector": ".hbw-home",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "projects-browse",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-browse\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sub-3",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/sub-3",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "koja",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/koja",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "closed",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/bar-closed",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "obr",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/our-boy-roy",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sisarich",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/chris-sisarich",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "nido",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/bistro-nido",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "studio",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/studio",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-studio\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "manifesto",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/manifesto",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-manifesto\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "intake-redirect",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/intake/start",
+      "expected": "location.pathname === \"/studio\" && !document.querySelector(\".intake-container\") && !document.querySelector(\"[href*='/intake']\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "FAIL",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": false
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six project cells exist",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "selector": ".hbw-browse__cell",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six index rows exist",
+      "status": "PASS",
+      "viewport": "laptop 1024×768",
+      "selector": ".hbw-browse__row",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/sub-3",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/koja",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/bar-closed",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/our-boy-roy",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/chris-sisarich",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/bistro-nido",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/studio",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/manifesto",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/intake/start",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "CONSOLE",
+      "name": "no app errors",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "expected": "clean console",
+      "actual": "clean"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no forbidden requests",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no failed requests",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "ROUTES",
+      "name": "home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "selector": ".hbw-home",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "projects-browse",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-browse\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sub-3",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/sub-3",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "koja",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/koja",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "closed",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/bar-closed",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "obr",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/our-boy-roy",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sisarich",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/chris-sisarich",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "nido",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/bistro-nido",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "studio",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/studio",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-studio\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "manifesto",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/manifesto",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-manifesto\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "intake-redirect",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/intake/start",
+      "expected": "location.pathname === \"/studio\" && !document.querySelector(\".intake-container\") && !document.querySelector(\"[href*='/intake']\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "FAIL",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": false
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six project cells exist",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "selector": ".hbw-browse__cell",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six index rows exist",
+      "status": "PASS",
+      "viewport": "tablet 768×1024",
+      "selector": ".hbw-browse__row",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/koja",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/bar-closed",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/our-boy-roy",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/chris-sisarich",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/bistro-nido",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/studio",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/manifesto",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/intake/start",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "CONSOLE",
+      "name": "no app errors",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "expected": "clean console",
+      "actual": "clean"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no forbidden requests",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no failed requests",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "ROUTES",
+      "name": "home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "selector": ".hbw-home",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "projects-browse",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-browse\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sub-3",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "koja",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/koja",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "closed",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/bar-closed",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "obr",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/our-boy-roy",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sisarich",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/chris-sisarich",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "nido",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/bistro-nido",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "studio",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/studio",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-studio\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "manifesto",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/manifesto",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-manifesto\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "intake-redirect",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/intake/start",
+      "expected": "location.pathname === \"/studio\" && !document.querySelector(\".intake-container\") && !document.querySelector(\"[href*='/intake']\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six project cells exist",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-browse__cell",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six index rows exist",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-browse__row",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/sub-3",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/koja",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/bar-closed",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/our-boy-roy",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/chris-sisarich",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/bistro-nido",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/studio",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/manifesto",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "OVERFLOW",
+      "name": "no horizontal overflow",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/intake/start",
+      "selector": "document",
+      "expected": "no horizontal overflow",
+      "actual": "none"
+    },
+    {
+      "suite": "CONSOLE",
+      "name": "no app errors",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "expected": "clean console",
+      "actual": "clean"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no forbidden requests",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "NETWORK",
+      "name": "no failed requests",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "expected": "none",
+      "actual": "none"
+    },
+    {
+      "suite": "ROUTES",
+      "name": "home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "selector": ".hbw-home",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "projects-browse",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-browse\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sub-3",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/sub-3",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "koja",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/koja",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "closed",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/bar-closed",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "obr",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/our-boy-roy",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "sisarich",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/chris-sisarich",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "nido",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/bistro-nido",
+      "selector": ".hbw-project-view",
+      "expected": "reachable",
+      "actual": {
+        "count": 1
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "studio",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/studio",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-studio\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "manifesto",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/manifesto",
+      "expected": "document.querySelector(\".hbw-home\")?.classList.contains(\"is-manifesto\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "ROUTES",
+      "name": "intake-redirect",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/intake/start",
+      "expected": "location.pathname === \"/studio\" && !document.querySelector(\".intake-container\") && !document.querySelector(\"[href*='/intake']\")",
+      "actual": {
+        "evaluate": true
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns SUB:3",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six project cells exist",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "selector": ".hbw-browse__cell",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "COUNTS",
+      "name": "six index rows exist",
+      "status": "PASS",
+      "viewport": "mobile-375 375×812",
+      "selector": ".hbw-browse__row",
+      "expected": 6,
+      "actual": 6
+    },
+    {
+      "suite": "HIT",
+      "name": "Projects owns its pixels",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-nav-projects__hit",
+      "expected": "element owns its hit target",
+      "actual": {
+        "selector": ".hbw-nav-projects__hit",
+        "owns": true,
+        "x": 596.34375,
+        "y": 18,
+        "top": "BUTTON"
+      }
+    },
+    {
+      "suite": "HIT",
+      "name": "Studio owns its pixels",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-nav-studio",
+      "expected": "element owns its hit target",
+      "actual": {
+        "selector": ".hbw-nav-studio",
+        "owns": true,
+        "x": 807.53125,
+        "y": 18,
+        "top": "BUTTON"
+      }
+    },
+    {
+      "suite": "HIT",
+      "name": "How by Why owns its pixels",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-home-strip__home",
+      "expected": "element owns its hit target",
+      "actual": {
+        "selector": ".hbw-home-strip__home",
+        "owns": true,
+        "x": 20,
+        "y": 18,
+        "top": "SPAN"
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "How by Why baseline",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-home-strip__mark",
+      "expected": "top/left unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-home-strip__mark",
+          "top": 10,
+          "left": 12,
+          "width": 99.9375,
+          "height": 20.34375,
+          "bottom": 30.34375,
+          "right": 111.9375
+        },
+        "after": {
+          "selector": ".hbw-home-strip__mark",
+          "top": 10,
+          "left": 12,
+          "width": 99.9375,
+          "height": 20.34375,
+          "bottom": 30.34375,
+          "right": 111.9375
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "Projects baseline",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-nav-projects__hit",
+      "expected": "top/left unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-nav-projects__hit",
+          "top": 10,
+          "left": 588.34375,
+          "width": 67.46875,
+          "height": 20.34375,
+          "bottom": 30.34375,
+          "right": 655.8125
+        },
+        "after": {
+          "selector": ".hbw-nav-projects__hit",
+          "top": 10,
+          "left": 588.34375,
+          "width": 67.46875,
+          "height": 20.34375,
+          "bottom": 30.34375,
+          "right": 655.8125
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "Studio baseline",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-nav-studio",
+      "expected": "top/left unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-nav-studio",
+          "top": 10,
+          "left": 799.53125,
+          "width": 52.109375,
+          "height": 20.34375,
+          "bottom": 30.34375,
+          "right": 851.640625
+        },
+        "after": {
+          "selector": ".hbw-nav-studio",
+          "top": 10,
+          "left": 799.53125,
+          "width": 52.109375,
+          "height": 20.34375,
+          "bottom": 30.34375,
+          "right": 851.640625
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "time baseline",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-home-strip__time",
+      "expected": "top/right unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-home-strip__time",
+          "top": 10,
+          "left": 1340.28125,
+          "width": 87.71875,
+          "height": 16.890625,
+          "bottom": 26.890625,
+          "right": 1428
+        },
+        "after": {
+          "selector": ".hbw-home-strip__time",
+          "top": 10,
+          "left": 1340.28125,
+          "width": 87.71875,
+          "height": 16.890625,
+          "bottom": 26.890625,
+          "right": 1428
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "window top",
+      "status": "PASS",
+      "viewport": "desktop 1440×900",
+      "selector": ".hbw-window",
+      "expected": "top/left/right unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-window",
+          "top": 64.21875,
+          "left": 12,
+          "width": 1416,
+          "height": 823.78125,
+          "bottom": 888,
+          "right": 1428
+        },
+        "after": {
+          "selector": ".hbw-window",
+          "top": 64.21875,
+          "left": 12,
+          "width": 1416,
+          "height": 823.78125,
+          "bottom": 888,
+          "right": 1428
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "desktop": {
+    "frames": 39,
+    "enter": {
+      "url": "/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 01 / 09",
+      "project": "bar-closed",
+      "counter": "01 / 09",
+      "outroOn": false,
+      "outroLabel": "Our Boy Roy The Friendly Neighbour",
+      "task": false
+    },
+    "outro": {
+      "url": "/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 01 / 09",
+      "project": "bar-closed",
+      "counter": "01 / 09",
+      "outroOn": true,
+      "outroLabel": "Our Boy Roy The Friendly Neighbour",
+      "task": false
+    },
+    "peeked": {
+      "ok": true,
+      "x": 10056,
+      "left": 316,
+      "width": 1861
+    },
+    "handoff": {
+      "url": "/projects/our-boy-roy",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 01 / 07",
+      "project": "our-boy-roy",
+      "counter": "01 / 07",
+      "outroOn": false,
+      "outroLabel": "Chris Sisarich Beauty Amongst The Mundane",
+      "task": false
+    },
+    "kojaClosed": {
+      "url": "/projects/bar-closed",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 01 / 09",
+      "project": "bar-closed",
+      "counter": "01 / 09",
+      "outroOn": false,
+      "outroLabel": "Our Boy Roy The Friendly Neighbour",
+      "task": false
+    },
+    "back": {
+      "url": "/projects/koja",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 08 / 08",
+      "project": "koja",
+      "counter": "08 / 08",
+      "outroOn": true,
+      "outroLabel": "CLOSED A Smuggler's House",
+      "task": false
+    },
+    "final": {
+      "url": "/",
+      "mode": "hbw-home is-browse is-phase-idle",
+      "phase": "idle",
+      "nav": "Visual Index Info 01 / 01",
+      "project": null,
+      "counter": null,
+      "outroOn": false,
+      "outroLabel": null,
+      "task": false
+    }
+  },
+  "mobile": {
+    "frames": 14,
+    "enter": {
+      "url": "/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 01 / 12",
+      "project": "sub-3",
+      "counter": "01 / 12",
+      "outroOn": false,
+      "outroLabel": "KOJA Unapologetically Good.",
+      "task": false
+    },
+    "outro": {
+      "url": "/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 12 / 12",
+      "project": "sub-3",
+      "counter": "12 / 12",
+      "outroOn": true,
+      "outroLabel": "KOJA Unapologetically Good.",
+      "task": false
+    },
+    "next": {
+      "url": "/projects/koja",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 01 / 08",
+      "project": "koja",
+      "counter": "01 / 08",
+      "outroOn": false,
+      "outroLabel": "CLOSED A Smuggler's House",
+      "task": false
+    },
+    "back": {
+      "url": "/projects/sub-3",
+      "mode": "hbw-home is-view is-phase-active",
+      "phase": "active",
+      "nav": "Visual Index Info 12 / 12",
+      "project": "sub-3",
+      "counter": "12 / 12",
+      "outroOn": true,
+      "outroLabel": "KOJA Unapologetically Good.",
+      "task": false
+    }
+  }
+}

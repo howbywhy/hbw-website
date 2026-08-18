@@ -1,0 +1,526 @@
+{
+  "frames": 64,
+  "home": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1428,
+      "y": 10,
+      "w": 0,
+      "h": 0,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": null,
+    "viewPhase": null
+  },
+  "peekOpen": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "intro": false,
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": null,
+    "viewPhase": null
+  },
+  "peekClosed": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": null,
+    "viewPhase": null
+  },
+  "sub3": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": "01 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active"
+  },
+  "visual": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": null,
+    "viewPhase": null
+  },
+  "koja": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-phase-active",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active"
+  },
+  "info": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-panel is-phase-active",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": true,
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active"
+  },
+  "peekDuringInfo": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-panel is-phase-active",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": true,
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active"
+  },
+  "end": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "intro": false,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 92,
+      "h": 115
+    },
+    "peek": {
+      "x": 607,
+      "y": 54,
+      "w": 583,
+      "h": 126,
+      "r": 1190
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "counter": null,
+    "viewPhase": null
+  },
+  "gates": {
+    "introGone": true,
+    "peekAppears": true,
+    "peekCloses": true,
+    "headerLocked": true,
+    "peekDoesNotLiftHeader": true,
+    "peekSuppressedInView": true,
+    "peekSuppressedInInfo": true,
+    "peekHeight": 115
+  }
+}

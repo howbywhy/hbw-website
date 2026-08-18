@@ -1,0 +1,369 @@
+{
+  "rest": {
+    "url": "/",
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "intent": "rest",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "1",
+    "peekOpen": false,
+    "thumbs": [
+      {
+        "id": "sub-3",
+        "w": 74,
+        "h": 92.5,
+        "y": 78
+      },
+      {
+        "id": "koja",
+        "w": 74,
+        "h": 92.5,
+        "y": 78
+      },
+      {
+        "id": "bar-closed",
+        "w": 74,
+        "h": 92.5,
+        "y": 78
+      },
+      {
+        "id": "chris-sisarich",
+        "w": 74,
+        "h": 92.5,
+        "y": 78
+      },
+      {
+        "id": "our-boy-roy",
+        "w": 74,
+        "h": 92.5,
+        "y": 78
+      }
+    ],
+    "register": "Info 01 / 01 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": null,
+    "index": null,
+    "preview": null,
+    "last": null,
+    "mode": "hbw-home is-make is-phase-idle"
+  },
+  "byHover": {
+    "url": "/",
+    "identity": "How Work by by Why HBW × Selected projects · View all",
+    "intent": "by",
+    "descriptor": "Selected projects · View all",
+    "descriptorOpacity": "1",
+    "peekOpen": true,
+    "thumbs": [
+      {
+        "id": "sub-3",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "koja",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "bar-closed",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "chris-sisarich",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "our-boy-roy",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      }
+    ],
+    "register": "Info 01 / 01 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": null,
+    "index": null,
+    "preview": null,
+    "last": null,
+    "mode": "hbw-home is-make is-phase-idle"
+  },
+  "sub3": {
+    "url": "/",
+    "identity": "How Work by by Why HBW × SUB:3 — Bending Time & Space",
+    "intent": "by",
+    "descriptor": "SUB:3 — Bending Time & Space",
+    "descriptorOpacity": "1",
+    "peekOpen": true,
+    "thumbs": [
+      {
+        "id": "sub-3",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "koja",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "bar-closed",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "chris-sisarich",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "our-boy-roy",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      }
+    ],
+    "register": "Info 01 / 01 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": null,
+    "index": null,
+    "preview": null,
+    "last": null,
+    "mode": "hbw-home is-make is-phase-idle"
+  },
+  "gap": {
+    "url": "/",
+    "identity": "How Work by by Why HBW × Selected projects · View all",
+    "intent": "by",
+    "descriptor": "Selected projects · View all",
+    "descriptorOpacity": "1",
+    "peekOpen": true,
+    "thumbs": [
+      {
+        "id": "sub-3",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "koja",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "bar-closed",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "chris-sisarich",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      },
+      {
+        "id": "our-boy-roy",
+        "w": 74,
+        "h": 92.5,
+        "y": 72
+      }
+    ],
+    "register": "Info 01 / 01 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": null,
+    "index": null,
+    "preview": null,
+    "last": null,
+    "mode": "hbw-home is-make is-phase-idle"
+  },
+  "viewAll": {
+    "url": "/",
+    "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 01 / 01 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": "Projects",
+    "index": null,
+    "preview": null,
+    "last": null,
+    "mode": "hbw-home is-browse is-phase-idle"
+  },
+  "homeEncode": true,
+  "final": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 12 / 12 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": "SUB:3",
+    "index": "11",
+    "preview": {
+      "x": 694,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": true
+    },
+    "last": {
+      "x": 111,
+      "r": 670,
+      "vis": true
+    },
+    "mode": "hbw-home is-view is-phase-active"
+  },
+  "early": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 12 / 12 Next KOJA",
+    "nextRegister": "Next KOJA",
+    "boundary": true,
+    "suffix": "SUB:3",
+    "index": "12",
+    "preview": {
+      "x": 334,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": true
+    },
+    "last": {
+      "x": -249,
+      "r": 310,
+      "vis": true
+    },
+    "mode": "hbw-home is-view is-boundary is-phase-active is-moving"
+  },
+  "mid": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 12 / 12 Next KOJA",
+    "nextRegister": "Next KOJA",
+    "boundary": true,
+    "suffix": "SUB:3",
+    "index": "12",
+    "preview": {
+      "x": 165,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": true
+    },
+    "last": {
+      "x": -418,
+      "r": 141,
+      "vis": true
+    },
+    "mode": "hbw-home is-view is-boundary is-phase-active is-moving"
+  },
+  "full": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 12 / 12 Next KOJA",
+    "nextRegister": "Next KOJA",
+    "boundary": true,
+    "suffix": "SUB:3",
+    "index": "12",
+    "preview": {
+      "x": 165,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": true
+    },
+    "last": {
+      "x": -418,
+      "r": 141,
+      "vis": true
+    },
+    "mode": "hbw-home is-view is-boundary is-phase-active is-moving"
+  },
+  "reversed": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 12 / 12 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": "SUB:3",
+    "index": "11",
+    "preview": {
+      "x": 694,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": true
+    },
+    "last": {
+      "x": 111,
+      "r": 670,
+      "vis": true
+    },
+    "mode": "hbw-home is-view is-phase-active"
+  },
+  "settled": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × KOJA Brand Strategy & Creative Direction",
+    "intent": "assembled",
+    "descriptor": "Brand Strategy & Creative Direction",
+    "descriptorOpacity": "0",
+    "peekOpen": false,
+    "thumbs": [],
+    "register": "Info 01 / 08 Next",
+    "nextRegister": null,
+    "boundary": false,
+    "suffix": "KOJA",
+    "index": "0",
+    "preview": {
+      "x": 6373.2,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": false
+    },
+    "last": {
+      "x": 5790.1,
+      "r": 6349.2,
+      "vis": false
+    },
+    "mode": "hbw-home is-view is-phase-active"
+  },
+  "boundaryEncode": true
+}

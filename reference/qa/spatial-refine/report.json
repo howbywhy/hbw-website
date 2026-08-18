@@ -1,0 +1,2792 @@
+{
+  "errors": [],
+  "checks": {
+    "home_rest": {
+      "url": "/",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": "View more",
+      "peekBox": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 120.5,
+        "r": 933
+      },
+      "peekRow": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 92.5,
+        "r": 933
+      },
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "why_hit": {
+      "x": 1409.1015625,
+      "y": 17,
+      "tab": 0,
+      "w": 37.796875,
+      "h": 18
+    },
+    "why_hover": {
+      "url": "/",
+      "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+      "intent": "why",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": "View more",
+      "peekBox": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 120.5,
+        "r": 933
+      },
+      "peekRow": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 92.5,
+        "r": 933
+      },
+      "byBox": {
+        "x": 699.8,
+        "y": 8,
+        "w": 40.3,
+        "h": 18,
+        "r": 740.2
+      },
+      "practicePeek": true,
+      "practiceVisible": false,
+      "practicePreview": true,
+      "practiceBox": {
+        "x": 1264,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 1857
+      },
+      "glimpse": "Practice You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work. Our role is to create clarity where there’s noise and shape where there’s ambiguity. Enter Practice",
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-practice-peek is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "why_glimpse_ok": true,
+    "why_leave": {
+      "url": "/",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": "View more",
+      "peekBox": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 120.5,
+        "r": 933
+      },
+      "peekRow": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 92.5,
+        "r": 933
+      },
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1264,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 1857
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "why_leave_ok": true,
+    "practice_open": {
+      "url": "/studio",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "block"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 847,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 1440
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "practice_headings": [
+      "Our Philosophy",
+      "How We Work",
+      "(01) Clarify",
+      "(02) Shape",
+      "(03) Express",
+      "(04) Support",
+      "Contact"
+    ],
+    "practice_quiet_ok": true,
+    "manifesto_open": {
+      "url": "/manifesto",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": "Back",
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": true,
+      "manifestoBox": {
+        "x": 0,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 593
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-panel is-studio is-manifesto is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "manifesto_back_label_ok": true,
+    "manifesto_back": {
+      "url": "/studio",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "block"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 867.9,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 1460.9
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -631.4,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -38.4
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "manifesto_back_ok": true,
+    "practice_close": {
+      "url": "/",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": "View more",
+      "peekBox": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 120.5,
+        "r": 933
+      },
+      "peekRow": {
+        "x": 507,
+        "y": 78,
+        "w": 426,
+        "h": 92.5,
+        "r": 933
+      },
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1257.9,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 1850.9
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "practice_close_ok": true,
+    "seam_1440": {
+      "peek": {
+        "practice": {
+          "x": 847,
+          "y": 0,
+          "w": 593,
+          "h": 900,
+          "r": 1440
+        },
+        "window": {
+          "x": 12,
+          "y": 56,
+          "w": 1416,
+          "h": 832,
+          "r": 1428
+        }
+      },
+      "practice": {
+        "ok": true,
+        "join": 847,
+        "fieldRight": 1428,
+        "sheetRight": 1440,
+        "sheetPastField": 835
+      },
+      "manifesto": {
+        "ok": true,
+        "join": 593,
+        "fieldLeft": 12,
+        "sheetLeft": 0
+      },
+      "practiceRight": 1440,
+      "manifestoLeft": 0
+    },
+    "seam_1437": {
+      "peek": {
+        "practice": {
+          "x": 845.5,
+          "y": 0,
+          "w": 591.5,
+          "h": 900,
+          "r": 1437
+        },
+        "window": {
+          "x": 12,
+          "y": 56,
+          "w": 1413,
+          "h": 832,
+          "r": 1425
+        }
+      },
+      "practice": {
+        "ok": true,
+        "join": 845.5,
+        "fieldRight": 1425,
+        "sheetRight": 1437,
+        "sheetPastField": 833.5
+      },
+      "manifesto": {
+        "ok": true,
+        "join": 591.5,
+        "fieldLeft": 12,
+        "sheetLeft": 0
+      },
+      "practiceRight": 1437,
+      "manifestoLeft": 0
+    },
+    "seam_1441_5": {
+      "peek": {
+        "practice": {
+          "x": 847.5,
+          "y": 0,
+          "w": 593.5,
+          "h": 900,
+          "r": 1441
+        },
+        "window": {
+          "x": 12,
+          "y": 56,
+          "w": 1417,
+          "h": 832,
+          "r": 1429
+        }
+      },
+      "practice": {
+        "ok": true,
+        "join": 847.5,
+        "fieldRight": 1429,
+        "sheetRight": 1441,
+        "sheetPastField": 835.5
+      },
+      "manifesto": {
+        "ok": true,
+        "join": 593.5,
+        "fieldLeft": 12,
+        "sheetLeft": 0
+      },
+      "practiceRight": 1441,
+      "manifestoLeft": 0
+    },
+    "seam_1366": {
+      "peek": {
+        "practice": {
+          "x": 810,
+          "y": 0,
+          "w": 556,
+          "h": 900,
+          "r": 1366
+        },
+        "window": {
+          "x": 12,
+          "y": 56,
+          "w": 1342,
+          "h": 832,
+          "r": 1354
+        }
+      },
+      "practice": {
+        "ok": true,
+        "join": 810,
+        "fieldRight": 1354,
+        "sheetRight": 1366,
+        "sheetPastField": 798
+      },
+      "manifesto": {
+        "ok": true,
+        "join": 556,
+        "fieldLeft": 12,
+        "sheetLeft": 0
+      },
+      "practiceRight": 1366,
+      "manifestoLeft": 0
+    },
+    "by_peek": {
+      "url": "/",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "intent": "by",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": true,
+      "peekMeta": "View more",
+      "peekBox": {
+        "x": 507,
+        "y": 72,
+        "w": 426,
+        "h": 120.5,
+        "r": 933
+      },
+      "peekRow": {
+        "x": 507,
+        "y": 72,
+        "w": 426,
+        "h": 92.5,
+        "r": 933
+      },
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "by_align_dx": 0,
+    "by_align_ok": true,
+    "by_meta_ok": true,
+    "by_thumb": {
+      "url": "/",
+      "identity": "How by Why × SUB:3 — Bending Time & Space",
+      "intent": "by",
+      "descriptor": "SUB:3 — Bending Time & Space",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": true,
+      "peekMeta": "View more",
+      "peekBox": {
+        "x": 507,
+        "y": 72,
+        "w": 426,
+        "h": 120.5,
+        "r": 933
+      },
+      "peekRow": {
+        "x": 507,
+        "y": 72,
+        "w": 426,
+        "h": 92.5,
+        "r": 933
+      },
+      "byBox": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18,
+        "r": 736.9
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "by_thumb_ok": true,
+    "view_more": {
+      "url": "/?layer=projects",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-browse is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "view_more_ok": true,
+    "m12": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "11",
+      "boundary": false,
+      "register": "Info 12 / 12 Next",
+      "lastMv": {
+        "x": 114,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9,
+        "r": 673
+      },
+      "preview": {
+        "x": 873,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5,
+        "r": 1427.8
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "m12_info": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": true,
+      "infoBox": {
+        "x": 878.7,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 1471.7
+      },
+      "mode": "is-view is-panel is-inspect is-phase-active",
+      "project": "sub-3",
+      "index": "11",
+      "boundary": false,
+      "register": "Close Next",
+      "lastMv": {
+        "x": 17,
+        "y": 297.9,
+        "w": 421,
+        "h": 526.3,
+        "r": 438
+      },
+      "preview": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "r": 0
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 836,
+        "h": 832,
+        "r": 848
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "m12_info_continue": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-view is-boundary is-phase-active is-moving",
+      "project": "sub-3",
+      "index": "12",
+      "boundary": true,
+      "register": "Info 12 / 12 Next KOJA",
+      "lastMv": {
+        "x": 114,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9,
+        "r": 673
+      },
+      "preview": {
+        "x": 873,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5,
+        "r": 1427.8
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "m12_info_continue_ok": true,
+    "boundary": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-view is-phase-active is-moving",
+      "project": "sub-3",
+      "index": "11",
+      "boundary": false,
+      "register": "Info 12 / 12 Next",
+      "lastMv": {
+        "x": 114,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9,
+        "r": 673
+      },
+      "preview": {
+        "x": 873,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5,
+        "r": 1427.8
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "boundary_geom": {
+      "gap": 200,
+      "rightInset": 0.2,
+      "last": {
+        "x": 114,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9,
+        "r": 673
+      },
+      "preview": {
+        "x": 873,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5,
+        "r": 1427.8
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "boundary_ok": false,
+    "boundary_reverse": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-view is-phase-active is-moving",
+      "project": "sub-3",
+      "index": "10",
+      "boundary": false,
+      "register": "Info 11 / 12 Next",
+      "lastMv": {
+        "x": -240.1,
+        "y": 59.2,
+        "w": 1246.1,
+        "h": 825.6,
+        "r": 1006
+      },
+      "preview": {
+        "x": 1773,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5,
+        "r": 2327.8
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "boundary_reverse_ok": true,
+    "boundary_commit": {
+      "url": "/projects/koja",
+      "identity": "How by Why × KOJA Brand Strategy & Creative Direction",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 67.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -652.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": -59.3
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 1499.3,
+        "y": 0,
+        "w": 593,
+        "h": 900,
+        "r": 2092.3
+      },
+      "mode": "is-view is-phase-active",
+      "project": "koja",
+      "index": "0",
+      "boundary": false,
+      "register": "Info 01 / 08 Next",
+      "lastMv": {
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9,
+        "r": 571.1
+      },
+      "preview": {
+        "x": 6549.2,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5,
+        "r": 7104
+      },
+      "stage": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "r": 1428
+      }
+    },
+    "boundary_commit_ok": true,
+    "mobile_375_home": {
+      "url": "/",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 127.7,
+        "y": -5,
+        "w": 119.7,
+        "h": 44,
+        "r": 247.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": -37.5
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 34,
+        "w": 359,
+        "h": 770,
+        "r": 367
+      }
+    },
+    "mobile_375_practice": {
+      "url": "/studio",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 127.7,
+        "y": -5,
+        "w": 119.7,
+        "h": 44,
+        "r": 247.3
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 0.2,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 375.2
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": -37.5
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 359,
+        "h": 748,
+        "r": 367
+      }
+    },
+    "mobile_375_manifesto": {
+      "url": "/manifesto",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": "Back",
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 127.7,
+        "y": -5,
+        "w": 119.7,
+        "h": 44,
+        "r": 247.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 392.2,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 767.2
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": true,
+      "manifestoBox": {
+        "x": -20.3,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 354.7
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "mode": "is-make is-panel is-studio is-manifesto is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 359,
+        "h": 748,
+        "r": 367
+      }
+    },
+    "mobile_375_back": {
+      "url": "/studio",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 127.7,
+        "y": -5,
+        "w": 119.7,
+        "h": 44,
+        "r": 247.3
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 38.2,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 413.2
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -374.3,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 0.7
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 359,
+        "h": 748,
+        "r": 367
+      }
+    },
+    "mobile_375_project": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 63.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": -37.5
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 412.5,
+        "y": 0,
+        "w": 375,
+        "h": 812,
+        "r": 787.5
+      },
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "0",
+      "boundary": false,
+      "register": "Info 01 / 12 Next",
+      "lastMv": {
+        "x": 0,
+        "y": 56,
+        "w": 375,
+        "h": 476.8,
+        "r": 375
+      },
+      "preview": {
+        "x": 0,
+        "y": 4599.1,
+        "w": 375,
+        "h": 468.8,
+        "r": 375
+      },
+      "stage": {
+        "x": 0,
+        "y": 56,
+        "w": 375,
+        "h": 748,
+        "r": 375
+      },
+      "windowBox": {
+        "x": 0,
+        "y": 56,
+        "w": 375,
+        "h": 748,
+        "r": 375
+      }
+    },
+    "mobile_390_home": {
+      "url": "/",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 132.7,
+        "y": -5,
+        "w": 124.7,
+        "h": 44,
+        "r": 257.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": -39
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 34,
+        "w": 374,
+        "h": 770,
+        "r": 382
+      }
+    },
+    "mobile_390_practice": {
+      "url": "/studio",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 132.7,
+        "y": -5,
+        "w": 124.7,
+        "h": 44,
+        "r": 257.3
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 0.2,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 390.2
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": -39
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 374,
+        "h": 748,
+        "r": 382
+      }
+    },
+    "mobile_390_manifesto": {
+      "url": "/manifesto",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": "Back",
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 132.7,
+        "y": -5,
+        "w": 124.7,
+        "h": 44,
+        "r": 257.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 407.9,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 797.9
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": true,
+      "manifestoBox": {
+        "x": -21.1,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 368.9
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "mode": "is-make is-panel is-studio is-manifesto is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 374,
+        "h": 748,
+        "r": 382
+      }
+    },
+    "mobile_390_back": {
+      "url": "/studio",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 132.7,
+        "y": -5,
+        "w": 124.7,
+        "h": 44,
+        "r": 257.3
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 390
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": -39
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 374,
+        "h": 748,
+        "r": 382
+      }
+    },
+    "mobile_390_project": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 63.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": -39
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 429,
+        "y": 0,
+        "w": 390,
+        "h": 812,
+        "r": 819
+      },
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "0",
+      "boundary": false,
+      "register": "Info 01 / 12 Next",
+      "lastMv": {
+        "x": 0,
+        "y": 56,
+        "w": 390,
+        "h": 495.5,
+        "r": 390
+      },
+      "preview": {
+        "x": 0,
+        "y": 4775.8,
+        "w": 390,
+        "h": 487.5,
+        "r": 390
+      },
+      "stage": {
+        "x": 0,
+        "y": 56,
+        "w": 390,
+        "h": 748,
+        "r": 390
+      },
+      "windowBox": {
+        "x": 0,
+        "y": 56,
+        "w": 390,
+        "h": 748,
+        "r": 390
+      }
+    },
+    "mobile_430_home": {
+      "url": "/",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 146,
+        "y": -5,
+        "w": 138,
+        "h": 44,
+        "r": 284
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": -43
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "mode": "is-make is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 34,
+        "w": 414,
+        "h": 770,
+        "r": 422
+      }
+    },
+    "mobile_430_practice": {
+      "url": "/studio",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 146,
+        "y": -5,
+        "w": 138,
+        "h": 44,
+        "r": 284
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 0.2,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 430.2
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": -43
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 414,
+        "h": 748,
+        "r": 422
+      }
+    },
+    "mobile_430_manifesto": {
+      "url": "/manifesto",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": "Back",
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 146,
+        "y": -5,
+        "w": 138,
+        "h": 44,
+        "r": 284
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 449.7,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 879.7
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": true,
+      "manifestoBox": {
+        "x": -23.3,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 406.7
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "mode": "is-make is-panel is-studio is-manifesto is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 414,
+        "h": 748,
+        "r": 422
+      }
+    },
+    "mobile_430_back": {
+      "url": "/studio",
+      "identity": "How by Why ×",
+      "intent": "rest",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "block"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": "Close",
+      "closeStudioVis": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "auto",
+        "display": "flex"
+      },
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 146,
+        "y": -5,
+        "w": 138,
+        "h": 44,
+        "r": 284
+      },
+      "practicePeek": false,
+      "practiceVisible": true,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 50.8,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 480.8
+      },
+      "glimpse": null,
+      "studioText": "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.\n\nOur role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with foun",
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -422.2,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 7.8
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "mode": "is-make is-panel is-studio is-phase-idle",
+      "project": null,
+      "index": null,
+      "boundary": false,
+      "register": null,
+      "lastMv": null,
+      "preview": null,
+      "stage": null,
+      "windowBox": {
+        "x": 8,
+        "y": 56,
+        "w": 414,
+        "h": 748,
+        "r": 422
+      }
+    },
+    "mobile_430_project": {
+      "url": "/projects/sub-3",
+      "identity": "How by Why × SUB:3",
+      "intent": "assembled",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "mark": {
+        "opacity": "1",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "flex"
+      },
+      "toolbar": {
+        "opacity": "0",
+        "visibility": "visible",
+        "pointerEvents": "none",
+        "display": "grid"
+      },
+      "closeStudio": null,
+      "closeStudioVis": null,
+      "backHit": null,
+      "peekOpen": false,
+      "peekMeta": null,
+      "peekBox": null,
+      "peekRow": null,
+      "byBox": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18,
+        "r": 63.3
+      },
+      "practicePeek": false,
+      "practiceVisible": false,
+      "practicePreview": false,
+      "practiceBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "glimpse": null,
+      "studioText": null,
+      "manifestoVisible": false,
+      "manifestoBox": {
+        "x": -473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": -43
+      },
+      "infoVisible": false,
+      "infoBox": {
+        "x": 473,
+        "y": 0,
+        "w": 430,
+        "h": 812,
+        "r": 903
+      },
+      "mode": "is-view is-phase-active",
+      "project": "sub-3",
+      "index": "0",
+      "boundary": false,
+      "register": "Info 01 / 12 Next",
+      "lastMv": {
+        "x": 0,
+        "y": 56,
+        "w": 430,
+        "h": 545.5,
+        "r": 430
+      },
+      "preview": {
+        "x": 0,
+        "y": 5247.2,
+        "w": 430,
+        "h": 537.5,
+        "r": 430
+      },
+      "stage": {
+        "x": 0,
+        "y": 56,
+        "w": 430,
+        "h": 748,
+        "r": 430
+      },
+      "windowBox": {
+        "x": 0,
+        "y": 56,
+        "w": 430,
+        "h": 748,
+        "r": 430
+      }
+    }
+  }
+}

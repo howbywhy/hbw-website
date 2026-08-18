@@ -1,0 +1,2552 @@
+{
+  "notes": [
+    {
+      "id": "01-peek",
+      "thumb": {
+        "x": 703,
+        "y": 72,
+        "w": 52,
+        "h": 65
+      },
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18
+      },
+      "dx": -0.1,
+      "ratio": 0.8,
+      "count": 5,
+      "viewMore": "View more",
+      "hoverDescriptor": "SUB:3 — Bending Time & Space"
+    },
+    {
+      "id": "02-index-1440",
+      "width": 1440,
+      "table": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1416,
+        "h": 52
+      },
+      "pad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 438.6,
+          "h": 18
+        },
+        "disc": {
+          "x": 694.6,
+          "y": 80.5,
+          "w": 329,
+          "h": 18
+        },
+        "collab": {
+          "x": 1039.6,
+          "y": 80.5,
+          "w": 282,
+          "h": 18
+        },
+        "year": {
+          "x": 1337.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1409.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "oneNote": "Named after the holy grail of marathon running, breaking the three-hour mark, SU",
+      "swapped": "KOJA exists to make healthy simple. Built on real ingredients and straight-talki",
+      "onlyOne": true
+    },
+    {
+      "id": "02-index-1366",
+      "width": 1366,
+      "table": {
+        "x": 12,
+        "y": 56,
+        "w": 1342,
+        "h": 700
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1342,
+        "h": 52
+      },
+      "pad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 407.7,
+          "h": 18
+        },
+        "disc": {
+          "x": 663.7,
+          "y": 80.5,
+          "w": 305.8,
+          "h": 18
+        },
+        "collab": {
+          "x": 985.5,
+          "y": 80.5,
+          "w": 262.1,
+          "h": 18
+        },
+        "year": {
+          "x": 1263.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1335.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "oneNote": "Named after the holy grail of marathon running, breaking the three-hour mark, SU",
+      "swapped": "KOJA exists to make healthy simple. Built on real ingredients and straight-talki",
+      "onlyOne": true
+    },
+    {
+      "id": "02-index-1728",
+      "width": 1728,
+      "table": {
+        "x": 12,
+        "y": 56,
+        "w": 1704,
+        "h": 1049
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1704,
+        "h": 52
+      },
+      "pad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 559,
+          "h": 18
+        },
+        "disc": {
+          "x": 815,
+          "y": 80.5,
+          "w": 419.3,
+          "h": 18
+        },
+        "collab": {
+          "x": 1250.3,
+          "y": 80.5,
+          "w": 359.3,
+          "h": 18
+        },
+        "year": {
+          "x": 1625.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1697.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "oneNote": "Named after the holy grail of marathon running, breaking the three-hour mark, SU",
+      "swapped": "KOJA exists to make healthy simple. Built on real ingredients and straight-talki",
+      "onlyOne": true
+    },
+    {
+      "id": "03-project",
+      "clickM02": {
+        "from": 0,
+        "to": 0
+      },
+      "clickM01": 0,
+      "m12": {
+        "x": 9574,
+        "i": 11,
+        "preview": {
+          "left": 1204.1,
+          "right": -342.9,
+          "visible": true
+        }
+      },
+      "boundary": {
+        "x": 9917,
+        "i": 12,
+        "preview": {
+          "left": 861.1,
+          "right": 0.1,
+          "visible": true
+        }
+      },
+      "reverse": {
+        "x": 9574,
+        "i": 11,
+        "preview": {
+          "left": 1204.1,
+          "right": -342.9,
+          "visible": true
+        }
+      },
+      "again": {
+        "x": 9917,
+        "preview": {
+          "left": 861.1,
+          "right": 0.1,
+          "visible": true
+        }
+      },
+      "kojaOwned": "/projects/koja",
+      "closeToSub3": "/projects/sub-3",
+      "closeToHome": "/"
+    },
+    {
+      "id": "03-info",
+      "beforeX": 3543,
+      "afterX": 3543,
+      "same": true
+    },
+    {
+      "id": "mobile-375",
+      "visual": "hbw-home is-browse is-phase-idle",
+      "indexHasMore": true,
+      "indexRow": {
+        "x": 0,
+        "y": 64,
+        "w": 375,
+        "h": 106
+      }
+    },
+    {
+      "id": "mobile-390",
+      "visual": "hbw-home is-browse is-phase-idle",
+      "indexHasMore": true,
+      "indexRow": {
+        "x": 0,
+        "y": 64,
+        "w": 390,
+        "h": 106
+      }
+    },
+    {
+      "id": "mobile-430",
+      "visual": "hbw-home is-browse is-phase-idle",
+      "indexHasMore": true,
+      "indexRow": {
+        "x": 0,
+        "y": 64,
+        "w": 430,
+        "h": 106
+      }
+    }
+  ],
+  "shots": {
+    "01-home-rest": {
+      "path": "/",
+      "home": "hbw-home is-make is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": {
+        "x": 703,
+        "y": 78,
+        "w": 292,
+        "h": 93
+      },
+      "firstThumb": {
+        "x": 703,
+        "y": 78,
+        "w": 52,
+        "h": 65
+      },
+      "thumbCount": 5,
+      "viewMore": "View more",
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "01-by-preview": {
+      "path": "/",
+      "home": "hbw-home is-make is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18
+      },
+      "peekOpen": true,
+      "peek": {
+        "x": 703,
+        "y": 72,
+        "w": 292,
+        "h": 93
+      },
+      "firstThumb": {
+        "x": 703,
+        "y": 72,
+        "w": 52,
+        "h": 65
+      },
+      "thumbCount": 5,
+      "viewMore": "View more",
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "01-hover-sub3": {
+      "path": "/",
+      "home": "hbw-home is-make is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × SUB:3 — Bending Time & Space",
+      "descriptor": "SUB:3 — Bending Time & Space",
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18
+      },
+      "peekOpen": true,
+      "peek": {
+        "x": 703,
+        "y": 72,
+        "w": 292,
+        "h": 93
+      },
+      "firstThumb": {
+        "x": 703,
+        "y": 72,
+        "w": 52,
+        "h": 65
+      },
+      "thumbCount": 5,
+      "viewMore": "View more",
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "01-view-more": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1440-closed": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1416,
+        "h": 52
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 438.6,
+          "h": 18
+        },
+        "disc": {
+          "x": 694.6,
+          "y": 80.5,
+          "w": 329,
+          "h": 18
+        },
+        "collab": {
+          "x": 1039.6,
+          "y": 80.5,
+          "w": 282,
+          "h": 18
+        },
+        "year": {
+          "x": 1337.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1409.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1440-open-sub3": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1416,
+        "h": 137.3
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 438.6,
+          "h": 18
+        },
+        "disc": {
+          "x": 694.6,
+          "y": 80.5,
+          "w": 329,
+          "h": 18
+        },
+        "collab": {
+          "x": 1039.6,
+          "y": 80.5,
+          "w": 282,
+          "h": 18
+        },
+        "year": {
+          "x": 1337.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1409.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": {
+          "x": 56,
+          "y": 107,
+          "w": 672,
+          "h": 85.3
+        }
+      },
+      "expanded": true,
+      "noteText": "Named after the holy grail of marathon running, breaking the three-hour mark, SU",
+      "moreLabel": "−",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1440-open-koja": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1416,
+        "h": 52
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 438.6,
+          "h": 18
+        },
+        "disc": {
+          "x": 694.6,
+          "y": 80.5,
+          "w": 329,
+          "h": 18
+        },
+        "collab": {
+          "x": 1039.6,
+          "y": 80.5,
+          "w": 282,
+          "h": 18
+        },
+        "year": {
+          "x": 1337.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1409.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "expanded": true,
+      "noteText": "KOJA exists to make healthy simple. Built on real ingredients and straight-talki",
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1366-closed": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1342,
+        "h": 700
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1342,
+        "h": 52
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 407.7,
+          "h": 18
+        },
+        "disc": {
+          "x": 663.7,
+          "y": 80.5,
+          "w": 305.8,
+          "h": 18
+        },
+        "collab": {
+          "x": 985.5,
+          "y": 80.5,
+          "w": 262.1,
+          "h": 18
+        },
+        "year": {
+          "x": 1263.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1335.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1366-open-sub3": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1342,
+        "h": 700
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1342,
+        "h": 137.3
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 407.7,
+          "h": 18
+        },
+        "disc": {
+          "x": 663.7,
+          "y": 80.5,
+          "w": 305.8,
+          "h": 18
+        },
+        "collab": {
+          "x": 985.5,
+          "y": 80.5,
+          "w": 262.1,
+          "h": 18
+        },
+        "year": {
+          "x": 1263.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1335.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": {
+          "x": 56,
+          "y": 107,
+          "w": 672,
+          "h": 85.3
+        }
+      },
+      "expanded": true,
+      "noteText": "Named after the holy grail of marathon running, breaking the three-hour mark, SU",
+      "moreLabel": "−",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1366-open-koja": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1342,
+        "h": 700
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1342,
+        "h": 52
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 407.7,
+          "h": 18
+        },
+        "disc": {
+          "x": 663.7,
+          "y": 80.5,
+          "w": 305.8,
+          "h": 18
+        },
+        "collab": {
+          "x": 985.5,
+          "y": 80.5,
+          "w": 262.1,
+          "h": 18
+        },
+        "year": {
+          "x": 1263.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1335.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "expanded": true,
+      "noteText": "KOJA exists to make healthy simple. Built on real ingredients and straight-talki",
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1728-closed": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1704,
+        "h": 1049
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1704,
+        "h": 52
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 559,
+          "h": 18
+        },
+        "disc": {
+          "x": 815,
+          "y": 80.5,
+          "w": 419.3,
+          "h": 18
+        },
+        "collab": {
+          "x": 1250.3,
+          "y": 80.5,
+          "w": 359.3,
+          "h": 18
+        },
+        "year": {
+          "x": 1625.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1697.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1728-open-sub3": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1704,
+        "h": 1049
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1704,
+        "h": 137.3
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 559,
+          "h": 18
+        },
+        "disc": {
+          "x": 815,
+          "y": 80.5,
+          "w": 419.3,
+          "h": 18
+        },
+        "collab": {
+          "x": 1250.3,
+          "y": 80.5,
+          "w": 359.3,
+          "h": 18
+        },
+        "year": {
+          "x": 1625.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1697.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": {
+          "x": 56,
+          "y": 107,
+          "w": 672,
+          "h": 85.3
+        }
+      },
+      "expanded": true,
+      "noteText": "Named after the holy grail of marathon running, breaking the three-hour mark, SU",
+      "moreLabel": "−",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "02-index-1728-open-koja": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1704,
+        "h": 1049
+      },
+      "row": {
+        "x": 12,
+        "y": 64,
+        "w": 1704,
+        "h": 52
+      },
+      "rowMin": 52,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 12,
+          "y": 72,
+          "w": 28,
+          "h": 35
+        },
+        "name": {
+          "x": 50.4,
+          "y": 80.5,
+          "w": 173.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 240,
+          "y": 80.5,
+          "w": 559,
+          "h": 18
+        },
+        "disc": {
+          "x": 815,
+          "y": 80.5,
+          "w": 419.3,
+          "h": 18
+        },
+        "collab": {
+          "x": 1250.3,
+          "y": 80.5,
+          "w": 359.3,
+          "h": 18
+        },
+        "year": {
+          "x": 1625.6,
+          "y": 80.5,
+          "w": 56,
+          "h": 18
+        },
+        "more": {
+          "x": 1697.6,
+          "y": 82,
+          "w": 18.4,
+          "h": 15
+        },
+        "note": null
+      },
+      "expanded": true,
+      "noteText": "KOJA exists to make healthy simple. Built on real ingredients and straight-talki",
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "03-m01": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 0,
+      "viewIndex": 0,
+      "current": {
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": 12,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": 579.1,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": 1833.2,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 10790.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 10778.1,
+        "right": -9916.9,
+        "visible": false
+      },
+      "inspect": false
+    },
+    "03-click-m02": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 0,
+      "viewIndex": 0,
+      "current": {
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": 12,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": 579.1,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": 1833.2,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 10790.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 10778.1,
+        "right": -9916.9,
+        "visible": false
+      },
+      "inspect": false
+    },
+    "03-click-m01": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 0,
+      "viewIndex": 0,
+      "current": {
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": 12,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": 579.1,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": 1833.2,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 10790.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 10778.1,
+        "right": -9916.9,
+        "visible": false
+      },
+      "inspect": false
+    },
+    "03-m12": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 9574,
+      "viewIndex": 11,
+      "current": {
+        "x": 111,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -9562,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -8994.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -7740.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 1216.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 1204.1,
+        "right": -342.9,
+        "visible": true
+      },
+      "inspect": false
+    },
+    "03-boundary": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-boundary is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 9917,
+      "viewIndex": 12,
+      "current": {
+        "x": -232,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -9905,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -9337.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -8083.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 873.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 861.1,
+        "right": 0.1,
+        "visible": true
+      },
+      "inspect": false
+    },
+    "03-reverse": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 9574,
+      "viewIndex": 11,
+      "current": {
+        "x": 111,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -9562,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -8994.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -7740.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 1216.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 1204.1,
+        "right": -342.9,
+        "visible": true
+      },
+      "inspect": false
+    },
+    "03-boundary-again": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-boundary is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 9917,
+      "viewIndex": 12,
+      "current": {
+        "x": -232,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -9905,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -9337.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -8083.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 873.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 861.1,
+        "right": 0.1,
+        "visible": true
+      },
+      "inspect": false
+    },
+    "03-owned-koja": {
+      "path": "/projects/koja",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "view",
+      "identity": "How by Why × KOJA Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 0,
+      "viewIndex": 0,
+      "current": {
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": 12,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": 579.1,
+          "y": 189.1,
+          "w": 565.8,
+          "h": 565.8
+        },
+        {
+          "i": 2,
+          "x": 1152.8,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        }
+      ],
+      "preview": {
+        "x": 6895.3,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 6883.3,
+        "right": -6022,
+        "visible": false
+      },
+      "inspect": false
+    },
+    "03-close-sub3": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-boundary is-phase-active",
+      "origin": "make",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 9917,
+      "viewIndex": 12,
+      "current": {
+        "x": -232,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -9905,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -9337.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -8083.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 873.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 861.1,
+        "right": 0.1,
+        "visible": true
+      },
+      "inspect": false
+    },
+    "03-close-home": {
+      "path": "/",
+      "home": "hbw-home is-make is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 703.1,
+        "y": 8,
+        "w": 33.8,
+        "h": 18
+      },
+      "peekOpen": true,
+      "peek": {
+        "x": 703,
+        "y": 72,
+        "w": 292,
+        "h": 93
+      },
+      "firstThumb": {
+        "x": 703,
+        "y": 72,
+        "w": 52,
+        "h": 65
+      },
+      "thumbCount": 5,
+      "viewMore": "View more",
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "03-info-before": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "browse",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 3543,
+      "viewIndex": 4,
+      "current": {
+        "x": 111.3,
+        "y": 59.2,
+        "w": 1246.1,
+        "h": 825.6
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -3531,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -2963.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -1709.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 7247.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 7235.1,
+        "right": -6373.9,
+        "visible": false
+      },
+      "inspect": false
+    },
+    "03-info-after": {
+      "path": "/projects/sub-3",
+      "home": "hbw-home is-view is-phase-active",
+      "origin": "browse",
+      "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 50,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": 3543,
+      "viewIndex": 4,
+      "current": {
+        "x": 111.3,
+        "y": 59.2,
+        "w": 1246.1,
+        "h": 825.6
+      },
+      "mvs": [
+        {
+          "i": 0,
+          "x": -3531,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        },
+        {
+          "i": 1,
+          "x": -2963.9,
+          "y": 59.2,
+          "w": 1246.1,
+          "h": 825.6
+        },
+        {
+          "i": 2,
+          "x": -1709.8,
+          "y": 122.6,
+          "w": 559.1,
+          "h": 698.9
+        }
+      ],
+      "preview": {
+        "x": 7247.1,
+        "y": 125.3,
+        "w": 554.8,
+        "h": 693.5
+      },
+      "previewIn": {
+        "left": 7235.1,
+        "right": -6373.9,
+        "visible": false
+      },
+      "inspect": false
+    },
+    "m-375-projects": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "m-375-index": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 0,
+        "y": 56,
+        "w": 375,
+        "h": 748
+      },
+      "row": {
+        "x": 0,
+        "y": 64,
+        "w": 375,
+        "h": 106
+      },
+      "rowMin": 90,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 0,
+          "y": 72,
+          "w": 72,
+          "h": 90
+        },
+        "name": {
+          "x": 82.4,
+          "y": 98.2,
+          "w": 292.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 88,
+          "y": 117.8,
+          "w": 287,
+          "h": 18
+        },
+        "disc": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "collab": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "year": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "more": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "note": null
+      },
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "m-390-projects": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "m-390-index": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 0,
+        "y": 56,
+        "w": 390,
+        "h": 748
+      },
+      "row": {
+        "x": 0,
+        "y": 64,
+        "w": 390,
+        "h": 106
+      },
+      "rowMin": 90,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 0,
+          "y": 72,
+          "w": 72,
+          "h": 90
+        },
+        "name": {
+          "x": 82.4,
+          "y": 98.2,
+          "w": 307.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 88,
+          "y": 117.8,
+          "w": 302,
+          "h": 18
+        },
+        "disc": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "collab": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "year": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "more": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "note": null
+      },
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "m-430-projects": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": null,
+      "row": null,
+      "rowMin": null,
+      "rowPad": null,
+      "browsePad": null,
+      "cols": null,
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": null,
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    },
+    "m-430-index": {
+      "path": "/?layer=projects",
+      "home": "hbw-home is-browse is-phase-idle",
+      "origin": "none",
+      "identity": "How by Why × Projects",
+      "descriptor": "Brand Strategy & Creative Direction",
+      "by": {
+        "x": 46,
+        "y": 8,
+        "w": 17.3,
+        "h": 18
+      },
+      "peekOpen": false,
+      "peek": null,
+      "firstThumb": null,
+      "thumbCount": 0,
+      "viewMore": null,
+      "indexBox": {
+        "x": 0,
+        "y": 56,
+        "w": 430,
+        "h": 748
+      },
+      "row": {
+        "x": 0,
+        "y": 64,
+        "w": 430,
+        "h": 106
+      },
+      "rowMin": 90,
+      "rowPad": {
+        "top": 8,
+        "bottom": 8
+      },
+      "browsePad": {
+        "top": 8,
+        "bottom": 16
+      },
+      "cols": {
+        "thumb": {
+          "x": 0,
+          "y": 72,
+          "w": 72,
+          "h": 90
+        },
+        "name": {
+          "x": 82.4,
+          "y": 98.2,
+          "w": 347.6,
+          "h": 18
+        },
+        "idea": {
+          "x": 88,
+          "y": 117.8,
+          "w": 342,
+          "h": 18
+        },
+        "disc": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "collab": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "year": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "more": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "note": null
+      },
+      "expanded": false,
+      "noteText": null,
+      "moreLabel": "+",
+      "viewX": null,
+      "viewIndex": null,
+      "current": null,
+      "mvs": [],
+      "preview": null,
+      "previewIn": null,
+      "inspect": false
+    }
+  }
+}

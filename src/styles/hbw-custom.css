@@ -1,12 +1,4 @@
 /* from collections-inline-01.css */
-@font-face {
-    font-family: "Geist";
-    src: url("/fonts/Geist.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-
   :root {
     --hbw-unit: 0.5rem;
     --hbw-h: calc(var(--hbw-unit) * 5);

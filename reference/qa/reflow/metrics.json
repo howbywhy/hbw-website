@@ -1,0 +1,191 @@
+{
+  "viewport": "1440x900",
+  "recordings": {
+    "recM01": {
+      "dest": "/Users/markblackler/Documents/GitHub/hbw-website/reference/qa/reflow/sub3-m01-info-close.mp4",
+      "ok": true,
+      "frames": 136,
+      "fps": 55.5,
+      "elapsed": 2.451
+    },
+    "recM06": {
+      "dest": "/Users/markblackler/Documents/GitHub/hbw-website/reference/qa/reflow/sub3-m06-info-close.mp4",
+      "ok": true,
+      "frames": 100,
+      "fps": 41.1,
+      "elapsed": 2.435
+    },
+    "recChris": {
+      "dest": "/Users/markblackler/Documents/GitHub/hbw-website/reference/qa/reflow/chris-sisarich-info-close.mp4",
+      "ok": true,
+      "frames": 138,
+      "fps": 55.7,
+      "elapsed": 2.458
+    }
+  },
+  "alignment": {
+    "info": {
+      "sheetX": 848,
+      "contentX": 864,
+      "closeX": 864,
+      "titleX": 864,
+      "bodyX": 864,
+      "metadataX": 864,
+      "headingX": 864,
+      "positionX": 864,
+      "paddingLeft": "16px"
+    },
+    "studio": {
+      "sheetX": 848,
+      "contentX": 864,
+      "closeX": 864,
+      "titleX": 864,
+      "bodyX": 864
+    },
+    "manifesto": {
+      "sheetX": 12,
+      "contentX": 28,
+      "closeX": 534.8,
+      "titleX": 28,
+      "bodyX": 28
+    }
+  },
+  "m01": {
+    "before": {
+      "index": "0",
+      "x": "0",
+      "xInline": 0,
+      "current": {
+        "id": "s301",
+        "label": "SUB:3 01",
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      }
+    },
+    "settled": {
+      "index": "0",
+      "current": {
+        "id": "s301",
+        "label": "SUB:3 01",
+        "x": 12,
+        "y": 56,
+        "w": 414,
+        "h": 517.5
+      },
+      "trackDisplay": "grid",
+      "duplicateGrids": 1,
+      "reflowing": false
+    },
+    "restored": {
+      "index": "0",
+      "x": "0",
+      "xInline": 0,
+      "current": {
+        "id": "s301",
+        "label": "SUB:3 01",
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      }
+    }
+  },
+  "m06": {
+    "beforeRecord": {
+      "index": "5",
+      "x": "4797",
+      "xInline": 4797,
+      "current": {
+        "id": "s306",
+        "label": "SUB:3 06",
+        "x": 111.4,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "meta": "06 / 12"
+    },
+    "before": {
+      "index": "5",
+      "x": "4797",
+      "xInline": 4797,
+      "current": {
+        "id": "s306",
+        "label": "SUB:3 06",
+        "x": 111.4,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "meta": "06 / 12"
+    },
+    "midOpen": {
+      "reflowing": true,
+      "trackDisplay": "grid",
+      "current": {
+        "id": "s306",
+        "label": "SUB:3 06",
+        "x": 39.1,
+        "y": 123,
+        "w": 453.5,
+        "h": 566.9
+      }
+    },
+    "settled": {
+      "trackDisplay": "grid",
+      "current": {
+        "id": "s306",
+        "label": "SUB:3 06",
+        "x": 12,
+        "y": 123,
+        "w": 414,
+        "h": 517.5
+      },
+      "duplicateGrids": 1
+    },
+    "restored": {
+      "index": "5",
+      "x": "4797",
+      "xInline": 4797,
+      "current": {
+        "id": "s306",
+        "label": "SUB:3 06",
+        "x": 111.4,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      },
+      "meta": "06 / 12"
+    }
+  },
+  "chris": {
+    "before": {
+      "index": "0",
+      "x": "0",
+      "xInline": 0,
+      "current": {
+        "id": "s01",
+        "label": "Chris Sisarich 01",
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      }
+    },
+    "restored": {
+      "index": "0",
+      "x": "0",
+      "xInline": 0,
+      "current": {
+        "id": "s01",
+        "label": "Chris Sisarich 01",
+        "x": 12,
+        "y": 122.6,
+        "w": 559.1,
+        "h": 698.9
+      }
+    }
+  }
+}

@@ -1,0 +1,855 @@
+{
+  "frames": 41,
+  "home": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 819
+    },
+    "record": {
+      "x": 12,
+      "y": 830,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 872
+    },
+    "grid": {
+      "x": 592,
+      "y": 156,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 872
+    },
+    "index": {
+      "x": 592,
+      "y": 156,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 872
+    },
+    "year": {
+      "x": 1376,
+      "y": 332,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 349
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-800.jpg",
+    "galleryGap": null,
+    "counter": null,
+    "subFace": "home"
+  },
+  "projects": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 731
+    },
+    "record": {
+      "x": 12,
+      "y": 742,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 783
+    },
+    "grid": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "index": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "year": {
+      "x": 1376,
+      "y": 243,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 261
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-800.jpg",
+    "galleryGap": null,
+    "counter": null,
+    "subFace": "browse"
+  },
+  "visualHovers": {
+    "SUB:3": "SUB:3",
+    "KOJA": "KOJA",
+    "CLOSED": "CLOSED",
+    "Our Boy Roy": "Our Boy Roy",
+    "Chris Sisarich": "Chris Sisarich",
+    "Bistro Nido": "Bistro Nido"
+  },
+  "indexLayout": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 731
+    },
+    "record": {
+      "x": 12,
+      "y": 742,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 783
+    },
+    "grid": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "index": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "year": {
+      "x": 1376,
+      "y": 243,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 261
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15-p-800.jpg",
+    "galleryGap": null,
+    "counter": null,
+    "subFace": "browse"
+  },
+  "indexHovers": {
+    "SUB:3": {
+      "name": "SUB:3",
+      "src": "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg"
+    },
+    "KOJA": {
+      "name": "KOJA",
+      "src": "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg"
+    },
+    "CLOSED": {
+      "name": "CLOSED",
+      "src": "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg"
+    },
+    "Our Boy Roy": {
+      "name": "Our Boy Roy",
+      "src": "/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg"
+    },
+    "Chris Sisarich": {
+      "name": "Chris Sisarich",
+      "src": "/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg"
+    },
+    "Bistro Nido": {
+      "name": "Bistro Nido",
+      "src": "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg"
+    }
+  },
+  "view": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 731
+    },
+    "record": {
+      "x": 12,
+      "y": 742,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 783
+    },
+    "grid": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "index": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "year": {
+      "x": 1376,
+      "y": 243,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 261
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-800.jpg",
+    "galleryGap": 8,
+    "counter": "01 / 12",
+    "subFace": "view"
+  },
+  "sub3End": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 731
+    },
+    "record": {
+      "x": 12,
+      "y": 742,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 783
+    },
+    "grid": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "index": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "year": {
+      "x": 1376,
+      "y": 243,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 261
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326-p-800.jpg",
+    "galleryGap": 8,
+    "counter": "01 / 12",
+    "subFace": "view"
+  },
+  "koja": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-phase-active",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 731
+    },
+    "record": {
+      "x": 12,
+      "y": 742,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 783
+    },
+    "grid": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "index": {
+      "x": 592,
+      "y": 67,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 783
+    },
+    "year": {
+      "x": 1376,
+      "y": 243,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 261
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-800.jpg",
+    "galleryGap": 8,
+    "counter": "01 / 08",
+    "subFace": "view"
+  },
+  "backHome": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "intro": false,
+    "header": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 64,
+      "r": 1440,
+      "b": 64
+    },
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112,
+      "b": 30
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674,
+      "b": 30
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833,
+      "b": 30
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428,
+      "b": 27
+    },
+    "sub": {
+      "x": 607,
+      "y": 34,
+      "w": 138,
+      "h": 20,
+      "r": 744,
+      "b": 54
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428,
+      "b": 801
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 557,
+      "h": 663,
+      "r": 569,
+      "b": 819
+    },
+    "record": {
+      "x": 12,
+      "y": 830,
+      "w": 557,
+      "h": 42,
+      "r": 569,
+      "b": 872
+    },
+    "grid": {
+      "x": 592,
+      "y": 156,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 872
+    },
+    "index": {
+      "x": 592,
+      "y": 156,
+      "w": 836,
+      "h": 716,
+      "r": 1428,
+      "b": 872
+    },
+    "year": {
+      "x": 1376,
+      "y": 332,
+      "w": 52,
+      "h": 18,
+      "r": 1428,
+      "b": 349
+    },
+    "previewSrc": "http://127.0.0.1:3000/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4-p-800.jpg",
+    "galleryGap": null,
+    "counter": null,
+    "subFace": "home"
+  },
+  "posterKept": "Hold the line",
+  "cold": {
+    "SUB:3": {
+      "ms": 0,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "blank": false,
+      "natural": 662,
+      "src": "8db9133176e7f02015d4f37_TCCWEB-SUB326-p-1080.jpg",
+      "elapsed": 716
+    },
+    "KOJA": {
+      "ms": 33,
+      "phase": "hbw-stage hbw-project-view is-rising",
+      "blank": false,
+      "natural": 662,
+      "src": "670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+      "elapsed": 45
+    },
+    "CLOSED": {
+      "ms": 0,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "blank": false,
+      "natural": 662,
+      "src": "bf6bccf429b9e5b_HBWxCLOSED-Portfolio25-p-800.jpg",
+      "elapsed": 134
+    },
+    "Our Boy Roy": {
+      "ms": 0,
+      "phase": "hbw-stage hbw-project-view is-rising",
+      "blank": false,
+      "natural": 662,
+      "src": "/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg",
+      "elapsed": 91
+    },
+    "Chris Sisarich": {
+      "ms": 131,
+      "phase": "hbw-stage hbw-project-view is-active",
+      "blank": false,
+      "natural": 662,
+      "src": "bb8bbc5b_HBWxChrisSisarich-Portfolio13-p-800.jpg",
+      "elapsed": 1299
+    },
+    "Bistro Nido": {
+      "ms": 36,
+      "phase": "hbw-stage hbw-project-view is-rising",
+      "blank": false,
+      "natural": 662,
+      "src": "2382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
+      "elapsed": 143
+    }
+  },
+  "deltas": {
+    "windowY": {
+      "home": 64,
+      "projects": 64,
+      "view": 64,
+      "homeToProjects": 0,
+      "projectsToView": 0
+    },
+    "headerH": {
+      "home": 64,
+      "projects": 64,
+      "view": 64
+    },
+    "brandY": {
+      "home": 10,
+      "projects": 10,
+      "view": 10
+    },
+    "subY": {
+      "home": 34,
+      "projects": 34,
+      "view": 34
+    },
+    "right": {
+      "time": 1428,
+      "grid": 1428,
+      "index": 1428,
+      "year": 1428
+    },
+    "galleryGap": 8,
+    "introRemoved": true
+  }
+}

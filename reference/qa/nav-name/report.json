@@ -1,0 +1,478 @@
+{
+  "01-rest": {
+    "intent": "rest",
+    "work": null,
+    "identity": "How by Why × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 38.8,
+      "h": 18,
+      "text": ""
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": ""
+    },
+    "why": {
+      "x": 1390.2,
+      "y": 8,
+      "w": 37.8,
+      "h": 18,
+      "text": ""
+    },
+    "named": false,
+    "peek": {
+      "open": false,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 112,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 98,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 116,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 94,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": false
+  },
+  "02-work-by-hbw": {
+    "intent": "by",
+    "work": null,
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "Work"
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": "by"
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "HBW"
+    },
+    "named": false,
+    "peek": {
+      "open": true,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 90,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 86,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 100,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": false
+  },
+  "03-sub3": {
+    "intent": "by",
+    "work": "SUB:3",
+    "identity": "How Work by SUB:3 Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "Work"
+    },
+    "by": {
+      "x": 689.1,
+      "y": 8,
+      "w": 61.8,
+      "h": 18,
+      "text": "SUB:3"
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "HBW"
+    },
+    "named": true,
+    "peek": {
+      "open": true,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 90,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 86,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 100,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": false
+  },
+  "04-closed": {
+    "intent": "by",
+    "work": "CLOSED",
+    "identity": "How Work by CLOSED Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "Work"
+    },
+    "by": {
+      "x": 681.4,
+      "y": 8,
+      "w": 77.3,
+      "h": 18,
+      "text": "CLOSED"
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "HBW"
+    },
+    "named": true,
+    "peek": {
+      "open": true,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 90,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 86,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 100,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": false
+  },
+  "05-obr": {
+    "intent": "by",
+    "work": "Our Boy Roy",
+    "identity": "How Work by Our Boy Roy Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "Work"
+    },
+    "by": {
+      "x": 667.2,
+      "y": 8,
+      "w": 105.7,
+      "h": 18,
+      "text": "Our Boy Roy"
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "HBW"
+    },
+    "named": true,
+    "peek": {
+      "open": true,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 90,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 86,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 100,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": false
+  },
+  "06-between": {
+    "intent": "by",
+    "work": null,
+    "identity": "How Work by by Why HBW × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 43.6,
+      "h": 18,
+      "text": "Work"
+    },
+    "by": {
+      "x": 703.1,
+      "y": 8,
+      "w": 33.8,
+      "h": 18,
+      "text": "by"
+    },
+    "why": {
+      "x": 1386.2,
+      "y": 8,
+      "w": 41.8,
+      "h": 18,
+      "text": "HBW"
+    },
+    "named": false,
+    "peek": {
+      "open": true,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 104,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 90,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 86,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 100,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": false
+  },
+  "07-why": {
+    "intent": "why",
+    "work": null,
+    "identity": "How About by the Why Practice × Brand Strategy & Creative Direction",
+    "how": {
+      "x": 12,
+      "y": 8,
+      "w": 50.1,
+      "h": 18,
+      "text": "About"
+    },
+    "by": {
+      "x": 699.8,
+      "y": 8,
+      "w": 40.3,
+      "h": 18,
+      "text": "the"
+    },
+    "why": {
+      "x": 1361.1,
+      "y": 8,
+      "w": 66.9,
+      "h": 18,
+      "text": "Practice"
+    },
+    "named": false,
+    "peek": {
+      "open": false,
+      "thumbs": [
+        {
+          "id": "sub-3",
+          "x": 314,
+          "y": 112,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "koja",
+          "x": 480,
+          "y": 98,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "bar-closed",
+          "x": 646,
+          "y": 116,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "chris-sisarich",
+          "x": 812,
+          "y": 94,
+          "w": 148,
+          "h": 185
+        },
+        {
+          "id": "our-boy-roy",
+          "x": 978,
+          "y": 108,
+          "w": 148,
+          "h": 185
+        }
+      ]
+    },
+    "sheet": true
+  }
+}

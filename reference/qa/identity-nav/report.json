@@ -1,0 +1,914 @@
+{
+  "stills": {
+    "rest": {
+      "intent": "rest",
+      "entered": true,
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 4.1,
+        "height": 18,
+        "cx": 14,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": ""
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 59.7,
+        "height": 18,
+        "cx": 621.9,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Projects",
+        "ariaHidden": "true"
+      },
+      "studio": {
+        "x": 848,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 884.8,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Studio",
+        "ariaHidden": "true"
+      },
+      "time": null,
+      "place": {
+        "x": 1502,
+        "y": 1043.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1736,
+        "cy": 1059,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 0,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    },
+    "how": {
+      "intent": "how",
+      "entered": true,
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why Make with HBW"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 113.7,
+        "height": 18,
+        "cx": 68.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Make with HBW"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 59.7,
+        "height": 18,
+        "cx": 621.9,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Projects",
+        "ariaHidden": "true"
+      },
+      "studio": {
+        "x": 848,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 884.8,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Studio",
+        "ariaHidden": "true"
+      },
+      "time": null,
+      "place": {
+        "x": 1502,
+        "y": 1043.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1736,
+        "cy": 1059,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 0,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    },
+    "by": {
+      "intent": "by",
+      "entered": true,
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why Work by HBW"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 97.2,
+        "height": 18,
+        "cx": 60.6,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Work by HBW"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 59.7,
+        "height": 18,
+        "cx": 621.9,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Projects",
+        "ariaHidden": "true"
+      },
+      "studio": {
+        "x": 848,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 884.8,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Studio",
+        "ariaHidden": "true"
+      },
+      "time": null,
+      "place": {
+        "x": 1502,
+        "y": 1043.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1736,
+        "cy": 1059,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 0,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    },
+    "why": {
+      "intent": "why",
+      "entered": true,
+      "homeClass": "hbw-home is-make is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why About HBW"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 82.4,
+        "height": 18,
+        "cx": 53.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "About HBW"
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 59.7,
+        "height": 18,
+        "cx": 621.9,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Projects",
+        "ariaHidden": "true"
+      },
+      "studio": {
+        "x": 848,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 884.8,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Studio",
+        "ariaHidden": "true"
+      },
+      "time": null,
+      "place": {
+        "x": 1502,
+        "y": 1043.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1736,
+        "cy": 1059,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 0,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    },
+    "projects": {
+      "intent": "rest",
+      "entered": true,
+      "homeClass": "hbw-home is-browse is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 4.1,
+        "height": 18,
+        "cx": 14,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": ""
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 41.3,
+        "height": 18,
+        "cx": 612.6,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Close",
+        "ariaHidden": null
+      },
+      "studio": {
+        "x": 848,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 884.8,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Studio",
+        "ariaHidden": "true"
+      },
+      "time": null,
+      "place": {
+        "x": 1502,
+        "y": 1043.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1736,
+        "cy": 1059,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 0,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    },
+    "practice": {
+      "intent": "rest",
+      "entered": true,
+      "homeClass": "hbw-home is-make is-panel is-studio is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 4.1,
+        "height": 18,
+        "cx": 14,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": ""
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 59.7,
+        "height": 18,
+        "cx": 621.9,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Projects",
+        "ariaHidden": "true"
+      },
+      "studio": {
+        "x": 864,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 900.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Close",
+        "ariaHidden": null
+      },
+      "time": null,
+      "place": {
+        "x": 864,
+        "y": 1043.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1098,
+        "cy": 1059,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains 7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 0,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    },
+    "place": {
+      "intent": "rest",
+      "entered": true,
+      "homeClass": "hbw-home is-make is-panel is-studio is-phase-idle",
+      "mark": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 18,
+        "cx": 56.2,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "rest": {
+        "x": 12,
+        "y": 8,
+        "width": 88.5,
+        "height": 17,
+        "cx": 56.2,
+        "cy": 16.5,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How by Why"
+      },
+      "swap": {
+        "x": 12,
+        "y": 8,
+        "width": 4.1,
+        "height": 18,
+        "cx": 14,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": ""
+      },
+      "how": {
+        "x": 12,
+        "y": 8,
+        "width": 36.1,
+        "height": 18,
+        "cx": 30.1,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "How"
+      },
+      "by": {
+        "x": 48.1,
+        "y": 8,
+        "width": 21.3,
+        "height": 18,
+        "cx": 58.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "by"
+      },
+      "why": {
+        "x": 69.4,
+        "y": 8,
+        "width": 31,
+        "height": 18,
+        "cx": 84.9,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Why"
+      },
+      "toolbar": {
+        "x": 384,
+        "cx": 720,
+        "width": 672
+      },
+      "projects": {
+        "x": 592,
+        "y": 8,
+        "width": 59.7,
+        "height": 18,
+        "cx": 621.9,
+        "cy": 17,
+        "opacity": "0.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Projects",
+        "ariaHidden": "true"
+      },
+      "studio": {
+        "x": 864,
+        "y": 8,
+        "width": 73.6,
+        "height": 18,
+        "cx": 900.8,
+        "cy": 17,
+        "opacity": "1.00",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "text": "Close",
+        "ariaHidden": null
+      },
+      "time": null,
+      "place": {
+        "x": 864,
+        "y": 804.4,
+        "width": 468,
+        "height": 31.2,
+        "cx": 1098,
+        "cy": 820,
+        "opacity": "1.00",
+        "fontSize": "13px",
+        "lineHeight": "15.6px",
+        "text": "Wentworth Falls, Blue Mountains 7°C · Partly cloudy",
+        "html": "<span class=\"hbw-sheet__place-name\">Wentworth Falls, Blue Mountains</span><br><span class=\"hbw-sheet__place-now\">7°C · Partly cloudy</span>"
+      },
+      "sheet": {
+        "scrollTop": 239,
+        "scrollHeight": 1083,
+        "clientHeight": 844
+      }
+    }
+  },
+  "placeApi": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "place": "Wentworth Falls, Blue Mountains",
+      "temperature": 7,
+      "condition": "Partly cloudy",
+      "source": "open-meteo"
+    }
+  },
+  "keyboard": {
+    "active": "hbw-mark-how",
+    "intent": "how",
+    "phrase": "Make with HBW"
+  },
+  "timing": {
+    "hover": {
+      "token": "micro",
+      "ms": 140
+    }
+  }
+}

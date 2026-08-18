@@ -1,0 +1,838 @@
+{
+  "steps": {
+    "home": {
+      "url": "http://127.0.0.1:3000/",
+      "mode": "hbw-home is-make",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "radius": "0px"
+      },
+      "visibleMedia": 0,
+      "decision": "",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": null
+    },
+    "projects": {
+      "url": "http://127.0.0.1:3000/?layer=projects",
+      "mode": "hbw-home is-browse",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Visual Index SUB:3",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "radius": "0px"
+      },
+      "visibleMedia": 0,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": null
+    },
+    "enter-SUB:3": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 12",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "radius": "0px"
+      },
+      "visibleMedia": 2,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "sub-3"
+    },
+    "enter-KOJA": {
+      "url": "http://127.0.0.1:3000/projects/koja",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 08",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(243, 236, 227)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "koja"
+    },
+    "enter-CLOSED": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 09",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(18, 18, 18)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "bar-closed"
+    },
+    "enter-Our Boy Roy": {
+      "url": "http://127.0.0.1:3000/projects/our-boy-roy",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 07",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(247, 243, 234)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "our-boy-roy"
+    },
+    "enter-Chris Sisarich": {
+      "url": "http://127.0.0.1:3000/projects/chris-sisarich",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 08",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(236, 234, 230)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "chris-sisarich"
+    },
+    "enter-Bistro Nido": {
+      "url": "http://127.0.0.1:3000/projects/bistro-nido",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 06",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(244, 240, 232)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "bistro-nido"
+    },
+    "home-end": {
+      "url": "http://127.0.0.1:3000/",
+      "mode": "hbw-home is-make",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": null,
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "radius": "0px"
+      },
+      "visibleMedia": 0,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": null
+    }
+  },
+  "projects": {
+    "SUB:3": {
+      "enter": {
+        "url": "http://127.0.0.1:3000/projects/sub-3",
+        "mode": "hbw-home is-view",
+        "header": [
+          "How by Why",
+          "Projects",
+          "Method"
+        ],
+        "journal": false,
+        "overlay": false,
+        "sigVis": false,
+        "ss": false,
+        "loading": false,
+        "float": false,
+        "floatVis": false,
+        "task": "Projects Info 01 / 12",
+        "window": {
+          "x": 12,
+          "y": 42,
+          "w": 1416,
+          "h": 846,
+          "bg": "rgb(255, 255, 255)",
+          "radius": "0px"
+        },
+        "visibleMedia": 2,
+        "decision": "clarity before execution",
+        "panel": false,
+        "panelName": null,
+        "projectAttr": "sub-3"
+      },
+      "blanks": [],
+      "infoName": "SUB:3",
+      "infoOpen": true,
+      "backMode": "hbw-home is-browse",
+      "backTask": "Visual Index SUB:3",
+      "backSig": false,
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "radius": "0px"
+      },
+      "legacy": {
+        "journal": false,
+        "sig": false,
+        "ss": false,
+        "floatVis": false,
+        "overlay": false
+      }
+    },
+    "KOJA": {
+      "enter": {
+        "url": "http://127.0.0.1:3000/projects/koja",
+        "mode": "hbw-home is-view",
+        "header": [
+          "How by Why",
+          "Projects",
+          "Method"
+        ],
+        "journal": false,
+        "overlay": false,
+        "sigVis": false,
+        "ss": false,
+        "loading": false,
+        "float": false,
+        "floatVis": false,
+        "task": "Projects Info 01 / 08",
+        "window": {
+          "x": 12,
+          "y": 42,
+          "w": 1416,
+          "h": 846,
+          "bg": "rgb(243, 236, 227)",
+          "radius": "0px"
+        },
+        "visibleMedia": 1,
+        "decision": "clarity before execution",
+        "panel": false,
+        "panelName": null,
+        "projectAttr": "koja"
+      },
+      "blanks": [],
+      "infoName": "KOJA",
+      "infoOpen": true,
+      "backMode": "hbw-home is-browse",
+      "backTask": "Visual Index KOJA",
+      "backSig": false,
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(243, 236, 227)",
+        "radius": "0px"
+      },
+      "legacy": {
+        "journal": false,
+        "sig": false,
+        "ss": false,
+        "floatVis": false,
+        "overlay": false
+      }
+    },
+    "CLOSED": {
+      "enter": {
+        "url": "http://127.0.0.1:3000/projects/bar-closed",
+        "mode": "hbw-home is-view",
+        "header": [
+          "How by Why",
+          "Projects",
+          "Method"
+        ],
+        "journal": false,
+        "overlay": false,
+        "sigVis": false,
+        "ss": false,
+        "loading": false,
+        "float": false,
+        "floatVis": false,
+        "task": "Projects Info 01 / 09",
+        "window": {
+          "x": 12,
+          "y": 42,
+          "w": 1416,
+          "h": 846,
+          "bg": "rgb(18, 18, 18)",
+          "radius": "0px"
+        },
+        "visibleMedia": 1,
+        "decision": "clarity before execution",
+        "panel": false,
+        "panelName": null,
+        "projectAttr": "bar-closed"
+      },
+      "blanks": [],
+      "infoName": "CLOSED",
+      "infoOpen": true,
+      "backMode": "hbw-home is-browse",
+      "backTask": "Visual Index CLOSED",
+      "backSig": false,
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(18, 18, 18)",
+        "radius": "0px"
+      },
+      "legacy": {
+        "journal": false,
+        "sig": false,
+        "ss": false,
+        "floatVis": false,
+        "overlay": false
+      }
+    },
+    "Our Boy Roy": {
+      "enter": {
+        "url": "http://127.0.0.1:3000/projects/our-boy-roy",
+        "mode": "hbw-home is-view",
+        "header": [
+          "How by Why",
+          "Projects",
+          "Method"
+        ],
+        "journal": false,
+        "overlay": false,
+        "sigVis": false,
+        "ss": false,
+        "loading": false,
+        "float": false,
+        "floatVis": false,
+        "task": "Projects Info 01 / 07",
+        "window": {
+          "x": 12,
+          "y": 42,
+          "w": 1416,
+          "h": 846,
+          "bg": "rgb(247, 243, 234)",
+          "radius": "0px"
+        },
+        "visibleMedia": 1,
+        "decision": "clarity before execution",
+        "panel": false,
+        "panelName": null,
+        "projectAttr": "our-boy-roy"
+      },
+      "blanks": [],
+      "infoName": "Our Boy Roy",
+      "infoOpen": true,
+      "backMode": "hbw-home is-browse",
+      "backTask": "Visual Index Our Boy Roy",
+      "backSig": false,
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(247, 243, 234)",
+        "radius": "0px"
+      },
+      "legacy": {
+        "journal": false,
+        "sig": false,
+        "ss": false,
+        "floatVis": false,
+        "overlay": false
+      }
+    },
+    "Chris Sisarich": {
+      "enter": {
+        "url": "http://127.0.0.1:3000/projects/chris-sisarich",
+        "mode": "hbw-home is-view",
+        "header": [
+          "How by Why",
+          "Projects",
+          "Method"
+        ],
+        "journal": false,
+        "overlay": false,
+        "sigVis": false,
+        "ss": false,
+        "loading": false,
+        "float": false,
+        "floatVis": false,
+        "task": "Projects Info 01 / 08",
+        "window": {
+          "x": 12,
+          "y": 42,
+          "w": 1416,
+          "h": 846,
+          "bg": "rgb(236, 234, 230)",
+          "radius": "0px"
+        },
+        "visibleMedia": 1,
+        "decision": "clarity before execution",
+        "panel": false,
+        "panelName": null,
+        "projectAttr": "chris-sisarich"
+      },
+      "blanks": [],
+      "infoName": "Chris Sisarich",
+      "infoOpen": true,
+      "backMode": "hbw-home is-browse",
+      "backTask": "Visual Index Chris Sisarich",
+      "backSig": false,
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(236, 234, 230)",
+        "radius": "0px"
+      },
+      "legacy": {
+        "journal": false,
+        "sig": false,
+        "ss": false,
+        "floatVis": false,
+        "overlay": false
+      }
+    },
+    "Bistro Nido": {
+      "enter": {
+        "url": "http://127.0.0.1:3000/projects/bistro-nido",
+        "mode": "hbw-home is-view",
+        "header": [
+          "How by Why",
+          "Projects",
+          "Method"
+        ],
+        "journal": false,
+        "overlay": false,
+        "sigVis": false,
+        "ss": false,
+        "loading": false,
+        "float": false,
+        "floatVis": false,
+        "task": "Projects Info 01 / 06",
+        "window": {
+          "x": 12,
+          "y": 42,
+          "w": 1416,
+          "h": 846,
+          "bg": "rgb(244, 240, 232)",
+          "radius": "0px"
+        },
+        "visibleMedia": 1,
+        "decision": "clarity before execution",
+        "panel": false,
+        "panelName": null,
+        "projectAttr": "bistro-nido"
+      },
+      "blanks": [],
+      "infoName": "Bistro Nido",
+      "infoOpen": true,
+      "backMode": "hbw-home is-browse",
+      "backTask": "Visual Index Bistro Nido",
+      "backSig": false,
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(244, 240, 232)",
+        "radius": "0px"
+      },
+      "legacy": {
+        "journal": false,
+        "sig": false,
+        "ss": false,
+        "floatVis": false,
+        "overlay": false
+      }
+    }
+  },
+  "errors": [],
+  "directs": {
+    "SUB:3": {
+      "url": "http://127.0.0.1:3000/projects/sub-3",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 12",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(255, 255, 255)",
+        "radius": "0px"
+      },
+      "visibleMedia": 2,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "sub-3"
+    },
+    "KOJA": {
+      "url": "http://127.0.0.1:3000/projects/koja",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 08",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(243, 236, 227)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "koja"
+    },
+    "CLOSED": {
+      "url": "http://127.0.0.1:3000/projects/bar-closed",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 09",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(18, 18, 18)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "bar-closed"
+    },
+    "Our Boy Roy": {
+      "url": "http://127.0.0.1:3000/projects/our-boy-roy",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 07",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(247, 243, 234)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "our-boy-roy"
+    },
+    "Chris Sisarich": {
+      "url": "http://127.0.0.1:3000/projects/chris-sisarich",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 08",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(236, 234, 230)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "chris-sisarich"
+    },
+    "Bistro Nido": {
+      "url": "http://127.0.0.1:3000/projects/bistro-nido",
+      "mode": "hbw-home is-view",
+      "header": [
+        "How by Why",
+        "Projects",
+        "Method"
+      ],
+      "journal": false,
+      "overlay": false,
+      "sigVis": false,
+      "ss": false,
+      "loading": false,
+      "float": false,
+      "floatVis": false,
+      "task": "Projects Info 01 / 06",
+      "window": {
+        "x": 12,
+        "y": 42,
+        "w": 1416,
+        "h": 846,
+        "bg": "rgb(244, 240, 232)",
+        "radius": "0px"
+      },
+      "visibleMedia": 1,
+      "decision": "clarity before execution",
+      "panel": false,
+      "panelName": null,
+      "projectAttr": "bistro-nido"
+    }
+  },
+  "homeEnd": {
+    "url": "http://127.0.0.1:3000/",
+    "mode": "hbw-home is-make",
+    "header": [
+      "How by Why",
+      "Projects",
+      "Method"
+    ],
+    "journal": false,
+    "overlay": false,
+    "sigVis": false,
+    "ss": false,
+    "loading": false,
+    "float": false,
+    "floatVis": false,
+    "task": null,
+    "window": {
+      "x": 12,
+      "y": 42,
+      "w": 1416,
+      "h": 846,
+      "bg": "rgb(255, 255, 255)",
+      "radius": "0px"
+    },
+    "visibleMedia": 0,
+    "decision": "clarity before execution",
+    "panel": false,
+    "panelName": null,
+    "projectAttr": null
+  },
+  "errorLogs": []
+}

@@ -1,24 +1,5 @@
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
-export function visualSource(project: ProjectRecord) {
-  if ((project.layout === "landscape" || project.layout === "wide") && project.browseSrc) {
-    return {
-      src: project.browseSrc,
-      srcSet: project.browseSrcSet || project.srcSet,
-      width: project.browseWidth || project.width,
-      height: project.browseHeight || project.height,
-      crop: project.browseCrop || project.crop,
-    };
-  }
-  return {
-    src: project.src,
-    srcSet: project.srcSet,
-    width: project.width,
-    height: project.height,
-    crop: project.crop,
-  };
-}
-
 export type ProjectRecord = {
   id: string;
   href: string;
@@ -37,6 +18,8 @@ export type ProjectRecord = {
   visualStart?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   /** Extra space above a Visual cell, in existing space steps. */
   visualBefore?: 3 | 4 | 5;
+  /** Homepage selected-work register. Order among flagged records is catalog order. Max 5 used. */
+  homeSelected?: boolean;
   sector?: string;
   disciplines?: string[];
   collaborators?: string[];
@@ -71,6 +54,7 @@ export const PROJECTS: ProjectRecord[] = [
     layout: "portrait",
     visualSpan: 7,
     visualStart: 1,
+    homeSelected: true,
     sector: "Performance nutrition",
     disciplines: ["Brand identity", "Packaging", "Art direction"],
     collaborators: ["The Colour Club"],
@@ -90,6 +74,7 @@ export const PROJECTS: ProjectRecord[] = [
     layout: "contained",
     visualSpan: 4,
     visualStart: 9,
+    homeSelected: true,
     sector: "Food",
     disciplines: ["Brand identity", "Packaging", "Visual system"],
     credits: "Brand identity, packaging design, and visual system by How by Why (HBW).",
@@ -109,6 +94,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 6,
     visualStart: 4,
     visualBefore: 4,
+    homeSelected: true,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Art direction"],
     credits: "Brand identity and art direction by How by Why (HBW).",
@@ -128,6 +114,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 7,
     visualStart: 3,
     visualBefore: 3,
+    homeSelected: true,
     browseSrc: "/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg",
     browseSrcSet: set(
       "/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg",
@@ -155,6 +142,7 @@ export const PROJECTS: ProjectRecord[] = [
     layout: "portrait",
     visualSpan: 5,
     visualStart: 8,
+    homeSelected: true,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Character design", "Visual system"],
     collaborators: ["The Colour Club"],
@@ -182,6 +170,10 @@ export const PROJECTS: ProjectRecord[] = [
     location: "501 George Street, Sydney",
   },
 ];
+
+export function homePreviewProjects() {
+  return PROJECTS.filter((project) => project.homeSelected).slice(0, 5);
+}
 
 export function projectById(id: string) {
   return PROJECTS.find((p) => p.id === id) ?? PROJECTS[0];

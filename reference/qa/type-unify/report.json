@@ -1,0 +1,3467 @@
+{
+  "desktop": {
+    "lockupType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 673.8,
+        "y": 437
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.9,
+        "y": 437
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 735.1,
+        "y": 437
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "matrix(1, 0, 0, 1, -128.047, -35)",
+        "display": "flex",
+        "height": 70,
+        "width": 256.1,
+        "x": 592,
+        "y": 437
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 592,
+        "y": 463
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 154.7,
+        "x": 642.6,
+        "y": 489
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-nav-sub__meta",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "01 / 01"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-thought",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndep"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "midType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "none",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-mark-descriptor",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-nav-sub__meta",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "01 / 01"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "settledType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "none",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-mark-descriptor",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-nav-sub__meta",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "01 / 01"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "indexType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "none",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-mark-descriptor",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-nav-sub__meta",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "01 / 01"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "infoType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "none",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        },
+        {
+          "sel": "hbw-sheet__lead",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-sheet__kicker",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "Position"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "practiceType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "none",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-mark-descriptor",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-nav-sub__meta",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "01 / 01"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "manifestoType": {
+      "introHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "introWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "destHow": {
+        "text": "How",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 32,
+        "x": 12,
+        "y": 8
+      },
+      "destBy": {
+        "text": "by",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 17.3,
+        "x": 711.4,
+        "y": 8
+      },
+      "destWhy": {
+        "text": "Why",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "flex",
+        "height": 18,
+        "width": 31,
+        "x": 1397,
+        "y": 8
+      },
+      "descriptor": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 18,
+        "width": 256.1,
+        "x": 12,
+        "y": 34
+      },
+      "lockup": {
+        "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "none",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "role": {
+        "text": "Brand Strategy & Creative Direction",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "practice": {
+        "text": "Independent Practice",
+        "fontSize": "15px",
+        "lineHeight": "18px",
+        "letterSpacing": "0.3px",
+        "fontWeight": "400",
+        "fontFamily": "Geist, sans-serif",
+        "textTransform": "none",
+        "transform": "none",
+        "display": "block",
+        "height": 0,
+        "width": 0,
+        "x": 0,
+        "y": 0
+      },
+      "samples": [
+        {
+          "sel": "hbw-mark-word hbw-mark-word--rest",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-mark-descriptor",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "is-current",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Visual"
+        },
+        {
+          "sel": "",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Index"
+        },
+        {
+          "sel": "hbw-nav-sub__meta",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "01 / 01"
+        },
+        {
+          "sel": "hbw-poster-tool",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Write"
+        },
+        {
+          "sel": "hbw-poster-input",
+          "fontSize": "15px",
+          "lineHeight": "normal",
+          "text": ""
+        },
+        {
+          "sel": "hbw-poster-send-open",
+          "fontSize": "15px",
+          "lineHeight": "20px",
+          "text": "Send"
+        },
+        {
+          "sel": "hbw-intro-how",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "How"
+        },
+        {
+          "sel": "hbw-intro-by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "by"
+        },
+        {
+          "sel": "hbw-intro-why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Why"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Brand Strategy & Creative Direction"
+        },
+        {
+          "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Independent Practice"
+        },
+        {
+          "sel": "hbw-browse__title hbw-browse__row-name",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "SUB:3"
+        },
+        {
+          "sel": "hbw-browse__row-year",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "2025"
+        },
+        {
+          "sel": "hbw-sheet__opening",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "You’ve built something real. But somewhere along"
+        },
+        {
+          "sel": "hbw-sheet__place",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "text": "Wentworth Falls, Blue Mountains"
+        },
+        {
+          "sel": "hbw-sheet__opening hbw-sheet__closing",
+          "fontSize": "15px",
+          "lineHeight": "21.75px",
+          "text": "By asking why, we discover how.How by why"
+        }
+      ],
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      }
+    }
+  },
+  "mobile": {
+    "390x844": {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "lockup": {
+        "introHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 148.8,
+          "y": 430
+        },
+        "introBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 186.9,
+          "y": 430
+        },
+        "introWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 210.1,
+          "y": 430
+        },
+        "destHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 8,
+          "y": 21
+        },
+        "destBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 186.4,
+          "y": 21
+        },
+        "destWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 351,
+          "y": 21
+        },
+        "descriptor": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "lockup": {
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "matrix(1, 0, 0, 1, -128.047, -35)",
+          "display": "flex",
+          "height": 70,
+          "width": 256.1,
+          "x": 67,
+          "y": 430
+        },
+        "role": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 18,
+          "width": 256.1,
+          "x": 67,
+          "y": 456
+        },
+        "practice": {
+          "text": "Independent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 18,
+          "width": 154.7,
+          "x": 117.6,
+          "y": 482
+        },
+        "samples": [
+          {
+            "sel": "hbw-mark-word hbw-mark-word--rest",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "is-current",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Visual"
+          },
+          {
+            "sel": "",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Index"
+          },
+          {
+            "sel": "hbw-nav-sub__meta",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "01 / 01"
+          },
+          {
+            "sel": "hbw-poster-tool",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Write"
+          },
+          {
+            "sel": "hbw-poster-input",
+            "fontSize": "16px",
+            "lineHeight": "normal",
+            "text": ""
+          },
+          {
+            "sel": "hbw-poster-send-open",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Send"
+          },
+          {
+            "sel": "hbw-intro-thought",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "HowbyWhyBrand Strategy & Creative DirectionIndep"
+          },
+          {
+            "sel": "hbw-intro-how",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "hbw-intro-by",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "by"
+          },
+          {
+            "sel": "hbw-intro-why",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Why"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Brand Strategy & Creative Direction"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Independent Practice"
+          },
+          {
+            "sel": "hbw-browse__title hbw-browse__row-name",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "SUB:3"
+          },
+          {
+            "sel": "hbw-browse__row-year",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "2025"
+          },
+          {
+            "sel": "hbw-sheet__opening",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "You’ve built something real. But somewhere along"
+          },
+          {
+            "sel": "hbw-sheet__place",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+          },
+          {
+            "sel": "hbw-sheet__opening hbw-sheet__closing",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "By asking why, we discover how.How by why"
+          }
+        ],
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "settled": {
+        "introHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "introBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "introWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "destHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 8,
+          "y": 21
+        },
+        "destBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 186.4,
+          "y": 21
+        },
+        "destWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 351,
+          "y": 21
+        },
+        "descriptor": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "lockup": {
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "role": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "practice": {
+          "text": "Independent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "samples": [
+          {
+            "sel": "hbw-mark-word hbw-mark-word--rest",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "is-current",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Visual"
+          },
+          {
+            "sel": "",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Index"
+          },
+          {
+            "sel": "hbw-nav-sub__meta",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "01 / 01"
+          },
+          {
+            "sel": "hbw-poster-tool",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Write"
+          },
+          {
+            "sel": "hbw-poster-input",
+            "fontSize": "16px",
+            "lineHeight": "normal",
+            "text": ""
+          },
+          {
+            "sel": "hbw-poster-send-open",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Send"
+          },
+          {
+            "sel": "hbw-intro-how",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "hbw-intro-by",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "by"
+          },
+          {
+            "sel": "hbw-intro-why",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Why"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Brand Strategy & Creative Direction"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Independent Practice"
+          },
+          {
+            "sel": "hbw-browse__title hbw-browse__row-name",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "SUB:3"
+          },
+          {
+            "sel": "hbw-browse__row-year",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "2025"
+          },
+          {
+            "sel": "hbw-sheet__opening",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "You’ve built something real. But somewhere along"
+          },
+          {
+            "sel": "hbw-sheet__place",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+          },
+          {
+            "sel": "hbw-sheet__opening hbw-sheet__closing",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "By asking why, we discover how.How by why"
+          }
+        ],
+        "viewport": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "inputFontSize": "16px"
+    },
+    "375x812": {
+      "size": {
+        "width": 375,
+        "height": 812
+      },
+      "lockup": {
+        "introHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 141.3,
+          "y": 414
+        },
+        "introBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 179.4,
+          "y": 414
+        },
+        "introWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 202.6,
+          "y": 414
+        },
+        "destHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 8,
+          "y": 21
+        },
+        "destBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 178.9,
+          "y": 21
+        },
+        "destWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 336,
+          "y": 21
+        },
+        "descriptor": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "lockup": {
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "matrix(1, 0, 0, 1, -128.047, -35)",
+          "display": "flex",
+          "height": 70,
+          "width": 256.1,
+          "x": 59.5,
+          "y": 414
+        },
+        "role": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 18,
+          "width": 256.1,
+          "x": 59.5,
+          "y": 440
+        },
+        "practice": {
+          "text": "Independent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 18,
+          "width": 154.7,
+          "x": 110.1,
+          "y": 466
+        },
+        "samples": [
+          {
+            "sel": "hbw-mark-word hbw-mark-word--rest",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "is-current",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Visual"
+          },
+          {
+            "sel": "",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Index"
+          },
+          {
+            "sel": "hbw-nav-sub__meta",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "01 / 01"
+          },
+          {
+            "sel": "hbw-poster-tool",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Write"
+          },
+          {
+            "sel": "hbw-poster-input",
+            "fontSize": "16px",
+            "lineHeight": "normal",
+            "text": ""
+          },
+          {
+            "sel": "hbw-poster-send-open",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Send"
+          },
+          {
+            "sel": "hbw-intro-thought",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "HowbyWhyBrand Strategy & Creative DirectionIndep"
+          },
+          {
+            "sel": "hbw-intro-how",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "hbw-intro-by",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "by"
+          },
+          {
+            "sel": "hbw-intro-why",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Why"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Brand Strategy & Creative Direction"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Independent Practice"
+          },
+          {
+            "sel": "hbw-browse__title hbw-browse__row-name",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "SUB:3"
+          },
+          {
+            "sel": "hbw-browse__row-year",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "2025"
+          },
+          {
+            "sel": "hbw-sheet__opening",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "You’ve built something real. But somewhere along"
+          },
+          {
+            "sel": "hbw-sheet__place",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Wentworth Falls, Blue Mountains"
+          },
+          {
+            "sel": "hbw-sheet__opening hbw-sheet__closing",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "By asking why, we discover how.How by why"
+          }
+        ],
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      },
+      "settled": {
+        "introHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "introBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "introWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "destHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 8,
+          "y": 21
+        },
+        "destBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 178.9,
+          "y": 21
+        },
+        "destWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 336,
+          "y": 21
+        },
+        "descriptor": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "lockup": {
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "role": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "practice": {
+          "text": "Independent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "samples": [
+          {
+            "sel": "hbw-mark-word hbw-mark-word--rest",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "is-current",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Visual"
+          },
+          {
+            "sel": "",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Index"
+          },
+          {
+            "sel": "hbw-nav-sub__meta",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "01 / 01"
+          },
+          {
+            "sel": "hbw-poster-tool",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Write"
+          },
+          {
+            "sel": "hbw-poster-input",
+            "fontSize": "16px",
+            "lineHeight": "normal",
+            "text": ""
+          },
+          {
+            "sel": "hbw-poster-send-open",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Send"
+          },
+          {
+            "sel": "hbw-intro-how",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "hbw-intro-by",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "by"
+          },
+          {
+            "sel": "hbw-intro-why",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Why"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Brand Strategy & Creative Direction"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Independent Practice"
+          },
+          {
+            "sel": "hbw-browse__title hbw-browse__row-name",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "SUB:3"
+          },
+          {
+            "sel": "hbw-browse__row-year",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "2025"
+          },
+          {
+            "sel": "hbw-sheet__opening",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "You’ve built something real. But somewhere along"
+          },
+          {
+            "sel": "hbw-sheet__place",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+          },
+          {
+            "sel": "hbw-sheet__opening hbw-sheet__closing",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "By asking why, we discover how.How by why"
+          }
+        ],
+        "viewport": {
+          "w": 375,
+          "h": 812
+        }
+      },
+      "inputFontSize": "16px"
+    },
+    "430x932": {
+      "size": {
+        "width": 430,
+        "height": 932
+      },
+      "lockup": {
+        "introHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 168.8,
+          "y": 474
+        },
+        "introBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 206.9,
+          "y": 474
+        },
+        "introWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 230.1,
+          "y": 474
+        },
+        "destHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 8,
+          "y": 21
+        },
+        "destBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 206.4,
+          "y": 21
+        },
+        "destWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 391,
+          "y": 21
+        },
+        "descriptor": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "lockup": {
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "matrix(1, 0, 0, 1, -128.047, -35)",
+          "display": "flex",
+          "height": 70,
+          "width": 256.1,
+          "x": 87,
+          "y": 474
+        },
+        "role": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 18,
+          "width": 256.1,
+          "x": 87,
+          "y": 500
+        },
+        "practice": {
+          "text": "Independent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 18,
+          "width": 154.7,
+          "x": 137.6,
+          "y": 526
+        },
+        "samples": [
+          {
+            "sel": "hbw-mark-word hbw-mark-word--rest",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "is-current",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Visual"
+          },
+          {
+            "sel": "",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Index"
+          },
+          {
+            "sel": "hbw-nav-sub__meta",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "01 / 01"
+          },
+          {
+            "sel": "hbw-poster-tool",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Write"
+          },
+          {
+            "sel": "hbw-poster-input",
+            "fontSize": "16px",
+            "lineHeight": "normal",
+            "text": ""
+          },
+          {
+            "sel": "hbw-poster-send-open",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Send"
+          },
+          {
+            "sel": "hbw-intro-thought",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "HowbyWhyBrand Strategy & Creative DirectionIndep"
+          },
+          {
+            "sel": "hbw-intro-how",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "hbw-intro-by",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "by"
+          },
+          {
+            "sel": "hbw-intro-why",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Why"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Brand Strategy & Creative Direction"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Independent Practice"
+          },
+          {
+            "sel": "hbw-browse__title hbw-browse__row-name",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "SUB:3"
+          },
+          {
+            "sel": "hbw-browse__row-year",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "2025"
+          },
+          {
+            "sel": "hbw-sheet__opening",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "You’ve built something real. But somewhere along"
+          },
+          {
+            "sel": "hbw-sheet__place",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Wentworth Falls, Blue Mountains"
+          },
+          {
+            "sel": "hbw-sheet__opening hbw-sheet__closing",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "By asking why, we discover how.How by why"
+          }
+        ],
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      },
+      "settled": {
+        "introHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "introBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "introWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "destHow": {
+          "text": "How",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 32,
+          "x": 8,
+          "y": 21
+        },
+        "destBy": {
+          "text": "by",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 17.3,
+          "x": 206.4,
+          "y": 21
+        },
+        "destWhy": {
+          "text": "Why",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "flex",
+          "height": 18,
+          "width": 31,
+          "x": 391,
+          "y": 21
+        },
+        "descriptor": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "lockup": {
+          "text": "HowbyWhyBrand Strategy & Creative DirectionIndependent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "none",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "role": {
+          "text": "Brand Strategy & Creative Direction",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "practice": {
+          "text": "Independent Practice",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px",
+          "fontWeight": "400",
+          "fontFamily": "Geist, sans-serif",
+          "textTransform": "none",
+          "transform": "none",
+          "display": "block",
+          "height": 0,
+          "width": 0,
+          "x": 0,
+          "y": 0
+        },
+        "samples": [
+          {
+            "sel": "hbw-mark-word hbw-mark-word--rest",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "is-current",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Visual"
+          },
+          {
+            "sel": "",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Index"
+          },
+          {
+            "sel": "hbw-nav-sub__meta",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "01 / 01"
+          },
+          {
+            "sel": "hbw-poster-tool",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Write"
+          },
+          {
+            "sel": "hbw-poster-input",
+            "fontSize": "16px",
+            "lineHeight": "normal",
+            "text": ""
+          },
+          {
+            "sel": "hbw-poster-send-open",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "text": "Send"
+          },
+          {
+            "sel": "hbw-intro-how",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "How"
+          },
+          {
+            "sel": "hbw-intro-by",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "by"
+          },
+          {
+            "sel": "hbw-intro-why",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Why"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--role hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Brand Strategy & Creative Direction"
+          },
+          {
+            "sel": "hbw-intro-line hbw-intro-line--practice hbw-intro-support",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Independent Practice"
+          },
+          {
+            "sel": "hbw-browse__title hbw-browse__row-name",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "SUB:3"
+          },
+          {
+            "sel": "hbw-browse__row-year",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "2025"
+          },
+          {
+            "sel": "hbw-sheet__opening",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "You’ve built something real. But somewhere along"
+          },
+          {
+            "sel": "hbw-sheet__place",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "text": "Wentworth Falls, Blue Mountains6°C · Cloudy"
+          },
+          {
+            "sel": "hbw-sheet__opening hbw-sheet__closing",
+            "fontSize": "15px",
+            "lineHeight": "21.75px",
+            "text": "By asking why, we discover how.How by why"
+          }
+        ],
+        "viewport": {
+          "w": 430,
+          "h": 932
+        }
+      },
+      "inputFontSize": "16px"
+    }
+  }
+}

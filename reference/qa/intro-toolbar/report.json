@@ -1,0 +1,1574 @@
+{
+  "stills": {
+    "centredThought": {
+      "intro": true,
+      "yield": false,
+      "resolve": false,
+      "entered": false,
+      "field": {
+        "x": 12,
+        "y": 56,
+        "width": 1416,
+        "height": 832,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal"
+      },
+      "thought": {
+        "x": 633.7,
+        "y": 452.8,
+        "width": 172.7,
+        "height": 38.4,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "letterSpacing": "0.32px",
+        "text": "We decide how\nby understanding why."
+      },
+      "optical": {
+        "fieldCx": 720,
+        "fieldCy": 472,
+        "thoughtCx": 720,
+        "thoughtCy": 472,
+        "dx": 0,
+        "dy": 0
+      },
+      "support": [
+        {
+          "x": 633.7,
+          "y": 452.8,
+          "width": 83.8,
+          "height": 19.2,
+          "cx": 675.5,
+          "cy": 462.4,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 652.1,
+          "y": 472,
+          "width": 119.1,
+          "height": 19.2,
+          "cx": 711.6,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 802.8,
+          "y": 472,
+          "width": 3.5,
+          "height": 19.2,
+          "cx": 804.6,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      ],
+      "source": {
+        "how": {
+          "x": 717.4,
+          "y": 452.8,
+          "width": 32,
+          "height": 19.2,
+          "cx": 733.4,
+          "cy": 462.4,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "by": {
+          "x": 633.7,
+          "y": 472,
+          "width": 18.4,
+          "height": 19.2,
+          "cx": 642.9,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "why": {
+          "x": 771.1,
+          "y": 472,
+          "width": 31.6,
+          "height": 19.2,
+          "cx": 787,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      },
+      "intermediate": {
+        "how": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "by": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "why": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        }
+      },
+      "dest": {
+        "mark": {
+          "x": 12,
+          "y": 8,
+          "width": 88.5,
+          "height": 18,
+          "cx": 56.2,
+          "cy": 17,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "how": {
+          "x": 12,
+          "y": 8,
+          "width": 36.1,
+          "height": 17,
+          "cx": 30,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "by": {
+          "x": 48.1,
+          "y": 8,
+          "width": 21.3,
+          "height": 17,
+          "cx": 58.8,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "why": {
+          "x": 69.4,
+          "y": 8,
+          "width": 31,
+          "height": 17,
+          "cx": 84.9,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "nav": {
+        "projects": {
+          "x": 592,
+          "y": 12,
+          "width": 256,
+          "height": 40,
+          "cx": 720,
+          "cy": 32,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "studio": {
+          "x": 848,
+          "y": 12,
+          "width": 73.6,
+          "height": 18,
+          "cx": 884.8,
+          "cy": 21,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "time": {
+          "x": 1347.2,
+          "y": 12,
+          "width": 80.8,
+          "height": 18,
+          "cx": 1387.6,
+          "cy": 21,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "13px",
+          "lineHeight": "15.6px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "cy": 849,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "placeholder": "Your email"
+      }
+    },
+    "yield": {
+      "intro": true,
+      "yield": true,
+      "resolve": false,
+      "entered": false,
+      "field": {
+        "x": 12,
+        "y": 56,
+        "width": 1416,
+        "height": 832,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal"
+      },
+      "thought": {
+        "x": 633.7,
+        "y": 452.8,
+        "width": 172.7,
+        "height": 38.4,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "letterSpacing": "0.32px",
+        "text": "We decide how\nby understanding why."
+      },
+      "optical": {
+        "fieldCx": 720,
+        "fieldCy": 472,
+        "thoughtCx": 720,
+        "thoughtCy": 472,
+        "dx": 0,
+        "dy": 0
+      },
+      "support": [
+        {
+          "x": 633.8,
+          "y": 452.9,
+          "width": 83.4,
+          "height": 19.1,
+          "cx": 675.5,
+          "cy": 462.4,
+          "opacity": "0.49",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 652.3,
+          "y": 472.1,
+          "width": 118.6,
+          "height": 19.1,
+          "cx": 711.6,
+          "cy": 481.6,
+          "opacity": "0.49",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 802.8,
+          "y": 472.1,
+          "width": 3.5,
+          "height": 19.1,
+          "cx": 804.6,
+          "cy": 481.6,
+          "opacity": "0.49",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      ],
+      "source": {
+        "how": {
+          "x": 717.4,
+          "y": 452.8,
+          "width": 32,
+          "height": 19.2,
+          "cx": 733.4,
+          "cy": 462.4,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "by": {
+          "x": 633.7,
+          "y": 472,
+          "width": 18.4,
+          "height": 19.2,
+          "cx": 642.9,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "why": {
+          "x": 771.1,
+          "y": 472,
+          "width": 31.6,
+          "height": 19.2,
+          "cx": 787,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      },
+      "intermediate": {
+        "how": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "by": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "why": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        }
+      },
+      "dest": {
+        "mark": {
+          "x": 12,
+          "y": 8,
+          "width": 88.5,
+          "height": 18,
+          "cx": 56.2,
+          "cy": 17,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "how": {
+          "x": 12,
+          "y": 8,
+          "width": 36.1,
+          "height": 17,
+          "cx": 30,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "by": {
+          "x": 48.1,
+          "y": 8,
+          "width": 21.3,
+          "height": 17,
+          "cx": 58.8,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "why": {
+          "x": 69.4,
+          "y": 8,
+          "width": 31,
+          "height": 17,
+          "cx": 84.9,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "nav": {
+        "projects": {
+          "x": 592,
+          "y": 12,
+          "width": 256,
+          "height": 40,
+          "cx": 720,
+          "cy": 32,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "studio": {
+          "x": 848,
+          "y": 12,
+          "width": 73.6,
+          "height": 18,
+          "cx": 884.8,
+          "cy": 21,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "time": {
+          "x": 1347.2,
+          "y": 12,
+          "width": 80.8,
+          "height": 18,
+          "cx": 1387.6,
+          "cy": 21,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "13px",
+          "lineHeight": "15.6px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "cy": 849,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "placeholder": "Your email"
+      }
+    },
+    "remain": {
+      "intro": true,
+      "yield": true,
+      "resolve": false,
+      "entered": false,
+      "field": {
+        "x": 12,
+        "y": 56,
+        "width": 1416,
+        "height": 832,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal"
+      },
+      "thought": {
+        "x": 633.7,
+        "y": 452.8,
+        "width": 172.7,
+        "height": 38.4,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "letterSpacing": "0.32px",
+        "text": "We decide how\nby understanding why."
+      },
+      "optical": {
+        "fieldCx": 720,
+        "fieldCy": 472,
+        "thoughtCx": 720,
+        "thoughtCy": 472,
+        "dx": 0,
+        "dy": 0
+      },
+      "support": [
+        {
+          "x": 634,
+          "y": 452.9,
+          "width": 83.2,
+          "height": 19.1,
+          "cx": 675.5,
+          "cy": 462.5,
+          "opacity": "0.12",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 652.5,
+          "y": 472.1,
+          "width": 118.2,
+          "height": 19.1,
+          "cx": 711.6,
+          "cy": 481.7,
+          "opacity": "0.12",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 802.8,
+          "y": 472.1,
+          "width": 3.5,
+          "height": 19.1,
+          "cx": 804.6,
+          "cy": 481.7,
+          "opacity": "0.12",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      ],
+      "source": {
+        "how": {
+          "x": 717.4,
+          "y": 452.8,
+          "width": 32,
+          "height": 19.2,
+          "cx": 733.4,
+          "cy": 462.4,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "by": {
+          "x": 633.7,
+          "y": 472,
+          "width": 18.4,
+          "height": 19.2,
+          "cx": 642.9,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "why": {
+          "x": 771.1,
+          "y": 472,
+          "width": 31.6,
+          "height": 19.2,
+          "cx": 787,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      },
+      "intermediate": {
+        "how": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "by": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "why": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        }
+      },
+      "dest": {
+        "mark": {
+          "x": 12,
+          "y": 8,
+          "width": 88.5,
+          "height": 18,
+          "cx": 56.2,
+          "cy": 17,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "how": {
+          "x": 12,
+          "y": 8,
+          "width": 36.1,
+          "height": 17,
+          "cx": 30,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "by": {
+          "x": 48.1,
+          "y": 8,
+          "width": 21.3,
+          "height": 17,
+          "cx": 58.8,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "why": {
+          "x": 69.4,
+          "y": 8,
+          "width": 31,
+          "height": 17,
+          "cx": 84.9,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "nav": {
+        "projects": {
+          "x": 592,
+          "y": 12,
+          "width": 256,
+          "height": 40,
+          "cx": 720,
+          "cy": 32,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "studio": {
+          "x": 848,
+          "y": 12,
+          "width": 73.6,
+          "height": 18,
+          "cx": 884.8,
+          "cy": 21,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "time": {
+          "x": 1347.2,
+          "y": 12,
+          "width": 80.8,
+          "height": 18,
+          "cx": 1387.6,
+          "cy": 21,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "13px",
+          "lineHeight": "15.6px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "cy": 849,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "placeholder": "Your email"
+      }
+    },
+    "reorganising": {
+      "intro": true,
+      "yield": true,
+      "resolve": true,
+      "entered": false,
+      "field": {
+        "x": 12,
+        "y": 56,
+        "width": 1416,
+        "height": 832,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal"
+      },
+      "thought": {
+        "x": 633.7,
+        "y": 452.8,
+        "width": 172.7,
+        "height": 38.4,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "letterSpacing": "0.32px",
+        "text": "We decide \n understanding ."
+      },
+      "optical": {
+        "fieldCx": 720,
+        "fieldCy": 472,
+        "thoughtCx": 720,
+        "thoughtCy": 472,
+        "dx": 0,
+        "dy": 0
+      },
+      "support": [
+        {
+          "x": 634,
+          "y": 453,
+          "width": 83.1,
+          "height": 19,
+          "cx": 675.5,
+          "cy": 462.5,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 652.5,
+          "y": 472.2,
+          "width": 118.1,
+          "height": 19,
+          "cx": 711.6,
+          "cy": 481.7,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 802.8,
+          "y": 472.2,
+          "width": 3.5,
+          "height": 19,
+          "cx": 804.6,
+          "cy": 481.7,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      ],
+      "source": {
+        "how": {
+          "x": 717.4,
+          "y": 452.8,
+          "width": 32,
+          "height": 19.2,
+          "cx": 733.4,
+          "cy": 462.4,
+          "opacity": "1.00",
+          "visibility": "hidden",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "by": {
+          "x": 633.7,
+          "y": 472,
+          "width": 18.4,
+          "height": 19.2,
+          "cx": 642.9,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "hidden",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "why": {
+          "x": 771.1,
+          "y": 472,
+          "width": 31.6,
+          "height": 19.2,
+          "cx": 787,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "hidden",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      },
+      "intermediate": {
+        "how": {
+          "width": "32.7031px",
+          "height": "18.7969px",
+          "transform": "matrix(1, 0, 0, 1, 592.401, 373.853)",
+          "opacity": "1"
+        },
+        "by": {
+          "width": "18.9062px",
+          "height": "18.7969px",
+          "transform": "matrix(1, 0, 0, 1, 529.719, 389.48)",
+          "opacity": "1"
+        },
+        "why": {
+          "width": "31.5312px",
+          "height": "18.7969px",
+          "transform": "matrix(1, 0, 0, 1, 646.183, 389.48)",
+          "opacity": "1"
+        }
+      },
+      "dest": {
+        "mark": {
+          "x": 12,
+          "y": 8,
+          "width": 88.5,
+          "height": 18,
+          "cx": 56.2,
+          "cy": 17,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "how": {
+          "x": 12,
+          "y": 8,
+          "width": 36.1,
+          "height": 17,
+          "cx": 30,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "by": {
+          "x": 48.1,
+          "y": 8,
+          "width": 21.3,
+          "height": 17,
+          "cx": 58.8,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "why": {
+          "x": 69.4,
+          "y": 8,
+          "width": 31,
+          "height": 17,
+          "cx": 84.9,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "nav": {
+        "projects": {
+          "x": 592,
+          "y": 10.2,
+          "width": 256,
+          "height": 40,
+          "cx": 720,
+          "cy": 30.2,
+          "opacity": "0.45",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "studio": {
+          "x": 848,
+          "y": 10.2,
+          "width": 73.6,
+          "height": 18,
+          "cx": 884.8,
+          "cy": 19.2,
+          "opacity": "0.45",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "time": {
+          "x": 1347.2,
+          "y": 10.2,
+          "width": 80.8,
+          "height": 18,
+          "cx": 1387.6,
+          "cy": 19.2,
+          "opacity": "0.45",
+          "visibility": "visible",
+          "fontSize": "13px",
+          "lineHeight": "15.6px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "cy": 849,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "placeholder": "Your email"
+      }
+    },
+    "travelling": {
+      "intro": true,
+      "yield": true,
+      "resolve": true,
+      "entered": false,
+      "field": {
+        "x": 12,
+        "y": 56,
+        "width": 1416,
+        "height": 832,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal"
+      },
+      "thought": {
+        "x": 633.7,
+        "y": 452.8,
+        "width": 172.7,
+        "height": 38.4,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "letterSpacing": "0.32px",
+        "text": "We decide \n understanding ."
+      },
+      "optical": {
+        "fieldCx": 720,
+        "fieldCy": 472,
+        "thoughtCx": 720,
+        "thoughtCy": 472,
+        "dx": 0,
+        "dy": 0
+      },
+      "support": [
+        {
+          "x": 634,
+          "y": 453,
+          "width": 83.1,
+          "height": 19,
+          "cx": 675.5,
+          "cy": 462.5,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 652.5,
+          "y": 472.2,
+          "width": 118.1,
+          "height": 19,
+          "cx": 711.6,
+          "cy": 481.7,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 802.8,
+          "y": 472.2,
+          "width": 3.5,
+          "height": 19,
+          "cx": 804.6,
+          "cy": 481.7,
+          "opacity": "0.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      ],
+      "source": {
+        "how": {
+          "x": 717.4,
+          "y": 452.8,
+          "width": 32,
+          "height": 19.2,
+          "cx": 733.4,
+          "cy": 462.4,
+          "opacity": "1.00",
+          "visibility": "hidden",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "by": {
+          "x": 633.7,
+          "y": 472,
+          "width": 18.4,
+          "height": 19.2,
+          "cx": 642.9,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "hidden",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "why": {
+          "x": 771.1,
+          "y": 472,
+          "width": 31.6,
+          "height": 19.2,
+          "cx": 787,
+          "cy": 481.6,
+          "opacity": "1.00",
+          "visibility": "hidden",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      },
+      "intermediate": {
+        "how": {
+          "width": "34.5px",
+          "height": "17.8281px",
+          "transform": "matrix(1, 0, 0, 1, 283.963, 179.431)",
+          "opacity": "1"
+        },
+        "by": {
+          "width": "20.1875px",
+          "height": "17.8281px",
+          "transform": "matrix(1, 0, 0, 1, 273.773, 186.753)",
+          "opacity": "1"
+        },
+        "why": {
+          "width": "31.2656px",
+          "height": "17.8281px",
+          "transform": "matrix(1, 0, 0, 1, 339.671, 186.753)",
+          "opacity": "1"
+        }
+      },
+      "dest": {
+        "mark": {
+          "x": 12,
+          "y": 8,
+          "width": 88.5,
+          "height": 18,
+          "cx": 56.2,
+          "cy": 17,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "how": {
+          "x": 12,
+          "y": 8,
+          "width": 36.1,
+          "height": 17,
+          "cx": 30,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "by": {
+          "x": 48.1,
+          "y": 8,
+          "width": 21.3,
+          "height": 17,
+          "cx": 58.8,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "why": {
+          "x": 69.4,
+          "y": 8,
+          "width": 31,
+          "height": 17,
+          "cx": 84.9,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "nav": {
+        "projects": {
+          "x": 592,
+          "y": 8.6,
+          "width": 256,
+          "height": 40,
+          "cx": 720,
+          "cy": 28.6,
+          "opacity": "0.85",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "studio": {
+          "x": 848,
+          "y": 8.6,
+          "width": 73.6,
+          "height": 18,
+          "cx": 884.8,
+          "cy": 17.6,
+          "opacity": "0.85",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "time": {
+          "x": 1347.2,
+          "y": 8.6,
+          "width": 80.8,
+          "height": 18,
+          "cx": 1387.6,
+          "cy": 17.6,
+          "opacity": "0.85",
+          "visibility": "visible",
+          "fontSize": "13px",
+          "lineHeight": "15.6px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "cy": 849,
+        "opacity": "0.15",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "placeholder": "Your email"
+      }
+    },
+    "settled": {
+      "intro": false,
+      "yield": false,
+      "resolve": false,
+      "entered": true,
+      "field": {
+        "x": 12,
+        "y": 56,
+        "width": 1416,
+        "height": 832,
+        "cx": 720,
+        "cy": 472,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal"
+      },
+      "thought": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "cx": 0,
+        "cy": 0,
+        "opacity": "0.00",
+        "visibility": "visible",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "letterSpacing": "0.32px",
+        "text": "We decide howby understanding why."
+      },
+      "optical": {
+        "fieldCx": 720,
+        "fieldCy": 472,
+        "thoughtCx": 0,
+        "thoughtCy": 0,
+        "dx": -720,
+        "dy": -472
+      },
+      "support": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "cy": 0,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "cy": 0,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "cy": 0,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      ],
+      "source": {
+        "how": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "cy": 0,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "by": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "cy": 0,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        },
+        "why": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "cx": 0,
+          "cy": 0,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "16px",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.32px"
+        }
+      },
+      "intermediate": {
+        "how": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "by": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        },
+        "why": {
+          "width": "auto",
+          "height": "auto",
+          "transform": "none",
+          "opacity": "1"
+        }
+      },
+      "dest": {
+        "mark": {
+          "x": 12,
+          "y": 8,
+          "width": 88.5,
+          "height": 18,
+          "cx": 56.2,
+          "cy": 17,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "how": {
+          "x": 12,
+          "y": 8,
+          "width": 36.1,
+          "height": 17,
+          "cx": 30,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "by": {
+          "x": 48.1,
+          "y": 8,
+          "width": 21.3,
+          "height": 17,
+          "cx": 58.8,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "why": {
+          "x": 69.4,
+          "y": 8,
+          "width": 31,
+          "height": 17,
+          "cx": 84.9,
+          "cy": 16.5,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "nav": {
+        "projects": {
+          "x": 592,
+          "y": 8,
+          "width": 256,
+          "height": 40,
+          "cx": 720,
+          "cy": 28,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "studio": {
+          "x": 848,
+          "y": 8,
+          "width": 73.6,
+          "height": 18,
+          "cx": 884.8,
+          "cy": 17,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "15px",
+          "lineHeight": "18px",
+          "letterSpacing": "0.3px"
+        },
+        "time": {
+          "x": 1347.2,
+          "y": 8,
+          "width": 80.8,
+          "height": 18,
+          "cx": 1387.6,
+          "cy": 17,
+          "opacity": "1.00",
+          "visibility": "visible",
+          "fontSize": "13px",
+          "lineHeight": "15.6px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "toolbar": {
+        "x": 384,
+        "y": 826,
+        "width": 672,
+        "height": 46,
+        "cx": 720,
+        "cy": 849,
+        "opacity": "1.00",
+        "visibility": "visible",
+        "fontSize": "14px",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "placeholder": "Your email"
+      }
+    }
+  },
+  "timing": {
+    "pageMs": null,
+    "composedMs": 1660,
+    "phases": {
+      "occupy": {
+        "token": "spatial",
+        "ms": 380,
+        "at": "0–380"
+      },
+      "hold": {
+        "token": "ui",
+        "ms": 240,
+        "at": "380–620"
+      },
+      "yield": {
+        "token": "continuity",
+        "ms": 520,
+        "at": "620–1140"
+      },
+      "nameResolve": {
+        "token": "continuity",
+        "ms": 520,
+        "at": "1140–1660"
+      },
+      "nav": {
+        "token": "spatial",
+        "ms": 380,
+        "delay": 1140,
+        "at": "1140–1520"
+      },
+      "toolbar": {
+        "token": "spatial",
+        "ms": 380,
+        "delay": 1280,
+        "at": "1280–1660"
+      }
+    },
+    "ownership": "View Transition names hbw-mark-how / hbw-mark-by / hbw-mark-why move from intro spans onto the persistent nav mark spans"
+  },
+  "persistence": {
+    "afterIntro": {
+      "entered": "1",
+      "media": null
+    },
+    "reloadDoesNotReplay": {
+      "intro": false,
+      "entered": true,
+      "thoughtDisplay": "none"
+    }
+  },
+  "reducedMotion": {
+    "intro": false,
+    "entered": true,
+    "thoughtDisplay": "none",
+    "mark": "How by Why",
+    "toolbarOpacity": "1.00",
+    "session": "1"
+  }
+}

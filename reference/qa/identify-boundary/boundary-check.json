@@ -1,0 +1,65 @@
+{
+  "mv12": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "suffix": "SUB:3",
+    "counter": "12 / 12",
+    "boundary": false,
+    "next": "Next KOJA",
+    "index": "11",
+    "preview": {
+      "x": 1521,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": false
+    },
+    "last": {
+      "x": 111,
+      "r": 670,
+      "w": 559.1,
+      "vis": true
+    }
+  },
+  "boundary": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "suffix": "SUB:3",
+    "counter": "12 / 12",
+    "boundary": true,
+    "next": "Next KOJA",
+    "index": "12",
+    "preview": {
+      "x": 1011,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": true
+    },
+    "last": {
+      "x": -399,
+      "r": 160,
+      "w": 559.1,
+      "vis": true
+    }
+  },
+  "reversed": {
+    "url": "/projects/sub-3",
+    "identity": "How by Why × SUB:3 Brand Strategy & Creative Direction",
+    "suffix": "SUB:3",
+    "counter": "12 / 12",
+    "boundary": false,
+    "next": "Next KOJA",
+    "index": "11",
+    "preview": {
+      "x": 1521,
+      "w": 554.8,
+      "h": 693.5,
+      "vis": false
+    },
+    "last": {
+      "x": 111,
+      "r": 670,
+      "w": 559.1,
+      "vis": true
+    }
+  }
+}

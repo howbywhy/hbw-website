@@ -1,6 +1,6 @@
 "use client";
 
-import type { WheelEvent } from "react";
+import { useEffect, useState, type WheelEvent } from "react";
 import type { ProjectExperience, InfoSectionId } from "@/components/home/projects/types";
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
@@ -10,11 +10,20 @@ import { projectById } from "@/components/home/catalog";
 type Props = {
   panel: WorkspacePanelId;
   leaving: boolean;
+  manifestoClosing?: boolean;
   studioView: StudioView;
   infoAnchor: InfoSectionId;
   experience: ProjectExperience | null;
+  practicePreview?: boolean;
+  atProjectEnd?: boolean;
+  nextProjectName?: string | null;
   onShowManifesto: () => void;
   onShowStudio: () => void;
+  onCloseSheet?: () => void;
+  onNextProject?: () => void;
+  onPracticePreviewEnter?: () => void;
+  onPracticePreviewLeave?: () => void;
+  onPracticePreviewOpen?: () => void;
 };
 
 function Lines({ lines }: { lines: readonly string[] }) {
@@ -43,23 +52,49 @@ function ContactCopy({ text }: { text: string }) {
   );
 }
 
+function PracticeGlimpse() {
+  return (
+    <div className="hbw-sheet__glimpse">
+      <p className="hbw-sheet__lead">Practice</p>
+      <p className="hbw-sheet__opening">{STUDIO_COPY.opening}</p>
+      <p>{STUDIO_COPY.glimpse}</p>
+      <p className="hbw-sheet__enter">Enter Practice</p>
+    </div>
+  );
+}
+
 function StudioBody({ onShowManifesto }: { onShowManifesto: () => void }) {
   return (
     <>
-      <p className="hbw-sheet__opening">{STUDIO_COPY.opening}</p>
-      <p>{STUDIO_COPY.role}</p>
-      <section>
+      <div className="hbw-sheet__opening-block">
+        <p className="hbw-sheet__opening">{STUDIO_COPY.opening}</p>
+        <p>{STUDIO_COPY.role}</p>
+      </div>
+      <section className="hbw-sheet__independent">
+        <h2>Independent Practice</h2>
+        <p>{STUDIO_COPY.independent}</p>
+      </section>
+      <figure className="hbw-sheet__portrait">
+        <img
+          src="/practice/mark-blackler-studio.jpg"
+          alt=""
+          width={819}
+          height={1024}
+          decoding="async"
+        />
+      </figure>
+      <section className="hbw-sheet__philosophy">
         <h2>Our Philosophy</h2>
         {STUDIO_COPY.philosophy.map((paragraph) => (
           <p key={paragraph.slice(0, 24)}>{paragraph}</p>
         ))}
-        <button type="button" className="hbw-sheet__link hbw-inspector__link" onClick={onShowManifesto}>
+        <button type="button" className="hbw-sheet__link hbw-sheet__pill" onClick={onShowManifesto}>
           {STUDIO_COPY.manifestoLabel}
         </button>
       </section>
-      <section>
+      <section className="hbw-sheet__how">
         <h2>How We Work</h2>
-        <p>{STUDIO_COPY.howIntro}</p>
+        <p className="hbw-sheet__how-intro">{STUDIO_COPY.howIntro}</p>
         {STUDIO_COPY.steps.map((step) => (
           <div key={step.id} className="hbw-sheet__step">
             <h2>
@@ -69,21 +104,50 @@ function StudioBody({ onShowManifesto }: { onShowManifesto: () => void }) {
           </div>
         ))}
       </section>
-      <section>
+      <section className="hbw-sheet__colophon">
         <h2>Contact</h2>
         <ContactCopy text={STUDIO_COPY.contact} />
-        <p className="hbw-sheet__place">Wentworth Falls, Blue Mountains · NSW, Australia</p>
+        <PracticePlace />
       </section>
     </>
   );
 }
 
-function ManifestoBody({ onShowStudio }: { onShowStudio: () => void }) {
+function PracticePlace() {
+  const [now, setNow] = useState<{ temperature: number; condition: string } | null>(null);
+
+  useEffect(() => {
+    let live = true;
+    fetch("/api/hbw/place")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { ok?: boolean; temperature?: number; condition?: string } | null) => {
+        if (!live || !data?.ok || typeof data.temperature !== "number" || !data.condition) return;
+        setNow({ temperature: data.temperature, condition: data.condition });
+      })
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  return (
+    <p className="hbw-sheet__place">
+      <span className="hbw-sheet__place-name">Wentworth Falls, Blue Mountains</span>
+      {now ? (
+        <>
+          <br />
+          <span className="hbw-sheet__place-now">
+            {now.temperature}°C · {now.condition}
+          </span>
+        </>
+      ) : null}
+    </p>
+  );
+}
+
+function ManifestoBody() {
   return (
     <>
-      <button type="button" className="hbw-sheet__link hbw-inspector__back" onClick={onShowStudio}>
-        Studio
-      </button>
       <p className="hbw-sheet__opening">
         {MANIFESTO_COPY.opening[0]}
         <br />
@@ -102,7 +166,17 @@ function ManifestoBody({ onShowStudio }: { onShowStudio: () => void }) {
   );
 }
 
-function InfoBody({ experience }: { experience: ProjectExperience }) {
+function InfoBody({
+  experience,
+  atProjectEnd = false,
+  nextProjectName = null,
+  onNextProject,
+}: {
+  experience: ProjectExperience;
+  atProjectEnd?: boolean;
+  nextProjectName?: string | null;
+  onNextProject?: () => void;
+}) {
   const record = projectById(experience.slug);
   const facts = [
     record.sector ? ["Sector", record.sector] : null,
@@ -146,6 +220,15 @@ function InfoBody({ experience }: { experience: ProjectExperience }) {
           ))}
         </dl>
       ) : null}
+      {atProjectEnd && nextProjectName && onNextProject ? (
+        <p className="hbw-sheet__next">
+          <button type="button" className="hbw-sheet__next-action" onClick={onNextProject}>
+            Next project
+            <br />
+            {nextProjectName}
+          </button>
+        </p>
+      ) : null}
     </>
   );
 }
@@ -153,24 +236,36 @@ function InfoBody({ experience }: { experience: ProjectExperience }) {
 export function WorkspacePanel({
   panel,
   leaving,
+  manifestoClosing = false,
   studioView,
   infoAnchor,
   experience,
   onShowManifesto,
   onShowStudio,
+  onCloseSheet,
+  onNextProject,
+  atProjectEnd = false,
+  nextProjectName = null,
+  practicePreview = false,
+  onPracticePreviewEnter,
+  onPracticePreviewLeave,
+  onPracticePreviewOpen,
 }: Props) {
   const studioHeld = panel === "studio" && !leaving;
-  const studioShown = studioHeld && studioView === "studio";
-  const manifestoShown = studioHeld && studioView === "manifesto";
-  const studioLeave = leaving && panel === "studio" && studioView === "studio";
-  const manifestoLeave = leaving && panel === "studio" && studioView === "manifesto";
+  const studioShown = studioHeld;
+  const manifestoLeave = manifestoClosing || (leaving && panel === "studio" && studioView === "manifesto");
+  const manifestoShown = studioHeld && studioView === "manifesto" && !manifestoLeave;
+  const studioLeave = leaving && panel === "studio" && !manifestoLeave;
   const infoOpen = panel === "info" && !leaving;
+  const infoLeave = panel === "info" && leaving;
 
   function stopWheel(event: WheelEvent) {
     event.stopPropagation();
   }
 
   void infoAnchor;
+  void onShowStudio;
+  void onCloseSheet;
 
   return (
     <>
@@ -179,10 +274,15 @@ export function WorkspacePanel({
         open={studioShown}
         leaving={studioLeave}
         held={studioHeld}
+        preview={practicePreview}
         label="Studio"
         onWheel={stopWheel}
+        onPreviewEnter={onPracticePreviewEnter}
+        onPreviewLeave={onPracticePreviewLeave}
+        onPreviewOpen={onPracticePreviewOpen}
+        blocked={false}
       >
-        <StudioBody onShowManifesto={onShowManifesto} />
+        {practicePreview && !studioShown ? <PracticeGlimpse /> : <StudioBody onShowManifesto={onShowManifesto} />}
       </InformationSheet>
       <InformationSheet
         variant="global-left"
@@ -192,16 +292,23 @@ export function WorkspacePanel({
         label="Manifesto"
         onWheel={stopWheel}
       >
-        <ManifestoBody onShowStudio={onShowStudio} />
+        <ManifestoBody />
       </InformationSheet>
       <InformationSheet
         variant="project-right"
         open={infoOpen}
-        leaving={panel === "info" && leaving}
+        leaving={infoLeave}
         label="Project information"
         onWheel={stopWheel}
       >
-        {panel === "info" && experience ? <InfoBody experience={experience} /> : null}
+        {panel === "info" && experience ? (
+          <InfoBody
+            experience={experience}
+            atProjectEnd={atProjectEnd}
+            nextProjectName={nextProjectName}
+            onNextProject={onNextProject}
+          />
+        ) : null}
       </InformationSheet>
     </>
   );

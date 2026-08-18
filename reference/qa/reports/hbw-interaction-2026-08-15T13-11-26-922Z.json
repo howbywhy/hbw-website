@@ -1,0 +1,1103 @@
+{
+  "name": "hbw",
+  "baseUrl": "http://127.0.0.1:3000",
+  "command": "interaction",
+  "generatedAt": "2026-08-15T13:10:18.543Z",
+  "summary": {
+    "PASS": 105,
+    "FAIL": 0,
+    "PARTIAL": 0
+  },
+  "bySuite": {
+    "INTERACTIONS": {
+      "PASS": 97,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 97
+    },
+    "HIT": {
+      "PASS": 3,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 3
+    },
+    "STABLE": {
+      "PASS": 5,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "total": 5
+    }
+  },
+  "results": [
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "A Home peek SUB:3 Close returns Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection .hbw-browse__record",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "selector": ".hbw-browse__record",
+      "expected": 0,
+      "actual": 0
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "B Projects Visual hover preview then Index/Visual preserve selection",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "C Browse KOJA Info preserves gallery position",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns Projects origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns Projects origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns Projects origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "D SUB:3 boundary to KOJA Close returns Projects origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home .hbw-inspector.is-overlay.is-visible",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "selector": ".hbw-inspector.is-overlay.is-visible",
+      "expected": "visible=true",
+      "actual": {
+        "selector": ".hbw-inspector.is-overlay.is-visible",
+        "missing": false,
+        "visible": true,
+        "inView": true,
+        "reachable": true,
+        "opacity": 1,
+        "pointerEvents": "auto",
+        "display": "block",
+        "visibility": "visible"
+      }
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "E Studio Manifesto Studio Close Home",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "F mobile project scroll Info Close origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "media 4:5 cells and contain view media",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "desktop no document vertical scroll; panels stay in viewport",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "tool Write Add Draw context and Send without Freeze",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "tool Write Add Draw context and Send without Freeze",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "tool Write Add Draw context and Send without Freeze",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "tool Write Add Draw context and Send without Freeze",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "tool Write Add Draw context and Send without Freeze",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "tool Write Add Draw context and Send without Freeze",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Projects overlay preserves poster and Index relationship lenses",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Info annotation yields gallery then restores nearest movement",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/projects/sub-3",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Nav grid anchors Index Visual Info Studio",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Nav grid anchors Index Visual Info Studio",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Nav grid anchors Index Visual Info Studio",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Nav grid anchors Index Visual Info Studio",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Index Colour Club origin survives next-project Close",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Index Colour Club origin survives next-project Close",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Index Colour Club origin survives next-project Close",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Index Colour Club origin survives next-project Close",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "INTERACTIONS",
+      "name": "Continuous field Visual Index Info Studio origin",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "route": "/?layer=projects",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "suite": "HIT",
+      "name": "Projects owns its pixels",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-nav-projects__hit",
+      "expected": "element owns its hit target",
+      "actual": {
+        "selector": ".hbw-nav-projects__hit",
+        "owns": true,
+        "x": 16,
+        "y": 64,
+        "top": "BUTTON"
+      }
+    },
+    {
+      "suite": "HIT",
+      "name": "Studio owns its pixels",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-nav-studio",
+      "expected": "element owns its hit target",
+      "actual": {
+        "selector": ".hbw-nav-studio",
+        "owns": true,
+        "x": 343.875,
+        "y": 64,
+        "top": "BUTTON"
+      }
+    },
+    {
+      "suite": "HIT",
+      "name": "How by Why owns its pixels",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-home-strip__home",
+      "expected": "element owns its hit target",
+      "actual": {
+        "selector": ".hbw-home-strip__home",
+        "owns": true,
+        "x": 16,
+        "y": 16,
+        "top": "SPAN"
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "How by Why baseline",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-home-strip__mark",
+      "expected": "top/left unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-home-strip__mark",
+          "top": 8,
+          "left": 8,
+          "width": 88.4375,
+          "height": 18,
+          "bottom": 26,
+          "right": 96.4375
+        },
+        "after": {
+          "selector": ".hbw-home-strip__mark",
+          "top": 8,
+          "left": 8,
+          "width": 88.4375,
+          "height": 18,
+          "bottom": 26,
+          "right": 96.4375
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "Projects baseline",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-nav-projects__hit",
+      "expected": "top/left unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-nav-projects__hit",
+          "top": 56,
+          "left": 8,
+          "width": 41.25,
+          "height": 18,
+          "bottom": 74,
+          "right": 49.25
+        },
+        "after": {
+          "selector": ".hbw-nav-projects__hit",
+          "top": 56,
+          "left": 8,
+          "width": 41.25,
+          "height": 18,
+          "bottom": 74,
+          "right": 49.25
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "Studio baseline",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-nav-studio",
+      "expected": "top/left unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-nav-studio",
+          "top": 56,
+          "left": 335.875,
+          "width": 46.125,
+          "height": 18,
+          "bottom": 74,
+          "right": 382
+        },
+        "after": {
+          "selector": ".hbw-nav-studio",
+          "top": 56,
+          "left": 335.875,
+          "width": 46.125,
+          "height": 18,
+          "bottom": 74,
+          "right": 382
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "time baseline",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-home-strip__time",
+      "expected": "top/right unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-home-strip__time",
+          "top": 8,
+          "left": 301.21875,
+          "width": 80.78125,
+          "height": 18,
+          "bottom": 26,
+          "right": 382
+        },
+        "after": {
+          "selector": ".hbw-home-strip__time",
+          "top": 8,
+          "left": 301.21875,
+          "width": 80.78125,
+          "height": 18,
+          "bottom": 26,
+          "right": 382
+        }
+      }
+    },
+    {
+      "suite": "STABLE",
+      "name": "window top",
+      "status": "PASS",
+      "viewport": "mobile 390×844",
+      "selector": ".hbw-window",
+      "expected": "top/left/right unchanged",
+      "actual": {
+        "before": {
+          "selector": ".hbw-window",
+          "top": 108,
+          "left": 8,
+          "width": 374,
+          "height": 728,
+          "bottom": 836,
+          "right": 382
+        },
+        "after": {
+          "selector": ".hbw-window",
+          "top": 108,
+          "left": 8,
+          "width": 374,
+          "height": 728,
+          "bottom": 836,
+          "right": 382
+        }
+      }
+    }
+  ]
+}

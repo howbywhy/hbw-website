@@ -1,4 +1,4 @@
-import { FIELD_COLOR, type PosterObj, type Pt, type ShapeObject, type TextObject } from "@/components/home/poster/types";
+import { FIELD_COLOR, HBW_FONT, type PosterObj, type Pt, type ShapeObject, type TextObject } from "@/components/home/poster/types";
 
 export function uid() {
   return Math.random().toString(36).slice(2, 9);
@@ -15,7 +15,7 @@ export function shapeBox(obj: ShapeObject) {
 }
 
 export function textFont(obj: Pick<TextObject, "size" | "font">) {
-  return `400 ${obj.size}px ${obj.font}, Geist, sans-serif`;
+  return `400 ${obj.size}px ${obj.font}, ${HBW_FONT}`;
 }
 
 function drawArrow(ctx: CanvasRenderingContext2D, a: Pt, b: Pt) {
@@ -47,6 +47,16 @@ function imageEl(src: string, onReady: () => void) {
   return img.complete && img.naturalWidth ? img : null;
 }
 
+let measure: CanvasRenderingContext2D | null = null;
+
+function measureCtx() {
+  if (!measure) {
+    const canvas = document.createElement("canvas");
+    measure = canvas.getContext("2d");
+  }
+  return measure;
+}
+
 function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxW: number) {
   const paragraphs = text.split("\n");
   const lines: string[] = [];
@@ -70,13 +80,22 @@ function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxW: number) {
   return lines;
 }
 
+export function measureTextBlock(obj: Pick<TextObject, "size" | "font" | "w" | "text">, text = obj.text) {
+  const ctx = measureCtx();
+  const lineH = obj.size * 1.25;
+  if (!ctx) return { lines: text.split("\n"), h: Math.max(lineH, text.split("\n").length * lineH) };
+  ctx.font = textFont(obj);
+  const lines = wrapLines(ctx, text, Math.max(24, obj.w));
+  return { lines, h: Math.max(lineH, lines.length * lineH) };
+}
+
 export function paint(
   ctx: CanvasRenderingContext2D,
   objects: PosterObj[],
   draft: PosterObj | null,
   cssW: number,
   cssH: number,
-  opts?: { selectedId?: string | null; chrome?: boolean; caption?: string }
+  opts?: { selectedId?: string | null; chrome?: boolean; caption?: string; skipId?: string | null }
 ) {
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -86,6 +105,7 @@ export function paint(
   ctx.fillRect(0, 0, cssW, cssH);
   const all = draft ? objects.concat(draft) : objects;
   for (const obj of all) {
+    if (opts?.skipId && obj.id === opts.skipId) continue;
     if (obj.kind === "stroke") {
       ctx.strokeStyle = obj.color;
       ctx.lineCap = "round";
@@ -134,7 +154,7 @@ export function paint(
       if (img) ctx.drawImage(img, obj.x, obj.y, obj.w, obj.h);
     }
   }
-  if (opts?.chrome && opts.selectedId) {
+  if (opts?.chrome && opts.selectedId && opts.selectedId !== opts.skipId) {
     const selected = all.find((o) => o.id === opts.selectedId);
     if (selected) {
       const box = objectBox(selected);

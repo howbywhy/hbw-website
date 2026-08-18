@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { HbwShell } from "@/components/home/HbwShell";
 import { HbwRuntime } from "@/components/HbwRuntime";
 import "@/styles/document.css";
@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script src="/runtime/hbw-workspace-boot.js" />
       </head>
       <body className="body" suppressHydrationWarning>

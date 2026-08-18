@@ -4,12 +4,14 @@ import {
   matchesFilter,
   PROJECTS,
   sortProjects,
-  visualSource,
   type ProjectRecord,
 } from "@/components/home/catalog";
 import type { FilterDim, ProjectsMode, SortId } from "@/components/home/workspace";
 import { openingVisual, preloadProject } from "@/components/home/preload";
-import { useMemo } from "react";
+import { projectIdeaCopy } from "@/components/home/projects/experiences";
+import { isVideoMedia, type ArchiveMedia } from "@/components/home/projects/types";
+import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
+import { useEffect, useMemo, useState } from "react";
 
 type Props = {
   open: boolean;
@@ -19,10 +21,12 @@ type Props = {
   mode: ProjectsMode;
   selectedId: string;
   hoveredId: string | null;
+  expandedId: string | null;
   filterDim: FilterDim;
   filterValue: string;
   sort: SortId;
   onHover: (id: string | null) => void;
+  onExpand: (id: string | null) => void;
   onSelect: (id: string) => void;
   onEnterProject: (id: string) => void;
   onLens: (dim: FilterDim, value: string) => void;
@@ -52,10 +56,12 @@ export function ProjectsLayer({
   mode,
   selectedId,
   hoveredId,
+  expandedId,
   filterDim,
   filterValue,
   sort,
   onHover,
+  onExpand,
   onSelect,
   onEnterProject,
   onLens,
@@ -71,9 +77,31 @@ export function ProjectsLayer({
   }
 
   function onRowHover(id: string) {
+    if (isMobileViewport()) return;
     onHover(id);
     preloadProject(id);
   }
+
+  const livePeek = mode === "index" && hoveredId && !entering && !owning ? hoveredId : null;
+  const [peekId, setPeekId] = useState<string | null>(null);
+  const [peekOn, setPeekOn] = useState(false);
+
+  useEffect(() => {
+    if (!livePeek) {
+      setPeekOn(false);
+      return;
+    }
+    setPeekId(livePeek);
+    setPeekOn(true);
+  }, [livePeek]);
+
+  useEffect(() => {
+    if (peekOn || !peekId) return;
+    const id = window.setTimeout(() => setPeekId(null), HBW_T.ui);
+    return () => window.clearTimeout(id);
+  }, [peekOn, peekId]);
+
+  const hoverPeek = peekId ? openingVisual(peekId) : null;
 
   return (
     <div
@@ -85,11 +113,27 @@ export function ProjectsLayer({
       inert={!open || dropping || entering}
     >
       <div className="hbw-browse">
+        {hoverPeek ? (
+          <div className={`hbw-browse__hover-image${peekOn ? " is-on" : ""}`} aria-hidden="true">
+            <img
+              src={hoverPeek.src}
+              srcSet={hoverPeek.srcSet}
+              sizes="280px"
+              alt=""
+              width={hoverPeek.width}
+              height={hoverPeek.height}
+              decoding="async"
+            />
+          </div>
+        ) : null}
         <div
           className={`hbw-browse__archive hbw-browse__grid${mode === "index" ? " hbw-browse__index" : ""}`}
           role="list"
           onPointerOver={(event) => hoverFromTarget(event.target, onRowHover)}
-          onPointerLeave={() => onHover(null)}
+          onPointerLeave={() => {
+            if (isMobileViewport()) return;
+            onHover(null);
+          }}
         >
           {filtered.map((project, index) => (
             <ArchiveItem
@@ -98,6 +142,7 @@ export function ProjectsLayer({
               mode={mode}
               selected={project.id === selectedId}
               hovered={project.id === hoveredId}
+              expanded={expandedId === project.id}
               filterDim={filterDim}
               filterValue={filterValue}
               eager={mode === "visual" && index < 4}
@@ -105,12 +150,89 @@ export function ProjectsLayer({
               owning={owning}
               onHover={onRowHover}
               onActivate={activate}
+              onToggleNote={(id) => {
+                onHover(id);
+                onExpand(expandedId === id ? null : id);
+              }}
               onLens={onLens}
             />
           ))}
         </div>
       </div>
     </div>
+  );
+}
+
+function NoteToggle({
+  name,
+  expanded,
+  onToggle,
+}: {
+  name: string;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className="hbw-browse__more"
+      aria-expanded={expanded}
+      aria-label={expanded ? `Hide ${name} note` : `Show ${name} note`}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onToggle();
+      }}
+      onMouseDown={(event) => event.preventDefault()}
+    >
+      {expanded ? "−" : "+"}
+    </button>
+  );
+}
+
+function ArchiveThumb({
+  media,
+  sizes,
+  eager,
+  named,
+  play,
+}: {
+  media: ArchiveMedia;
+  sizes: string;
+  eager: boolean;
+  named?: string;
+  play: boolean;
+}) {
+  return (
+    <>
+      <img
+        src={media.src}
+        srcSet={media.srcSet}
+        sizes={sizes}
+        alt=""
+        width={media.width}
+        height={media.height}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={eager ? "high" : undefined}
+        style={named ? { viewTransitionName: named } : undefined}
+      />
+      {play && (media.videoSrc || media.mp4) ? (
+        <video
+          className="hbw-browse__media-video"
+          src={media.mp4 || media.videoSrc}
+          poster={media.poster || media.src}
+          width={media.width}
+          height={media.height}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="metadata"
+          disablePictureInPicture
+        />
+      ) : null}
+    </>
   );
 }
 
@@ -151,6 +273,7 @@ function ArchiveItem({
   mode,
   selected,
   hovered,
+  expanded = false,
   filterDim,
   filterValue,
   eager = false,
@@ -158,12 +281,14 @@ function ArchiveItem({
   owning = false,
   onHover,
   onActivate,
+  onToggleNote,
   onLens,
 }: {
   project: ProjectRecord;
   mode: ProjectsMode;
   selected: boolean;
   hovered: boolean;
+  expanded?: boolean;
   filterDim: FilterDim;
   filterValue: string;
   eager?: boolean;
@@ -171,10 +296,12 @@ function ArchiveItem({
   owning?: boolean;
   onHover: (id: string) => void;
   onActivate: (id: string) => void;
+  onToggleNote: (id: string) => void;
   onLens: (dim: FilterDim, value: string) => void;
 }) {
   const visual = mode === "visual";
-  const media = visual ? openingVisual(project.id) : visualSource(project);
+  const note = projectIdeaCopy(project.id);
+  const media = openingVisual(project.id);
   const layout = project.layout;
   const span = project.visualSpan ?? (layout === "wide" ? 8 : layout === "landscape" ? 6 : layout === "contained" ? 4 : 7);
   const start = project.visualStart;
@@ -187,7 +314,10 @@ function ArchiveItem({
       : span >= 5
         ? "(max-width: 767px) 94vw, 48vw"
         : "(max-width: 767px) 46vw, 32vw"
-    : "40px";
+    : "(max-width: 767px) 80px, 40px";
+  const named = entering || (owning && !selected) ? undefined : `hbw-media-${project.id}`;
+  const playVideo =
+    visual && hovered && isVideoMedia(media) && Boolean(media.videoSrc || media.mp4) && !reduceMotion();
 
   return (
     <div
@@ -198,7 +328,7 @@ function ArchiveItem({
       data-span={span}
       className={`hbw-browse__item ${visual ? "hbw-browse__cell" : "hbw-browse__row"} is-${layout}${
         selected ? " is-active" : ""
-      }${hovered ? " is-hovered" : ""}`}
+      }${hovered ? " is-hovered" : ""}${expanded ? " is-noted" : ""}`}
       aria-label={project.name}
       aria-current={selected ? "true" : undefined}
       style={{
@@ -214,31 +344,24 @@ function ArchiveItem({
       }}
       onClick={(event) => enterClick(event, project.id, project.href, onActivate)}
       onKeyDown={(event) => {
+        if (event.target !== event.currentTarget) return;
         if (event.key !== "Enter" && event.key !== " ") return;
         event.preventDefault();
         onActivate(project.id);
       }}
     >
       <span className="hbw-browse__media hbw-browse__row-thumb" aria-hidden="true">
-        <img
-          src={media.src}
-          srcSet={media.srcSet}
-          sizes={sizes}
-          alt=""
-          width={media.width}
-          height={media.height}
-          loading={eager ? "eager" : "lazy"}
-          decoding="async"
-          fetchPriority={eager ? "high" : undefined}
-          style={
-            entering || (owning && !selected)
-              ? undefined
-              : { viewTransitionName: `hbw-media-${project.id}` }
-          }
-        />
+        <ArchiveThumb media={media} sizes={sizes} eager={eager} named={named} play={playVideo} />
       </span>
       <span className="hbw-browse__title hbw-browse__row-name">{project.name}</span>
-      <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
+      {visual ? (
+        <span className="hbw-browse__caption">
+          <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
+          {note ? <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} /> : null}
+        </span>
+      ) : (
+        <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
+      )}
       <span className="hbw-browse__row-disc">
         {disciplines.map((value, i) => (
           <span key={value}>
@@ -276,6 +399,16 @@ function ArchiveItem({
           onLens={onLens}
         />
       </span>
+      {!visual && note ? <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} /> : null}
+      {note ? (
+        <div
+          className="hbw-browse__note"
+          onClick={(event) => event.stopPropagation()}
+          onKeyDown={(event) => event.stopPropagation()}
+        >
+          <p>{note}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

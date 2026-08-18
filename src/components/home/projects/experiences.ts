@@ -51,7 +51,20 @@ function film(
   fit: ProjectMedia["fit"] = "contain",
   webm?: string
 ): ProjectMedia {
-  return { type: "video", src, webm, width, height, poster, fit };
+  return {
+    type: "video",
+    src,
+    mp4: src,
+    videoSrc: src,
+    webm,
+    width,
+    height,
+    poster,
+    fit,
+    autoplay: true,
+    loop: true,
+    muted: true,
+  };
 }
 
 function mv(
@@ -249,7 +262,7 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
   movements: [
     mv("k01", "portrait", jpg("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", 1080, 1350), "idea", { align: "start" }),
     mv("k02", "film", film("/projects/koja/web/KOJA-Peanut-Fudge.mp4", 1080, 1080, "/projects/koja/web/KOJA-Peanut-Fudge.jpg", "contain", "/projects/koja/web/KOJA-Peanut-Fudge.webm"), "idea", { span: "contained" }),
-    mv("k03", "film", film("/projects/koja/KOJA-Logo-1920x1080px.mp4", 1920, 1080, "/projects/koja/web/KOJA-Logo.jpg"), "idea"),
+    mv("k03", "film", film("/projects/koja/web/KOJA-Logo.mp4", 1920, 1080, "/projects/koja/web/KOJA-Logo.jpg"), "idea"),
     mv("k04", "portrait", webp("/projects/koja/68fb10b7f3a747a3e36c24a0_KOJA_May2023_60.webp", 1344, 2016), "shift", { align: "start" }),
     mv("k05", "film", film("/projects/koja/web/KOJA-BickieBites.mp4", 810, 1440, "/projects/koja/web/KOJA-BickieBites.jpg"), "system", { span: "narrow" }),
     mv("k06", "film", film("/projects/koja/web/KOJA-Oat-Bites.mp4", 1440, 810, "/projects/koja/web/KOJA-Oat-Bites.jpg"), "system"),
@@ -269,7 +282,7 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
     mv("c01", "portrait", jpg("/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", 1080, 1350), "idea", { align: "start" }),
     mv("c02", "portrait", jpg("/projects/closed/670ca02120d4b38fdbb6bf49_HBWxCLOSED-Portfolio26.jpg", 1080, 1350), "idea", { align: "end" }),
     mv("c03", "landscape", jpg("/projects/closed/670ca02123deffa7009a157f_HBWxCLOSED-Portfolio33.jpg", 1920, 1080), "idea"),
-    mv("c04", "film", film("/projects/closed/CLOSED-Eyes-1920x1080px.mp4", 1920, 1080, "/projects/closed/web/CLOSED-Eyes.jpg", "cover"), "shift", { kind: "full" }),
+    mv("c04", "film", film("/projects/closed/web/CLOSED-Eyes.mp4", 1920, 1080, "/projects/closed/web/CLOSED-Eyes.jpg", "cover"), "shift", { kind: "full" }),
     mv("c05", "portrait", jpg("/projects/closed/670ca0217374160efd5b3ba4_HBWxCLOSED-Portfolio17.jpg", 1080, 1350), "shift", { align: "start" }),
     mv("c06", "landscape", jpg("/projects/closed/670ca0214458519e4d903743_HBWxCLOSED-Portfolio31.jpg", 1920, 1080), "system"),
     mv("c07", "portrait", jpg("/projects/closed/670ca0219b68e610dbf64663_HBWxCLOSED-Portfolio19.jpg", 1080, 1350), "system", { align: "end" }),
@@ -293,7 +306,7 @@ export const OBR_EXPERIENCE: ProjectExperience = {
     mv("o04", "film", film("/projects/our-boy-roy/web/OBR-Colour-Change.mp4", 1440, 810, "/projects/our-boy-roy/web/OBR-Colour-Change.jpg"), "system"),
     mv("o05", "portrait", jpg("/projects/our-boy-roy/666173bcbf2a7a2babaeb1aa_HBWxOBR-Portfolio8.jpg", 1080, 1350), "system", { align: "start" }),
     mv("o06", "portrait", jpg("/projects/our-boy-roy/666175d7d04fcd0592a30a48_OBR-Instagram-Posts19.jpg", 1080, 1350), "outcome"),
-    mv("o07", "film", film("/projects/our-boy-roy/OBR-Mortadella-Month-1080x1350px.mp4", 1080, 1350, "/projects/our-boy-roy/web/OBR-Mortadella.jpg"), "outcome", { align: "end", span: "narrow" }),
+    mv("o07", "film", film("/projects/our-boy-roy/web/OBR-Mortadella.mp4", 1080, 1350, "/projects/our-boy-roy/web/OBR-Mortadella.jpg"), "outcome", { align: "end", span: "narrow" }),
   ],
 };
 
@@ -345,4 +358,9 @@ export const PROJECT_EXPERIENCES: Record<string, ProjectExperience> = {
 
 export function getExperience(slug: string) {
   return PROJECT_EXPERIENCES[slug] ?? null;
+}
+
+/** Short Idea copy shared by Index accordion and Visual +. */
+export function projectIdeaCopy(slug: string) {
+  return getExperience(slug)?.infoSections.find((section) => section.id === "idea")?.copy?.trim() || "";
 }

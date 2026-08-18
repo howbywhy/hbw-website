@@ -1,0 +1,3338 @@
+{
+  "frames": 102,
+  "home": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1428,
+      "y": 10,
+      "w": 0,
+      "h": 0,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "peekOpen": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 27,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "peekNamed": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "SUB:3",
+    "peekNameShown": true,
+    "peekBox": {
+      "x": 749,
+      "y": 27,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "peekInBrowse": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 27,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 67,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "peekClosedOnIndex": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 67,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "visual": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 67,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "index": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 67,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "sub3": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × SUB:3",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 164,
+      "h": 20,
+      "r": 176
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 9477,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 10053
+    },
+    "outro": {
+      "x": 10149,
+      "y": 73,
+      "w": 753,
+      "h": 719,
+      "r": 10902
+    },
+    "outroId": {
+      "x": 10149,
+      "y": 73,
+      "w": 146,
+      "h": 719,
+      "r": 10294
+    },
+    "outroPreview": {
+      "x": 10326,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 10902
+    },
+    "outroName": "KOJA",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 0.4
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "wheelQa": {
+    "before": "translate3d(0px, 0px, 0px)",
+    "mid": "translate3d(-140px, 0px, 0px)",
+    "after": "translate3d(-140px, 0px, 0px)",
+    "moved": true,
+    "settled": true
+  },
+  "afterWheel": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × SUB:3",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 164,
+      "h": 20,
+      "r": 176
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "02 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(-140px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 9337,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 9913
+    },
+    "outro": {
+      "x": 10009,
+      "y": 73,
+      "w": 753,
+      "h": 719,
+      "r": 10762
+    },
+    "outroId": {
+      "x": 10009,
+      "y": 73,
+      "w": 146,
+      "h": 719,
+      "r": 10154
+    },
+    "outroPreview": {
+      "x": 10186,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 10762
+    },
+    "outroName": "KOJA",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 1
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "infoOpen": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-panel is-inspect is-phase-active",
+    "identity": "How by Why × SUB:3",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 164,
+      "h": 20,
+      "r": 176
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "02 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 968,
+      "h": 737,
+      "r": 980
+    },
+    "trackX": "translate3d(-140px, 0px, 0px)",
+    "inspector": true,
+    "inspectorBox": {
+      "x": 980,
+      "y": 64,
+      "w": 448,
+      "h": 737,
+      "r": 1428
+    },
+    "inspectBg": "rgb(255, 255, 255)",
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 9337,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 9913
+    },
+    "outro": {
+      "x": 10009,
+      "y": 73,
+      "w": 753,
+      "h": 719,
+      "r": 10762
+    },
+    "outroId": {
+      "x": 10009,
+      "y": 73,
+      "w": 146,
+      "h": 719,
+      "r": 10154
+    },
+    "outroPreview": {
+      "x": 10186,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 10762
+    },
+    "outroName": "KOJA",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 1.8
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "infoClosed": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × SUB:3",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 164,
+      "h": 20,
+      "r": 176
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "02 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(-140px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 9337,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 9913
+    },
+    "outro": {
+      "x": 10009,
+      "y": 73,
+      "w": 753,
+      "h": 719,
+      "r": 10762
+    },
+    "outroId": {
+      "x": 10009,
+      "y": 73,
+      "w": 146,
+      "h": 719,
+      "r": 10154
+    },
+    "outroPreview": {
+      "x": 10186,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 10762
+    },
+    "outroName": "KOJA",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 2.9
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "infoPos": {
+    "trackX": "translate3d(-140px, 0px, 0px)",
+    "counter": "02 / 12",
+    "identity": "How by Why × SUB:3"
+  },
+  "boundary": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × SUB:3",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 164,
+      "h": 20,
+      "r": 176
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "12 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(-9474px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 3,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 579
+    },
+    "outro": {
+      "x": 675,
+      "y": 73,
+      "w": 753,
+      "h": 719,
+      "r": 1428
+    },
+    "outroId": {
+      "x": 675,
+      "y": 73,
+      "w": 146,
+      "h": 719,
+      "r": 820
+    },
+    "outroPreview": {
+      "x": 852,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 1428
+    },
+    "outroName": "KOJA",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": true,
+        "t": 2.9
+      },
+      {
+        "posterOn": false,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": true,
+        "t": 0.1
+      }
+    ],
+    "blank": false
+  },
+  "koja": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × KOJA",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 159,
+      "h": 20,
+      "r": 171
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 6082,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6657
+    },
+    "outro": {
+      "x": 6753,
+      "y": 73,
+      "w": 734,
+      "h": 719,
+      "r": 7488
+    },
+    "outroId": {
+      "x": 6753,
+      "y": 73,
+      "w": 127,
+      "h": 719,
+      "r": 6880
+    },
+    "outroPreview": {
+      "x": 6912,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 7488
+    },
+    "outroName": "CLOSED",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 0.7
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "method": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-panel is-method is-phase-active",
+    "identity": "How by Why × KOJA",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 159,
+      "h": 20,
+      "r": 171
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": true,
+    "panelBox": {
+      "x": 884,
+      "y": 64,
+      "w": 544,
+      "h": 737,
+      "r": 1428
+    },
+    "lastMv": {
+      "x": 6082,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6657
+    },
+    "outro": {
+      "x": 6753,
+      "y": 73,
+      "w": 734,
+      "h": 719,
+      "r": 7488
+    },
+    "outroId": {
+      "x": 6753,
+      "y": 73,
+      "w": 127,
+      "h": 719,
+      "r": 6880
+    },
+    "outroPreview": {
+      "x": 6912,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 7488
+    },
+    "outroName": "CLOSED",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 1.3
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "methodClosed": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × KOJA",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 159,
+      "h": 20,
+      "r": 171
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 6082,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6657
+    },
+    "outro": {
+      "x": 6753,
+      "y": 73,
+      "w": 734,
+      "h": 719,
+      "r": 7488
+    },
+    "outroId": {
+      "x": 6753,
+      "y": 73,
+      "w": 127,
+      "h": 719,
+      "r": 6880
+    },
+    "outroPreview": {
+      "x": 6912,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 7488
+    },
+    "outroName": "CLOSED",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 1.8
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "chris": {
+    "url": "/projects/chris-sisarich",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × Chris Sisarich",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 226,
+      "h": 20,
+      "r": 238
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 6275,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 7691
+    },
+    "outro": {
+      "x": 7787,
+      "y": 73,
+      "w": 696,
+      "h": 719,
+      "r": 8483
+    },
+    "outroId": {
+      "x": 7787,
+      "y": 73,
+      "w": 88,
+      "h": 719,
+      "r": 7876
+    },
+    "outroPreview": {
+      "x": 7908,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 8483
+    },
+    "outroName": "Bistro Nido",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false,
+        "paused": false,
+        "t": 0.6
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "obr": {
+    "url": "/projects/our-boy-roy",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × Our Boy Roy",
+    "identityOn": true,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 214,
+      "h": 20,
+      "r": 226
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 156,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 07",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": {
+      "x": 4918,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 5494
+    },
+    "outro": {
+      "x": 5590,
+      "y": 73,
+      "w": 800,
+      "h": 719,
+      "r": 6390
+    },
+    "outroId": {
+      "x": 5590,
+      "y": 73,
+      "w": 193,
+      "h": 719,
+      "r": 5783
+    },
+    "outroPreview": {
+      "x": 5815,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6390
+    },
+    "outroName": "Chris Sisarich",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false,
+        "paused": null,
+        "t": null
+      }
+    ],
+    "blank": false
+  },
+  "backProjects": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 67,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "end": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 749,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 1009
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 157,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 506,
+      "y": 157,
+      "w": 226,
+      "h": 114,
+      "r": 732
+    },
+    "indexName": {
+      "x": 506,
+      "y": 164,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 167,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "visual1280": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why × ",
+    "identityOn": false,
+    "identityY": 10,
+    "markY": 10,
+    "markSize": "16.96px",
+    "identitySize": "16.96px",
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 109,
+      "h": 20,
+      "r": 121
+    },
+    "mark": {
+      "x": 12,
+      "y": 10,
+      "w": 100,
+      "h": 20,
+      "r": 112
+    },
+    "projects": {
+      "x": 527,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 594
+    },
+    "method": {
+      "x": 691,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 753
+    },
+    "time": {
+      "x": 1180,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1268
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1256,
+      "h": 637,
+      "r": 1268
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "w": 38,
+      "h": 48
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 669,
+      "y": 23,
+      "w": 260,
+      "h": 77,
+      "r": 929
+    },
+    "visual": {
+      "x": 527,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 577
+    },
+    "indexBtn": {
+      "x": 592,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 636
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 421,
+      "h": 563,
+      "r": 433
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 451,
+      "y": 67,
+      "w": 200,
+      "h": 114,
+      "r": 651
+    },
+    "indexName": {
+      "x": 451,
+      "y": 75,
+      "w": 212,
+      "h": 21,
+      "r": 664
+    },
+    "indexYear": {
+      "x": 1214,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1268
+    },
+    "counter": null,
+    "viewPhase": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "panel": false,
+    "panelBox": null,
+    "lastMv": null,
+    "outro": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false
+  },
+  "videoQa": [
+    {
+      "slug": "sub-3",
+      "identity": "How by Why × SUB:3",
+      "counter": "01 / 12",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": false,
+          "videoReady": true,
+          "blank": false,
+          "paused": false,
+          "t": 0.6
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        }
+      ],
+      "brandR": 176,
+      "projectsX": 607
+    },
+    {
+      "slug": "koja",
+      "identity": "How by Why × KOJA",
+      "counter": "01 / 08",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": false,
+          "videoReady": true,
+          "blank": false,
+          "paused": false,
+          "t": 0.4
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        }
+      ],
+      "brandR": 171,
+      "projectsX": 607
+    },
+    {
+      "slug": "bar-closed",
+      "identity": "How by Why × CLOSED",
+      "counter": "01 / 09",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        }
+      ],
+      "brandR": 194,
+      "projectsX": 607
+    },
+    {
+      "slug": "our-boy-roy",
+      "identity": "How by Why × Our Boy Roy",
+      "counter": "01 / 07",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        }
+      ],
+      "brandR": 226,
+      "projectsX": 607
+    },
+    {
+      "slug": "chris-sisarich",
+      "identity": "How by Why × Chris Sisarich",
+      "counter": "01 / 08",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": false,
+          "videoReady": true,
+          "blank": false,
+          "paused": false,
+          "t": 0.6
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false,
+          "paused": null,
+          "t": null
+        }
+      ],
+      "brandR": 238,
+      "projectsX": 607
+    },
+    {
+      "slug": "bistro-nido",
+      "identity": "How by Why × Bistro Nido",
+      "counter": "01 / 06",
+      "blank": false,
+      "films": [],
+      "brandR": 216,
+      "projectsX": 607
+    }
+  ],
+  "gates": {
+    "identityOneLine": true,
+    "identityLarge": true,
+    "longestClear": true,
+    "headerLocked": true,
+    "peekSmall": true,
+    "peekGap": true,
+    "peekNamesDefaultHidden": true,
+    "peekNameOnHover": true,
+    "peekClosesOnSubnav": true,
+    "visualFour": true,
+    "visualThreeAt1280": false,
+    "thumbsSmaller": true,
+    "indexAlign": true,
+    "noSnap": true,
+    "inspectorSplit": true,
+    "inspectRestore": true,
+    "stage1": true,
+    "stage2": true,
+    "boundaryNamed": true,
+    "kojaContinues": true,
+    "methodOpens": true,
+    "methodCloses": true,
+    "noBlankOpen": true
+  }
+}

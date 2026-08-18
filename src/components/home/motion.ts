@@ -10,11 +10,15 @@ export const HBW_T = {
   spatial: 380,
   /** Ownership transfers: project entry, project→project, return to origin. */
   continuity: 520,
-  /** First-visit copy sequence. Not an interaction grammar. */
-  intro: 1400,
+  /** Composed first-visit hold. Not a fifth grammar token. */
+  intro: 2280,
   /** Preload budget. Not visual. */
   prepareCap: 1400,
 } as const;
+
+/** occupy spatial + read (continuity+ui+ui) + yield ui + expand continuity + settle micro. */
+export const HBW_INTRO_MS =
+  HBW_T.spatial + HBW_T.continuity + HBW_T.ui + HBW_T.ui + HBW_T.ui + HBW_T.continuity + HBW_T.micro;
 
 export type SwapPhase = "idle" | "preparing" | "exiting" | "entering";
 

@@ -1,12 +1,21 @@
 export type Pt = { x: number; y: number };
 
-export type PosterFont = "Visual" | "Geist" | "Neuebit";
+/** Matches `--hbw-font`. Canvas cannot read CSS custom properties. */
+export const HBW_FONT = "Geist, sans-serif";
+
+export const POSTER_FONTS = [
+  { id: "Visual", label: "Visual" },
+  { id: "Geist", label: "Geist" },
+  { id: "Neuebit", label: "Neuebit" },
+] as const;
+
+export type PosterFont = (typeof POSTER_FONTS)[number]["id"];
 
 export type TextAlign = "left" | "center" | "right";
 
 export type ShapeKind = "rect" | "ellipse" | "line" | "arrow";
 
-export type PosterToolId = "text" | "pencil" | "marker" | "shape" | "upload";
+export type PosterToolId = "select" | "text" | "pencil" | "marker" | "shape" | "upload";
 
 export type TextObject = {
   id: string;
@@ -68,12 +77,20 @@ export type PosterState = {
   shapeFill: boolean;
 };
 
-export const POSTER_FONTS: { id: PosterFont; label: string }[] = [
-  { id: "Visual", label: "Visual" },
-  { id: "Geist", label: "Geist" },
-  { id: "Neuebit", label: "Neuebit" },
-];
-
 export const FIELD_COLOR = "#F4F5F3";
 
-export const PALETTE = ["#333333", "#1d1d1d", "#e23b2e", "#fcfa9b", "#f2ecde", "#ffffff"] as const;
+export const PALETTE = [
+  "#1d1d1d",
+  "#ffffff",
+  "#fcfa9b",
+  "#e23b2e",
+  "#d4652a",
+  "#c4a35a",
+  "#3d6b8a",
+  "#4a7c6f",
+  "#5b6aa8",
+  "#333333",
+  "#8a8680",
+  "#c8c4bb",
+  "#f2ecde",
+] as const;

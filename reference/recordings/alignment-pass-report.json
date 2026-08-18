@@ -1,0 +1,2188 @@
+{
+  "frames": 96,
+  "home": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "peekOpen": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 59,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 59,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "peekNamed": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 59,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "Bistro Nido — Twice Cooked",
+    "peekNameShown": true,
+    "peekBox": {
+      "x": 607,
+      "y": 59,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "visual": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 579,
+      "h": 663,
+      "r": 591
+    },
+    "record": true,
+    "recordBox": {
+      "x": 12,
+      "y": 742,
+      "w": 579,
+      "h": 42,
+      "r": 591
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 67,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 75,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "peekInBrowse": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 579,
+      "h": 663,
+      "r": 591
+    },
+    "record": true,
+    "recordBox": {
+      "x": 12,
+      "y": 742,
+      "w": 579,
+      "h": 42,
+      "r": 591
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 67,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 75,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "peekClosedVisual": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 579,
+      "h": 663,
+      "r": 591
+    },
+    "record": true,
+    "recordBox": {
+      "x": 12,
+      "y": 742,
+      "w": 579,
+      "h": 42,
+      "r": 591
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 67,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 75,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "peekClosedIndex": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 579,
+      "h": 663,
+      "r": 591
+    },
+    "record": true,
+    "recordBox": {
+      "x": 12,
+      "y": 742,
+      "w": 579,
+      "h": 42,
+      "r": 591
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 67,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 75,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "index": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 579,
+      "h": 663,
+      "r": 591
+    },
+    "record": true,
+    "recordBox": {
+      "x": 12,
+      "y": 742,
+      "w": 579,
+      "h": 42,
+      "r": 591
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 67,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 75,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "closed": {
+    "url": "/projects/bar-closed",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × CLOSED",
+    "identityOn": true,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": 8,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 193,
+      "h": 20,
+      "r": 205
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 09",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": {
+      "x": 7725,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 8309
+    },
+    "outroId": {
+      "x": 8405,
+      "y": 67,
+      "w": 147,
+      "h": 730,
+      "r": 8552
+    },
+    "outroPreview": {
+      "x": 8584,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 9168
+    },
+    "outroName": "Our Boy Roy",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "blank": false
+      },
+      {
+        "blank": false
+      }
+    ],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "wheelQa": {
+    "before": "translate3d(0px, 0px, 0px)",
+    "mid": "translate3d(-160px, 0px, 0px)",
+    "after": "translate3d(-160px, 0px, 0px)",
+    "moved": true,
+    "settled": true
+  },
+  "infoOpen": {
+    "url": "/projects/bar-closed",
+    "mode": "hbw-home is-view is-panel is-inspect is-phase-active",
+    "identity": "How by Why × CLOSED",
+    "identityOn": true,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": 8,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 193,
+      "h": 20,
+      "r": 205
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "02 / 09",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1020,
+      "h": 737,
+      "r": 1032
+    },
+    "trackX": "translate3d(-160px, 0px, 0px)",
+    "inspector": true,
+    "overlay": false,
+    "inspectorBox": {
+      "x": 1032,
+      "y": 64,
+      "w": 396,
+      "h": 737,
+      "r": 1428
+    },
+    "inspectBg": "rgb(255, 255, 255)",
+    "lastMv": {
+      "x": 7169,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 7753
+    },
+    "outroId": {
+      "x": 7849,
+      "y": 67,
+      "w": 147,
+      "h": 730,
+      "r": 7996
+    },
+    "outroPreview": {
+      "x": 8028,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 8612
+    },
+    "outroName": "Our Boy Roy",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "blank": false
+      },
+      {
+        "blank": false
+      }
+    ],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "infoClosed": {
+    "url": "/projects/bar-closed",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × CLOSED",
+    "identityOn": true,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": 8,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 193,
+      "h": 20,
+      "r": 205
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "02 / 09",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(-160px, 0px, 0px)",
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": {
+      "x": 7565,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 8149
+    },
+    "outroId": {
+      "x": 8245,
+      "y": 67,
+      "w": 147,
+      "h": 730,
+      "r": 8392
+    },
+    "outroPreview": {
+      "x": 8424,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 9008
+    },
+    "outroName": "Our Boy Roy",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "blank": false
+      },
+      {
+        "blank": false
+      }
+    ],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "boundary": {
+    "url": "/projects/bar-closed",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × CLOSED",
+    "identityOn": true,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": 8,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 193,
+      "h": 20,
+      "r": 205
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "09 / 09",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(-7740px, 0px, 0px)",
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": {
+      "x": -15,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 569
+    },
+    "outroId": {
+      "x": 665,
+      "y": 67,
+      "w": 147,
+      "h": 730,
+      "r": 812
+    },
+    "outroPreview": {
+      "x": 844,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 1428
+    },
+    "outroName": "Our Boy Roy",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "blank": false
+      },
+      {
+        "blank": false
+      }
+    ],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "next": {
+    "url": "/projects/our-boy-roy",
+    "mode": "hbw-home is-view is-phase-active",
+    "identity": "How by Why × Our Boy Roy",
+    "identityOn": true,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": 8,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 225,
+      "h": 20,
+      "r": 237
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 07",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": {
+      "x": 4994,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 5578
+    },
+    "outroId": {
+      "x": 5674,
+      "y": 67,
+      "w": 193,
+      "h": 730,
+      "r": 5867
+    },
+    "outroPreview": {
+      "x": 5899,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 6484
+    },
+    "outroName": "Chris Sisarich",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "blank": false
+      },
+      {
+        "blank": false
+      }
+    ],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "method": {
+    "url": "/projects/our-boy-roy",
+    "mode": "hbw-home is-view is-panel is-method is-phase-active",
+    "identity": "How by Why × Our Boy Roy",
+    "identityOn": true,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": 8,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 225,
+      "h": 20,
+      "r": 237
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 37,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 579,
+      "h": 716,
+      "r": 591
+    },
+    "record": false,
+    "recordBox": null,
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 156,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 163,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 07",
+    "stage": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "trackX": "translate3d(0px, 0px, 0px)",
+    "inspector": true,
+    "overlay": true,
+    "inspectorBox": {
+      "x": 980,
+      "y": 64,
+      "w": 448,
+      "h": 737,
+      "r": 1428
+    },
+    "inspectBg": "rgb(255, 255, 255)",
+    "lastMv": {
+      "x": 4994,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 5578
+    },
+    "outroId": {
+      "x": 5674,
+      "y": 67,
+      "w": 193,
+      "h": 730,
+      "r": 5867
+    },
+    "outroPreview": {
+      "x": 5899,
+      "y": 67,
+      "w": 584,
+      "h": 730,
+      "r": 6484
+    },
+    "outroName": "Chris Sisarich",
+    "stage1": 96,
+    "stage2": 32,
+    "films": [
+      {
+        "blank": false
+      },
+      {
+        "blank": false
+      }
+    ],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "backProjects": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "identity": "How by Why ×",
+    "identityOn": false,
+    "markSize": "16.96px",
+    "timesSize": "16.96px",
+    "projectSize": "16.96px",
+    "gapMarkTimes": 8,
+    "gapTimesName": null,
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 125,
+      "h": 20,
+      "r": 137
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekSize": {
+      "x": 607,
+      "y": 55,
+      "w": 32,
+      "h": 40,
+      "r": 639
+    },
+    "peekGap": 6,
+    "peekName": "",
+    "peekNameShown": false,
+    "peekBox": {
+      "x": 607,
+      "y": 55,
+      "w": 222,
+      "h": 40,
+      "r": 829
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexBtn": {
+      "x": 672,
+      "y": 34,
+      "w": 44,
+      "h": 20,
+      "r": 716
+    },
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 579,
+      "h": 663,
+      "r": 591
+    },
+    "record": true,
+    "recordBox": {
+      "x": 12,
+      "y": 742,
+      "w": 579,
+      "h": 42,
+      "r": 591
+    },
+    "gridCols": 4,
+    "cell": {
+      "x": 607,
+      "y": 67,
+      "w": 136,
+      "h": 170,
+      "r": 743
+    },
+    "cellRatio": 0.8,
+    "indexName": {
+      "x": 607,
+      "y": 75,
+      "w": 213,
+      "h": 21,
+      "r": 820
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "stage": null,
+    "trackX": null,
+    "inspector": false,
+    "overlay": false,
+    "inspectorBox": null,
+    "inspectBg": null,
+    "lastMv": null,
+    "outroId": null,
+    "outroPreview": null,
+    "outroName": null,
+    "stage1": null,
+    "stage2": null,
+    "films": [],
+    "blank": false,
+    "browserX": "607px"
+  },
+  "gates": {
+    "identitySpaced": true,
+    "identityOneLine": true,
+    "identityLarge": true,
+    "noViewRecord": true,
+    "browseRecord": true,
+    "peekUnderProjects": true,
+    "peekSmall": true,
+    "peekGap": true,
+    "peekLabel": true,
+    "peekClosesVisual": true,
+    "peekClosesIndex": true,
+    "visualFour": true,
+    "visual45": true,
+    "thumbScale": true,
+    "axisLock": true,
+    "yearRight": true,
+    "noSnap": true,
+    "infoSplit": true,
+    "methodWhite": true,
+    "stage1": true,
+    "stage2": true,
+    "headerLocked": true
+  }
+}

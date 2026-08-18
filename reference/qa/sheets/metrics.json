@@ -1,0 +1,1247 @@
+{
+  "viewport": "1440x900",
+  "view": {
+    "homeClass": "hbw-home is-view is-phase-active",
+    "meta": "01 / 12",
+    "viewIndex": "0",
+    "viewX": "0",
+    "trackInline": "translate3d(0px, 0px, 0px)",
+    "trackDisplay": "flex",
+    "trackTransform": "matrix(1, 0, 0, 1, 0, 0)",
+    "viewBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "5",
+      "position": "absolute",
+      "transform": "none"
+    },
+    "windowBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "1",
+      "position": "relative",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    "stripBox": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 56,
+      "z": "auto",
+      "position": "relative",
+      "transform": "none"
+    },
+    "layer": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "z": "50",
+      "position": "fixed",
+      "transform": "none"
+    },
+    "sheet": null,
+    "close": null,
+    "containingBlock": {
+      "offsetParent": null,
+      "chain": [
+        {
+          "tag": "BODY",
+          "className": "body",
+          "position": "static",
+          "transform": "none",
+          "isolation": "auto",
+          "overflow": "hidden",
+          "z": "auto",
+          "traps": false
+        }
+      ]
+    },
+    "z": {
+      "layer": "50",
+      "sheet": null,
+      "close": null,
+      "window": "1",
+      "strip": "auto",
+      "studio": "40"
+    },
+    "hits": [
+      {
+        "y": 0,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 2,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 8,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 20,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 40,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 56,
+        "className": "hbw-project-view__track",
+        "sheet": false,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 80,
+        "className": "hbw-mv__media is-contain",
+        "sheet": false,
+        "close": false,
+        "nav": false
+      }
+    ],
+    "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+    "paddingTop": null,
+    "contentStartY": null,
+    "browse": {
+      "className": "hbw-projects is-entering is-visual",
+      "open": false,
+      "opacity": "0",
+      "visibility": "hidden",
+      "titles": [
+        "SUB:3",
+        "KOJA",
+        "CLOSED",
+        "Chris Sisarich",
+        "Our Boy Roy",
+        "Bistro Nido"
+      ]
+    },
+    "mvCount": 12,
+    "mvLabels": [
+      "SUB:3 01",
+      "SUB:3 02",
+      "SUB:3 03",
+      "SUB:3 04",
+      "SUB:3 05",
+      "SUB:3 06",
+      "SUB:3 07",
+      "SUB:3 08",
+      "SUB:3 09",
+      "SUB:3 10",
+      "SUB:3 11",
+      "SUB:3 12"
+    ],
+    "axes": {
+      "edge": "12px",
+      "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+      "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+    }
+  },
+  "info": {
+    "homeClass": "hbw-home is-view is-panel is-inspect is-phase-active",
+    "meta": null,
+    "viewIndex": "0",
+    "viewX": "0",
+    "trackInline": "translate3d(0px, 0px, 0px)",
+    "trackDisplay": "grid",
+    "trackTransform": "none",
+    "viewBox": {
+      "x": 12,
+      "y": 56,
+      "w": 836,
+      "h": 832,
+      "z": "5",
+      "position": "absolute",
+      "transform": "none"
+    },
+    "windowBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "1",
+      "position": "relative",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    "stripBox": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 56,
+      "z": "auto",
+      "position": "relative",
+      "transform": "none"
+    },
+    "layer": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "z": "50",
+      "position": "fixed",
+      "transform": "none"
+    },
+    "sheet": {
+      "x": 848,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "z": "0",
+      "position": "absolute",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "variant": "project-right",
+      "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+      "parent": "hbw-sheet-layer"
+    },
+    "close": {
+      "x": 848,
+      "y": 8,
+      "w": 41.3,
+      "h": 18,
+      "z": "60",
+      "position": "fixed",
+      "transform": "none",
+      "id": "info",
+      "text": "Close"
+    },
+    "containingBlock": {
+      "offsetParent": {
+        "tag": "DIV",
+        "className": "hbw-sheet-layer"
+      },
+      "chain": [
+        {
+          "tag": "DIV",
+          "className": "hbw-sheet-layer",
+          "position": "fixed",
+          "transform": "none",
+          "isolation": "isolate",
+          "overflow": "visible",
+          "z": "50",
+          "traps": true
+        },
+        {
+          "tag": "BODY",
+          "className": "body",
+          "position": "static",
+          "transform": "none",
+          "isolation": "auto",
+          "overflow": "hidden",
+          "z": "auto",
+          "traps": false
+        }
+      ]
+    },
+    "z": {
+      "layer": "50",
+      "sheet": "0",
+      "close": "60",
+      "window": "1",
+      "strip": "auto",
+      "studio": "40"
+    },
+    "hits": [
+      {
+        "y": 0,
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 2,
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 8,
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 20,
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 40,
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 56,
+        "className": "hbw-sheet__lead",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 80,
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      }
+    ],
+    "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+    "paddingTop": "0px",
+    "contentStartY": 56,
+    "browse": {
+      "className": "hbw-projects is-entering is-visual",
+      "open": false,
+      "opacity": "0",
+      "visibility": "hidden",
+      "titles": [
+        "SUB:3",
+        "KOJA",
+        "CLOSED",
+        "Chris Sisarich",
+        "Our Boy Roy",
+        "Bistro Nido"
+      ]
+    },
+    "mvCount": 12,
+    "mvLabels": [
+      "SUB:3 01",
+      "SUB:3 02",
+      "SUB:3 03",
+      "SUB:3 04",
+      "SUB:3 05",
+      "SUB:3 06",
+      "SUB:3 07",
+      "SUB:3 08",
+      "SUB:3 09",
+      "SUB:3 10",
+      "SUB:3 11",
+      "SUB:3 12"
+    ],
+    "axes": {
+      "edge": "12px",
+      "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+      "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+    }
+  },
+  "m06": {
+    "before": {
+      "homeClass": "hbw-home is-view is-phase-active",
+      "meta": "06 / 12",
+      "viewIndex": "5",
+      "viewX": "4797",
+      "trackInline": "translate3d(-4797px, 0px, 0px)",
+      "trackDisplay": "flex",
+      "trackTransform": "matrix(1, 0, 0, 1, -4797, 0)",
+      "viewBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "z": "5",
+        "position": "absolute",
+        "transform": "none"
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "z": "1",
+        "position": "relative",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "stripBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 56,
+        "z": "auto",
+        "position": "relative",
+        "transform": "none"
+      },
+      "layer": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 900,
+        "z": "50",
+        "position": "fixed",
+        "transform": "none"
+      },
+      "sheet": null,
+      "close": null,
+      "containingBlock": {
+        "offsetParent": null,
+        "chain": [
+          {
+            "tag": "BODY",
+            "className": "body",
+            "position": "static",
+            "transform": "none",
+            "isolation": "auto",
+            "overflow": "hidden",
+            "z": "auto",
+            "traps": false
+          }
+        ]
+      },
+      "z": {
+        "layer": "50",
+        "sheet": null,
+        "close": null,
+        "window": "1",
+        "strip": "auto",
+        "studio": "40"
+      },
+      "hits": [
+        {
+          "y": 0,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 2,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 8,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 20,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 40,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 56,
+          "className": "hbw-project-view__track",
+          "sheet": false,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 80,
+          "className": "hbw-project-view__track",
+          "sheet": false,
+          "close": false,
+          "nav": false
+        }
+      ],
+      "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+      "paddingTop": null,
+      "contentStartY": null,
+      "browse": {
+        "className": "hbw-projects is-entering is-visual",
+        "open": false,
+        "opacity": "0",
+        "visibility": "hidden",
+        "titles": [
+          "SUB:3",
+          "KOJA",
+          "CLOSED",
+          "Chris Sisarich",
+          "Our Boy Roy",
+          "Bistro Nido"
+        ]
+      },
+      "mvCount": 12,
+      "mvLabels": [
+        "SUB:3 01",
+        "SUB:3 02",
+        "SUB:3 03",
+        "SUB:3 04",
+        "SUB:3 05",
+        "SUB:3 06",
+        "SUB:3 07",
+        "SUB:3 08",
+        "SUB:3 09",
+        "SUB:3 10",
+        "SUB:3 11",
+        "SUB:3 12"
+      ],
+      "axes": {
+        "edge": "12px",
+        "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+        "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+      }
+    },
+    "info": {
+      "homeClass": "hbw-home is-view is-panel is-inspect is-phase-active",
+      "meta": null,
+      "viewIndex": "5",
+      "viewX": "4797",
+      "trackInline": "translate3d(-4797px, 0px, 0px)",
+      "trackDisplay": "grid",
+      "trackTransform": "none",
+      "viewBox": {
+        "x": 12,
+        "y": 56,
+        "w": 836,
+        "h": 832,
+        "z": "5",
+        "position": "absolute",
+        "transform": "none"
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "z": "1",
+        "position": "relative",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "stripBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 56,
+        "z": "auto",
+        "position": "relative",
+        "transform": "none"
+      },
+      "layer": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 900,
+        "z": "50",
+        "position": "fixed",
+        "transform": "none"
+      },
+      "sheet": {
+        "x": 848,
+        "y": 0,
+        "w": 580,
+        "h": 900,
+        "z": "0",
+        "position": "absolute",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "variant": "project-right",
+        "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+        "parent": "hbw-sheet-layer"
+      },
+      "close": {
+        "x": 848,
+        "y": 8,
+        "w": 41.3,
+        "h": 18,
+        "z": "60",
+        "position": "fixed",
+        "transform": "none",
+        "id": "info",
+        "text": "Close"
+      },
+      "containingBlock": {
+        "offsetParent": {
+          "tag": "DIV",
+          "className": "hbw-sheet-layer"
+        },
+        "chain": [
+          {
+            "tag": "DIV",
+            "className": "hbw-sheet-layer",
+            "position": "fixed",
+            "transform": "none",
+            "isolation": "isolate",
+            "overflow": "visible",
+            "z": "50",
+            "traps": true
+          },
+          {
+            "tag": "BODY",
+            "className": "body",
+            "position": "static",
+            "transform": "none",
+            "isolation": "auto",
+            "overflow": "hidden",
+            "z": "auto",
+            "traps": false
+          }
+        ]
+      },
+      "z": {
+        "layer": "50",
+        "sheet": "0",
+        "close": "60",
+        "window": "1",
+        "strip": "auto",
+        "studio": "40"
+      },
+      "hits": [
+        {
+          "y": 0,
+          "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 2,
+          "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 8,
+          "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 20,
+          "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 40,
+          "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 56,
+          "className": "hbw-sheet__lead",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 80,
+          "className": "hbw-sheet hbw-inspector is-project-right is-overlay is-visible",
+          "sheet": true,
+          "close": false,
+          "nav": false
+        }
+      ],
+      "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+      "paddingTop": "0px",
+      "contentStartY": 56,
+      "browse": {
+        "className": "hbw-projects is-entering is-visual",
+        "open": false,
+        "opacity": "0",
+        "visibility": "hidden",
+        "titles": [
+          "SUB:3",
+          "KOJA",
+          "CLOSED",
+          "Chris Sisarich",
+          "Our Boy Roy",
+          "Bistro Nido"
+        ]
+      },
+      "mvCount": 12,
+      "mvLabels": [
+        "SUB:3 01",
+        "SUB:3 02",
+        "SUB:3 03",
+        "SUB:3 04",
+        "SUB:3 05",
+        "SUB:3 06",
+        "SUB:3 07",
+        "SUB:3 08",
+        "SUB:3 09",
+        "SUB:3 10",
+        "SUB:3 11",
+        "SUB:3 12"
+      ],
+      "axes": {
+        "edge": "12px",
+        "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+        "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+      }
+    },
+    "after": {
+      "homeClass": "hbw-home is-view is-phase-active",
+      "meta": "06 / 12",
+      "viewIndex": "5",
+      "viewX": "4797",
+      "trackInline": "translate3d(-4797px, 0px, 0px)",
+      "trackDisplay": "flex",
+      "trackTransform": "matrix(1, 0, 0, 1, -4797, 0)",
+      "viewBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "z": "5",
+        "position": "absolute",
+        "transform": "none"
+      },
+      "windowBox": {
+        "x": 12,
+        "y": 56,
+        "w": 1416,
+        "h": 832,
+        "z": "1",
+        "position": "relative",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      "stripBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 56,
+        "z": "auto",
+        "position": "relative",
+        "transform": "none"
+      },
+      "layer": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 900,
+        "z": "50",
+        "position": "fixed",
+        "transform": "none"
+      },
+      "sheet": null,
+      "close": null,
+      "containingBlock": {
+        "offsetParent": null,
+        "chain": [
+          {
+            "tag": "BODY",
+            "className": "body",
+            "position": "static",
+            "transform": "none",
+            "isolation": "auto",
+            "overflow": "hidden",
+            "z": "auto",
+            "traps": false
+          }
+        ]
+      },
+      "z": {
+        "layer": "50",
+        "sheet": null,
+        "close": null,
+        "window": "1",
+        "strip": "auto",
+        "studio": "40"
+      },
+      "hits": [
+        {
+          "y": 0,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 2,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 8,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 20,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 40,
+          "className": "hbw-home-strip",
+          "sheet": false,
+          "close": false,
+          "nav": true
+        },
+        {
+          "y": 56,
+          "className": "hbw-project-view__track",
+          "sheet": false,
+          "close": false,
+          "nav": false
+        },
+        {
+          "y": 80,
+          "className": "hbw-project-view__track",
+          "sheet": false,
+          "close": false,
+          "nav": false
+        }
+      ],
+      "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+      "paddingTop": null,
+      "contentStartY": null,
+      "browse": {
+        "className": "hbw-projects is-entering is-visual",
+        "open": false,
+        "opacity": "0",
+        "visibility": "hidden",
+        "titles": [
+          "SUB:3",
+          "KOJA",
+          "CLOSED",
+          "Chris Sisarich",
+          "Our Boy Roy",
+          "Bistro Nido"
+        ]
+      },
+      "mvCount": 12,
+      "mvLabels": [
+        "SUB:3 01",
+        "SUB:3 02",
+        "SUB:3 03",
+        "SUB:3 04",
+        "SUB:3 05",
+        "SUB:3 06",
+        "SUB:3 07",
+        "SUB:3 08",
+        "SUB:3 09",
+        "SUB:3 10",
+        "SUB:3 11",
+        "SUB:3 12"
+      ],
+      "axes": {
+        "edge": "12px",
+        "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+        "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+      }
+    }
+  },
+  "studio": {
+    "homeClass": "hbw-home is-view is-panel is-studio is-phase-active",
+    "meta": "06 / 12",
+    "viewIndex": "5",
+    "viewX": "4797",
+    "trackInline": "translate3d(-4797px, 0px, 0px)",
+    "trackDisplay": "flex",
+    "trackTransform": "matrix(1, 0, 0, 1, -4797, 0)",
+    "viewBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "5",
+      "position": "absolute",
+      "transform": "none"
+    },
+    "windowBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "1",
+      "position": "relative",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    "stripBox": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 56,
+      "z": "auto",
+      "position": "relative",
+      "transform": "none"
+    },
+    "layer": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "z": "50",
+      "position": "fixed",
+      "transform": "none"
+    },
+    "sheet": {
+      "x": 848,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "z": "0",
+      "position": "absolute",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "variant": "global-right",
+      "className": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+      "parent": "hbw-sheet-layer"
+    },
+    "close": {
+      "x": 848,
+      "y": 8,
+      "w": 73.6,
+      "h": 18,
+      "z": "60",
+      "position": "relative",
+      "transform": "none",
+      "id": "studio",
+      "text": "Close"
+    },
+    "containingBlock": {
+      "offsetParent": {
+        "tag": "DIV",
+        "className": "hbw-sheet-layer"
+      },
+      "chain": [
+        {
+          "tag": "DIV",
+          "className": "hbw-sheet-layer",
+          "position": "fixed",
+          "transform": "none",
+          "isolation": "isolate",
+          "overflow": "visible",
+          "z": "50",
+          "traps": true
+        },
+        {
+          "tag": "BODY",
+          "className": "body",
+          "position": "static",
+          "transform": "none",
+          "isolation": "auto",
+          "overflow": "hidden",
+          "z": "auto",
+          "traps": false
+        }
+      ]
+    },
+    "z": {
+      "layer": "50",
+      "sheet": "0",
+      "close": "60",
+      "window": "1",
+      "strip": "auto",
+      "studio": "60"
+    },
+    "hits": [
+      {
+        "y": 0,
+        "className": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 2,
+        "className": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 8,
+        "className": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 20,
+        "className": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 40,
+        "className": "hbw-sheet hbw-inspector is-global-right is-overlay is-held is-visible",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 56,
+        "className": "hbw-sheet__opening",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 80,
+        "className": "hbw-sheet__opening",
+        "sheet": true,
+        "close": false,
+        "nav": false
+      }
+    ],
+    "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+    "paddingTop": "0px",
+    "contentStartY": 56,
+    "browse": {
+      "className": "hbw-projects is-entering is-visual",
+      "open": false,
+      "opacity": "0",
+      "visibility": "hidden",
+      "titles": [
+        "SUB:3",
+        "KOJA",
+        "CLOSED",
+        "Chris Sisarich",
+        "Our Boy Roy",
+        "Bistro Nido"
+      ]
+    },
+    "mvCount": 12,
+    "mvLabels": [
+      "SUB:3 01",
+      "SUB:3 02",
+      "SUB:3 03",
+      "SUB:3 04",
+      "SUB:3 05",
+      "SUB:3 06",
+      "SUB:3 07",
+      "SUB:3 08",
+      "SUB:3 09",
+      "SUB:3 10",
+      "SUB:3 11",
+      "SUB:3 12"
+    ],
+    "axes": {
+      "edge": "12px",
+      "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+      "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+    }
+  },
+  "manifesto": {
+    "homeClass": "hbw-home is-view is-panel is-studio is-manifesto is-phase-active",
+    "meta": "06 / 12",
+    "viewIndex": "5",
+    "viewX": "4797",
+    "trackInline": "translate3d(-4797px, 0px, 0px)",
+    "trackDisplay": "flex",
+    "trackTransform": "matrix(1, 0, 0, 1, -4797, 0)",
+    "viewBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "5",
+      "position": "absolute",
+      "transform": "none"
+    },
+    "windowBox": {
+      "x": 12,
+      "y": 56,
+      "w": 1416,
+      "h": 832,
+      "z": "1",
+      "position": "relative",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    "stripBox": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 56,
+      "z": "auto",
+      "position": "relative",
+      "transform": "none"
+    },
+    "layer": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "z": "50",
+      "position": "fixed",
+      "transform": "none"
+    },
+    "sheet": {
+      "x": 12,
+      "y": 0,
+      "w": 580,
+      "h": 900,
+      "z": "0",
+      "position": "absolute",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "variant": "global-left",
+      "className": "hbw-sheet hbw-inspector is-global-left is-overlay is-manifesto is-held is-visible",
+      "parent": "hbw-sheet-layer"
+    },
+    "close": {
+      "x": 550.8,
+      "y": 8,
+      "w": 41.3,
+      "h": 18,
+      "z": "60",
+      "position": "relative",
+      "transform": "matrix(1, 0, 0, 1, -41.25, 0)",
+      "id": "manifesto",
+      "text": "Close"
+    },
+    "containingBlock": {
+      "offsetParent": {
+        "tag": "DIV",
+        "className": "hbw-sheet-layer"
+      },
+      "chain": [
+        {
+          "tag": "DIV",
+          "className": "hbw-sheet-layer",
+          "position": "fixed",
+          "transform": "none",
+          "isolation": "isolate",
+          "overflow": "visible",
+          "z": "50",
+          "traps": true
+        },
+        {
+          "tag": "BODY",
+          "className": "body",
+          "position": "static",
+          "transform": "none",
+          "isolation": "auto",
+          "overflow": "hidden",
+          "z": "auto",
+          "traps": false
+        }
+      ]
+    },
+    "z": {
+      "layer": "50",
+      "sheet": "0",
+      "close": "60",
+      "window": "1",
+      "strip": "auto",
+      "studio": "40"
+    },
+    "hits": [
+      {
+        "y": 0,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 2,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 8,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 20,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 40,
+        "className": "hbw-home-strip",
+        "sheet": false,
+        "close": false,
+        "nav": true
+      },
+      {
+        "y": 56,
+        "className": "hbw-project-view__track",
+        "sheet": false,
+        "close": false,
+        "nav": false
+      },
+      {
+        "y": 80,
+        "className": "hbw-project-view__track",
+        "sheet": false,
+        "close": false,
+        "nav": false
+      }
+    ],
+    "headerH": "calc(8px * 2 + calc(.9375rem * 1.2) + 4px + calc(.9375rem * 1.2))",
+    "paddingTop": "0px",
+    "contentStartY": 57,
+    "browse": {
+      "className": "hbw-projects is-entering is-visual",
+      "open": false,
+      "opacity": "0",
+      "visibility": "hidden",
+      "titles": [
+        "SUB:3",
+        "KOJA",
+        "CLOSED",
+        "Chris Sisarich",
+        "Our Boy Roy",
+        "Bistro Nido"
+      ]
+    },
+    "mvCount": 12,
+    "mvLabels": [
+      "SUB:3 01",
+      "SUB:3 02",
+      "SUB:3 03",
+      "SUB:3 04",
+      "SUB:3 05",
+      "SUB:3 06",
+      "SUB:3 07",
+      "SUB:3 08",
+      "SUB:3 09",
+      "SUB:3 10",
+      "SUB:3 11",
+      "SUB:3 12"
+    ],
+    "axes": {
+      "edge": "12px",
+      "projects": "calc(12px + (100vw - 2 * 12px - 16rem) / 2)",
+      "studio": "calc(calc(12px + (100vw - 2 * 12px - 16rem) / 2) + 16rem)"
+    }
+  }
+}

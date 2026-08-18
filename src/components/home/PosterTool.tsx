@@ -13,14 +13,14 @@ import {
   LineSegment,
   PencilSimple,
   Plus,
+  Cursor,
   TextT,
   Trash,
   PaperPlaneTilt,
 } from "@phosphor-icons/react";
 import { fileToImageObjectSource } from "@/components/home/poster/image";
-import { hit, moveObject, nearHandle, paint, scaleObject, uid } from "@/components/home/poster/paint";
+import { hit, measureTextBlock, moveObject, nearHandle, paint, scaleObject, uid } from "@/components/home/poster/paint";
 import { recogniseEnabled, recogniseStrokes } from "@/components/home/poster/recognise";
-import { sharePoster, whatsappHref } from "@/components/home/poster/share";
 import { restoreStroke, smoothStroke } from "@/components/home/poster/smooth";
 import {
   PALETTE,
@@ -41,7 +41,9 @@ import {
   workspace,
 } from "@/components/home/workspace";
 
-type Family = "write" | "add" | "draw" | null;
+type Family = "select" | "write" | "add" | "draw";
+
+const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function commitPoster(partial: Partial<typeof workspace.poster>) {
   Object.assign(workspace.poster, partial);
@@ -57,30 +59,43 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const editRef = useRef<HTMLTextAreaElement>(null);
   const objectsRef = useRef<PosterObj[]>([]);
   const draftRef = useRef<PosterObj | null>(null);
   const dragRef = useRef<{ id: string; last: Pt; resize: boolean } | null>(null);
   const undoRef = useRef<PosterObj[][]>([]);
-  const [tool, setTool] = useState<PosterToolId>("pencil");
-  const [family, setFamily] = useState<Family>(null);
+  const editingIdRef = useRef<string | null>(null);
+  const skipIdRef = useRef<string | null>(null);
+  const hydratedRef = useRef(false);
+  const suppressBlurRef = useRef(false);
+  const sizeRef = useRef({ w: 0, h: 0 });
+  const colorRef = useRef<HTMLInputElement>(null);
+  const [tool, setTool] = useState<PosterToolId>("select");
+  const [family, setFamily] = useState<Family>("select");
+  const [armed, setArmed] = useState<Exclude<Family, "select"> | null>(null);
   const [color, setColor] = useState("#e23b2e");
   const [decision, setDecision] = useState("");
+  const [email, setEmail] = useState("");
   const [frozen, setFrozen] = useState(false);
   const [resetAsk, setResetAsk] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [draftText, setDraftText] = useState("");
   const [font, setFont] = useState<PosterFont>("Visual");
   const [textSize, setTextSize] = useState(28);
   const [align, setAlign] = useState<TextAlign>("left");
   const [shape, setShape] = useState<ShapeKind>("rect");
   const [shapeFill, setShapeFill] = useState(false);
-  const [tray, setTray] = useState<"none" | "add" | "send">("none");
+  const [tray, setTray] = useState<"none" | "add">("none");
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const [hasWork, setHasWork] = useState(false);
-  const [emailOpen, setEmailOpen] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [emailStatus, setEmailStatus] = useState("");
-  const [shareNote, setShareNote] = useState("");
-  const [waHref, setWaHref] = useState(whatsappHref(""));
   const [preview, setPreview] = useState("");
+  const [reviewing, setReviewing] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState("");
+  editingIdRef.current = editingId;
+  skipIdRef.current = editingId;
 
   const redraw = useCallback(() => {
     const canvas = canvasRef.current;
@@ -90,19 +105,26 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     const wrap = wrapRef.current;
     const caption = frozen && decision.trim() ? decision.trim() : undefined;
     paint(ctx, objectsRef.current, draftRef.current, wrap?.clientWidth ?? 0, wrap?.clientHeight ?? 0, {
-      selectedId: frozen ? null : selectedId,
-      chrome: !frozen,
+      selectedId: frozen || reviewing ? null : selectedId,
+      chrome: !frozen && !reviewing,
       caption,
+      skipId: skipIdRef.current,
     });
-  }, [decision, frozen, selectedId]);
+  }, [decision, frozen, reviewing, selectedId]);
 
   const resize = useCallback(() => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const w = wrap.clientWidth;
     const h = wrap.clientHeight;
+    const keyboard =
+      Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--hbw-vv-inset")
+      ) > 0;
+    if ((editingIdRef.current || keyboard) && sizeRef.current.w === w && sizeRef.current.h !== h) return;
+    sizeRef.current = { w, h };
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.max(1, Math.round(w * dpr));
     canvas.height = Math.max(1, Math.round(h * dpr));
     canvas.style.width = w + "px";
@@ -114,22 +136,53 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }, [redraw]);
 
   useEffect(() => {
-    hydrateWorkspace();
-    objectsRef.current = workspace.poster.objects.filter((o) => o.id !== "decision");
-    setTool(workspace.poster.tool);
-    setColor(workspace.poster.color);
-    setDecision(workspace.poster.decision);
-    setFrozen(false);
-    setFont(workspace.poster.font);
-    setTextSize(workspace.poster.textSize);
-    setAlign(workspace.poster.align);
-    setShape(workspace.poster.shape);
-    setShapeFill(workspace.poster.shapeFill);
-    setFamily(null);
-    setHasWork(objectsRef.current.length > 0);
+    if (!hydratedRef.current) {
+      hydratedRef.current = true;
+      hydrateWorkspace();
+      objectsRef.current = workspace.poster.objects.filter((o) => o.id !== "decision");
+      setTool("select");
+      setColor(workspace.poster.color);
+      setDecision(workspace.poster.decision);
+      setFrozen(false);
+      setFont(workspace.poster.font);
+      setTextSize(workspace.poster.textSize);
+      setAlign(workspace.poster.align);
+      setShape(workspace.poster.shape);
+      setShapeFill(workspace.poster.shapeFill);
+      setFamily("select");
+      setArmed(null);
+      setHasWork(objectsRef.current.length > 0);
+    }
     resize();
     window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
+    const vv = window.visualViewport;
+    let frame = 0;
+    let last = -1;
+    const applyInset = () => {
+      if (!vv) return;
+      const inset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      const next = inset > 48 ? Math.round(inset) : 0;
+      if (next === last) return;
+      last = next;
+      document.documentElement.style.setProperty("--hbw-vv-inset", `${next}px`);
+    };
+    const onViewport = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        applyInset();
+      });
+    };
+    vv?.addEventListener("resize", onViewport);
+    vv?.addEventListener("scroll", onViewport);
+    applyInset();
+    return () => {
+      window.removeEventListener("resize", resize);
+      vv?.removeEventListener("resize", onViewport);
+      vv?.removeEventListener("scroll", onViewport);
+      if (frame) window.cancelAnimationFrame(frame);
+      document.documentElement.style.setProperty("--hbw-vv-inset", "0px");
+    };
   }, [resize]);
 
   useEffect(() => {
@@ -137,8 +190,18 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }, [hidden, resize]);
 
   useEffect(() => {
+    if (!editingId) return;
+    const node = editRef.current;
+    if (!node) return;
+    node.focus({ preventScroll: true });
+  }, [editingId]);
+
+  useEffect(() => {
     redraw();
-  }, [redraw, preview]);
+    if (!reviewing) return;
+    const canvas = canvasRef.current;
+    if (canvas) setPreviewUrl(canvas.toDataURL("image/png"));
+  }, [redraw, preview, reviewing]);
 
   function snapshot() {
     undoRef.current = undoRef.current.concat([objectsRef.current.map((o) => structuredClone(o))]).slice(-40);
@@ -171,6 +234,16 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function startEdit(obj: TextObject) {
+    suppressBlurRef.current = true;
+    editingIdRef.current = obj.id;
+    skipIdRef.current = obj.id;
+    const h = measureTextBlock(obj).h;
+    if (h !== obj.h) {
+      objectsRef.current = objectsRef.current.map((o) =>
+        o.id === obj.id && o.kind === "text" ? { ...o, h } : o
+      );
+    }
+    setDraftText(obj.text);
     setEditingId(obj.id);
     setSelectedId(obj.id);
     setFont(obj.font);
@@ -178,15 +251,52 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     setAlign(obj.align);
     setFamily("write");
     setTool("text");
+    void document.fonts.load(`400 ${obj.size}px ${obj.font}`);
   }
 
-  function applyText(id: string, text: string) {
-    objectsRef.current = objectsRef.current.map((o) =>
-      o.id === id && o.kind === "text" ? { ...o, text } : o
-    );
+  function applyDraft(text: string) {
+    const id = editingIdRef.current;
+    setDraftText(text);
+    if (!id) return;
+    objectsRef.current = objectsRef.current.map((o) => {
+      if (o.id !== id || o.kind !== "text") return o;
+      const next = { ...o, text };
+      return { ...next, h: measureTextBlock(next).h };
+    });
+    redraw();
+  }
+
+  function commitEdit() {
+    const id = editingIdRef.current;
+    if (!id) return;
+    const obj = objectsRef.current.find((o) => o.id === id);
+    if (obj?.kind === "text" && !obj.text.trim()) {
+      objectsRef.current = objectsRef.current.filter((o) => o.id !== id);
+      setSelectedId(null);
+    }
+    editingIdRef.current = null;
+    skipIdRef.current = null;
+    setEditingId(null);
     remember();
     redraw();
   }
+
+  useEffect(() => {
+    if (!editingId) return;
+    const id = window.setTimeout(() => {
+      suppressBlurRef.current = false;
+      const node = editRef.current;
+      if (!node) return;
+      node.focus({ preventScroll: true });
+      const len = node.value.length;
+      try {
+        node.setSelectionRange(len, len);
+      } catch {
+        /* some mobile browsers */
+      }
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, [editingId]);
 
   async function addImageFile(file: File, at?: Pt) {
     try {
@@ -210,6 +320,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       });
       remember();
       redraw();
+      chooseSelect();
     } catch {
       /* ignore unsupported */
     }
@@ -226,17 +337,44 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function onPointerDown(event: React.PointerEvent<HTMLCanvasElement>) {
-    if (frozen || dormant) return;
-    if (editingId) setEditingId(null);
+    if (frozen || dormant || reviewing) return;
+    if (family === "draw") event.preventDefault();
+    const p = pos(event);
+    const found = [...objectsRef.current].reverse().find((o) => hit(o, p));
+    const wasEditing = editingIdRef.current;
+
+    if (wasEditing) {
+      const wasId = wasEditing;
+      commitEdit();
+      if (found?.kind === "text" && found.id !== wasId) {
+        startEdit(found);
+        return;
+      }
+      if (found && found.kind !== "text") {
+        selectObject(found, p);
+        try {
+          event.currentTarget.setPointerCapture(event.pointerId);
+        } catch {
+          /* optional */
+        }
+        return;
+      }
+      setSelectedId(null);
+      return;
+    }
+
     try {
       event.currentTarget.setPointerCapture(event.pointerId);
     } catch {
       /* optional */
     }
-    const p = pos(event);
-    const found = [...objectsRef.current].reverse().find((o) => hit(o, p));
     if (found) {
       if (family === "write" && found.kind === "text") {
+        try {
+          event.currentTarget.releasePointerCapture(event.pointerId);
+        } catch {
+          /* optional */
+        }
         startEdit(found);
         return;
       }
@@ -244,7 +382,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       return;
     }
     setSelectedId(null);
-    if (!family) return;
+    if (family === "select") return;
     if (tool === "text" || family === "write") {
       snapshot();
       const obj: TextObject = {
@@ -261,7 +399,11 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
         align,
       };
       objectsRef.current = objectsRef.current.concat(obj);
-      remember();
+      try {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      } catch {
+        /* optional */
+      }
       startEdit(obj);
       redraw();
       return;
@@ -295,7 +437,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function onPointerMove(event: React.PointerEvent<HTMLCanvasElement>) {
-    if (frozen || dormant) return;
+    if (frozen || dormant || reviewing) return;
     const p = pos(event);
     if (dragRef.current) {
       const dx = p.x - dragRef.current.last.x;
@@ -331,81 +473,81 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       remember();
     }
     dragRef.current = null;
+    if (editingIdRef.current && editRef.current) {
+      editRef.current.focus({ preventScroll: true });
+    }
   }
 
   function onDrop(event: React.DragEvent) {
     event.preventDefault();
-    if (frozen || dormant) return;
+    if (frozen || dormant || reviewing) return;
     const file = event.dataTransfer.files[0];
     if (file) void addImageFile(file, pos(event));
   }
 
-  function openSend() {
-    setTray(tray === "send" ? "none" : "send");
-    setFamily(null);
-    setEmailOpen(true);
+  function hasComposition() {
+    return objectsRef.current.some((o) => {
+      if (o.kind === "text") return o.text.trim().length > 0;
+      if (o.kind === "stroke") return o.points.length > 1;
+      if (o.kind === "image") return true;
+      if (o.kind === "shape") {
+        return Math.abs(o.b.x - o.a.x) > 2 || Math.abs(o.b.y - o.a.y) > 2;
+      }
+      return false;
+    });
   }
 
-  function downloadPoster() {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    canvas.toBlob((blob) => {
-      if (!blob) return;
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "hbw-decision.png";
-      a.click();
-      URL.revokeObjectURL(url);
-    }, "image/png");
+  function openReview() {
+    if (editingIdRef.current) commitEdit();
+    if (!hasComposition()) {
+      setEmailError("Add something to send.");
+      setEmailStatus("");
+      return;
+    }
+    setEmailError("");
+    setEmailStatus("");
+    setSelectedId(null);
+    setReviewing(true);
+    remember();
   }
 
-  async function onWhatsApp() {
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      window.open(whatsappHref(decision), "_blank", "noreferrer");
-      return;
-    }
-    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
-    if (!blob) {
-      window.open(whatsappHref(decision), "_blank", "noreferrer");
-      return;
-    }
-    const result = await sharePoster({ blob, decision });
-    if (result.kind === "hosted") {
-      const href = whatsappHref(decision, result.url);
-      setWaHref(href);
-      setShareNote("");
-      window.open(href, "_blank", "noreferrer");
-      return;
-    }
-    setShareNote(result.note);
-    const href = whatsappHref(decision);
-    setWaHref(href);
-    window.open(href, "_blank", "noreferrer");
+  function exitReview() {
+    setReviewing(false);
+    setEmailStatus("");
+    remember();
   }
 
-  async function onEmail(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const canvas = canvasRef.current;
-    const payload = canvas ? canvas.toDataURL("image/png") : "";
+  async function submitSend() {
+    if (!reviewing) {
+      openReview();
+      return;
+    }
+    const address = email.trim();
+    if (!address || !EMAIL_OK.test(address)) {
+      setEmailError("Enter a valid email.");
+      setEmailStatus("");
+      return;
+    }
+    setEmailError("");
+    const payload = previewUrl || (canvasRef.current ? canvasRef.current.toDataURL("image/png") : "");
     setEmailStatus("Sending…");
     try {
       const res = await fetch("/api/hbw/email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: String(form.get("email") || ""),
-          name: String(form.get("name") || ""),
-          decision,
+          email: address,
+          name: "",
+          decision: decision.trim(),
           poster: payload,
         }),
       });
       const data = (await res.json()) as { ok?: boolean; reason?: string };
-      setEmailStatus(data.ok ? "Sent." : data.reason || "Email sending is disabled until a provider is configured.");
+      setEmailStatus(
+        data.ok ? "Sent." : data.reason || "Email sending is disabled until a mail provider is configured."
+      );
     } catch {
-      setEmailStatus("Email sending is disabled until a provider is configured.");
+      setEmailStatus("Email sending is disabled until a mail provider is configured.");
     }
   }
 
@@ -423,12 +565,19 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     setDecision("");
     setFrozen(false);
     setColor("#e23b2e");
-    setTool("pencil");
-    setFamily(null);
+    setTool("select");
+    setFamily("select");
+    setArmed(null);
     setSelectedId(null);
     setEditingId(null);
+    editingIdRef.current = null;
+    setDraftText("");
     setResetAsk(false);
-    setEmailOpen(false);
+    setEmail("");
+    setEmailError("");
+    setEmailStatus("");
+    setReviewing(false);
+    setPreviewUrl("");
     setTray("none");
     setHasWork(false);
     redraw();
@@ -484,7 +633,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       const result = await recogniseStrokes(strokes);
       setPreview(result.text);
     } catch {
-      setShareNote("Recognition is scaffolded and not configured.");
+      setPreview("");
     }
   }
 
@@ -493,12 +642,17 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     commitPoster({ tool: next });
   }
 
-  function chooseFamily(next: Family) {
-    if (next === family && next !== "add") {
-      setFamily(null);
-      setTray("none");
-      return;
-    }
+  function chooseSelect() {
+    setFamily("select");
+    setArmed(null);
+    setTray("none");
+    setPaletteOpen(false);
+    setCurrentTool("select");
+  }
+
+  function chooseFamily(next: Exclude<Family, "select">) {
+    setPaletteOpen(false);
+    setArmed(null);
     setFamily(next);
     if (next === "write") {
       setCurrentTool("text");
@@ -507,23 +661,24 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setCurrentTool(tool === "marker" ? "marker" : "pencil");
       setTray("none");
     } else if (next === "add") {
-      setTray(tray === "add" ? "none" : "add");
-      if (tray === "add") setFamily(null);
+      setTray("add");
+      setCurrentTool("upload");
+      fileRef.current?.click();
     }
   }
 
   function patchSelectedText(partial: Partial<TextObject>) {
     if (!selectedId) return;
-    objectsRef.current = objectsRef.current.map((o) =>
-      o.id === selectedId && o.kind === "text" ? { ...o, ...partial } : o
-    );
+    objectsRef.current = objectsRef.current.map((o) => {
+      if (o.id !== selectedId || o.kind !== "text") return o;
+      const next = { ...o, ...partial };
+      return { ...next, h: measureTextBlock(next).h };
+    });
     remember();
     redraw();
   }
 
-  function cycleColor() {
-    const i = PALETTE.indexOf(color as (typeof PALETTE)[number]);
-    const next = PALETTE[(i + 1) % PALETTE.length];
+  function applyColor(next: string) {
     setColor(next);
     commitPoster({ color: next });
     const current = selected();
@@ -538,15 +693,30 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function toNeutral() {
-    setFamily(null);
-    setTray("none");
+    if (editingIdRef.current) commitEdit();
+    chooseSelect();
     setSelectedId(null);
     setEditingId(null);
   }
 
   useEffect(() => {
+    function typingTarget(event: KeyboardEvent) {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return Boolean(editingIdRef.current);
+      if (target.closest("textarea, input, [contenteditable]")) return true;
+      return Boolean(editingIdRef.current);
+    }
+
     function onKey(event: KeyboardEvent) {
-      if (frozen || dormant) return;
+      if (frozen || dormant || reviewing) return;
+      if (event.isComposing || event.key === "Process") return;
+      if (typingTarget(event)) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          commitEdit();
+        }
+        return;
+      }
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "z") {
         event.preventDefault();
         undo();
@@ -556,7 +726,6 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
         toNeutral();
         return;
       }
-      if (editingId) return;
       if ((event.key === "Backspace" || event.key === "Delete") && selectedId) {
         event.preventDefault();
         deleteSelected();
@@ -564,8 +733,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  });
+  }, [dormant, frozen, reviewing, selectedId]);
 
+  const fieldKind = family === "select" ? armed || "select" : family;
   const editing = objectsRef.current.find((o): o is TextObject => o.kind === "text" && o.id === editingId);
   const current = selected();
   const selectedStroke = current?.kind === "stroke" ? current : null;
@@ -577,9 +747,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   return (
     <div
       ref={wrapRef}
-      className={`hbw-poster-field${family ? ` is-${family}` : " is-idle"}${
-        dormant ? " is-dormant" : ""
-      }${hidden ? " is-hidden" : ""}`}
+      className={`hbw-poster-field${fieldKind ? ` is-${fieldKind}` : " is-idle"}${
+        family === "select" && armed ? " is-armed" : ""
+      }${dormant ? " is-dormant" : ""}${hidden ? " is-hidden" : ""}${reviewing ? " is-reviewing" : ""}`}
       data-hbw-family={family || "idle"}
       data-hbw-context={textActive ? "text" : selectedStroke ? "stroke" : selectedImage ? "image" : "none"}
       aria-hidden={hidden ? true : undefined}
@@ -588,9 +758,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     >
       <canvas
         ref={canvasRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
+        onPointerDown={reviewing ? undefined : onPointerDown}
+        onPointerMove={reviewing ? undefined : onPointerMove}
+        onPointerUp={reviewing ? undefined : onPointerUp}
         onPointerCancel={onPointerUp}
         onDoubleClick={(event) => {
           const found = [...objectsRef.current].reverse().find((o) => o.kind === "text" && hit(o, pos(event)));
@@ -599,30 +769,43 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       />
       {editing ? (
         <textarea
+          ref={editRef}
           className="hbw-poster-edit"
           autoFocus
-          value={editing.text}
+          value={draftText}
+          inputMode="text"
+          enterKeyHint="enter"
+          autoCapitalize="sentences"
+          autoCorrect="on"
+          spellCheck
           style={{
             left: editing.x,
             top: editing.y,
             width: editing.w,
             minHeight: editing.h,
+            height: editing.h,
             color: editing.color,
-            fontFamily: `${editing.font}, Geist, sans-serif`,
-            fontSize: editing.size,
             textAlign: editing.align,
+            fontFamily: `${editing.font}, Geist, sans-serif`,
+            fontSize: `${editing.size}px`,
+            fontWeight: 400,
+            letterSpacing: 0,
+            lineHeight: 1.25,
           }}
-          onChange={(event) => applyText(editing.id, event.target.value)}
-          onPaste={(event) => {
-            const text = event.clipboardData.getData("text/plain");
-            if (!text) return;
-            event.preventDefault();
-            const node = event.currentTarget;
-            const start = node.selectionStart;
-            const end = node.selectionEnd;
-            applyText(editing.id, editing.text.slice(0, start) + text + editing.text.slice(end));
+          onChange={(event) => applyDraft(event.target.value)}
+          onKeyDown={(event) => {
+            event.stopPropagation();
+            if (event.key === "Escape") {
+              event.preventDefault();
+              suppressBlurRef.current = false;
+              commitEdit();
+            }
           }}
-          onBlur={() => setEditingId(null)}
+          onPointerDown={(event) => event.stopPropagation()}
+          onBlur={() => {
+            if (suppressBlurRef.current) return;
+            commitEdit();
+          }}
           aria-label="Edit text"
         />
       ) : null}
@@ -630,7 +813,6 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
         ref={fileRef}
         type="file"
         accept="image/png,image/jpeg,image/webp,image/svg+xml"
-        capture="environment"
         hidden
         onChange={(event) => {
           const file = event.currentTarget.files?.[0];
@@ -638,14 +820,101 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
           event.currentTarget.value = "";
         }}
       />
+      <input
+        ref={colorRef}
+        type="color"
+        className="hbw-poster-color-native"
+        value={/^#[0-9a-fA-F]{6}$/.test(color) ? color : "#e23b2e"}
+        aria-hidden="true"
+        tabIndex={-1}
+        onChange={(event) => {
+          applyColor(event.currentTarget.value);
+          setPaletteOpen(false);
+        }}
+      />
+      {reviewing ? (
+        <div className="hbw-poster-review" aria-label="Review poster">
+          <div className="hbw-poster-review__copy">
+            <label className="hbw-poster-review__label" htmlFor="hbw-poster-decision">
+              What are you trying to solve?
+            </label>
+            <textarea
+              id="hbw-poster-decision"
+              className="hbw-poster-review__summary"
+              rows={3}
+              value={decision}
+              onChange={(event) => {
+                setDecision(event.target.value);
+                commitPoster({ decision: event.target.value });
+              }}
+            />
+            <label className="hbw-poster-review__label" htmlFor="hbw-poster-review-email">
+              Your email
+            </label>
+            <input
+              id="hbw-poster-review-email"
+              className={`hbw-poster-review__email${emailError ? " is-invalid" : ""}`}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              name="email"
+              value={email}
+              aria-invalid={emailError ? true : undefined}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                if (emailError) setEmailError("");
+                if (emailStatus) setEmailStatus("");
+              }}
+            />
+            {emailError || emailStatus ? (
+              <p className={`hbw-poster-send-status${emailError ? " is-invalid" : ""}`} role="status">
+                {emailError || emailStatus}
+              </p>
+            ) : null}
+            <div className="hbw-poster-review__actions">
+              <button type="button" className="hbw-poster-review__back" onClick={exitReview}>
+                Edit poster
+              </button>
+              <button type="button" className="hbw-poster-review__send" onClick={() => void submitSend()}>
+                Send to HBW
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <IconContext.Provider value={{ weight: "light", size: 18, color: "currentColor" }}>
+          {!reviewing ? (
           <div className="hbw-poster-toolbar" role="toolbar" aria-label="Make">
-            <div className="hbw-poster-toolbar__primary">
+            <div
+              className="hbw-poster-toolbar__primary"
+              onPointerLeave={() => {
+                if (family === "select") setArmed(null);
+              }}
+            >
+              <button
+                type="button"
+                className={`hbw-poster-tool${family === "select" ? " is-current" : ""}`}
+                aria-label="Select"
+                aria-pressed={family === "select"}
+                onClick={() => chooseSelect()}
+              >
+                <Cursor />
+                <span>Select</span>
+              </button>
               <button
                 type="button"
                 className={`hbw-poster-tool${family === "write" ? " is-current" : ""}`}
                 aria-label="Write"
                 aria-pressed={family === "write"}
+                onPointerEnter={() => {
+                  if (family === "select" && !dormant) setArmed("write");
+                }}
+                onFocus={() => {
+                  if (family === "select" && !dormant) setArmed("write");
+                }}
                 onClick={() => chooseFamily("write")}
               >
                 <TextT />
@@ -656,6 +925,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 className={`hbw-poster-tool${family === "draw" ? " is-current" : ""}`}
                 aria-label="Draw"
                 aria-pressed={family === "draw"}
+                onPointerEnter={() => {
+                  if (family === "select" && !dormant) setArmed("draw");
+                }}
+                onFocus={() => {
+                  if (family === "select" && !dormant) setArmed("draw");
+                }}
                 onClick={() => chooseFamily("draw")}
               >
                 <PencilSimple />
@@ -667,6 +942,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 aria-label="Add"
                 aria-pressed={family === "add"}
                 aria-expanded={tray === "add"}
+                onPointerEnter={() => {
+                  if (family === "select" && !dormant) setArmed("add");
+                }}
+                onFocus={() => {
+                  if (family === "select" && !dormant) setArmed("add");
+                }}
                 onClick={() => chooseFamily("add")}
               >
                 <Plus />
@@ -674,26 +955,45 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               </button>
             </div>
             <input
-              className="hbw-poster-input"
-              value={decision}
-              placeholder="What are you trying to solve?"
-              aria-label="What are you trying to solve?"
+              className={`hbw-poster-input${emailError ? " is-invalid" : ""}`}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              name="email"
+              value={email}
+              placeholder="Your email"
+              aria-label="Your email"
+              aria-invalid={emailError ? true : undefined}
+              aria-describedby={emailError || emailStatus ? "hbw-send-status" : undefined}
               onChange={(e) => {
-                const value = e.target.value;
-                setDecision(value);
-                commitPoster({ objects: objectsRef.current, decision: value });
+                setEmail(e.target.value);
+                if (emailError) setEmailError("");
+                if (emailStatus) setEmailStatus("");
               }}
             />
-            <button
-              type="button"
-              className={`hbw-poster-send-open${tray === "send" ? " is-current" : ""}`}
-              aria-label="Send"
-              aria-pressed={tray === "send"}
-              onClick={openSend}
-            >
-              <PaperPlaneTilt />
-              <span>Send</span>
-            </button>
+            <div className="hbw-poster-toolbar__send">
+              {emailError || emailStatus ? (
+                <p
+                  id="hbw-send-status"
+                  className={`hbw-poster-send-status${emailError ? " is-invalid" : ""}`}
+                  role="status"
+                >
+                  {emailError || emailStatus}
+                </p>
+              ) : null}
+              <button
+                type="button"
+                className="hbw-poster-send-open"
+                aria-label="Send"
+                onClick={() => void submitSend()}
+              >
+                <PaperPlaneTilt />
+                <span>Send</span>
+              </button>
+            </div>
             {tray === "add" ? (
               <div className="hbw-poster-toolbar__tray" data-stage="add">
                 <button type="button" className="hbw-poster-tool" aria-label="Upload image" onClick={() => fileRef.current?.click()}>
@@ -762,7 +1062,14 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 >
                   <span>Marker</span>
                 </button>
-                <button type="button" className="hbw-poster-swatch" style={{ background: color }} aria-label="Stroke colour" onClick={cycleColor} />
+                <button
+                  type="button"
+                  className={`hbw-poster-swatch${paletteOpen ? " is-open" : ""}`}
+                  style={{ background: color }}
+                  aria-label="Stroke colour"
+                  aria-expanded={paletteOpen}
+                  onClick={() => setPaletteOpen((open) => !open)}
+                />
               </div>
             ) : null}
             {(textActive || (family === "write" && !current)) ? (
@@ -777,6 +1084,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                       setFont(next);
                       commitPoster({ font: next });
                       patchSelectedText({ font: next });
+                      void document.fonts.load(`400 ${textSize}px ${next}`);
                     }}
                   >
                     {POSTER_FONTS.map((item) => (
@@ -812,7 +1120,14 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 >
                   <AlignIcon />
                 </button>
-                <button type="button" className="hbw-poster-swatch" style={{ background: color }} aria-label="Colour" onClick={cycleColor} />
+                <button
+                  type="button"
+                  className={`hbw-poster-swatch${paletteOpen ? " is-open" : ""}`}
+                  style={{ background: color }}
+                  aria-label="Colour"
+                  aria-expanded={paletteOpen}
+                  onClick={() => setPaletteOpen((open) => !open)}
+                />
                 <button type="button" className="hbw-poster-tool" aria-label="Delete" onClick={deleteSelected}>
                   <Trash />
                 </button>
@@ -820,7 +1135,14 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
             ) : null}
             {selectedStroke ? (
               <div className="hbw-poster-toolbar__context" data-stage="stroke">
-                <button type="button" className="hbw-poster-swatch" style={{ background: color }} aria-label="Colour" onClick={cycleColor} />
+                <button
+                  type="button"
+                  className={`hbw-poster-swatch${paletteOpen ? " is-open" : ""}`}
+                  style={{ background: color }}
+                  aria-label="Colour"
+                  aria-expanded={paletteOpen}
+                  onClick={() => setPaletteOpen((open) => !open)}
+                />
                 <button type="button" className="hbw-poster-tool" aria-label="Delete" onClick={deleteSelected}>
                   <Trash />
                 </button>
@@ -833,6 +1155,30 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 </button>
               </div>
             ) : null}
+            {paletteOpen ? (
+              <div className="hbw-poster-palette" role="listbox" aria-label="Colour">
+                {PALETTE.map((swatch) => (
+                  <button
+                    key={swatch}
+                    type="button"
+                    className={`hbw-poster-palette__swatch${color.toLowerCase() === swatch ? " is-current" : ""}`}
+                    style={{ background: swatch }}
+                    aria-label={swatch}
+                    aria-selected={color.toLowerCase() === swatch}
+                    onClick={() => {
+                      applyColor(swatch);
+                      setPaletteOpen(false);
+                    }}
+                  />
+                ))}
+                <button
+                  type="button"
+                  className="hbw-poster-palette__swatch is-custom"
+                  aria-label="Custom colour"
+                  onClick={() => colorRef.current?.click()}
+                />
+              </div>
+            ) : null}
             {hasWork ? (
               <>
                 <button type="button" className="hbw-poster-tool" aria-label="Undo" disabled={!undoRef.current.length} onClick={undo}>
@@ -843,30 +1189,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 </button>
               </>
             ) : null}
-            {tray === "send" ? (
-              <div className="hbw-poster-toolbar__tray hbw-poster-send" data-stage="send">
-                <form className="hbw-poster-email" onSubmit={(event) => void onEmail(event)}>
-                  <input name="email" type="email" required placeholder="Email" aria-label="Email" />
-                  <input name="name" type="text" placeholder="Name (optional)" aria-label="Name" />
-                  <button type="submit">Email</button>
-                </form>
-                <button type="button" onClick={() => void onWhatsApp()}>
-                  WhatsApp
-                </button>
-                <button type="button" onClick={downloadPoster}>
-                  Download
-                </button>
-                <span className="hbw-poster-note">
-                  {shareNote ||
-                    "WhatsApp opens with the decision text. The poster image downloads separately — browsers cannot attach it."}
-                  {emailStatus ? ` ${emailStatus}` : ""}
-                </span>
-                <a href={waHref} hidden>
-                  WhatsApp
-                </a>
-              </div>
-            ) : null}
           </div>
+          ) : null}
       </IconContext.Provider>
     </div>
   );

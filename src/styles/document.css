@@ -5,7 +5,7 @@
     url("/fonts/671a30d6ef2a1073319beaeb_Geist-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {

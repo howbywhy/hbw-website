@@ -12,6 +12,17 @@ export type WindowMode = "make" | "browse" | "view";
 export type FilterDim = "all" | "year" | "sector" | "discipline" | "collaborator";
 export type SortId = "edited" | "newest" | "az";
 
+/**
+ * Back pops one frame. Close (journey) returns to stack[0].
+ * Pointer-leave restore this stack. It records where a surface was
+ * entered from, not whatever happened to render previously.
+ *
+ * Home → project            [{ make }]
+ * Projects → project        [{ browse, mode, scroll, … }]
+ * project → Next project    […entry, { view, slug, index, x }]
+ *
+ * Animation only renders the transition. It must not invent the destination.
+ */
 export type OriginFrame =
   | { kind: "make" }
   | {
@@ -21,13 +32,15 @@ export type OriginFrame =
       filterDim?: FilterDim;
       filterValue?: string;
       sort?: SortId;
+      scroll?: number;
     }
-  | { kind: "view"; slug: string; index: number };
+  | { kind: "view"; slug: string; index: number; x?: number };
 
 export type ProjectsState = {
   open: boolean;
   mode: ProjectsMode;
   activeId: string;
+  expandedId: string | null;
   filterDim: FilterDim;
   filterValue: string;
   sort: SortId;
@@ -42,6 +55,7 @@ export const workspace = {
     open: false,
     mode: "visual" as ProjectsMode,
     activeId: PROJECTS[0].id,
+    expandedId: null as string | null,
     filterDim: "all" as FilterDim,
     filterValue: "",
     sort: "edited" as SortId,
@@ -62,6 +76,7 @@ export function hydrateWorkspace() {
         open: false,
         mode: data.projects.mode === "index" ? "index" : "visual",
         activeId: data.projects.activeId,
+        expandedId: typeof data.projects.expandedId === "string" ? data.projects.expandedId : null,
         filterDim:
           data.projects.filterDim === "year" ||
           data.projects.filterDim === "sector" ||
@@ -114,6 +129,31 @@ export function persistOrigin(stack: OriginFrame[]) {
   }
 }
 
+function parseOriginFrame(frame: OriginFrame): OriginFrame | null {
+  if (!frame || typeof frame !== "object") return null;
+  if (frame.kind === "make") return { kind: "make" };
+  if (frame.kind === "browse") {
+    return {
+      kind: "browse",
+      mode: frame.mode === "index" ? "index" : "visual",
+      id: typeof frame.id === "string" ? frame.id : PROJECTS[0].id,
+      filterDim: frame.filterDim,
+      filterValue: frame.filterValue,
+      sort: frame.sort,
+      scroll: typeof frame.scroll === "number" ? frame.scroll : undefined,
+    };
+  }
+  if (frame.kind === "view") {
+    return {
+      kind: "view",
+      slug: typeof frame.slug === "string" ? frame.slug : "",
+      index: typeof frame.index === "number" ? frame.index : 0,
+      x: typeof frame.x === "number" ? frame.x : undefined,
+    };
+  }
+  return null;
+}
+
 export function readOrigin(): OriginFrame[] {
   if (typeof window === "undefined") return [];
   try {
@@ -121,10 +161,32 @@ export function readOrigin(): OriginFrame[] {
     if (!raw) return [];
     const data = JSON.parse(raw) as OriginFrame[];
     if (!Array.isArray(data)) return [];
-    return data.filter((frame) => frame && (frame.kind === "make" || frame.kind === "browse" || frame.kind === "view"));
+    return data.map(parseOriginFrame).filter((frame): frame is OriginFrame => Boolean(frame));
   } catch {
     return [];
   }
+}
+
+/** Drop leftover view frames that are not an intentional continuation parent of the current project. */
+export function sanitizeOrigin(stack: OriginFrame[], currentSlug: string | null | undefined): OriginFrame[] {
+  if (!stack.length) return stack;
+  if (!currentSlug) return stack.filter((frame) => frame.kind !== "view");
+  const next = stack.slice();
+  while (next.length) {
+    const top = next[next.length - 1];
+    if (top.kind !== "view") break;
+    if (top.slug === currentSlug) {
+      next.pop();
+      continue;
+    }
+    const i = PROJECTS.findIndex((project) => project.id === top.slug);
+    if (i < 0 || PROJECTS[i + 1]?.id !== currentSlug) {
+      next.pop();
+      continue;
+    }
+    break;
+  }
+  return next;
 }
 
 export function markReturnToProjects() {

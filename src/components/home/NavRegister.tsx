@@ -12,6 +12,7 @@ type Props = {
   onClearLens?: () => void;
   viewIndex: number;
   experience: ProjectExperience | null;
+  boundaryName?: string | null;
 };
 
 export function NavRegister({
@@ -22,6 +23,7 @@ export function NavRegister({
   onClearLens,
   viewIndex,
   experience,
+  boundaryName = null,
 }: Props) {
   const { openPanel, closePanel, panel } = useWorkspace();
   const idle = face === "home";
@@ -74,21 +76,27 @@ export function NavRegister({
           ) : null}
         </div>
       </div>
-      <div className="hbw-nav-sub__view" inert={face !== "view" || undefined}>
-        <button
-          type="button"
-          className={panel === "info" ? "is-sheet-close" : undefined}
-          data-hbw-sheet-close={panel === "info" ? "info" : undefined}
-          aria-pressed={panel === "info"}
-          onClick={onInfo}
-        >
-          {panel === "info" ? "Close" : "Info"}
-        </button>
-        {panel !== "info" ? (
-          <span className="hbw-nav-sub__meta">
-            {String(displayIndex).padStart(2, "0")} / {String(total).padStart(2, "0")}
-          </span>
-        ) : null}
+      <div className={`hbw-nav-sub__view${boundaryName ? " is-next" : ""}`} inert={face !== "view" || undefined}>
+        <span className="hbw-nav-sub__face hbw-nav-sub__face--info">
+          <button
+            type="button"
+            className={panel === "info" ? "is-sheet-close" : undefined}
+            aria-pressed={panel === "info"}
+            aria-label={panel === "info" ? "Close" : "Info"}
+            onClick={onInfo}
+          >
+            {panel === "info" ? "Close" : "Info"}
+          </button>
+          {panel !== "info" ? (
+            <span className="hbw-nav-sub__meta">
+              {String(displayIndex).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            </span>
+          ) : null}
+        </span>
+        <span className="hbw-nav-sub__face hbw-nav-sub__face--next" aria-hidden={boundaryName ? undefined : true}>
+          <span className="hbw-nav-sub__lead">Next</span>
+          <span className="hbw-nav-sub__meta">{boundaryName || ""}</span>
+        </span>
       </div>
     </div>
   );

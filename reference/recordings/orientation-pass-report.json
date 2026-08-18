@@ -1,0 +1,1708 @@
+{
+  "frames": 78,
+  "home": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "peekOpen": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "peekOpen": true,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "visual": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "index": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "indexHover": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "sub3": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": true,
+    "projectName": "SUB:3",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 43,
+      "h": 20,
+      "r": 55
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1428,
+      "y": 10,
+      "w": 0,
+      "h": 0,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "lastMv": {
+      "x": 9477,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 10053
+    },
+    "outro": {
+      "x": 10149,
+      "y": 73,
+      "w": 738,
+      "h": 719,
+      "r": 10886
+    },
+    "outroName": "KOJA",
+    "gap": 96,
+    "films": [
+      {
+        "posterOn": true,
+        "videoReady": true,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      }
+    ],
+    "blank": false
+  },
+  "boundary": {
+    "url": "/projects/sub-3",
+    "mode": "hbw-home is-view is-phase-active",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": true,
+    "projectName": "SUB:3",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 43,
+      "h": 20,
+      "r": 55
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "12 / 12",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "lastMv": {
+      "x": 19,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 595
+    },
+    "outro": {
+      "x": 691,
+      "y": 73,
+      "w": 738,
+      "h": 719,
+      "r": 1428
+    },
+    "outroName": "KOJA",
+    "gap": 96,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false
+      },
+      {
+        "posterOn": false,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false
+      }
+    ],
+    "blank": false
+  },
+  "koja": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-phase-active",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": true,
+    "projectName": "KOJA",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 38,
+      "h": 20,
+      "r": 50
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "lastMv": {
+      "x": 6082,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6657
+    },
+    "outro": {
+      "x": 6753,
+      "y": 73,
+      "w": 719,
+      "h": 719,
+      "r": 7473
+    },
+    "outroName": "CLOSED",
+    "gap": 96,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      }
+    ],
+    "blank": false
+  },
+  "method": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-panel is-phase-active",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": true,
+    "projectName": "KOJA",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 38,
+      "h": 20,
+      "r": 50
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": true,
+    "panelBox": {
+      "x": 884,
+      "y": 64,
+      "w": 544,
+      "h": 737,
+      "r": 1428
+    },
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "lastMv": {
+      "x": 6082,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6657
+    },
+    "outro": {
+      "x": 6753,
+      "y": 73,
+      "w": 719,
+      "h": 719,
+      "r": 7473
+    },
+    "outroName": "CLOSED",
+    "gap": 96,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      }
+    ],
+    "blank": false
+  },
+  "methodClosed": {
+    "url": "/projects/koja",
+    "mode": "hbw-home is-view is-phase-active",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": true,
+    "projectName": "KOJA",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 38,
+      "h": 20,
+      "r": 50
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 156,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 163,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 166,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": "01 / 08",
+    "viewPhase": "hbw-stage hbw-project-view is-active",
+    "lastMv": {
+      "x": 6082,
+      "y": 73,
+      "w": 575,
+      "h": 719,
+      "r": 6657
+    },
+    "outro": {
+      "x": 6753,
+      "y": 73,
+      "w": 719,
+      "h": 719,
+      "r": 7473
+    },
+    "outroName": "CLOSED",
+    "gap": 96,
+    "films": [
+      {
+        "posterOn": false,
+        "videoReady": true,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      },
+      {
+        "posterOn": true,
+        "videoReady": false,
+        "blank": false
+      }
+    ],
+    "blank": false
+  },
+  "backProjects": {
+    "url": "/?layer=projects",
+    "mode": "hbw-home is-browse is-phase-idle",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 67,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 34,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 75,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 78,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "end": {
+    "url": "/",
+    "mode": "hbw-home is-make is-phase-idle",
+    "peekOpen": false,
+    "peekCount": 6,
+    "peekLabels": [
+      "SUB:3",
+      "KOJA",
+      "CLOSED",
+      "Our Boy Roy",
+      "Chris Sisarich",
+      "Bistro Nido"
+    ],
+    "peekSize": {
+      "w": 54,
+      "h": 68
+    },
+    "peekYs": [
+      56,
+      56,
+      56,
+      56,
+      56,
+      56
+    ],
+    "brand": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 20,
+      "r": 125
+    },
+    "brandBtn": {
+      "x": 12,
+      "y": 10,
+      "w": 113,
+      "h": 44,
+      "r": 125
+    },
+    "times": false,
+    "projectName": "",
+    "projectNameBox": {
+      "x": 12,
+      "y": 34,
+      "w": 4,
+      "h": 20,
+      "r": 16
+    },
+    "projects": {
+      "x": 607,
+      "y": 10,
+      "w": 67,
+      "h": 20,
+      "r": 674
+    },
+    "method": {
+      "x": 771,
+      "y": 10,
+      "w": 62,
+      "h": 20,
+      "r": 833
+    },
+    "time": {
+      "x": 1340,
+      "y": 10,
+      "w": 88,
+      "h": 17,
+      "r": 1428
+    },
+    "window": {
+      "x": 12,
+      "y": 64,
+      "w": 1416,
+      "h": 737,
+      "r": 1428
+    },
+    "headerH": 64,
+    "panel": false,
+    "panelBox": null,
+    "preview": {
+      "x": 12,
+      "y": 158,
+      "w": 475,
+      "h": 663,
+      "r": 487
+    },
+    "visual": {
+      "x": 607,
+      "y": 37,
+      "w": 51,
+      "h": 20,
+      "r": 657
+    },
+    "indexName": {
+      "x": 506,
+      "y": 166,
+      "w": 240,
+      "h": 21,
+      "r": 745
+    },
+    "indexYear": {
+      "x": 1374,
+      "y": 169,
+      "w": 54,
+      "h": 18,
+      "r": 1428
+    },
+    "counter": null,
+    "viewPhase": null,
+    "lastMv": null,
+    "outro": null,
+    "outroName": null,
+    "gap": null,
+    "films": [],
+    "blank": false
+  },
+  "videoQa": [
+    {
+      "slug": "sub-3",
+      "projectName": "SUB:3",
+      "times": true,
+      "counter": "01 / 12",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": false,
+          "videoReady": true,
+          "blank": false
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        }
+      ],
+      "posterMs": 324,
+      "headerY": 10,
+      "windowY": 64
+    },
+    {
+      "slug": "koja",
+      "projectName": "",
+      "times": false,
+      "counter": null,
+      "blank": false,
+      "films": [],
+      "posterMs": 2
+    },
+    {
+      "slug": "bar-closed",
+      "projectName": "CLOSED",
+      "times": true,
+      "counter": "01 / 09",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        }
+      ],
+      "posterMs": 2,
+      "headerY": 10,
+      "windowY": 64
+    },
+    {
+      "slug": "our-boy-roy",
+      "projectName": "Our Boy Roy",
+      "times": true,
+      "counter": "01 / 07",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        }
+      ],
+      "posterMs": 2,
+      "headerY": 10,
+      "windowY": 64
+    },
+    {
+      "slug": "chris-sisarich",
+      "projectName": "Chris Sisarich",
+      "times": true,
+      "counter": "01 / 08",
+      "blank": false,
+      "films": [
+        {
+          "posterOn": false,
+          "videoReady": true,
+          "blank": false
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        },
+        {
+          "posterOn": true,
+          "videoReady": false,
+          "blank": false
+        }
+      ],
+      "posterMs": 30,
+      "headerY": 10,
+      "windowY": 64
+    },
+    {
+      "slug": "bistro-nido",
+      "projectName": "Bistro Nido",
+      "times": true,
+      "counter": "01 / 06",
+      "blank": false,
+      "films": [],
+      "posterMs": 3,
+      "headerY": 10,
+      "windowY": 64
+    }
+  ],
+  "gates": {
+    "peekSmall": true,
+    "peekNamed": true,
+    "peekFlat": true,
+    "previewWidth": 475,
+    "previewInRange": true,
+    "indexAlign": false,
+    "yearRight": true,
+    "identityA": true,
+    "headerLocked": true,
+    "boundaryGap": 96,
+    "boundaryNamed": true,
+    "kojaContinues": true,
+    "methodOpens": true,
+    "methodCloses": true,
+    "noBlankOpen": true
+  }
+}

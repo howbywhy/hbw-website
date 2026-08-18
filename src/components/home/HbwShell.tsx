@@ -4,10 +4,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { Arrival } from "@/components/home/Arrival";
+import { IdentityNav } from "@/components/home/IdentityNav";
 import { PosterTool } from "@/components/home/PosterTool";
 import { ProjectsLayer } from "@/components/home/ProjectsLayer";
 import { PROJECTS, matchesFilter, sortProjects } from "@/components/home/catalog";
-import { ProjectsNavPreview, useNavPeek } from "@/components/home/ProjectsNavPreview";
+import { ProjectsNavPreview, useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { MotionDebug } from "@/components/home/MotionDebug";
@@ -27,6 +28,7 @@ import {
   persistWorkspace,
   projectsLayerFromUrl,
   readOrigin,
+  sanitizeOrigin,
   syncProjectsUrl,
   workspace,
   type FilterDim,
@@ -35,17 +37,36 @@ import {
   type SortId,
   type WindowMode,
 } from "@/components/home/workspace";
-import { HBW_T, isMobileViewport, reduceMotion, type SwapPhase } from "@/components/home/motion";
+import { HBW_EASE, HBW_INTRO_MS, HBW_T, isMobileViewport, reduceMotion, type SwapPhase } from "@/components/home/motion";
 import { isStudioPathname, isWorkspacePathname, projectSlugFromPath } from "@/lib/workspace-routes";
 
 const INTRO_KEY = "hbw.entered.v2";
 
+const mobileSuffixHold = { name: null as string | null, until: 0 };
+
+function readMobileSuffixHold() {
+  if (!mobileSuffixHold.name || Date.now() >= mobileSuffixHold.until) {
+    mobileSuffixHold.name = null;
+    return null;
+  }
+  return mobileSuffixHold.name;
+}
+
 function completeIntro() {
   if (typeof document === "undefined") return;
-  document.documentElement.classList.remove("hbw-intro");
-  document.documentElement.classList.add("hbw-entered");
+  const root = document.documentElement;
+  root.classList.remove("hbw-intro", "hbw-intro-live", "hbw-intro-yield", "hbw-intro-resolve");
+  root.classList.add("hbw-entered");
+  document
+    .querySelectorAll<HTMLElement>(
+      ".hbw-mark-how, .hbw-mark-by, .hbw-mark-why, .hbw-mark-word--rest, .hbw-intro-how, .hbw-intro-by, .hbw-intro-why"
+    )
+    .forEach((el) => {
+      el.style.viewTransitionName = "none";
+    });
   try {
     sessionStorage.setItem(INTRO_KEY, "1");
+    sessionStorage.removeItem("hbw.intro.media.v1");
   } catch {
     /* ignore */
   }
@@ -57,12 +78,40 @@ type Swap = {
   phase: Exclude<SwapPhase, "idle">;
 };
 
-function formatTime(d: Date) {
-  const hour = d.getHours();
-  const ampm = hour >= 12 ? "PM" : "AM";
-  const h = hour % 12 || 12;
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${pad(h)}:${pad(d.getMinutes())}:${pad(d.getSeconds())} ${ampm}`;
+const MARK_FLIP_SELECTORS = [
+  ".hbw-mark-how .hbw-mark-word--rest",
+  ".hbw-mark-by .hbw-mark-word--rest",
+  ".hbw-mark-why .hbw-mark-word--rest",
+] as const;
+
+function identityAssembled(mode: WindowMode, swap: Swap | null) {
+  if (mode === "browse" || mode === "view") return true;
+  if (swap?.to === "make") return false;
+  if (swap?.to === "browse") return true;
+  return false;
+}
+
+function flipMark(update: () => void, ms: number = HBW_T.continuity) {
+  if (typeof document === "undefined" || reduceMotion()) {
+    update();
+    return;
+  }
+  const words = MARK_FLIP_SELECTORS.map((sel) => document.querySelector<HTMLElement>(sel));
+  const first = words.map((el) => el?.getBoundingClientRect() ?? null);
+  update();
+  words.forEach((el, i) => {
+    const from = first[i];
+    if (!el || !from) return;
+    el.getAnimations().forEach((anim) => anim.cancel());
+    const to = el.getBoundingClientRect();
+    const dx = from.x - to.x;
+    const dy = from.y - to.y;
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+    el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "none" }], {
+      duration: ms,
+      easing: HBW_EASE,
+    });
+  });
 }
 
 function modeFromLocation(path: string): WindowMode {
@@ -76,7 +125,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const slug = projectSlugFromPath(pathname);
   const workspaceRoute = isWorkspacePathname(pathname);
-  const [time, setTime] = useState("");
   const [panel, setPanel] = useState<WorkspacePanelId>(() =>
     isStudioPathname(pathname) ? "studio" : null
   );
@@ -84,21 +132,27 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     pathname === "/manifesto" ? "manifesto" : "studio"
   );
   const [panelLeaving, setPanelLeaving] = useState(false);
+  const [panelRestoring, setPanelRestoring] = useState(false);
+  const [manifestoLeaving, setManifestoLeaving] = useState(false);
+  const manifestoGen = useRef(0);
+  const manifestoLeavingRef = useRef(false);
+  const studioViewRef = useRef(studioView);
+  studioViewRef.current = studioView;
   const studioPathRef = useRef(pathname);
-  const [windowMode, setWindowMode] = useState<WindowMode>(() =>
-    projectSlugFromPath(pathname) ? "view" : "make"
-  );
+  const [windowMode, setWindowMode] = useState<WindowMode>(() => modeFromLocation(pathname));
   const [browseMode, setBrowseMode] = useState<ProjectsMode>("visual");
   const [filterDim, setFilterDim] = useState<FilterDim>("all");
   const [filterValue, setFilterValue] = useState("");
   const [sort, setSort] = useState<SortId>("edited");
   const [activeId, setActiveId] = useState(slug || PROJECTS[0].id);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [infoAnchor, setInfoAnchor] = useState<InfoSectionId>("idea");
   const [viewIndex, setViewIndex] = useState(0);
   const [phase, setPhase] = useState<ViewPhase>(() => (projectSlugFromPath(pathname) ? "active" : "idle"));
   const [swap, setSwap] = useState<Swap | null>(null);
   const [leaving, setLeaving] = useState<{ id: string; index: number } | null>(null);
+  const [heldSuffix, setHeldSuffix] = useState<string | null>(() => readMobileSuffixHold());
   const [narrow, setNarrow] = useState(false);
   const motionTimer = useRef<number[]>([]);
   const motionLock = useRef(false);
@@ -106,27 +160,56 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const enterGen = useRef(0);
   const savedIndex = useRef<Record<string, number>>({});
   const keepBrowse = useRef(false);
-  const entranceRef = useRef<"archive" | "reduced">("reduced");
+  const entranceRef = useRef<"archive" | "reduced" | "handoff">("reduced");
   const originStack = useRef<OriginFrame[]>([]);
   const [originKind, setOriginKind] = useState<OriginFrame["kind"] | "none">("none");
+  const [parkedX, setParkedX] = useState<number | null>(null);
+  const browseScrollRef = useRef({ visual: 0, index: 0 });
+  const pendingBrowseScroll = useRef<{ mode: ProjectsMode; y: number } | null>(null);
   const panelRef = useRef(panel);
+  const closingPanelRef = useRef(false);
+  const homeRef = useRef<HTMLDivElement>(null);
 
   function commitOrigin(stack: OriginFrame[]) {
     originStack.current = stack;
     persistOrigin(stack);
     setOriginKind(stack.at(-1)?.kind || "none");
   }
+
+  function projectsScroller() {
+    return homeRef.current?.querySelector<HTMLElement>(".hbw-projects");
+  }
+
+  function captureBrowseScroll() {
+    const el = projectsScroller();
+    const y = el ? el.scrollTop : browseScrollRef.current[browseMode];
+    browseScrollRef.current[browseMode] = y;
+    return y;
+  }
+
+  function restoreBrowseScroll(mode: ProjectsMode, y?: number) {
+    const target = y ?? browseScrollRef.current[mode];
+    const apply = () => {
+      const el = projectsScroller();
+      if (el) el.scrollTop = target;
+    };
+    apply();
+    requestAnimationFrame(apply);
+  }
+
+  function captureViewX() {
+    const field = homeRef.current?.querySelector<HTMLElement>(".hbw-project-view.is-active");
+    const x = Number(field?.getAttribute("data-hbw-track-x"));
+    return Number.isFinite(x) ? x : undefined;
+  }
   panelRef.current = panel;
-  const peekEnabled =
-    windowMode === "make" &&
-    !panel &&
-    !panelLeaving &&
-    phase === "idle" &&
-    !swap;
+  const peekEnabled = !narrow && windowMode === "make" && panel !== "studio";
   const peek = useNavPeek(peekEnabled && !narrow);
-  const inspecting = panel === "info" && !panelLeaving;
+  const practicePeek = useNavPeek(peekEnabled && !narrow && !panelLeaving);
+  const [peekProject, setPeekProject] = useState<PeekProject | null>(null);
+  const [whyPeekLock, setWhyPeekLock] = useState(false);
+  const inspecting = panel === "info" && !panelLeaving && !panelRestoring;
   const projectsRef = useRef<HTMLButtonElement>(null);
-  const homeRef = useRef<HTMLDivElement>(null);
   const viewSlug =
     windowMode === "view" || phase !== "idle" || swap?.to === "view" ? activeId : slug;
   const experience = viewSlug ? getExperience(viewSlug) : null;
@@ -146,7 +229,20 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     motionLock.current = false;
   }
 
-  function runViewTransition(update: () => void) {
+  function holdMobileSuffix(name: string | null) {
+    if (name) {
+      mobileSuffixHold.name = name;
+      mobileSuffixHold.until = Date.now() + HBW_T.continuity;
+      setHeldSuffix(name);
+      return;
+    }
+    if (Date.now() < mobileSuffixHold.until) return;
+    mobileSuffixHold.name = null;
+    mobileSuffixHold.until = 0;
+    setHeldSuffix(null);
+  }
+
+  function runViewTransition(update: () => void, envelope: "spatial" | "continuity" | "archive" = "continuity") {
     const doc = document as Document & {
       startViewTransition?: (cb: () => void) => { finished?: Promise<unknown> };
     };
@@ -155,11 +251,15 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       return;
     }
     viewTransitionLock.current = true;
+    const root = document.documentElement;
+    if (envelope === "spatial" || envelope === "archive") root.classList.add("hbw-vt-spatial");
+    if (envelope === "archive") root.classList.add("hbw-vt-archive");
     const transition = doc.startViewTransition(update);
     Promise.resolve(transition?.finished)
       .catch(() => undefined)
       .finally(() => {
         viewTransitionLock.current = false;
+        root.classList.remove("hbw-vt-spatial", "hbw-vt-archive");
       });
   }
 
@@ -176,13 +276,11 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       persistWorkspace();
     }
     window.addEventListener("pagehide", onHide);
-    const tick = () => setTime(formatTime(new Date()));
-    tick();
-    const id = window.setInterval(tick, 1000);
     setBrowseMode(workspace.projects.mode);
     setFilterDim(workspace.projects.filterDim);
     setFilterValue(workspace.projects.filterValue);
     setSort(workspace.projects.sort);
+    setExpandedId(workspace.projects.expandedId);
     if (!slug) setActiveId(workspace.projects.activeId);
 
     function onAnchor(event: Event) {
@@ -192,7 +290,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     window.addEventListener("hbw:info-anchor", onAnchor);
     return () => {
       document.documentElement.classList.remove("hbw-workspace", "hbw-home-prototype");
-      window.clearInterval(id);
       window.removeEventListener("pagehide", onHide);
       window.removeEventListener("hbw:info-anchor", onAnchor);
     };
@@ -221,15 +318,23 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       const path = window.location.pathname;
       if (path === "/studio") {
         setPanel("studio");
-        setStudioView("studio");
-        setPanelLeaving(false);
+        if (!manifestoLeavingRef.current) {
+          setStudioView("studio");
+          setPanelLeaving(false);
+        }
       } else if (path === "/manifesto") {
         setPanel("studio");
         setStudioView("manifesto");
         setPanelLeaving(false);
       } else if (isStudioPathname(studioPathRef.current)) {
+        if (closingPanelRef.current) {
+          studioPathRef.current = path;
+          closingPanelRef.current = false;
+          return;
+        }
         setPanel(null);
         setPanelLeaving(false);
+        setPanelRestoring(false);
         setStudioView("studio");
       }
       studioPathRef.current = path;
@@ -277,15 +382,23 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     const prev = studioPathRef.current;
     if (pathname === "/studio") {
       setPanel("studio");
-      setStudioView("studio");
-      setPanelLeaving(false);
+      if (!manifestoLeavingRef.current) {
+        setStudioView("studio");
+        setPanelLeaving(false);
+      }
     } else if (pathname === "/manifesto") {
       setPanel("studio");
       setStudioView("manifesto");
       setPanelLeaving(false);
     } else if (isStudioPathname(prev) && panelRef.current === "studio") {
+      if (closingPanelRef.current) {
+        studioPathRef.current = pathname;
+        closingPanelRef.current = false;
+        return;
+      }
       setPanel(null);
       setPanelLeaving(false);
+      setPanelRestoring(false);
       setStudioView("studio");
     }
     studioPathRef.current = pathname;
@@ -307,10 +420,19 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   useLayoutEffect(() => {
-    const stack = readOrigin();
+    const stack = sanitizeOrigin(readOrigin(), projectSlugFromPath(pathname) || null);
     originStack.current = stack;
+    persistOrigin(stack);
     setOriginKind(stack.at(-1)?.kind || "none");
+    // Hydrate once from the session origin; later mutations go through commitOrigin.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (motionLock.current) return;
+    const cleaned = sanitizeOrigin(originStack.current, slug);
+    if (cleaned.length !== originStack.current.length) commitOrigin(cleaned);
+  }, [slug]);
 
   useLayoutEffect(() => {
     if (!document.documentElement.classList.contains("hbw-intro")) return;
@@ -318,9 +440,20 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       completeIntro();
       return;
     }
-    const id = window.setTimeout(completeIntro, HBW_T.spatial + HBW_T.continuity + HBW_T.ui);
+    const id = window.setTimeout(completeIntro, HBW_INTRO_MS);
     return () => window.clearTimeout(id);
   }, []);
+
+  useEffect(() => {
+    if (!heldSuffix) return;
+    const wait = Math.max(16, mobileSuffixHold.until - Date.now());
+    const id = window.setTimeout(() => {
+      mobileSuffixHold.name = null;
+      mobileSuffixHold.until = 0;
+      setHeldSuffix(null);
+    }, wait);
+    return () => window.clearTimeout(id);
+  }, [heldSuffix]);
 
   useEffect(() => {
     if (windowMode !== "browse") return;
@@ -332,9 +465,28 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     preloadProject(hoveredId);
   }, [hoveredId]);
 
+  useEffect(() => {
+    const root = homeRef.current;
+    if (!root) return;
+    function onScroll(event: Event) {
+      const el = event.target;
+      if (!(el instanceof HTMLElement) || !el.classList.contains("hbw-projects")) return;
+      browseScrollRef.current[browseMode] = el.scrollTop;
+    }
+    root.addEventListener("scroll", onScroll, true);
+    return () => root.removeEventListener("scroll", onScroll, true);
+  }, [browseMode]);
+
+  function captureInspectMedia() {
+    window.dispatchEvent(new Event("hbw:inspect-capture"));
+  }
+
   function openPanel(next: Exclude<WorkspacePanelId, null>) {
     completeIntro();
+    if (next === "info") captureInspectMedia();
     setPanelLeaving(false);
+    setPanelRestoring(false);
+    closingPanelRef.current = false;
     if (next === "studio") setStudioView("studio");
     setPanel(next);
     if (next === "studio" && windowMode === "make" && !isStudioPathname(pathname)) {
@@ -343,25 +495,63 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }
 
   function closePanel() {
-    if (!panel) return;
+    if (!panel || panelLeaving || panelRestoring) return;
     const leaveRoute = panel === "studio" && isStudioPathname(pathname);
+    closingPanelRef.current = true;
+    if (panel === "info") captureInspectMedia();
+    if (panel === "studio") {
+      setWhyPeekLock(true);
+      practicePeek.hideNow();
+    }
+    setPanelRestoring(false);
     setPanelLeaving(true);
+    manifestoLeavingRef.current = false;
+    setManifestoLeaving(false);
     later(HBW_T.spatial, () => {
       setPanel(null);
       setPanelLeaving(false);
+      setPanelRestoring(false);
       setStudioView("studio");
-      if (leaveRoute) router.push("/");
+      if (leaveRoute) router.replace("/");
+      closingPanelRef.current = false;
     });
   }
 
   function showManifesto() {
+    manifestoGen.current += 1;
+    manifestoLeavingRef.current = false;
+    setManifestoLeaving(false);
     setStudioView("manifesto");
     if (isStudioPathname(pathname)) router.replace("/manifesto");
   }
 
   function showStudioContent() {
-    setStudioView("studio");
-    if (isStudioPathname(pathname)) router.replace("/studio");
+    if (studioViewRef.current !== "manifesto") {
+      manifestoGen.current += 1;
+      manifestoLeavingRef.current = false;
+      setStudioView("studio");
+      setManifestoLeaving(false);
+      if (isStudioPathname(pathname)) router.replace("/studio");
+      return;
+    }
+    if (manifestoLeavingRef.current) return;
+    if (reduceMotion()) {
+      manifestoLeavingRef.current = false;
+      setStudioView("studio");
+      setManifestoLeaving(false);
+      if (isStudioPathname(pathname)) router.replace("/studio");
+      return;
+    }
+    const token = ++manifestoGen.current;
+    manifestoLeavingRef.current = true;
+    setManifestoLeaving(true);
+    later(HBW_T.spatial, () => {
+      if (token !== manifestoGen.current) return;
+      manifestoLeavingRef.current = false;
+      setStudioView("studio");
+      setManifestoLeaving(false);
+      if (isStudioPathname(pathname)) router.replace("/studio");
+    });
   }
 
   function openProjects() {
@@ -374,11 +564,16 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
+    setPanelRestoring(false);
     workspace.projects.open = true;
     persistWorkspace();
     motionLock.current = true;
     clearMotionTimers();
-    setSwap({ from: "make", to: "browse", phase: "exiting" });
+    flipMark(() => {
+      flushSync(() => {
+        setSwap({ from: "make", to: "browse", phase: "exiting" });
+      });
+    }, HBW_T.spatial);
     later(HBW_T.micro, () => {
       setWindowMode("browse");
       setPhase("idle");
@@ -411,9 +606,13 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     persistWorkspace();
     motionLock.current = true;
     clearMotionTimers();
-    setSwap({ from: "browse", to: "make", phase: "exiting" });
-    setWindowMode("make");
-    setPhase("idle");
+    flipMark(() => {
+      flushSync(() => {
+        setSwap({ from: "browse", to: "make", phase: "exiting" });
+        setWindowMode("make");
+        setPhase("idle");
+      });
+    }, HBW_T.spatial);
     if (pathname !== "/") {
       router.push("/");
     } else {
@@ -423,12 +622,28 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }
 
   function returnToMake() {
+    completeIntro();
     if (windowMode === "view" || phase === "rising" || phase === "assembling" || phase === "active" || phase === "handoff-in") {
+      homeFromView();
       return;
     }
     if (windowMode === "browse") {
       closeProjects();
+      return;
     }
+    if (panel) closePanel();
+  }
+
+  function goProjects() {
+    if (windowMode === "browse" || (swap?.from === "browse" && swap.to === "make")) return;
+    openProjects();
+  }
+
+  function goPractice() {
+    if (panel === "info") return;
+    if (manifestoOpen) return;
+    if (studioClose) return;
+    openPanel("studio");
   }
 
   function exitToProjects(history: "push" | "replace" = "push") {
@@ -437,6 +652,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
+    setPanelRestoring(false);
     setLeaving(null);
     motionLock.current = true;
     clearMotionTimers();
@@ -446,12 +662,18 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     persistWorkspace();
     setSwap({ from: "view", to: "browse", phase: "exiting" });
     setPhase("exiting");
+    if (history === "replace") router.replace("/?layer=projects");
+    else router.push("/?layer=projects");
     later(HBW_T.continuity, () => {
       setWindowMode("browse");
       setPhase("idle");
       finishSwap();
-      if (history === "replace") router.replace("/?layer=projects");
-      else router.push("/?layer=projects");
+      const pending = pendingBrowseScroll.current;
+      pendingBrowseScroll.current = null;
+      if (pending) {
+        browseScrollRef.current[pending.mode] = pending.y;
+        restoreBrowseScroll(pending.mode, pending.y);
+      }
     });
   }
 
@@ -460,19 +682,24 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
+    setPanelRestoring(false);
     setLeaving(null);
     motionLock.current = true;
     clearMotionTimers();
     commitOrigin([]);
     workspace.projects.open = false;
     persistWorkspace();
-    setSwap({ from: "view", to: "make", phase: "exiting" });
-    setPhase("exiting");
-    setWindowMode("make");
+    flipMark(() => {
+      flushSync(() => {
+        setSwap({ from: "view", to: "make", phase: "exiting" });
+        setPhase("exiting");
+        setWindowMode("make");
+      });
+    });
+    router.replace("/");
     later(HBW_T.continuity, () => {
       setPhase("idle");
       finishSwap();
-      router.replace("/");
     });
   }
 
@@ -487,12 +714,16 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setLeaving(null);
     setActive(id);
     setHoveredId(null);
+    peek.hideNow();
+    practicePeek.hideNow();
     setPanel(null);
     setPanelLeaving(false);
+    setPanelRestoring(false);
     motionLock.current = true;
     clearMotionTimers();
     setViewIndex(0);
     savedIndex.current[id] = 0;
+    setParkedX(null);
     keepBrowse.current = from === "browse" || from === "view";
     if (from === "make") commitOrigin([{ kind: "make" }]);
     else if (from === "browse")
@@ -504,9 +735,15 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           filterDim,
           filterValue,
           sort,
+          scroll: captureBrowseScroll(),
         },
       ]);
-    else if (viewSlug) commitOrigin([...originStack.current, { kind: "view", slug: viewSlug, index: viewIndex }]);
+    else if (viewSlug) {
+      commitOrigin([
+        ...originStack.current,
+        { kind: "view", slug: viewSlug, index: viewIndex, x: captureViewX() },
+      ]);
+    }
     setSwap({ from, to: "view", phase: "preparing" });
     await withTimeout(preloadOpening(id), cinematic || reduceMotion() ? 0 : HBW_T.prepareCap);
     if (token !== enterGen.current) return;
@@ -522,6 +759,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         });
       };
       if (cinematic) runViewTransition(go);
+      else if (from === "make") flipMark(go);
       else go();
       router.push(href);
     });
@@ -548,12 +786,29 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
+    setPanelRestoring(false);
     motionLock.current = true;
     clearMotionTimers();
-    entranceRef.current = "reduced";
-    savedIndex.current[fromId] = experience?.movements.length ?? viewIndex;
+    entranceRef.current = "handoff";
+    savedIndex.current[fromId] = viewIndex;
+    setParkedX(null);
+    commitOrigin([
+      ...originStack.current,
+      { kind: "view", slug: fromId, index: viewIndex, x: captureViewX() },
+    ]);
     preloadProject(nxt.id);
     commitProjectMedia(nxt.id);
+    const field = homeRef.current?.querySelector<HTMLElement>(".hbw-project-view.is-active");
+    const mobileHandoff = isMobileViewport();
+    holdMobileSuffix(getExperience(fromId)?.name ?? experience?.name ?? null);
+    if (!mobileHandoff && field) {
+      const preview = field.querySelector<HTMLElement>(".hbw-outro.is-next .hbw-outro__preview");
+      const stage = field.getBoundingClientRect();
+      const from = preview ? Math.round(preview.getBoundingClientRect().left - stage.left) : 0;
+      homeRef.current?.style.setProperty("--hbw-handoff-from", `${Math.max(0, from)}px`);
+    } else {
+      homeRef.current?.style.removeProperty("--hbw-handoff-from");
+    }
     const apply = () => {
       flushSync(() => {
         setLeaving({ id: fromId, index: viewIndex });
@@ -564,51 +819,80 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         setPhase("handoff-in");
       });
     };
-    runViewTransition(apply);
+    if (mobileHandoff) runViewTransition(apply);
+    else apply();
     router.push(nxt.href);
     if (reduceMotion()) {
+      entranceRef.current = "reduced";
+      mobileSuffixHold.until = 0;
+      holdMobileSuffix(null);
       setLeaving(null);
       setPhase("active");
       finishSwap();
+      homeRef.current?.style.removeProperty("--hbw-handoff-from");
       return;
     }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setPhase("assembling"));
+    });
     later(HBW_T.continuity, () => {
+      entranceRef.current = "reduced";
+      holdMobileSuffix(null);
       setLeaving(null);
       setPhase("active");
       finishSwap();
+      homeRef.current?.style.removeProperty("--hbw-handoff-from");
     });
   }
 
-  function restoreProject(slug: string, index: number) {
+  function restoreProject(nextSlug: string, index: number, x?: number) {
     if (motionLock.current) return;
     const fromId = viewSlug;
-    if (!fromId || fromId === slug) {
+    if (!fromId || fromId === nextSlug) {
       exitToProjects();
       return;
     }
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
+    setPanelRestoring(false);
     motionLock.current = true;
     clearMotionTimers();
+    entranceRef.current = "reduced";
+    homeRef.current?.style.removeProperty("--hbw-handoff-from");
     savedIndex.current[fromId] = viewIndex;
     keepBrowse.current = true;
-    preloadProject(slug);
-    commitProjectMedia(slug);
-    setLeaving({ id: fromId, index: viewIndex });
-    setActive(slug);
-    setViewIndex(index);
-    savedIndex.current[slug] = index;
-    setWindowMode("view");
-    setSwap({ from: "view", to: "view", phase: "entering" });
-    setPhase("handoff-in");
-    router.replace(PROJECTS.find((p) => p.id === slug)?.href || `/projects/${slug}`);
+    preloadProject(nextSlug);
+    commitProjectMedia(nextSlug);
     if (reduceMotion()) {
-      setLeaving(null);
-      setPhase("active");
-      finishSwap();
+      flushSync(() => {
+        setLeaving(null);
+        setActive(nextSlug);
+        setViewIndex(index);
+        savedIndex.current[nextSlug] = index;
+        setParkedX(x ?? null);
+        setWindowMode("view");
+        setSwap(null);
+        setPhase("active");
+      });
+      motionLock.current = false;
+      router.replace(PROJECTS.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
       return;
     }
+    flushSync(() => {
+      setLeaving({ id: fromId, index: viewIndex });
+      setActive(nextSlug);
+      setViewIndex(index);
+      savedIndex.current[nextSlug] = index;
+      setParkedX(x ?? null);
+      setWindowMode("view");
+      setSwap({ from: "view", to: "view", phase: "entering" });
+      setPhase("rising");
+    });
+    router.replace(PROJECTS.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setPhase("assembling"));
+    });
     later(HBW_T.continuity, () => {
       setLeaving(null);
       setPhase("active");
@@ -625,10 +909,14 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     commitOrigin(next);
     if (!origin || origin.kind === "browse") {
       if (origin?.kind === "browse") {
-        setProjectsMode(origin.mode);
+        setProjectsMode(origin.mode, { silent: true });
         setActive(origin.id);
         setProjectsLens(origin.filterDim || "all", origin.filterValue || "");
         if (origin.sort) setProjectsSort(origin.sort);
+        pendingBrowseScroll.current = {
+          mode: origin.mode,
+          y: origin.scroll ?? browseScrollRef.current[origin.mode],
+        };
       }
       exitToProjects("replace");
       return;
@@ -638,7 +926,34 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       homeFromView();
       return;
     }
-    restoreProject(origin.slug, origin.index);
+    restoreProject(origin.slug, origin.index, origin.x);
+  }
+
+  function closeJourney() {
+    if (motionLock.current && phase !== "active" && phase !== "rising") return;
+    motionLock.current = false;
+    clearMotionTimers();
+    const origin = originStack.current[0];
+    commitOrigin([]);
+    if (!origin || origin.kind === "browse") {
+      if (origin?.kind === "browse") {
+        setProjectsMode(origin.mode, { silent: true });
+        setActive(origin.id);
+        setProjectsLens(origin.filterDim || "all", origin.filterValue || "");
+        if (origin.sort) setProjectsSort(origin.sort);
+        pendingBrowseScroll.current = {
+          mode: origin.mode,
+          y: origin.scroll ?? browseScrollRef.current[origin.mode],
+        };
+      }
+      exitToProjects("replace");
+      return;
+    }
+    if (origin.kind === "make") {
+      homeFromView();
+      return;
+    }
+    restoreProject(origin.slug, origin.index, origin.x);
   }
 
   function setActive(id: string) {
@@ -647,29 +962,50 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     persistWorkspace();
   }
 
-  function setProjectsMode(next: ProjectsMode) {
+  function setProjectsMode(next: ProjectsMode, opts?: { silent?: boolean }) {
     if (next === browseMode) return;
     const apply = () => {
       setBrowseMode(next);
       workspace.projects.mode = next;
       persistWorkspace();
     };
+    if (opts?.silent) {
+      apply();
+      return;
+    }
+    if (isMobileViewport() || reduceMotion()) {
+      apply();
+      return;
+    }
+    const y = captureBrowseScroll();
     runViewTransition(() => {
       flushSync(apply);
-    });
+      const el = projectsScroller();
+      if (el) el.scrollTop = y;
+    }, "archive");
   }
 
   function setProjectsLens(dim: FilterDim, value: string) {
     setFilterDim(dim);
     setFilterValue(value);
+    setExpandedId(null);
     workspace.projects.filterDim = dim;
     workspace.projects.filterValue = value;
+    workspace.projects.expandedId = null;
     persistWorkspace();
   }
 
   function setProjectsSort(next: SortId) {
     setSort(next);
+    setExpandedId(null);
     workspace.projects.sort = next;
+    workspace.projects.expandedId = null;
+    persistWorkspace();
+  }
+
+  function setProjectsExpanded(id: string | null) {
+    setExpandedId(id);
+    workspace.projects.expandedId = id;
     persistWorkspace();
   }
 
@@ -679,11 +1015,32 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
+    if (!whyPeekLock) return;
+    function release(event: PointerEvent) {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (document.querySelector(".hbw-mark-why")?.contains(target)) return;
+      if (document.querySelector(".hbw-nav-studio")?.contains(target)) return;
+      setWhyPeekLock(false);
+    }
+    window.addEventListener("pointermove", release);
+    return () => window.removeEventListener("pointermove", release);
+  }, [whyPeekLock]);
+
+  useEffect(() => {
     if (!workspaceRoute) return;
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        const typing =
+          event.target instanceof HTMLElement &&
+          event.target.closest("textarea, input, [contenteditable]");
+        if (typing) return;
         if (peek.open) {
           peek.hideNow();
+          return;
+        }
+        if (practicePeek.open) {
+          practicePeek.hideNow();
           return;
         }
         if (panel) {
@@ -697,7 +1054,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         if (windowMode === "browse") closeProjects();
         return;
       }
-      if (windowMode !== "browse" || panel || peek.open) return;
+      if (windowMode !== "browse" || panel || peek.open || practicePeek.open) return;
       const list = sortProjects(
         PROJECTS.filter((p) => matchesFilter(p, filterDim, filterValue)),
         sort
@@ -724,13 +1081,12 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [activeId, browseMode, filterDim, filterValue, hoveredId, panel, peek.open, phase, sort, windowMode, workspaceRoute]);
+  }, [activeId, browseMode, filterDim, filterValue, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode, workspaceRoute]);
 
   useEffect(() => {
     if (panel !== "info") return;
     const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
-    const node = inspector?.querySelector<HTMLElement>(`[data-hbw-info-section="${infoAnchor}"]`);
-    if (inspector && node) inspector.scrollTop = Math.max(0, node.offsetTop - 24);
+    if (inspector) inspector.scrollTop = 0;
   }, [panel, infoAnchor]);
 
   if (!workspaceRoute) return children;
@@ -747,20 +1103,57 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     phase === "assembling" ||
     phase === "active" ||
     phase === "handoff-in" ||
-    (windowMode === "view" && phase !== "exiting" && phase !== "rising" && phase !== "idle")
+    phase === "exiting" ||
+    (windowMode === "view" && phase !== "rising" && phase !== "idle")
       ? "view"
-      : windowMode === "browse" || phase === "exiting" || browseDropping
+      : windowMode === "browse" || browseDropping
         ? "browse"
         : "home";
   const leavingExp = leaving ? getExperience(leaving.id) : null;
+  const chromeLocked =
+    Boolean(leavingExp) &&
+    (phase === "handoff-in" || (isMobileViewport() && phase === "assembling"));
+  const chromeExperience = chromeLocked ? leavingExp : experience;
+  const chromeIndex = chromeLocked && leaving ? leaving.index : viewIndex;
   const showView =
     Boolean(experience) && !preparingView && (windowMode === "view" || phase !== "idle");
   const viewExit = navFace === "view" && panel !== "info" && panel !== "studio";
-  const manifestoOpen = panel === "studio" && studioView === "manifesto" && !panelLeaving;
-  const manifestoSheet = panel === "studio" && studioView === "manifesto";
-  const studioClose = panel === "studio" && studioView !== "manifesto";
-  const muteProjects = panel === "studio" && studioView !== "manifesto";
-  const muteStudio = inspecting;
+  const showBack =
+    viewExit && (originKind === "browse" || originKind === "view") && phase === "active" && !chromeLocked;
+  const assembled = identityAssembled(windowMode, swap);
+  const hoverName =
+    assembled && !narrow && windowMode === "browse" && hoveredId
+      ? PROJECTS.find((project) => project.id === hoveredId)?.name
+      : null;
+  const identitySuffix =
+    (navFace === "view" || windowMode === "view") && experience
+      ? heldSuffix ||
+        (isMobileViewport() && leavingExp && (phase === "handoff-in" || phase === "assembling")
+          ? leavingExp.name
+          : experience.name)
+      : assembled
+        ? hoverName || "Projects"
+        : !narrow && peek.open && peekProject?.name
+          ? peekProject.name
+          : null;
+  const manifestoSheet = panel === "studio" && (studioView === "manifesto" || manifestoLeaving);
+  const manifestoOpen = manifestoSheet && !manifestoLeaving;
+  const studioClose = panel === "studio" && !manifestoSheet;
+  const viewJourneyClose = viewExit;
+  const studioAsClose =
+    !narrow && (studioClose || manifestoSheet || (viewJourneyClose && panel !== "info"));
+  const muteProjects = panel === "studio";
+  const muteStudio = panel === "info";
+  const hideProjectsHit =
+    navFace !== "browse" && !(swap?.from === "browse" && swap.to === "make");
+  const hideStudioHit = !studioAsClose;
+  const boundaryNext =
+    !narrow &&
+    navFace === "view" &&
+    chromeExperience &&
+    chromeIndex >= chromeExperience.movements.length
+      ? nextProject(chromeExperience.slug)
+      : null;
 
   return (
     <WorkspaceContext.Provider
@@ -776,13 +1169,19 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     >
       <div
         ref={homeRef}
-        className={`hbw-home is-${windowMode}${panel ? " is-panel" : ""}${inspecting ? " is-inspect" : ""}${
-          panel === "studio" && !panelLeaving ? " is-studio" : ""
-        }${panel === "studio" && studioView === "manifesto" && !panelLeaving ? " is-manifesto" : ""}${
+        className={`hbw-home is-${windowMode}${panel ? " is-panel" : ""}${panel === "info" ? " is-inspect" : ""}${
+          panel === "studio" ? " is-studio" : ""
+        }${manifestoSheet ? " is-manifesto" : ""}${
+          panelRestoring ? " is-sheet-restoring" : ""
+        }${panelLeaving ? " is-sheet-leaving" : ""}${
+          practicePeek.open && panel !== "studio" ? " is-practice-peek" : ""
+        }${
           swap?.to === "view" || phase === "rising" || phase === "assembling" ? " is-owning" : ""
-        } is-phase-${phase}${swap ? ` is-swap-${swap.phase}` : ""}`}
+        }${boundaryNext ? " is-boundary" : ""} is-phase-${phase}${swap ? ` is-swap-${swap.phase}` : ""}`}
         data-hbw-project={viewSlug || undefined}
+        data-hbw-held-suffix={heldSuffix || undefined}
         data-hbw-origin={originKind}
+        data-hbw-back={showBack ? "true" : undefined}
         data-hbw-lens={filterValue || undefined}
         data-hbw-browse={browseMode}
         data-hbw-motion={swap?.phase || phase}
@@ -790,34 +1189,67 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         data-hbw-to={swap?.to}
       >
         <header className="hbw-home-strip">
+          <IdentityNav
+            onMake={returnToMake}
+            onProjects={goProjects}
+            onPractice={goPractice}
+            practiceMuted={muteStudio}
+            inert={panel === "studio"}
+            assembled={assembled}
+            suffix={identitySuffix}
+            previewing={peek.open}
+            previewingWhy={practicePeek.open && panel !== "studio"}
+            peekProject={peek.open ? peekProject : null}
+            whyHoverLocked={whyPeekLock}
+            onPreviewShow={() => {
+              practicePeek.hideNow();
+              peek.show();
+            }}
+            onPreviewKeep={peek.show}
+            onPreviewHide={peek.hideSoon}
+            onWhyPreviewShow={() => {
+              if (whyPeekLock) return;
+              peek.hideNow();
+              practicePeek.show();
+            }}
+            onWhyPreviewKeep={practicePeek.show}
+            onWhyPreviewHide={practicePeek.hideSoon}
+          />
           <div className="hbw-home-strip__brand" inert={manifestoSheet || undefined}>
-            <button type="button" className="hbw-home-strip__home" aria-label="How by Why" onClick={navFace === "view" ? undefined : returnToMake}>
-              <span className="hbw-home-strip__mark">How by Why</span>
-              <span className={`hbw-home-strip__identity${navFace === "view" && experience ? " is-on" : ""}`}>
-                <span className="hbw-home-strip__times" aria-hidden={navFace === "view" ? undefined : true}>
+            <div className="hbw-home-strip__home">
+              <span className="hbw-home-strip__identity">
+                <span className="hbw-home-strip__times" aria-hidden="true">
                   ×
                 </span>
-                <span
-                  key={navFace === "view" && experience ? experience.name : "idle"}
-                  className="hbw-home-strip__project"
-                >
-                  {navFace === "view" && experience ? experience.name : ""}
-                </span>
+                <span className="hbw-home-strip__project" />
               </span>
+            </div>
+            <button
+              type="button"
+              className={`hbw-home-strip__exit${showBack ? " is-on" : ""}`}
+              aria-hidden={showBack ? undefined : true}
+              tabIndex={showBack ? 0 : -1}
+              onClick={closeToOrigin}
+            >
+              Back
             </button>
             <button
               type="button"
-              className={`hbw-home-strip__exit${viewExit ? " is-on" : ""}`}
-              aria-hidden={viewExit ? undefined : true}
-              tabIndex={viewExit ? 0 : -1}
-              onClick={closeToOrigin}
+              className={`hbw-home-strip__exit hbw-home-strip__journey-close${narrow && viewJourneyClose ? " is-on" : ""}`}
+              aria-hidden={narrow && viewJourneyClose ? undefined : true}
+              tabIndex={narrow && viewJourneyClose ? 0 : -1}
+              onClick={closeJourney}
             >
               Close
             </button>
           </div>
-          <nav className="hbw-home-strip__nav" aria-label="Primary">
+          <nav
+            className="hbw-home-strip__nav"
+            aria-label={hideProjectsHit && hideStudioHit && navFace === "home" ? undefined : "Workspace"}
+            aria-hidden={hideProjectsHit && hideStudioHit && navFace === "home" ? true : undefined}
+          >
             <div
-              className={`hbw-nav-projects${manifestoSheet ? " is-sheet-close" : ""}`}
+              className="hbw-nav-projects"
               inert={muteProjects || undefined}
               aria-hidden={muteProjects || undefined}
             >
@@ -826,40 +1258,23 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 type="button"
                 className="hbw-nav-projects__hit"
                 data-hbw-peek-enabled={peekEnabled ? "true" : "false"}
-                data-hbw-sheet-close={manifestoSheet ? "manifesto" : undefined}
                 aria-label={
-                  manifestoSheet || navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
+                  navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
                     ? "Close"
                     : "Projects"
                 }
-                aria-expanded={windowMode === "browse" || peek.open}
+                aria-expanded={windowMode === "browse"}
                 aria-controls="hbw-projects-layer"
-                tabIndex={muteProjects ? -1 : undefined}
-                onPointerEnter={peek.show}
-                onPointerLeave={(event) => {
-                  const next = event.relatedTarget as Node | null;
-                  if (event.currentTarget.parentElement?.querySelector(".hbw-nav-peek")?.contains(next)) {
-                    peek.show();
-                    return;
-                  }
-                  peek.hideSoon();
-                }}
-                onFocus={peek.show}
-                onBlur={(event) => {
-                  if (!event.currentTarget.parentElement?.contains(event.relatedTarget as Node)) peek.hideSoon();
-                }}
+                aria-hidden={muteProjects || hideProjectsHit || undefined}
+                tabIndex={muteProjects || hideProjectsHit ? -1 : undefined}
                 onClick={() => {
                   if (muteProjects) return;
                   peek.hideNow();
-                  if (manifestoSheet) {
-                    closePanel();
-                    return;
-                  }
                   if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
                   else openProjects();
                 }}
               >
-                {manifestoSheet || navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
+                {navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
                   ? "Close"
                   : "Projects"}
               </button>
@@ -869,55 +1284,67 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 onBrowseMode={setProjectsMode}
                 filterValue={filterValue}
                 onClearLens={() => setProjectsLens("all", "")}
-                viewIndex={viewIndex}
-                experience={experience}
-              />
-              <ProjectsNavPreview
-                open={peek.open}
-                enabled={peekEnabled}
-                onEnter={(id) => enterProject(id, "make")}
-                onKeep={peek.show}
-                onLeave={peek.hideSoon}
+                viewIndex={chromeIndex}
+                experience={chromeExperience}
+                boundaryName={boundaryNext?.name ?? null}
               />
             </div>
             <button
               type="button"
-              className={`hbw-nav-studio${studioClose ? " is-sheet-close" : ""}`}
-              data-hbw-sheet-close={studioClose ? "studio" : undefined}
+              className={`hbw-nav-studio${studioAsClose ? " is-sheet-close" : ""}`}
+              data-hbw-sheet-close={
+                manifestoSheet ? "manifesto" : studioClose ? "studio" : viewJourneyClose ? "journey" : undefined
+              }
               aria-pressed={panel === "studio"}
-              aria-label={studioClose ? "Close" : "Studio"}
-              aria-hidden={muteStudio || undefined}
-              tabIndex={muteStudio ? -1 : undefined}
+              aria-label={studioAsClose ? "Close" : "Studio"}
+              aria-hidden={muteStudio || hideStudioHit || undefined}
+              tabIndex={muteStudio || hideStudioHit ? -1 : undefined}
               onClick={() => {
                 if (muteStudio) return;
-                if (manifestoOpen) showStudioContent();
+                if (manifestoSheet) showStudioContent();
                 else if (studioClose) closePanel();
+                else if (viewJourneyClose) closeJourney();
                 else openPanel("studio");
               }}
             >
-              {studioClose ? "Close" : "Studio"}
+              {studioAsClose ? "Close" : "Studio"}
             </button>
           </nav>
-          <span className="hbw-home-strip__time">
-            {time}
-          </span>
         </header>
 
+        <ProjectsNavPreview
+          open={peek.open}
+          enabled={peekEnabled}
+          onEnter={(id) => {
+            enterProject(id, "make");
+          }}
+          onKeep={peek.show}
+          onLeave={peek.hideSoon}
+          onHoverProject={setPeekProject}
+          onViewAll={() => {
+            peek.hideNow();
+            if (browseMode !== "visual") setProjectsMode("visual");
+            openProjects();
+          }}
+        />
+
         <div className="hbw-window">
-          <PosterTool dormant={!makeActive} />
+          <PosterTool dormant={!makeActive || panel === "studio"} />
           <Arrival onMake={arriveMake} onBrowse={arriveBrowse} />
           <ProjectsLayer
-            open={browseOpen}
+            open={browseOpen && !inspecting}
             dropping={browseDropping}
             entering={windowMode === "view" || phase === "rising" || phase === "assembling"}
             owning={Boolean(swap?.to === "view" || phase === "rising" || phase === "assembling")}
             mode={browseMode}
             selectedId={activeId}
             hoveredId={hoveredId}
+            expandedId={expandedId}
             filterDim={filterDim}
             filterValue={filterValue}
             sort={sort}
             onHover={setHoveredId}
+            onExpand={setProjectsExpanded}
             onSelect={setActive}
             onEnterProject={(id) => enterProject(id, "browse")}
             onLens={setProjectsLens}
@@ -927,7 +1354,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               key={`out-${leaving.id}`}
               experience={leavingExp}
               phase="handoff-out"
-              index={leavingExp.movements.length}
+              index={leaving.index}
               onIndex={() => {}}
             />
           ) : null}
@@ -940,25 +1367,43 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               inspecting={inspecting}
               entrance={entranceRef.current}
               onIndex={onViewIndex}
+              restoreX={parkedX}
               onCommitNext={commitNext}
+              onLeaveInspect={() => {
+                if (panel === "info") closePanel();
+              }}
             />
           ) : null}
         </div>
-        <WorkspacePanel
-          panel={panel}
-          leaving={panelLeaving}
-          studioView={studioView}
-          infoAnchor={infoAnchor}
-          experience={experience}
-          onShowManifesto={showManifesto}
-          onShowStudio={showStudioContent}
-        />
         <MotionDebug
           mode={windowMode}
           project={viewSlug}
           index={viewIndex}
           total={experience?.movements.length || 0}
           phase={swap ? `${swap.phase}:${swap.from}→${swap.to}` : phase}
+        />
+      </div>
+      <div className={`hbw-sheet-layer${manifestoSheet ? " is-manifesto" : ""}${panel === "studio" ? " is-studio" : ""}`}>
+        <WorkspacePanel
+          panel={panel}
+          leaving={panelLeaving}
+          manifestoClosing={manifestoLeaving}
+          studioView={studioView}
+          infoAnchor={infoAnchor}
+          experience={experience}
+          atProjectEnd={Boolean(experience && viewIndex === experience.movements.length - 1)}
+          nextProjectName={experience ? nextProject(experience.slug)?.name ?? null : null}
+          practicePreview={practicePeek.open}
+          onShowManifesto={showManifesto}
+          onShowStudio={showStudioContent}
+          onCloseSheet={closePanel}
+          onNextProject={() => window.dispatchEvent(new Event("hbw:boundary-next"))}
+          onPracticePreviewEnter={practicePeek.show}
+          onPracticePreviewLeave={practicePeek.hideSoon}
+          onPracticePreviewOpen={() => {
+            if (inspecting) return;
+            openPanel("studio");
+          }}
         />
       </div>
     </WorkspaceContext.Provider>

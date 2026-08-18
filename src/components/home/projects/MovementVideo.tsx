@@ -2,37 +2,112 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ProjectMedia } from "@/components/home/projects/types";
+import { reduceMotion } from "@/components/home/motion";
 
 type Props = {
   media: ProjectMedia;
   load: boolean;
   eager: boolean;
+  active?: boolean;
   viewTransitionName?: string;
 };
 
-export function MovementVideo({ media, load, eager, viewTransitionName }: Props) {
+function preferSrc(media: ProjectMedia) {
+  const probe = typeof document !== "undefined" ? document.createElement("video") : null;
+  const mp4 = media.mp4 || media.videoSrc || (/\.mp4(\?|$)/i.test(media.src) ? media.src : "");
+  const webm = media.webm || (/\.webm(\?|$)/i.test(media.src) ? media.src : "");
+  const mp4Ok = mp4 && (!probe || probe.canPlayType("video/mp4") !== "");
+  const webmOk = webm && (!probe || probe.canPlayType("video/webm") !== "");
+  if (mp4Ok) return mp4;
+  if (webmOk) return webm;
+  return mp4 || webm;
+}
+
+export function MovementVideo({ media, load, eager, active = false, viewTransitionName }: Props) {
+  const rootRef = useRef<HTMLSpanElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [ready, setReady] = useState(false);
+  const fallbackRef = useRef(false);
+  const [playing, setPlaying] = useState(false);
+  const [kept, setKept] = useState(load || eager);
+  const [src, setSrc] = useState(() => preferSrc(media));
+  const poster = media.poster;
+  const muted = media.muted !== false;
+  const loop = media.loop !== false;
+  const wantsAutoplay = media.autoplay !== false && !reduceMotion();
 
   useEffect(() => {
-    setReady(false);
-  }, [media.src]);
+    fallbackRef.current = false;
+    setSrc(preferSrc(media));
+    setPlaying(false);
+  }, [media.mp4, media.webm, media.videoSrc, media.src]);
 
-  function markReady() {
+  useEffect(() => {
+    if (load) setKept(true);
+  }, [load]);
+
+  useEffect(() => {
     const node = videoRef.current;
-    if (!node) return;
-    if (node.readyState >= 2) {
-      setReady(true);
-      node.play().catch(() => {});
+    const root = rootRef.current;
+    if (!node || !kept || !src) return;
+
+    function pause() {
+      videoRef.current?.pause();
     }
+
+    function tryPlay() {
+      const el = videoRef.current;
+      if (!el) return;
+      el.muted = true;
+      el.defaultMuted = true;
+      el.playsInline = true;
+      el.setAttribute("playsinline", "");
+      el.setAttribute("webkit-playsinline", "");
+      void el.play().catch(() => undefined);
+    }
+
+    if (!wantsAutoplay || !active || !load) {
+      pause();
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting && (entry.intersectionRatio ?? 0) >= 0.2) tryPlay();
+        else pause();
+      },
+      { threshold: [0, 0.2, 0.5, 1] }
+    );
+    io.observe(root || node);
+    tryPlay();
+    return () => {
+      io.disconnect();
+      pause();
+    };
+  }, [kept, load, src, wantsAutoplay, active]);
+
+  function onError() {
+    if (fallbackRef.current) {
+      setPlaying(false);
+      return;
+    }
+    const webm = media.webm;
+    const mp4 = media.mp4 || media.videoSrc;
+    const next = src === mp4 ? webm : mp4;
+    if (!next || next === src) {
+      setPlaying(false);
+      return;
+    }
+    fallbackRef.current = true;
+    setPlaying(false);
+    setSrc(next);
   }
 
   return (
-    <span className="hbw-mv__film">
-      {media.poster ? (
+    <span ref={rootRef} className="hbw-mv__film">
+      {poster ? (
         <img
-          className={`hbw-mv__poster is-${media.fit}${ready ? " is-resolved" : ""}`}
-          src={media.poster}
+          className={`hbw-mv__poster is-${media.fit}${playing ? " is-resolved" : ""}`}
+          src={poster}
           alt=""
           width={media.width}
           height={media.height}
@@ -40,31 +115,28 @@ export function MovementVideo({ media, load, eager, viewTransitionName }: Props)
           style={viewTransitionName ? { viewTransitionName } : undefined}
         />
       ) : null}
-      {load ? (
+      {kept && src ? (
         <video
           ref={videoRef}
           className={`hbw-mv__media is-${media.fit}`}
-          poster={media.poster}
+          src={src}
+          poster={poster}
           width={media.width}
           height={media.height}
-          muted
-          loop
+          muted={muted}
+          loop={loop}
           playsInline
-          autoPlay={eager}
-          preload={eager ? "auto" : "metadata"}
+          autoPlay={eager && wantsAutoplay && active}
+          preload={eager || active ? "auto" : "metadata"}
           disablePictureInPicture
           controls={false}
-          onLoadedData={markReady}
-          onCanPlay={markReady}
-          onPlaying={() => setReady(true)}
-        >
-          <source src={media.src} type="video/mp4" />
-          {media.webm ? <source src={media.webm} type="video/webm" /> : null}
-        </video>
-      ) : media.poster ? (
+          onPlaying={() => setPlaying(true)}
+          onError={onError}
+        />
+      ) : poster ? (
         <img
           className={`hbw-mv__media is-${media.fit}`}
-          src={media.poster}
+          src={poster}
           alt=""
           width={media.width}
           height={media.height}
