@@ -22,7 +22,7 @@ export type ProjectRecord = {
   homeSelected?: boolean;
   sector?: string;
   disciplines?: string[];
-  collaborators?: string[];
+  collaborators?: { name: string; kind: "studio" | "person" }[];
   credits?: string;
   location?: string;
   /** Absent means live. */
@@ -62,7 +62,7 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Performance nutrition",
     disciplines: ["Brand identity", "Packaging", "Art direction"],
-    collaborators: ["The Colour Club"],
+    collaborators: [{ name: "The Colour Club", kind: "studio" }],
     credits: "Brand identity, packaging design, and art direction by How by Why (HBW).",
   },
   {
@@ -150,7 +150,7 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Character design", "Visual system"],
-    collaborators: ["The Colour Club"],
+    collaborators: [{ name: "The Colour Club", kind: "studio" }],
     credits: "Brand identity, character design, and visual system by How by Why (HBW).",
   },
   {
@@ -170,7 +170,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualBefore: 4,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Art direction"],
-    collaborators: ["The Colour Club"],
+    collaborators: [{ name: "The Colour Club", kind: "studio" }],
     credits: "Brand identity and art direction by How by Why (HBW).",
     location: "501 George Street, Sydney",
   },
@@ -199,7 +199,7 @@ export function disciplineLabel(project: ProjectRecord) {
 }
 
 export function collaboratorLabel(project: ProjectRecord) {
-  return project.collaborators?.join(" · ") ?? "";
+  return project.collaborators?.map((item) => item.name).join(" · ") ?? "";
 }
 
 export function matchesFilter(project: ProjectRecord, dim: string, value: string) {
@@ -207,7 +207,7 @@ export function matchesFilter(project: ProjectRecord, dim: string, value: string
   if (dim === "year") return project.year === value;
   if (dim === "sector") return project.sector === value;
   if (dim === "discipline") return Boolean(project.disciplines?.includes(value));
-  if (dim === "collaborator") return Boolean(project.collaborators?.includes(value));
+  if (dim === "collaborator") return Boolean(project.collaborators?.some((item) => item.name === value));
   return true;
 }
 
@@ -217,7 +217,7 @@ export function filterValues(dim: string, list: ProjectRecord[] = PROJECTS) {
     if (dim === "year" && project.year) values.add(project.year);
     if (dim === "sector" && project.sector) values.add(project.sector);
     if (dim === "discipline") project.disciplines?.forEach((item) => values.add(item));
-    if (dim === "collaborator") project.collaborators?.forEach((item) => values.add(item));
+    if (dim === "collaborator") project.collaborators?.forEach((item) => values.add(item.name));
   }
   return [...values];
 }

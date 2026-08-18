@@ -377,12 +377,12 @@ function ArchiveItem({
         ))}
       </span>
       <span className="hbw-browse__row-collab">
-        {collaborators.map((value, i) => (
-          <span key={value}>
+        {collaborators.map((collab, i) => (
+          <span key={collab.name}>
             {i > 0 ? <span aria-hidden="true"> · </span> : null}
             <RelValue
               dim="collaborator"
-              value={value}
+              value={collab.name}
               currentDim={filterDim}
               currentValue={filterValue}
               onLens={onLens}

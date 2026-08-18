@@ -184,12 +184,13 @@ function InfoBody({
   onNextProject?: () => void;
 }) {
   const record = projectById(experience.slug);
-  const collabLine = record.collaborators?.length ? developedWith(record.collaborators) : "";
+  const collabNames = record.collaborators?.map((item) => item.name) ?? [];
+  const collabLine = collabNames.length ? developedWith(collabNames) : "";
   const facts = [
     record.sector ? ["Sector", record.sector] : null,
     record.disciplines?.length ? ["Disciplines", record.disciplines.join(" · ")] : null,
     record.year ? ["Year", record.year] : null,
-    record.collaborators?.length ? ["Collaborators", record.collaborators.join(" · ")] : null,
+    collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,
     record.location ? ["Location", record.location] : null,
     record.credits ? ["Credits", record.credits] : null,
   ].filter(Boolean) as [string, string][];
