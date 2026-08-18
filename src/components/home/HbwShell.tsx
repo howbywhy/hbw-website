@@ -132,7 +132,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     pathname === "/manifesto" ? "manifesto" : "studio"
   );
   const [panelLeaving, setPanelLeaving] = useState(false);
-  const [panelRestoring, setPanelRestoring] = useState(false);
   const [manifestoLeaving, setManifestoLeaving] = useState(false);
   const manifestoGen = useRef(0);
   const manifestoLeavingRef = useRef(false);
@@ -208,7 +207,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const practicePeek = useNavPeek(peekEnabled && !narrow && !panelLeaving);
   const [peekProject, setPeekProject] = useState<PeekProject | null>(null);
   const [whyPeekLock, setWhyPeekLock] = useState(false);
-  const inspecting = panel === "info" && !panelLeaving && !panelRestoring;
+  const inspecting = panel === "info" && !panelLeaving;
   const projectsRef = useRef<HTMLButtonElement>(null);
   const viewSlug =
     windowMode === "view" || phase !== "idle" || swap?.to === "view" ? activeId : slug;
@@ -333,7 +332,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         }
         setPanel(null);
         setPanelLeaving(false);
-        setPanelRestoring(false);
         setStudioView("studio");
       }
       studioPathRef.current = path;
@@ -397,7 +395,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       }
       setPanel(null);
       setPanelLeaving(false);
-      setPanelRestoring(false);
       setStudioView("studio");
     }
     studioPathRef.current = pathname;
@@ -477,7 +474,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     completeIntro();
     if (next === "info") captureInspectMedia();
     setPanelLeaving(false);
-    setPanelRestoring(false);
     closingPanelRef.current = false;
     if (next === "studio") setStudioView("studio");
     setPanel(next);
@@ -487,7 +483,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }
 
   function closePanel() {
-    if (!panel || panelLeaving || panelRestoring) return;
+    if (!panel || panelLeaving) return;
     const leaveRoute = panel === "studio" && isStudioPathname(pathname);
     closingPanelRef.current = true;
     if (panel === "info") captureInspectMedia();
@@ -495,14 +491,12 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setWhyPeekLock(true);
       practicePeek.hideNow();
     }
-    setPanelRestoring(false);
     setPanelLeaving(true);
     manifestoLeavingRef.current = false;
     setManifestoLeaving(false);
     later(HBW_T.spatial, () => {
       setPanel(null);
       setPanelLeaving(false);
-      setPanelRestoring(false);
       setStudioView("studio");
       if (leaveRoute) router.replace("/");
       closingPanelRef.current = false;
@@ -556,7 +550,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
-    setPanelRestoring(false);
     workspace.projects.open = true;
     persistWorkspace();
     motionLock.current = true;
@@ -644,7 +637,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
-    setPanelRestoring(false);
     setLeaving(null);
     motionLock.current = true;
     clearMotionTimers();
@@ -674,7 +666,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
-    setPanelRestoring(false);
     setLeaving(null);
     motionLock.current = true;
     clearMotionTimers();
@@ -710,7 +701,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     practicePeek.hideNow();
     setPanel(null);
     setPanelLeaving(false);
-    setPanelRestoring(false);
     motionLock.current = true;
     clearMotionTimers();
     setViewIndex(0);
@@ -778,7 +768,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
-    setPanelRestoring(false);
     motionLock.current = true;
     clearMotionTimers();
     entranceRef.current = "handoff";
@@ -847,7 +836,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
-    setPanelRestoring(false);
     motionLock.current = true;
     clearMotionTimers();
     entranceRef.current = "reduced";
@@ -1162,8 +1150,8 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         className={`hbw-home is-${windowMode}${panel ? " is-panel" : ""}${panel === "info" ? " is-inspect" : ""}${
           panel === "studio" ? " is-studio" : ""
         }${manifestoSheet ? " is-manifesto" : ""}${
-          panelRestoring ? " is-sheet-restoring" : ""
-        }${panelLeaving ? " is-sheet-leaving" : ""}${
+          panelLeaving ? " is-sheet-leaving" : ""
+        }${
           practicePeek.open && panel !== "studio" ? " is-practice-peek" : ""
         }${
           swap?.to === "view" || phase === "rising" || phase === "assembling" ? " is-owning" : ""

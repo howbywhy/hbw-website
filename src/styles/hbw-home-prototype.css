@@ -914,17 +914,18 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   pointer-events: none;
 }
 
-.hbw-home.is-sheet-leaving .hbw-home-strip__mark,
-.hbw-home.is-sheet-leaving .hbw-poster-toolbar,
-.hbw-home.is-sheet-leaving .hbw-poster-field,
-.hbw-home.is-sheet-leaving .hbw-nav-studio,
-.hbw-home.is-sheet-leaving .hbw-nav-sub {
-  transition: none !important;
+.hbw-home.is-sheet-leaving .hbw-nav-studio.is-sheet-close {
+  opacity: 0;
+  transition: opacity var(--hbw-t-spatial) var(--hbw-ease);
 }
 
-.hbw-home.is-sheet-restoring .hbw-home-strip__mark,
-.hbw-home.is-sheet-restoring .hbw-poster-toolbar,
-.hbw-home.is-sheet-restoring .hbw-poster-frozen {
+.hbw-home.is-sheet-leaving .hbw-poster-field.is-dormant {
+  opacity: 1;
+}
+
+.hbw-home.is-sheet-leaving .hbw-home-strip__mark,
+.hbw-home.is-sheet-leaving .hbw-poster-toolbar,
+.hbw-home.is-sheet-leaving .hbw-nav-sub {
   transition: none !important;
 }
 
@@ -3544,7 +3545,9 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-home-strip__exit,
   .hbw-mark-word,
   .hbw-mark-descriptor,
-  .hbw-mv__poster {
+  .hbw-mv__poster,
+  .hbw-home.is-sheet-leaving .hbw-nav-studio.is-sheet-close,
+  .hbw-home.is-sheet-leaving .hbw-poster-field {
     transition: none !important;
     animation: none !important;
   }
