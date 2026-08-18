@@ -10,8 +10,6 @@ export const HBW_T = {
   spatial: 380,
   /** Ownership transfers: project entry, project→project, return to origin. */
   continuity: 520,
-  /** Composed first-visit hold. Not a fifth grammar token. */
-  intro: 2280,
   /** Preload budget. Not visual. */
   prepareCap: 1400,
 } as const;

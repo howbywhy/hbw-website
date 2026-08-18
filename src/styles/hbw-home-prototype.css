@@ -61,17 +61,16 @@ html.hbw-workspace {
   --hbw-t-micro: var(--hbw-motion-micro);
   --hbw-t-ui: var(--hbw-motion-ui);
   --hbw-t-enter: var(--hbw-motion-spatial);
-  --hbw-t-exit: var(--hbw-motion-spatial);
+  --hbw-t-exit: var(--hbw-motion-continuity);
   --hbw-t-nav: var(--hbw-motion-micro);
   --hbw-t-spatial: var(--hbw-motion-spatial);
   --hbw-t-handoff: var(--hbw-motion-continuity);
+  --hbw-t-identity: var(--hbw-motion-continuity);
   --hbw-t-gallery: var(--hbw-motion-ui);
   --hbw-field: #f4f5f3;
   --hbw-vv-inset: 0px;
+  /* Composed first-visit hold. Source: HBW_INTRO_MS in motion.ts. */
   --hbw-t-intro: 2280ms;
-  --hbw-t-fade: var(--hbw-motion-ui);
-  --hbw-t-move: var(--hbw-motion-spatial);
-  --hbw-t-panel: var(--hbw-motion-spatial);
 }
 
 html.hbw-workspace,
@@ -288,10 +287,10 @@ html.hbw-intro .hbw-poster-frozen {
 
 html.hbw-intro-live .hbw-poster-toolbar,
 html.hbw-intro-live .hbw-poster-frozen {
-  animation: hbw-intro-present var(--hbw-motion-spatial) var(--hbw-ease)
+  animation: hbw-intro-present var(--hbw-t-enter) var(--hbw-ease)
     calc(
-      var(--hbw-motion-spatial) + var(--hbw-motion-continuity) + var(--hbw-motion-ui) +
-        var(--hbw-motion-ui) + var(--hbw-motion-ui) + var(--hbw-motion-ui)
+      var(--hbw-t-enter) + var(--hbw-t-handoff) + var(--hbw-t-ui) +
+        var(--hbw-t-ui) + var(--hbw-t-ui) + var(--hbw-t-ui)
     )
     both;
 }
@@ -382,12 +381,12 @@ html:not(.hbw-intro) .hbw-intro-thought {
 }
 
 html.hbw-intro .hbw-intro-thought {
-  animation: hbw-intro-occupy var(--hbw-motion-spatial) var(--hbw-ease) both;
+  animation: hbw-intro-occupy var(--hbw-t-enter) var(--hbw-ease) both;
 }
 
 html.hbw-intro-yield .hbw-intro-support {
   opacity: 0;
-  transition: opacity var(--hbw-motion-ui) var(--hbw-ease);
+  transition: opacity var(--hbw-t-ui) var(--hbw-ease);
 }
 
 html.hbw-intro-resolve .hbw-intro-how,
@@ -436,13 +435,13 @@ html:not(.hbw-intro):not(.hbw-arriving-make):not(.hbw-arriving-browse) .hbw-arri
 
 .hbw-arrive__line--clarity {
   opacity: 0;
-  animation: hbw-intro-in var(--hbw-motion-ui) var(--hbw-ease) 280ms both;
+  animation: hbw-intro-in var(--hbw-t-ui) var(--hbw-ease) 280ms both;
 }
 
 .hbw-arrive__line--prompt {
   font-size: var(--hbw-sm);
   opacity: 0;
-  animation: hbw-intro-in var(--hbw-motion-ui) var(--hbw-ease) 640ms both;
+  animation: hbw-intro-in var(--hbw-t-ui) var(--hbw-ease) 640ms both;
 }
 
 .hbw-arrive__paths {
@@ -450,7 +449,7 @@ html:not(.hbw-intro):not(.hbw-arriving-make):not(.hbw-arriving-browse) .hbw-arri
   gap: var(--hbw-space-4);
   pointer-events: auto;
   opacity: 0;
-  animation: hbw-intro-in var(--hbw-motion-ui) var(--hbw-ease) 1100ms both;
+  animation: hbw-intro-in var(--hbw-t-ui) var(--hbw-ease) 1100ms both;
 }
 
 .hbw-arrive__path {
@@ -466,7 +465,7 @@ html:not(.hbw-intro):not(.hbw-arriving-make):not(.hbw-arriving-browse) .hbw-arri
 html.hbw-arriving-make .hbw-arrive,
 html.hbw-arriving-browse .hbw-arrive {
   opacity: 0;
-  transition: opacity var(--hbw-motion-ui) var(--hbw-ease);
+  transition: opacity var(--hbw-t-ui) var(--hbw-ease);
 }
 
 html.hbw-arriving-make .hbw-nav-projects,
@@ -477,7 +476,7 @@ html.hbw-arriving-browse .hbw-nav-studio {
 }
 
 html.hbw-arriving-make .hbw-poster-toolbar {
-  animation: hbw-intro-present var(--hbw-motion-ui) var(--hbw-ease) var(--hbw-motion-ui) both;
+  animation: hbw-intro-present var(--hbw-t-ui) var(--hbw-ease) var(--hbw-t-ui) both;
 }
 
 /* --- Navigation: the site grid --- */
@@ -622,7 +621,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--hbw-motion-micro) var(--hbw-ease);
+  transition: opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
 .hbw-home-strip__mark.is-assembled .hbw-mark-suffix {
@@ -641,7 +640,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 
 .hbw-home.is-swap-exiting[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on,
 .hbw-home.is-swap-entering[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on {
-  transition-delay: var(--hbw-motion-spatial);
+  transition-delay: var(--hbw-t-spatial);
 }
 
 .hbw-mark-times,
@@ -656,7 +655,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 
 .hbw-home-strip__mark.is-assembled .hbw-mark-context,
 .hbw-mark-suffix.is-on .hbw-mark-context {
-  animation: hbw-name-in var(--hbw-motion-micro) var(--hbw-ease);
+  animation: hbw-name-in var(--hbw-t-nav) var(--hbw-ease);
 }
 
 .hbw-mark-word {
@@ -671,8 +670,8 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   letter-spacing: var(--hbw-ui-track, 0.02em);
   text-transform: none;
   transition:
-    clip-path var(--hbw-motion-micro) var(--hbw-ease),
-    opacity var(--hbw-motion-micro) var(--hbw-ease);
+    clip-path var(--hbw-t-nav) var(--hbw-ease),
+    opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
 .hbw-mark-word--rest {
@@ -721,7 +720,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 }
 
 html.hbw-nav-teach .hbw-mark-word {
-  transition-duration: var(--hbw-motion-ui);
+  transition-duration: var(--hbw-t-ui);
 }
 
 .hbw-home-strip__mark button:focus-visible {
@@ -741,11 +740,11 @@ html.hbw-nav-teach .hbw-mark-word {
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--hbw-motion-micro) var(--hbw-ease);
+  transition: opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
 html.hbw-intro-resolve .hbw-mark-descriptor {
-  animation: hbw-intro-present var(--hbw-motion-ui) var(--hbw-ease) var(--hbw-motion-ui) both;
+  animation: hbw-intro-present var(--hbw-t-ui) var(--hbw-ease) var(--hbw-t-ui) both;
 }
 
 html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-descriptor {
@@ -759,7 +758,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 
 .hbw-mark-descriptor__line {
   display: block;
-  animation: hbw-name-in var(--hbw-motion-micro) var(--hbw-ease);
+  animation: hbw-name-in var(--hbw-t-nav) var(--hbw-ease);
 }
 
 .hbw-mark-all {
@@ -784,7 +783,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 
 .hbw-home[data-hbw-from="browse"][data-hbw-to="make"] .hbw-mark-descriptor,
 .hbw-home[data-hbw-from="view"][data-hbw-to="make"] .hbw-mark-descriptor {
-  transition-delay: var(--hbw-motion-spatial);
+  transition-delay: var(--hbw-t-spatial);
 }
 
 .hbw-home.is-make .hbw-nav-projects:not(.is-sheet-close) .hbw-nav-projects__hit,
@@ -871,9 +870,9 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   min-width: 4.6rem;
   text-align: left;
   transition:
-    opacity var(--hbw-motion-micro) var(--hbw-ease),
-    transform var(--hbw-motion-spatial) var(--hbw-ease),
-    margin-left var(--hbw-motion-spatial) var(--hbw-ease);
+    opacity var(--hbw-t-nav) var(--hbw-ease),
+    transform var(--hbw-t-spatial) var(--hbw-ease),
+    margin-left var(--hbw-t-spatial) var(--hbw-ease);
 }
 
 /* Sheet Close uses the existing nav control, stacked on the active sheet edge. */
@@ -949,7 +948,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 .hbw-home.is-moving .hbw-nav-sub__meta {
   opacity: 0.22;
   pointer-events: none;
-  transition: opacity var(--hbw-motion-micro) var(--hbw-ease);
+  transition: opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
 .hbw-home.is-boundary.is-moving .hbw-nav-sub__meta,
@@ -1078,8 +1077,8 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   gap: 1.25rem;
   min-width: 0;
   transition:
-    clip-path var(--hbw-motion-ui) var(--hbw-ease),
-    opacity var(--hbw-motion-ui) var(--hbw-ease);
+    clip-path var(--hbw-t-ui) var(--hbw-ease),
+    opacity var(--hbw-t-ui) var(--hbw-ease);
 }
 
 .hbw-nav-sub__face--next {
@@ -1131,7 +1130,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   pointer-events: none;
   opacity: 0;
   transform: none;
-  transition: opacity var(--hbw-motion-ui) var(--hbw-ease);
+  transition: opacity var(--hbw-t-ui) var(--hbw-ease);
 }
 
 .hbw-nav-peek.is-open {
@@ -1383,7 +1382,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   bottom: var(--hbw-task-bottom, 14px);
   transform: translateX(-50%);
   z-index: 8;
-  transition: transform var(--hbw-motion-spatial) var(--hbw-ease), opacity var(--hbw-motion-spatial) var(--hbw-ease);
+  transition: transform var(--hbw-t-spatial) var(--hbw-ease), opacity var(--hbw-t-spatial) var(--hbw-ease);
 }
 
 .hbw-poster-toolbar {
@@ -1435,7 +1434,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   padding: 0 var(--hbw-space-2);
   border-top: 1px solid rgba(51, 51, 51, 0.12);
   opacity: 0.88;
-  animation: hbw-context-in var(--hbw-motion-ui) var(--hbw-ease) both;
+  animation: hbw-context-in var(--hbw-t-ui) var(--hbw-ease) both;
 }
 
 @keyframes hbw-context-in {
@@ -1816,8 +1815,8 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   overflow-anchor: none;
   transform: translateY(8%);
   transition:
-    transform var(--hbw-motion-spatial) var(--hbw-ease),
-    opacity var(--hbw-motion-spatial) var(--hbw-ease);
+    transform var(--hbw-t-spatial) var(--hbw-ease),
+    opacity var(--hbw-t-spatial) var(--hbw-ease);
 }
 
 .hbw-projects.is-open {
@@ -1922,7 +1921,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
     display: block;
     object-fit: contain;
     opacity: 0;
-    transition: opacity var(--hbw-motion-ui) var(--hbw-ease);
+    transition: opacity var(--hbw-t-gallery) var(--hbw-ease);
   }
 
   .hbw-projects.is-index .hbw-browse__hover-image.is-on img {
@@ -1990,7 +1989,7 @@ html.hbw-entered .hbw-home-strip {
 }
 
 html.hbw-vt-spatial::view-transition-group(*) {
-  animation-duration: var(--hbw-motion-spatial);
+  animation-duration: var(--hbw-t-spatial);
 }
 
 html.hbw-vt-archive::view-transition-group(root) {
@@ -2042,7 +2041,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 ::view-transition-group(hbw-mark-how),
 ::view-transition-group(hbw-mark-by),
 ::view-transition-group(hbw-mark-why) {
-  animation-duration: var(--hbw-motion-continuity);
+  animation-duration: var(--hbw-t-identity);
   animation-timing-function: var(--hbw-ease);
 }
 
@@ -2254,9 +2253,9 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     pointer-events: none;
     color: #333;
     transition:
-      grid-template-rows var(--hbw-motion-ui) var(--hbw-ease),
-      opacity var(--hbw-motion-ui) var(--hbw-ease),
-      padding var(--hbw-motion-ui) var(--hbw-ease);
+      grid-template-rows var(--hbw-t-ui) var(--hbw-ease),
+      opacity var(--hbw-t-ui) var(--hbw-ease),
+      padding var(--hbw-t-ui) var(--hbw-ease);
   }
 
   .hbw-projects.is-visual .hbw-browse__cell.is-noted .hbw-browse__note {
@@ -2453,9 +2452,9 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     pointer-events: none;
     color: #333;
     transition:
-      grid-template-rows var(--hbw-motion-ui) var(--hbw-ease),
-      opacity var(--hbw-motion-ui) var(--hbw-ease),
-      padding var(--hbw-motion-ui) var(--hbw-ease);
+      grid-template-rows var(--hbw-t-ui) var(--hbw-ease),
+      opacity var(--hbw-t-ui) var(--hbw-ease),
+      padding var(--hbw-t-ui) var(--hbw-ease);
   }
 
   .hbw-projects.is-index .hbw-browse__row.is-noted .hbw-browse__note {
@@ -2502,7 +2501,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   pointer-events: none;
   transform: none;
   opacity: 0;
-  transition: transform var(--hbw-motion-continuity) var(--hbw-ease), opacity var(--hbw-motion-spatial) var(--hbw-ease);
+  transition: transform var(--hbw-t-handoff) var(--hbw-ease), opacity var(--hbw-t-spatial) var(--hbw-ease);
 }
 
 .hbw-project-view.is-rising,
@@ -2579,7 +2578,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 .hbw-project-view.is-assembling .hbw-mv:first-child {
   opacity: 1;
   transform: none;
-  transition: transform var(--hbw-motion-continuity) var(--hbw-ease);
+  transition: transform var(--hbw-t-handoff) var(--hbw-ease);
 }
 
 .hbw-project-view.is-assembling .hbw-mv:not(:first-child),
@@ -2587,8 +2586,8 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   opacity: 1;
   transform: none;
   transition:
-    transform var(--hbw-motion-continuity) var(--hbw-ease),
-    opacity var(--hbw-motion-continuity) var(--hbw-ease);
+    transform var(--hbw-t-handoff) var(--hbw-ease),
+    opacity var(--hbw-t-handoff) var(--hbw-ease);
 }
 
 .hbw-project-view.is-handoff-in {
@@ -2615,12 +2614,12 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   transform-origin: 50% 50%;
   filter: none;
   background: transparent;
-  transition: transform var(--hbw-motion-continuity) var(--hbw-ease),
-    opacity var(--hbw-motion-continuity) var(--hbw-ease);
+  transition: transform var(--hbw-t-handoff) var(--hbw-ease),
+    opacity var(--hbw-t-handoff) var(--hbw-ease);
 }
 
 ::view-transition-old(hbw-yield) {
-  animation: hbw-yield-out var(--hbw-motion-continuity) var(--hbw-ease) both;
+  animation: hbw-yield-out var(--hbw-t-handoff) var(--hbw-ease) both;
   mix-blend-mode: normal;
 }
 
@@ -2647,8 +2646,8 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   transform: scale(0.992);
   opacity: 0;
   transform-origin: 50% 50%;
-  transition: transform var(--hbw-motion-continuity) var(--hbw-ease),
-    opacity var(--hbw-motion-continuity) var(--hbw-ease);
+  transition: transform var(--hbw-t-exit) var(--hbw-ease),
+    opacity var(--hbw-t-exit) var(--hbw-ease);
 }
 
 .hbw-home.is-owning .hbw-projects.is-open .hbw-browse__item:not(.is-active) {
@@ -2831,7 +2830,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     aspect-ratio: var(--hbw-mv-ratio, auto);
     overflow: hidden;
     transform: translate3d(calc(var(--hbw-stage-w, 100%) * 0.24), 0, 0);
-    transition: transform var(--hbw-motion-continuity) var(--hbw-ease);
+    transition: transform var(--hbw-t-handoff) var(--hbw-ease);
   }
 
   .hbw-project-view.is-boundary .hbw-outro.is-next .hbw-outro__preview,
@@ -2981,9 +2980,9 @@ html.hbw-workspace .hbw-sheet-layer .hbw-inspector {
   visibility: hidden;
   transform: translateX(110%) translateZ(0);
   transition:
-    transform var(--hbw-motion-spatial) var(--hbw-ease),
-    left var(--hbw-motion-spatial) var(--hbw-ease),
-    right var(--hbw-motion-spatial) var(--hbw-ease);
+    transform var(--hbw-t-spatial) var(--hbw-ease),
+    left var(--hbw-t-spatial) var(--hbw-ease),
+    right var(--hbw-t-spatial) var(--hbw-ease);
   backface-visibility: hidden;
 }
 
