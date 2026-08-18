@@ -38,7 +38,7 @@ import {
   type WindowMode,
 } from "@/components/home/workspace";
 import { HBW_EASE, HBW_INTRO_MS, HBW_T, isMobileViewport, reduceMotion, type SwapPhase } from "@/components/home/motion";
-import { isStudioPathname, isWorkspacePathname, projectSlugFromPath } from "@/lib/workspace-routes";
+import { isStudioPathname, projectSlugFromPath } from "@/lib/workspace-routes";
 
 const INTRO_KEY = "hbw.entered.v2";
 
@@ -66,7 +66,6 @@ function completeIntro() {
     });
   try {
     sessionStorage.setItem(INTRO_KEY, "1");
-    sessionStorage.removeItem("hbw.intro.media.v1");
   } catch {
     /* ignore */
   }
@@ -124,7 +123,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const router = useRouter();
   const slug = projectSlugFromPath(pathname);
-  const workspaceRoute = isWorkspacePathname(pathname);
   const [panel, setPanel] = useState<WorkspacePanelId>(() =>
     isStudioPathname(pathname) ? "studio" : null
   );
@@ -263,10 +261,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    if (!workspaceRoute) {
-      document.documentElement.classList.remove("hbw-workspace", "hbw-home-prototype");
-      return;
-    }
     hydrateWorkspace();
     persistWorkspace();
     document.documentElement.classList.add("hbw-workspace", "hbw-home-prototype");
@@ -291,10 +285,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       window.removeEventListener("pagehide", onHide);
       window.removeEventListener("hbw:info-anchor", onAnchor);
     };
-  }, [workspaceRoute, slug]);
+  }, [slug]);
 
   useEffect(() => {
-    if (!workspaceRoute) return;
     function onPop() {
       setHoveredId(null);
       motionLock.current = false;
@@ -338,10 +331,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     }
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
-  }, [workspaceRoute]);
+  }, []);
 
   useEffect(() => {
-    if (!workspaceRoute || motionLock.current) return;
+    if (motionLock.current) return;
     setBrowseMode(workspace.projects.mode);
     setFilterDim(workspace.projects.filterDim);
     setFilterValue(workspace.projects.filterValue);
@@ -371,11 +364,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         setPhase("idle");
       }
     }
-    workspace.projects.open = nextMode === "browse";
-  }, [pathname, workspaceRoute, slug]);
+  }, [pathname, slug]);
 
   useEffect(() => {
-    if (!workspaceRoute) return;
     const prev = studioPathRef.current;
     if (pathname === "/studio") {
       setPanel("studio");
@@ -398,7 +389,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setStudioView("studio");
     }
     studioPathRef.current = pathname;
-  }, [pathname, workspaceRoute]);
+  }, [pathname]);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -550,8 +541,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setHoveredId(null);
     setPanel(null);
     setPanelLeaving(false);
-    workspace.projects.open = true;
-    persistWorkspace();
     motionLock.current = true;
     clearMotionTimers();
     flipMark(() => {
@@ -587,8 +576,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     if (motionLock.current) return;
     setHoveredId(null);
     closePanel();
-    workspace.projects.open = false;
-    persistWorkspace();
     motionLock.current = true;
     clearMotionTimers();
     flipMark(() => {
@@ -642,8 +629,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     clearMotionTimers();
     if (viewSlug) savedIndex.current[viewSlug] = viewIndex;
     keepBrowse.current = true;
-    workspace.projects.open = true;
-    persistWorkspace();
     setSwap({ from: "view", to: "browse", phase: "exiting" });
     setPhase("exiting");
     if (history === "replace") router.replace("/?layer=projects");
@@ -670,8 +655,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     motionLock.current = true;
     clearMotionTimers();
     commitOrigin([]);
-    workspace.projects.open = false;
-    persistWorkspace();
     flipMark(() => {
       flushSync(() => {
         setSwap({ from: "view", to: "make", phase: "exiting" });
@@ -1008,7 +991,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }, [whyPeekLock]);
 
   useEffect(() => {
-    if (!workspaceRoute) return;
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") {
         const typing =
@@ -1061,7 +1043,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [activeId, browseMode, filterDim, filterValue, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode, workspaceRoute]);
+  }, [activeId, browseMode, filterDim, filterValue, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode]);
 
   useEffect(() => {
     if (panel !== "info") return;
@@ -1375,7 +1357,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           practicePreview={practicePeek.open}
           onShowManifesto={showManifesto}
           onShowStudio={showStudioContent}
-          onCloseSheet={closePanel}
           onNextProject={() => window.dispatchEvent(new Event("hbw:boundary-next"))}
           onPracticePreviewEnter={practicePeek.show}
           onPracticePreviewLeave={practicePeek.hideSoon}

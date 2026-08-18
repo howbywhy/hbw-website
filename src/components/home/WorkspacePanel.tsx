@@ -19,7 +19,6 @@ type Props = {
   nextProjectName?: string | null;
   onShowManifesto: () => void;
   onShowStudio: () => void;
-  onCloseSheet?: () => void;
   onNextProject?: () => void;
   onPracticePreviewEnter?: () => void;
   onPracticePreviewLeave?: () => void;
@@ -258,7 +257,6 @@ export function WorkspacePanel({
   experience,
   onShowManifesto,
   onShowStudio,
-  onCloseSheet,
   onNextProject,
   atProjectEnd = false,
   nextProjectName = null,
@@ -281,7 +279,6 @@ export function WorkspacePanel({
 
   void infoAnchor;
   void onShowStudio;
-  void onCloseSheet;
 
   return (
     <>

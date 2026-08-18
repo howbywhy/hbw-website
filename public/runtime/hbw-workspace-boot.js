@@ -18,7 +18,6 @@
         root.classList.add("hbw-entered");
         try {
           sessionStorage.setItem("hbw.entered.v2", "1");
-          sessionStorage.removeItem("hbw.intro.media.v1");
         } catch (e2) {}
       }, INTRO_FALLBACK_MS);
     } else {

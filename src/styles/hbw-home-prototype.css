@@ -23,7 +23,6 @@ html.hbw-workspace {
   --hbw-gallery-gap: var(--hbw-space-2);
   --hbw-boundary-gap: 12rem;
   --hbw-stage-gap: var(--hbw-space-4);
-  --hbw-browser-gap: var(--hbw-space-2);
   --hbw-peek-thumb: 3.25rem;
   --hbw-peek-gap: 0.5rem;
   --hbw-practice-peek: 11rem;
@@ -31,7 +30,6 @@ html.hbw-workspace {
   --hbw-work-col: 16rem;
   --hbw-index-thumb: 1.75rem;
   --hbw-index-gutter: 1.15rem;
-  --hbw-doc-slice: 4rem;
   --hbw-x-brand: var(--hbw-edge);
   --hbw-x-projects: calc(var(--hbw-edge) + (100vw - 2 * var(--hbw-edge) - var(--hbw-work-col)) / 2);
   --hbw-x-studio: calc(var(--hbw-x-projects) + var(--hbw-work-col));
@@ -46,7 +44,6 @@ html.hbw-workspace {
   --hbw-lg: 0.9375rem;
   --hbw-sm: var(--hbw-lg);
   --hbw-ui: var(--hbw-lg);
-  --hbw-ui-sm: var(--hbw-lg);
   --hbw-ui-track: 0.02em;
   --hbw-lh-ui: 1.2;
   --hbw-lh-body: 1.45;
@@ -76,10 +73,8 @@ html.hbw-workspace {
 html.hbw-workspace,
 html.hbw-home-prototype {
   --hbw-font: Geist, sans-serif;
+  /* Held so an identity face can differ from the UI face without another token sweep. */
   --hbw-font-display: var(--hbw-font);
-  --hbw-font-size: var(--hbw-lg);
-  --hbw-font-size-body: var(--hbw-lg);
-  --hbw-ls: var(--hbw-ui-track, 0.02em);
 }
 
 html.hbw-workspace,
@@ -132,35 +127,6 @@ html.hbw-workspace .hbw-sheet-layer :where(*):not(img, video, canvas, svg, path)
   font-size: inherit;
   font-weight: inherit;
   letter-spacing: inherit;
-}
-
-html.hbw-workspace .hbw-floatnav,
-html.hbw-workspace .folder-tab-container,
-html.hbw-workspace .hbw-signature,
-html.hbw-workspace .hbw-description,
-html.hbw-workspace .popup-overlay,
-html.hbw-workspace #hbw-ss,
-html.hbw-workspace #hbw-ss-c,
-html.hbw-workspace .hbw-info,
-html.hbw-workspace .hbw-info-toggle,
-html.hbw-workspace .project-gallery__counter,
-html.hbw-workspace .project-gallery__progress,
-html.hbw-workspace .scroll-progress,
-html.hbw-workspace .about-contents,
-html.hbw-workspace .about-container,
-html.hbw-home-prototype .hbw-floatnav,
-html.hbw-home-prototype .folder-tab-container,
-html.hbw-home-prototype .hbw-signature,
-html.hbw-home-prototype .hbw-description,
-html.hbw-home-prototype .popup-overlay,
-html.hbw-home-prototype #hbw-ss,
-html.hbw-home-prototype #hbw-ss-c,
-html.hbw-home-prototype .about-contents,
-html.hbw-home-prototype .about-container {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  opacity: 0 !important;
 }
 
 .hbw-home {
@@ -229,8 +195,7 @@ html.hbw-intro .hbw-window {
 
 html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__mark,
 html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-projects,
-html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-studio,
-html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__time {
+html:not(.hbw-entered):not(.hbw-intro) .hbw-nav-studio {
   opacity: 0;
   transform: translateY(var(--hbw-space-1));
   pointer-events: none;
@@ -238,7 +203,6 @@ html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__time {
 
 html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-field,
 html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-toolbar,
-html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-frozen,
 html:not(.hbw-entered):not(.hbw-intro) .hbw-projects.is-open {
   opacity: 0;
   pointer-events: none;
@@ -274,19 +238,16 @@ html.hbw-intro .hbw-poster-field {
 }
 
 html.hbw-intro .hbw-poster-toolbar,
-html.hbw-intro .hbw-poster-frozen,
 html.hbw-intro .hbw-projects.is-open {
   opacity: 0;
   pointer-events: none;
 }
 
-html.hbw-intro .hbw-poster-toolbar,
-html.hbw-intro .hbw-poster-frozen {
+html.hbw-intro .hbw-poster-toolbar {
   animation: none;
 }
 
-html.hbw-intro-live .hbw-poster-toolbar,
-html.hbw-intro-live .hbw-poster-frozen {
+html.hbw-intro-live .hbw-poster-toolbar {
   animation: hbw-intro-present var(--hbw-t-enter) var(--hbw-ease)
     calc(
       var(--hbw-t-enter) + var(--hbw-t-handoff) + var(--hbw-t-ui) +
@@ -961,20 +922,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   opacity: 0;
 }
 
-.hbw-home-strip__time {
-  grid-column: studio-start;
-  grid-row: 1;
-  position: relative;
-  z-index: 40;
-  justify-self: end;
-  align-self: start;
-  height: var(--hbw-nav-line);
-  display: flex;
-  align-items: center;
-  font-variant-numeric: tabular-nums;
-  font-size: var(--hbw-sm);
-}
-
 .hbw-home-strip button {
   appearance: none;
   background: none;
@@ -1376,8 +1323,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   cursor: default;
 }
 
-.hbw-poster-toolbar,
-.hbw-poster-frozen {
+.hbw-poster-toolbar {
   position: absolute;
   left: 50%;
   bottom: var(--hbw-task-bottom, 14px);
@@ -1402,16 +1348,13 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 }
 
 .hbw-home.is-make.is-swap-exiting .hbw-poster-toolbar,
-.hbw-home.is-make.is-swap-exiting .hbw-poster-frozen,
-.hbw-home:not(.is-make) .hbw-poster-toolbar,
-.hbw-home:not(.is-make) .hbw-poster-frozen {
+.hbw-home:not(.is-make) .hbw-poster-toolbar {
   transform: translateX(-50%) translateY(18px);
   opacity: 0;
   pointer-events: none;
 }
 
-.hbw-poster-toolbar__primary,
-.hbw-poster-toolbar__cluster {
+.hbw-poster-toolbar__primary {
   display: flex;
   align-items: stretch;
   flex: 0 0 auto;
@@ -1515,12 +1458,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   cursor: default;
 }
 
-.hbw-poster-shapes {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.08rem;
-}
-
 .hbw-poster-edit {
   position: absolute;
   z-index: 7;
@@ -1540,43 +1477,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   user-select: text;
   -webkit-user-select: text;
   touch-action: manipulation;
-}
-
-.hbw-poster-email {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1rem;
-  flex: 1 1 100%;
-  justify-content: center;
-}
-
-.hbw-poster-email input {
-  appearance: none;
-  border: 0;
-  border-bottom: 1px solid rgba(51, 51, 51, 0.28);
-  background: transparent;
-  font-family: var(--hbw-font);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  color: #333;
-  padding: 0.15rem 0;
-  min-width: 10rem;
-}
-
-.hbw-poster-send button {
-  appearance: none;
-  background: none;
-  border: 0;
-  padding: 0;
-  font-family: var(--hbw-font);
-  font-size: var(--hbw-sm);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  color: rgba(51, 51, 51, 0.62);
-  cursor: pointer;
-}
-
-.hbw-poster-send button:hover,
-.hbw-poster-send button:focus-visible {
-  color: #1d1d1d;
 }
 
 .hbw-poster-tool svg {
@@ -1646,13 +1546,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   pointer-events: none;
 }
 
-.hbw-poster-swatches {
-  display: flex;
-  gap: 0.18rem;
-  align-items: center;
-  padding: 0 0.25rem;
-}
-
 .hbw-poster-send-open {
   display: inline-flex;
   align-items: center;
@@ -1675,14 +1568,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 .hbw-poster-send-open.is-current,
 .hbw-poster-send-open[aria-pressed="true"] {
   color: #333;
-}
-
-.hbw-poster-freeze__mark {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: #e23b2e;
-  flex: 0 0 auto;
 }
 
 .hbw-poster-input {
@@ -1750,55 +1635,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 
 .hbw-poster-reset.is-ask {
   color: #e23b2e;
-}
-
-.hbw-poster-frozen {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: baseline;
-  gap: 0.5rem 1.35rem;
-  width: auto;
-  max-width: calc(100% - (2 * var(--hbw-edge)));
-  font-family: var(--hbw-font);
-  font-size: var(--hbw-lg);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-}
-
-.hbw-home:not(.is-make) .hbw-poster-frozen {
-  transform: translateX(-50%) translateY(18px);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.hbw-poster-frozen button,
-.hbw-poster-frozen a {
-  appearance: none;
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  letter-spacing: inherit;
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.hbw-poster-note {
-  flex: 1 1 100%;
-  margin: 0;
-  text-align: center;
-  font-family: var(--hbw-font);
-  font-size: var(--hbw-sm);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  color: rgba(51, 51, 51, 0.45);
-}
-
-.hbw-dev-note {
-  font-family: var(--hbw-font);
-  font-size: var(--hbw-sm);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  color: rgba(51, 51, 51, 0.5);
 }
 
 /* --- Browse: scrolling authored archive --- */
@@ -3172,9 +3008,7 @@ html.hbw-workspace .hbw-inspector h2 {
   color: #1d1d1d;
 }
 
-html.hbw-workspace .hbw-inspector p,
-html.hbw-workspace .hbw-inspector .hbw-inspector__lead,
-html.hbw-workspace .hbw-inspector .hbw-inspector__meta {
+html.hbw-workspace .hbw-inspector p {
   font-family: var(--hbw-font);
   font-size: var(--hbw-lg);
   font-weight: 400;
@@ -3183,63 +3017,6 @@ html.hbw-workspace .hbw-inspector .hbw-inspector__meta {
   margin: 0 0 var(--hbw-space-3);
   max-width: 36em;
   color: #1d1d1d;
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__lead {
-  margin: 0 0 var(--hbw-space-4);
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__meta {
-  margin: var(--hbw-space-4) 0 0;
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__step {
-  margin: 0 0 var(--hbw-space-3);
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__step h2 {
-  margin: 0 0 var(--hbw-space-1);
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__step p {
-  margin: 0;
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__opening {
-  font-size: var(--hbw-lg);
-  font-weight: 400;
-  line-height: var(--hbw-lh-body, 1.45);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  margin: 0 0 var(--hbw-space-4);
-  max-width: 34em;
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__closing {
-  margin: var(--hbw-space-4) 0 0;
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__back,
-html.hbw-workspace .hbw-inspector .hbw-inspector__link {
-  appearance: none;
-  display: inline-block;
-  background: none;
-  border: 0;
-  padding: 0;
-  margin: 0 0 var(--hbw-space-4);
-  font-family: var(--hbw-font);
-  font-size: var(--hbw-lg);
-  font-weight: 400;
-  line-height: var(--hbw-lh-ui, 1.2);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  color: #1d1d1d;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-html.hbw-workspace .hbw-inspector .hbw-inspector__mail {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
 }
 
 html.hbw-workspace .hbw-inspector section {
@@ -3365,28 +3142,6 @@ html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy h2 {
 html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy p {
   margin: 0 0 var(--hbw-space-4);
   max-width: 28em;
-}
-
-html.hbw-workspace .hbw-sheet .hbw-sheet__close {
-  appearance: none;
-  position: sticky;
-  top: var(--hbw-header-pad-y);
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  height: var(--hbw-nav-line);
-  margin: calc(var(--hbw-header-pad-y) - var(--hbw-header-h)) 0
-    calc(var(--hbw-header-h) - var(--hbw-header-pad-y) - var(--hbw-nav-line));
-  padding: 0;
-  border: 0;
-  background: none;
-  font-family: var(--hbw-font);
-  font-size: var(--hbw-lg);
-  font-weight: 400;
-  line-height: var(--hbw-lh-ui, 1.2);
-  letter-spacing: var(--hbw-ui-track, 0.02em);
-  color: inherit;
-  cursor: pointer;
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy .hbw-sheet__pill {
@@ -3531,7 +3286,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-projects,
   .hbw-nav-peek,
   .hbw-poster-toolbar,
-  .hbw-poster-frozen,
   .hbw-browse__grid,
   .hbw-browse__index,
   .hbw-browse__cell,
@@ -3559,8 +3313,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-project-view.is-handoff-in,
   .hbw-project-view.is-handoff-out,
   .hbw-projects.is-open,
-  .hbw-home:not(.is-make) .hbw-poster-toolbar,
-  .hbw-home:not(.is-make) .hbw-poster-frozen {
+  .hbw-home:not(.is-make) .hbw-poster-toolbar {
     transform: none;
     animation: none;
   }
@@ -3589,7 +3342,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   html.hbw-intro .hbw-window,
   html.hbw-intro .hbw-poster-field,
   html.hbw-intro .hbw-poster-toolbar,
-  html.hbw-intro .hbw-poster-frozen,
   html.hbw-intro .hbw-projects,
   html.hbw-intro .hbw-projects.is-open,
   html.hbw-intro .hbw-arrive__line,
@@ -3597,7 +3349,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   html:not(.hbw-entered):not(.hbw-intro) .hbw-home-strip__mark,
   html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-field,
   html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-toolbar,
-  html:not(.hbw-entered):not(.hbw-intro) .hbw-poster-frozen,
   html:not(.hbw-entered):not(.hbw-intro) .hbw-projects.is-open {
     animation: none !important;
     opacity: 1 !important;
@@ -3633,7 +3384,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     --hbw-context-w: 100%;
     --hbw-studio-w: 100%;
     --hbw-inspector-w: 100%;
-    --hbw-doc-slice: 0px;
     --hbw-boundary-gap: var(--hbw-space-5);
     --hbw-index-thumb: 4.5rem;
   }
@@ -3648,7 +3398,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     --hbw-context-w: 100%;
     --hbw-inspector-w: 100%;
     --hbw-studio-w: 100%;
-    --hbw-doc-slice: 0px;
   }
 
   .hbw-nav-peek {
@@ -3843,8 +3592,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-home-strip__exit.is-on,
   .hbw-nav-projects__hit,
   .hbw-nav-sub button,
-  .hbw-nav-studio,
-  .hbw-home-strip__time {
+  .hbw-nav-studio {
     position: relative;
     min-height: 0;
     height: var(--hbw-nav-line);
@@ -4003,13 +3751,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     margin-left: 0;
   }
 
-  .hbw-home-strip__time {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
-    margin-left: 0;
-  }
-
   .hbw-poster-toolbar {
     left: 50%;
     right: auto;
@@ -4030,8 +3771,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     max-width: calc(100% - (2 * var(--hbw-edge)));
   }
 
-  .hbw-home:not(.is-make) .hbw-poster-toolbar,
-  .hbw-home:not(.is-make) .hbw-poster-frozen {
+  .hbw-home:not(.is-make) .hbw-poster-toolbar {
     transform: translateX(-50%) translateY(120%);
   }
 
@@ -4053,9 +3793,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   }
 
   html.hbw-workspace .hbw-home .hbw-poster-input,
-  html.hbw-workspace .hbw-home .hbw-poster-email input,
   html.hbw-workspace .hbw-poster-input,
-  html.hbw-workspace .hbw-poster-email input,
   .hbw-poster-input {
     grid-area: email;
     width: auto;

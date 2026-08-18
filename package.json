@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "crawl": "node scripts/crawl-live.mjs",
-    "recover": "node scripts/build-from-recovery.mjs"
+    "start": "next start"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

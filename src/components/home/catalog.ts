@@ -190,18 +190,6 @@ export function projectById(id: string) {
   return PROJECTS.find((p) => p.id === id) ?? PROJECTS[0];
 }
 
-export function projectLabel(project: Pick<ProjectRecord, "name" | "idea">) {
-  return `${project.name} — ${project.idea}`;
-}
-
-export function disciplineLabel(project: ProjectRecord) {
-  return project.disciplines?.join(" · ") ?? "";
-}
-
-export function collaboratorLabel(project: ProjectRecord) {
-  return project.collaborators?.map((item) => item.name).join(" · ") ?? "";
-}
-
 function serialAnd(items: string[]) {
   if (items.length === 0) return "";
   if (items.length === 1) return items[0];

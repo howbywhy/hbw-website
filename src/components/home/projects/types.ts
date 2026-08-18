@@ -49,11 +49,6 @@ export function isVideoMedia(media: { type?: string }) {
   return media.type === "video";
 }
 
-export function videoSrc(media: { src: string; mp4?: string; videoSrc?: string }) {
-  const candidate = media.mp4 || media.videoSrc || media.src;
-  return /\.(mp4|webm|mov)(\?|$)/i.test(candidate) ? candidate : media.mp4 || media.videoSrc || "";
-}
-
 export type Movement = {
   id: string;
   kind: MovementKind;

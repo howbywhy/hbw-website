@@ -37,7 +37,6 @@ export type OriginFrame =
   | { kind: "view"; slug: string; index: number; x?: number };
 
 export type ProjectsState = {
-  open: boolean;
   mode: ProjectsMode;
   activeId: string;
   expandedId: string | null;
@@ -52,7 +51,6 @@ const LEGACY_KEY = "hbw.workspace.v1";
 export const workspace = {
   poster: emptyPoster(),
   projects: {
-    open: false,
     mode: "visual" as ProjectsMode,
     activeId: PROJECTS[0].id,
     expandedId: null as string | null,
@@ -73,7 +71,6 @@ export function hydrateWorkspace() {
     workspace.poster = migratePoster(data.poster);
     if (data.projects && typeof data.projects.activeId === "string") {
       workspace.projects = {
-        open: false,
         mode: data.projects.mode === "index" ? "index" : "visual",
         activeId: data.projects.activeId,
         expandedId: typeof data.projects.expandedId === "string" ? data.projects.expandedId : null,
