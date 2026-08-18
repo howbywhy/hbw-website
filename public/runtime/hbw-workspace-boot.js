@@ -10,6 +10,8 @@
       root.classList.add("hbw-entered");
     } else if (p === "/") {
       root.classList.add("hbw-intro");
+      // Safety net if React never hydrates. Source: HBW_INTRO_MS + HBW_T.continuity in motion.ts.
+      var INTRO_FALLBACK_MS = 2800;
       window.setTimeout(function () {
         if (root.classList.contains("hbw-entered")) return;
         root.classList.remove("hbw-intro");
@@ -18,7 +20,7 @@
           sessionStorage.setItem("hbw.entered.v2", "1");
           sessionStorage.removeItem("hbw.intro.media.v1");
         } catch (e2) {}
-      }, 2800);
+      }, INTRO_FALLBACK_MS);
     } else {
       sessionStorage.setItem("hbw.entered.v2", "1");
       root.classList.add("hbw-entered");

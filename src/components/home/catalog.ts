@@ -37,11 +37,6 @@ export type ProjectRecord = {
    * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
    */
   external?: string;
-  browseSrc?: string;
-  browseSrcSet?: string;
-  browseWidth?: number;
-  browseHeight?: number;
-  browseCrop?: string;
 };
 
 export function srcSetFor(src: string, widths: number[], intrinsic: number) {
@@ -59,8 +54,8 @@ export const PROJECTS: ProjectRecord[] = [
     name: "SUB:3",
     idea: "Bending Time & Space",
     year: "2025",
-    src: "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
-    srcSet: srcSetFor("/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", [500, 800, 1080], 1200)!,
+    src: "/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+    srcSet: srcSetFor("/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", [500, 800, 1080], 1200)!,
     width: 1200,
     height: 1500,
     crop: "center 18%",
@@ -98,8 +93,8 @@ export const PROJECTS: ProjectRecord[] = [
     name: "CLOSED",
     idea: "A Smuggler's House",
     year: "2024",
-    src: "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
-    srcSet: srcSetFor("/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", [500, 800], 1080)!,
+    src: "/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+    srcSet: srcSetFor("/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", [500, 800], 1080)!,
     width: 1080,
     height: 1350,
     crop: "center 42%",
@@ -128,15 +123,6 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 3,
     visualBefore: 3,
     homeSelected: true,
-    browseSrc: "/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg",
-    browseSrcSet: srcSetFor(
-      "/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg",
-      [500, 800, 1080, 1600],
-      1920
-    ),
-    browseWidth: 1920,
-    browseHeight: 1080,
-    browseCrop: "center 46%",
     sector: "Photography",
     disciplines: ["Brand identity", "Website", "Art direction"],
     credits: "Brand identity, website design, and art direction by How by Why (HBW).",
@@ -250,17 +236,6 @@ export function matchesFilter(project: ProjectRecord, dim: string, value: string
   if (dim === "discipline") return Boolean(project.disciplines?.includes(value));
   if (dim === "collaborator") return Boolean(project.collaborators?.some((item) => item.name === value));
   return true;
-}
-
-export function filterValues(dim: string, list: ProjectRecord[] = PROJECTS) {
-  const values = new Set<string>();
-  for (const project of list) {
-    if (dim === "year" && project.year) values.add(project.year);
-    if (dim === "sector" && project.sector) values.add(project.sector);
-    if (dim === "discipline") project.disciplines?.forEach((item) => values.add(item));
-    if (dim === "collaborator") project.collaborators?.forEach((item) => values.add(item.name));
-  }
-  return [...values];
 }
 
 export function sortProjects(list: ProjectRecord[], sort: string) {

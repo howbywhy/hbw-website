@@ -23,9 +23,9 @@ function jpg(
 ): ProjectMedia {
   const widths = (variants ?? variantsFor(width)).filter((w) => w < width);
   return {
-    type: src.endsWith(".gif") ? "gif" : "image",
+    type: "image",
     src,
-    srcSet: src.endsWith(".gif") || widths.length === 0 ? undefined : srcSetFor(src, widths, width),
+    srcSet: widths.length === 0 ? undefined : srcSetFor(src, widths, width),
     width,
     height,
     fit,
@@ -196,37 +196,37 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
   slug: "sub-3",
   infoSections: SUB3_INFO.sections,
   movements: [
-    mv("s301", "portrait", jpg("/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", 1200, 1500), "idea", { align: "start" }),
+    mv("s301", "portrait", jpg("/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", 1200, 1500), "idea", { align: "start" }),
     mv(
       "s302",
       "film",
       film(
-        "/projects/sub3/web/SUB3-Type-Stretch-Texture.mp4",
+        "/projects/sub-3/web/SUB3-Type-Stretch-Texture.mp4",
         1440,
         874,
-        "/projects/sub3/web/SUB3-Type-Stretch-Texture.jpg",
+        "/projects/sub-3/web/SUB3-Type-Stretch-Texture.jpg",
         "contain",
-        "/projects/sub3/web/SUB3-Type-Stretch-Texture.webm"
+        "/projects/sub-3/web/SUB3-Type-Stretch-Texture.webm"
       ),
       "idea"
     ),
-    mv("s303", "portrait", jpg("/projects/sub3/68db91322535abe236944c80_TCCWEB-SUB320.jpg", 1200, 1500), "idea"),
-    mv("s304", "landscape", jpg("/projects/sub3/68db91587ee646ac94cfb67c_TCCWEBR2-SUB34.jpg", 2472, 1500), "shift"),
-    mv("s305", "landscape", jpg("/projects/sub3/68db9158900d1a9e6ac94934_TCCWEBR2-SUB33.jpg", 2472, 1500), "shift"),
-    mv("s306", "portrait", jpg("/projects/sub3/68db91351d50093ee5b0a02f_TCCWEB-SUB330.jpg", 1200, 1500), "shift", { align: "start" }),
-    mv("s307", "portrait", jpg("/projects/sub3/68db91580180acf841f7384e_TCCWEBR2-SUB36.jpg", 1200, 1500), "system"),
-    mv("s308", "landscape", jpg("/projects/sub3/68db912f0180acf841f72984_TCCWEB-SUB35.jpg", 2472, 1500), "system"),
-    mv("s309", "portrait", jpg("/projects/sub3/68db91315cea177d71b89b3a_TCCWEB-SUB315.jpg", 1200, 1500), "system", { align: "end" }),
+    mv("s303", "portrait", jpg("/projects/sub-3/68db91322535abe236944c80_TCCWEB-SUB320.jpg", 1200, 1500), "idea"),
+    mv("s304", "landscape", jpg("/projects/sub-3/68db91587ee646ac94cfb67c_TCCWEBR2-SUB34.jpg", 2472, 1500), "shift"),
+    mv("s305", "landscape", jpg("/projects/sub-3/68db9158900d1a9e6ac94934_TCCWEBR2-SUB33.jpg", 2472, 1500), "shift"),
+    mv("s306", "portrait", jpg("/projects/sub-3/68db91351d50093ee5b0a02f_TCCWEB-SUB330.jpg", 1200, 1500), "shift", { align: "start" }),
+    mv("s307", "portrait", jpg("/projects/sub-3/68db91580180acf841f7384e_TCCWEBR2-SUB36.jpg", 1200, 1500), "system"),
+    mv("s308", "landscape", jpg("/projects/sub-3/68db912f0180acf841f72984_TCCWEB-SUB35.jpg", 2472, 1500), "system"),
+    mv("s309", "portrait", jpg("/projects/sub-3/68db91315cea177d71b89b3a_TCCWEB-SUB315.jpg", 1200, 1500), "system", { align: "end" }),
     mv(
       "s310",
       "film",
       film(
-        "/projects/sub3/web/SUB3-SKUBAR-Type-Count.mp4",
+        "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.mp4",
         1152,
         1440,
-        "/projects/sub3/web/SUB3-SKUBAR-Type-Count.jpg",
+        "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.jpg",
         "contain",
-        "/projects/sub3/web/SUB3-SKUBAR-Type-Count.webm"
+        "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.webm"
       ),
       "outcome",
       { span: "narrow" }
@@ -235,16 +235,16 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       "s311",
       "film",
       film(
-        "/projects/sub3/web/SUB3-PackGIF.mp4",
+        "/projects/sub-3/web/SUB3-PackGIF.mp4",
         1440,
         874,
-        "/projects/sub3/web/SUB3-PackGIF.jpg",
+        "/projects/sub-3/web/SUB3-PackGIF.jpg",
         "contain",
-        "/projects/sub3/web/SUB3-PackGIF.webm"
+        "/projects/sub-3/web/SUB3-PackGIF.webm"
       ),
       "outcome"
     ),
-    mv("s312", "portrait", jpg("/projects/sub3/69d625ecd5d798ae10301e45_SUB3-BG-1080x1350px.jpg", 1080, 1350), "outcome"),
+    mv("s312", "portrait", jpg("/projects/sub-3/69d625ecd5d798ae10301e45_SUB3-BG-1080x1350px.jpg", 1080, 1350), "outcome"),
   ],
 };
 
@@ -267,15 +267,15 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
   slug: "bar-closed",
   infoSections: CLOSED_INFO,
   movements: [
-    mv("c01", "portrait", jpg("/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", 1080, 1350), "idea", { align: "start" }),
-    mv("c02", "portrait", jpg("/projects/closed/670ca02120d4b38fdbb6bf49_HBWxCLOSED-Portfolio26.jpg", 1080, 1350), "idea", { align: "end" }),
-    mv("c03", "landscape", jpg("/projects/closed/670ca02123deffa7009a157f_HBWxCLOSED-Portfolio33.jpg", 1920, 1080), "idea"),
-    mv("c04", "film", film("/projects/closed/web/CLOSED-Eyes.mp4", 1920, 1080, "/projects/closed/web/CLOSED-Eyes.jpg", "cover"), "shift", { kind: "full" }),
-    mv("c05", "portrait", jpg("/projects/closed/670ca0217374160efd5b3ba4_HBWxCLOSED-Portfolio17.jpg", 1080, 1350), "shift", { align: "start" }),
-    mv("c06", "landscape", jpg("/projects/closed/670ca0214458519e4d903743_HBWxCLOSED-Portfolio31.jpg", 1920, 1080), "system"),
-    mv("c07", "portrait", jpg("/projects/closed/670ca0219b68e610dbf64663_HBWxCLOSED-Portfolio19.jpg", 1080, 1350), "system", { align: "end" }),
-    mv("c08", "film", film("/projects/closed/web/CLOSED-Collage.mp4", 1440, 810, "/projects/closed/web/CLOSED-Collage.jpg"), "outcome"),
-    mv("c09", "portrait", jpg("/projects/closed/670ca0214e0b67cd2aeafe2e_HBWxCLOSED-Portfolio35.jpg", 1080, 1350), "outcome", { align: "center" }),
+    mv("c01", "portrait", jpg("/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", 1080, 1350), "idea", { align: "start" }),
+    mv("c02", "portrait", jpg("/projects/bar-closed/670ca02120d4b38fdbb6bf49_HBWxCLOSED-Portfolio26.jpg", 1080, 1350), "idea", { align: "end" }),
+    mv("c03", "landscape", jpg("/projects/bar-closed/670ca02123deffa7009a157f_HBWxCLOSED-Portfolio33.jpg", 1920, 1080), "idea"),
+    mv("c04", "film", film("/projects/bar-closed/web/CLOSED-Eyes.mp4", 1920, 1080, "/projects/bar-closed/web/CLOSED-Eyes.jpg", "cover"), "shift", { kind: "full" }),
+    mv("c05", "portrait", jpg("/projects/bar-closed/670ca0217374160efd5b3ba4_HBWxCLOSED-Portfolio17.jpg", 1080, 1350), "shift", { align: "start" }),
+    mv("c06", "landscape", jpg("/projects/bar-closed/670ca0214458519e4d903743_HBWxCLOSED-Portfolio31.jpg", 1920, 1080), "system"),
+    mv("c07", "portrait", jpg("/projects/bar-closed/670ca0219b68e610dbf64663_HBWxCLOSED-Portfolio19.jpg", 1080, 1350), "system", { align: "end" }),
+    mv("c08", "film", film("/projects/bar-closed/web/CLOSED-Collage.mp4", 1440, 810, "/projects/bar-closed/web/CLOSED-Collage.jpg"), "outcome"),
+    mv("c09", "portrait", jpg("/projects/bar-closed/670ca0214e0b67cd2aeafe2e_HBWxCLOSED-Portfolio35.jpg", 1080, 1350), "outcome", { align: "center" }),
   ],
 };
 

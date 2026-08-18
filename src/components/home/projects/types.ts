@@ -13,7 +13,7 @@ export function spanForKind(kind: MovementKind): MovementSpan {
 }
 
 export type ProjectMedia = {
-  type: "image" | "video" | "gif";
+  type: "image" | "video";
   src: string;
   srcSet?: string;
   mp4?: string;

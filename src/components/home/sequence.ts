@@ -15,13 +15,6 @@ export function nextProject(id: string): ProjectRecord | null {
   return live[i + 1];
 }
 
-export function prevProject(id: string): ProjectRecord | null {
-  const live = liveProjects();
-  const i = live.findIndex((project) => project.id === id);
-  if (i <= 0) return null;
-  return live[i - 1];
-}
-
 export function nextProjectId(id: string) {
   return nextProject(id)?.id ?? null;
 }

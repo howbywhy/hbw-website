@@ -116,7 +116,6 @@ export function resetPoster() {
   persistWorkspace();
 }
 
-const RETURN_KEY = "hbw.projects.return";
 const ORIGIN_KEY = "hbw.origin.v1";
 
 export function persistOrigin(stack: OriginFrame[]) {
@@ -187,27 +186,6 @@ export function sanitizeOrigin(stack: OriginFrame[], currentSlug: string | null 
     break;
   }
   return next;
-}
-
-export function markReturnToProjects() {
-  workspace.projects.open = true;
-  persistWorkspace();
-  try {
-    sessionStorage.setItem(RETURN_KEY, "1");
-  } catch {
-    /* ignore */
-  }
-}
-
-export function consumeReturnToProjects() {
-  if (typeof window === "undefined") return false;
-  try {
-    const flag = sessionStorage.getItem(RETURN_KEY) === "1";
-    if (flag) sessionStorage.removeItem(RETURN_KEY);
-    return flag;
-  } catch {
-    return false;
-  }
 }
 
 export function projectsLayerFromUrl() {
