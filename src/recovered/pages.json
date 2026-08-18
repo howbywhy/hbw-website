@@ -5,12 +5,6 @@
     "bodyAttrs": "class=\"body\"",
     "htmlClass": ""
   },
-  "/projects": {
-    "file": "src/recovered/html/projects.html",
-    "title": "Projects — HBW",
-    "bodyAttrs": "class=\"body\"",
-    "htmlClass": ""
-  },
   "/studio": {
     "file": "src/recovered/html/studio.html",
     "title": "Studio — HBW",

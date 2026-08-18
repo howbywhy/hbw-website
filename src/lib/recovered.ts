@@ -7,7 +7,6 @@ export type RecoveredRoute = keyof typeof pages;
 
 const PAGE_FILES: Record<string, string> = {
   "/": "home.html",
-  "/projects": "projects.html",
   "/studio": "studio.html",
   "/collections": "collections.html",
   "/manifesto": "manifesto.html",
