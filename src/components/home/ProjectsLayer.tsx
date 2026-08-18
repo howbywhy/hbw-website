@@ -300,6 +300,8 @@ function ArchiveItem({
   onLens: (dim: FilterDim, value: string) => void;
 }) {
   const visual = mode === "visual";
+  // Coming Soon branch: intentionally unreached. Retained for a future Coming Soon
+  // record. Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
   const coming = project.status === "coming";
   const external = coming ? project.external : undefined;
   const note = coming ? "Coming Soon" : projectIdeaCopy(project.id);

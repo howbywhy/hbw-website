@@ -5,6 +5,9 @@ import { decodeImage, openingVisual } from "@/components/home/preload";
 import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
+/** Drops Coming Soon from the peek. Intentionally unreached.
+ *  Retained for a future Coming Soon record. Verified by the Stage 2 KOJA probe
+ *  and the Amendment B build — do not delete. */
 const PREVIEW = homePreviewProjects().filter((project) => project.status !== "coming");
 
 export type PeekProject = { name: string; idea: string };

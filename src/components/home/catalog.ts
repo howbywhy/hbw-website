@@ -25,9 +25,17 @@ export type ProjectRecord = {
   collaborators?: { name: string; kind: "studio" | "person" }[];
   credits?: string;
   location?: string;
-  /** Absent means live. */
+  /**
+   * Intentionally unreached. Retained for a future Coming Soon record.
+   * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
+   * Absent means live.
+   */
   status?: "live" | "coming";
-  /** Absolute URL; only read when status is "coming". */
+  /**
+   * Absolute URL; only read when status is "coming".
+   * Intentionally unreached. Retained for a future Coming Soon record.
+   * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
+   */
   external?: string;
   browseSrc?: string;
   browseSrcSet?: string;
@@ -45,25 +53,6 @@ export function srcSetFor(src: string, widths: number[], intrinsic: number) {
 
 /** Verified from recovered /projects and / home records. */
 export const PROJECTS: ProjectRecord[] = [
-  {
-    id: "bounce",
-    href: "/projects/bounce",
-    name: "Bounce Padel Club",
-    idea: "Ignite Ritual",
-    year: "2026",
-    src: "/projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px.jpg",
-    srcSet: srcSetFor("/projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px.jpg", [500, 800], 1080)!,
-    width: 1080,
-    height: 1350,
-    crop: "center 50%",
-    layout: "portrait",
-    visualSpan: 4,
-    visualStart: 9,
-    sector: "Sport",
-    disciplines: ["Wellness"],
-    status: "coming",
-    external: "https://www.bouncepadel.com.au/",
-  },
   {
     id: "sub-3",
     href: "/projects/sub-3",
@@ -195,10 +184,16 @@ export const PROJECTS: ProjectRecord[] = [
   },
 ];
 
+/**
+ * Drops Coming Soon records from routes and sequence.
+ * Intentionally unreached. Retained for a future Coming Soon record.
+ * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
+ */
 export function liveProjects() {
   return PROJECTS.filter((project) => project.status !== "coming");
 }
 
+/** Live slugs only. Coming Soon filter is intentionally unreached — see liveProjects. */
 export const PROJECT_SLUGS = liveProjects().map((project) => project.id);
 
 export function homePreviewProjects() {
