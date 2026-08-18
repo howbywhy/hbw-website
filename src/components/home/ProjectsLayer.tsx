@@ -300,7 +300,9 @@ function ArchiveItem({
   onLens: (dim: FilterDim, value: string) => void;
 }) {
   const visual = mode === "visual";
-  const note = projectIdeaCopy(project.id);
+  const coming = project.status === "coming";
+  const external = coming ? project.external : undefined;
+  const note = coming ? "Coming Soon" : projectIdeaCopy(project.id);
   const media = openingVisual(project.id);
   const layout = project.layout;
   const span = project.visualSpan ?? (layout === "wide" ? 8 : layout === "landscape" ? 6 : layout === "contained" ? 4 : 7);
@@ -317,39 +319,24 @@ function ArchiveItem({
     : "(max-width: 767px) 80px, 40px";
   const named = entering || (owning && !selected) ? undefined : `hbw-media-${project.id}`;
   const playVideo =
-    visual && hovered && isVideoMedia(media) && Boolean(media.videoSrc || media.mp4) && !reduceMotion();
+    !coming &&
+    visual &&
+    hovered &&
+    isVideoMedia(media) &&
+    Boolean(media.videoSrc || media.mp4) &&
+    !reduceMotion();
 
-  return (
-    <div
-      role="listitem"
-      tabIndex={0}
-      data-hbw-project={project.id}
-      data-layout={layout}
-      data-span={span}
-      className={`hbw-browse__item ${visual ? "hbw-browse__cell" : "hbw-browse__row"} is-${layout}${
-        selected ? " is-active" : ""
-      }${hovered ? " is-hovered" : ""}${expanded ? " is-noted" : ""}`}
-      aria-label={project.name}
-      aria-current={selected ? "true" : undefined}
-      style={{
-        ["--hbw-crop" as string]: media.crop,
-        ["--hbw-span" as string]: String(span),
-        ...(visual && start ? { ["--hbw-start" as string]: String(start) } : {}),
-        ...(visual && before ? { marginTop: `var(--hbw-space-${before})` } : {}),
-      }}
-      onFocus={() => onHover(project.id)}
-      onPointerEnter={() => onHover(project.id)}
-      onBlur={(event) => {
-        if (!event.currentTarget.parentElement?.contains(event.relatedTarget as Node)) onHover("");
-      }}
-      onClick={(event) => enterClick(event, project.id, project.href, onActivate)}
-      onKeyDown={(event) => {
-        if (event.target !== event.currentTarget) return;
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        onActivate(project.id);
-      }}
-    >
+  const className = `hbw-browse__item ${visual ? "hbw-browse__cell" : "hbw-browse__row"} is-${layout}${
+    selected ? " is-active" : ""
+  }${hovered ? " is-hovered" : ""}${expanded ? " is-noted" : ""}`;
+  const style = {
+    ["--hbw-crop" as string]: media.crop,
+    ["--hbw-span" as string]: String(span),
+    ...(visual && start ? { ["--hbw-start" as string]: String(start) } : {}),
+    ...(visual && before ? { marginTop: `var(--hbw-space-${before})` } : {}),
+  };
+  const itemBody = (
+    <>
       <span className="hbw-browse__media hbw-browse__row-thumb" aria-hidden="true">
         <ArchiveThumb media={media} sizes={sizes} eager={eager} named={named} play={playVideo} />
       </span>
@@ -409,6 +396,46 @@ function ArchiveItem({
           <p>{note}</p>
         </div>
       ) : null}
+    </>
+  );
+
+  const shared = {
+    role: "listitem" as const,
+    tabIndex: 0 as const,
+    "data-hbw-project": project.id,
+    "data-layout": layout,
+    "data-span": span,
+    className,
+    "aria-label": project.name,
+    "aria-current": selected ? ("true" as const) : undefined,
+    style,
+    onFocus: () => onHover(project.id),
+    onPointerEnter: () => onHover(project.id),
+    onBlur: (event: React.FocusEvent<HTMLElement>) => {
+      if (!event.currentTarget.parentElement?.contains(event.relatedTarget as Node)) onHover("");
+    },
+  };
+
+  if (external) {
+    return (
+      <a {...shared} href={external} target="_blank" rel="noopener noreferrer">
+        {itemBody}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      {...shared}
+      onClick={(event) => enterClick(event, project.id, project.href, onActivate)}
+      onKeyDown={(event) => {
+        if (event.target !== event.currentTarget) return;
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        onActivate(project.id);
+      }}
+    >
+      {itemBody}
     </div>
   );
 }

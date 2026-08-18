@@ -5,7 +5,7 @@ import { decodeImage, openingVisual } from "@/components/home/preload";
 import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-const PREVIEW = homePreviewProjects();
+const PREVIEW = homePreviewProjects().filter((project) => project.status !== "coming");
 
 export type PeekProject = { name: string; idea: string };
 

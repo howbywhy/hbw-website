@@ -46,6 +46,25 @@ export function srcSetFor(src: string, widths: number[], intrinsic: number) {
 /** Verified from recovered /projects and / home records. */
 export const PROJECTS: ProjectRecord[] = [
   {
+    id: "bounce",
+    href: "/projects/bounce",
+    name: "Bounce Padel Club",
+    idea: "Ignite Ritual",
+    year: "2026",
+    src: "/projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px.jpg",
+    srcSet: srcSetFor("/projects/bounce/69d641eca66d0e8d1bf91ec2_BOUNCE-BG-1080x1350px.jpg", [500, 800], 1080)!,
+    width: 1080,
+    height: 1350,
+    crop: "center 50%",
+    layout: "portrait",
+    visualSpan: 4,
+    visualStart: 9,
+    sector: "Sport",
+    disciplines: ["Wellness"],
+    status: "coming",
+    external: "https://www.bouncepadel.com.au/",
+  },
+  {
     id: "sub-3",
     href: "/projects/sub-3",
     name: "SUB:3",

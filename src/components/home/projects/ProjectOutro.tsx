@@ -1,6 +1,6 @@
 "use client";
 
-import { PROJECTS, type ProjectRecord } from "@/components/home/catalog";
+import { liveProjects, type ProjectRecord } from "@/components/home/catalog";
 import { getExperience } from "@/components/home/projects/experiences";
 import { isVideoMedia, movementSpan, type ProjectMedia } from "@/components/home/projects/types";
 
@@ -111,7 +111,8 @@ function Stage({
 
 export function ProjectOutro({ next, onCommit, coverName, fromTotal }: Props) {
   if (!next) {
-    const archive = PROJECTS[0];
+    const archive = liveProjects()[0];
+    if (!archive) return null;
     return (
       <Stage
         name="Projects"
