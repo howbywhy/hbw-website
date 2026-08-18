@@ -6,6 +6,7 @@ import { approachProject, commitProjectMedia, prefetchVideo, preloadProject } fr
 import { MovementVideo } from "@/components/home/projects/MovementVideo";
 import { ProjectOutro } from "@/components/home/projects/ProjectOutro";
 import { nextProject } from "@/components/home/sequence";
+import { projectById } from "@/components/home/catalog";
 import { isVideoMedia, movementSpan, type ProjectExperience } from "@/components/home/projects/types";
 
 export type ViewPhase = "idle" | "rising" | "assembling" | "active" | "exiting" | "handoff-in" | "handoff-out";
@@ -790,7 +791,7 @@ export function ProjectView({
                 background: movement.surface || undefined,
                 ["--hbw-mv-ratio" as string]: `${media.width} / ${media.height}`,
               }}
-              aria-label={`${experience.name} ${String(i + 1).padStart(2, "0")}`}
+              aria-label={`${projectById(experience.slug).name} ${String(i + 1).padStart(2, "0")}`}
             >
               {isVideoMedia(media) ? (
                 <MovementVideo

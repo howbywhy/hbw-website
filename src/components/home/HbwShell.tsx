@@ -7,7 +7,7 @@ import { Arrival } from "@/components/home/Arrival";
 import { IdentityNav } from "@/components/home/IdentityNav";
 import { PosterTool } from "@/components/home/PosterTool";
 import { ProjectsLayer } from "@/components/home/ProjectsLayer";
-import { PROJECTS, matchesFilter, sortProjects } from "@/components/home/catalog";
+import { PROJECTS, matchesFilter, projectById, sortProjects } from "@/components/home/catalog";
 import { ProjectsNavPreview, useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
@@ -800,7 +800,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     commitProjectMedia(nxt.id);
     const field = homeRef.current?.querySelector<HTMLElement>(".hbw-project-view.is-active");
     const mobileHandoff = isMobileViewport();
-    holdMobileSuffix(getExperience(fromId)?.name ?? experience?.name ?? null);
+    holdMobileSuffix(projectById(fromId).name);
     if (!mobileHandoff && field) {
       const preview = field.querySelector<HTMLElement>(".hbw-outro.is-next .hbw-outro__preview");
       const stage = field.getBoundingClientRect();
@@ -1128,9 +1128,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const identitySuffix =
     (navFace === "view" || windowMode === "view") && experience
       ? heldSuffix ||
-        (isMobileViewport() && leavingExp && (phase === "handoff-in" || phase === "assembling")
-          ? leavingExp.name
-          : experience.name)
+        (isMobileViewport() && leavingExp && leaving && (phase === "handoff-in" || phase === "assembling")
+          ? projectById(leaving.id).name
+          : projectById(experience.slug).name)
       : assembled
         ? hoverName || "Projects"
         : !narrow && peek.open && peekProject?.name

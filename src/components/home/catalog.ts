@@ -25,6 +25,10 @@ export type ProjectRecord = {
   collaborators?: string[];
   credits?: string;
   location?: string;
+  /** Absent means live. */
+  status?: "live" | "coming";
+  /** Absolute URL; only read when status is "coming". */
+  external?: string;
   browseSrc?: string;
   browseSrcSet?: string;
   browseWidth?: number;
@@ -32,8 +36,9 @@ export type ProjectRecord = {
   browseCrop?: string;
 };
 
-function set(src: string, widths: number[], intrinsic: number) {
-  const ext = src.endsWith(".webp") ? "webp" : "jpg";
+export function srcSetFor(src: string, widths: number[], intrinsic: number) {
+  const ext = src.endsWith(".webp") ? "webp" : src.endsWith(".png") ? "png" : "jpg";
+  if (ext !== "jpg" && ext !== "webp") return undefined;
   const base = src.replace(/\.(jpg|webp)$/, "");
   return widths.map((w) => `${base}-p-${w}.${ext} ${w}w`).concat(`${src} ${intrinsic}w`).join(", ");
 }
@@ -47,7 +52,7 @@ export const PROJECTS: ProjectRecord[] = [
     idea: "Bending Time & Space",
     year: "2025",
     src: "/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
-    srcSet: set("/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", [500, 800, 1080], 1200),
+    srcSet: srcSetFor("/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", [500, 800, 1080], 1200)!,
     width: 1200,
     height: 1500,
     crop: "center 18%",
@@ -67,7 +72,7 @@ export const PROJECTS: ProjectRecord[] = [
     idea: "Unapologetically Good.",
     year: "2024",
     src: "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
-    srcSet: set("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", [500, 800], 1080),
+    srcSet: srcSetFor("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", [500, 800], 1080)!,
     width: 1080,
     height: 1350,
     crop: "center 68%",
@@ -86,7 +91,7 @@ export const PROJECTS: ProjectRecord[] = [
     idea: "A Smuggler's House",
     year: "2024",
     src: "/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
-    srcSet: set("/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", [500, 800], 1080),
+    srcSet: srcSetFor("/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", [500, 800], 1080)!,
     width: 1080,
     height: 1350,
     crop: "center 42%",
@@ -106,7 +111,7 @@ export const PROJECTS: ProjectRecord[] = [
     idea: "Beauty Amongst The Mundane",
     year: "2024",
     src: "/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg",
-    srcSet: set("/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg", [500, 800], 1080),
+    srcSet: srcSetFor("/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg", [500, 800], 1080)!,
     width: 1080,
     height: 1350,
     crop: "center 48%",
@@ -116,7 +121,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualBefore: 3,
     homeSelected: true,
     browseSrc: "/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg",
-    browseSrcSet: set(
+    browseSrcSet: srcSetFor(
       "/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg",
       [500, 800, 1080, 1600],
       1920
@@ -135,7 +140,7 @@ export const PROJECTS: ProjectRecord[] = [
     idea: "The Friendly Neighbour",
     year: "2024",
     src: "/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg",
-    srcSet: set("/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg", [500, 800], 1080),
+    srcSet: srcSetFor("/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg", [500, 800], 1080)!,
     width: 1080,
     height: 1350,
     crop: "center 36%",
@@ -155,7 +160,7 @@ export const PROJECTS: ProjectRecord[] = [
     idea: "Twice Cooked",
     year: "2024",
     src: "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
-    srcSet: set("/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg", [500, 800, 1080], 1200),
+    srcSet: srcSetFor("/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg", [500, 800, 1080], 1200)!,
     width: 1200,
     height: 1500,
     crop: "center 38%",
@@ -170,6 +175,12 @@ export const PROJECTS: ProjectRecord[] = [
     location: "501 George Street, Sydney",
   },
 ];
+
+export function liveProjects() {
+  return PROJECTS.filter((project) => project.status !== "coming");
+}
+
+export const PROJECT_SLUGS = liveProjects().map((project) => project.id);
 
 export function homePreviewProjects() {
   return PROJECTS.filter((project) => project.homeSelected).slice(0, 5);

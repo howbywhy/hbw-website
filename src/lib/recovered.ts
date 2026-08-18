@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import pages from "@/recovered/pages.json";
+import { PROJECTS } from "@/components/home/catalog";
 
 export type RecoveredRoute = keyof typeof pages;
 
@@ -18,14 +19,7 @@ const PAGE_FILES: Record<string, string> = {
   "/projects/bistro-nido": "projects__bistro-nido.html",
 };
 
-export const PROJECT_SLUGS = [
-  "sub-3",
-  "koja",
-  "bar-closed",
-  "our-boy-roy",
-  "chris-sisarich",
-  "bistro-nido",
-] as const;
+export const PROJECT_SLUGS = PROJECTS.filter((p) => p.status !== "coming").map((p) => p.id);
 
 export function getRecoveredMeta(route: string) {
   const rec = pages[route as RecoveredRoute];

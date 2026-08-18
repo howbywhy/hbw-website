@@ -166,6 +166,12 @@ function ManifestoBody() {
   );
 }
 
+function developedWith(names: string[]) {
+  if (names.length === 0) return "";
+  if (names.length === 1) return `Developed with ${names[0]}.`;
+  return `Developed with ${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}.`;
+}
+
 function InfoBody({
   experience,
   atProjectEnd = false,
@@ -178,22 +184,23 @@ function InfoBody({
   onNextProject?: () => void;
 }) {
   const record = projectById(experience.slug);
+  const collabLine = record.collaborators?.length ? developedWith(record.collaborators) : "";
   const facts = [
     record.sector ? ["Sector", record.sector] : null,
     record.disciplines?.length ? ["Disciplines", record.disciplines.join(" · ")] : null,
     record.year ? ["Year", record.year] : null,
     record.collaborators?.length ? ["Collaborators", record.collaborators.join(" · ")] : null,
     record.location ? ["Location", record.location] : null,
-    record.credits ? ["Credits", record.credits] : experience.credit ? ["Credits", experience.credit] : null,
+    record.credits ? ["Credits", record.credits] : null,
   ].filter(Boolean) as [string, string][];
 
   return (
     <>
-      <p className="hbw-sheet__lead">{experience.name}</p>
-      {experience.idea ? (
+      <p className="hbw-sheet__lead">{record.name}</p>
+      {record.idea ? (
         <p className="hbw-sheet__opening">
           <span className="hbw-sheet__kicker">Position</span>
-          {experience.idea}
+          {record.idea}
         </p>
       ) : null}
       {experience.infoSections
@@ -215,7 +222,15 @@ function InfoBody({
           {facts.map(([label, value]) => (
             <div key={label}>
               <dt>{label}</dt>
-              <dd>{value}</dd>
+              <dd>
+                {value}
+                {label === "Credits" && collabLine ? (
+                  <>
+                    <br />
+                    {collabLine}
+                  </>
+                ) : null}
+              </dd>
             </div>
           ))}
         </dl>

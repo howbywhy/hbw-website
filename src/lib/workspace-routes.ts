@@ -1,24 +1,13 @@
-export const MIGRATED_PROJECT_SLUGS = [
-  "sub-3",
-  "koja",
-  "bar-closed",
-  "our-boy-roy",
-  "chris-sisarich",
-  "bistro-nido",
-] as const;
-
-export type MigratedProjectSlug = (typeof MIGRATED_PROJECT_SLUGS)[number];
+import { PROJECT_SLUGS } from "@/components/home/catalog";
 
 export function normPathname(path: string) {
   return (path || "/").replace(/[?#].*$/, "").replace(/\/+$/, "") || "/";
 }
 
-export function projectSlugFromPath(path: string): MigratedProjectSlug | null {
+export function projectSlugFromPath(path: string): string | null {
   const match = normPathname(path).match(/^\/projects\/([^/]+)$/);
   if (!match) return null;
-  return (MIGRATED_PROJECT_SLUGS as readonly string[]).includes(match[1])
-    ? (match[1] as MigratedProjectSlug)
-    : null;
+  return PROJECT_SLUGS.includes(match[1]) ? match[1] : null;
 }
 
 export function isStudioPathname(path: string) {

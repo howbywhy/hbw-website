@@ -72,23 +72,12 @@ export type InfoSection = {
 
 export type ProjectExperience = {
   slug: string;
-  name: string;
-  idea: string;
-  year: string;
-  credit: string;
   movements: Movement[];
   infoSections: InfoSection[];
 };
 
 export function movementSpan(movement: Movement): MovementSpan {
   return movement.span || spanForKind(movement.kind);
-}
-
-export function srcSetFor(src: string, widths: number[], intrinsic: number) {
-  const ext = src.endsWith(".webp") ? "webp" : src.endsWith(".png") ? "png" : "jpg";
-  if (ext !== "jpg" && ext !== "webp") return undefined;
-  const base = src.replace(/\.(jpg|webp)$/, "");
-  return widths.map((w) => `${base}-p-${w}.${ext} ${w}w`).concat(`${src} ${intrinsic}w`).join(", ");
 }
 
 export function infoHintForIndex(experience: ProjectExperience, index: number): InfoSectionId {

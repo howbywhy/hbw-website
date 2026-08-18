@@ -6,6 +6,7 @@
     root.classList.add("w-mod-js");
     if ("ontouchstart" in window) root.classList.add("w-mod-touch");
     var migrated = [
+      // Duplicated live-slug list; dies in Stage 4a when recovered routes go away.
       "/projects/sub-3",
       "/projects/koja",
       "/projects/bar-closed",

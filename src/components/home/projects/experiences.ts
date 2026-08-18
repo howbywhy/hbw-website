@@ -1,10 +1,10 @@
 import {
-  srcSetFor,
   type InfoSection,
   type Movement,
   type ProjectExperience,
   type ProjectMedia,
 } from "@/components/home/projects/types";
+import { srcSetFor } from "@/components/home/catalog";
 import { SUB3_INFO } from "@/components/home/sub3-info";
 
 function variantsFor(width: number) {
@@ -194,10 +194,6 @@ const NIDO_INFO: InfoSection[] = [
 
 export const SUB3_EXPERIENCE: ProjectExperience = {
   slug: "sub-3",
-  name: SUB3_INFO.name,
-  idea: SUB3_INFO.positioning,
-  year: SUB3_INFO.year,
-  credit: SUB3_INFO.credit,
   infoSections: SUB3_INFO.sections,
   movements: [
     mv("s301", "portrait", jpg("/projects/sub3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", 1200, 1500), "idea", { align: "start" }),
@@ -254,10 +250,6 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
 
 export const KOJA_EXPERIENCE: ProjectExperience = {
   slug: "koja",
-  name: "KOJA",
-  idea: "Unapologetically Good.",
-  year: "2024",
-  credit: "Brand identity, packaging design, and visual system by How by Why (HBW), a Sydney-based brand and design practice.",
   infoSections: KOJA_INFO,
   movements: [
     mv("k01", "portrait", jpg("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", 1080, 1350), "idea", { align: "start" }),
@@ -273,10 +265,6 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
 
 export const CLOSED_EXPERIENCE: ProjectExperience = {
   slug: "bar-closed",
-  name: "CLOSED",
-  idea: "A Smuggler's House",
-  year: "2024",
-  credit: "Brand identity and art direction by How by Why (HBW), a Sydney-based brand and design practice.",
   infoSections: CLOSED_INFO,
   movements: [
     mv("c01", "portrait", jpg("/projects/closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", 1080, 1350), "idea", { align: "start" }),
@@ -293,11 +281,6 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
 
 export const OBR_EXPERIENCE: ProjectExperience = {
   slug: "our-boy-roy",
-  name: "Our Boy Roy",
-  idea: "The Friendly Neighbour",
-  year: "2024",
-  credit:
-    "Brand identity, character design, and visual system by How by Why (HBW), a Sydney-based brand and design practice. Developed with The Colour Club.",
   infoSections: OBR_INFO,
   movements: [
     mv("o01", "portrait", jpg("/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg", 1080, 1350), "idea", { align: "start" }),
@@ -312,10 +295,6 @@ export const OBR_EXPERIENCE: ProjectExperience = {
 
 export const SISARICH_EXPERIENCE: ProjectExperience = {
   slug: "chris-sisarich",
-  name: "Chris Sisarich",
-  idea: "Beauty Amongst The Mundane",
-  year: "2024",
-  credit: "Brand identity, website design, and art direction by How by Why (HBW), a Sydney-based brand and design practice.",
   infoSections: SISARICH_INFO,
   movements: [
     mv("s01", "portrait", jpg("/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg", 1080, 1350), "idea", { align: "start" }),
@@ -331,11 +310,6 @@ export const SISARICH_EXPERIENCE: ProjectExperience = {
 
 export const NIDO_EXPERIENCE: ProjectExperience = {
   slug: "bistro-nido",
-  name: "Bistro Nido",
-  idea: "Twice Cooked",
-  year: "2024",
-  credit:
-    "Brand identity and art direction by How by Why (HBW), a Sydney-based brand and design practice. Developed with The Colour Club.",
   infoSections: NIDO_INFO,
   movements: [
     mv("n01", "portrait", jpg("/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg", 1200, 1500), "idea", { align: "start" }),
