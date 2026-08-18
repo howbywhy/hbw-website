@@ -1,6 +1,6 @@
 "use client";
 
-import { liveProjects, type ProjectRecord } from "@/components/home/catalog";
+import { type ProjectRecord } from "@/components/home/catalog";
 import { getExperience } from "@/components/home/projects/experiences";
 import { isVideoMedia, movementSpan, type ProjectMedia } from "@/components/home/projects/types";
 
@@ -55,8 +55,8 @@ function Stage({
 }: {
   name: string;
   idea?: string;
-  media: ProjectMedia;
-  crop: string;
+  media?: ProjectMedia;
+  crop?: string;
   onCommit: () => void;
   label: string;
   coverName?: string;
@@ -72,7 +72,7 @@ function Stage({
       className={`hbw-outro${nextId ? " is-next" : " is-archive"}`}
       aria-label={label}
       data-hbw-next={coverName}
-      style={{ ["--hbw-mv-ratio" as string]: `${media.width} / ${media.height}` }}
+      style={media ? { ["--hbw-mv-ratio" as string]: `${media.width} / ${media.height}` } : undefined}
     >
       <button type="button" className="hbw-outro__id" onClick={onCommit}>
         <span className="hbw-outro__name">{name}</span>
@@ -86,38 +86,36 @@ function Stage({
           </span>
         ) : null}
       </button>
-      <button
-        type="button"
-        className={`hbw-outro__preview${span ? ` is-${span}` : ""}${kind ? ` is-${kind}` : ""}`}
-        onClick={onCommit}
-        aria-label={label}
-        style={{ ["--hbw-crop" as string]: crop }}
-      >
-        <img
-          className={`hbw-outro__media is-${media.fit}`}
-          src={media.src}
-          srcSet={media.srcSet}
-          sizes="(max-width: 767px) 100vw, 46vw"
-          alt=""
-          width={media.width}
-          height={media.height}
-          decoding="async"
-          style={coverName ? { viewTransitionName: `hbw-cover-${coverName}` } : undefined}
-        />
-      </button>
+      {media ? (
+        <button
+          type="button"
+          className={`hbw-outro__preview${span ? ` is-${span}` : ""}${kind ? ` is-${kind}` : ""}`}
+          onClick={onCommit}
+          aria-label={label}
+          style={crop ? { ["--hbw-crop" as string]: crop } : undefined}
+        >
+          <img
+            className={`hbw-outro__media is-${media.fit}`}
+            src={media.src}
+            srcSet={media.srcSet}
+            sizes="(max-width: 767px) 100vw, 46vw"
+            alt=""
+            width={media.width}
+            height={media.height}
+            decoding="async"
+            style={coverName ? { viewTransitionName: `hbw-cover-${coverName}` } : undefined}
+          />
+        </button>
+      ) : null}
     </section>
   );
 }
 
 export function ProjectOutro({ next, onCommit, coverName, fromTotal }: Props) {
   if (!next) {
-    const archive = liveProjects()[0];
-    if (!archive) return null;
     return (
       <Stage
         name="Projects"
-        media={mediaFromRecord(archive)}
-        crop={archive.crop}
         onCommit={onCommit}
         label="Return to Projects"
       />

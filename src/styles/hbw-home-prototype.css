@@ -2784,6 +2784,28 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   display: none;
 }
 
+.hbw-outro.is-archive {
+  min-width: 0;
+  gap: 0;
+  cursor: pointer;
+}
+
+.hbw-outro.is-archive .hbw-outro__id,
+.hbw-project-view.is-active .hbw-outro.is-archive,
+.hbw-project-view.is-active .hbw-outro.is-archive .hbw-outro__id {
+  cursor: pointer;
+}
+
+.hbw-outro.is-archive .hbw-outro__name {
+  font-size: var(--hbw-lg);
+  color: #1d1d1d;
+}
+
+.hbw-outro.is-archive .hbw-outro__idea {
+  font-size: var(--hbw-sm);
+  color: rgba(51, 51, 51, 0.62);
+}
+
 @media (min-width: 768px) {
   .hbw-outro.is-next {
     position: relative;
@@ -4297,6 +4319,16 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     aspect-ratio: var(--hbw-mv-ratio, auto);
     object-fit: contain;
     object-position: center top;
+  }
+
+  .hbw-outro.is-archive {
+    gap: 0;
+    cursor: pointer;
+  }
+
+  .hbw-outro.is-archive .hbw-outro__id {
+    width: auto;
+    cursor: pointer;
   }
 
   .hbw-project-view.is-rising .hbw-mv:not(:first-child),
