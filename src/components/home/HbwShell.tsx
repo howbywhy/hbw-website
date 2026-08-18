@@ -271,7 +271,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     hydrateWorkspace();
     persistWorkspace();
     document.documentElement.classList.add("hbw-workspace", "hbw-home-prototype");
-    document.documentElement.classList.remove("hbw-project-page-loading", "hbw-ss-active");
     function onHide() {
       persistWorkspace();
     }
@@ -403,13 +402,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     }
     studioPathRef.current = pathname;
   }, [pathname, workspaceRoute]);
-
-  useEffect(() => {
-    if (!workspaceRoute) return;
-    document.documentElement.classList.toggle("hbw-route-sub3", viewSlug === "sub-3");
-    document.documentElement.classList.toggle("hbw-route-home", windowMode === "make");
-    document.documentElement.classList.remove("hbw-project-page-loading", "hbw-ss-active");
-  }, [windowMode, workspaceRoute, viewSlug]);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -1089,8 +1081,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     if (inspector) inspector.scrollTop = 0;
   }, [panel, infoAnchor]);
 
-  if (!workspaceRoute) return children;
-
   const makeActive = windowMode === "make" && swap?.from !== "browse";
   const browseDropping = swap?.from === "browse" && swap.to === "make";
   const preparingView = swap?.to === "view" && swap.phase === "preparing";
@@ -1331,6 +1321,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         <div className="hbw-window">
           <PosterTool dormant={!makeActive || panel === "studio"} />
           <Arrival onMake={arriveMake} onBrowse={arriveBrowse} />
+          {children}
           <ProjectsLayer
             open={browseOpen && !inspecting}
             dropping={browseDropping}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getRecoveredMeta, PROJECT_SLUGS } from "@/lib/recovered";
+import { liveProjects, PROJECT_SLUGS, projectDescription } from "@/components/home/catalog";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -12,9 +12,9 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  if (!PROJECT_SLUGS.includes(slug)) notFound();
-  const meta = getRecoveredMeta(`/projects/${slug}`);
-  return { title: meta.title, description: meta.description };
+  const record = liveProjects().find((project) => project.id === slug);
+  if (!record) notFound();
+  return { title: `${record.name} — HBW`, description: projectDescription(record) };
 }
 
 export default async function ProjectPage({ params }: Props) {

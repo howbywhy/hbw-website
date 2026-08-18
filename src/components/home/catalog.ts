@@ -221,6 +221,33 @@ export function collaboratorLabel(project: ProjectRecord) {
   return project.collaborators?.map((item) => item.name).join(" · ") ?? "";
 }
 
+function serialAnd(items: string[]) {
+  if (items.length === 0) return "";
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
+}
+
+/** Derived description for generateMetadata. Catalog display values stay title-cased. */
+export function projectDescription(project: ProjectRecord) {
+  const idea = project.idea.replace(/\.\s*$/, "");
+  const lead = `${project.name} — ${idea}.`;
+  const work = project.disciplines?.length
+    ? serialAnd(project.disciplines.map((item) => item.toLowerCase()))
+    : "";
+  const sector = project.sector?.toLowerCase();
+  if (work && sector) {
+    const clause = work.charAt(0).toUpperCase() + work.slice(1);
+    return `${lead} ${clause} for ${sector}.`;
+  }
+  if (work) {
+    const clause = work.charAt(0).toUpperCase() + work.slice(1);
+    return `${lead} ${clause}.`;
+  }
+  if (sector) return `${lead} ${sector.charAt(0).toUpperCase() + sector.slice(1)}.`;
+  return lead;
+}
+
 export function matchesFilter(project: ProjectRecord, dim: string, value: string) {
   if (!value || dim === "all") return true;
   if (dim === "year") return project.year === value;

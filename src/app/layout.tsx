@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { HbwShell } from "@/components/home/HbwShell";
-import { HbwRuntime } from "@/components/HbwRuntime";
 import "@/styles/document.css";
-import "@/styles/webflow.css";
-import "@/styles/hbw-custom.css";
-import "@/styles/hbw-evolution-01.css";
-import "@/styles/hbw-evolution-02.css";
 import "@/styles/hbw-home-prototype.css";
 
 export const metadata: Metadata = {
@@ -33,14 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="hbw-workspace" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script src="/runtime/hbw-workspace-boot.js" />
       </head>
       <body className="body" suppressHydrationWarning>
         <HbwShell>{children}</HbwShell>
-        <HbwRuntime />
       </body>
     </html>
   );

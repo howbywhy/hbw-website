@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { getRecoveredMeta } from "@/lib/recovered";
-
-const meta = getRecoveredMeta("/studio");
+import { STUDIO_COPY } from "@/components/home/studio-copy";
 
 export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
+  title: "Studio — HBW",
+  description: STUDIO_COPY.opening,
 };
 
 export default function StudioPage() {

@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/intake/start", destination: "/studio", permanent: true },
       { source: "/projects", destination: "/?layer=projects", permanent: true },
+      { source: "/collections", destination: "/", permanent: true },
     ];
   },
 };

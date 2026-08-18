@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { getRecoveredMeta } from "@/lib/recovered";
-
-const meta = getRecoveredMeta("/manifesto");
+import { MANIFESTO_COPY } from "@/components/home/studio-copy";
 
 export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
+  title: "Manifesto — HBW",
+  description: MANIFESTO_COPY.opening.join(" "),
 };
 
 export default function ManifestoPage() {

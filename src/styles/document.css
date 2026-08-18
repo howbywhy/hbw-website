@@ -38,8 +38,3 @@ body {
 body.body {
   margin: 0;
 }
-
-/* Keep recovered body children in the same box tree as the live site. */
-#hbw-recovered {
-  display: contents;
-}
