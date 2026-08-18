@@ -277,7 +277,31 @@ export function WorkspacePanel({
     event.stopPropagation();
   }
 
-  void infoAnchor;
+  useEffect(() => {
+    if (panel !== "info") return;
+    let frame = 0;
+    let tries = 0;
+    function align() {
+      const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
+      const node =
+        inspector?.querySelector<HTMLElement>(`#hbw-info-${infoAnchor}`) ||
+        inspector?.querySelector<HTMLElement>(`[data-hbw-info-section="${infoAnchor}"]`);
+      if (!inspector || !node) {
+        if (tries++ < 12) frame = requestAnimationFrame(align);
+        return;
+      }
+      inspector.setAttribute("data-hbw-info-anchor", infoAnchor);
+      const header = document.querySelector<HTMLElement>(".hbw-home-strip");
+      const border = parseFloat(getComputedStyle(inspector).borderTopWidth) || 0;
+      const top =
+        header?.getBoundingClientRect().bottom ?? inspector.getBoundingClientRect().top + border;
+      inspector.scrollTop += node.getBoundingClientRect().top - top;
+      if (tries++ < 2) frame = requestAnimationFrame(align);
+    }
+    align();
+    return () => cancelAnimationFrame(frame);
+  }, [panel, infoAnchor]);
+
   void onShowStudio;
 
   return (

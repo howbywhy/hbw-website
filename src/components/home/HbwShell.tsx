@@ -16,7 +16,7 @@ import { ProjectView, type ViewPhase } from "@/components/home/projects/ProjectV
 import { getExperience } from "@/components/home/projects/experiences";
 import { nextProject } from "@/components/home/sequence";
 import { commitProjectMedia, preloadOpening, preloadProject, withTimeout } from "@/components/home/preload";
-import type { InfoSectionId } from "@/components/home/projects/types";
+import { infoHintForIndex, type InfoSectionId } from "@/components/home/projects/types";
 import {
   WorkspaceContext,
   type StudioView,
@@ -274,18 +274,22 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setSort(workspace.projects.sort);
     setExpandedId(workspace.projects.expandedId);
     if (!slug) setActiveId(workspace.projects.activeId);
-
-    function onAnchor(event: Event) {
-      const detail = (event as CustomEvent<InfoSectionId>).detail;
-      if (detail) setInfoAnchor(detail);
-    }
-    window.addEventListener("hbw:info-anchor", onAnchor);
     return () => {
       document.documentElement.classList.remove("hbw-workspace", "hbw-home-prototype");
       window.removeEventListener("pagehide", onHide);
-      window.removeEventListener("hbw:info-anchor", onAnchor);
     };
   }, [slug]);
+
+  useEffect(() => {
+    function onAnchor(event: Event) {
+      const detail = (event as CustomEvent<InfoSectionId>).detail;
+      if (detail === "idea" || detail === "shift" || detail === "system" || detail === "outcome") {
+        setInfoAnchor(detail);
+      }
+    }
+    window.addEventListener("hbw:info-anchor", onAnchor);
+    return () => window.removeEventListener("hbw:info-anchor", onAnchor);
+  }, []);
 
   useEffect(() => {
     function onPop() {
@@ -463,7 +467,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
 
   function openPanel(next: Exclude<WorkspacePanelId, null>) {
     completeIntro();
-    if (next === "info") captureInspectMedia();
+    if (next === "info") {
+      captureInspectMedia();
+      if (experience) setInfoAnchor(infoHintForIndex(experience, viewIndex));
+    }
     setPanelLeaving(false);
     closingPanelRef.current = false;
     if (next === "studio") setStudioView("studio");
@@ -975,6 +982,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   function onViewIndex(next: number) {
     setViewIndex(next);
     if (viewSlug) savedIndex.current[viewSlug] = next;
+    if (panel === "info" && experience) setInfoAnchor(infoHintForIndex(experience, next));
   }
 
   useEffect(() => {
@@ -1044,12 +1052,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [activeId, browseMode, filterDim, filterValue, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode]);
-
-  useEffect(() => {
-    if (panel !== "info") return;
-    const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
-    if (inspector) inspector.scrollTop = 0;
-  }, [panel, infoAnchor]);
 
   const makeActive = windowMode === "make" && swap?.from !== "browse";
   const browseDropping = swap?.from === "browse" && swap.to === "make";
