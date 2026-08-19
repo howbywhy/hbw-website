@@ -99,16 +99,19 @@ export function IdentityNav({
     if (!nav || !suffixEl) return;
 
     function alignSuffix() {
+      const mark = navRef.current;
+      const label = suffixRef.current;
+      if (!mark || !label) return;
       if (assembled || !suffix) {
-        suffixEl.style.left = "";
+        label.style.left = "";
         return;
       }
-      const by = nav.querySelector<HTMLElement>(".hbw-mark-by");
-      const glyph = by?.querySelector<HTMLElement>(".hbw-mark-word--rest");
+      const by = mark.querySelector<HTMLElement>(".hbw-mark-by");
+      if (!by) return;
+      const glyph = by.querySelector<HTMLElement>(".hbw-mark-word--rest");
       const target = glyph ?? by;
-      if (!target) return;
-      const gap = Number.parseFloat(getComputedStyle(nav).fontSize) * 0.4;
-      suffixEl.style.left = `${target.getBoundingClientRect().right - nav.getBoundingClientRect().left + gap}px`;
+      const gap = Number.parseFloat(getComputedStyle(mark).fontSize) * 0.4;
+      label.style.left = `${target.getBoundingClientRect().right - mark.getBoundingClientRect().left + gap}px`;
     }
 
     alignSuffix();
