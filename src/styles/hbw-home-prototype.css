@@ -2803,11 +2803,6 @@ html.hbw-workspace .hbw-sheet-layer .hbw-inspector {
   backface-visibility: hidden;
 }
 
-html.hbw-workspace .hbw-sheet-layer .hbw-inspector.hbw-sheet.is-project-right {
-  /* Enough trail that a late info section can sit on the header register. */
-  padding-bottom: calc(100dvh - var(--hbw-header-h) - 4rem);
-}
-
 html.hbw-workspace .hbw-sheet-layer .hbw-inspector.is-overlay.is-manifesto {
   left: var(--hbw-x-manifesto);
   right: 0;
@@ -4151,10 +4146,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     z-index: 0;
     touch-action: pan-y;
     overscroll-behavior: contain;
-  }
-
-  html.hbw-workspace .hbw-sheet-layer .hbw-inspector.hbw-sheet.is-project-right {
-    padding-bottom: calc(100dvh - var(--hbw-header-h) - 4rem);
   }
 
   .hbw-home.is-studio .hbw-home-strip,

@@ -281,24 +281,16 @@ export function WorkspacePanel({
     if (panel !== "info") return;
     let frame = 0;
     let tries = 0;
-    function align() {
+    function toTop() {
       const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
-      const node =
-        inspector?.querySelector<HTMLElement>(`#hbw-info-${infoAnchor}`) ||
-        inspector?.querySelector<HTMLElement>(`[data-hbw-info-section="${infoAnchor}"]`);
-      if (!inspector || !node) {
-        if (tries++ < 12) frame = requestAnimationFrame(align);
+      if (!inspector) {
+        if (tries++ < 12) frame = requestAnimationFrame(toTop);
         return;
       }
       inspector.setAttribute("data-hbw-info-anchor", infoAnchor);
-      const header = document.querySelector<HTMLElement>(".hbw-home-strip");
-      const border = parseFloat(getComputedStyle(inspector).borderTopWidth) || 0;
-      const top =
-        header?.getBoundingClientRect().bottom ?? inspector.getBoundingClientRect().top + border;
-      inspector.scrollTop += node.getBoundingClientRect().top - top;
-      if (tries++ < 2) frame = requestAnimationFrame(align);
+      inspector.scrollTop = 0;
     }
-    align();
+    toTop();
     return () => cancelAnimationFrame(frame);
   }, [panel, infoAnchor]);
 
