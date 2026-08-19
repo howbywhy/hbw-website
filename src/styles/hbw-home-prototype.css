@@ -1132,6 +1132,12 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   cursor: pointer;
   color: inherit;
   text-decoration: none;
+  opacity: 1;
+  transition: opacity var(--hbw-t-nav) var(--hbw-ease);
+}
+
+.hbw-nav-peek__row:has([data-hbw-peek-active]) a:not([data-hbw-peek-active]) {
+  opacity: 0.5;
 }
 
 .hbw-nav-peek__frame {
@@ -3265,6 +3271,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-inspector,
   .hbw-projects,
   .hbw-nav-peek,
+  .hbw-nav-peek a,
   .hbw-poster-toolbar,
   .hbw-browse__grid,
   .hbw-browse__index,
