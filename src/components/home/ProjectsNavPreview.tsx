@@ -57,18 +57,20 @@ export function ProjectsNavPreview({
     function alignToBy() {
       const node = peekRef.current;
       const by = document.querySelector<HTMLElement>(".hbw-mark-by");
+      const glyph = by?.querySelector<HTMLElement>(".hbw-mark-word--rest");
       if (!node || !by) return;
-      const box = by.getBoundingClientRect();
-      node.style.left = `${box.left}px`;
-      node.style.top = `${box.bottom + 4}px`;
+      node.style.left = `${(glyph ?? by).getBoundingClientRect().left}px`;
+      node.style.top = `${by.getBoundingClientRect().bottom + 4}px`;
     }
 
     alignToBy();
     if (!visible) return;
     const by = document.querySelector(".hbw-mark-by");
+    const glyph = by instanceof Element ? by.querySelector(".hbw-mark-word--rest") : null;
     const observer = new ResizeObserver(alignToBy);
     observer.observe(peek);
     if (by instanceof Element) observer.observe(by);
+    if (glyph instanceof Element) observer.observe(glyph);
     window.addEventListener("resize", alignToBy);
     return () => {
       observer.disconnect();

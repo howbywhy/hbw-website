@@ -1097,7 +1097,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 
 .hbw-nav-peek__row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: var(--hbw-peek-gap);
   padding: 0;
@@ -1113,7 +1113,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   color: #333;
   white-space: nowrap;
   flex: 0 0 auto;
-  align-self: center;
 }
 
 .hbw-nav-peek a:focus-visible,
