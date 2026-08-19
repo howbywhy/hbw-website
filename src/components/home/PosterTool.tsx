@@ -70,6 +70,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   const suppressBlurRef = useRef(false);
   const sizeRef = useRef({ w: 0, h: 0 });
   const colorRef = useRef<HTMLInputElement>(null);
+  const sendingRef = useRef(false);
   const [tool, setTool] = useState<PosterToolId>("select");
   const [family, setFamily] = useState<Family>("select");
   const [armed, setArmed] = useState<Exclude<Family, "select"> | null>(null);
@@ -93,6 +94,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   const [emailStatus, setEmailStatus] = useState("");
   const [preview, setPreview] = useState("");
   const [reviewing, setReviewing] = useState(false);
+  const [sending, setSending] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
   editingIdRef.current = editingId;
   skipIdRef.current = editingId;
@@ -105,12 +107,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     const wrap = wrapRef.current;
     const caption = frozen && decision.trim() ? decision.trim() : undefined;
     paint(ctx, objectsRef.current, draftRef.current, wrap?.clientWidth ?? 0, wrap?.clientHeight ?? 0, {
-      selectedId: frozen || reviewing ? null : selectedId,
-      chrome: !frozen && !reviewing,
+      selectedId: frozen || reviewing || sending ? null : selectedId,
+      chrome: !frozen && !reviewing && !sending,
       caption,
       skipId: skipIdRef.current,
     });
-  }, [decision, frozen, reviewing, selectedId]);
+  }, [decision, frozen, reviewing, selectedId, sending]);
 
   const resize = useCallback(() => {
     const wrap = wrapRef.current;
@@ -144,6 +146,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setColor(workspace.poster.color);
       setDecision(workspace.poster.decision);
       setFrozen(workspace.poster.frozen);
+      if (workspace.poster.frozen) setEmailStatus("Sent.");
       setFont(workspace.poster.font);
       setTextSize(workspace.poster.textSize);
       setAlign(workspace.poster.align);
@@ -151,7 +154,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setShapeFill(workspace.poster.shapeFill);
       setFamily("select");
       setArmed(null);
-      setHasWork(objectsRef.current.length > 0);
+      setHasWork(objectsRef.current.length > 0 || workspace.poster.frozen);
     }
     resize();
     window.addEventListener("resize", resize);
@@ -198,10 +201,10 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
 
   useEffect(() => {
     redraw();
-    if (!reviewing || frozen) return;
+    if (!reviewing || frozen || sending) return;
     const canvas = canvasRef.current;
     if (canvas) setPreviewUrl(canvasToSendDataUrl(canvas));
-  }, [redraw, preview, reviewing, frozen]);
+  }, [redraw, preview, reviewing, frozen, sending]);
 
   function snapshot() {
     undoRef.current = undoRef.current.concat([objectsRef.current.map((o) => structuredClone(o))]).slice(-40);
@@ -337,7 +340,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function onPointerDown(event: React.PointerEvent<HTMLCanvasElement>) {
-    if (frozen || dormant || reviewing) return;
+    if (frozen || dormant || reviewing || sending) return;
     if (family === "draw") event.preventDefault();
     const p = pos(event);
     const found = [...objectsRef.current].reverse().find((o) => hit(o, p));
@@ -437,7 +440,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function onPointerMove(event: React.PointerEvent<HTMLCanvasElement>) {
-    if (frozen || dormant || reviewing) return;
+    if (frozen || dormant || reviewing || sending) return;
     const p = pos(event);
     if (dragRef.current) {
       const dx = p.x - dragRef.current.last.x;
@@ -480,7 +483,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
 
   function onDrop(event: React.DragEvent) {
     event.preventDefault();
-    if (frozen || dormant || reviewing) return;
+    if (frozen || dormant || reviewing || sending) return;
     const file = event.dataTransfer.files[0];
     if (file) void addImageFile(file, pos(event));
   }
@@ -507,18 +510,30 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     setEmailError("");
     setEmailStatus("");
     setSelectedId(null);
+    setTray("none");
+    setPaletteOpen(false);
+    setArmed(null);
     setReviewing(true);
     remember();
   }
 
   function exitReview() {
+    if (sendingRef.current) return;
     setReviewing(false);
     setEmailStatus("");
     remember();
   }
 
+  function thaw() {
+    if (sendingRef.current) return;
+    setFrozen(false);
+    setEmailStatus("");
+    commitPoster({ frozen: false });
+    redraw();
+  }
+
   async function submitSend() {
-    if (frozen) return;
+    if (frozen || sendingRef.current) return;
     if (!reviewing) {
       openReview();
       return;
@@ -535,7 +550,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setEmailStatus("The send did not go through. Try again.");
       return;
     }
-    setEmailStatus("Sending…");
+    sendingRef.current = true;
+    setSending(true);
     try {
       const res = await fetch("/api/hbw/email", {
         method: "POST",
@@ -556,6 +572,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       }
       if (data.ok) {
         setFrozen(true);
+        setReviewing(false);
         commitPoster({
           objects: objectsRef.current,
           decision,
@@ -574,10 +591,14 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setEmailStatus(data.reason || "The send did not go through. Try again.");
     } catch {
       setEmailStatus("The send did not go through. Try again.");
+    } finally {
+      sendingRef.current = false;
+      setSending(false);
     }
   }
 
   function onReset() {
+    if (sendingRef.current) return;
     const dirty = objectsRef.current.length > 0 || decision.trim().length > 0 || frozen;
     if (dirty && !resetAsk) {
       setResetAsk(true);
@@ -603,6 +624,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     setEmailError("");
     setEmailStatus("");
     setReviewing(false);
+    setSending(false);
+    sendingRef.current = false;
     setPreviewUrl("");
     setTray("none");
     setHasWork(false);
@@ -610,6 +633,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function undo() {
+    if (frozen || sendingRef.current) return;
     const prev = undoRef.current.pop();
     if (!prev) return;
     objectsRef.current = prev;
@@ -669,6 +693,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function chooseSelect() {
+    if (frozen || sendingRef.current) return;
+    if (reviewing) exitReview();
     setFamily("select");
     setArmed(null);
     setTray("none");
@@ -677,6 +703,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   function chooseFamily(next: Exclude<Family, "select">) {
+    if (frozen || sendingRef.current) return;
+    if (reviewing) exitReview();
     setPaletteOpen(false);
     setArmed(null);
     setFamily(next);
@@ -733,7 +761,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     }
 
     function onKey(event: KeyboardEvent) {
-      if (frozen || dormant || reviewing) return;
+      if (frozen || dormant || reviewing || sending) return;
       if (event.isComposing || event.key === "Process") return;
       if (typingTarget(event)) {
         if (event.key === "Escape") {
@@ -758,7 +786,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [dormant, frozen, reviewing, selectedId]);
+  }, [dormant, frozen, reviewing, selectedId, sending]);
 
   const fieldKind = family === "select" ? armed || "select" : family;
   const editing = objectsRef.current.find((o): o is TextObject => o.kind === "text" && o.id === editingId);
@@ -775,8 +803,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       className={`hbw-poster-field${fieldKind ? ` is-${fieldKind}` : " is-idle"}${
         family === "select" && armed ? " is-armed" : ""
       }${dormant ? " is-dormant" : ""}${hidden ? " is-hidden" : ""}${reviewing ? " is-reviewing" : ""}${
-        frozen ? " is-frozen" : ""
-      }`}
+        sending ? " is-sending" : ""
+      }${frozen ? " is-frozen" : ""}`}
       data-hbw-family={family || "idle"}
       data-hbw-context={textActive ? "text" : selectedStroke ? "stroke" : selectedImage ? "image" : "none"}
       aria-hidden={hidden ? true : undefined}
@@ -785,12 +813,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     >
       <canvas
         ref={canvasRef}
-        onPointerDown={reviewing ? undefined : onPointerDown}
-        onPointerMove={reviewing ? undefined : onPointerMove}
-        onPointerUp={reviewing ? undefined : onPointerUp}
+        onPointerDown={frozen || reviewing || sending ? undefined : onPointerDown}
+        onPointerMove={frozen || reviewing || sending ? undefined : onPointerMove}
+        onPointerUp={frozen || reviewing || sending ? undefined : onPointerUp}
         onPointerCancel={onPointerUp}
         onDoubleClick={(event) => {
-          if (frozen || reviewing) return;
+          if (frozen || reviewing || sending) return;
           const found = [...objectsRef.current].reverse().find((o) => o.kind === "text" && hit(o, pos(event)));
           if (found && found.kind === "text") startEdit(found);
         }}
@@ -860,66 +888,14 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
           setPaletteOpen(false);
         }}
       />
-      {reviewing ? (
-        <div className="hbw-poster-review" aria-label="Review poster">
-          <div className="hbw-poster-review__copy">
-            <label className="hbw-poster-review__label" htmlFor="hbw-poster-decision">
-              What are you trying to solve?
-            </label>
-            <textarea
-              id="hbw-poster-decision"
-              className="hbw-poster-review__summary"
-              rows={3}
-              value={decision}
-              readOnly={frozen}
-              onChange={(event) => {
-                if (frozen) return;
-                setDecision(event.target.value);
-                commitPoster({ decision: event.target.value });
-              }}
-            />
-            <label className="hbw-poster-review__label" htmlFor="hbw-poster-review-email">
-              Your email
-            </label>
-            <input
-              id="hbw-poster-review-email"
-              className={`hbw-poster-review__email${emailError ? " is-invalid" : ""}`}
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              autoCapitalize="none"
-              autoCorrect="off"
-              spellCheck={false}
-              name="email"
-              value={email}
-              aria-invalid={emailError ? true : undefined}
-              readOnly={frozen}
-              onChange={(event) => {
-                if (frozen) return;
-                setEmail(event.target.value);
-                if (emailError) setEmailError("");
-                if (emailStatus) setEmailStatus("");
-              }}
-            />
-            {emailError || emailStatus ? (
-              <p className={`hbw-poster-send-status${emailError ? " is-invalid" : ""}`} role="status">
-                {emailError || emailStatus}
-              </p>
-            ) : null}
-            <div className="hbw-poster-review__actions">
-              <button type="button" className="hbw-poster-review__back" onClick={exitReview}>
-                Edit poster
-              </button>
-              <button type="button" className="hbw-poster-review__send" disabled={frozen} onClick={() => void submitSend()}>
-                Send to HBW
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
       <IconContext.Provider value={{ weight: "light", size: 18, color: "currentColor" }}>
-          {!reviewing ? (
-          <div className="hbw-poster-toolbar" role="toolbar" aria-label="Make">
+          <div
+            className="hbw-poster-toolbar"
+            role="toolbar"
+            aria-label="Poster"
+            aria-busy={sending || undefined}
+          >
+            <span className="hbw-poster-title">Poster</span>
             <div
               className="hbw-poster-toolbar__primary"
               onPointerLeave={() => {
@@ -931,6 +907,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 className={`hbw-poster-tool${family === "select" ? " is-current" : ""}`}
                 aria-label="Select"
                 aria-pressed={family === "select"}
+                disabled={frozen || sending}
                 onClick={() => chooseSelect()}
               >
                 <Cursor />
@@ -941,11 +918,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 className={`hbw-poster-tool${family === "write" ? " is-current" : ""}`}
                 aria-label="Write"
                 aria-pressed={family === "write"}
+                disabled={frozen || sending}
                 onPointerEnter={() => {
-                  if (family === "select" && !dormant) setArmed("write");
+                  if (family === "select" && !dormant && !frozen && !sending && !reviewing) setArmed("write");
                 }}
                 onFocus={() => {
-                  if (family === "select" && !dormant) setArmed("write");
+                  if (family === "select" && !dormant && !frozen && !sending && !reviewing) setArmed("write");
                 }}
                 onClick={() => chooseFamily("write")}
               >
@@ -957,11 +935,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 className={`hbw-poster-tool${family === "draw" ? " is-current" : ""}`}
                 aria-label="Draw"
                 aria-pressed={family === "draw"}
+                disabled={frozen || sending}
                 onPointerEnter={() => {
-                  if (family === "select" && !dormant) setArmed("draw");
+                  if (family === "select" && !dormant && !frozen && !sending && !reviewing) setArmed("draw");
                 }}
                 onFocus={() => {
-                  if (family === "select" && !dormant) setArmed("draw");
+                  if (family === "select" && !dormant && !frozen && !sending && !reviewing) setArmed("draw");
                 }}
                 onClick={() => chooseFamily("draw")}
               >
@@ -974,11 +953,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 aria-label="Add"
                 aria-pressed={family === "add"}
                 aria-expanded={tray === "add"}
+                disabled={frozen || sending}
                 onPointerEnter={() => {
-                  if (family === "select" && !dormant) setArmed("add");
+                  if (family === "select" && !dormant && !frozen && !sending && !reviewing) setArmed("add");
                 }}
                 onFocus={() => {
-                  if (family === "select" && !dormant) setArmed("add");
+                  if (family === "select" && !dormant && !frozen && !sending && !reviewing) setArmed("add");
                 }}
                 onClick={() => chooseFamily("add")}
               >
@@ -1000,7 +980,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               aria-label="Your email"
               aria-invalid={emailError ? true : undefined}
               aria-describedby={emailError || emailStatus ? "hbw-send-status" : undefined}
+              readOnly={frozen || sending}
               onChange={(e) => {
+                if (frozen || sending) return;
                 setEmail(e.target.value);
                 if (emailError) setEmailError("");
                 if (emailStatus) setEmailStatus("");
@@ -1018,15 +1000,36 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               ) : null}
               <button
                 type="button"
-                className="hbw-poster-send-open"
+                className={`hbw-poster-send-open${reviewing ? " is-current" : ""}`}
                 aria-label="Send"
+                aria-pressed={reviewing || undefined}
+                disabled={frozen || sending}
                 onClick={() => void submitSend()}
               >
                 <PaperPlaneTilt />
                 <span>Send</span>
               </button>
             </div>
-            {tray === "add" ? (
+            {reviewing && !frozen ? (
+              <div className="hbw-poster-toolbar__review">
+                <label className="hbw-poster-type__label" htmlFor="hbw-poster-decision">
+                  What are you trying to solve?
+                </label>
+                <textarea
+                  id="hbw-poster-decision"
+                  className="hbw-poster-toolbar__message"
+                  rows={3}
+                  value={decision}
+                  readOnly={sending}
+                  onChange={(event) => {
+                    if (sending) return;
+                    setDecision(event.target.value);
+                    commitPoster({ decision: event.target.value });
+                  }}
+                />
+              </div>
+            ) : null}
+            {tray === "add" && !reviewing && !frozen ? (
               <div className="hbw-poster-toolbar__tray" data-stage="add">
                 <button type="button" className="hbw-poster-tool" aria-label="Upload image" onClick={() => fileRef.current?.click()}>
                   <ImageIcon />
@@ -1073,7 +1076,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 </button>
               </div>
             ) : null}
-            {family === "draw" && !current ? (
+            {family === "draw" && !current && !reviewing && !frozen ? (
               <div className="hbw-poster-toolbar__context" data-stage="draw">
                 <button
                   type="button"
@@ -1104,7 +1107,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 />
               </div>
             ) : null}
-            {(textActive || (family === "write" && !current)) ? (
+            {(textActive || (family === "write" && !current)) && !reviewing && !frozen ? (
               <div className="hbw-poster-toolbar__context" data-stage="text">
                 <label className="hbw-poster-type">
                   <span className="hbw-poster-type__label">Typeface</span>
@@ -1165,7 +1168,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 </button>
               </div>
             ) : null}
-            {selectedStroke ? (
+            {selectedStroke && !reviewing && !frozen ? (
               <div className="hbw-poster-toolbar__context" data-stage="stroke">
                 <button
                   type="button"
@@ -1180,14 +1183,14 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 </button>
               </div>
             ) : null}
-            {selectedImage ? (
+            {selectedImage && !reviewing && !frozen ? (
               <div className="hbw-poster-toolbar__context" data-stage="image">
                 <button type="button" className="hbw-poster-tool" aria-label="Delete" onClick={deleteSelected}>
                   <Trash />
                 </button>
               </div>
             ) : null}
-            {paletteOpen ? (
+            {paletteOpen && !reviewing && !frozen ? (
               <div className="hbw-poster-palette" role="listbox" aria-label="Colour">
                 {PALETTE.map((swatch) => (
                   <button
@@ -1212,17 +1215,27 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               </div>
             ) : null}
             {hasWork ? (
-              <>
-                <button type="button" className="hbw-poster-tool" aria-label="Undo" disabled={!undoRef.current.length} onClick={undo}>
+              <div className="hbw-poster-toolbar__work">
+                <button
+                  type="button"
+                  className="hbw-poster-tool"
+                  aria-label="Undo"
+                  disabled={frozen || sending || !undoRef.current.length}
+                  onClick={undo}
+                >
                   <ArrowUUpLeft />
                 </button>
+                {frozen ? (
+                  <button type="button" className="hbw-poster-reset" onClick={thaw}>
+                    Keep making
+                  </button>
+                ) : null}
                 <button type="button" className={`hbw-poster-reset${resetAsk ? " is-ask" : ""}`} onClick={onReset}>
                   {resetAsk ? "Reset?" : "Reset"}
                 </button>
-              </>
+              </div>
             ) : null}
           </div>
-          ) : null}
       </IconContext.Provider>
     </div>
   );
