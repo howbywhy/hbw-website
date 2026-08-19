@@ -61,6 +61,7 @@ export function ProjectView({
   const offsets = useRef<number[]>([]);
   const outroLeft = useRef(0);
   const boundaryRef = useRef(false);
+  const boundaryHold = useRef(false);
   const skipClick = useRef(false);
   const drag = useRef<{ x: number; from: number } | null>(null);
   const mobile = useRef(false);
@@ -130,12 +131,6 @@ export function ProjectView({
     (x: number) => {
       const root = rootRef.current;
       if (!root) return 0;
-      if (next && offsets.current.length) {
-        const stage = root.clientWidth;
-        const last = offsets.current[total - 1] ?? 0;
-        const parked = Math.max(0, last - Math.round(stage * 0.07));
-        if (x > parked + 8) return total;
-      }
       const pts = offsets.current.map((left, i) => ({ i, left }));
       if (outroLeft.current) pts.push({ i: total, left: outroLeft.current });
       if (!pts.length) return 0;
@@ -145,6 +140,7 @@ export function ProjectView({
         if (item.left <= anchor + 1) active = item.i;
         else break;
       }
+      if (next && !boundaryHold.current && active >= total) return Math.max(0, total - 1);
       return active;
     },
     [next, total]
@@ -184,9 +180,11 @@ export function ProjectView({
         return;
       }
       if (i >= total) {
+        if (next) boundaryHold.current = true;
         applyX(nextRestX(), true, false, HBW_T.continuity);
         return;
       }
+      if (next) boundaryHold.current = false;
       applyX(
         Math.max(0, (offsets.current[i] ?? 0) - inset),
         true,
@@ -194,7 +192,7 @@ export function ProjectView({
         fromBoundary && i === total - 1 ? HBW_T.continuity : HBW_T.ui
       );
     },
-    [applyX, nextRestX, total]
+    [applyX, next, nextRestX, total]
   );
 
   useLayoutEffect(() => {
@@ -210,9 +208,10 @@ export function ProjectView({
     }
     if (root && !shouldRestore && indexRef.current <= 0) root.scrollTo({ top: 0, behavior: "auto" });
     measure();
-    boundaryRef.current = false;
     const parkedX = restoreXRef.current;
     const atBoundary = indexRef.current >= total;
+    boundaryHold.current = Boolean(next) && !mobile.current && atBoundary;
+    boundaryRef.current = boundaryHold.current;
     parkHold.current = parkedX != null && parkedX >= 0 && !mobile.current && !atBoundary ? parkedX : null;
     if (parkedX != null && parkedX >= 0 && !mobile.current) {
       applyX(atBoundary ? nextRestX() || parkedX : parkedX, false, true);
@@ -647,7 +646,8 @@ export function ProjectView({
 
   useLayoutEffect(() => {
     const root = rootRef.current;
-    const now = Boolean(next) && !mobile.current && index >= total && (phase === "active" || phase === "handoff-out");
+    const now =
+      Boolean(next) && !mobile.current && boundaryHold.current && (phase === "active" || phase === "handoff-out");
     if (root) root.classList.toggle("is-boundary", now);
     boundaryRef.current = now;
   }, [index, next, phase, total]);
