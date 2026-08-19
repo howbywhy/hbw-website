@@ -69,7 +69,7 @@ function Stage({
   const count = fromTotal || 1;
   return (
     <section
-      className={`hbw-outro${nextId ? " is-next" : " is-archive"}`}
+      className="hbw-outro is-next"
       aria-label={label}
       data-hbw-next={coverName}
       style={media ? { ["--hbw-mv-ratio" as string]: `${media.width} / ${media.height}` } : undefined}
@@ -112,15 +112,7 @@ function Stage({
 }
 
 export function ProjectOutro({ next, onCommit, coverName, fromTotal }: Props) {
-  if (!next) {
-    return (
-      <Stage
-        name="Projects"
-        onCommit={onCommit}
-        label="Return to Projects"
-      />
-    );
-  }
+  if (!next) return null;
   return (
     <Stage
       name={next.name}
