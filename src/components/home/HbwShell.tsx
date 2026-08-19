@@ -1133,7 +1133,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         ref={homeRef}
         className={`hbw-home is-${windowMode}${panel ? " is-panel" : ""}${panel === "info" ? " is-inspect" : ""}${
           panel === "studio" ? " is-studio" : ""
-        }${manifestoSheet ? " is-manifesto" : ""}${
+        }${manifestoOpen ? " is-manifesto" : ""}${
           panelLeaving ? " is-sheet-leaving" : ""
         }${
           practicePeek.open && panel !== "studio" ? " is-practice-peek" : ""
@@ -1346,7 +1346,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           phase={swap ? `${swap.phase}:${swap.from}→${swap.to}` : phase}
         />
       </div>
-      <div className={`hbw-sheet-layer${manifestoSheet ? " is-manifesto" : ""}${panel === "studio" ? " is-studio" : ""}`}>
+      <div className={`hbw-sheet-layer${manifestoOpen ? " is-manifesto" : ""}${panel === "studio" ? " is-studio" : ""}`}>
         <WorkspacePanel
           panel={panel}
           leaving={panelLeaving}
