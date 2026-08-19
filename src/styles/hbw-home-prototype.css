@@ -1275,7 +1275,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   align-items: stretch;
   flex: 0 0 auto;
   gap: 0;
-  padding: 0 var(--hbw-space-2);
+  padding: 0 var(--hbw-space-3);
   border-right: 1px solid rgba(51, 51, 51, 0.18);
 }
 
@@ -1319,7 +1319,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   align-items: center;
   flex: 0 0 auto;
   min-height: var(--hbw-task-h, 2.75rem);
-  padding: 0 0.55rem 0 0.2rem;
+  padding: 0 var(--hbw-space-3);
   margin: 0;
   border-right: 1px solid rgba(51, 51, 51, 0.18);
   color: rgba(51, 51, 51, 0.55);
@@ -1388,6 +1388,14 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 .hbw-poster-tool.is-current,
 .hbw-poster-tool[aria-pressed="true"] {
   color: #333;
+}
+
+.hbw-poster-toolbar button:focus-visible,
+.hbw-poster-toolbar input:focus-visible,
+.hbw-poster-toolbar textarea:focus-visible,
+.hbw-poster-toolbar select:focus-visible {
+  outline: 1px solid #333;
+  outline-offset: 2px;
 }
 
 .hbw-poster-tool:disabled {
@@ -1581,18 +1589,16 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 }
 
 .hbw-poster-send-status {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 100%;
-  margin: 0 0 var(--hbw-space-2);
-  text-align: center;
+  flex: 1 1 100%;
+  margin: 0;
+  padding: 0.35rem var(--hbw-space-3);
+  border-top: 1px solid rgba(51, 51, 51, 0.12);
+  text-align: left;
   font-family: var(--hbw-font);
   font-size: var(--hbw-sm);
   letter-spacing: var(--hbw-ui-track, 0.02em);
   line-height: var(--hbw-lh-ui, 1.2);
   color: rgba(51, 51, 51, 0.55);
-  pointer-events: none;
 }
 
 .hbw-poster-send-status.is-invalid {
@@ -3722,6 +3728,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
       "title title"
       "tools tools"
       "email send"
+      "status status"
       "review review"
       "tray tray"
       "context context"
@@ -3765,6 +3772,10 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   .hbw-poster-toolbar__review {
     grid-area: review;
+  }
+
+  .hbw-poster-send-status {
+    grid-area: status;
   }
 
   .hbw-poster-toolbar__work {

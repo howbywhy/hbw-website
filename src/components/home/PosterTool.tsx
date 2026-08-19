@@ -105,14 +105,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const wrap = wrapRef.current;
-    const caption = frozen && decision.trim() ? decision.trim() : undefined;
     paint(ctx, objectsRef.current, draftRef.current, wrap?.clientWidth ?? 0, wrap?.clientHeight ?? 0, {
       selectedId: frozen || reviewing || sending ? null : selectedId,
       chrome: !frozen && !reviewing && !sending,
-      caption,
       skipId: skipIdRef.current,
     });
-  }, [decision, frozen, reviewing, selectedId, sending]);
+  }, [frozen, reviewing, selectedId, sending]);
 
   const resize = useCallback(() => {
     const wrap = wrapRef.current;
@@ -989,15 +987,6 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               }}
             />
             <div className="hbw-poster-toolbar__send">
-              {emailError || emailStatus ? (
-                <p
-                  id="hbw-send-status"
-                  className={`hbw-poster-send-status${emailError ? " is-invalid" : ""}`}
-                  role="status"
-                >
-                  {emailError || emailStatus}
-                </p>
-              ) : null}
               <button
                 type="button"
                 className={`hbw-poster-send-open${reviewing ? " is-current" : ""}`}
@@ -1010,6 +999,15 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                 <span>Send</span>
               </button>
             </div>
+            {emailError || emailStatus ? (
+              <p
+                id="hbw-send-status"
+                className={`hbw-poster-send-status${emailError ? " is-invalid" : ""}`}
+                role="status"
+              >
+                {emailError || emailStatus}
+              </p>
+            ) : null}
             {reviewing && !frozen ? (
               <div className="hbw-poster-toolbar__review">
                 <label className="hbw-poster-type__label" htmlFor="hbw-poster-decision">
@@ -1021,6 +1019,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
                   rows={3}
                   value={decision}
                   readOnly={sending}
+                  data-gramm="false"
                   onChange={(event) => {
                     if (sending) return;
                     setDecision(event.target.value);
