@@ -408,20 +408,20 @@ export function ProjectView({
       root.scrollTop = 0;
       measure();
       applyX(inspectX.current, false, true);
+      playFlip("close");
+      const after = reduceMotion() ? 0 : inspectAdvance.current ? HBW_T.continuity : HBW_T.spatial;
       if (inspectAdvance.current) {
         inspectAdvance.current = false;
         inspectHeldX.current = null;
-        requestAnimationFrame(() => {
+        window.setTimeout(() => {
           measure();
           goTo(total);
-          window.setTimeout(() => {
-            ignoreResize.current = false;
-          }, HBW_T.continuity);
-        });
-      } else {
-        requestAnimationFrame(() => {
           ignoreResize.current = false;
-        });
+        }, after);
+      } else {
+        window.setTimeout(() => {
+          ignoreResize.current = false;
+        }, after);
       }
     }
   }, [applyX, experience.slug, goTo, inspecting, measure, phase, playFlip, total]);

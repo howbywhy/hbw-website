@@ -35,7 +35,8 @@ export function NavRegister({
       closePanel();
       return;
     }
-    const hint = experience ? infoHintForIndex(experience, Math.min(viewIndex, total - 1)) : "idea";
+    const movementIndex = experience ? Math.min(viewIndex, Math.max(0, total - 1)) : 0;
+    const hint = experience ? infoHintForIndex(experience, movementIndex) : "idea";
     window.dispatchEvent(new CustomEvent("hbw:info-anchor", { detail: hint }));
     openPanel("info");
   }

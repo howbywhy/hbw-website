@@ -469,7 +469,11 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     completeIntro();
     if (next === "info") {
       captureInspectMedia();
-      if (experience) setInfoAnchor(infoHintForIndex(experience, viewIndex));
+      if (experience) {
+        const movementIndex = Math.min(Math.max(0, viewIndex), experience.movements.length - 1);
+        if (movementIndex !== viewIndex) setViewIndex(movementIndex);
+        setInfoAnchor(infoHintForIndex(experience, movementIndex));
+      }
     }
     setPanelLeaving(false);
     closingPanelRef.current = false;
@@ -1131,7 +1135,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     >
       <div
         ref={homeRef}
-        className={`hbw-home is-${windowMode}${panel ? " is-panel" : ""}${panel === "info" ? " is-inspect" : ""}${
+        className={`hbw-home is-${windowMode}${panel ? " is-panel" : ""}${inspecting ? " is-inspect" : ""}${
           panel === "studio" ? " is-studio" : ""
         }${manifestoOpen ? " is-manifesto" : ""}${
           panelLeaving ? " is-sheet-leaving" : ""
