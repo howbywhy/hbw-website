@@ -36,6 +36,26 @@ function fail(reason: string, status: number) {
   return NextResponse.json({ ok: false, reason }, { status });
 }
 
+function resendFail(status: number, detail: string) {
+  let code = "";
+  let message = "";
+  try {
+    const parsed = JSON.parse(detail) as {
+      statusCode?: number;
+      name?: string;
+      message?: string;
+      code?: string | number;
+    };
+    code = String(parsed.name || parsed.code || parsed.statusCode || "");
+    message = (parsed.message || "").trim();
+  } catch {
+    message = detail.trim().startsWith("<") ? "non-JSON response" : detail.trim();
+  }
+  const clipped = message.replace(/\s+/g, " ").slice(0, 180);
+  const bits = [`Resend ${status}`, code].filter(Boolean);
+  return fail(`${bits.join(" ")}: ${clipped || "rejected this send."}`, 502);
+}
+
 function decodePoster(dataUrl: string): { mime: string; filename: string; content: string; bytes: number } | null {
   const match = dataUrl.match(/^data:(image\/(?:jpeg|jpg|png));base64,([A-Za-z0-9+/=\s]+)$/i);
   if (!match) return null;
@@ -116,6 +136,7 @@ export async function POST(request: Request) {
       headers: {
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
+        "User-Agent": "hbw-website/1.0",
       },
       body: JSON.stringify({
         from,
@@ -135,11 +156,11 @@ export async function POST(request: Request) {
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
       console.error("resend failed", res.status, detail.slice(0, 400));
-      return fail("The send did not go through. Try again.", 502);
+      return resendFail(res.status, detail);
     }
   } catch (error) {
     console.error("resend request failed", error);
-    return fail("The send did not go through. Try again.", 502);
+    return fail("The send did not reach Resend. Try again.", 502);
   }
 
   return NextResponse.json({ ok: true });

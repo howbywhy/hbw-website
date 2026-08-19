@@ -547,7 +547,13 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
           poster: payload,
         }),
       });
-      const data = (await res.json()) as { ok?: boolean; reason?: string };
+      let data: { ok?: boolean; reason?: string };
+      try {
+        data = (await res.json()) as { ok?: boolean; reason?: string };
+      } catch {
+        setEmailStatus("The send came back unreadable. Try again.");
+        return;
+      }
       if (data.ok) {
         setFrozen(true);
         commitPoster({
