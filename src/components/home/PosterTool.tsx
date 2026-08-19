@@ -683,7 +683,6 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     } else if (next === "add") {
       setTray("add");
       setCurrentTool("upload");
-      fileRef.current?.click();
     }
   }
 
