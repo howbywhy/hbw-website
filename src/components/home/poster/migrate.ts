@@ -100,7 +100,7 @@ export function migratePoster(raw: unknown): PosterState {
     objects,
     decision: typeof data.decision === "string" ? data.decision : "",
     color: typeof data.color === "string" ? data.color : base.color,
-    frozen: false,
+    frozen: data.frozen === true,
     tool: TOOLS.includes(data.tool as PosterToolId) ? (data.tool as PosterToolId) : "select",
     font: FONTS.includes(data.font as PosterFont) ? (data.font as PosterFont) : "Visual",
     textSize: typeof data.textSize === "number" ? data.textSize : 28,

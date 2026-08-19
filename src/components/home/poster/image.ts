@@ -1,4 +1,7 @@
-import type { PosterObj } from "@/components/home/poster/types";
+import { FIELD_COLOR, type PosterObj } from "@/components/home/poster/types";
+
+const SEND_EDGE = 1400;
+const SEND_QUALITY = 0.88;
 
 const MAX_EDGE = 1400;
 const MAX_BYTES = 380_000;
@@ -48,6 +51,25 @@ export async function fileToImageObjectSource(file: File): Promise<{ src: string
   } finally {
     URL.revokeObjectURL(raw);
   }
+}
+
+/** 1× JPEG, longest edge 1400. Keeps the send body under Vercel’s 4.5 MB ceiling. */
+export function canvasToSendDataUrl(canvas: HTMLCanvasElement): string {
+  const cssW = canvas.clientWidth || canvas.width;
+  const cssH = canvas.clientHeight || canvas.height;
+  if (cssW < 1 || cssH < 1) return "";
+  const scale = Math.min(1, SEND_EDGE / Math.max(cssW, cssH));
+  const w = Math.max(1, Math.round(cssW * scale));
+  const h = Math.max(1, Math.round(cssH * scale));
+  const out = document.createElement("canvas");
+  out.width = w;
+  out.height = h;
+  const ctx = out.getContext("2d");
+  if (!ctx) return "";
+  ctx.fillStyle = FIELD_COLOR;
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(canvas, 0, 0, w, h);
+  return out.toDataURL("image/jpeg", SEND_QUALITY);
 }
 
 export function persistableObjects(objects: PosterObj[]): PosterObj[] {

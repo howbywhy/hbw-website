@@ -18,7 +18,7 @@ import {
   Trash,
   PaperPlaneTilt,
 } from "@phosphor-icons/react";
-import { fileToImageObjectSource } from "@/components/home/poster/image";
+import { canvasToSendDataUrl, fileToImageObjectSource } from "@/components/home/poster/image";
 import { hit, measureTextBlock, moveObject, nearHandle, paint, scaleObject, uid } from "@/components/home/poster/paint";
 import { recogniseEnabled, recogniseStrokes } from "@/components/home/poster/recognise";
 import { restoreStroke, smoothStroke } from "@/components/home/poster/smooth";
@@ -143,7 +143,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setTool("select");
       setColor(workspace.poster.color);
       setDecision(workspace.poster.decision);
-      setFrozen(false);
+      setFrozen(workspace.poster.frozen);
       setFont(workspace.poster.font);
       setTextSize(workspace.poster.textSize);
       setAlign(workspace.poster.align);
@@ -198,10 +198,10 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
 
   useEffect(() => {
     redraw();
-    if (!reviewing) return;
+    if (!reviewing || frozen) return;
     const canvas = canvasRef.current;
-    if (canvas) setPreviewUrl(canvas.toDataURL("image/png"));
-  }, [redraw, preview, reviewing]);
+    if (canvas) setPreviewUrl(canvasToSendDataUrl(canvas));
+  }, [redraw, preview, reviewing, frozen]);
 
   function snapshot() {
     undoRef.current = undoRef.current.concat([objectsRef.current.map((o) => structuredClone(o))]).slice(-40);
@@ -212,7 +212,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       objects: objectsRef.current,
       decision,
       color,
-      frozen: false,
+      frozen,
       tool,
       font,
       textSize,
@@ -518,6 +518,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   }
 
   async function submitSend() {
+    if (frozen) return;
     if (!reviewing) {
       openReview();
       return;
@@ -529,7 +530,11 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       return;
     }
     setEmailError("");
-    const payload = previewUrl || (canvasRef.current ? canvasRef.current.toDataURL("image/png") : "");
+    const payload = previewUrl || (canvasRef.current ? canvasToSendDataUrl(canvasRef.current) : "");
+    if (!payload) {
+      setEmailStatus("The send did not go through. Try again.");
+      return;
+    }
     setEmailStatus("Sending…");
     try {
       const res = await fetch("/api/hbw/email", {
@@ -543,11 +548,26 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
         }),
       });
       const data = (await res.json()) as { ok?: boolean; reason?: string };
-      setEmailStatus(
-        data.ok ? "Sent." : data.reason || "Email sending is disabled until a mail provider is configured."
-      );
+      if (data.ok) {
+        setFrozen(true);
+        commitPoster({
+          objects: objectsRef.current,
+          decision,
+          color,
+          frozen: true,
+          tool,
+          font,
+          textSize,
+          align,
+          shape,
+          shapeFill,
+        });
+        setEmailStatus("Sent.");
+        return;
+      }
+      setEmailStatus(data.reason || "The send did not go through. Try again.");
     } catch {
-      setEmailStatus("Email sending is disabled until a mail provider is configured.");
+      setEmailStatus("The send did not go through. Try again.");
     }
   }
 
@@ -749,7 +769,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       ref={wrapRef}
       className={`hbw-poster-field${fieldKind ? ` is-${fieldKind}` : " is-idle"}${
         family === "select" && armed ? " is-armed" : ""
-      }${dormant ? " is-dormant" : ""}${hidden ? " is-hidden" : ""}${reviewing ? " is-reviewing" : ""}`}
+      }${dormant ? " is-dormant" : ""}${hidden ? " is-hidden" : ""}${reviewing ? " is-reviewing" : ""}${
+        frozen ? " is-frozen" : ""
+      }`}
       data-hbw-family={family || "idle"}
       data-hbw-context={textActive ? "text" : selectedStroke ? "stroke" : selectedImage ? "image" : "none"}
       aria-hidden={hidden ? true : undefined}
@@ -763,6 +785,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
         onPointerUp={reviewing ? undefined : onPointerUp}
         onPointerCancel={onPointerUp}
         onDoubleClick={(event) => {
+          if (frozen || reviewing) return;
           const found = [...objectsRef.current].reverse().find((o) => o.kind === "text" && hit(o, pos(event)));
           if (found && found.kind === "text") startEdit(found);
         }}
@@ -843,7 +866,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               className="hbw-poster-review__summary"
               rows={3}
               value={decision}
+              readOnly={frozen}
               onChange={(event) => {
+                if (frozen) return;
                 setDecision(event.target.value);
                 commitPoster({ decision: event.target.value });
               }}
@@ -863,7 +888,9 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               name="email"
               value={email}
               aria-invalid={emailError ? true : undefined}
+              readOnly={frozen}
               onChange={(event) => {
+                if (frozen) return;
                 setEmail(event.target.value);
                 if (emailError) setEmailError("");
                 if (emailStatus) setEmailStatus("");
@@ -878,7 +905,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               <button type="button" className="hbw-poster-review__back" onClick={exitReview}>
                 Edit poster
               </button>
-              <button type="button" className="hbw-poster-review__send" onClick={() => void submitSend()}>
+              <button type="button" className="hbw-poster-review__send" disabled={frozen} onClick={() => void submitSend()}>
                 Send to HBW
               </button>
             </div>

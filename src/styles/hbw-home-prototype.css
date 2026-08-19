@@ -1294,6 +1294,12 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
   text-underline-offset: 0.18em;
 }
 
+.hbw-poster-review__send:disabled {
+  opacity: 0.4;
+  cursor: default;
+  text-decoration: none;
+}
+
 .hbw-poster-field canvas {
   display: block;
   width: 100%;
