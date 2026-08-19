@@ -108,13 +108,19 @@ export function ProjectsNavPreview({
       aria-hidden={!visible ? true : undefined}
       inert={!visible || undefined}
       onPointerEnter={onKeep}
-      onPointerLeave={onLeave}
+      onPointerLeave={() => {
+        setHoverId(null);
+        onHoverProject?.(null);
+        onLeave();
+      }}
       onFocus={onKeep}
       onKeyDown={onPeekKeyDown}
       onBlur={(event) => {
         const next = event.relatedTarget;
         if (next instanceof Node && event.currentTarget.contains(next)) return;
         if (next instanceof Element && next.closest(".hbw-mark-by")) return;
+        setHoverId(null);
+        onHoverProject?.(null);
         onLeave();
       }}
     >

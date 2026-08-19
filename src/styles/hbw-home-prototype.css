@@ -596,7 +596,7 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 }
 
 .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-suffix.is-on {
-  padding-left: 2.7em;
+  padding-left: 0;
 }
 
 .hbw-home.is-swap-exiting[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on,

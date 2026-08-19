@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HBW_T, isMobileViewport } from "@/components/home/motion";
 import type { PeekProject } from "@/components/home/ProjectsNavPreview";
 
@@ -64,6 +64,8 @@ export function IdentityNav({
   const [ack, setAck] = useState<IdentityIntent | null>(null);
   const pointerType = useRef<string>("");
   const ackTimer = useRef(0);
+  const navRef = useRef<HTMLElement>(null);
+  const suffixRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -90,6 +92,40 @@ export function IdentityNav({
   }, [previewingWhy]);
 
   useEffect(() => () => window.clearTimeout(ackTimer.current), []);
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const suffixEl = suffixRef.current;
+    if (!nav || !suffixEl) return;
+
+    function alignSuffix() {
+      if (assembled || !suffix) {
+        suffixEl.style.left = "";
+        return;
+      }
+      const by = nav.querySelector<HTMLElement>(".hbw-mark-by");
+      const glyph = by?.querySelector<HTMLElement>(".hbw-mark-word--rest");
+      const target = glyph ?? by;
+      if (!target) return;
+      const gap = Number.parseFloat(getComputedStyle(nav).fontSize) * 0.4;
+      suffixEl.style.left = `${target.getBoundingClientRect().right - nav.getBoundingClientRect().left + gap}px`;
+    }
+
+    alignSuffix();
+    if (assembled || !suffix) return;
+    const by = nav.querySelector(".hbw-mark-by");
+    const glyph = by instanceof Element ? by.querySelector(".hbw-mark-word--rest") : null;
+    const observer = new ResizeObserver(alignSuffix);
+    observer.observe(nav);
+    if (by instanceof Element) observer.observe(by);
+    if (glyph instanceof Element) observer.observe(glyph);
+    window.addEventListener("resize", alignSuffix);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", alignSuffix);
+      suffixEl.style.left = "";
+    };
+  }, [assembled, suffix]);
 
   const teaching = teach && !assembled;
   const activeIntent: IdentityIntent | null = teaching
@@ -166,6 +202,7 @@ export function IdentityNav({
 
   return (
     <nav
+      ref={navRef}
       className={`hbw-home-strip__mark${phrase ? " is-intent" : ""}${assembled ? " is-assembled" : ""}${
         teaching ? " is-teach" : ""
       }`}
@@ -245,7 +282,11 @@ export function IdentityNav({
           {ack === "why" ? ACK.why : phrase?.why || "\u00a0"}
         </span>
       </button>
-      <span className={`hbw-mark-suffix${suffix ? " is-on" : ""}`} aria-hidden={suffix ? undefined : true}>
+      <span
+        ref={suffixRef}
+        className={`hbw-mark-suffix${suffix ? " is-on" : ""}`}
+        aria-hidden={suffix ? undefined : true}
+      >
         <span className="hbw-mark-times">×</span>
         <span key={suffix || "idle"} className="hbw-mark-context">
           {suffix || ""}

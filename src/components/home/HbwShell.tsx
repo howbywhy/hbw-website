@@ -1172,7 +1172,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               peek.show();
             }}
             onPreviewKeep={peek.show}
-            onPreviewHide={peek.hideSoon}
+            onPreviewHide={() => {
+              setPeekProject(null);
+              peek.hideSoon();
+            }}
             onWhyPreviewShow={() => {
               if (whyPeekLock) return;
               peek.hideNow();
