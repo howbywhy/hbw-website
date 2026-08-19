@@ -146,6 +146,15 @@ export function ProjectView({
     [next, total]
   );
 
+  const pastOutro = useCallback(
+    (x: number) => {
+      const root = rootRef.current;
+      if (!root || !next || !outroLeft.current) return false;
+      return outroLeft.current <= x + root.clientWidth * ANCHOR + 1;
+    },
+    [next]
+  );
+
   const applyX = useCallback(
     (px: number, animate = false, silent = false, ms: number = HBW_T.ui) => {
       const root = rootRef.current;
@@ -513,11 +522,12 @@ export function ProjectView({
       event.preventDefault();
       markMoving();
       applyX(xRef.current + delta, false);
+      if (pastOutro(xRef.current) && !boundaryHold.current) goTo(total);
     }
 
     node.addEventListener("wheel", onWheel, { passive: false });
     return () => node.removeEventListener("wheel", onWheel);
-  }, [applyX, canDrive, inspecting, leaveInspectToBoundary, markMoving]);
+  }, [applyX, canDrive, goTo, inspecting, leaveInspectToBoundary, markMoving, pastOutro]);
 
   useEffect(() => {
     if (!canDrive) return;
@@ -708,6 +718,7 @@ export function ProjectView({
       return;
     }
     skipClick.current = Math.abs(event.clientX - start.x) > 8;
+    if (pastOutro(xRef.current) && !boundaryHold.current) goTo(total);
   }
 
   function onMediaClick(event: React.MouseEvent) {

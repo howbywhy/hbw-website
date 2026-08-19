@@ -84,6 +84,7 @@ export function NavRegister({
             className={panel === "info" ? "is-sheet-close" : undefined}
             aria-pressed={panel === "info"}
             aria-label={panel === "info" ? "Close" : "Info"}
+            tabIndex={boundaryName ? -1 : 0}
             onClick={onInfo}
           >
             {panel === "info" ? "Close" : "Info"}
@@ -94,10 +95,20 @@ export function NavRegister({
             </span>
           ) : null}
         </span>
-        <span className="hbw-nav-sub__face hbw-nav-sub__face--next" aria-hidden={boundaryName ? undefined : true}>
+        <button
+          type="button"
+          className="hbw-nav-sub__face hbw-nav-sub__face--next"
+          tabIndex={boundaryName ? 0 : -1}
+          aria-hidden={boundaryName ? undefined : true}
+          aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
+          onClick={() => {
+            if (!boundaryName) return;
+            window.dispatchEvent(new Event("hbw:boundary-next"));
+          }}
+        >
           <span className="hbw-nav-sub__lead">Next</span>
           <span className="hbw-nav-sub__meta">{boundaryName || ""}</span>
-        </span>
+        </button>
       </div>
     </div>
   );

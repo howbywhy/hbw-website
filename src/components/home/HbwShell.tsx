@@ -1117,7 +1117,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     !narrow &&
     navFace === "view" &&
     chromeExperience &&
-    chromeIndex >= chromeExperience.movements.length
+    chromeIndex >= Math.max(0, chromeExperience.movements.length - 1)
       ? nextProject(chromeExperience.slug)
       : null;
 

@@ -1047,6 +1047,9 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-de
 .hbw-nav-sub__view.is-next .hbw-nav-sub__face--next {
   clip-path: inset(0);
   opacity: 1;
+  pointer-events: auto;
+  color: inherit;
+  cursor: pointer;
 }
 
 .hbw-nav-sub__lead {
