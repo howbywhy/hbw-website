@@ -2451,6 +2451,13 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     opacity var(--hbw-t-handoff) var(--hbw-ease);
 }
 
+.hbw-project-view.is-active .hbw-mv,
+.hbw-project-view.is-active .hbw-outro {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .hbw-project-view.is-handoff-in {
   visibility: visible;
   pointer-events: auto;
@@ -2504,12 +2511,40 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 .hbw-project-view.is-exiting {
   visibility: visible;
   pointer-events: none;
+  background: var(--hbw-window, #ffffff);
+  transform: none;
+  opacity: 1;
+  transition: none;
+}
+
+.hbw-project-view.is-exiting .hbw-mv:first-child {
+  opacity: 1;
+  transform: none;
+}
+
+.hbw-project-view.is-exiting .hbw-mv:not(:first-child),
+.hbw-project-view.is-exiting .hbw-outro {
+  opacity: 0;
+  transform: translate3d(calc(-1 * var(--hbw-space-5)), 0, 0);
+  transition:
+    transform var(--hbw-t-exit) var(--hbw-ease),
+    opacity var(--hbw-t-exit) var(--hbw-ease);
+}
+
+.hbw-home[data-hbw-to="browse"] .hbw-project-view.is-exiting {
   background: transparent;
   transform: scale(0.992);
   opacity: 0;
   transform-origin: 50% 50%;
   transition: transform var(--hbw-t-exit) var(--hbw-ease),
     opacity var(--hbw-t-exit) var(--hbw-ease);
+}
+
+.hbw-home[data-hbw-to="browse"] .hbw-project-view.is-exiting .hbw-mv:not(:first-child),
+.hbw-home[data-hbw-to="browse"] .hbw-project-view.is-exiting .hbw-outro {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .hbw-home.is-owning .hbw-projects.is-open .hbw-browse__item:not(.is-active) {
@@ -3300,6 +3335,8 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-browse__item,
   .hbw-browse__item img,
   .hbw-project-view,
+  .hbw-project-view.is-exiting .hbw-mv,
+  .hbw-project-view.is-exiting .hbw-outro,
   .hbw-home-strip__identity,
   .hbw-home-strip__exit,
   .hbw-mark-word,
@@ -4176,7 +4213,9 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-project-view.is-handoff-in .hbw-mv:not(:first-child),
   .hbw-project-view.is-handoff-in .hbw-outro,
   .hbw-project-view.is-handoff-in .hbw-mv:first-child,
-  .hbw-project-view.is-assembling .hbw-mv:first-child {
+  .hbw-project-view.is-assembling .hbw-mv:first-child,
+  .hbw-project-view.is-exiting .hbw-mv:not(:first-child),
+  .hbw-project-view.is-exiting .hbw-outro {
     transform: none;
   }
 
