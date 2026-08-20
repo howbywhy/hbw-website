@@ -1332,6 +1332,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 viewIndex={chromeIndex}
                 experience={chromeExperience}
                 boundaryName={boundaryNext?.name ?? null}
+                showBack={showBack}
               />
             </div>
             <button

@@ -13,6 +13,7 @@ type Props = {
   viewIndex: number;
   experience: ProjectExperience | null;
   boundaryName?: string | null;
+  showBack?: boolean;
 };
 
 export function NavRegister({
@@ -24,6 +25,7 @@ export function NavRegister({
   viewIndex,
   experience,
   boundaryName = null,
+  showBack = false,
 }: Props) {
   const { openPanel, closePanel, panel } = useWorkspace();
   const idle = face === "home";
@@ -78,37 +80,44 @@ export function NavRegister({
         </div>
       </div>
       <div className={`hbw-nav-sub__view${boundaryName ? " is-next" : ""}`} inert={face !== "view" || undefined}>
-        <span className="hbw-nav-sub__face hbw-nav-sub__face--info">
+        {showBack ? (
+          <span className="hbw-nav-sub__back-slot" aria-hidden="true">
+            Back
+          </span>
+        ) : null}
+        <span className="hbw-nav-sub__faces">
+          <span className="hbw-nav-sub__face hbw-nav-sub__face--info">
+            <button
+              type="button"
+              className={panel === "info" ? "is-sheet-close" : undefined}
+              aria-pressed={panel === "info"}
+              aria-label={panel === "info" ? "Close" : "Info"}
+              tabIndex={boundaryName ? -1 : 0}
+              onClick={onInfo}
+            >
+              {panel === "info" ? "Close" : "Info"}
+            </button>
+            {panel !== "info" ? (
+              <span className="hbw-nav-sub__meta">
+                {String(displayIndex).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </span>
+            ) : null}
+          </span>
           <button
             type="button"
-            className={panel === "info" ? "is-sheet-close" : undefined}
-            aria-pressed={panel === "info"}
-            aria-label={panel === "info" ? "Close" : "Info"}
-            tabIndex={boundaryName ? -1 : 0}
-            onClick={onInfo}
+            className="hbw-nav-sub__face hbw-nav-sub__face--next"
+            tabIndex={boundaryName ? 0 : -1}
+            aria-hidden={boundaryName ? undefined : true}
+            aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
+            onClick={() => {
+              if (!boundaryName) return;
+              window.dispatchEvent(new Event("hbw:boundary-next"));
+            }}
           >
-            {panel === "info" ? "Close" : "Info"}
+            <span className="hbw-nav-sub__lead">Next</span>
+            <span className="hbw-nav-sub__meta">{boundaryName || ""}</span>
           </button>
-          {panel !== "info" ? (
-            <span className="hbw-nav-sub__meta">
-              {String(displayIndex).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </span>
-          ) : null}
         </span>
-        <button
-          type="button"
-          className="hbw-nav-sub__face hbw-nav-sub__face--next"
-          tabIndex={boundaryName ? 0 : -1}
-          aria-hidden={boundaryName ? undefined : true}
-          aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
-          onClick={() => {
-            if (!boundaryName) return;
-            window.dispatchEvent(new Event("hbw:boundary-next"));
-          }}
-        >
-          <span className="hbw-nav-sub__lead">Next</span>
-          <span className="hbw-nav-sub__meta">{boundaryName || ""}</span>
-        </button>
       </div>
     </div>
   );

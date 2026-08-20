@@ -296,16 +296,16 @@ export function IdentityNav({
         <span key={suffix || "idle"} className="hbw-mark-context" aria-hidden={suffix ? undefined : true}>
           {suffix || ""}
         </span>
-        <span
-          className="hbw-mark-descriptor"
-          aria-hidden={projectIdea || !assembled ? undefined : true}
-          onPointerEnter={() => {
-            if (previewing) onPreviewKeep?.();
-          }}
-        >
-          <span key={descriptorKey} className="hbw-mark-descriptor__line">
-            {projectIdea || REST_LINE}
-          </span>
+      </span>
+      <span
+        className="hbw-mark-descriptor"
+        aria-hidden={projectIdea || !assembled ? undefined : true}
+        onPointerEnter={() => {
+          if (previewing) onPreviewKeep?.();
+        }}
+      >
+        <span key={descriptorKey} className="hbw-mark-descriptor__line">
+          {projectIdea || REST_LINE}
         </span>
       </span>
     </nav>
