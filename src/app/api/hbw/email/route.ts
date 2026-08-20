@@ -36,37 +36,7 @@ function fail(reason: string, status: number) {
   return NextResponse.json({ ok: false, reason }, { status });
 }
 
-function scrubSecret(text: string, secret: string) {
-  if (!secret) return text;
-  const variants = [...new Set([secret, secret.trim()].filter((value) => value.length >= 8))];
-  let out = text;
-  for (const value of variants) {
-    out = out.split(value).join("[redacted]");
-  }
-  return out;
-}
-
-function describeThrow(error: unknown, secret: string) {
-  const parts: string[] = [];
-  if (error instanceof Error) {
-    parts.push(`${error.name}: ${error.message}`);
-    const cause = error.cause;
-    if (cause instanceof Error) {
-      const code =
-        "code" in cause && cause.code != null && String(cause.code).length > 0 ? String(cause.code) : "";
-      parts.push(`cause: ${cause.name}${code ? ` ${code}` : ""}: ${cause.message}`);
-    } else if (cause != null && cause !== "") {
-      parts.push(`cause: ${String(cause)}`);
-    }
-  } else {
-    parts.push(String(error));
-  }
-  return scrubSecret(parts.join("; ").replace(/\s+/g, " "), secret).slice(0, 280);
-}
-
 function resendFail(status: number, detail: string) {
-  let code = "";
-  let message = "";
   try {
     const parsed = JSON.parse(detail) as {
       statusCode?: number;
@@ -74,14 +44,14 @@ function resendFail(status: number, detail: string) {
       message?: string;
       code?: string | number;
     };
-    code = String(parsed.name || parsed.code || parsed.statusCode || "");
-    message = (parsed.message || "").trim();
+    const code = String(parsed.name || parsed.code || parsed.statusCode || "");
+    const message = (parsed.message || "").trim();
+    const clipped = message.replace(/\s+/g, " ").slice(0, 180);
+    const bits = [`Resend ${status}`, code].filter(Boolean);
+    return fail(`${bits.join(" ")}: ${clipped || "rejected this send."}`, 502);
   } catch {
-    message = detail.trim().startsWith("<") ? "non-JSON response" : detail.trim();
+    return fail("The send came back unreadable. Try again.", 502);
   }
-  const clipped = message.replace(/\s+/g, " ").slice(0, 180);
-  const bits = [`Resend ${status}`, code].filter(Boolean);
-  return fail(`${bits.join(" ")}: ${clipped || "rejected this send."}`, 502);
 }
 
 function decodePoster(dataUrl: string): { mime: string; filename: string; content: string; bytes: number } | null {
@@ -188,11 +158,7 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error("resend request failed", error);
-    const detail = describeThrow(error, key);
-    return fail(
-      detail ? `The send did not reach Resend. ${detail}` : "The send did not reach Resend. Try again.",
-      502
-    );
+    return fail("The send did not reach Resend. Try again.", 502);
   }
 
   return NextResponse.json({ ok: true });
