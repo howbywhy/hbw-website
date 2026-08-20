@@ -542,6 +542,14 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     });
   }
 
+  function dismissStudioFamily() {
+    if (studioViewRef.current === "manifesto" || manifestoLeavingRef.current) {
+      showStudioContent();
+      return;
+    }
+    closePanel();
+  }
+
   function openProjects() {
     completeIntro();
     if (windowMode === "view" || phase === "rising" || phase === "assembling" || phase === "active") {
@@ -1017,6 +1025,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           practicePeek.hideNow();
           return;
         }
+        if (panel === "studio") {
+          dismissStudioFamily();
+          return;
+        }
         if (panel) {
           closePanel();
           return;
@@ -1107,7 +1119,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const studioClose = panel === "studio" && !manifestoSheet;
   const viewJourneyClose = viewExit;
   const studioAsClose =
-    !narrow && (studioClose || manifestoSheet || (viewJourneyClose && panel !== "info"));
+    studioClose || manifestoSheet || (!narrow && viewJourneyClose && panel !== "info");
   const muteProjects = panel === "studio";
   const muteStudio = panel === "info";
   const hideProjectsHit =
@@ -1270,8 +1282,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               tabIndex={muteStudio || hideStudioHit ? -1 : undefined}
               onClick={() => {
                 if (muteStudio) return;
-                if (manifestoSheet) showStudioContent();
-                else if (studioClose) closePanel();
+                if (studioClose || manifestoSheet) dismissStudioFamily();
                 else if (viewJourneyClose) closeJourney();
                 else openPanel("studio");
               }}
