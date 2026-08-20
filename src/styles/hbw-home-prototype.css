@@ -807,15 +807,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   pointer-events: auto;
 }
 
-.hbw-home[data-hbw-back="true"] .hbw-home-strip__exit.is-on:not(.hbw-home-strip__journey-close) {
-  position: absolute;
-  left: calc(var(--hbw-x-projects) - var(--hbw-edge));
-  top: calc(var(--hbw-nav-line) + var(--hbw-nav-gap));
-  color: rgba(51, 51, 51, 0.4);
-  z-index: 48;
-  opacity: 1;
-}
-
 .hbw-home-strip__journey-close {
   display: none;
 }
@@ -1039,20 +1030,9 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 
 .hbw-nav-sub__view {
   position: relative;
-  gap: 1.25rem;
+  gap: 0;
   display: flex;
   align-items: baseline;
-}
-
-.hbw-nav-sub__back-slot {
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.hbw-nav-sub__faces {
-  position: relative;
-  display: flex;
-  min-width: 0;
 }
 
 .hbw-nav-sub__face {
@@ -3580,18 +3560,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     height: 0;
     overflow: hidden;
     padding: 0;
-    display: none;
-  }
-
-  .hbw-home[data-hbw-back="true"] .hbw-home-strip__exit.is-on:not(.hbw-home-strip__journey-close) {
-    position: relative;
-    left: auto;
-    top: auto;
-    color: inherit;
-    z-index: auto;
-  }
-
-  .hbw-nav-sub__back-slot {
     display: none;
   }
 

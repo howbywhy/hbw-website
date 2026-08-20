@@ -1148,8 +1148,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const showView =
     Boolean(experience) && !preparingView && (windowMode === "view" || phase !== "idle");
   const viewExit = navFace === "view" && panel !== "info" && panel !== "studio";
-  const showBack =
-    viewExit && (originKind === "browse" || originKind === "view") && phase === "active" && !chromeLocked;
   const assembled = identityAssembled(windowMode, swap);
   const sheetResolved = panel === "studio" && !panelLeaving && !assembled;
   const peekResolved = Boolean(!assembled && peek.open && peekProject);
@@ -1222,7 +1220,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         data-hbw-project={viewSlug || undefined}
         data-hbw-held-suffix={heldSuffix || undefined}
         data-hbw-origin={originKind}
-        data-hbw-back={showBack ? "true" : undefined}
         data-hbw-lens={filterValue || undefined}
         data-hbw-browse={browseMode}
         data-hbw-motion={swap?.phase || phase}
@@ -1268,15 +1265,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 <span className="hbw-home-strip__project" />
               </span>
             </div>
-            <button
-              type="button"
-              className={`hbw-home-strip__exit${showBack ? " is-on" : ""}`}
-              aria-hidden={showBack ? undefined : true}
-              tabIndex={showBack ? 0 : -1}
-              onClick={closeToOrigin}
-            >
-              Back
-            </button>
             <button
               type="button"
               className={`hbw-home-strip__exit hbw-home-strip__journey-close${narrow && viewJourneyClose ? " is-on" : ""}`}
@@ -1332,7 +1320,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 viewIndex={chromeIndex}
                 experience={chromeExperience}
                 boundaryName={boundaryNext?.name ?? null}
-                showBack={showBack}
               />
             </div>
             <button

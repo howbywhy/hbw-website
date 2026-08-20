@@ -13,7 +13,7 @@ export type FilterDim = "all" | "year" | "sector" | "discipline" | "collaborator
 export type SortId = "edited" | "newest" | "az";
 
 /**
- * Back pops one frame. Close (journey) returns to stack[0].
+ * Escape pops one origin frame. Close (journey) returns to stack[0].
  * Pointer-leave restore this stack. It records where a surface was
  * entered from, not whatever happened to render previously.
  *
