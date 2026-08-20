@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: record.href,
     },
     twitter: {
+      card: "summary_large_image",
       title,
       description,
     },

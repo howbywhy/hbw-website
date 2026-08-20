@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     url: "/studio",
   },
   twitter: {
+    card: "summary_large_image",
     title,
     description,
   },
