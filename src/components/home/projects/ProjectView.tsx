@@ -537,18 +537,22 @@ export function ProjectView({
         leaveInspectToBoundary();
         return;
       }
-      if (indexRef.current < total) {
-        const before = xRef.current;
-        goTo(total);
-        if (Math.abs(xRef.current - before) > 1) return;
-      }
       if (committed.current) return;
+      const root = rootRef.current;
+      const preview = root?.querySelector<HTMLElement>(".hbw-outro.is-next .hbw-outro__preview");
+      if (root) {
+        boundaryHold.current = true;
+        if (preview) preview.style.transition = "none";
+        root.classList.add("is-boundary");
+        applyX(nextRestX(), false, true);
+        void root.offsetWidth;
+      }
       committed.current = true;
       onCommitNext?.();
     }
     window.addEventListener("hbw:boundary-next", onBoundaryNext);
     return () => window.removeEventListener("hbw:boundary-next", onBoundaryNext);
-  }, [canDrive, goTo, leaveInspectToBoundary, next, onCommitNext, total]);
+  }, [applyX, canDrive, leaveInspectToBoundary, next, nextRestX, onCommitNext]);
 
   useEffect(() => {
     if (!canDrive) return;
