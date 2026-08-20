@@ -538,8 +538,9 @@ export function ProjectView({
         return;
       }
       if (indexRef.current < total) {
+        const before = xRef.current;
         goTo(total);
-        return;
+        if (Math.abs(xRef.current - before) > 1) return;
       }
       if (committed.current) return;
       committed.current = true;
