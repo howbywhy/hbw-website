@@ -547,7 +547,8 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   padding-inline-start: 0.45em;
 }
 
-.hbw-home-strip__mark.is-assembled {
+.hbw-home-strip__mark.is-assembled,
+.hbw-home-strip__mark.is-resolved {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -560,7 +561,10 @@ html.hbw-arriving-make .hbw-poster-toolbar {
 
 .hbw-home-strip__mark.is-assembled .hbw-mark-how,
 .hbw-home-strip__mark.is-assembled .hbw-mark-by,
-.hbw-home-strip__mark.is-assembled .hbw-mark-why {
+.hbw-home-strip__mark.is-assembled .hbw-mark-why,
+.hbw-home-strip__mark.is-resolved .hbw-mark-how,
+.hbw-home-strip__mark.is-resolved .hbw-mark-by,
+.hbw-home-strip__mark.is-resolved .hbw-mark-why {
   position: relative;
   left: auto;
   right: auto;
@@ -3459,9 +3463,9 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     overflow: visible;
   }
 
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-how,
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-by,
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-why {
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-how,
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-by,
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-why {
     height: var(--hbw-nav-line);
     min-height: var(--hbw-hit);
     min-width: 0;
@@ -3469,7 +3473,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     top: 50%;
   }
 
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-how {
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-how {
     left: 0;
     width: 33.333%;
     transform: translateY(-50%);
@@ -3477,7 +3481,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     padding-inline: 0;
   }
 
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-by {
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-by {
     left: 33.333%;
     width: 33.333%;
     transform: translateY(-50%);
@@ -3485,7 +3489,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     padding-inline: 0;
   }
 
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-why {
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-why {
     left: auto;
     right: 0;
     width: 33.334%;
@@ -3494,9 +3498,9 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     padding-inline: 0;
   }
 
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-how::before,
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-by::before,
-  .hbw-home-strip__mark:not(.is-assembled) .hbw-mark-why::before {
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-how::before,
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-by::before,
+  .hbw-home-strip__mark:not(.is-assembled, .is-resolved) .hbw-mark-why::before {
     left: 0;
     right: 0;
     top: 50%;
@@ -3507,7 +3511,10 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   .hbw-home-strip__mark.is-assembled .hbw-mark-how,
   .hbw-home-strip__mark.is-assembled .hbw-mark-by,
-  .hbw-home-strip__mark.is-assembled .hbw-mark-why {
+  .hbw-home-strip__mark.is-assembled .hbw-mark-why,
+  .hbw-home-strip__mark.is-resolved .hbw-mark-how,
+  .hbw-home-strip__mark.is-resolved .hbw-mark-by,
+  .hbw-home-strip__mark.is-resolved .hbw-mark-why {
     position: relative;
     left: auto;
     right: auto;
@@ -4161,6 +4168,16 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     z-index: 0;
     touch-action: pan-y;
     overscroll-behavior: contain;
+  }
+
+  html.hbw-workspace .hbw-sheet-layer .hbw-inspector.is-overlay.is-manifesto {
+    left: var(--hbw-space-3);
+    width: auto;
+    z-index: 1;
+  }
+
+  html.hbw-workspace .hbw-sheet-layer.is-manifesto .hbw-inspector.is-global-right:not(.is-manifesto) {
+    pointer-events: none;
   }
 
   .hbw-home.is-studio .hbw-home-strip,

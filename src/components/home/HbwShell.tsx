@@ -475,10 +475,20 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         setInfoAnchor(infoHintForIndex(experience, movementIndex));
       }
     }
-    setPanelLeaving(false);
-    closingPanelRef.current = false;
-    if (next === "studio") setStudioView("studio");
-    setPanel(next);
+    const gatherMark = next === "studio" && panel !== "studio" && !identityAssembled(windowMode, swap);
+    const apply = () => {
+      setPanelLeaving(false);
+      closingPanelRef.current = false;
+      if (next === "studio") setStudioView("studio");
+      setPanel(next);
+    };
+    if (gatherMark) {
+      flipMark(() => {
+        flushSync(apply);
+      }, HBW_T.spatial);
+    } else {
+      apply();
+    }
     if (next === "studio" && windowMode === "make" && !isStudioPathname(pathname)) {
       router.push("/studio");
     }
@@ -487,15 +497,25 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   function closePanel() {
     if (!panel || panelLeaving) return;
     const leaveRoute = panel === "studio" && isStudioPathname(pathname);
-    closingPanelRef.current = true;
-    if (panel === "info") captureInspectMedia();
-    if (panel === "studio") {
-      setWhyPeekLock(true);
-      practicePeek.hideNow();
+    const spreadMark = panel === "studio" && !identityAssembled(windowMode, swap);
+    const applyLeave = () => {
+      closingPanelRef.current = true;
+      if (panel === "info") captureInspectMedia();
+      if (panel === "studio") {
+        setWhyPeekLock(true);
+        practicePeek.hideNow();
+      }
+      setPanelLeaving(true);
+      manifestoLeavingRef.current = false;
+      setManifestoLeaving(false);
+    };
+    if (spreadMark) {
+      flipMark(() => {
+        flushSync(applyLeave);
+      }, HBW_T.spatial);
+    } else {
+      applyLeave();
     }
-    setPanelLeaving(true);
-    manifestoLeavingRef.current = false;
-    setManifestoLeaving(false);
     later(HBW_T.spatial, () => {
       setPanel(null);
       setPanelLeaving(false);
@@ -1099,6 +1119,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const showBack =
     viewExit && (originKind === "browse" || originKind === "view") && phase === "active" && !chromeLocked;
   const assembled = identityAssembled(windowMode, swap);
+  const resolved = panel === "studio" && !panelLeaving && !assembled;
   const hoverName =
     assembled && !narrow && windowMode === "browse" && hoveredId
       ? PROJECTS.find((project) => project.id === hoveredId)?.name
@@ -1174,6 +1195,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
             practiceMuted={muteStudio}
             inert={panel === "studio"}
             assembled={assembled}
+            resolved={resolved}
             suffix={identitySuffix}
             previewing={peek.open}
             previewingWhy={practicePeek.open && panel !== "studio"}

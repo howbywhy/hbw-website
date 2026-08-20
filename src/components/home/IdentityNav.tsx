@@ -24,6 +24,7 @@ type Props = {
   practiceMuted?: boolean;
   inert?: boolean;
   assembled?: boolean;
+  resolved?: boolean;
   suffix?: string | null;
   previewing?: boolean;
   previewingWhy?: boolean;
@@ -46,6 +47,7 @@ export function IdentityNav({
   practiceMuted = false,
   inert = false,
   assembled = false,
+  resolved = false,
   suffix = null,
   previewing = false,
   previewingWhy = false,
@@ -206,9 +208,9 @@ export function IdentityNav({
   return (
     <nav
       ref={navRef}
-      className={`hbw-home-strip__mark${phrase ? " is-intent" : ""}${assembled ? " is-assembled" : ""}${
-        teaching ? " is-teach" : ""
-      }`}
+      className={`hbw-home-strip__mark${phrase ? " is-intent" : ""}${
+        assembled ? " is-assembled" : resolved ? " is-resolved" : ""
+      }${teaching ? " is-teach" : ""}`}
       data-hbw-intent={
         assembled ? "assembled" : teaching ? "teach" : intent || (previewingWhy ? "why" : previewing ? "by" : "rest")
       }
