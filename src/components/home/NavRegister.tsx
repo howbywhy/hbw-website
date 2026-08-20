@@ -95,20 +95,21 @@ export function NavRegister({
             </span>
           ) : null}
         </span>
-        <button
-          type="button"
-          className="hbw-nav-sub__face hbw-nav-sub__face--next"
-          tabIndex={boundaryName ? 0 : -1}
-          aria-hidden={boundaryName ? undefined : true}
-          aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
-          onClick={() => {
-            if (!boundaryName) return;
-            window.dispatchEvent(new Event("hbw:boundary-next"));
-          }}
-        >
+        <span className="hbw-nav-sub__face hbw-nav-sub__face--next" aria-hidden={boundaryName ? undefined : true}>
           <span className="hbw-nav-sub__lead">Next</span>
-          <span className="hbw-nav-sub__meta">{boundaryName || ""}</span>
-        </button>
+          <button
+            type="button"
+            className="hbw-nav-sub__meta hbw-nav-sub__next-name"
+            tabIndex={boundaryName ? 0 : -1}
+            aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
+            onClick={() => {
+              if (!boundaryName) return;
+              window.dispatchEvent(new Event("hbw:boundary-next"));
+            }}
+          >
+            {boundaryName || ""}
+          </button>
+        </span>
       </div>
     </div>
   );

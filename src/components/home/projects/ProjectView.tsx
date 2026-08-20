@@ -537,11 +537,17 @@ export function ProjectView({
         leaveInspectToBoundary();
         return;
       }
-      if (indexRef.current < total) goTo(total);
+      if (indexRef.current < total) {
+        goTo(total);
+        return;
+      }
+      if (committed.current) return;
+      committed.current = true;
+      onCommitNext?.();
     }
     window.addEventListener("hbw:boundary-next", onBoundaryNext);
     return () => window.removeEventListener("hbw:boundary-next", onBoundaryNext);
-  }, [canDrive, goTo, leaveInspectToBoundary, next, total]);
+  }, [canDrive, goTo, leaveInspectToBoundary, next, onCommitNext, total]);
 
   useEffect(() => {
     if (!canDrive) return;

@@ -1065,7 +1065,25 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   opacity: 1;
   pointer-events: auto;
   color: inherit;
+}
+
+.hbw-nav-sub button.hbw-nav-sub__next-name {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: #333;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.hbw-nav-sub button.hbw-nav-sub__next-name:hover,
+.hbw-nav-sub button.hbw-nav-sub__next-name:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .hbw-nav-sub__lead {
