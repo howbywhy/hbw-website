@@ -351,44 +351,46 @@ function ArchiveItem({
       ) : (
         <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
       )}
-      <span className="hbw-browse__row-disc">
-        {disciplines.map((value, i) => (
-          <span key={value}>
-            {i > 0 ? <span aria-hidden="true"> · </span> : null}
-            <RelValue
-              dim="discipline"
-              value={value}
-              currentDim={filterDim}
-              currentValue={filterValue}
-              onLens={onLens}
-            />
-          </span>
-        ))}
+      <span className="hbw-browse__row-meta">
+        <span className={`hbw-browse__row-disc${disciplines.length ? "" : " is-empty"}`}>
+          {disciplines.map((value, i) => (
+            <span key={value}>
+              {i > 0 ? <span aria-hidden="true"> · </span> : null}
+              <RelValue
+                dim="discipline"
+                value={value}
+                currentDim={filterDim}
+                currentValue={filterValue}
+                onLens={onLens}
+              />
+            </span>
+          ))}
+        </span>
+        <span className={`hbw-browse__row-collab${collaborators.length ? "" : " is-empty"}`}>
+          {collaborators.map((collab, i) => (
+            <span key={collab.name}>
+              {i > 0 ? <span aria-hidden="true"> · </span> : null}
+              <RelValue
+                dim="collaborator"
+                value={collab.name}
+                currentDim={filterDim}
+                currentValue={filterValue}
+                onLens={onLens}
+              />
+            </span>
+          ))}
+        </span>
+        <span className="hbw-browse__row-year">
+          <RelValue
+            dim="year"
+            value={project.year}
+            currentDim={filterDim}
+            currentValue={filterValue}
+            onLens={onLens}
+          />
+        </span>
+        {!visual && note ? <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} /> : null}
       </span>
-      <span className="hbw-browse__row-collab">
-        {collaborators.map((collab, i) => (
-          <span key={collab.name}>
-            {i > 0 ? <span aria-hidden="true"> · </span> : null}
-            <RelValue
-              dim="collaborator"
-              value={collab.name}
-              currentDim={filterDim}
-              currentValue={filterValue}
-              onLens={onLens}
-            />
-          </span>
-        ))}
-      </span>
-      <span className="hbw-browse__row-year">
-        <RelValue
-          dim="year"
-          value={project.year}
-          currentDim={filterDim}
-          currentValue={filterValue}
-          onLens={onLens}
-        />
-      </span>
-      {!visual && note ? <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} /> : null}
       {note ? (
         <div
           className="hbw-browse__note"
