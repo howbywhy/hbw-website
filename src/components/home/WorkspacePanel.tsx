@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type WheelEvent } from "react";
+import { useEffect, useLayoutEffect, useState, type WheelEvent } from "react";
 import type { ProjectExperience, InfoSectionId } from "@/components/home/projects/types";
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
@@ -293,6 +293,12 @@ export function WorkspacePanel({
     toTop();
     return () => cancelAnimationFrame(frame);
   }, [panel, infoAnchor]);
+
+  useLayoutEffect(() => {
+    if (!manifestoShown) return;
+    const sheet = document.querySelector<HTMLElement>(".hbw-inspector.is-manifesto");
+    if (sheet) sheet.scrollTop = 0;
+  }, [manifestoShown]);
 
   void onShowStudio;
 
