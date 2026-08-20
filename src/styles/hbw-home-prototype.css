@@ -2448,13 +2448,14 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   visibility: visible;
   pointer-events: none;
   z-index: 5;
-  transform: scale(0.992);
-  opacity: 0;
   transform-origin: 50% 50%;
   filter: none;
   background: transparent;
-  transition: transform var(--hbw-t-handoff) var(--hbw-ease),
-    opacity var(--hbw-t-handoff) var(--hbw-ease);
+  animation: hbw-yield-out var(--hbw-t-handoff) var(--hbw-ease) both;
+}
+
+.hbw-project-view.is-handoff-out .hbw-outro {
+  visibility: hidden;
 }
 
 ::view-transition-old(hbw-yield) {
@@ -4106,6 +4107,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-project-view.is-handoff-out {
     transform: none;
     opacity: 0;
+    animation: none;
   }
 
   .hbw-mv__media,
