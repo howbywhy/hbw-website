@@ -90,6 +90,11 @@ function identityAssembled(mode: WindowMode, swap: Swap | null) {
   return false;
 }
 
+function markIsGathered() {
+  const mark = document.querySelector(".hbw-home-strip__mark");
+  return Boolean(mark?.classList.contains("is-assembled") || mark?.classList.contains("is-resolved"));
+}
+
 function flipMark(update: () => void, ms: number = HBW_T.continuity) {
   if (typeof document === "undefined" || reduceMotion()) {
     update();
@@ -97,7 +102,9 @@ function flipMark(update: () => void, ms: number = HBW_T.continuity) {
   }
   const words = MARK_FLIP_SELECTORS.map((sel) => document.querySelector<HTMLElement>(sel));
   const first = words.map((el) => el?.getBoundingClientRect() ?? null);
+  const wasGathered = markIsGathered();
   update();
+  if (wasGathered && markIsGathered()) return;
   words.forEach((el, i) => {
     const from = first[i];
     if (!el || !from) return;
@@ -744,8 +751,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setLeaving(null);
     setActive(id);
     setHoveredId(null);
-    peek.hideNow();
-    practicePeek.hideNow();
     setPanel(null);
     setPanelLeaving(false);
     motionLock.current = true;
@@ -782,6 +787,8 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       if (token !== enterGen.current) return;
       const go = () => {
         flushSync(() => {
+          peek.hideNow();
+          practicePeek.hideNow();
           setWindowMode("view");
           setSwap({ from, to: "view", phase: "entering" });
           setPhase("rising");
