@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
 import { MANIFESTO_COPY } from "@/components/home/studio-copy";
 
+const title = "Manifesto — HBW";
+const description = MANIFESTO_COPY.opening.join(" ");
+
 export const metadata: Metadata = {
-  title: "Manifesto — HBW",
-  description: MANIFESTO_COPY.opening.join(" "),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    url: "/manifesto",
+  },
+  twitter: {
+    title,
+    description,
+  },
 };
 
 export default function ManifestoPage() {

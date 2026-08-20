@@ -14,7 +14,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const record = liveProjects().find((project) => project.id === slug);
   if (!record) notFound();
-  return { title: `${record.name} — HBW`, description: projectDescription(record) };
+  const title = `${record.name} — HBW`;
+  const description = projectDescription(record);
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: record.href,
+    },
+    twitter: {
+      title,
+      description,
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: Props) {
