@@ -110,7 +110,6 @@ export function ProjectsNavPreview({
       onPointerEnter={onKeep}
       onPointerLeave={() => {
         setHoverId(null);
-        onHoverProject?.(null);
         onLeave();
       }}
       onFocus={onKeep}
@@ -120,7 +119,6 @@ export function ProjectsNavPreview({
         if (next instanceof Node && event.currentTarget.contains(next)) return;
         if (next instanceof Element && next.closest(".hbw-mark-by")) return;
         setHoverId(null);
-        onHoverProject?.(null);
         onLeave();
       }}
     >
@@ -144,7 +142,6 @@ export function ProjectsNavPreview({
                 const next = event.relatedTarget;
                 if (next instanceof Element && next.closest("[data-hbw-peek]")) return;
                 setHoverId(null);
-                onHoverProject?.(null);
               }}
               onFocus={() => {
                 setHoverId(project.id);
@@ -154,7 +151,6 @@ export function ProjectsNavPreview({
                 const next = event.relatedTarget;
                 if (next instanceof Element && next.closest("#hbw-nav-peek")) return;
                 setHoverId(null);
-                onHoverProject?.(null);
               }}
               onClick={(event) => activate(event, project.id)}
             >
@@ -179,7 +175,6 @@ export function ProjectsNavPreview({
             tabIndex={visible ? 0 : -1}
             onFocus={() => {
               setHoverId(null);
-              onHoverProject?.(null);
             }}
             onClick={(event) => {
               event.preventDefault();
@@ -196,7 +191,7 @@ export function ProjectsNavPreview({
   );
 }
 
-export function useNavPeek(enabled: boolean) {
+export function useNavPeek(enabled: boolean, wrapClose?: (close: () => void) => void) {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<number>(0);
 
@@ -212,7 +207,11 @@ export function useNavPeek(enabled: boolean) {
 
   function hideSoon() {
     cancelClose();
-    closeTimer.current = window.setTimeout(() => setOpen(false), reduceMotion() ? 0 : HBW_T.micro);
+    closeTimer.current = window.setTimeout(() => {
+      const close = () => setOpen(false);
+      if (wrapClose) wrapClose(close);
+      else close();
+    }, reduceMotion() ? 0 : HBW_T.micro);
   }
 
   function hideNow() {

@@ -104,7 +104,7 @@ export function IdentityNav({
       const mark = navRef.current;
       const label = suffixRef.current;
       if (!mark || !label) return;
-      if (assembled || !suffix) {
+      if (assembled || (resolved && suffix) || !suffix) {
         label.style.left = "";
         return;
       }
@@ -117,7 +117,7 @@ export function IdentityNav({
     }
 
     alignSuffix();
-    if (assembled || !suffix) return;
+    if (assembled || (resolved && suffix) || !suffix) return;
     const by = nav.querySelector(".hbw-mark-by");
     const glyph = by instanceof Element ? by.querySelector(".hbw-mark-word--rest") : null;
     const observer = new ResizeObserver(alignSuffix);
@@ -130,7 +130,7 @@ export function IdentityNav({
       window.removeEventListener("resize", alignSuffix);
       suffixEl.style.left = "";
     };
-  }, [assembled, suffix]);
+  }, [assembled, resolved, suffix]);
 
   const teaching = teach && !assembled;
   const activeIntent: IdentityIntent | null = teaching

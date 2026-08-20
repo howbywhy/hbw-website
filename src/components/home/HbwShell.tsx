@@ -201,9 +201,29 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }
   panelRef.current = panel;
   const peekEnabled = !narrow && windowMode === "make" && panel !== "studio";
-  const peek = useNavPeek(peekEnabled && !narrow);
-  const practicePeek = useNavPeek(peekEnabled && !narrow && !panelLeaving);
   const [peekProject, setPeekProject] = useState<PeekProject | null>(null);
+  const peek = useNavPeek(peekEnabled && !narrow, (close) => {
+    if (!peekProject) {
+      close();
+      return;
+    }
+    flipMark(() => {
+      flushSync(close);
+    }, HBW_T.micro);
+  });
+  const practicePeek = useNavPeek(peekEnabled && !narrow && !panelLeaving);
+
+  function onPeekProject(next: PeekProject | null) {
+    const was = Boolean(peek.open && peekProject);
+    const will = Boolean(peek.open && next);
+    if (was === will) {
+      setPeekProject(next);
+      return;
+    }
+    flipMark(() => {
+      flushSync(() => setPeekProject(next));
+    }, HBW_T.micro);
+  }
   const [whyPeekLock, setWhyPeekLock] = useState(false);
   const inspecting = panel === "info" && !panelLeaving;
   const projectsRef = useRef<HTMLButtonElement>(null);
@@ -479,7 +499,11 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     const apply = () => {
       setPanelLeaving(false);
       closingPanelRef.current = false;
-      if (next === "studio") setStudioView("studio");
+      if (next === "studio") {
+        peek.hideNow();
+        practicePeek.hideNow();
+        setStudioView("studio");
+      }
       setPanel(next);
     };
     if (gatherMark) {
@@ -584,6 +608,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     clearMotionTimers();
     flipMark(() => {
       flushSync(() => {
+        peek.hideNow();
         setSwap({ from: "make", to: "browse", phase: "exiting" });
       });
     }, HBW_T.spatial);
@@ -1119,7 +1144,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const showBack =
     viewExit && (originKind === "browse" || originKind === "view") && phase === "active" && !chromeLocked;
   const assembled = identityAssembled(windowMode, swap);
-  const resolved = panel === "studio" && !panelLeaving && !assembled;
+  const sheetResolved = panel === "studio" && !panelLeaving && !assembled;
+  const peekResolved = Boolean(!assembled && peek.open && peekProject);
+  const resolved = sheetResolved || peekResolved;
   const hoverName =
     assembled && !narrow && windowMode === "browse" && hoveredId
       ? PROJECTS.find((project) => project.id === hoveredId)?.name
@@ -1207,7 +1234,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
             }}
             onPreviewKeep={peek.show}
             onPreviewHide={() => {
-              setPeekProject(null);
               peek.hideSoon();
             }}
             onWhyPreviewShow={() => {
@@ -1272,9 +1298,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
                 tabIndex={muteProjects || hideProjectsHit ? -1 : undefined}
                 onClick={() => {
                   if (muteProjects) return;
-                  peek.hideNow();
-                  if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
-                  else openProjects();
+                  if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) {
+                    peek.hideNow();
+                    closeProjects();
+                  } else openProjects();
                 }}
               >
                 {navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
@@ -1322,9 +1349,8 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           }}
           onKeep={peek.show}
           onLeave={peek.hideSoon}
-          onHoverProject={setPeekProject}
+          onHoverProject={onPeekProject}
           onViewAll={() => {
-            peek.hideNow();
             if (browseMode !== "visual") setProjectsMode("visual");
             openProjects();
           }}

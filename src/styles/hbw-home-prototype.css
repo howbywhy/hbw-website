@@ -589,7 +589,8 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   transition: opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
-.hbw-home-strip__mark.is-assembled .hbw-mark-suffix {
+.hbw-home-strip__mark.is-assembled .hbw-mark-suffix,
+.hbw-home-strip__mark.is-resolved .hbw-mark-suffix.is-on {
   position: relative;
   left: auto;
   top: auto;
