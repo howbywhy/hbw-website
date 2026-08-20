@@ -3849,6 +3849,16 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     transform-origin: 50% 50%;
   }
 
+  html.hbw-intro-resolve .hbw-intro-thought {
+    animation: none;
+    opacity: 0;
+    transition: opacity var(--hbw-t-ui) var(--hbw-ease);
+  }
+
+  html.hbw-intro-resolve .hbw-home-strip__mark {
+    animation: hbw-intro-present var(--hbw-t-ui) var(--hbw-ease) both;
+  }
+
   .hbw-intro-line--name,
   .hbw-intro-line--role,
   .hbw-intro-line--practice {

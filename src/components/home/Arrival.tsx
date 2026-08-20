@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect } from "react";
-import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
+import { HBW_INTRO_MS, HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
 
 type Props = {
   onMake: () => void;
@@ -42,7 +42,8 @@ export function Arrival({ onMake, onBrowse }: Props) {
       markEls.forEach((el, i) => setTransitionName(el, MARK_NAMES[i]));
     }
 
-    nameIntro();
+    const mobile = isMobileViewport();
+    if (!mobile) nameIntro();
 
     const yieldAt = HBW_T.spatial + HBW_T.continuity + HBW_T.ui + HBW_T.ui;
     const resolveAt = yieldAt + HBW_T.ui;
@@ -61,22 +62,23 @@ export function Arrival({ onMake, onBrowse }: Props) {
       };
       const update = () => {
         root.classList.add("hbw-intro-resolve");
-        nameMark();
+        if (!mobile) nameMark();
       };
-      if (typeof doc.startViewTransition === "function") {
+      if (!mobile && typeof doc.startViewTransition === "function") {
         doc.startViewTransition(update);
       } else {
         update();
       }
-      if (!isMobileViewport()) return;
+      if (!mobile) return;
       teachOnId = window.setTimeout(() => {
         if (reduceMotion() || !isMobileViewport()) return;
+        if (!document.documentElement.classList.contains("hbw-entered")) return;
         if (document.querySelector(".hbw-home-strip__mark.is-assembled")) return;
         document.documentElement.classList.add("hbw-nav-teach");
         teachOffId = window.setTimeout(() => {
           document.documentElement.classList.remove("hbw-nav-teach");
         }, HBW_T.spatial);
-      }, HBW_T.continuity);
+      }, HBW_INTRO_MS - resolveAt + HBW_T.ui);
     }, resolveAt);
 
     return () => {
