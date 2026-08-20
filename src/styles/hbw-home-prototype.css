@@ -3995,6 +3995,19 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     text-overflow: unset;
     color: rgba(51, 51, 51, 0.46);
     align-self: start;
+    opacity: 0;
+  }
+
+  .hbw-browse__row.is-idea-in .hbw-browse__row-idea {
+    opacity: 1;
+    transition: opacity var(--hbw-t-gallery) var(--hbw-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hbw-browse__row .hbw-browse__row-idea {
+      opacity: 1;
+      transition: none;
+    }
   }
 
   .hbw-browse__row .hbw-browse__row-meta {
