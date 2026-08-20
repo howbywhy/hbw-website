@@ -113,12 +113,7 @@ export function preloadOpening(slug: string): Promise<void> {
   const video = openingVideo(slug);
   if (video) void prefetchVideo(video);
   if (!src) return Promise.resolve();
-  const urls = [src];
-  const match = src.match(/^(.*)\.(jpg|webp)$/);
-  if (match) {
-    urls.push(`${match[1]}-p-800.${match[2]}`, `${match[1]}-p-1080.${match[2]}`);
-  }
-  return Promise.all(urls.map(decodeImage)).then(() => undefined);
+  return decodeImage(src);
 }
 
 export function approachProject(slug: string) {
