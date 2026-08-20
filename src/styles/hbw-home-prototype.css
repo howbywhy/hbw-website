@@ -585,8 +585,6 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   letter-spacing: inherit;
   white-space: nowrap;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--hbw-t-nav) var(--hbw-ease);
 }
 
 .hbw-home-strip__mark.is-assembled .hbw-mark-suffix,
@@ -596,7 +594,14 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   top: auto;
 }
 
-.hbw-home-strip__mark .hbw-mark-suffix.is-on {
+.hbw-mark-suffix .hbw-mark-times,
+.hbw-mark-suffix .hbw-mark-context {
+  opacity: 0;
+  transition: opacity var(--hbw-t-nav) var(--hbw-ease);
+}
+
+.hbw-home-strip__mark .hbw-mark-suffix.is-on .hbw-mark-times,
+.hbw-home-strip__mark .hbw-mark-suffix.is-on .hbw-mark-context {
   opacity: 1;
 }
 
@@ -604,8 +609,10 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   padding-left: 0;
 }
 
-.hbw-home.is-swap-exiting[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on,
-.hbw-home.is-swap-entering[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on {
+.hbw-home.is-swap-exiting[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on .hbw-mark-times,
+.hbw-home.is-swap-exiting[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on .hbw-mark-context,
+.hbw-home.is-swap-entering[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on .hbw-mark-times,
+.hbw-home.is-swap-entering[data-hbw-from="make"][data-hbw-to="browse"] .hbw-mark-suffix.is-on .hbw-mark-context {
   transition-delay: var(--hbw-t-spatial);
 }
 
@@ -720,6 +727,10 @@ html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark:not(.is-assembled) .hbw-m
 html.hbw-entered:not(.hbw-intro) .hbw-home-strip__mark.is-assembled .hbw-mark-descriptor {
   opacity: 0;
   animation: none;
+}
+
+html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-assembled .hbw-mark-descriptor {
+  opacity: 1;
 }
 
 .hbw-mark-descriptor__line {

@@ -2,7 +2,6 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HBW_T, isMobileViewport } from "@/components/home/motion";
-import type { PeekProject } from "@/components/home/ProjectsNavPreview";
 
 export type IdentityIntent = "how" | "by" | "why";
 
@@ -34,7 +33,8 @@ type Props = {
   onWhyPreviewShow?: () => void;
   onWhyPreviewKeep?: () => void;
   onWhyPreviewHide?: () => void;
-  peekProject?: PeekProject | null;
+  /** Idea of the project `suffix` currently names. Null on browse (`× Projects`) and make. */
+  projectIdea?: string | null;
   whyHoverLocked?: boolean;
 };
 
@@ -57,7 +57,7 @@ export function IdentityNav({
   onWhyPreviewShow,
   onWhyPreviewKeep,
   onWhyPreviewHide,
-  peekProject = null,
+  projectIdea = null,
   whyHoverLocked = false,
 }: Props) {
   const [live, setLive] = useState(false);
@@ -142,8 +142,7 @@ export function IdentityNav({
         : intent || (previewingWhy ? "why" : null);
   const phrase = teaching ? TEACH : activeIntent ? PHRASES[activeIntent] : null;
   const bySwap = ack === "by" ? ACK.by : phrase?.by || "\u00a0";
-  const byExplain = Boolean(previewing && !teaching && !assembled);
-  const descriptorKey = byExplain && peekProject ? `${peekProject.name}—${peekProject.idea}` : "rest";
+  const descriptorKey = projectIdea ? `${suffix || "idea"}—${projectIdea}` : "rest";
 
   function arm(next: IdentityIntent, type?: string) {
     if (!live || inert || assembled) return;
@@ -290,22 +289,23 @@ export function IdentityNav({
       <span
         ref={suffixRef}
         className={`hbw-mark-suffix${suffix ? " is-on" : ""}`}
-        aria-hidden={suffix ? undefined : true}
       >
-        <span className="hbw-mark-times">×</span>
-        <span key={suffix || "idle"} className="hbw-mark-context">
+        <span className="hbw-mark-times" aria-hidden={suffix ? undefined : true}>
+          ×
+        </span>
+        <span key={suffix || "idle"} className="hbw-mark-context" aria-hidden={suffix ? undefined : true}>
           {suffix || ""}
         </span>
-      </span>
-      <span
-        className="hbw-mark-descriptor"
-        aria-hidden={assembled ? true : undefined}
-        onPointerEnter={() => {
-          if (previewing) onPreviewKeep?.();
-        }}
-      >
-        <span key={descriptorKey} className="hbw-mark-descriptor__line">
-          {byExplain && peekProject ? peekProject.idea : REST_LINE}
+        <span
+          className="hbw-mark-descriptor"
+          aria-hidden={projectIdea || !assembled ? undefined : true}
+          onPointerEnter={() => {
+            if (previewing) onPreviewKeep?.();
+          }}
+        >
+          <span key={descriptorKey} className="hbw-mark-descriptor__line">
+            {projectIdea || REST_LINE}
+          </span>
         </span>
       </span>
     </nav>

@@ -1169,6 +1169,14 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         : !narrow && peek.open && peekProject?.name
           ? peekProject.name
           : null;
+  const namedProject =
+    identitySuffix && identitySuffix !== "Projects"
+      ? PROJECTS.find((project) => project.name === identitySuffix) ?? null
+      : null;
+  const projectIdea =
+    namedProject && (navFace === "view" || windowMode === "view" || Boolean(!assembled && peek.open))
+      ? namedProject.idea
+      : null;
   const manifestoSheet = panel === "studio" && (studioView === "manifesto" || manifestoLeaving);
   const manifestoOpen = manifestoSheet && !manifestoLeaving;
   const studioClose = panel === "studio" && !manifestoSheet;
@@ -1233,7 +1241,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
             suffix={identitySuffix}
             previewing={peek.open}
             previewingWhy={practicePeek.open && panel !== "studio"}
-            peekProject={peek.open ? peekProject : null}
+            projectIdea={projectIdea}
             whyHoverLocked={whyPeekLock}
             onPreviewShow={() => {
               practicePeek.hideNow();
