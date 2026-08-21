@@ -164,6 +164,10 @@ export function IdentityNav({
     onWhyPreviewHide?.();
   }
 
+  function focusArm(next: IdentityIntent) {
+    arm(next, pointerType.current);
+  }
+
   function go(next: IdentityIntent) {
     if (!live || inert) return;
     document.documentElement.classList.remove("hbw-nav-teach");
@@ -183,6 +187,7 @@ export function IdentityNav({
     if (next === "how") onMake();
     else if (next === "by") onProjects();
     else if (!practiceMuted) onPractice();
+    pointerType.current = "";
   }
 
   function leaveSlot(related: EventTarget | null, current: HTMLElement, slot: IdentityIntent) {
@@ -226,7 +231,7 @@ export function IdentityNav({
         }}
         onPointerEnter={(event) => arm("how", event.pointerType)}
         onPointerLeave={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "how")}
-        onFocus={() => arm("how")}
+        onFocus={() => focusArm("how")}
         onBlur={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "how")}
         onClick={() => go("how")}
       >
@@ -247,7 +252,7 @@ export function IdentityNav({
         }}
         onPointerEnter={(event) => arm("by", event.pointerType)}
         onPointerLeave={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "by")}
-        onFocus={() => arm("by")}
+        onFocus={() => focusArm("by")}
         onBlur={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "by")}
         onKeyDown={(event) => {
           if (event.key !== "Tab" || event.shiftKey || !previewing) return;
@@ -277,7 +282,7 @@ export function IdentityNav({
         }}
         onPointerEnter={(event) => arm("why", event.pointerType)}
         onPointerLeave={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "why")}
-        onFocus={() => arm("why")}
+        onFocus={() => focusArm("why")}
         onBlur={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "why")}
         onClick={() => go("why")}
       >
