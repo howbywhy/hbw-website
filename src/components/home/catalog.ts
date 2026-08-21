@@ -131,6 +131,7 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sectors: ["Food", "FMCG"],
     disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
+    credits: ["Mark Blackler"],
   },
   {
     id: "bar-closed",
@@ -158,6 +159,7 @@ export const PROJECTS: ProjectRecord[] = [
       "Print & Digital Design",
     ],
     features: ["The Brand Identity"],
+    credits: ["Mark Blackler", "Sasha Burger"],
   },
   {
     id: "chris-sisarich",
@@ -177,6 +179,7 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sectors: ["Photography"],
     disciplines: ["Brand DNA", "Visual Identity", "Website"],
+    credits: ["Mark Blackler"],
   },
   {
     id: "our-boy-roy",
@@ -196,6 +199,7 @@ export const PROJECTS: ProjectRecord[] = [
     sectors: ["Hospitality"],
     disciplines: ["Brand DNA", "Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
     collaborators: ["the-colour-club"],
+    credits: ["Mark Blackler", "Nick Mitchell"],
   },
   {
     id: "bistro-nido",
@@ -216,6 +220,7 @@ export const PROJECTS: ProjectRecord[] = [
     disciplines: ["Visual Identity", "Print & Digital Design"],
     collaborators: ["the-colour-club"],
     location: "501 George Street, Sydney",
+    credits: ["Mark Blackler", "Nick Mitchell"],
   },
 ];
 
