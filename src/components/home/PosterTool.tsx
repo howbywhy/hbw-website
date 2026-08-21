@@ -869,6 +869,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
         type="file"
         accept="image/png,image/jpeg,image/webp,image/svg+xml"
         hidden
+        aria-hidden="true"
+        tabIndex={-1}
         onChange={(event) => {
           const file = event.currentTarget.files?.[0];
           if (file) void addImageFile(file);
