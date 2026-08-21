@@ -143,11 +143,9 @@ export function IdentityNav({
   const teaching = teach && !assembled;
   const activeIntent: IdentityIntent | null = teaching
     ? null
-    : assembled
+    : assembled || resolved
       ? null
-      : intent === "by"
-        ? null
-        : intent || (previewingWhy ? "why" : null);
+      : intent || (previewingWhy ? "why" : previewing ? "by" : null);
   const phrase = teaching ? TEACH : activeIntent ? PHRASES[activeIntent] : null;
   const bySwap = ack === "by" ? ACK.by : phrase?.by || "\u00a0";
   const descriptorKey = projectIdea ? `${suffix || "idea"}—${projectIdea}` : "rest";
@@ -157,7 +155,7 @@ export function IdentityNav({
     if (type === "touch") return;
     if (next === "why" && (practiceMuted || whyHoverLocked)) return;
     if (next === "by") {
-      setIntent(null);
+      setIntent("by");
       onWhyPreviewHide?.();
       onPreviewShow?.();
       return;
