@@ -101,7 +101,9 @@ function flipMark(update: () => void, ms: number = HBW_T.continuity) {
     return;
   }
   const words = MARK_FLIP_SELECTORS.map((sel) => document.querySelector<HTMLElement>(sel));
+  const suffix = document.querySelector<HTMLElement>(".hbw-mark-suffix");
   const first = words.map((el) => el?.getBoundingClientRect() ?? null);
+  const suffixFirst = suffix?.getBoundingClientRect() ?? null;
   const wasGathered = markIsGathered();
   update();
   if (wasGathered && markIsGathered()) return;
@@ -118,6 +120,12 @@ function flipMark(update: () => void, ms: number = HBW_T.continuity) {
       easing: HBW_EASE,
     });
   });
+  if (!wasGathered || !suffix || !suffixFirst || !suffix.classList.contains("is-on")) return;
+  suffix.getAnimations().forEach((anim) => anim.cancel());
+  const to = suffix.getBoundingClientRect();
+  const dx = suffixFirst.x - to.x;
+  const dy = suffixFirst.y - to.y;
+  suffix.style.transform = `translate(${dx}px, ${dy}px)`;
 }
 
 function modeFromLocation(path: string): WindowMode {
@@ -1129,16 +1137,19 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     browseDropping ||
     (keepBrowse.current &&
       (windowMode === "view" || preparingView || phase === "exiting" || phase === "rising" || phase === "assembling"));
+  const viewToMakeExit = swap?.from === "view" && swap?.to === "make";
   const navFace =
-    phase === "assembling" ||
-    phase === "active" ||
-    phase === "handoff-in" ||
-    phase === "exiting" ||
-    (windowMode === "view" && phase !== "rising" && phase !== "idle")
-      ? "view"
-      : windowMode === "browse" || browseDropping
-        ? "browse"
-        : "home";
+    viewToMakeExit
+      ? "home"
+      : phase === "assembling" ||
+          phase === "active" ||
+          phase === "handoff-in" ||
+          phase === "exiting" ||
+          (windowMode === "view" && phase !== "rising" && phase !== "idle")
+        ? "view"
+        : windowMode === "browse" || browseDropping
+          ? "browse"
+          : "home";
   const leavingExp = leaving ? getExperience(leaving.id) : null;
   const chromeLocked =
     Boolean(leavingExp) &&
@@ -1157,16 +1168,18 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       ? PROJECTS.find((project) => project.id === hoveredId)?.name
       : null;
   const identitySuffix =
-    (navFace === "view" || windowMode === "view") && experience
-      ? heldSuffix ||
-        (isMobileViewport() && leavingExp && leaving && (phase === "handoff-in" || phase === "assembling")
-          ? projectById(leaving.id).name
-          : projectById(experience.slug).name)
-      : assembled
-        ? hoverName || "Projects"
-        : !narrow && peek.open && peekProject?.name
-          ? peekProject.name
-          : null;
+    viewToMakeExit && swap.phase === "exiting" && experience && !reduceMotion()
+      ? projectById(experience.slug).name
+      : (navFace === "view" || windowMode === "view") && experience
+        ? heldSuffix ||
+          (isMobileViewport() && leavingExp && leaving && (phase === "handoff-in" || phase === "assembling")
+            ? projectById(leaving.id).name
+            : projectById(experience.slug).name)
+        : assembled
+          ? hoverName || "Projects"
+          : !narrow && peek.open && peekProject?.name
+            ? peekProject.name
+            : null;
   const namedProject =
     identitySuffix && identitySuffix !== "Projects"
       ? PROJECTS.find((project) => project.name === identitySuffix) ?? null

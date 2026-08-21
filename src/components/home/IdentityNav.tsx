@@ -100,12 +100,19 @@ export function IdentityNav({
     const suffixEl = suffixRef.current;
     if (!nav || !suffixEl) return;
 
+    function suffixHoldLive(mark: HTMLElement) {
+      const home = mark.closest(".hbw-home");
+      return home?.getAttribute("data-hbw-from") === "view" && home?.getAttribute("data-hbw-to") === "make";
+    }
+
     function alignSuffix() {
       const mark = navRef.current;
       const label = suffixRef.current;
       if (!mark || !label) return;
+      if (suffixHoldLive(mark)) return;
       if (assembled || (resolved && suffix) || !suffix) {
         label.style.left = "";
+        label.style.transform = "";
         return;
       }
       const by = mark.querySelector<HTMLElement>(".hbw-mark-by");
@@ -117,7 +124,7 @@ export function IdentityNav({
     }
 
     alignSuffix();
-    if (assembled || (resolved && suffix) || !suffix) return;
+    if (assembled || (resolved && suffix) || !suffix || suffixHoldLive(nav)) return;
     const by = nav.querySelector(".hbw-mark-by");
     const glyph = by instanceof Element ? by.querySelector(".hbw-mark-word--rest") : null;
     const observer = new ResizeObserver(alignSuffix);
@@ -129,6 +136,7 @@ export function IdentityNav({
       observer.disconnect();
       window.removeEventListener("resize", alignSuffix);
       suffixEl.style.left = "";
+      suffixEl.style.transform = "";
     };
   }, [assembled, resolved, suffix]);
 

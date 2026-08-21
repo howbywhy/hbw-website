@@ -616,6 +616,13 @@ html.hbw-arriving-make .hbw-poster-toolbar {
   transition-delay: var(--hbw-t-spatial);
 }
 
+.hbw-home.is-swap-exiting[data-hbw-from="view"][data-hbw-to="make"] .hbw-mark-suffix.is-on .hbw-mark-times,
+.hbw-home.is-swap-exiting[data-hbw-from="view"][data-hbw-to="make"] .hbw-mark-suffix.is-on .hbw-mark-context {
+  opacity: 0;
+  transition: opacity var(--hbw-t-identity) var(--hbw-ease);
+  animation: none;
+}
+
 .hbw-mark-times,
 .hbw-mark-context {
   font-family: var(--hbw-font);
@@ -3342,6 +3349,8 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-home-strip__exit,
   .hbw-mark-word,
   .hbw-mark-descriptor,
+  .hbw-mark-times,
+  .hbw-mark-context,
   .hbw-mv__poster,
   .hbw-home.is-sheet-leaving .hbw-nav-studio.is-sheet-close,
   .hbw-home.is-sheet-leaving .hbw-poster-field {
