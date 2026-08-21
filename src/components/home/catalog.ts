@@ -197,7 +197,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 8,
     homeSelected: true,
     sectors: ["Hospitality"],
-    disciplines: ["Brand DNA", "Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
+    disciplines: ["Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
     collaborators: ["the-colour-club"],
     credits: ["Mark Blackler", "Nick Mitchell"],
   },
