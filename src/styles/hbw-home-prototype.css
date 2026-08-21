@@ -1943,6 +1943,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 }
 
 .hbw-browse__cell .hbw-browse__row-disc,
+.hbw-browse__cell .hbw-browse__row-sector,
 .hbw-browse__cell .hbw-browse__row-collab,
 .hbw-browse__cell .hbw-browse__row-year {
   position: absolute;
@@ -2149,6 +2150,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     minmax(7.5rem, 10.5rem)
     minmax(12rem, 1.4fr)
     minmax(0, 1.05fr)
+    minmax(0, 0.85fr)
     minmax(0, 0.9fr)
     3.5rem
     1.15rem;
@@ -2174,6 +2176,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
       minmax(0, calc(var(--hbw-index-axis) - var(--hbw-index-thumb) - 9.25rem - 3rem))
       minmax(10rem, 1.15fr)
       max-content
+      max-content
       3.5rem
       1.15rem;
     overflow: visible;
@@ -2184,6 +2187,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     text-align: left;
   }
 
+  .hbw-projects.is-index .hbw-browse__row-sector,
   .hbw-projects.is-index .hbw-browse__row-collab {
     overflow: visible;
     text-overflow: unset;
@@ -2216,6 +2220,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 .hbw-browse__row-name,
 .hbw-browse__row-idea,
 .hbw-browse__row-disc,
+.hbw-browse__row-sector,
 .hbw-browse__row-collab,
 .hbw-browse__row-year {
   display: block;
@@ -2231,6 +2236,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 }
 
 .hbw-browse__row-disc,
+.hbw-browse__row-sector,
 .hbw-browse__row-collab {
   color: rgba(51, 51, 51, 0.46);
 }
@@ -4071,11 +4077,13 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   }
 
   .hbw-browse__row .hbw-browse__row-disc:not(.is-empty)::after,
+  .hbw-browse__row .hbw-browse__row-sector:not(.is-empty)::after,
   .hbw-browse__row .hbw-browse__row-collab:not(.is-empty)::after {
     content: " · ";
   }
 
   .hbw-browse__row .hbw-browse__row-disc,
+  .hbw-browse__row .hbw-browse__row-sector,
   .hbw-browse__row .hbw-browse__row-collab,
   .hbw-browse__row .hbw-browse__row-year {
     display: inline;

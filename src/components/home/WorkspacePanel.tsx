@@ -5,7 +5,7 @@ import type { ProjectExperience, InfoSectionId } from "@/components/home/project
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
-import { projectById, developedWith, projectCollaborators, projectCreditLine, usedDisciplines } from "@/components/home/catalog";
+import { projectById, developedWith, projectCollaborators, projectCreditLine, projectDisciplines, projectSectors } from "@/components/home/catalog";
 
 type Props = {
   panel: WorkspacePanelId;
@@ -179,10 +179,11 @@ function InfoBody({
   const record = projectById(experience.slug);
   const collabNames = projectCollaborators(record).map((item) => item.name);
   const collabLine = collabNames.length ? developedWith(collabNames) : "";
-  const disciplines = usedDisciplines().filter((item) => record.disciplines?.includes(item));
+  const disciplines = projectDisciplines(record);
+  const sectors = projectSectors(record);
   const creditLine = projectCreditLine(record);
   const facts = [
-    record.sector ? ["Sector", record.sector] : null,
+    sectors.length ? ["Sectors", sectors.join(" · ")] : null,
     disciplines.length ? ["Disciplines", disciplines.join(" · ")] : null,
     record.year ? ["Year", record.year] : null,
     collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,

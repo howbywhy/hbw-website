@@ -2,8 +2,6 @@ export const SUB3_INFO = {
   name: "SUB:3",
   positioning: "Bending Time & Space",
   year: "2025",
-  credit:
-    "Brand identity and packaging design by How by Why (HBW). Developed with The Colour Club.",
   sections: [
     {
       id: "idea" as const,

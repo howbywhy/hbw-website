@@ -1,4 +1,4 @@
-import { PROJECTS } from "@/components/home/catalog";
+import { PROJECTS, isKnownFilter } from "@/components/home/catalog";
 import { persistableObjects } from "@/components/home/poster/image";
 import { emptyPoster, migratePoster } from "@/components/home/poster/migrate";
 import type { PosterObj, PosterState, PosterToolId, Pt } from "@/components/home/poster/types";
@@ -70,18 +70,21 @@ export function hydrateWorkspace() {
     const data = JSON.parse(raw) as { poster?: unknown; projects?: ProjectsState };
     workspace.poster = migratePoster(data.poster);
     if (data.projects && typeof data.projects.activeId === "string") {
+      const filterDim =
+        data.projects.filterDim === "year" ||
+        data.projects.filterDim === "sector" ||
+        data.projects.filterDim === "discipline" ||
+        data.projects.filterDim === "collaborator"
+          ? data.projects.filterDim
+          : "all";
+      const filterValue = typeof data.projects.filterValue === "string" ? data.projects.filterValue : "";
+      const live = isKnownFilter(filterDim, filterValue);
       workspace.projects = {
         mode: data.projects.mode === "index" ? "index" : "visual",
         activeId: data.projects.activeId,
         expandedId: typeof data.projects.expandedId === "string" ? data.projects.expandedId : null,
-        filterDim:
-          data.projects.filterDim === "year" ||
-          data.projects.filterDim === "sector" ||
-          data.projects.filterDim === "discipline" ||
-          data.projects.filterDim === "collaborator"
-            ? data.projects.filterDim
-            : "all",
-        filterValue: typeof data.projects.filterValue === "string" ? data.projects.filterValue : "",
+        filterDim: live ? filterDim : "all",
+        filterValue: live ? filterValue : "",
         sort: data.projects.sort === "newest" || data.projects.sort === "az" ? data.projects.sort : "edited",
       };
     }
@@ -129,12 +132,15 @@ function parseOriginFrame(frame: OriginFrame): OriginFrame | null {
   if (!frame || typeof frame !== "object") return null;
   if (frame.kind === "make") return { kind: "make" };
   if (frame.kind === "browse") {
+    const filterDim = frame.filterDim;
+    const filterValue = typeof frame.filterValue === "string" ? frame.filterValue : "";
+    const live = isKnownFilter(filterDim || "all", filterValue);
     return {
       kind: "browse",
       mode: frame.mode === "index" ? "index" : "visual",
       id: typeof frame.id === "string" ? frame.id : PROJECTS[0].id,
-      filterDim: frame.filterDim,
-      filterValue: frame.filterValue,
+      filterDim: live ? filterDim : "all",
+      filterValue: live ? filterValue : "",
       sort: frame.sort,
       scroll: typeof frame.scroll === "number" ? frame.scroll : undefined,
     };

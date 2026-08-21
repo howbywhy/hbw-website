@@ -6,6 +6,7 @@ import {
   sortProjects,
   usedCollaborators,
   usedDisciplines,
+  usedSectors,
   type ProjectRecord,
 } from "@/components/home/catalog";
 import type { FilterDim, ProjectsMode, SortId } from "@/components/home/workspace";
@@ -16,6 +17,7 @@ import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion"
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const DISCIPLINE_LENSES = usedDisciplines();
+const SECTOR_LENSES = usedSectors();
 const COLLABORATOR_LENSES = usedCollaborators();
 
 type Props = {
@@ -316,6 +318,7 @@ function ArchiveItem({
   const start = project.visualStart;
   const before = project.visualBefore;
   const disciplines = DISCIPLINE_LENSES.filter((item) => project.disciplines?.includes(item));
+  const sectors = SECTOR_LENSES.filter((item) => project.sectors?.includes(item));
   const collaborators = COLLABORATOR_LENSES.filter((item) => project.collaborators?.includes(item.id));
   const sizes = visual
     ? span >= 7
@@ -387,6 +390,20 @@ function ArchiveItem({
               {i > 0 ? <span aria-hidden="true"> · </span> : null}
               <RelValue
                 dim="discipline"
+                value={value}
+                currentDim={filterDim}
+                currentValue={filterValue}
+                onLens={onLens}
+              />
+            </span>
+          ))}
+        </span>
+        <span className={`hbw-browse__row-sector${sectors.length ? "" : " is-empty"}`}>
+          {sectors.map((value, i) => (
+            <span key={value}>
+              {i > 0 ? <span aria-hidden="true"> · </span> : null}
+              <RelValue
+                dim="sector"
                 value={value}
                 currentDim={filterDim}
                 currentValue={filterValue}

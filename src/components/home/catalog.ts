@@ -1,15 +1,17 @@
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
 export const DISCIPLINES = [
-  "Brand identity",
+  "Brand DNA",
+  "Brand Identity",
+  "Naming",
+  "Visual Identity",
   "Packaging",
-  "Art direction",
-  "Visual system",
+  "Signage/Wayfinding",
   "Website",
-  "Character design",
+  "Print & Digital Design",
 ] as const;
 
-export const SECTORS = ["Performance nutrition", "Food", "Hospitality", "Photography"] as const;
+export const SECTORS = ["Sports Nutrition", "FMCG", "Food", "Hospitality", "Photography"] as const;
 
 export const COLLABORATORS = [
   { id: "the-colour-club", name: "The Colour Club", kind: "studio" },
@@ -22,13 +24,24 @@ export type CollaboratorId = Collaborator["id"];
 
 /** Credits prose for each discipline. Adding a discipline without a form is a build error. */
 export const DISCIPLINE_CREDIT = {
-  "Brand identity": "brand identity",
-  "Packaging": "packaging design",
-  "Art direction": "art direction",
-  "Visual system": "visual system",
-  "Website": "website design",
-  "Character design": "character design",
+  "Brand DNA": "brand DNA",
+  "Brand Identity": "brand identity",
+  "Naming": "naming",
+  "Visual Identity": "visual identity",
+  Packaging: "packaging design",
+  "Signage/Wayfinding": "signage and wayfinding",
+  Website: "website design",
+  "Print & Digital Design": "print and digital",
 } as const satisfies Record<Discipline, string>;
+
+/** Sector prose. Acronyms stay capped. Adding a sector without a form is a build error. */
+export const SECTOR_CREDIT = {
+  "Sports Nutrition": "sports nutrition",
+  "FMCG": "FMCG",
+  Food: "food",
+  Hospitality: "hospitality",
+  Photography: "photography",
+} as const satisfies Record<Sector, string>;
 
 export type ProjectRecord = {
   id: string;
@@ -50,7 +63,7 @@ export type ProjectRecord = {
   visualBefore?: 3 | 4 | 5;
   /** Homepage selected-work register. Order among flagged records is catalog order. Max 5 used. */
   homeSelected?: boolean;
-  sector?: Sector;
+  sectors?: Sector[];
   disciplines?: Discipline[];
   collaborators?: CollaboratorId[];
   location?: string;
@@ -92,8 +105,8 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 7,
     visualStart: 1,
     homeSelected: true,
-    sector: "Performance nutrition",
-    disciplines: ["Brand identity", "Packaging"],
+    sectors: ["Sports Nutrition", "FMCG"],
+    disciplines: ["Brand Identity", "Packaging"],
     collaborators: ["the-colour-club"],
   },
   {
@@ -101,7 +114,7 @@ export const PROJECTS: ProjectRecord[] = [
     href: "/projects/koja",
     name: "KOJA",
     idea: "Unapologetically Good.",
-    year: "2024",
+    year: "2021",
     src: "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
     srcSet: srcSetFor("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", [500, 800], 1080)!,
     width: 1080,
@@ -111,8 +124,8 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 4,
     visualStart: 9,
     homeSelected: true,
-    sector: "Food",
-    disciplines: ["Brand identity", "Packaging", "Visual system"],
+    sectors: ["Food", "FMCG"],
+    disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
   },
   {
     id: "bar-closed",
@@ -130,8 +143,15 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 4,
     visualBefore: 4,
     homeSelected: true,
-    sector: "Hospitality",
-    disciplines: ["Brand identity", "Art direction"],
+    sectors: ["Hospitality"],
+    disciplines: [
+      "Brand DNA",
+      "Naming",
+      "Visual Identity",
+      "Signage/Wayfinding",
+      "Website",
+      "Print & Digital Design",
+    ],
   },
   {
     id: "chris-sisarich",
@@ -149,15 +169,15 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 3,
     visualBefore: 3,
     homeSelected: true,
-    sector: "Photography",
-    disciplines: ["Brand identity", "Website", "Art direction"],
+    sectors: ["Photography"],
+    disciplines: ["Brand DNA", "Visual Identity", "Website"],
   },
   {
     id: "our-boy-roy",
     href: "/projects/our-boy-roy",
     name: "Our Boy Roy",
     idea: "The Friendly Neighbour",
-    year: "2024",
+    year: "2022",
     src: "/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg",
     srcSet: srcSetFor("/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg", [500, 800], 1080)!,
     width: 1080,
@@ -167,8 +187,8 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 5,
     visualStart: 8,
     homeSelected: true,
-    sector: "Hospitality",
-    disciplines: ["Brand identity", "Character design", "Visual system"],
+    sectors: ["Hospitality"],
+    disciplines: ["Brand DNA", "Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
     collaborators: ["the-colour-club"],
   },
   {
@@ -176,7 +196,7 @@ export const PROJECTS: ProjectRecord[] = [
     href: "/projects/bistro-nido",
     name: "Bistro Nido",
     idea: "Twice Cooked",
-    year: "2024",
+    year: "2023",
     src: "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
     srcSet: srcSetFor("/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg", [500, 800, 1080], 1200)!,
     width: 1200,
@@ -186,8 +206,8 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 6,
     visualStart: 2,
     visualBefore: 4,
-    sector: "Hospitality",
-    disciplines: ["Brand identity", "Art direction"],
+    sectors: ["Hospitality"],
+    disciplines: ["Visual Identity", "Print & Digital Design"],
     collaborators: ["the-colour-club"],
     location: "501 George Street, Sydney",
   },
@@ -220,6 +240,10 @@ function serialAnd(items: string[]) {
   return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
 }
 
+function sentence(clause: string) {
+  return clause.charAt(0).toUpperCase() + clause.slice(1);
+}
+
 const COLLABORATORS_BY_ID = Object.fromEntries(COLLABORATORS.map((item) => [item.id, item])) as Record<
   CollaboratorId,
   Collaborator
@@ -233,16 +257,36 @@ export function projectCollaborators(project: ProjectRecord) {
   return (project.collaborators ?? []).map((id) => COLLABORATORS_BY_ID[id]);
 }
 
+/** Canonical order from the set. Record order is authoring only. */
+export function projectDisciplines(project: ProjectRecord) {
+  return DISCIPLINES.filter((item) => project.disciplines?.includes(item));
+}
+
+export function projectSectors(project: ProjectRecord) {
+  return SECTORS.filter((item) => project.sectors?.includes(item));
+}
+
 export function usedDisciplines() {
   return DISCIPLINES.filter((item) => PROJECTS.some((project) => project.disciplines?.includes(item)));
 }
 
 export function usedSectors() {
-  return SECTORS.filter((item) => PROJECTS.some((project) => project.sector === item));
+  return SECTORS.filter((item) => PROJECTS.some((project) => project.sectors?.includes(item)));
 }
 
 export function usedCollaborators() {
   return COLLABORATORS.filter((item) => PROJECTS.some((project) => project.collaborators?.includes(item.id)));
+}
+
+export function isKnownFilter(dim: string, value: string) {
+  if (!value || dim === "all") return true;
+  if (dim === "year") return PROJECTS.some((project) => project.year === value);
+  if (dim === "sector") return (SECTORS as readonly string[]).includes(value);
+  if (dim === "discipline") return (DISCIPLINES as readonly string[]).includes(value);
+  if (dim === "collaborator") {
+    return COLLABORATORS.some((item) => item.name === value || item.id === value);
+  }
+  return false;
 }
 
 export function developedWith(names: string[]) {
@@ -253,9 +297,9 @@ export function developedWith(names: string[]) {
 
 /** Studio sentence from the discipline map. Collaborators stay a following line in Info. */
 export function projectCreditLine(project: ProjectRecord) {
-  if (!project.disciplines?.length) return "";
-  const work = serialAnd(project.disciplines.map((item) => DISCIPLINE_CREDIT[item]));
-  return `${work.charAt(0).toUpperCase() + work.slice(1)} by How by Why (HBW).`;
+  const disciplines = projectDisciplines(project);
+  if (!disciplines.length) return "";
+  return `${sentence(serialAnd(disciplines.map((item) => DISCIPLINE_CREDIT[item])))} by How by Why (HBW).`;
 }
 
 export function projectCredits(project: ProjectRecord) {
@@ -266,30 +310,22 @@ export function projectCredits(project: ProjectRecord) {
   return `${studio} ${developedWith(names)}`;
 }
 
-/** Derived description for generateMetadata. Catalog display values stay title-cased. */
+/** Derived description for generateMetadata. Uses the same maps as credits. */
 export function projectDescription(project: ProjectRecord) {
   const idea = project.idea.replace(/\.\s*$/, "");
   const lead = `${project.name} — ${idea}.`;
-  const work = project.disciplines?.length
-    ? serialAnd(project.disciplines.map((item) => item.toLowerCase()))
-    : "";
-  const sector = project.sector?.toLowerCase();
-  if (work && sector) {
-    const clause = work.charAt(0).toUpperCase() + work.slice(1);
-    return `${lead} ${clause} for ${sector}.`;
-  }
-  if (work) {
-    const clause = work.charAt(0).toUpperCase() + work.slice(1);
-    return `${lead} ${clause}.`;
-  }
-  if (sector) return `${lead} ${sector.charAt(0).toUpperCase() + sector.slice(1)}.`;
+  const work = serialAnd(projectDisciplines(project).map((item) => DISCIPLINE_CREDIT[item]));
+  const sector = serialAnd(projectSectors(project).map((item) => SECTOR_CREDIT[item]));
+  if (work && sector) return `${lead} ${sentence(work)} for ${sector}.`;
+  if (work) return `${lead} ${sentence(work)}.`;
+  if (sector) return `${lead} ${sentence(sector)}.`;
   return lead;
 }
 
 export function matchesFilter(project: ProjectRecord, dim: string, value: string) {
   if (!value || dim === "all") return true;
   if (dim === "year") return project.year === value;
-  if (dim === "sector") return project.sector === value;
+  if (dim === "sector") return Boolean(project.sectors?.some((item) => item === value));
   if (dim === "discipline") return Boolean(project.disciplines?.some((item) => item === value));
   if (dim === "collaborator") {
     return projectCollaborators(project).some((item) => item.name === value || item.id === value);
