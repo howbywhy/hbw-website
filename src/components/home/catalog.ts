@@ -64,9 +64,9 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 1,
     homeSelected: true,
     sector: "Performance nutrition",
-    disciplines: ["Brand identity", "Packaging", "Art direction"],
+    disciplines: ["Brand identity", "Packaging"],
     collaborators: [{ name: "The Colour Club", kind: "studio" }],
-    credits: "Brand identity, packaging design, and art direction by How by Why (HBW).",
+    credits: "Brand identity and packaging design by How by Why (HBW).",
   },
   {
     id: "koja",

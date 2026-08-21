@@ -3,7 +3,7 @@ export const SUB3_INFO = {
   positioning: "Bending Time & Space",
   year: "2025",
   credit:
-    "Brand identity, packaging design, and art direction by How by Why (HBW). Developed with The Colour Club.",
+    "Brand identity and packaging design by How by Why (HBW). Developed with The Colour Club.",
   sections: [
     {
       id: "idea" as const,
