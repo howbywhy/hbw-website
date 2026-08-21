@@ -119,7 +119,7 @@ const CLOSED_INFO: InfoSection[] = [
   {
     id: "outcome",
     heading: "The outcome",
-    copy: "CLOSED becomes more than a venue. It becomes a place you find, not one that finds you. By embedding meaning into every detail, the brand creates a sense of intrigue, warmth, and belonging — where secrecy meets elegance, and experience feels personal. Featured: The Brand Identity.",
+    copy: "CLOSED becomes more than a venue. It becomes a place you find, not one that finds you. By embedding meaning into every detail, the brand creates a sense of intrigue, warmth, and belonging — where secrecy meets elegance, and experience feels personal.",
   },
 ];
 

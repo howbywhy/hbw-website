@@ -188,6 +188,7 @@ function InfoBody({
     record.year ? ["Year", record.year] : null,
     collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,
     record.location ? ["Location", record.location] : null,
+    record.features?.length ? ["Featured", record.features.join(" · ")] : null,
     creditLine ? ["Credits", creditLine] : null,
   ].filter(Boolean) as [string, string][];
 

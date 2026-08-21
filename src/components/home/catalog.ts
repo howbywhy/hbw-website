@@ -67,6 +67,8 @@ export type ProjectRecord = {
   disciplines?: Discipline[];
   collaborators?: CollaboratorId[];
   location?: string;
+  /** Press and awards. Display only — not a lens. */
+  features?: string[];
   /**
    * Intentionally unreached. Retained for a future Coming Soon record.
    * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
@@ -152,6 +154,7 @@ export const PROJECTS: ProjectRecord[] = [
       "Website",
       "Print & Digital Design",
     ],
+    features: ["The Brand Identity"],
   },
   {
     id: "chris-sisarich",
