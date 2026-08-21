@@ -1735,6 +1735,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 .hbw-projects.is-visual .hbw-browse {
   width: calc(100% - var(--hbw-pad-work));
   margin-left: var(--hbw-pad-work);
+  padding-right: var(--hbw-edge);
   min-height: 100%;
 }
 
@@ -1751,7 +1752,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 
 @media screen and (min-width: 768px) {
   .hbw-projects.is-index .hbw-browse {
-    padding: 0 0 var(--hbw-space-2);
+    padding: 0 var(--hbw-edge) var(--hbw-space-2);
   }
 
   .hbw-projects.is-index .hbw-browse__hover-image {
@@ -3952,6 +3953,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-projects.is-visual .hbw-browse {
     width: 100%;
     margin-left: 0;
+    padding-right: 0;
   }
 
   .hbw-projects.is-visual .hbw-browse__cell {
@@ -4106,8 +4108,6 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     opacity: 1;
   }
 
-  .hbw-home.is-browse .hbw-window,
-  .hbw-home.is-view .hbw-window,
   .hbw-home.is-inspect .hbw-window {
     margin-left: 0;
     margin-right: 0;
