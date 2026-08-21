@@ -5,7 +5,7 @@ import type { ProjectExperience, InfoSectionId } from "@/components/home/project
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
-import { projectById } from "@/components/home/catalog";
+import { projectById, developedWith, projectCollaborators, projectCreditLine, usedDisciplines } from "@/components/home/catalog";
 
 type Props = {
   panel: WorkspacePanelId;
@@ -165,12 +165,6 @@ function ManifestoBody() {
   );
 }
 
-function developedWith(names: string[]) {
-  if (names.length === 0) return "";
-  if (names.length === 1) return `Developed with ${names[0]}.`;
-  return `Developed with ${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}.`;
-}
-
 function InfoBody({
   experience,
   atProjectEnd = false,
@@ -183,15 +177,17 @@ function InfoBody({
   onNextProject?: () => void;
 }) {
   const record = projectById(experience.slug);
-  const collabNames = record.collaborators?.map((item) => item.name) ?? [];
+  const collabNames = projectCollaborators(record).map((item) => item.name);
   const collabLine = collabNames.length ? developedWith(collabNames) : "";
+  const disciplines = usedDisciplines().filter((item) => record.disciplines?.includes(item));
+  const creditLine = projectCreditLine(record);
   const facts = [
     record.sector ? ["Sector", record.sector] : null,
-    record.disciplines?.length ? ["Disciplines", record.disciplines.join(" · ")] : null,
+    disciplines.length ? ["Disciplines", disciplines.join(" · ")] : null,
     record.year ? ["Year", record.year] : null,
     collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,
     record.location ? ["Location", record.location] : null,
-    record.credits ? ["Credits", record.credits] : null,
+    creditLine ? ["Credits", creditLine] : null,
   ].filter(Boolean) as [string, string][];
 
   return (

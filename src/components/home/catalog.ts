@@ -1,5 +1,35 @@
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
+export const DISCIPLINES = [
+  "Brand identity",
+  "Packaging",
+  "Art direction",
+  "Visual system",
+  "Website",
+  "Character design",
+] as const;
+
+export const SECTORS = ["Performance nutrition", "Food", "Hospitality", "Photography"] as const;
+
+export const COLLABORATORS = [
+  { id: "the-colour-club", name: "The Colour Club", kind: "studio" },
+] as const satisfies readonly { id: string; name: string; kind: "studio" | "person" }[];
+
+export type Discipline = (typeof DISCIPLINES)[number];
+export type Sector = (typeof SECTORS)[number];
+export type Collaborator = (typeof COLLABORATORS)[number];
+export type CollaboratorId = Collaborator["id"];
+
+/** Credits prose for each discipline. Adding a discipline without a form is a build error. */
+export const DISCIPLINE_CREDIT = {
+  "Brand identity": "brand identity",
+  "Packaging": "packaging design",
+  "Art direction": "art direction",
+  "Visual system": "visual system",
+  "Website": "website design",
+  "Character design": "character design",
+} as const satisfies Record<Discipline, string>;
+
 export type ProjectRecord = {
   id: string;
   href: string;
@@ -20,10 +50,9 @@ export type ProjectRecord = {
   visualBefore?: 3 | 4 | 5;
   /** Homepage selected-work register. Order among flagged records is catalog order. Max 5 used. */
   homeSelected?: boolean;
-  sector?: string;
-  disciplines?: string[];
-  collaborators?: { name: string; kind: "studio" | "person" }[];
-  credits?: string;
+  sector?: Sector;
+  disciplines?: Discipline[];
+  collaborators?: CollaboratorId[];
   location?: string;
   /**
    * Intentionally unreached. Retained for a future Coming Soon record.
@@ -65,8 +94,7 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Performance nutrition",
     disciplines: ["Brand identity", "Packaging"],
-    collaborators: [{ name: "The Colour Club", kind: "studio" }],
-    credits: "Brand identity and packaging design by How by Why (HBW).",
+    collaborators: ["the-colour-club"],
   },
   {
     id: "koja",
@@ -85,7 +113,6 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Food",
     disciplines: ["Brand identity", "Packaging", "Visual system"],
-    credits: "Brand identity, packaging design, and visual system by How by Why (HBW).",
   },
   {
     id: "bar-closed",
@@ -105,7 +132,6 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Art direction"],
-    credits: "Brand identity and art direction by How by Why (HBW).",
   },
   {
     id: "chris-sisarich",
@@ -125,7 +151,6 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Photography",
     disciplines: ["Brand identity", "Website", "Art direction"],
-    credits: "Brand identity, website design, and art direction by How by Why (HBW).",
   },
   {
     id: "our-boy-roy",
@@ -144,8 +169,7 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Character design", "Visual system"],
-    collaborators: [{ name: "The Colour Club", kind: "studio" }],
-    credits: "Brand identity, character design, and visual system by How by Why (HBW).",
+    collaborators: ["the-colour-club"],
   },
   {
     id: "bistro-nido",
@@ -164,8 +188,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualBefore: 4,
     sector: "Hospitality",
     disciplines: ["Brand identity", "Art direction"],
-    collaborators: [{ name: "The Colour Club", kind: "studio" }],
-    credits: "Brand identity and art direction by How by Why (HBW).",
+    collaborators: ["the-colour-club"],
     location: "501 George Street, Sydney",
   },
 ];
@@ -197,6 +220,52 @@ function serialAnd(items: string[]) {
   return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
 }
 
+const COLLABORATORS_BY_ID = Object.fromEntries(COLLABORATORS.map((item) => [item.id, item])) as Record<
+  CollaboratorId,
+  Collaborator
+>;
+
+export function collaboratorById(id: CollaboratorId) {
+  return COLLABORATORS_BY_ID[id];
+}
+
+export function projectCollaborators(project: ProjectRecord) {
+  return (project.collaborators ?? []).map((id) => COLLABORATORS_BY_ID[id]);
+}
+
+export function usedDisciplines() {
+  return DISCIPLINES.filter((item) => PROJECTS.some((project) => project.disciplines?.includes(item)));
+}
+
+export function usedSectors() {
+  return SECTORS.filter((item) => PROJECTS.some((project) => project.sector === item));
+}
+
+export function usedCollaborators() {
+  return COLLABORATORS.filter((item) => PROJECTS.some((project) => project.collaborators?.includes(item.id)));
+}
+
+export function developedWith(names: string[]) {
+  if (names.length === 0) return "";
+  if (names.length === 1) return `Developed with ${names[0]}.`;
+  return `Developed with ${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}.`;
+}
+
+/** Studio sentence from the discipline map. Collaborators stay a following line in Info. */
+export function projectCreditLine(project: ProjectRecord) {
+  if (!project.disciplines?.length) return "";
+  const work = serialAnd(project.disciplines.map((item) => DISCIPLINE_CREDIT[item]));
+  return `${work.charAt(0).toUpperCase() + work.slice(1)} by How by Why (HBW).`;
+}
+
+export function projectCredits(project: ProjectRecord) {
+  const studio = projectCreditLine(project);
+  const names = projectCollaborators(project).map((item) => item.name);
+  if (!studio) return names.length ? developedWith(names) : "";
+  if (!names.length) return studio;
+  return `${studio} ${developedWith(names)}`;
+}
+
 /** Derived description for generateMetadata. Catalog display values stay title-cased. */
 export function projectDescription(project: ProjectRecord) {
   const idea = project.idea.replace(/\.\s*$/, "");
@@ -221,8 +290,10 @@ export function matchesFilter(project: ProjectRecord, dim: string, value: string
   if (!value || dim === "all") return true;
   if (dim === "year") return project.year === value;
   if (dim === "sector") return project.sector === value;
-  if (dim === "discipline") return Boolean(project.disciplines?.includes(value));
-  if (dim === "collaborator") return Boolean(project.collaborators?.some((item) => item.name === value));
+  if (dim === "discipline") return Boolean(project.disciplines?.some((item) => item === value));
+  if (dim === "collaborator") {
+    return projectCollaborators(project).some((item) => item.name === value || item.id === value);
+  }
   return true;
 }
 

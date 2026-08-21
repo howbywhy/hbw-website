@@ -4,6 +4,8 @@ import {
   matchesFilter,
   PROJECTS,
   sortProjects,
+  usedCollaborators,
+  usedDisciplines,
   type ProjectRecord,
 } from "@/components/home/catalog";
 import type { FilterDim, ProjectsMode, SortId } from "@/components/home/workspace";
@@ -12,6 +14,9 @@ import { projectIdeaCopy } from "@/components/home/projects/experiences";
 import { isVideoMedia, type ArchiveMedia } from "@/components/home/projects/types";
 import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+
+const DISCIPLINE_LENSES = usedDisciplines();
+const COLLABORATOR_LENSES = usedCollaborators();
 
 type Props = {
   open: boolean;
@@ -310,8 +315,8 @@ function ArchiveItem({
   const span = project.visualSpan ?? (layout === "wide" ? 8 : layout === "landscape" ? 6 : layout === "contained" ? 4 : 7);
   const start = project.visualStart;
   const before = project.visualBefore;
-  const disciplines = project.disciplines ?? [];
-  const collaborators = project.collaborators ?? [];
+  const disciplines = DISCIPLINE_LENSES.filter((item) => project.disciplines?.includes(item));
+  const collaborators = COLLABORATOR_LENSES.filter((item) => project.collaborators?.includes(item.id));
   const sizes = visual
     ? span >= 7
       ? "(max-width: 767px) 94vw, 62vw"
