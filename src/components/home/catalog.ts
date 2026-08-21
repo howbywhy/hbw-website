@@ -118,7 +118,7 @@ export const PROJECTS: ProjectRecord[] = [
     id: "koja",
     href: "/projects/koja",
     name: "KOJA",
-    idea: "Unapologetically Good.",
+    idea: "Unapologetically Good",
     year: "2021",
     src: "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
     srcSet: srcSetFor("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", [500, 800], 1080)!,
