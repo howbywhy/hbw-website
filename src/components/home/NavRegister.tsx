@@ -70,12 +70,12 @@ export function NavRegister({
           >
             Index
           </button>
-          {filterValue ? (
-            <button type="button" className="hbw-nav-rel" aria-label={`Clear ${filterValue}`} onClick={onClearLens}>
-              {filterValue} ×
-            </button>
-          ) : null}
         </div>
+        {filterValue ? (
+          <button type="button" className="hbw-nav-rel" aria-label={`Clear ${filterValue}`} onClick={onClearLens}>
+            {filterValue} ×
+          </button>
+        ) : null}
       </div>
       <div className={`hbw-nav-sub__view${boundaryName ? " is-next" : ""}`} inert={face !== "view" || undefined}>
         <span className="hbw-nav-sub__face hbw-nav-sub__face--info">
