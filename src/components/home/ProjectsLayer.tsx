@@ -413,12 +413,20 @@ function ArchiveItem({
       {visual ? (
         <span className="hbw-browse__caption">
           <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
-          {note ? <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} /> : null}
+          {note ? (
+            <span inert={!hovered && !expanded ? true : undefined} aria-hidden={!hovered && !expanded ? true : undefined}>
+              <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} />
+            </span>
+          ) : null}
         </span>
       ) : (
         <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
       )}
-      <span className="hbw-browse__row-meta">
+      <span
+        className={visual ? "hbw-browse__clip" : "hbw-browse__row-meta"}
+        inert={visual || undefined}
+        aria-hidden={visual || undefined}
+      >
         <span className={`hbw-browse__row-disc${disciplines.length ? "" : " is-empty"}`}>
           {disciplines.map((value, i) => (
             <span key={value}>

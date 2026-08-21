@@ -242,6 +242,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const [whyPeekLock, setWhyPeekLock] = useState(false);
   const inspecting = panel === "info" && !panelLeaving;
   const projectsRef = useRef<HTMLButtonElement>(null);
+  const focusReturn = useRef<HTMLElement[]>([]);
   const viewSlug =
     windowMode === "view" || phase !== "idle" || swap?.to === "view" ? activeId : slug;
   const experience = viewSlug ? getExperience(viewSlug) : null;
@@ -254,6 +255,26 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   function later(ms: number, fn: () => void) {
     const id = window.setTimeout(fn, reduceMotion() ? 0 : ms);
     motionTimer.current.push(id);
+  }
+
+  function rememberFocus() {
+    const node = document.activeElement;
+    if (!(node instanceof HTMLElement) || node === document.body) return;
+    focusReturn.current.push(node);
+  }
+
+  function restoreFocus() {
+    const node = focusReturn.current.pop();
+    window.setTimeout(() => {
+      if (!node?.isConnected || node.closest("[inert]")) return;
+      node.focus();
+    }, 0);
+  }
+
+  function focusSelector(selector: string) {
+    window.setTimeout(() => {
+      document.querySelector<HTMLElement>(selector)?.focus();
+    }, 0);
   }
 
   function finishSwap() {
@@ -502,6 +523,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
 
   function openPanel(next: Exclude<WorkspacePanelId, null>) {
     completeIntro();
+    rememberFocus();
     if (next === "info") {
       captureInspectMedia();
       if (experience) {
@@ -531,6 +553,8 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     if (next === "studio" && windowMode === "make" && !isStudioPathname(pathname)) {
       router.push("/studio");
     }
+    if (next === "studio") focusSelector(".hbw-nav-studio");
+    if (next === "info") focusSelector('.hbw-sheet[data-hbw-sheet="project-right"]');
   }
 
   function closePanel() {
@@ -561,15 +585,18 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setStudioView("studio");
       if (leaveRoute) router.replace("/");
       closingPanelRef.current = false;
+      restoreFocus();
     });
   }
 
   function showManifesto() {
+    rememberFocus();
     manifestoGen.current += 1;
     manifestoLeavingRef.current = false;
     setManifestoLeaving(false);
     setStudioView("manifesto");
     if (isStudioPathname(pathname)) router.replace("/manifesto");
+    focusSelector(".hbw-nav-studio");
   }
 
   function showStudioContent() {
@@ -587,6 +614,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setStudioView("studio");
       setManifestoLeaving(false);
       if (isStudioPathname(pathname)) router.replace("/studio");
+      restoreFocus();
       return;
     }
     const token = ++manifestoGen.current;
@@ -598,6 +626,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setStudioView("studio");
       setManifestoLeaving(false);
       if (isStudioPathname(pathname)) router.replace("/studio");
+      restoreFocus();
     });
   }
 
@@ -611,6 +640,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
 
   function openProjects() {
     completeIntro();
+    rememberFocus();
     if (windowMode === "view" || phase === "rising" || phase === "assembling" || phase === "active") {
       exitToProjects();
       return;
@@ -637,7 +667,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     if (fromPeek) {
       if (pathname !== "/") router.push("/?layer=projects");
       else syncProjectsUrl(true);
-      later(HBW_T.spatial, finishSwap);
+      later(HBW_T.spatial, () => {
+        finishSwap();
+        focusSelector(".hbw-nav-projects__hit");
+      });
       return;
     }
     later(HBW_T.micro, () => {
@@ -646,7 +679,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setSwap({ from: "make", to: "browse", phase: "entering" });
       if (pathname !== "/") router.push("/?layer=projects");
       else syncProjectsUrl(true);
-      later(HBW_T.spatial, finishSwap);
+      later(HBW_T.spatial, () => {
+        finishSwap();
+        focusSelector(".hbw-nav-projects__hit");
+      });
     });
   }
 
@@ -682,7 +718,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     } else {
       syncProjectsUrl(false);
     }
-    later(HBW_T.spatial, finishSwap);
+    later(HBW_T.spatial, () => {
+      finishSwap();
+      restoreFocus();
+    });
   }
 
   function returnToMake() {
@@ -735,6 +774,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         browseScrollRef.current[pending.mode] = pending.y;
         restoreBrowseScroll(pending.mode, pending.y);
       }
+      restoreFocus();
     });
   }
 
@@ -758,12 +798,14 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     later(HBW_T.continuity, () => {
       setPhase("idle");
       finishSwap();
+      restoreFocus();
     });
   }
 
   async function enterProject(id: string, fromHint?: "make" | "browse") {
     completeIntro();
     if (motionLock.current) return;
+    rememberFocus();
     const token = ++enterGen.current;
     const from: WindowMode =
       fromHint ?? (windowMode === "view" ? "view" : windowMode === "make" ? "make" : "browse");
@@ -828,6 +870,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       if (token !== enterGen.current) return;
       setPhase("active");
       finishSwap();
+      focusSelector(
+        ".hbw-home-strip__journey-close.is-on, .hbw-nav-studio.is-sheet-close, .hbw-nav-sub__face--info button"
+      );
     });
   }
 

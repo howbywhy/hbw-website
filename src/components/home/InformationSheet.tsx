@@ -35,7 +35,7 @@ export function InformationSheet({
 }: Props) {
   const visible = open && !leaving;
   const peeking = preview && !leaving && !visible;
-  const present = visible || peeking || leaving || (held && !leaving);
+  const interactive = !blocked && (visible || peeking);
 
   function enterPreview(event: PointerEvent<HTMLElement>) {
     if (!peeking) return;
@@ -64,8 +64,9 @@ export function InformationSheet({
       data-hbw-sheet={variant}
       data-hbw-sheet-preview={peeking ? "true" : undefined}
       aria-label={label}
-      aria-hidden={!present || blocked ? true : undefined}
-      inert={!present || blocked || undefined}
+      aria-hidden={!interactive ? true : undefined}
+      inert={!interactive || undefined}
+      tabIndex={interactive ? -1 : undefined}
       onWheel={onWheel}
       onPointerEnter={enterPreview}
       onPointerLeave={leavePreview}

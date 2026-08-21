@@ -273,7 +273,7 @@ export function WorkspacePanel({
   onPracticePreviewOpen,
 }: Props) {
   const studioHeld = panel === "studio" && !leaving;
-  const studioShown = studioHeld;
+  const studioShown = studioHeld && studioView === "studio";
   const manifestoLeave = manifestoClosing || (leaving && panel === "studio" && studioView === "manifesto");
   const manifestoShown = studioHeld && studioView === "manifesto" && !manifestoLeave;
   const studioLeave = leaving && panel === "studio" && !manifestoLeave;
@@ -330,7 +330,7 @@ export function WorkspacePanel({
         variant="global-left"
         open={manifestoShown}
         leaving={manifestoLeave}
-        held={studioHeld}
+        held={studioHeld && studioView === "manifesto"}
         label="Manifesto"
         onWheel={stopWheel}
       >

@@ -805,7 +805,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       }${frozen ? " is-frozen" : ""}`}
       data-hbw-family={family || "idle"}
       data-hbw-context={textActive ? "text" : selectedStroke ? "stroke" : selectedImage ? "image" : "none"}
-      aria-hidden={hidden ? true : undefined}
+      aria-hidden={hidden || dormant ? true : undefined}
+      inert={hidden || dormant || undefined}
       onDragOver={(event) => event.preventDefault()}
       onDrop={onDrop}
     >

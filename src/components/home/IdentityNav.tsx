@@ -171,6 +171,12 @@ export function IdentityNav({
   }
 
   function focusArm(next: IdentityIntent) {
+    if (next === "by") {
+      if (!live || inert || assembled) return;
+      setIntent("by");
+      onWhyPreviewHide?.();
+      return;
+    }
     arm(next, pointerType.current);
   }
 
@@ -260,15 +266,6 @@ export function IdentityNav({
         onPointerLeave={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "by")}
         onFocus={() => focusArm("by")}
         onBlur={(event) => leaveSlot(event.relatedTarget, event.currentTarget, "by")}
-        onKeyDown={(event) => {
-          if (event.key !== "Tab" || event.shiftKey || !previewing) return;
-          const first = document.querySelector<HTMLElement>(
-            "#hbw-nav-peek.is-open a[data-hbw-peek], #hbw-nav-peek.is-open .hbw-mark-all"
-          );
-          if (!first) return;
-          event.preventDefault();
-          first.focus();
-        }}
         onClick={() => go("by")}
       >
         <span className="hbw-mark-word hbw-mark-word--rest">{REST.by}</span>
