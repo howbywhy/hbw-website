@@ -69,6 +69,8 @@ export type ProjectRecord = {
   location?: string;
   /** Press and awards. Display only — not a lens. */
   features?: string[];
+  /** People who made the work. Display only — not a lens. */
+  credits?: string[];
   /**
    * Intentionally unreached. Retained for a future Coming Soon record.
    * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
@@ -110,6 +112,7 @@ export const PROJECTS: ProjectRecord[] = [
     sectors: ["Sports Nutrition", "FMCG"],
     disciplines: ["Brand Identity", "Packaging"],
     collaborators: ["the-colour-club"],
+    credits: ["Mark Blackler", "Nick Mitchell"],
   },
   {
     id: "koja",
@@ -292,28 +295,7 @@ export function isKnownFilter(dim: string, value: string) {
   return false;
 }
 
-export function developedWith(names: string[]) {
-  if (names.length === 0) return "";
-  if (names.length === 1) return `Developed with ${names[0]}.`;
-  return `Developed with ${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}.`;
-}
-
-/** Studio sentence from the discipline map. Collaborators stay a following line in Info. */
-export function projectCreditLine(project: ProjectRecord) {
-  const disciplines = projectDisciplines(project);
-  if (!disciplines.length) return "";
-  return `${sentence(serialAnd(disciplines.map((item) => DISCIPLINE_CREDIT[item])))} by How by Why (HBW).`;
-}
-
-export function projectCredits(project: ProjectRecord) {
-  const studio = projectCreditLine(project);
-  const names = projectCollaborators(project).map((item) => item.name);
-  if (!studio) return names.length ? developedWith(names) : "";
-  if (!names.length) return studio;
-  return `${studio} ${developedWith(names)}`;
-}
-
-/** Derived description for generateMetadata. Uses the same maps as credits. */
+/** Derived description for generateMetadata. Uses the discipline and sector maps. */
 export function projectDescription(project: ProjectRecord) {
   const idea = project.idea.replace(/\.\s*$/, "");
   const lead = `${project.name} — ${idea}.`;

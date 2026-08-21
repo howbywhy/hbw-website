@@ -5,7 +5,7 @@ import type { ProjectExperience, InfoSectionId } from "@/components/home/project
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
-import { projectById, developedWith, projectCollaborators, projectCreditLine, projectDisciplines, projectSectors } from "@/components/home/catalog";
+import { projectById, projectCollaborators, projectDisciplines, projectSectors } from "@/components/home/catalog";
 
 type Props = {
   panel: WorkspacePanelId;
@@ -178,10 +178,8 @@ function InfoBody({
 }) {
   const record = projectById(experience.slug);
   const collabNames = projectCollaborators(record).map((item) => item.name);
-  const collabLine = collabNames.length ? developedWith(collabNames) : "";
   const disciplines = projectDisciplines(record);
   const sectors = projectSectors(record);
-  const creditLine = projectCreditLine(record);
   const facts = [
     sectors.length ? ["Sectors", sectors.join(" · ")] : null,
     disciplines.length ? ["Disciplines", disciplines.join(" · ")] : null,
@@ -189,7 +187,7 @@ function InfoBody({
     collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,
     record.location ? ["Location", record.location] : null,
     record.features?.length ? ["Featured", record.features.join(" · ")] : null,
-    creditLine ? ["Credits", creditLine] : null,
+    record.credits?.length ? ["Credits", record.credits.join(", ")] : null,
   ].filter(Boolean) as [string, string][];
 
   return (
@@ -220,15 +218,7 @@ function InfoBody({
           {facts.map(([label, value]) => (
             <div key={label}>
               <dt>{label}</dt>
-              <dd>
-                {value}
-                {label === "Credits" && collabLine ? (
-                  <>
-                    <br />
-                    {collabLine}
-                  </>
-                ) : null}
-              </dd>
+              <dd>{value}</dd>
             </div>
           ))}
         </dl>
