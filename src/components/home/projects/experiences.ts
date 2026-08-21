@@ -173,7 +173,7 @@ const NIDO_INFO: InfoSection[] = [
   {
     id: "idea",
     heading: "The idea",
-    copy: "Bistro Nido is built on a simple, honest premise: cuisine du marché — cooking from the market. A 40-seat modern bistro at 501 George Street, Sydney, it draws from French bistro tradition while weaving in Japanese technique and ingredient throughout. The concept is called Twice Cooked — a culinary approach to everything, including the design. Two cultures, two influences, one place worth returning to.",
+    copy: "Bistro Nido is built on a simple, honest premise: cuisine du marché — cooking from the market. A 40-seat modern bistro at 501 George Street, Sydney, it draws from French bistro tradition while weaving in Japanese technique and ingredients throughout. The concept is called Twice Cooked — a culinary approach to everything, including the design. Two cultures, two influences, one place worth returning to.",
   },
   {
     id: "shift",
