@@ -14,7 +14,7 @@ import { openingVisual, preloadProject } from "@/components/home/preload";
 import { projectIdeaCopy } from "@/components/home/projects/experiences";
 import { isVideoMedia, type ArchiveMedia } from "@/components/home/projects/types";
 import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const DISCIPLINE_LENSES = usedDisciplines();
 const SECTOR_LENSES = usedSectors();
@@ -109,6 +109,40 @@ export function ProjectsLayer({
   }, [peekOn, peekId]);
 
   const hoverPeek = peekId ? openingVisual(peekId) : null;
+  const archiveRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const archive = archiveRef.current;
+    if (!archive || mode !== "index" || !open) return;
+
+    function alignDiscToBy() {
+      const node = archiveRef.current;
+      if (!node) return;
+      const glyph = document.querySelector<HTMLElement>(".hbw-mark-by .hbw-mark-word--rest");
+      if (!glyph) return;
+      const mark = document.querySelector(".hbw-home-strip__mark");
+      const gathered = Boolean(
+        mark?.classList.contains("is-assembled") || mark?.classList.contains("is-resolved")
+      );
+      const glyphBox = glyph.getBoundingClientRect();
+      const byLeft = gathered ? window.innerWidth / 2 - glyphBox.width / 2 : glyphBox.left;
+      const axis = byLeft - node.getBoundingClientRect().left;
+      node.style.setProperty("--hbw-index-axis", `${Math.max(0, axis)}px`);
+    }
+
+    alignDiscToBy();
+    void document.fonts?.ready.then(alignDiscToBy);
+    const observer = new ResizeObserver(alignDiscToBy);
+    observer.observe(archive);
+    const by = document.querySelector(".hbw-mark-by");
+    if (by instanceof Element) observer.observe(by);
+    window.addEventListener("resize", alignDiscToBy);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", alignDiscToBy);
+      archive.style.removeProperty("--hbw-index-axis");
+    };
+  }, [mode, open]);
 
   return (
     <div
@@ -134,6 +168,7 @@ export function ProjectsLayer({
           </div>
         ) : null}
         <div
+          ref={archiveRef}
           className={`hbw-browse__archive hbw-browse__grid${mode === "index" ? " hbw-browse__index" : ""}`}
           role="list"
           onPointerOver={(event) => hoverFromTarget(event.target, onRowHover)}
