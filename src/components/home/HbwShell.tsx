@@ -621,12 +621,25 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     setPanelLeaving(false);
     motionLock.current = true;
     clearMotionTimers();
+    const fromPeek = peek.open;
     flipMark(() => {
       flushSync(() => {
         peek.hideNow();
-        setSwap({ from: "make", to: "browse", phase: "exiting" });
+        if (fromPeek) {
+          setWindowMode("browse");
+          setPhase("idle");
+          setSwap({ from: "make", to: "browse", phase: "entering" });
+        } else {
+          setSwap({ from: "make", to: "browse", phase: "exiting" });
+        }
       });
     }, HBW_T.spatial);
+    if (fromPeek) {
+      if (pathname !== "/") router.push("/?layer=projects");
+      else syncProjectsUrl(true);
+      later(HBW_T.spatial, finishSwap);
+      return;
+    }
     later(HBW_T.micro, () => {
       setWindowMode("browse");
       setPhase("idle");
