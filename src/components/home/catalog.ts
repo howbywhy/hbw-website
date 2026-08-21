@@ -67,8 +67,8 @@ export type ProjectRecord = {
   disciplines?: Discipline[];
   collaborators?: CollaboratorId[];
   location?: string;
-  /** Press and awards. Display only — not a lens. */
-  features?: string[];
+  /** Press and awards. Display only — not a lens. URL optional. */
+  features?: { name: string; url?: string }[];
   /** People who made the work. Display only — not a lens. */
   credits?: string[];
   /**
@@ -158,7 +158,12 @@ export const PROJECTS: ProjectRecord[] = [
       "Website",
       "Print & Digital Design",
     ],
-    features: ["The Brand Identity"],
+    features: [
+      {
+        name: "The Brand Identity",
+        url: "https://the-brandidentity.com/project/in-crafting-a-rich-evocative-identity-for-closed-bar-how-by-why-serves-a-lesson-in-worldbuilding",
+      },
+    ],
     credits: ["Mark Blackler", "Sasha Burger"],
   },
   {

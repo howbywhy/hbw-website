@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState, type WheelEvent } from "react";
+import { useEffect, useLayoutEffect, useState, type ReactNode, type WheelEvent } from "react";
 import type { ProjectExperience, InfoSectionId } from "@/components/home/projects/types";
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
@@ -180,15 +180,34 @@ function InfoBody({
   const collabNames = projectCollaborators(record).map((item) => item.name);
   const disciplines = projectDisciplines(record);
   const sectors = projectSectors(record);
-  const facts = [
-    sectors.length ? ["Sectors", sectors.join(" · ")] : null,
-    disciplines.length ? ["Disciplines", disciplines.join(" · ")] : null,
-    record.year ? ["Year", record.year] : null,
-    collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,
-    record.location ? ["Location", record.location] : null,
-    record.features?.length ? ["Featured", record.features.join(" · ")] : null,
-    record.credits?.length ? ["Credits", record.credits.join(", ")] : null,
-  ].filter(Boolean) as [string, string][];
+  const featured =
+    record.features?.length ? (
+      <>
+        {record.features.map((feature, i) => (
+          <span key={feature.name}>
+            {i > 0 ? " · " : null}
+            {feature.url ? (
+              <a className="hbw-sheet__mail" href={feature.url} target="_blank" rel="noopener noreferrer">
+                {feature.name}
+              </a>
+            ) : (
+              feature.name
+            )}
+          </span>
+        ))}
+      </>
+    ) : null;
+  const facts = (
+    [
+      sectors.length ? ["Sectors", sectors.join(" · ")] : null,
+      disciplines.length ? ["Disciplines", disciplines.join(" · ")] : null,
+      record.year ? ["Year", record.year] : null,
+      collabNames.length ? ["Collaborators", collabNames.join(" · ")] : null,
+      record.location ? ["Location", record.location] : null,
+      featured ? ["Featured", featured] : null,
+      record.credits?.length ? ["Credits", record.credits.join(", ")] : null,
+    ] as ([string, ReactNode] | null)[]
+  ).filter(Boolean) as [string, ReactNode][];
 
   return (
     <>
