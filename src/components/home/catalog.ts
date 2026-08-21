@@ -133,7 +133,7 @@ export const PROJECTS: ProjectRecord[] = [
     id: "bar-closed",
     href: "/projects/bar-closed",
     name: "CLOSED",
-    idea: "A Smuggler's House",
+    idea: "A Smuggler’s House",
     year: "2024",
     src: "/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
     srcSet: srcSetFor("/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", [500, 800], 1080)!,
