@@ -4065,7 +4065,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
       "thumb name"
       "thumb idea"
       "thumb meta"
-      "thumb note";
+      "note note";
     column-gap: var(--hbw-space-3);
     row-gap: 0.1rem;
     padding: var(--hbw-space-2) 0;
@@ -4154,6 +4154,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-browse__row .hbw-browse__note {
     display: none;
     grid-area: note;
+    grid-column: 1 / -1;
     min-width: 0;
     width: 100%;
     max-width: 100%;
