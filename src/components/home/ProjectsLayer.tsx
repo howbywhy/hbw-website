@@ -118,14 +118,12 @@ export function ProjectsLayer({
     function alignDiscToBy() {
       const node = archiveRef.current;
       if (!node) return;
-      const glyph = document.querySelector<HTMLElement>(".hbw-mark-by .hbw-mark-word--rest");
-      if (!glyph) return;
-      const mark = document.querySelector(".hbw-home-strip__mark");
-      const gathered = Boolean(
-        mark?.classList.contains("is-assembled") || mark?.classList.contains("is-resolved")
-      );
-      const glyphBox = glyph.getBoundingClientRect();
-      const byLeft = gathered ? window.innerWidth / 2 - glyphBox.width / 2 : glyphBox.left;
+      const probe = document.createElement("div");
+      probe.style.cssText =
+        "position:fixed;left:var(--hbw-x-projects);top:0;width:0;height:0;visibility:hidden;pointer-events:none";
+      document.documentElement.appendChild(probe);
+      const byLeft = probe.getBoundingClientRect().left;
+      probe.remove();
       const axis = byLeft - node.getBoundingClientRect().left;
       node.style.setProperty("--hbw-index-axis", `${Math.max(0, axis)}px`);
     }

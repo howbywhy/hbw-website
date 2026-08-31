@@ -43,6 +43,16 @@ function webp(src: string, width: number, height: number): ProjectMedia {
   };
 }
 
+function png(src: string, width: number, height: number): ProjectMedia {
+  return {
+    type: "image",
+    src,
+    width,
+    height,
+    fit: "contain",
+  };
+}
+
 function film(
   src: string,
   width: number,
@@ -192,6 +202,29 @@ const NIDO_INFO: InfoSection[] = [
   },
 ];
 
+const SCK_INFO: InfoSection[] = [
+  {
+    id: "idea",
+    heading: "The idea",
+    copy: "Studio Carson Kelly believes the most meaningful spaces emerge where different realities meet. Intersecting Realities brings architecture and interiors together with people, place, art and culture. Rather than treating these as separate inputs, the practice layers them into environments that strengthen spatial interactions and enrich everyday experience.",
+  },
+  {
+    id: "shift",
+    heading: "The shift",
+    copy: "Formerly Klaus Carson Studio, the practice had evolved beyond an identity centred on one name. The transition to Studio Carson Kelly needed to recognise a shared practice while retaining the credibility already established. The opportunity was to express a studio that is precise and experienced, but also personal, approachable and open to different influences.",
+  },
+  {
+    id: "system",
+    heading: "The system",
+    copy: "The identity is built from four architectural ways of seeing: contour, datum, grid and section. These principles frame, divide and reveal imagery and information, creating a flexible system rather than a fixed graphic treatment. A precise S.C.K monogram anchors the identity, supported by restrained typography and a material palette drawn from plaster, lime, stone, clay and slate. Custom motion behaviours extend the same principles into movement.",
+  },
+  {
+    id: "outcome",
+    heading: "The outcome",
+    copy: "The identity gives SCK a clear framework for presenting its evolving practice. It balances architectural rigour with warmth and individuality, while allowing each project to retain its own character. Across imagery, documentation, digital applications and motion, the system creates a recognisable relationship between the studio’s people, thinking and work.",
+  },
+];
+
 export const SUB3_EXPERIENCE: ProjectExperience = {
   slug: "sub-3",
   infoSections: SUB3_INFO.sections,
@@ -321,6 +354,34 @@ export const NIDO_EXPERIENCE: ProjectExperience = {
   ],
 };
 
+export const SCK_EXPERIENCE: ProjectExperience = {
+  slug: "sck",
+  infoSections: SCK_INFO,
+  movements: [
+    mv("sk01", "portrait", jpg("/projects/sck/1.jpg", 1080, 1350, "contain", []), "idea", { align: "start" }),
+    mv("sk02", "landscape", jpg("/projects/sck/2.jpg", 1920, 1080, "contain", []), "idea"),
+    mv("sk03", "portrait", jpg("/projects/sck/3.jpg", 1080, 1350, "contain", []), "idea"),
+    mv("sk04", "film", film("/projects/sck/web/4.mp4", 2000, 2500), "idea", { span: "narrow" }),
+    mv("sk05", "portrait", jpg("/projects/sck/5.jpg", 1080, 1350, "contain", []), "idea"),
+    mv("sk06", "film", film("/projects/sck/web/6.mp4", 1000, 1250), "shift", { span: "narrow" }),
+    mv("sk07", "portrait", jpg("/projects/sck/7.jpg", 1080, 1350, "contain", []), "shift"),
+    mv("sk08", "portrait", jpg("/projects/sck/8.jpg", 1080, 1350, "contain", []), "shift"),
+    mv("sk09", "film", film("/projects/sck/web/9.mp4", 2000, 2500), "shift", { span: "narrow" }),
+    mv("sk10", "portrait", jpg("/projects/sck/10.jpg", 1080, 1350, "contain", []), "shift"),
+    mv("sk11", "portrait", jpg("/projects/sck/11.jpg", 1080, 1350, "contain", []), "system"),
+    mv("sk12", "portrait", jpg("/projects/sck/12.jpg", 1080, 1350, "contain", []), "system"),
+    mv("sk13", "portrait", jpg("/projects/sck/13.jpg", 1080, 1350, "contain", []), "system"),
+    mv("sk14", "portrait", png("/projects/sck/14.png", 1704, 2250), "system"),
+    mv("sk15", "film", film("/projects/sck/web/15.mp4", 2000, 2500), "system", { span: "narrow" }),
+    mv("sk16", "film", film("/projects/sck/web/16.mp4", 1000, 1250), "outcome", { span: "narrow" }),
+    mv("sk18", "film", film("/projects/sck/web/18.mp4", 2000, 2500), "outcome", { span: "narrow" }),
+    mv("sk19", "film", film("/projects/sck/web/19.mp4", 1000, 1250), "outcome", { span: "narrow" }),
+    mv("sk20", "portrait", png("/projects/sck/20.png", 1704, 2250), "outcome"),
+    mv("sk22", "film", film("/projects/sck/web/22.mp4", 1080, 1440), "outcome", { span: "narrow" }),
+    mv("sk23", "film", film("/projects/sck/web/23.mp4", 1000, 1250), "outcome", { align: "end", span: "narrow" }),
+  ],
+};
+
 export const PROJECT_EXPERIENCES: Record<string, ProjectExperience> = {
   "sub-3": SUB3_EXPERIENCE,
   koja: KOJA_EXPERIENCE,
@@ -328,6 +389,7 @@ export const PROJECT_EXPERIENCES: Record<string, ProjectExperience> = {
   "our-boy-roy": OBR_EXPERIENCE,
   "chris-sisarich": SISARICH_EXPERIENCE,
   "bistro-nido": NIDO_EXPERIENCE,
+  sck: SCK_EXPERIENCE,
 };
 
 export function getExperience(slug: string) {

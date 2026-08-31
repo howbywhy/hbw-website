@@ -9,9 +9,11 @@ export const DISCIPLINES = [
   "Signage/Wayfinding",
   "Website",
   "Print & Digital Design",
+  "Motion",
+  "Digital Design",
 ] as const;
 
-export const SECTORS = ["Sports Nutrition", "FMCG", "Food", "Hospitality", "Photography"] as const;
+export const SECTORS = ["Sports Nutrition", "FMCG", "Food", "Hospitality", "Photography", "Architecture", "Interior Design"] as const;
 
 export const COLLABORATORS = [
   { id: "the-colour-club", name: "The Colour Club", kind: "studio" },
@@ -32,6 +34,8 @@ export const DISCIPLINE_CREDIT = {
   "Signage/Wayfinding": "signage and wayfinding",
   Website: "website design",
   "Print & Digital Design": "print and digital",
+  Motion: "motion",
+  "Digital Design": "digital design",
 } as const satisfies Record<Discipline, string>;
 
 /** Sector prose. Acronyms stay capped. Adding a sector without a form is a build error. */
@@ -41,6 +45,8 @@ export const SECTOR_CREDIT = {
   Food: "food",
   Hospitality: "hospitality",
   Photography: "photography",
+  Architecture: "architecture",
+  "Interior Design": "interior design",
 } as const satisfies Record<Sector, string>;
 
 export type ProjectRecord = {
@@ -94,6 +100,24 @@ export function srcSetFor(src: string, widths: number[], intrinsic: number) {
 
 /** Verified from recovered /projects and / home records. */
 export const PROJECTS: ProjectRecord[] = [
+  {
+    id: "sck",
+    href: "/projects/sck",
+    name: "SCK",
+    idea: "Intersecting Realities",
+    year: "2026",
+    src: "/projects/sck/1.jpg",
+    srcSet: srcSetFor("/projects/sck/1.jpg", [], 1080)!,
+    width: 1080,
+    height: 1350,
+    crop: "center 32%",
+    layout: "portrait",
+    visualSpan: 5,
+    visualStart: 8,
+    sectors: ["Architecture", "Interior Design"],
+    disciplines: ["Brand DNA", "Visual Identity", "Motion", "Digital Design"],
+    credits: ["Mark Blackler"],
+  },
   {
     id: "sub-3",
     href: "/projects/sub-3",
