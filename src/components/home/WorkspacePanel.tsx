@@ -18,7 +18,6 @@ type Props = {
   atProjectEnd?: boolean;
   nextProjectName?: string | null;
   onShowManifesto: () => void;
-  onShowStudio: () => void;
   onNextProject?: () => void;
   onPracticePreviewEnter?: () => void;
   onPracticePreviewLeave?: () => void;
@@ -263,7 +262,6 @@ export function WorkspacePanel({
   infoAnchor,
   experience,
   onShowManifesto,
-  onShowStudio,
   onNextProject,
   atProjectEnd = false,
   nextProjectName = null,
@@ -295,7 +293,16 @@ export function WorkspacePanel({
         return;
       }
       inspector.setAttribute("data-hbw-info-anchor", infoAnchor);
-      inspector.scrollTop = 0;
+      const section =
+        infoAnchor === "idea"
+          ? null
+          : inspector.querySelector<HTMLElement>(`[data-hbw-info-section="${infoAnchor}"]`);
+      if (!section) {
+        inspector.scrollTop = 0;
+        return;
+      }
+      const pad = Number.parseFloat(getComputedStyle(inspector).paddingTop) || 0;
+      inspector.scrollTop = Math.max(0, section.offsetTop - pad);
     }
     toTop();
     return () => cancelAnimationFrame(frame);
@@ -306,8 +313,6 @@ export function WorkspacePanel({
     const sheet = document.querySelector<HTMLElement>(".hbw-inspector.is-manifesto");
     if (sheet) sheet.scrollTop = 0;
   }, [manifestoShown]);
-
-  void onShowStudio;
 
   return (
     <>

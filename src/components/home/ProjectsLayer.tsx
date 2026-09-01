@@ -412,7 +412,7 @@ function ArchiveItem({
         <span className="hbw-browse__caption">
           <span className="hbw-browse__position hbw-browse__row-idea">{project.idea}</span>
           {note ? (
-            <span inert={!hovered && !expanded ? true : undefined} aria-hidden={!hovered && !expanded ? true : undefined}>
+            <span>
               <NoteToggle name={project.name} expanded={expanded} onToggle={() => onToggleNote(project.id)} />
             </span>
           ) : null}

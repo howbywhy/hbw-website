@@ -7,7 +7,7 @@ import { MovementVideo } from "@/components/home/projects/MovementVideo";
 import { ProjectOutro } from "@/components/home/projects/ProjectOutro";
 import { nextProject } from "@/components/home/sequence";
 import { projectById } from "@/components/home/catalog";
-import { isVideoMedia, movementSpan, type ProjectExperience } from "@/components/home/projects/types";
+import { isVideoMedia, movementPace, movementSpan, type ProjectExperience } from "@/components/home/projects/types";
 
 export type ViewPhase = "idle" | "rising" | "assembling" | "active" | "exiting" | "handoff-in" | "handoff-out";
 
@@ -23,7 +23,10 @@ type Props = {
   restoreX?: number | null;
 };
 
-const ANCHOR = 0.4;
+/** Stage home as a fraction of the field. goTo docks a movement here; indexFromX uses the same line so seek and scroll share one current. */
+const STAGE_HOME = 0.07;
+/** Outro has entered the reading zone — distinct from current-movement docking. */
+const BOUNDARY_ZONE = 0.4;
 
 type FlipRect = { left: number; top: number; width: number; height: number };
 
@@ -116,7 +119,7 @@ export function ProjectView({
     }
     const stage = root.clientWidth;
     const last = offsets.current[total - 1] ?? 0;
-    const parked = Math.max(0, last - Math.round(stage * 0.07));
+    const parked = Math.max(0, last - Math.round(stage * STAGE_HOME));
     return parked + Math.round(stage * 0.28);
   }, [total]);
 
@@ -131,26 +134,31 @@ export function ProjectView({
     (x: number) => {
       const root = rootRef.current;
       if (!root) return 0;
+      const rest = next ? nextRestX() : 0;
+      // Outro rest is also the track max, so the 40% reading line never arrives
+      // on its own. Reaching rest is the boundary: last movement stays current
+      // until then (seek/goTo last), Next takes the nav after.
+      if (next && rest > 0 && x >= rest - 1) return total;
       const pts = offsets.current.map((left, i) => ({ i, left }));
       if (outroLeft.current) pts.push({ i: total, left: outroLeft.current });
       if (!pts.length) return 0;
-      const anchor = x + root.clientWidth * ANCHOR;
+      const dock = x + root.clientWidth * STAGE_HOME;
       let active = pts[0].i;
       for (const item of pts) {
-        if (item.left <= anchor + 1) active = item.i;
+        if (item.left <= dock + 1) active = item.i;
         else break;
       }
       if (next && !boundaryHold.current && active >= total) return Math.max(0, total - 1);
       return active;
     },
-    [next, total]
+    [next, nextRestX, total]
   );
 
   const pastOutro = useCallback(
     (x: number) => {
       const root = rootRef.current;
       if (!root || !next || !outroLeft.current) return false;
-      return outroLeft.current <= x + root.clientWidth * ANCHOR + 1;
+      return outroLeft.current <= x + root.clientWidth * BOUNDARY_ZONE + 1;
     },
     [next]
   );
@@ -182,7 +190,7 @@ export function ProjectView({
   const goTo = useCallback(
     (i: number) => {
       const root = rootRef.current;
-      const inset = root && i > 0 ? Math.round(root.clientWidth * 0.07) : 0;
+      const inset = root && i > 0 ? Math.round(root.clientWidth * STAGE_HOME) : 0;
       const fromBoundary = indexRef.current >= total;
       if (i < 0) {
         applyX(0, true);
@@ -194,6 +202,7 @@ export function ProjectView({
         return;
       }
       if (next) boundaryHold.current = false;
+      if (indexRef.current !== i) onIndex(i);
       applyX(
         Math.max(0, (offsets.current[i] ?? 0) - inset),
         true,
@@ -201,7 +210,7 @@ export function ProjectView({
         fromBoundary && i === total - 1 ? HBW_T.continuity : HBW_T.ui
       );
     },
-    [applyX, next, nextRestX, total]
+    [applyX, next, nextRestX, onIndex, total]
   );
 
   useLayoutEffect(() => {
@@ -237,7 +246,7 @@ export function ProjectView({
         const target = items?.[indexRef.current];
         if (root && target) root.scrollTo({ top: target.offsetTop, behavior: "auto" });
       } else {
-        const inset = root ? Math.round(root.clientWidth * 0.07) : 0;
+        const inset = root ? Math.round(root.clientWidth * STAGE_HOME) : 0;
         applyX(Math.max(0, (offsets.current[indexRef.current] ?? 0) - inset), false, true);
       }
     } else {
@@ -387,53 +396,34 @@ export function ProjectView({
   }, []);
 
   useLayoutEffect(() => {
-    const root = rootRef.current;
-    if (!root || phase === "idle") return;
-    if (inspecting && !wasInspecting.current) {
-      wasInspecting.current = true;
-      ignoreResize.current = true;
-      window.clearTimeout(movingTimer.current);
-      root.closest(".hbw-home")?.classList.remove("is-moving");
-      if (mobile.current) inspectY.current = root.scrollTop;
-      else {
-        inspectX.current = xRef.current;
-        inspectHeldX.current = xRef.current;
-      }
-      if (!mobile.current) {
-        root.scrollTop = inspectScrollByProject.get(experience.slug) ?? 0;
-      }
-      ignoreResize.current = true;
-      playFlip("open");
-      return;
-    }
-    if (!inspecting && wasInspecting.current) {
-      wasInspecting.current = false;
+    if (phase === "idle") return;
+    wasInspecting.current = inspecting;
+  }, [inspecting, phase]);
+
+  useEffect(() => {
+    if (!canDrive) return;
+    function onSeek(event: Event) {
+      const index = (event as CustomEvent<number>).detail;
+      if (typeof index !== "number" || !Number.isFinite(index)) return;
+      const nextIndex = Math.max(0, Math.min(Math.trunc(index), total - 1));
+      mobile.current = isMobileViewport();
       if (mobile.current) {
-        root.scrollTop = inspectY.current;
+        const root = rootRef.current;
+        const target = root?.querySelectorAll<HTMLElement>(".hbw-mv")[nextIndex];
+        if (root && target) {
+          root.scrollTo({
+            top: target.offsetTop,
+            behavior: reduceMotion() ? "auto" : "smooth",
+          });
+        }
+        onIndex(nextIndex);
         return;
       }
-      ignoreResize.current = true;
-      inspectHeldX.current = inspectX.current;
-      root.scrollTop = 0;
-      measure();
-      applyX(inspectX.current, false, true);
-      playFlip("close");
-      const after = reduceMotion() ? 0 : inspectAdvance.current ? HBW_T.continuity : HBW_T.spatial;
-      if (inspectAdvance.current) {
-        inspectAdvance.current = false;
-        inspectHeldX.current = null;
-        window.setTimeout(() => {
-          measure();
-          goTo(total);
-          ignoreResize.current = false;
-        }, after);
-      } else {
-        window.setTimeout(() => {
-          ignoreResize.current = false;
-        }, after);
-      }
+      goTo(nextIndex);
     }
-  }, [applyX, experience.slug, goTo, inspecting, measure, phase, playFlip, total]);
+    window.addEventListener("hbw:seek-index", onSeek);
+    return () => window.removeEventListener("hbw:seek-index", onSeek);
+  }, [canDrive, goTo, onIndex, total]);
 
   useEffect(() => {
     return () => {
@@ -515,28 +505,28 @@ export function ProjectView({
       if (event.deltaMode === 1) delta *= 16;
       if (event.deltaMode === 2) delta *= el.clientWidth * 0.8;
       if (delta === 0) return;
-      if (inspecting) {
-        if (delta > 0 && leaveInspectToBoundary()) event.preventDefault();
-        return;
-      }
+      if (inspecting) return;
       event.preventDefault();
       markMoving();
       applyX(xRef.current + delta, false);
-      if (pastOutro(xRef.current) && !boundaryHold.current) goTo(total);
+      if (
+        delta > 0 &&
+        next &&
+        !boundaryHold.current &&
+        (pastOutro(xRef.current) || xRef.current >= nextRestX() - 1)
+      ) {
+        goTo(total);
+      }
     }
 
     node.addEventListener("wheel", onWheel, { passive: false });
     return () => node.removeEventListener("wheel", onWheel);
-  }, [applyX, canDrive, goTo, inspecting, leaveInspectToBoundary, markMoving, pastOutro]);
+  }, [applyX, canDrive, goTo, inspecting, markMoving, next, nextRestX, pastOutro, total]);
 
   useEffect(() => {
     if (!canDrive) return;
     function onBoundaryNext() {
       if (mobile.current || !next) return;
-      if (inspectingRef.current) {
-        leaveInspectToBoundary();
-        return;
-      }
       if (committed.current) return;
       const root = rootRef.current;
       const preview = root?.querySelector<HTMLElement>(".hbw-outro.is-next .hbw-outro__preview");
@@ -552,17 +542,14 @@ export function ProjectView({
     }
     window.addEventListener("hbw:boundary-next", onBoundaryNext);
     return () => window.removeEventListener("hbw:boundary-next", onBoundaryNext);
-  }, [applyX, canDrive, leaveInspectToBoundary, next, nextRestX, onCommitNext]);
+  }, [applyX, canDrive, next, nextRestX, onCommitNext]);
 
   useEffect(() => {
     if (!canDrive) return;
     function onKey(event: KeyboardEvent) {
       if (document.querySelector(".hbw-sheet.is-global-right.is-visible, .hbw-sheet.is-global-left.is-visible")) return;
       if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-        if (inspecting) {
-          if (leaveInspectToBoundary()) event.preventDefault();
-          return;
-        }
+        if (inspecting) return;
         event.preventDefault();
         if (mobile.current) {
           rootRef.current?.scrollBy({
@@ -589,7 +576,7 @@ export function ProjectView({
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [canDrive, goTo, inspecting, leaveInspectToBoundary, total]);
+  }, [canDrive, goTo, inspecting, total]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -681,9 +668,8 @@ export function ProjectView({
   }
 
   function onPointerDown(event: React.PointerEvent) {
-    if (mobile.current || event.button !== 0 || !canDrive) return;
+    if (mobile.current || event.button !== 0 || !canDrive || inspecting) return;
     if ((event.target as HTMLElement).closest("button, a")) return;
-    if (inspecting && (indexRef.current < total - 1 || !next)) return;
     drag.current = { x: event.clientX, from: xRef.current };
     (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
   }
@@ -789,6 +775,7 @@ export function ProjectView({
         {experience.movements.map((movement, i) => {
           const media = movement.media;
           const span = movementSpan(movement);
+          const pace = movementPace(movement);
           const current = Math.min(index, total - 1);
           const dist = Math.abs(i - current);
           const eager = i === 0;
@@ -802,13 +789,17 @@ export function ProjectView({
                 : entrance === "archive"
                   ? `hbw-media-${experience.slug}`
                   : undefined;
+          const scaleClass = movement.scale ? ` is-${movement.scale}` : "";
+          const paceClass = pace !== "normal" ? ` is-${pace}` : "";
+          const pairClass =
+            movement.relation === "pair" || experience.movements[i - 1]?.relation === "pair" ? " is-pair" : "";
           return (
             <section
               key={movement.id}
               data-hbw-mv={movement.id}
-              className={`hbw-mv hbw-mv--${movement.kind} hbw-mv--${span}${movement.align ? ` is-${movement.align}` : ""}${
-                i === current ? " is-current" : ""
-              }`}
+              className={`hbw-mv hbw-mv--${movement.kind} hbw-mv--${span}${scaleClass}${paceClass}${pairClass}${
+                movement.align ? ` is-${movement.align}` : ""
+              }${i === current ? " is-current" : ""}`}
               style={{
                 background: movement.surface || undefined,
                 ["--hbw-mv-ratio" as string]: `${media.width} / ${media.height}`,
@@ -829,7 +820,7 @@ export function ProjectView({
                   src={media.src}
                   srcSet={media.srcSet}
                   sizes={span === "narrow" || span === "contained" ? "(max-width: 767px) 100vw, 46vw" : "(max-width: 767px) 100vw, 88vw"}
-                  alt=""
+                  alt={media.alt ?? ""}
                   width={media.width}
                   height={media.height}
                   loading={eager || nearby ? "eager" : "lazy"}

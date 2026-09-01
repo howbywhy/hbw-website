@@ -266,7 +266,7 @@ export function liveProjects() {
 export const PROJECT_SLUGS = liveProjects().map((project) => project.id);
 
 export function homePreviewProjects() {
-  return PROJECTS.filter((project) => project.homeSelected).slice(0, 5);
+  return liveProjects().slice(0, 5);
 }
 
 export function projectById(id: string) {

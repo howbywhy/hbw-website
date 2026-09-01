@@ -3,9 +3,16 @@
     var p = (window.location && window.location.pathname) || "/";
     p = p.replace(/[?#].*$/, "").replace(/\/+$/, "") || "/";
     var root = document.documentElement;
+    var layer =
+      typeof URLSearchParams === "function"
+        ? new URLSearchParams(window.location.search).get("layer")
+        : null;
     if (sessionStorage.getItem("hbw.entered.v2")) {
       root.classList.add("hbw-entered");
     } else if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      sessionStorage.setItem("hbw.entered.v2", "1");
+      root.classList.add("hbw-entered");
+    } else if (p === "/" && layer === "projects") {
       sessionStorage.setItem("hbw.entered.v2", "1");
       root.classList.add("hbw-entered");
     } else if (p === "/") {

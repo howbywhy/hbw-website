@@ -475,6 +475,10 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }, [slug]);
 
   useLayoutEffect(() => {
+    if (projectsLayerFromUrl() || projectSlugFromPath(pathname)) {
+      completeIntro();
+      return;
+    }
     if (!document.documentElement.classList.contains("hbw-intro")) return;
     if (reduceMotion()) {
       completeIntro();
@@ -1000,33 +1004,38 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     });
   }
 
+  function restoreBrowseOrigin(origin: Extract<OriginFrame, { kind: "browse" }>) {
+    setProjectsMode(origin.mode, { silent: true });
+    setActive(origin.id);
+    setProjectsLens(origin.filterDim || "all", origin.filterValue || "");
+    if (origin.sort) setProjectsSort(origin.sort);
+    pendingBrowseScroll.current = {
+      mode: origin.mode,
+      y: origin.scroll ?? browseScrollRef.current[origin.mode],
+    };
+  }
+
+  function resumeOrigin(origin: OriginFrame | undefined) {
+    if (!origin || origin.kind === "browse") {
+      if (origin?.kind === "browse") restoreBrowseOrigin(origin);
+      exitToProjects("replace");
+      return;
+    }
+    if (origin.kind === "make") {
+      homeFromView();
+      return;
+    }
+    restoreProject(origin.slug, origin.index, origin.x);
+  }
+
   function closeToOrigin() {
     if (motionLock.current && phase !== "active" && phase !== "rising") return;
     motionLock.current = false;
     clearMotionTimers();
     const next = originStack.current.slice(0, -1);
     const origin = originStack.current.at(-1);
-    commitOrigin(next);
-    if (!origin || origin.kind === "browse") {
-      if (origin?.kind === "browse") {
-        setProjectsMode(origin.mode, { silent: true });
-        setActive(origin.id);
-        setProjectsLens(origin.filterDim || "all", origin.filterValue || "");
-        if (origin.sort) setProjectsSort(origin.sort);
-        pendingBrowseScroll.current = {
-          mode: origin.mode,
-          y: origin.scroll ?? browseScrollRef.current[origin.mode],
-        };
-      }
-      exitToProjects("replace");
-      return;
-    }
-    if (origin.kind === "make") {
-      commitOrigin([]);
-      homeFromView();
-      return;
-    }
-    restoreProject(origin.slug, origin.index, origin.x);
+    commitOrigin(origin?.kind === "make" ? [] : next);
+    resumeOrigin(origin);
   }
 
   function closeJourney() {
@@ -1035,25 +1044,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     clearMotionTimers();
     const origin = originStack.current[0];
     commitOrigin([]);
-    if (!origin || origin.kind === "browse") {
-      if (origin?.kind === "browse") {
-        setProjectsMode(origin.mode, { silent: true });
-        setActive(origin.id);
-        setProjectsLens(origin.filterDim || "all", origin.filterValue || "");
-        if (origin.sort) setProjectsSort(origin.sort);
-        pendingBrowseScroll.current = {
-          mode: origin.mode,
-          y: origin.scroll ?? browseScrollRef.current[origin.mode],
-        };
-      }
-      exitToProjects("replace");
-      return;
-    }
-    if (origin.kind === "make") {
-      homeFromView();
-      return;
-    }
-    restoreProject(origin.slug, origin.index, origin.x);
+    resumeOrigin(origin);
   }
 
   function setActive(id: string) {
@@ -1249,9 +1240,8 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const manifestoSheet = panel === "studio" && (studioView === "manifesto" || manifestoLeaving);
   const manifestoOpen = manifestoSheet && !manifestoLeaving;
   const studioClose = panel === "studio" && !manifestoSheet;
-  const viewJourneyClose = viewExit;
-  const studioAsClose =
-    studioClose || manifestoSheet || (!narrow && viewJourneyClose && panel !== "info");
+  const viewJourneyClose = viewExit && panel !== "info";
+  const studioAsClose = studioClose || manifestoSheet;
   const muteProjects = panel === "studio";
   const muteStudio = panel === "info";
   const hideProjectsHit =
@@ -1261,7 +1251,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     !narrow &&
     navFace === "view" &&
     chromeExperience &&
-    chromeIndex >= Math.max(0, chromeExperience.movements.length - 1)
+    chromeIndex >= chromeExperience.movements.length
       ? nextProject(chromeExperience.slug)
       : null;
 
@@ -1338,9 +1328,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
             </div>
             <button
               type="button"
-              className={`hbw-home-strip__exit hbw-home-strip__journey-close${narrow && viewJourneyClose ? " is-on" : ""}`}
-              aria-hidden={narrow && viewJourneyClose ? undefined : true}
-              tabIndex={narrow && viewJourneyClose ? 0 : -1}
+              className={`hbw-home-strip__exit hbw-home-strip__journey-close${viewJourneyClose ? " is-on" : ""}`}
+              aria-hidden={viewJourneyClose ? undefined : true}
+              tabIndex={viewJourneyClose ? 0 : -1}
               onClick={closeJourney}
             >
               Close
@@ -1397,7 +1387,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               type="button"
               className={`hbw-nav-studio${studioAsClose ? " is-sheet-close" : ""}`}
               data-hbw-sheet-close={
-                manifestoSheet ? "manifesto" : studioClose ? "studio" : viewJourneyClose ? "journey" : undefined
+                manifestoSheet ? "manifesto" : studioClose ? "studio" : undefined
               }
               aria-pressed={panel === "studio"}
               aria-label={studioAsClose ? "Close" : "Studio"}
@@ -1406,7 +1396,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
               onClick={() => {
                 if (muteStudio) return;
                 if (studioClose || manifestoSheet) dismissStudioFamily();
-                else if (viewJourneyClose) closeJourney();
                 else openPanel("studio");
               }}
             >
@@ -1498,7 +1487,6 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           nextProjectName={experience ? nextProject(experience.slug)?.name ?? null : null}
           practicePreview={practicePeek.open}
           onShowManifesto={showManifesto}
-          onShowStudio={showStudioContent}
           onNextProject={() => window.dispatchEvent(new Event("hbw:boundary-next"))}
           onPracticePreviewEnter={practicePeek.show}
           onPracticePreviewLeave={practicePeek.hideSoon}

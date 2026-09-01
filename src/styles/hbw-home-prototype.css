@@ -21,6 +21,8 @@ html.hbw-workspace {
     var(--hbw-header-pad-y) * 2 + var(--hbw-nav-line) + var(--hbw-nav-gap) + var(--hbw-subnav-h)
   );
   --hbw-gallery-gap: var(--hbw-space-2);
+  --hbw-gallery-tight: 2px;
+  --hbw-gallery-pause: 4.5rem;
   --hbw-boundary-gap: 12rem;
   --hbw-stage-gap: var(--hbw-space-4);
   --hbw-peek-thumb: 3.25rem;
@@ -241,6 +243,12 @@ html.hbw-intro .hbw-poster-toolbar,
 html.hbw-intro .hbw-projects.is-open {
   opacity: 0;
   pointer-events: none;
+}
+
+html.hbw-entered .hbw-projects.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 html.hbw-intro .hbw-poster-toolbar {
@@ -818,6 +826,19 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   display: none;
 }
 
+@media screen and (min-width: 768px) {
+  .hbw-home-strip__journey-close.is-on {
+    display: block;
+    position: absolute;
+    left: var(--hbw-x-studio);
+    top: var(--hbw-header-pad-y);
+    z-index: 60;
+    height: var(--hbw-nav-line);
+    min-width: 4.6rem;
+    text-align: left;
+  }
+}
+
 @keyframes hbw-name-in {
   from {
     opacity: 0;
@@ -929,7 +950,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   pointer-events: none;
 }
 
-.hbw-home.is-inspect .hbw-nav-sub__meta,
 .hbw-home.is-moving .hbw-nav-sub__meta {
   opacity: 0.22;
   pointer-events: none;
@@ -939,10 +959,6 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 .hbw-home.is-boundary.is-moving .hbw-nav-sub__meta,
 .hbw-home.is-boundary .hbw-nav-sub__view.is-next .hbw-nav-sub__meta {
   opacity: 1;
-}
-
-.hbw-home.is-inspect .hbw-nav-sub__meta {
-  opacity: 0;
 }
 
 .hbw-home-strip button {
@@ -964,6 +980,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 .hbw-projects button:focus-visible,
 .hbw-projects a:focus-visible,
 .hbw-browse a:focus-visible,
+.hbw-browse__item:focus-visible,
 .hbw-inspector button:focus-visible,
 .hbw-inspector a:focus-visible {
   outline: 1px solid #333;
@@ -1120,6 +1137,76 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   font-variant-numeric: tabular-nums;
   letter-spacing: inherit;
   color: #333;
+}
+
+.hbw-nav-sub__sequence {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.hbw-nav-sub button.hbw-nav-sub__meta {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hbw-contact {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--hbw-nav-gap));
+  z-index: 61;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 2px;
+  max-width: min(36rem, calc(100vw - (2 * var(--hbw-edge))));
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.hbw-contact__frame {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 2.1875rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: var(--hbw-field, #f4f5f3);
+  opacity: 0.4;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.hbw-contact__frame.is-current,
+.hbw-contact__frame[aria-selected="true"] {
+  opacity: 1;
+}
+
+.hbw-contact__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+  .hbw-contact {
+    max-width: min(18rem, calc(100vw - 5.5rem));
+  }
+
+  .hbw-contact__frame {
+    width: 2.25rem;
+    height: 2.75rem;
+  }
 }
 
 .hbw-nav-peek {
@@ -1786,7 +1873,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
     z-index: 0;
     display: flex;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
     height: 0;
     margin: 0;
@@ -1797,10 +1884,10 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   .hbw-projects.is-index .hbw-browse__hover-image img {
     width: auto;
     height: auto;
-    max-width: min(22rem, 26vw);
-    max-height: min(28rem, 58vh);
-    margin-top: calc((100dvh - var(--hbw-header-h) - var(--hbw-edge)) / 2);
-    translate: 0 -50%;
+    max-width: min(16rem, 20vw);
+    max-height: min(22rem, 42vh);
+    margin-top: var(--hbw-space-2);
+    translate: none;
     display: block;
     object-fit: contain;
     opacity: 0;
@@ -1815,6 +1902,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
     position: relative;
     z-index: 1;
     padding-left: 0;
+    padding-right: calc(min(16rem, 20vw) + var(--hbw-space-3));
     background: transparent;
   }
 }
@@ -2083,7 +2171,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 }
 
 .hbw-browse__cell .hbw-browse__caption .hbw-browse__more {
-  opacity: 0;
+  opacity: 0.4;
   transform: none;
   transition: opacity var(--hbw-motion-micro) var(--hbw-ease);
 }
@@ -2091,16 +2179,14 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 .hbw-browse__cell.is-hovered .hbw-browse__caption .hbw-browse__more,
 .hbw-browse__cell:hover .hbw-browse__caption .hbw-browse__more,
 .hbw-browse__cell:focus-visible .hbw-browse__caption .hbw-browse__more,
-.hbw-browse__cell.is-noted .hbw-browse__caption .hbw-browse__more {
+.hbw-browse__cell.is-noted .hbw-browse__caption .hbw-browse__more,
+.hbw-browse__cell .hbw-browse__caption .hbw-browse__more:hover,
+.hbw-browse__cell .hbw-browse__caption .hbw-browse__more:focus-visible {
   opacity: 1;
   transform: none;
 }
 
 @media (min-width: 768px) {
-  .hbw-projects.is-visual .hbw-browse__cell .hbw-browse__title {
-    display: none;
-  }
-
   .hbw-projects.is-visual .hbw-browse__cell .hbw-browse__position {
     margin-top: var(--hbw-space-1);
   }
@@ -2191,10 +2277,10 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     grid-template-columns:
       var(--hbw-index-thumb)
       9.25rem
-      minmax(0, calc(var(--hbw-index-axis) - var(--hbw-index-thumb) - 9.25rem - 3rem))
-      minmax(10rem, 1.15fr)
-      max-content
-      max-content
+      minmax(7rem, calc(var(--hbw-index-axis) - var(--hbw-index-thumb) - 9.25rem - 3rem))
+      minmax(0, 1.15fr)
+      minmax(0, 0.7fr)
+      minmax(0, 0.7fr)
       3.5rem
       1.15rem;
     overflow: visible;
@@ -2203,12 +2289,25 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   .hbw-projects.is-index .hbw-browse__row .hbw-browse__row-idea {
     justify-self: start;
     text-align: left;
+    color: rgba(51, 51, 51, 0.46);
+  }
+
+  .hbw-projects.is-index .hbw-browse__row.is-hovered .hbw-browse__row-idea,
+  .hbw-projects.is-index .hbw-browse__row:focus-visible .hbw-browse__row-idea {
+    color: #333;
+  }
+
+  .hbw-projects.is-index .hbw-browse__row.is-hovered .hbw-browse__row-name,
+  .hbw-projects.is-index .hbw-browse__row:focus-visible .hbw-browse__row-name {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
 
   .hbw-projects.is-index .hbw-browse__row-sector,
   .hbw-projects.is-index .hbw-browse__row-collab {
-    overflow: visible;
-    text-overflow: unset;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -2786,6 +2885,42 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   margin: 0;
 }
 
+@media screen and (min-width: 768px) {
+  .hbw-mv.is-major {
+    height: 100%;
+    width: calc(var(--hbw-stage-w, 100%) * 0.88);
+    max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
+    aspect-ratio: auto;
+  }
+
+  .hbw-mv.is-major.hbw-mv--portrait {
+    width: auto;
+    max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
+    aspect-ratio: var(--hbw-mv-ratio);
+  }
+
+  .hbw-mv.is-detail {
+    height: 68%;
+  }
+
+  .hbw-mv.is-tight,
+  .hbw-mv.is-pair.is-tight {
+    margin-right: calc(var(--hbw-gallery-tight) - var(--hbw-gallery-gap));
+  }
+
+  .hbw-mv.is-pause {
+    margin-right: var(--hbw-gallery-pause);
+  }
+
+  .hbw-mv.is-major.hbw-mv--portrait .hbw-mv__media,
+  .hbw-mv.is-major.hbw-mv--portrait .hbw-mv__poster {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
 .hbw-mv__media {
   display: block;
   height: 100%;
@@ -3002,71 +3137,8 @@ html.hbw-workspace .hbw-inspector.is-overlay.is-manifesto.is-leaving {
 }
 
 @media screen and (min-width: 768px) {
-  .hbw-home.is-inspect .hbw-project-view.is-rising,
-  .hbw-home.is-inspect .hbw-project-view.is-assembling,
-  .hbw-home.is-inspect .hbw-project-view.is-active,
-  .hbw-home.is-inspect .hbw-project-view.is-handoff-in {
-    right: auto;
-    width: calc(var(--hbw-x-studio) - var(--hbw-edge));
-    overflow-x: hidden;
-    overflow-y: auto;
-    overflow-anchor: none;
-    contain: none;
-    cursor: default;
-    background: var(--hbw-window, #ffffff);
-  }
-
-  .hbw-home.is-inspect .hbw-project-view__track {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    width: 100%;
-    height: auto;
-    min-height: 100%;
-    gap: var(--hbw-gallery-gap);
-    transform: none !important;
-    padding: 0 0 var(--hbw-space-5);
-  }
-
-  .hbw-home.is-inspect .hbw-mv,
-  .hbw-home.is-inspect .hbw-mv--narrow,
-  .hbw-home.is-inspect .hbw-mv--contained,
-  .hbw-home.is-inspect .hbw-mv--wide,
-  .hbw-home.is-inspect .hbw-mv--full {
-    width: 100%;
-    max-width: none;
-    height: auto;
-    aspect-ratio: var(--hbw-mv-ratio, 4 / 5);
-  }
-
-  .hbw-home.is-inspect .hbw-mv--wide,
-  .hbw-home.is-inspect .hbw-mv--full,
-  .hbw-home.is-inspect .hbw-mv--landscape,
-  .hbw-home.is-inspect .hbw-mv--film {
-    grid-column: span 2;
-  }
-
-  .hbw-home.is-inspect .hbw-mv__media,
-  .hbw-home.is-inspect .hbw-mv__poster {
-    width: 100%;
-    height: auto;
-    max-height: none;
-    object-fit: contain;
-  }
-
-  .hbw-home.is-inspect .hbw-mv__film {
-    width: 100%;
-    height: 100%;
-  }
-
-  .hbw-home.is-inspect .hbw-mv__film .hbw-mv__media,
-  .hbw-home.is-inspect .hbw-mv__film .hbw-mv__poster {
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .hbw-home.is-inspect .hbw-outro {
-    display: none;
+  .hbw-home.is-inspect .hbw-project-view {
+    pointer-events: auto;
   }
 }
 
@@ -3672,7 +3744,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   .hbw-home-strip__exit.is-on,
   .hbw-nav-projects__hit,
-  .hbw-nav-sub button,
+  .hbw-nav-sub button:not(.hbw-contact__frame),
   .hbw-nav-studio {
     position: relative;
     min-height: 0;
@@ -3690,7 +3762,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-home-strip__mark .hbw-mark-why::before,
   .hbw-home-strip__exit.is-on::before,
   .hbw-nav-projects__hit::before,
-  .hbw-nav-sub button::before,
+  .hbw-nav-sub button:not(.hbw-contact__frame)::before,
   .hbw-nav-studio::before {
     content: "";
     position: absolute;
@@ -4355,6 +4427,32 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     padding: 0 0 var(--hbw-gallery-gap);
   }
 
+  .hbw-mv.is-major,
+  .hbw-mv.is-standard {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: auto;
+  }
+
+  .hbw-mv.is-detail {
+    width: 78%;
+    max-width: none;
+    height: auto;
+    margin-right: auto;
+  }
+
+  .hbw-mv.is-tight,
+  .hbw-mv.is-pair.is-tight {
+    margin-right: auto;
+    padding-bottom: var(--hbw-gallery-tight);
+  }
+
+  .hbw-mv.is-pause {
+    margin-right: 0;
+    padding-bottom: var(--hbw-space-5);
+  }
+
   html.hbw-workspace .hbw-sheet-layer .hbw-inspector,
   html.hbw-workspace .hbw-sheet-layer .hbw-inspector.is-overlay,
   html.hbw-workspace .hbw-sheet-layer .hbw-inspector.is-overlay.is-manifesto,
@@ -4399,49 +4497,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   }
 
   .hbw-home.is-inspect .hbw-window {
-    pointer-events: auto;
-  }
-
-  .hbw-home.is-inspect .hbw-project-view.is-rising,
-  .hbw-home.is-inspect .hbw-project-view.is-assembling,
-  .hbw-home.is-inspect .hbw-project-view.is-active,
-  .hbw-home.is-inspect .hbw-project-view.is-handoff-in {
-    left: 0;
-    right: 0;
-    width: 100%;
-    opacity: 1;
-    pointer-events: auto;
-    overflow: auto;
-  }
-
-  .hbw-home.is-inspect .hbw-project-view__track {
-    display: block;
-    width: 100%;
-    height: auto;
-    min-height: 0;
-    grid-template-columns: none;
-    gap: 0;
-    padding: 0;
-    transform: none !important;
-  }
-
-  .hbw-home.is-inspect .hbw-mv,
-  .hbw-home.is-inspect .hbw-mv--narrow,
-  .hbw-home.is-inspect .hbw-mv--contained,
-  .hbw-home.is-inspect .hbw-mv--wide,
-  .hbw-home.is-inspect .hbw-mv--full,
-  .hbw-home.is-inspect .hbw-mv--landscape,
-  .hbw-home.is-inspect .hbw-mv--film {
-    grid-column: auto;
-    display: block;
-    width: 100%;
-    max-width: none;
-    height: auto;
-    aspect-ratio: auto;
-  }
-
-  .hbw-home.is-inspect .hbw-outro {
-    display: none;
+    pointer-events: none;
   }
 
   ::view-transition-old(root),

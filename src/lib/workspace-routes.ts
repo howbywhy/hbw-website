@@ -14,7 +14,3 @@ export function isStudioPathname(path: string) {
   const p = normPathname(path);
   return p === "/studio" || p === "/manifesto";
 }
-
-export function isWorkspacePathname(_path: string) {
-  return true;
-}

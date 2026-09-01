@@ -31,6 +31,7 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
   const [kept, setKept] = useState(load || eager);
   const [src, setSrc] = useState(() => preferSrc(media));
   const poster = media.poster;
+  const alt = media.alt ?? "";
   const muted = media.muted !== false;
   const loop = media.loop !== false;
   const wantsAutoplay = media.autoplay !== false && !reduceMotion();
@@ -108,7 +109,7 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
         <img
           className={`hbw-mv__poster is-${media.fit}${playing ? " is-resolved" : ""}`}
           src={poster}
-          alt=""
+          alt={alt}
           width={media.width}
           height={media.height}
           decoding="async"
@@ -130,6 +131,7 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
           preload={eager || active ? "auto" : "metadata"}
           disablePictureInPicture
           controls={false}
+          aria-hidden="true"
           onPlaying={() => setPlaying(true)}
           onError={onError}
         />
@@ -137,7 +139,7 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
         <img
           className={`hbw-mv__media is-${media.fit}`}
           src={poster}
-          alt=""
+          alt={alt}
           width={media.width}
           height={media.height}
           decoding="async"
