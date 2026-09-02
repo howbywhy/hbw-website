@@ -1,12 +1,12 @@
 /**
- * One-project seed: Chris Sisarich only.
- * Run: npx sanity exec src/sanity/scripts/seed-chris.ts --with-user-token
- * Seeds project-chris-sisarich only. Public /projects/chris-sisarich stays local unless HBW_CHRIS_SOURCE=sanity.
+ * One-project seed: SUB:3 only.
+ * Run: npx sanity exec src/sanity/scripts/seed-sub3.ts --with-user-token
+ * Seeds project-sub3. Public /projects/sub-3 stays local unless HBW_SUB3_SOURCE=sanity.
  */
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
-import { CHRIS_COPY, CHRIS_DOCUMENT_ID, CHRIS_IDENTITY, CHRIS_MOVEMENTS } from "./chris-content";
+import { SUB3_COPY, SUB3_DOCUMENT_ID, SUB3_IDENTITY, SUB3_MOVEMENTS } from "./sub3-content";
 
 const client = getCliClient({
   apiVersion: "2025-02-19",
@@ -78,13 +78,10 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId(
-    "public/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg",
-    "image"
-  );
+  const previewId = await assetId(SUB3_MOVEMENTS[0].still as string, "image");
 
   const movements = [];
-  for (const movement of CHRIS_MOVEMENTS) {
+  for (const movement of SUB3_MOVEMENTS) {
     const row: Record<string, unknown> = {
       _type: "movement",
       _key: movement.key,
@@ -95,47 +92,42 @@ async function main() {
       relation: movement.relation,
     };
     if (movement.infoHint) row.infoHint = movement.infoHint;
-    if (movement.cover || movement.graphic) {
-      row.presentationOverride = {
-        _type: "presentationOverride",
-        ...(movement.cover ? { mediaFit: "cover" } : {}),
-        ...(movement.graphic ? { mediaType: "graphic" } : {}),
-      };
-    }
     if (movement.mediaType === "still" && movement.still) {
       row.still = imageRef(await assetId(movement.still, "image"));
     }
     if (movement.mediaType === "film" && movement.video && movement.poster) {
       row.video = fileRef(await assetId(movement.video, "file"));
       row.poster = imageRef(await assetId(movement.poster, "image"));
+      if (movement.webm) row.webm = fileRef(await assetId(movement.webm, "file"));
     }
     movements.push(row);
   }
 
   const document = {
-    _id: CHRIS_DOCUMENT_ID,
+    _id: SUB3_DOCUMENT_ID,
     _type: "project",
-    title: CHRIS_IDENTITY.title,
-    slug: { _type: "slug", current: CHRIS_IDENTITY.slug },
-    proposition: CHRIS_IDENTITY.proposition,
-    year: CHRIS_IDENTITY.year,
-    sectors: CHRIS_IDENTITY.sectors,
-    disciplines: CHRIS_IDENTITY.disciplines,
-    portfolioOrder: CHRIS_IDENTITY.portfolioOrder,
+    title: SUB3_IDENTITY.title,
+    slug: { _type: "slug", current: SUB3_IDENTITY.slug },
+    proposition: SUB3_IDENTITY.proposition,
+    year: SUB3_IDENTITY.year,
+    sectors: SUB3_IDENTITY.sectors,
+    disciplines: SUB3_IDENTITY.disciplines,
+    portfolioOrder: SUB3_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", CHRIS_COPY.context)],
-    roles: CHRIS_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: CHRIS_COPY.idea.heading, body: [block("idea", CHRIS_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: CHRIS_COPY.shift.heading, body: [block("shift", CHRIS_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: CHRIS_COPY.system.heading, body: [block("sys", CHRIS_COPY.system.body)] },
+    context: [block("ctx", SUB3_COPY.context)],
+    roles: SUB3_COPY.roles,
+    workingContext: SUB3_COPY.workingContext,
+    idea: { _type: "caseStudyBlock", heading: SUB3_COPY.idea.heading, body: [block("idea", SUB3_COPY.idea.body)] },
+    shift: { _type: "caseStudyBlock", heading: SUB3_COPY.shift.heading, body: [block("shift", SUB3_COPY.shift.body)] },
+    system: { _type: "caseStudyBlock", heading: SUB3_COPY.system.heading, body: [block("sys", SUB3_COPY.system.body)] },
     movements,
-    editorialPurpose: CHRIS_IDENTITY.editorialPurpose,
-    contributionNotes: CHRIS_IDENTITY.contributionNotes,
-    replacementPriority: CHRIS_IDENTITY.replacementPriority,
+    editorialPurpose: SUB3_IDENTITY.editorialPurpose,
+    contributionNotes: SUB3_IDENTITY.contributionNotes,
+    replacementPriority: SUB3_IDENTITY.replacementPriority,
   };
 
   await client.createOrReplace(document);
-  console.log(`wrote ${CHRIS_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
+  console.log(`wrote ${SUB3_DOCUMENT_ID} with ${movements.length} movements, Working Context, and no Outcome`);
 }
 
 main().catch((error) => {

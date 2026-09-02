@@ -17,6 +17,10 @@ export const KOJA_LOCAL_FILM_MARKER = "/projects/koja/web/KOJA-Peanut-Fudge.mp4"
 export const CHRIS_EXPERIENCE_MARKER = "Homepage with the name over scattered photography thumbnails as they rearrange.";
 export const CHRIS_LOCAL_FILM_MARKER = "/projects/chris-sisarich/web/HBWCSHOME-Website.mp4";
 
+/** SUB:3 film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
+export const SUB3_EXPERIENCE_MARKER = "Angular SUB:3 lettering stretching and compressing on black.";
+export const SUB3_LOCAL_FILM_MARKER = "/projects/sub-3/web/SUB3-Type-Stretch-Texture.mp4";
+
 const APP = path.join(process.cwd(), ".next/server/app");
 
 export function ssgAppDir() {
@@ -50,4 +54,9 @@ export function ssgPayloadHasKojaExperience(rel: string) {
 export function ssgPayloadHasChrisExperience(rel: string) {
   const payload = readSsgPayload(rel);
   return payload.includes(CHRIS_EXPERIENCE_MARKER) || payload.includes(CHRIS_LOCAL_FILM_MARKER);
+}
+
+export function ssgPayloadHasSub3Experience(rel: string) {
+  const payload = readSsgPayload(rel);
+  return payload.includes(SUB3_EXPERIENCE_MARKER) || payload.includes(SUB3_LOCAL_FILM_MARKER);
 }

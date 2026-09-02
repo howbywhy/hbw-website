@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { SCK_EXPERIENCE, SISARICH_EXPERIENCE } from "../../components/home/projects/experiences";
+import { SCK_EXPERIENCE, SISARICH_EXPERIENCE, SUB3_EXPERIENCE } from "../../components/home/projects/experiences";
 import { movementSpan, type Movement } from "../../components/home/projects/types";
 import { sanityProjectToProjectExperience } from "./map";
 import { TEST_MEDIA, baseProject, blocks, movementFromShipped } from "./fixtures";
@@ -84,4 +84,24 @@ test("Chris Sisarich parity against shipped experience", () => {
   assert.equal(experience.movements.length, 8);
   const mismatches = compareMovements(SISARICH_EXPERIENCE.movements, experience.movements);
   assert.deepEqual(mismatches, [], `Chris movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
+});
+
+test("SUB:3 parity against shipped experience", () => {
+  const experience = sanityProjectToProjectExperience(
+    baseProject({
+      title: "SUB:3",
+      slug: { current: "sub-3" },
+      proposition: "Bending Time & Space",
+      idea: { heading: "The idea", body: blocks(SUB3_EXPERIENCE.infoSections[0].copy) },
+      shift: { heading: "The shift", body: blocks(SUB3_EXPERIENCE.infoSections[1].copy) },
+      system: { heading: "The system", body: blocks(SUB3_EXPERIENCE.infoSections[2].copy) },
+      outcome: { heading: "The outcome", body: blocks(SUB3_EXPERIENCE.infoSections[3].copy) },
+      movements: SUB3_EXPERIENCE.movements.map(movementFromShipped),
+    }),
+    TEST_MEDIA
+  );
+  assert.equal(experience.slug, "sub-3");
+  assert.equal(experience.movements.length, 12);
+  const mismatches = compareMovements(SUB3_EXPERIENCE.movements, experience.movements);
+  assert.deepEqual(mismatches, [], `SUB:3 movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
 });

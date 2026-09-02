@@ -71,7 +71,24 @@ export function catalogOwnedChris(): CatalogPresentation {
   };
 }
 
-/** Server-only. Sanity document → existing frontend models. SCK, CLOSED, KOJA, and Chris. */
+/** Catalog chrome that stays out of Sanity for SUB:3. Browse remains catalog.ts. */
+export function catalogOwnedSub3(): CatalogPresentation {
+  const shipped = projectById("sub-3");
+  return {
+    crop: shipped.crop,
+    layout: shipped.layout,
+    visualSpan: shipped.visualSpan,
+    visualStart: shipped.visualStart,
+    visualBefore: shipped.visualBefore,
+    homeSelected: shipped.homeSelected,
+    credits: shipped.credits,
+    features: shipped.features,
+    status: shipped.status,
+    collaborators: shipped.collaborators,
+  };
+}
+
+/** Server-only. Sanity document → existing frontend models. SCK, CLOSED, KOJA, Chris, and SUB:3 preview. */
 export async function loadPublishedFrontendProject(slug: string) {
   if (slug === "sck") {
     const project = await fetchPublishedProjectBySlug("sck");
@@ -89,5 +106,9 @@ export async function loadPublishedFrontendProject(slug: string) {
     const project = await fetchPublishedProjectBySlug("chris-sisarich");
     return sanityProjectToFrontendProject(project, catalogOwnedChris(), sckMediaConfig());
   }
-  throw new Error(`Published loader only supports sck, closed, koja, or chris-sisarich (received "${slug}")`);
+  if (slug === "sub-3") {
+    const project = await fetchPublishedProjectBySlug("sub-3");
+    return sanityProjectToFrontendProject(project, catalogOwnedSub3(), sckMediaConfig());
+  }
+  throw new Error(`Published loader only supports sck, closed, koja, chris-sisarich, or sub-3 (received "${slug}")`);
 }
