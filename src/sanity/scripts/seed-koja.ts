@@ -1,17 +1,12 @@
 /**
- * One-project seed: CLOSED only.
- * Run: npx sanity exec src/sanity/scripts/seed-closed.ts --with-user-token
- * Does not touch the public site. /projects/bar-closed stays local.
+ * One-project seed: KOJA only.
+ * Run: npx sanity exec src/sanity/scripts/seed-koja.ts --with-user-token
+ * Seeds project-koja only. Public /projects/koja stays local unless HBW_KOJA_SOURCE=sanity.
  */
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
-import {
-  CLOSED_COPY,
-  CLOSED_DOCUMENT_ID,
-  CLOSED_IDENTITY,
-  CLOSED_MOVEMENTS,
-} from "./closed-content";
+import { KOJA_COPY, KOJA_DOCUMENT_ID, KOJA_IDENTITY, KOJA_MOVEMENTS } from "./koja-content";
 
 const client = getCliClient({
   apiVersion: "2025-02-19",
@@ -37,6 +32,17 @@ function fileRef(id: string) {
   return { _type: "file", asset: { _type: "reference", _ref: id } };
 }
 
+function fileContentType(path: string) {
+  return extname(path) === ".webm" ? "video/webm" : "video/mp4";
+}
+
+function imageContentType(path: string) {
+  const ext = extname(path);
+  if (ext === ".png") return "image/png";
+  if (ext === ".webp") return "image/webp";
+  return "image/jpeg";
+}
+
 async function existingAsset(filename: string, kind: "image" | "file") {
   const type = kind === "image" ? "sanity.imageAsset" : "sanity.fileAsset";
   return client.fetch(`*[_type == $type && originalFilename == $filename][0]._id`, { type, filename });
@@ -49,12 +55,7 @@ async function upload(path: string, kind: "image" | "file") {
     console.log(`reuse ${kind} ${filename}`);
     return found as string;
   }
-  const contentType =
-    kind === "file"
-      ? "video/mp4"
-      : extname(path) === ".png"
-        ? "image/png"
-        : "image/jpeg";
+  const contentType = kind === "file" ? fileContentType(path) : imageContentType(path);
   console.log(`upload ${kind} ${filename}`);
   const asset = await client.assets.upload(kind, createReadStream(path), { filename, contentType });
   return asset._id;
@@ -77,10 +78,10 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId(CLOSED_MOVEMENTS[0].still as string, "image");
+  const previewId = await assetId(KOJA_MOVEMENTS[0].still as string, "image");
 
   const movements = [];
-  for (const movement of CLOSED_MOVEMENTS) {
+  for (const movement of KOJA_MOVEMENTS) {
     const row: Record<string, unknown> = {
       _type: "movement",
       _key: movement.key,
@@ -91,51 +92,41 @@ async function main() {
       relation: movement.relation,
     };
     if (movement.infoHint) row.infoHint = movement.infoHint;
-    if (movement.cover) {
-      row.presentationOverride = { _type: "presentationOverride", mediaFit: "cover" };
-    }
     if (movement.mediaType === "still" && movement.still) {
       row.still = imageRef(await assetId(movement.still, "image"));
     }
     if (movement.mediaType === "film" && movement.video && movement.poster) {
       row.video = fileRef(await assetId(movement.video, "file"));
       row.poster = imageRef(await assetId(movement.poster, "image"));
+      if (movement.webm) row.webm = fileRef(await assetId(movement.webm, "file"));
     }
     movements.push(row);
   }
 
   const document = {
-    _id: CLOSED_DOCUMENT_ID,
+    _id: KOJA_DOCUMENT_ID,
     _type: "project",
-    title: CLOSED_IDENTITY.title,
-    slug: { _type: "slug", current: CLOSED_IDENTITY.slug },
-    proposition: CLOSED_IDENTITY.proposition,
-    year: CLOSED_IDENTITY.year,
-    location: CLOSED_IDENTITY.location,
-    sectors: CLOSED_IDENTITY.sectors,
-    disciplines: CLOSED_IDENTITY.disciplines,
-    portfolioOrder: CLOSED_IDENTITY.portfolioOrder,
+    title: KOJA_IDENTITY.title,
+    slug: { _type: "slug", current: KOJA_IDENTITY.slug },
+    proposition: KOJA_IDENTITY.proposition,
+    year: KOJA_IDENTITY.year,
+    sectors: KOJA_IDENTITY.sectors,
+    disciplines: KOJA_IDENTITY.disciplines,
+    portfolioOrder: KOJA_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", CLOSED_COPY.context)],
-    roles: CLOSED_COPY.roles,
-    workingContext: CLOSED_COPY.workingContext,
-    collaborators: CLOSED_COPY.collaborators.map((item, index) => ({
-      _type: "collaborator",
-      _key: `col${index + 1}`,
-      name: item.name,
-      contribution: item.contribution,
-    })),
-    idea: { _type: "caseStudyBlock", heading: CLOSED_COPY.idea.heading, body: [block("idea", CLOSED_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: CLOSED_COPY.shift.heading, body: [block("shift", CLOSED_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: CLOSED_COPY.system.heading, body: [block("sys", CLOSED_COPY.system.body)] },
+    context: [block("ctx", KOJA_COPY.context)],
+    roles: KOJA_COPY.roles,
+    idea: { _type: "caseStudyBlock", heading: KOJA_COPY.idea.heading, body: [block("idea", KOJA_COPY.idea.body)] },
+    shift: { _type: "caseStudyBlock", heading: KOJA_COPY.shift.heading, body: [block("shift", KOJA_COPY.shift.body)] },
+    system: { _type: "caseStudyBlock", heading: KOJA_COPY.system.heading, body: [block("sys", KOJA_COPY.system.body)] },
     movements,
-    editorialPurpose: CLOSED_IDENTITY.editorialPurpose,
-    contributionNotes: CLOSED_IDENTITY.contributionNotes,
-    replacementPriority: CLOSED_IDENTITY.replacementPriority,
+    editorialPurpose: KOJA_IDENTITY.editorialPurpose,
+    contributionNotes: KOJA_IDENTITY.contributionNotes,
+    replacementPriority: KOJA_IDENTITY.replacementPriority,
   };
 
   await client.createOrReplace(document);
-  console.log(`wrote ${CLOSED_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
+  console.log(`wrote ${KOJA_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
 }
 
 main().catch((error) => {

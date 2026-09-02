@@ -37,7 +37,24 @@ export function catalogOwnedClosed(): CatalogPresentation {
   };
 }
 
-/** Server-only. Sanity document → existing frontend models. SCK and CLOSED. */
+/** Catalog chrome that stays out of Sanity for KOJA preview. Public route stays local. */
+export function catalogOwnedKoja(): CatalogPresentation {
+  const shipped = projectById("koja");
+  return {
+    crop: shipped.crop,
+    layout: shipped.layout,
+    visualSpan: shipped.visualSpan,
+    visualStart: shipped.visualStart,
+    visualBefore: shipped.visualBefore,
+    homeSelected: shipped.homeSelected,
+    credits: shipped.credits,
+    features: shipped.features,
+    status: shipped.status,
+    collaborators: shipped.collaborators,
+  };
+}
+
+/** Server-only. Sanity document → existing frontend models. SCK, CLOSED, and KOJA preview. */
 export async function loadPublishedFrontendProject(slug: string) {
   if (slug === "sck") {
     const project = await fetchPublishedProjectBySlug("sck");
@@ -47,5 +64,9 @@ export async function loadPublishedFrontendProject(slug: string) {
     const project = await fetchPublishedProjectBySlug("closed");
     return sanityProjectToFrontendProject(project, catalogOwnedClosed(), sckMediaConfig());
   }
-  throw new Error(`Published loader only supports sck or closed (received "${slug}")`);
+  if (slug === "koja") {
+    const project = await fetchPublishedProjectBySlug("koja");
+    return sanityProjectToFrontendProject(project, catalogOwnedKoja(), sckMediaConfig());
+  }
+  throw new Error(`Published loader only supports sck, closed, or koja (received "${slug}")`);
 }

@@ -9,6 +9,10 @@ export const SCK_MOVEMENT_ID_MARKER = "sk14";
 export const CLOSED_EXPERIENCE_MARKER = "Two white eyes in a rough black bar on white.";
 export const CLOSED_LOCAL_FILM_MARKER = "/projects/bar-closed/web/CLOSED-Eyes.mp4";
 
+/** KOJA film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
+export const KOJA_EXPERIENCE_MARKER = "Peanut Fudge plant-protein bar on a cork coaster beside palo santo.";
+export const KOJA_LOCAL_FILM_MARKER = "/projects/koja/web/KOJA-Peanut-Fudge.mp4";
+
 const APP = path.join(process.cwd(), ".next/server/app");
 
 export function ssgAppDir() {
@@ -32,4 +36,9 @@ export function ssgPayloadHasSckExperience(rel: string) {
 export function ssgPayloadHasClosedExperience(rel: string) {
   const payload = readSsgPayload(rel);
   return payload.includes(CLOSED_EXPERIENCE_MARKER) || payload.includes(CLOSED_LOCAL_FILM_MARKER);
+}
+
+export function ssgPayloadHasKojaExperience(rel: string) {
+  const payload = readSsgPayload(rel);
+  return payload.includes(KOJA_EXPERIENCE_MARKER) || payload.includes(KOJA_LOCAL_FILM_MARKER);
 }

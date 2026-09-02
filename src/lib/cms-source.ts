@@ -1,17 +1,18 @@
-/** Two real CMS-backed projects. Not a migration registry. */
+/** Three real CMS-backed projects. Not a migration registry. */
 
 export type ProjectSource = "sanity" | "local";
 
 export type CmsBackedProject = {
   routeSlug: string;
   cmsSlug: string;
-  envKey: "HBW_SCK_SOURCE" | "HBW_CLOSED_SOURCE";
+  envKey: "HBW_SCK_SOURCE" | "HBW_CLOSED_SOURCE" | "HBW_KOJA_SOURCE";
   label: string;
 };
 
 export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
   { routeSlug: "sck", cmsSlug: "sck", envKey: "HBW_SCK_SOURCE", label: "SCK" },
   { routeSlug: "bar-closed", cmsSlug: "closed", envKey: "HBW_CLOSED_SOURCE", label: "CLOSED" },
+  { routeSlug: "koja", cmsSlug: "koja", envKey: "HBW_KOJA_SOURCE", label: "KOJA" },
 ];
 
 export function cmsBackedProject(routeSlug: string): CmsBackedProject | undefined {

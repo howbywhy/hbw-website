@@ -10,9 +10,11 @@
     "cms": "sanity dev",
     "cms:seed-sck": "sanity exec src/sanity/scripts/seed-sck.ts --with-user-token",
     "cms:seed-closed": "sanity exec src/sanity/scripts/seed-closed.ts --with-user-token",
+    "cms:seed-koja": "sanity exec src/sanity/scripts/seed-koja.ts --with-user-token",
     "test": "node --import tsx --test src/sanity/adapter/*.test.ts src/sanity/preview/*.test.ts src/components/home/projects/*.test.ts src/lib/*.test.ts",
     "test:sck-cms": "node --import tsx src/sanity/scripts/verify-sck-cms.ts",
-    "test:closed-cms": "node --import tsx src/sanity/scripts/verify-closed-cms.ts"
+    "test:closed-cms": "node --import tsx src/sanity/scripts/verify-closed-cms.ts",
+    "test:koja-cms": "node --import tsx src/sanity/scripts/verify-koja-cms.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

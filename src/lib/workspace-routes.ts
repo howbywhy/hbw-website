@@ -10,11 +10,11 @@ export function projectSlugFromPath(path: string): string | null {
   return PROJECT_SLUGS.includes(match[1]) ? match[1] : null;
 }
 
-/** Validation-only CMS preview. SCK and CLOSED only. */
+/** Validation-only CMS preview. SCK, CLOSED, and KOJA only. */
 export function previewSlugFromPath(path: string): string | null {
   const match = normPathname(path).match(/^\/preview\/([^/]+)$/);
   if (!match) return null;
-  return match[1] === "sck" || match[1] === "closed" ? match[1] : null;
+  return match[1] === "sck" || match[1] === "closed" || match[1] === "koja" ? match[1] : null;
 }
 
 export function viewSlugFromPath(path: string): string | null {
