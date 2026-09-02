@@ -1,3 +1,7 @@
+import { catalogIdForSlug } from "@/lib/cms-source";
+
+export { catalogIdForSlug };
+
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
 export const DISCIPLINES = [
@@ -270,7 +274,7 @@ export function homePreviewProjects() {
 }
 
 export function projectById(id: string) {
-  return PROJECTS.find((p) => p.id === id) ?? PROJECTS[0];
+  return PROJECTS.find((p) => p.id === id) ?? PROJECTS.find((p) => p.id === catalogIdForSlug(id)) ?? PROJECTS[0];
 }
 
 function serialAnd(items: string[]) {

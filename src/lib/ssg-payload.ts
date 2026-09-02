@@ -5,6 +5,10 @@ import path from "node:path";
 export const SCK_MOVEMENT_PAYLOAD_MARKER = "/projects/sck/web/4.mp4";
 export const SCK_MOVEMENT_ID_MARKER = "sk14";
 
+/** CLOSED film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
+export const CLOSED_EXPERIENCE_MARKER = "Two white eyes in a rough black bar on white.";
+export const CLOSED_LOCAL_FILM_MARKER = "/projects/bar-closed/web/CLOSED-Eyes.mp4";
+
 const APP = path.join(process.cwd(), ".next/server/app");
 
 export function ssgAppDir() {
@@ -23,4 +27,9 @@ export function readSsgPayload(rel: string) {
 export function ssgPayloadHasSckExperience(rel: string) {
   const payload = readSsgPayload(rel);
   return payload.includes(SCK_MOVEMENT_PAYLOAD_MARKER) || payload.includes(SCK_MOVEMENT_ID_MARKER);
+}
+
+export function ssgPayloadHasClosedExperience(rel: string) {
+  const payload = readSsgPayload(rel);
+  return payload.includes(CLOSED_EXPERIENCE_MARKER) || payload.includes(CLOSED_LOCAL_FILM_MARKER);
 }

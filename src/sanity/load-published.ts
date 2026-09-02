@@ -20,11 +20,32 @@ export function catalogOwnedSck(): CatalogPresentation {
   };
 }
 
-/** Server-only. Sanity document → existing frontend models. */
+/** Catalog chrome that stays out of Sanity for CLOSED preview. Public route stays bar-closed. */
+export function catalogOwnedClosed(): CatalogPresentation {
+  const shipped = projectById("bar-closed");
+  return {
+    crop: shipped.crop,
+    layout: shipped.layout,
+    visualSpan: shipped.visualSpan,
+    visualStart: shipped.visualStart,
+    visualBefore: shipped.visualBefore,
+    homeSelected: shipped.homeSelected,
+    credits: shipped.credits,
+    features: shipped.features,
+    status: shipped.status,
+    collaborators: shipped.collaborators,
+  };
+}
+
+/** Server-only. Sanity document → existing frontend models. SCK and CLOSED. */
 export async function loadPublishedFrontendProject(slug: string) {
-  if (slug !== "sck") {
-    throw new Error(`Published loader only supports sck in G8 (received "${slug}")`);
+  if (slug === "sck") {
+    const project = await fetchPublishedProjectBySlug("sck");
+    return sanityProjectToFrontendProject(project, catalogOwnedSck(), sckMediaConfig());
   }
-  const project = await fetchPublishedProjectBySlug(slug);
-  return sanityProjectToFrontendProject(project, catalogOwnedSck(), sckMediaConfig());
+  if (slug === "closed") {
+    const project = await fetchPublishedProjectBySlug("closed");
+    return sanityProjectToFrontendProject(project, catalogOwnedClosed(), sckMediaConfig());
+  }
+  throw new Error(`Published loader only supports sck or closed (received "${slug}")`);
 }

@@ -1,7 +1,13 @@
 import { getExperience } from "@/components/home/projects/experiences";
 import type { ProjectExperience } from "@/components/home/projects/types";
+import {
+  cmsBackedProject,
+  sourceFlagFromEnv,
+  type ProjectSource,
+} from "@/lib/cms-source";
 
-export type ProjectSource = "sanity" | "local";
+export type { ProjectSource };
+export { catalogIdForSlug, cmsBackedProject, sourceFlagFromEnv } from "@/lib/cms-source";
 
 export type ResolvedProjectExperience = {
   experience: ProjectExperience | null;
@@ -10,22 +16,31 @@ export type ResolvedProjectExperience = {
 
 export type ResolveProjectExperienceDeps = {
   sourceFlag?: ProjectSource;
-  loadPublishedExperience?: (slug: string) => Promise<ProjectExperience>;
+  loadPublishedExperience?: (cmsSlug: string) => Promise<ProjectExperience>;
 };
 
 /** Missing or any value other than "sanity" stays on local SCK. Safer default. */
 export function sckSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return env.HBW_SCK_SOURCE === "sanity" ? "sanity" : "local";
+  return sourceFlagFromEnv("HBW_SCK_SOURCE", env);
 }
 
-async function defaultLoadPublishedExperience(slug: string): Promise<ProjectExperience> {
+/** Missing or any value other than "sanity" stays on local CLOSED. Safer default. */
+export function closedSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
+  return sourceFlagFromEnv("HBW_CLOSED_SOURCE", env);
+}
+
+async function defaultLoadPublishedExperience(cmsSlug: string): Promise<ProjectExperience> {
   const { loadPublishedFrontendProject } = await import("@/sanity/load-published");
-  const loaded = await loadPublishedFrontendProject(slug);
+  const loaded = await loadPublishedFrontendProject(cmsSlug);
   return loaded.experience;
 }
 
+function asRouteExperience(experience: ProjectExperience, routeSlug: string): ProjectExperience {
+  return experience.slug === routeSlug ? experience : { ...experience, slug: routeSlug };
+}
+
 /**
- * Source-neutral case-study resolver. SCK is the only slug that may read Sanity.
+ * Source-neutral case-study resolver. SCK and CLOSED may read Sanity.
  * Fetch/adapter failures fall back to the shipped local experience.
  */
 export async function resolveProjectExperience(
@@ -33,23 +48,24 @@ export async function resolveProjectExperience(
   deps: ResolveProjectExperienceDeps = {}
 ): Promise<ResolvedProjectExperience> {
   const local = getExperience(slug);
-  if (slug !== "sck") {
+  const cms = cmsBackedProject(slug);
+  if (!cms) {
     return { experience: local, source: "local" };
   }
 
-  const flag = deps.sourceFlag ?? sckSourceFlag();
+  const flag = deps.sourceFlag ?? sourceFlagFromEnv(cms.envKey);
   if (flag !== "sanity") {
     return { experience: local, source: "local" };
   }
 
   try {
     const load = deps.loadPublishedExperience ?? defaultLoadPublishedExperience;
-    const experience = await load(slug);
-    if (!experience) throw new Error("Published SCK experience was empty");
-    return { experience, source: "sanity" };
+    const published = await load(cms.cmsSlug);
+    if (!published) throw new Error(`Published ${cms.label} experience was empty`);
+    return { experience: asRouteExperience(published, cms.routeSlug), source: "sanity" };
   } catch (error) {
     const reason = error instanceof Error ? error.message : "unknown error";
-    console.warn(`[hbw] SCK CMS source failed (${reason}); using local fallback`);
+    console.warn(`[hbw] ${cms.label} CMS source failed (${reason}); using local fallback`);
     return { experience: local, source: "local" };
   }
 }

@@ -1,12 +1,17 @@
 /**
- * One-project seed: SCK only.
- * Run: npx sanity exec src/sanity/scripts/seed-sck.ts --with-user-token
- * Does not touch the public site.
+ * One-project seed: CLOSED only.
+ * Run: npx sanity exec src/sanity/scripts/seed-closed.ts --with-user-token
+ * Does not touch the public site. /projects/bar-closed stays local.
  */
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
-import { SCK_COPY, SCK_DOCUMENT_ID, SCK_IDENTITY, SCK_MOVEMENTS } from "./sck-content";
+import {
+  CLOSED_COPY,
+  CLOSED_DOCUMENT_ID,
+  CLOSED_IDENTITY,
+  CLOSED_MOVEMENTS,
+} from "./closed-content";
 
 const client = getCliClient({
   apiVersion: "2025-02-19",
@@ -72,10 +77,10 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId("public/projects/sck/1.jpg", "image");
+  const previewId = await assetId(CLOSED_MOVEMENTS[0].still as string, "image");
 
   const movements = [];
-  for (const movement of SCK_MOVEMENTS) {
+  for (const movement of CLOSED_MOVEMENTS) {
     const row: Record<string, unknown> = {
       _type: "movement",
       _key: movement.key,
@@ -86,8 +91,8 @@ async function main() {
       relation: movement.relation,
     };
     if (movement.infoHint) row.infoHint = movement.infoHint;
-    if (movement.narrow) {
-      row.presentationOverride = { _type: "presentationOverride", frameWidth: "narrow" };
+    if (movement.cover) {
+      row.presentationOverride = { _type: "presentationOverride", mediaFit: "cover" };
     }
     if (movement.mediaType === "still" && movement.still) {
       row.still = imageRef(await assetId(movement.still, "image"));
@@ -100,34 +105,37 @@ async function main() {
   }
 
   const document = {
-    _id: SCK_DOCUMENT_ID,
+    _id: CLOSED_DOCUMENT_ID,
     _type: "project",
-    title: SCK_IDENTITY.title,
-    slug: { _type: "slug", current: SCK_IDENTITY.slug },
-    proposition: SCK_IDENTITY.proposition,
-    year: SCK_IDENTITY.year,
-    sectors: SCK_IDENTITY.sectors,
-    disciplines: SCK_IDENTITY.disciplines,
-    portfolioOrder: SCK_IDENTITY.portfolioOrder,
+    title: CLOSED_IDENTITY.title,
+    slug: { _type: "slug", current: CLOSED_IDENTITY.slug },
+    proposition: CLOSED_IDENTITY.proposition,
+    year: CLOSED_IDENTITY.year,
+    location: CLOSED_IDENTITY.location,
+    sectors: CLOSED_IDENTITY.sectors,
+    disciplines: CLOSED_IDENTITY.disciplines,
+    portfolioOrder: CLOSED_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", SCK_COPY.context)],
-    roles: SCK_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: SCK_COPY.idea.heading, body: [block("idea", SCK_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: SCK_COPY.shift.heading, body: [block("shift", SCK_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: SCK_COPY.system.heading, body: [block("sys", SCK_COPY.system.body)] },
-    outcome: {
-      _type: "caseStudyBlock",
-      heading: SCK_COPY.outcome.heading,
-      body: [block("out", SCK_COPY.outcome.body)],
-    },
+    context: [block("ctx", CLOSED_COPY.context)],
+    roles: CLOSED_COPY.roles,
+    workingContext: CLOSED_COPY.workingContext,
+    collaborators: CLOSED_COPY.collaborators.map((item, index) => ({
+      _type: "collaborator",
+      _key: `col${index + 1}`,
+      name: item.name,
+      contribution: item.contribution,
+    })),
+    idea: { _type: "caseStudyBlock", heading: CLOSED_COPY.idea.heading, body: [block("idea", CLOSED_COPY.idea.body)] },
+    shift: { _type: "caseStudyBlock", heading: CLOSED_COPY.shift.heading, body: [block("shift", CLOSED_COPY.shift.body)] },
+    system: { _type: "caseStudyBlock", heading: CLOSED_COPY.system.heading, body: [block("sys", CLOSED_COPY.system.body)] },
     movements,
-    editorialPurpose: SCK_IDENTITY.editorialPurpose,
-    contributionNotes: SCK_IDENTITY.contributionNotes,
-    replacementPriority: SCK_IDENTITY.replacementPriority,
+    editorialPurpose: CLOSED_IDENTITY.editorialPurpose,
+    contributionNotes: CLOSED_IDENTITY.contributionNotes,
+    replacementPriority: CLOSED_IDENTITY.replacementPriority,
   };
 
   await client.createOrReplace(document);
-  console.log(`wrote ${SCK_DOCUMENT_ID} with ${movements.length} movements`);
+  console.log(`wrote ${CLOSED_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
 }
 
 main().catch((error) => {
