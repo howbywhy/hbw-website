@@ -4,6 +4,7 @@ import { liveProjects, PROJECT_SLUGS, projectDescription } from "@/components/ho
 
 type Props = { params: Promise<{ slug: string }> };
 
+export const dynamic = "force-static";
 export const dynamicParams = false;
 
 export function generateStaticParams() {

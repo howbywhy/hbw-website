@@ -14,8 +14,14 @@ import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { MotionDebug } from "@/components/home/MotionDebug";
 import { ProjectView, type ViewPhase } from "@/components/home/projects/ProjectView";
 import { useCmsPreviewExperience } from "@/components/home/CmsPreviewContext";
+import {
+  phaseAfterRouteBoundary,
+  useHbwMotionSession,
+  type MotionSession,
+} from "@/components/home/HbwMotionSession";
 import { getExperience } from "@/components/home/projects/experiences";
 import type { ProjectExperience } from "@/components/home/projects/types";
+import type { ResolvedProjectExperience } from "@/lib/project-source";
 import { nextProject } from "@/components/home/sequence";
 import { commitProjectMedia, preloadOpening, preloadProject, withTimeout } from "@/components/home/preload";
 import { infoHintForIndex, type InfoSectionId } from "@/components/home/projects/types";
@@ -136,11 +142,22 @@ function modeFromLocation(path: string): WindowMode {
   return "make";
 }
 
-export function HbwShell({ children }: { children: React.ReactNode }) {
+export function HbwShell({
+  children,
+  published = null,
+}: {
+  children: React.ReactNode;
+  published?: ResolvedProjectExperience | null;
+}) {
   const pathname = usePathname() || "/";
   const router = useRouter();
   const slug = viewSlugFromPath(pathname);
+  const motion = useHbwMotionSession();
+  const [resumed] = useState<MotionSession | null>(() => motion?.read() ?? null);
   const cmsPreview = useCmsPreviewExperience();
+  const publishedHeld = useRef<ResolvedProjectExperience | null>(null);
+  if (published?.experience) publishedHeld.current = published;
+  const publishedResolved = published ?? publishedHeld.current;
   const previewHeld = useRef<ProjectExperience | null>(null);
   if (cmsPreview) previewHeld.current = cmsPreview;
   const onPreviewPath = Boolean(previewSlugFromPath(pathname));
@@ -157,19 +174,19 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const studioViewRef = useRef(studioView);
   studioViewRef.current = studioView;
   const studioPathRef = useRef(pathname);
-  const [windowMode, setWindowMode] = useState<WindowMode>(() => modeFromLocation(pathname));
-  const [browseMode, setBrowseMode] = useState<ProjectsMode>("visual");
-  const [filterDim, setFilterDim] = useState<FilterDim>("all");
-  const [filterValue, setFilterValue] = useState("");
-  const [sort, setSort] = useState<SortId>("edited");
-  const [activeId, setActiveId] = useState(slug || PROJECTS[0].id);
+  const [windowMode, setWindowMode] = useState<WindowMode>(() => resumed?.windowMode ?? modeFromLocation(pathname));
+  const [browseMode, setBrowseMode] = useState<ProjectsMode>(resumed?.browse?.mode ?? "visual");
+  const [filterDim, setFilterDim] = useState<FilterDim>(resumed?.browse?.filterDim ?? "all");
+  const [filterValue, setFilterValue] = useState(resumed?.browse?.filterValue ?? "");
+  const [sort, setSort] = useState<SortId>(resumed?.browse?.sort ?? "edited");
+  const [activeId, setActiveId] = useState(resumed?.activeId ?? (slug || PROJECTS[0].id));
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [infoAnchor, setInfoAnchor] = useState<InfoSectionId>("idea");
-  const [viewIndex, setViewIndex] = useState(0);
-  const [phase, setPhase] = useState<ViewPhase>(() => (viewSlugFromPath(pathname) ? "active" : "idle"));
-  const [swap, setSwap] = useState<Swap | null>(null);
-  const [leaving, setLeaving] = useState<{ id: string; index: number } | null>(null);
+  const [viewIndex, setViewIndex] = useState(resumed?.viewIndex ?? 0);
+  const [phase, setPhase] = useState<ViewPhase>(() => phaseAfterRouteBoundary(resumed, pathname));
+  const [swap, setSwap] = useState<Swap | null>(resumed?.swap ?? null);
+  const [leaving, setLeaving] = useState<{ id: string; index: number } | null>(resumed?.leaving ?? null);
   const [heldSuffix, setHeldSuffix] = useState<string | null>(() => readMobileSuffixHold());
   const [narrow, setNarrow] = useState(false);
   const motionTimer = useRef<number[]>([]);
@@ -177,13 +194,19 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const viewTransitionLock = useRef(false);
   const enterGen = useRef(0);
   const savedIndex = useRef<Record<string, number>>({});
-  const keepBrowse = useRef(false);
-  const entranceRef = useRef<"archive" | "reduced" | "handoff">("reduced");
+  const keepBrowse = useRef(resumed?.keepBrowse ?? false);
+  const entranceRef = useRef<"archive" | "reduced" | "handoff">(resumed?.entrance ?? "reduced");
+  const resumeLock = useRef(Boolean(resumed));
+  if (resumeLock.current) motionLock.current = true;
   const originStack = useRef<OriginFrame[]>([]);
   const [originKind, setOriginKind] = useState<OriginFrame["kind"] | "none">("none");
-  const [parkedX, setParkedX] = useState<number | null>(null);
+  const [parkedX, setParkedX] = useState<number | null>(resumed?.parkedX ?? null);
   const browseScrollRef = useRef({ visual: 0, index: 0 });
-  const pendingBrowseScroll = useRef<{ mode: ProjectsMode; y: number } | null>(null);
+  const pendingBrowseScroll = useRef<{ mode: ProjectsMode; y: number } | null>(
+    resumed?.browse?.scroll != null && resumed.browse.mode
+      ? { mode: resumed.browse.mode, y: resumed.browse.scroll }
+      : null
+  );
   const panelRef = useRef(panel);
   const closingPanelRef = useRef(false);
   const homeRef = useRef<HTMLDivElement>(null);
@@ -256,7 +279,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       ? previewHeld.current?.slug === viewSlug
         ? previewHeld.current
         : null
-      : getExperience(viewSlug)
+      : publishedResolved?.experience?.slug === viewSlug
+        ? publishedResolved.experience
+        : getExperience(viewSlug)
     : null;
 
   function clearMotionTimers() {
@@ -292,7 +317,63 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   function finishSwap() {
     setSwap(null);
     motionLock.current = false;
+    resumeLock.current = false;
+    motion?.clear();
   }
+
+  function writeMotionCrossing(session: MotionSession) {
+    motion?.write({ ...session, startedAt: Date.now() });
+  }
+
+  useLayoutEffect(() => {
+    if (resumed) {
+      if (resumed.handoffFrom != null) {
+        homeRef.current?.style.setProperty("--hbw-handoff-from", `${resumed.handoffFrom}px`);
+      }
+      const elapsed = Date.now() - resumed.startedAt;
+      const remain = (ms: number) => Math.max(0, ms - elapsed);
+      if (resumed.kind === "enter" || resumed.kind === "handoff") {
+        if (resumed.kind === "handoff" && !reduceMotion()) {
+          requestAnimationFrame(() => requestAnimationFrame(() => setPhase("assembling")));
+        } else {
+          later(remain(resumed.cinematic && !reduceMotion() ? HBW_T.micro : 0), () => {
+            setPhase("assembling");
+          });
+        }
+        later(remain(HBW_T.continuity), () => {
+          setPhase("active");
+          setLeaving(null);
+          finishSwap();
+          homeRef.current?.style.removeProperty("--hbw-handoff-from");
+          if (resumed.kind === "enter") {
+            focusSelector(
+              ".hbw-home-strip__journey-close.is-on, .hbw-nav-studio.is-sheet-close, .hbw-nav-sub__face--info button"
+            );
+          }
+        });
+      } else if (resumed.kind === "exit") {
+        later(remain(HBW_T.continuity), () => {
+          setWindowMode("browse");
+          setPhase("idle");
+          finishSwap();
+          const pending = pendingBrowseScroll.current;
+          pendingBrowseScroll.current = null;
+          if (pending) {
+            browseScrollRef.current[pending.mode] = pending.y;
+            restoreBrowseScroll(pending.mode, pending.y);
+          }
+          restoreFocus();
+        });
+      } else {
+        later(remain(HBW_T.continuity), () => {
+          setPhase("idle");
+          finishSwap();
+          restoreFocus();
+        });
+      }
+    }
+    return () => clearMotionTimers();
+  }, []);
 
   function holdMobileSuffix(name: string | null) {
     if (name) {
@@ -778,6 +859,24 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     keepBrowse.current = true;
     setSwap({ from: "view", to: "browse", phase: "exiting" });
     setPhase("exiting");
+    const pending = pendingBrowseScroll.current;
+    writeMotionCrossing({
+      kind: "exit",
+      phase: "exiting",
+      swap: { from: "view", to: "browse", phase: "exiting" },
+      windowMode: "view",
+      activeId,
+      viewIndex,
+      leaving: null,
+      entrance: "reduced",
+      keepBrowse: true,
+      parkedX: null,
+      cinematic: false,
+      startedAt: Date.now(),
+      browse: pending
+        ? { mode: pending.mode, filterDim, filterValue, sort, scroll: pending.y }
+        : { mode: browseMode, filterDim, filterValue, sort, scroll: captureBrowseScroll() },
+    });
     if (history === "replace") router.replace("/?layer=projects");
     else router.push("/?layer=projects");
     later(HBW_T.continuity, () => {
@@ -809,6 +908,20 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         setPhase("exiting");
         setWindowMode("make");
       });
+    });
+    writeMotionCrossing({
+      kind: "home",
+      phase: "exiting",
+      swap: { from: "view", to: "make", phase: "exiting" },
+      windowMode: "make",
+      activeId,
+      viewIndex,
+      leaving: null,
+      entrance: "reduced",
+      keepBrowse: false,
+      parkedX: null,
+      cinematic: false,
+      startedAt: Date.now(),
     });
     router.replace("/");
     later(HBW_T.continuity, () => {
@@ -873,6 +986,27 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
           setPhase("rising");
         });
       };
+      writeMotionCrossing({
+        kind: "enter",
+        phase: "rising",
+        swap: { from, to: "view", phase: "entering" },
+        windowMode: "view",
+        activeId: id,
+        viewIndex: 0,
+        leaving: null,
+        entrance: entranceRef.current,
+        keepBrowse: keepBrowse.current,
+        parkedX: null,
+        cinematic,
+        startedAt: Date.now(),
+        browse: {
+          mode: browseMode,
+          filterDim,
+          filterValue,
+          sort,
+          scroll: browseScrollRef.current[browseMode],
+        },
+      });
       if (cinematic) runViewTransition(go);
       else if (from === "make") flipMark(go);
       else go();
@@ -938,6 +1072,24 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
     };
     if (mobileHandoff) runViewTransition(apply);
     else apply();
+    const handoffFrom = Number.parseFloat(
+      homeRef.current?.style.getPropertyValue("--hbw-handoff-from") || ""
+    );
+    writeMotionCrossing({
+      kind: "handoff",
+      phase: "handoff-in",
+      swap: { from: "view", to: "view", phase: "entering" },
+      windowMode: "view",
+      activeId: nxt.id,
+      viewIndex: 0,
+      leaving: { id: fromId, index: viewIndex },
+      entrance: "handoff",
+      keepBrowse: keepBrowse.current,
+      parkedX: null,
+      handoffFrom: Number.isFinite(handoffFrom) ? handoffFrom : null,
+      cinematic: false,
+      startedAt: Date.now(),
+    });
     router.push(nxt.href);
     if (reduceMotion()) {
       entranceRef.current = "reduced";
@@ -1004,6 +1156,20 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setWindowMode("view");
       setSwap({ from: "view", to: "view", phase: "entering" });
       setPhase("rising");
+    });
+    writeMotionCrossing({
+      kind: "enter",
+      phase: "rising",
+      swap: { from: "view", to: "view", phase: "entering" },
+      windowMode: "view",
+      activeId: nextSlug,
+      viewIndex: index,
+      leaving: { id: fromId, index: viewIndex },
+      entrance: "reduced",
+      keepBrowse: true,
+      parkedX: x ?? null,
+      cinematic: false,
+      startedAt: Date.now(),
     });
     router.replace(PROJECTS.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
     requestAnimationFrame(() => {
@@ -1214,7 +1380,9 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const leavingExp = leaving
     ? previewHeld.current?.slug === leaving.id
       ? previewHeld.current
-      : getExperience(leaving.id)
+      : publishedResolved?.experience?.slug === leaving.id
+        ? publishedResolved.experience
+        : getExperience(leaving.id)
     : null;
   const chromeLocked =
     Boolean(leavingExp) &&

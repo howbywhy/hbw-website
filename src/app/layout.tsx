@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { CmsPreviewProvider } from "@/components/home/CmsPreviewContext";
-import { HbwShell } from "@/components/home/HbwShell";
+import { HbwMotionSessionProvider } from "@/components/home/HbwMotionSession";
 import "@/styles/document.css";
 import "@/styles/hbw-home-prototype.css";
 
@@ -51,7 +51,7 @@ export default function RootLayout({
       </head>
       <body className="body" suppressHydrationWarning>
         <CmsPreviewProvider>
-          <HbwShell>{children}</HbwShell>
+          <HbwMotionSessionProvider>{children}</HbwMotionSessionProvider>
         </CmsPreviewProvider>
       </body>
     </html>

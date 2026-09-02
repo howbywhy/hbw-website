@@ -1,4 +1,4 @@
-/** Shipped SCK sequence + approved G5 editorial. Seed/verify only. */
+/** Shipped SCK sequence + approved CMS editorial. Seed/verify only. */
 
 export const SCK_DOCUMENT_ID = "project-sck";
 
@@ -30,11 +30,11 @@ export const SCK_COPY = {
   },
   system: {
     heading: "The system",
-    body: "The underscore acts as a connective device — a simple visual grammar for joining names, ideas, disciplines and outputs. Typography, imagery, spacing and motion extend that principle into a flexible identity that can hold architecture, interiors and future areas of practice without constraining them.",
+    body: "Intersecting Realities is expressed as connection: an underscore that joins names, ideas, disciplines and outputs. That principle is carried through four architectural ways of seeing — contour, datum, grid and section — which frame, divide and reveal rather than impose a fixed graphic treatment.",
   },
   outcome: {
     heading: "The outcome",
-    body: "The identity gives SCK a framework for presenting its evolving practice. It balances architectural rigour with warmth and individuality, while allowing each project to retain its own character.",
+    body: "The identity is a framework for presenting the practice as it evolves, while leaving each project its own character.",
   },
 };
 
@@ -265,7 +265,7 @@ export const SCK_MOVEMENTS: SckSeedMovement[] = [
   },
 ];
 
-export const SCK_PROJECT_QUERY = `*[_type == "project" && slug.current == "sck"][0]{
+export const PROJECT_BY_SLUG_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   _id,
   title,
   slug,

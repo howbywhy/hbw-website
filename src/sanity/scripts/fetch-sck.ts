@@ -1,10 +1,10 @@
 /**
- * Non-public read of the published SCK Sanity document.
- * Not imported by ProjectView, ProjectsLayer, HbwShell, or public /projects routes.
+ * Published project reads. Used by preview and the SCK source resolver.
+ * Presentation components do not import this module.
  */
 import { createClient } from "@sanity/client";
 import type { SanityProject } from "../adapter/types";
-import { SCK_PROJECT_QUERY } from "./sck-content";
+import { PROJECT_BY_SLUG_QUERY } from "./sck-content";
 
 const PROJECT_ID = "aagd1kcy";
 const DATASET = "production";
@@ -23,8 +23,12 @@ export function sckMediaConfig() {
   return { projectId: PROJECT_ID, dataset: DATASET };
 }
 
-export async function fetchPublishedSckProject(): Promise<SanityProject> {
-  const project = await sckReadClient().fetch<SanityProject | null>(SCK_PROJECT_QUERY);
-  if (!project) throw new Error("Published SCK project was not found");
+export async function fetchPublishedProjectBySlug(slug: string): Promise<SanityProject> {
+  const project = await sckReadClient().fetch<SanityProject | null>(PROJECT_BY_SLUG_QUERY, { slug });
+  if (!project) throw new Error(`Published project "${slug}" was not found`);
   return project;
+}
+
+export async function fetchPublishedSckProject(): Promise<SanityProject> {
+  return fetchPublishedProjectBySlug("sck");
 }
