@@ -9,7 +9,7 @@
     "start": "next start",
     "cms": "sanity dev",
     "cms:seed-sck": "sanity exec src/sanity/scripts/seed-sck.ts --with-user-token",
-    "test": "node --import tsx --test src/sanity/adapter/*.test.ts src/components/home/projects/*.test.ts",
+    "test": "node --import tsx --test src/sanity/adapter/*.test.ts src/sanity/preview/*.test.ts src/components/home/projects/*.test.ts src/lib/*.test.ts",
     "test:sck-cms": "node --import tsx src/sanity/scripts/verify-sck-cms.ts"
   },
   "dependencies": {

@@ -8,6 +8,7 @@ import { infoSectionHasCopy } from "@/components/home/projects/types";
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
+import { useCmsPreviewRecord } from "@/components/home/CmsPreviewContext";
 import { projectById, projectCollaborators, projectDisciplines, projectSectors } from "@/components/home/catalog";
 
 type Props = {
@@ -198,7 +199,8 @@ function InfoBody({
   nextProjectName?: string | null;
   onNextProject?: () => void;
 }) {
-  const record = projectById(experience.slug);
+  const previewRecord = useCmsPreviewRecord();
+  const record = previewRecord?.id === experience.slug ? previewRecord : projectById(experience.slug);
   const collabNames = projectCollaborators(record).map((item) => item.name);
   const disciplines = projectDisciplines(record);
   const sectors = projectSectors(record);

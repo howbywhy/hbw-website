@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { CmsPreviewProvider } from "@/components/home/CmsPreviewContext";
 import { HbwShell } from "@/components/home/HbwShell";
 import "@/styles/document.css";
 import "@/styles/hbw-home-prototype.css";
@@ -49,7 +50,9 @@ export default function RootLayout({
         <script src="/runtime/hbw-workspace-boot.js" />
       </head>
       <body className="body" suppressHydrationWarning>
-        <HbwShell>{children}</HbwShell>
+        <CmsPreviewProvider>
+          <HbwShell>{children}</HbwShell>
+        </CmsPreviewProvider>
       </body>
     </html>
   );

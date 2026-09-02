@@ -10,6 +10,21 @@ export function projectSlugFromPath(path: string): string | null {
   return PROJECT_SLUGS.includes(match[1]) ? match[1] : null;
 }
 
+/** Validation-only CMS preview. SCK is the only allowed slug. */
+export function previewSlugFromPath(path: string): string | null {
+  const match = normPathname(path).match(/^\/preview\/([^/]+)$/);
+  if (!match) return null;
+  return match[1] === "sck" ? "sck" : null;
+}
+
+export function viewSlugFromPath(path: string): string | null {
+  return projectSlugFromPath(path) ?? previewSlugFromPath(path);
+}
+
+export function isCmsPreviewPath(path: string) {
+  return previewSlugFromPath(path) !== null;
+}
+
 export function isStudioPathname(path: string) {
   const p = normPathname(path);
   return p === "/studio" || p === "/manifesto";

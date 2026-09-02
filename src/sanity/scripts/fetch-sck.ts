@@ -1,6 +1,6 @@
 /**
  * Non-public read of the published SCK Sanity document.
- * Not imported by ProjectView, ProjectsLayer, HbwShell, or public routes.
+ * Not imported by ProjectView, ProjectsLayer, HbwShell, or public /projects routes.
  */
 import { createClient } from "@sanity/client";
 import type { SanityProject } from "../adapter/types";

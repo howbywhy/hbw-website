@@ -13,7 +13,9 @@ import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { MotionDebug } from "@/components/home/MotionDebug";
 import { ProjectView, type ViewPhase } from "@/components/home/projects/ProjectView";
+import { useCmsPreviewExperience } from "@/components/home/CmsPreviewContext";
 import { getExperience } from "@/components/home/projects/experiences";
+import type { ProjectExperience } from "@/components/home/projects/types";
 import { nextProject } from "@/components/home/sequence";
 import { commitProjectMedia, preloadOpening, preloadProject, withTimeout } from "@/components/home/preload";
 import { infoHintForIndex, type InfoSectionId } from "@/components/home/projects/types";
@@ -38,7 +40,7 @@ import {
   type WindowMode,
 } from "@/components/home/workspace";
 import { HBW_EASE, HBW_INTRO_MS, HBW_T, isMobileViewport, reduceMotion, type SwapPhase } from "@/components/home/motion";
-import { isStudioPathname, projectSlugFromPath } from "@/lib/workspace-routes";
+import { isStudioPathname, previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "@/lib/workspace-routes";
 
 const INTRO_KEY = "hbw.entered.v2";
 
@@ -129,7 +131,7 @@ function flipMark(update: () => void, ms: number = HBW_T.continuity) {
 }
 
 function modeFromLocation(path: string): WindowMode {
-  if (projectSlugFromPath(path)) return "view";
+  if (viewSlugFromPath(path)) return "view";
   if (path === "/" && projectsLayerFromUrl()) return "browse";
   return "make";
 }
@@ -137,7 +139,11 @@ function modeFromLocation(path: string): WindowMode {
 export function HbwShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const router = useRouter();
-  const slug = projectSlugFromPath(pathname);
+  const slug = viewSlugFromPath(pathname);
+  const cmsPreview = useCmsPreviewExperience();
+  const previewHeld = useRef<ProjectExperience | null>(null);
+  if (cmsPreview) previewHeld.current = cmsPreview;
+  const onPreviewPath = Boolean(previewSlugFromPath(pathname));
   const [panel, setPanel] = useState<WorkspacePanelId>(() =>
     isStudioPathname(pathname) ? "studio" : null
   );
@@ -161,7 +167,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [infoAnchor, setInfoAnchor] = useState<InfoSectionId>("idea");
   const [viewIndex, setViewIndex] = useState(0);
-  const [phase, setPhase] = useState<ViewPhase>(() => (projectSlugFromPath(pathname) ? "active" : "idle"));
+  const [phase, setPhase] = useState<ViewPhase>(() => (viewSlugFromPath(pathname) ? "active" : "idle"));
   const [swap, setSwap] = useState<Swap | null>(null);
   const [leaving, setLeaving] = useState<{ id: string; index: number } | null>(null);
   const [heldSuffix, setHeldSuffix] = useState<string | null>(() => readMobileSuffixHold());
@@ -245,7 +251,13 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   const focusReturn = useRef<HTMLElement[]>([]);
   const viewSlug =
     windowMode === "view" || phase !== "idle" || swap?.to === "view" ? activeId : slug;
-  const experience = viewSlug ? getExperience(viewSlug) : null;
+  const experience = viewSlug
+    ? onPreviewPath
+      ? previewHeld.current?.slug === viewSlug
+        ? previewHeld.current
+        : null
+      : getExperience(viewSlug)
+    : null;
 
   function clearMotionTimers() {
     motionTimer.current.forEach((id) => window.clearTimeout(id));
@@ -355,7 +367,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
       setLeaving(null);
       setSwap(null);
       const next = modeFromLocation(window.location.pathname);
-      const nextSlug = projectSlugFromPath(window.location.pathname);
+      const nextSlug = viewSlugFromPath(window.location.pathname);
       if (next !== "view") {
         commitOrigin([]);
       }
@@ -475,7 +487,7 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
   }, [slug]);
 
   useLayoutEffect(() => {
-    if (projectsLayerFromUrl() || projectSlugFromPath(pathname)) {
+    if (projectsLayerFromUrl() || viewSlugFromPath(pathname)) {
       completeIntro();
       return;
     }
@@ -1199,7 +1211,11 @@ export function HbwShell({ children }: { children: React.ReactNode }) {
         : windowMode === "browse" || browseDropping
           ? "browse"
           : "home";
-  const leavingExp = leaving ? getExperience(leaving.id) : null;
+  const leavingExp = leaving
+    ? previewHeld.current?.slug === leaving.id
+      ? previewHeld.current
+      : getExperience(leaving.id)
+    : null;
   const chromeLocked =
     Boolean(leavingExp) &&
     (phase === "handoff-in" || (isMobileViewport() && phase === "assembling"));
