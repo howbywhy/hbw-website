@@ -70,17 +70,74 @@ export type Movement = {
   infoHint: InfoSectionId;
 };
 
+/** Frontend-owned rich text. Paragraphs plus emphasis, strong, and links. */
+export type RichMark = "em" | "strong";
+
+export type RichSpan = {
+  text: string;
+  marks?: RichMark[];
+  href?: string;
+};
+
+export type RichParagraph = {
+  spans: RichSpan[];
+};
+
+export type RichText = RichParagraph[];
+
 export type InfoSection = {
   id: InfoSectionId;
   heading: string;
+  /** Plain-string compatibility path. Existing local copy stays here. */
   copy: string;
+  /** Structured body when emphasis or links must survive. */
+  body?: RichText;
+};
+
+export type ExperienceCollaborator = {
+  name: string;
+  contribution: string;
+  url?: string;
+};
+
+/** Case-study factual layer. Distinct from catalog credits, features, and disciplines. */
+export type ExperienceAuthorship = {
+  roles: string[];
+  workingContext?: string;
+  collaborators?: ExperienceCollaborator[];
 };
 
 export type ProjectExperience = {
   slug: string;
   movements: Movement[];
   infoSections: InfoSection[];
+  context?: string | RichText;
+  authorship?: ExperienceAuthorship;
 };
+
+export function richTextPlainCopy(value: RichText | undefined): string {
+  if (!value?.length) return "";
+  return value
+    .map((paragraph) => paragraph.spans.map((span) => span.text).join(""))
+    .join("\n\n")
+    .trim();
+}
+
+export function stringToRichText(copy: string): RichText {
+  const trimmed = copy.trim();
+  if (!trimmed) return [];
+  return trimmed.split(/\n\n/).map((paragraph) => ({ spans: [{ text: paragraph }] }));
+}
+
+export function infoSectionHasCopy(section: InfoSection): boolean {
+  if (section.body?.some((paragraph) => paragraph.spans.some((span) => span.text.trim()))) return true;
+  return Boolean(section.copy.trim());
+}
+
+export function infoSectionPlainCopy(section: InfoSection): string {
+  if (section.copy.trim()) return section.copy.trim();
+  return richTextPlainCopy(section.body);
+}
 
 export function movementSpan(movement: Movement): MovementSpan {
   if (movement.span) return movement.span;

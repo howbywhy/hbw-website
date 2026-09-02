@@ -1,4 +1,5 @@
 import {
+  infoSectionPlainCopy,
   type InfoSection,
   type Movement,
   type ProjectExperience,
@@ -679,5 +680,6 @@ export function getExperience(slug: string) {
 
 /** Short Idea copy shared by Index accordion and Visual +. */
 export function projectIdeaCopy(slug: string) {
-  return getExperience(slug)?.infoSections.find((section) => section.id === "idea")?.copy?.trim() || "";
+  const section = getExperience(slug)?.infoSections.find((item) => item.id === "idea");
+  return section ? infoSectionPlainCopy(section) : "";
 }
