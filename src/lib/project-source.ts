@@ -34,6 +34,11 @@ export function kojaSourceFlag(env: Record<string, string | undefined> = process
   return sourceFlagFromEnv("HBW_KOJA_SOURCE", env);
 }
 
+/** Missing or any value other than "sanity" stays on local Chris. Safer default. */
+export function chrisSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
+  return sourceFlagFromEnv("HBW_CHRIS_SOURCE", env);
+}
+
 async function defaultLoadPublishedExperience(cmsSlug: string): Promise<ProjectExperience> {
   const { loadPublishedFrontendProject } = await import("@/sanity/load-published");
   const loaded = await loadPublishedFrontendProject(cmsSlug);
@@ -45,7 +50,7 @@ function asRouteExperience(experience: ProjectExperience, routeSlug: string): Pr
 }
 
 /**
- * Source-neutral case-study resolver. SCK, CLOSED, and KOJA may read Sanity.
+ * Source-neutral case-study resolver. SCK, CLOSED, KOJA, and Chris may read Sanity.
  * Fetch/adapter failures fall back to the shipped local experience.
  */
 export async function resolveProjectExperience(

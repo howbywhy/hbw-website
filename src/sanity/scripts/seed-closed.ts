@@ -62,7 +62,7 @@ async function upload(path: string, kind: "image" | "file") {
 
 async function main() {
   const others = await client.fetch<string[]>(
-    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja"])].slug.current`
+    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja", "chris-sisarich"])].slug.current`
   );
   if (others.length) {
     throw new Error(`Refusing to seed: dataset already has other projects (${others.join(", ")})`);

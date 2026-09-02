@@ -13,6 +13,10 @@ export const CLOSED_LOCAL_FILM_MARKER = "/projects/bar-closed/web/CLOSED-Eyes.mp
 export const KOJA_EXPERIENCE_MARKER = "Peanut Fudge plant-protein bar on a cork coaster beside palo santo.";
 export const KOJA_LOCAL_FILM_MARKER = "/projects/koja/web/KOJA-Peanut-Fudge.mp4";
 
+/** Chris film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
+export const CHRIS_EXPERIENCE_MARKER = "Homepage with the name over scattered photography thumbnails as they rearrange.";
+export const CHRIS_LOCAL_FILM_MARKER = "/projects/chris-sisarich/web/HBWCSHOME-Website.mp4";
+
 const APP = path.join(process.cwd(), ".next/server/app");
 
 export function ssgAppDir() {
@@ -41,4 +45,9 @@ export function ssgPayloadHasClosedExperience(rel: string) {
 export function ssgPayloadHasKojaExperience(rel: string) {
   const payload = readSsgPayload(rel);
   return payload.includes(KOJA_EXPERIENCE_MARKER) || payload.includes(KOJA_LOCAL_FILM_MARKER);
+}
+
+export function ssgPayloadHasChrisExperience(rel: string) {
+  const payload = readSsgPayload(rel);
+  return payload.includes(CHRIS_EXPERIENCE_MARKER) || payload.includes(CHRIS_LOCAL_FILM_MARKER);
 }

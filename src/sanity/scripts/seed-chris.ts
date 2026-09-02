@@ -1,12 +1,12 @@
 /**
- * One-project seed: SCK only.
- * Run: npx sanity exec src/sanity/scripts/seed-sck.ts --with-user-token
- * Does not touch the public site.
+ * One-project seed: Chris Sisarich only.
+ * Run: npx sanity exec src/sanity/scripts/seed-chris.ts --with-user-token
+ * Seeds project-chris-sisarich only. Public /projects/chris-sisarich stays local unless HBW_CHRIS_SOURCE=sanity.
  */
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
-import { SCK_COPY, SCK_DOCUMENT_ID, SCK_IDENTITY, SCK_MOVEMENTS } from "./sck-content";
+import { CHRIS_COPY, CHRIS_DOCUMENT_ID, CHRIS_IDENTITY, CHRIS_MOVEMENTS } from "./chris-content";
 
 const client = getCliClient({
   apiVersion: "2025-02-19",
@@ -32,6 +32,17 @@ function fileRef(id: string) {
   return { _type: "file", asset: { _type: "reference", _ref: id } };
 }
 
+function fileContentType(path: string) {
+  return extname(path) === ".webm" ? "video/webm" : "video/mp4";
+}
+
+function imageContentType(path: string) {
+  const ext = extname(path);
+  if (ext === ".png") return "image/png";
+  if (ext === ".webp") return "image/webp";
+  return "image/jpeg";
+}
+
 async function existingAsset(filename: string, kind: "image" | "file") {
   const type = kind === "image" ? "sanity.imageAsset" : "sanity.fileAsset";
   return client.fetch(`*[_type == $type && originalFilename == $filename][0]._id`, { type, filename });
@@ -44,12 +55,7 @@ async function upload(path: string, kind: "image" | "file") {
     console.log(`reuse ${kind} ${filename}`);
     return found as string;
   }
-  const contentType =
-    kind === "file"
-      ? "video/mp4"
-      : extname(path) === ".png"
-        ? "image/png"
-        : "image/jpeg";
+  const contentType = kind === "file" ? fileContentType(path) : imageContentType(path);
   console.log(`upload ${kind} ${filename}`);
   const asset = await client.assets.upload(kind, createReadStream(path), { filename, contentType });
   return asset._id;
@@ -72,10 +78,13 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId("public/projects/sck/1.jpg", "image");
+  const previewId = await assetId(
+    "public/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg",
+    "image"
+  );
 
   const movements = [];
-  for (const movement of SCK_MOVEMENTS) {
+  for (const movement of CHRIS_MOVEMENTS) {
     const row: Record<string, unknown> = {
       _type: "movement",
       _key: movement.key,
@@ -86,8 +95,12 @@ async function main() {
       relation: movement.relation,
     };
     if (movement.infoHint) row.infoHint = movement.infoHint;
-    if (movement.narrow) {
-      row.presentationOverride = { _type: "presentationOverride", frameWidth: "narrow" };
+    if (movement.cover || movement.graphic) {
+      row.presentationOverride = {
+        _type: "presentationOverride",
+        ...(movement.cover ? { mediaFit: "cover" } : {}),
+        ...(movement.graphic ? { mediaType: "graphic" } : {}),
+      };
     }
     if (movement.mediaType === "still" && movement.still) {
       row.still = imageRef(await assetId(movement.still, "image"));
@@ -100,34 +113,29 @@ async function main() {
   }
 
   const document = {
-    _id: SCK_DOCUMENT_ID,
+    _id: CHRIS_DOCUMENT_ID,
     _type: "project",
-    title: SCK_IDENTITY.title,
-    slug: { _type: "slug", current: SCK_IDENTITY.slug },
-    proposition: SCK_IDENTITY.proposition,
-    year: SCK_IDENTITY.year,
-    sectors: SCK_IDENTITY.sectors,
-    disciplines: SCK_IDENTITY.disciplines,
-    portfolioOrder: SCK_IDENTITY.portfolioOrder,
+    title: CHRIS_IDENTITY.title,
+    slug: { _type: "slug", current: CHRIS_IDENTITY.slug },
+    proposition: CHRIS_IDENTITY.proposition,
+    year: CHRIS_IDENTITY.year,
+    sectors: CHRIS_IDENTITY.sectors,
+    disciplines: CHRIS_IDENTITY.disciplines,
+    portfolioOrder: CHRIS_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", SCK_COPY.context)],
-    roles: SCK_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: SCK_COPY.idea.heading, body: [block("idea", SCK_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: SCK_COPY.shift.heading, body: [block("shift", SCK_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: SCK_COPY.system.heading, body: [block("sys", SCK_COPY.system.body)] },
-    outcome: {
-      _type: "caseStudyBlock",
-      heading: SCK_COPY.outcome.heading,
-      body: [block("out", SCK_COPY.outcome.body)],
-    },
+    context: [block("ctx", CHRIS_COPY.context)],
+    roles: CHRIS_COPY.roles,
+    idea: { _type: "caseStudyBlock", heading: CHRIS_COPY.idea.heading, body: [block("idea", CHRIS_COPY.idea.body)] },
+    shift: { _type: "caseStudyBlock", heading: CHRIS_COPY.shift.heading, body: [block("shift", CHRIS_COPY.shift.body)] },
+    system: { _type: "caseStudyBlock", heading: CHRIS_COPY.system.heading, body: [block("sys", CHRIS_COPY.system.body)] },
     movements,
-    editorialPurpose: SCK_IDENTITY.editorialPurpose,
-    contributionNotes: SCK_IDENTITY.contributionNotes,
-    replacementPriority: SCK_IDENTITY.replacementPriority,
+    editorialPurpose: CHRIS_IDENTITY.editorialPurpose,
+    contributionNotes: CHRIS_IDENTITY.contributionNotes,
+    replacementPriority: CHRIS_IDENTITY.replacementPriority,
   };
 
   await client.createOrReplace(document);
-  console.log(`wrote ${SCK_DOCUMENT_ID} with ${movements.length} movements`);
+  console.log(`wrote ${CHRIS_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
 }
 
 main().catch((error) => {
