@@ -4,6 +4,7 @@ import {
   CLOSED_EXPERIENCE,
   getExperience,
   KOJA_EXPERIENCE,
+  OBR_EXPERIENCE,
   SCK_EXPERIENCE,
   SISARICH_EXPERIENCE,
   SUB3_EXPERIENCE,
@@ -11,12 +12,14 @@ import {
 import type { ProjectExperience } from "../components/home/projects/types";
 import { CHRIS_COPY } from "../sanity/scripts/chris-content";
 import { KOJA_COPY } from "../sanity/scripts/koja-content";
+import { OBR_COPY } from "../sanity/scripts/obr-content";
 import { SUB3_COPY } from "../sanity/scripts/sub3-content";
 import { cmsBackedProject } from "./cms-source";
 import {
   chrisSourceFlag,
   closedSourceFlag,
   kojaSourceFlag,
+  obrSourceFlag,
   resolveProjectExperience,
   sckSourceFlag,
   sub3SourceFlag,
@@ -99,6 +102,23 @@ const cmsSub3: ProjectExperience = {
   ),
 };
 
+const cmsObr: ProjectExperience = {
+  ...OBR_EXPERIENCE,
+  slug: "our-boy-roy",
+  context: OBR_COPY.context,
+  authorship: { roles: [...OBR_COPY.roles], workingContext: OBR_COPY.workingContext },
+  infoSections: [
+    { id: "idea", heading: OBR_COPY.idea.heading, copy: OBR_COPY.idea.body },
+    { id: "shift", heading: OBR_COPY.shift.heading, copy: OBR_COPY.shift.body },
+    { id: "system", heading: OBR_COPY.system.heading, copy: OBR_COPY.system.body },
+  ],
+  movements: OBR_EXPERIENCE.movements.map((movement) => {
+    if (movement.id === "o04") return { ...movement, infoHint: "shift" as const };
+    if (movement.id === "o06" || movement.id === "o07") return { ...movement, infoHint: "system" as const };
+    return movement;
+  }),
+};
+
 test("missing env defaults SCK source to local", () => {
   assert.equal(sckSourceFlag({}), "local");
   assert.equal(sckSourceFlag({ HBW_SCK_SOURCE: "nope" }), "local");
@@ -129,47 +149,57 @@ test("missing env defaults SUB:3 source to local", () => {
   assert.equal(sub3SourceFlag({ HBW_SUB3_SOURCE: "sanity" }), "sanity");
 });
 
+test("missing env defaults OBR source to local", () => {
+  assert.equal(obrSourceFlag({}), "local");
+  assert.equal(obrSourceFlag({ HBW_OBR_SOURCE: "nope" }), "local");
+  assert.equal(obrSourceFlag({ HBW_OBR_SOURCE: "sanity" }), "sanity");
+});
+
 test("CMS-backed routes map to the published slug", () => {
   assert.equal(cmsBackedProject("sck")?.cmsSlug, "sck");
   assert.equal(cmsBackedProject("bar-closed")?.cmsSlug, "closed");
   assert.equal(cmsBackedProject("koja")?.cmsSlug, "koja");
   assert.equal(cmsBackedProject("chris-sisarich")?.cmsSlug, "chris-sisarich");
   assert.equal(cmsBackedProject("sub-3")?.cmsSlug, "sub-3");
-  assert.equal(cmsBackedProject("our-boy-roy"), undefined);
+  assert.equal(cmsBackedProject("our-boy-roy")?.cmsSlug, "our-boy-roy");
   assert.equal(cmsBackedProject("bistro-nido"), undefined);
 });
 
-test("source flags stay independent across the five CMS projects", () => {
+test("source flags stay independent across the six CMS projects", () => {
   const mixedA = {
     HBW_SCK_SOURCE: "local",
     HBW_CLOSED_SOURCE: "local",
     HBW_KOJA_SOURCE: "local",
     HBW_CHRIS_SOURCE: "local",
-    HBW_SUB3_SOURCE: "sanity",
+    HBW_SUB3_SOURCE: "local",
+    HBW_OBR_SOURCE: "sanity",
   };
   assert.equal(sckSourceFlag(mixedA), "local");
   assert.equal(closedSourceFlag(mixedA), "local");
   assert.equal(kojaSourceFlag(mixedA), "local");
   assert.equal(chrisSourceFlag(mixedA), "local");
-  assert.equal(sub3SourceFlag(mixedA), "sanity");
+  assert.equal(sub3SourceFlag(mixedA), "local");
+  assert.equal(obrSourceFlag(mixedA), "sanity");
 
   const mixedB = {
     HBW_SCK_SOURCE: "sanity",
     HBW_CLOSED_SOURCE: "sanity",
     HBW_KOJA_SOURCE: "sanity",
     HBW_CHRIS_SOURCE: "sanity",
-    HBW_SUB3_SOURCE: "local",
+    HBW_SUB3_SOURCE: "sanity",
+    HBW_OBR_SOURCE: "local",
   };
   assert.equal(sckSourceFlag(mixedB), "sanity");
   assert.equal(closedSourceFlag(mixedB), "sanity");
   assert.equal(kojaSourceFlag(mixedB), "sanity");
   assert.equal(chrisSourceFlag(mixedB), "sanity");
-  assert.equal(sub3SourceFlag(mixedB), "local");
+  assert.equal(sub3SourceFlag(mixedB), "sanity");
+  assert.equal(obrSourceFlag(mixedB), "local");
 });
 
 test("non-CMS slugs stay on local experiences", async () => {
   let loaded = false;
-  const resolved = await resolveProjectExperience("our-boy-roy", {
+  const resolved = await resolveProjectExperience("bistro-nido", {
     sourceFlag: "sanity",
     loadPublishedExperience: async () => {
       loaded = true;
@@ -177,7 +207,7 @@ test("non-CMS slugs stay on local experiences", async () => {
     },
   });
   assert.equal(resolved.source, "local");
-  assert.equal(resolved.experience, getExperience("our-boy-roy"));
+  assert.equal(resolved.experience, getExperience("bistro-nido"));
   assert.equal(loaded, false);
 });
 
@@ -636,7 +666,126 @@ test("SUB:3 + sanity flag + adapter failure falls back to local", async () => {
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
 });
 
-test("SCK, CLOSED, KOJA, Chris, and SUB:3 resolve independently", async () => {
+test("OBR + missing flag uses shipped experience", async () => {
+  const previous = process.env.HBW_OBR_SOURCE;
+  delete process.env.HBW_OBR_SOURCE;
+  let loaded = false;
+  try {
+    const resolved = await resolveProjectExperience("our-boy-roy", {
+      loadPublishedExperience: async () => {
+        loaded = true;
+        return cmsObr;
+      },
+    });
+    assert.equal(obrSourceFlag({}), "local");
+    assert.equal(resolved.source, "local");
+    assert.equal(resolved.experience, OBR_EXPERIENCE);
+    assert.equal(resolved.experience?.movements.length, 7);
+    assert.equal(loaded, false);
+  } finally {
+    if (previous === undefined) delete process.env.HBW_OBR_SOURCE;
+    else process.env.HBW_OBR_SOURCE = previous;
+  }
+});
+
+test("OBR + local flag uses shipped experience and does not fetch", async () => {
+  let loaded = false;
+  const resolved = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "local",
+    loadPublishedExperience: async () => {
+      loaded = true;
+      return cmsObr;
+    },
+  });
+  assert.equal(resolved.source, "local");
+  assert.equal(resolved.experience, OBR_EXPERIENCE);
+  assert.equal(resolved.experience?.slug, "our-boy-roy");
+  assert.equal(resolved.experience?.movements.length, 7);
+  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  const o02 = resolved.experience?.movements.find((movement) => movement.id === "o02");
+  assert.equal(o02?.media.srcSet, undefined);
+  assert.equal(
+    resolved.experience?.movements.filter((movement) => movement.media.type === "video").every((movement) => !movement.media.webm),
+    true
+  );
+  assert.equal(loaded, false);
+});
+
+test("OBR + sanity flag + healthy CMS uses published experience", async () => {
+  let requested = "";
+  const resolved = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "sanity",
+    loadPublishedExperience: async (cmsSlug) => {
+      requested = cmsSlug;
+      return cmsObr;
+    },
+  });
+  assert.equal(requested, "our-boy-roy");
+  assert.equal(resolved.source, "sanity");
+  assert.equal(resolved.experience?.slug, "our-boy-roy");
+  assert.equal(resolved.experience?.movements.length, 7);
+  assert.equal(resolved.experience?.context, OBR_COPY.context);
+  assert.deepEqual(resolved.experience?.authorship?.roles, OBR_COPY.roles);
+  assert.equal(resolved.experience?.authorship?.workingContext, OBR_COPY.workingContext);
+  assert.equal(resolved.experience?.authorship?.collaborators?.length ?? 0, 0);
+  assert.equal(
+    resolved.experience?.infoSections.some((section) => section.id === "outcome"),
+    false
+  );
+  assert.equal(
+    resolved.experience?.movements.filter((movement) => movement.media.type === "video").every((movement) => movement.media.fit === "contain"),
+    true
+  );
+  assert.deepEqual(
+    resolved.experience?.movements.filter((movement) => movement.relation === "pair").map((movement) => movement.id),
+    []
+  );
+  assert.equal(
+    resolved.experience?.movements.filter((movement) => movement.media.type === "video").every((movement) => !movement.media.webm),
+    true
+  );
+  assert.deepEqual(
+    resolved.experience?.movements.map((movement) => `${movement.id}:${movement.infoHint}`),
+    ["o01:idea", "o02:idea", "o03:shift", "o04:shift", "o05:system", "o06:system", "o07:system"]
+  );
+});
+
+test("OBR + sanity flag + missing document falls back to local", async () => {
+  const resolved = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "sanity",
+    loadPublishedExperience: async () => {
+      throw new Error('Published project "our-boy-roy" was not found');
+    },
+  });
+  assert.equal(resolved.source, "local");
+  assert.equal(resolved.experience, OBR_EXPERIENCE);
+  assert.equal(resolved.experience?.movements.length, 7);
+  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+});
+
+test("OBR + sanity flag + fetch exception falls back to local", async () => {
+  const resolved = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "sanity",
+    loadPublishedExperience: async () => {
+      throw new Error("network down");
+    },
+  });
+  assert.equal(resolved.source, "local");
+  assert.equal(resolved.experience, OBR_EXPERIENCE);
+});
+
+test("OBR + sanity flag + adapter failure falls back to local", async () => {
+  const resolved = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "sanity",
+    loadPublishedExperience: async () => {
+      throw new Error("MISSING_FIELD: Idea is required");
+    },
+  });
+  assert.equal(resolved.source, "local");
+  assert.equal(resolved.experience, OBR_EXPERIENCE);
+});
+
+test("SCK, CLOSED, KOJA, Chris, SUB:3, and OBR resolve independently", async () => {
   const sck = await resolveProjectExperience("sck", {
     sourceFlag: "local",
     loadPublishedExperience: async () => cmsSck,
@@ -657,6 +806,10 @@ test("SCK, CLOSED, KOJA, Chris, and SUB:3 resolve independently", async () => {
     sourceFlag: "sanity",
     loadPublishedExperience: async () => cmsSub3,
   });
+  const obr = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "sanity",
+    loadPublishedExperience: async () => cmsObr,
+  });
   assert.equal(sck.source, "local");
   assert.equal(sck.experience, SCK_EXPERIENCE);
   assert.equal(closed.source, "sanity");
@@ -667,6 +820,8 @@ test("SCK, CLOSED, KOJA, Chris, and SUB:3 resolve independently", async () => {
   assert.equal(chris.experience?.context, CHRIS_COPY.context);
   assert.equal(sub3.source, "sanity");
   assert.equal(sub3.experience?.context, SUB3_COPY.context);
+  assert.equal(obr.source, "sanity");
+  assert.equal(obr.experience?.context, OBR_COPY.context);
 
   const invertedSck = await resolveProjectExperience("sck", {
     sourceFlag: "sanity",
@@ -688,6 +843,10 @@ test("SCK, CLOSED, KOJA, Chris, and SUB:3 resolve independently", async () => {
     sourceFlag: "local",
     loadPublishedExperience: async () => cmsSub3,
   });
+  const invertedObr = await resolveProjectExperience("our-boy-roy", {
+    sourceFlag: "local",
+    loadPublishedExperience: async () => cmsObr,
+  });
   assert.equal(invertedSck.source, "sanity");
   assert.equal(invertedClosed.source, "local");
   assert.equal(invertedClosed.experience, CLOSED_EXPERIENCE);
@@ -697,19 +856,15 @@ test("SCK, CLOSED, KOJA, Chris, and SUB:3 resolve independently", async () => {
   assert.equal(invertedChris.experience, SISARICH_EXPERIENCE);
   assert.equal(invertedSub3.source, "local");
   assert.equal(invertedSub3.experience, SUB3_EXPERIENCE);
+  assert.equal(invertedObr.source, "local");
+  assert.equal(invertedObr.experience, OBR_EXPERIENCE);
 });
 
-test("unrelated projects stay local when SCK, CLOSED, KOJA, Chris, and SUB:3 are CMS-backed", async () => {
-  const obr = await resolveProjectExperience("our-boy-roy", {
-    sourceFlag: "sanity",
-    loadPublishedExperience: async () => cmsSub3,
-  });
+test("unrelated projects stay local when SCK, CLOSED, KOJA, Chris, SUB:3, and OBR are CMS-backed", async () => {
   const nido = await resolveProjectExperience("bistro-nido", {
     sourceFlag: "sanity",
-    loadPublishedExperience: async () => cmsSub3,
+    loadPublishedExperience: async () => cmsObr,
   });
-  assert.equal(obr.source, "local");
-  assert.equal(obr.experience, getExperience("our-boy-roy"));
   assert.equal(nido.source, "local");
   assert.equal(nido.experience, getExperience("bistro-nido"));
 });

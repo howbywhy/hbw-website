@@ -13,12 +13,14 @@
     "cms:seed-koja": "sanity exec src/sanity/scripts/seed-koja.ts --with-user-token",
     "cms:seed-chris": "sanity exec src/sanity/scripts/seed-chris.ts --with-user-token",
     "cms:seed-sub3": "sanity exec src/sanity/scripts/seed-sub3.ts --with-user-token",
+    "cms:seed-obr": "sanity exec src/sanity/scripts/seed-obr.ts --with-user-token",
     "test": "node --import tsx --test src/sanity/adapter/*.test.ts src/sanity/preview/*.test.ts src/components/home/projects/*.test.ts src/lib/*.test.ts",
     "test:sck-cms": "node --import tsx src/sanity/scripts/verify-sck-cms.ts",
     "test:closed-cms": "node --import tsx src/sanity/scripts/verify-closed-cms.ts",
     "test:koja-cms": "node --import tsx src/sanity/scripts/verify-koja-cms.ts",
     "test:chris-cms": "node --import tsx src/sanity/scripts/verify-chris-cms.ts",
-    "test:sub3-cms": "node --import tsx src/sanity/scripts/verify-sub3-cms.ts"
+    "test:sub3-cms": "node --import tsx src/sanity/scripts/verify-sub3-cms.ts",
+    "test:obr-cms": "node --import tsx src/sanity/scripts/verify-obr-cms.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

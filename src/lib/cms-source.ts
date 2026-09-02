@@ -1,11 +1,17 @@
-/** Five real CMS-backed projects. Not a migration registry. */
+/** Six real CMS-backed projects. Not a migration registry. */
 
 export type ProjectSource = "sanity" | "local";
 
 export type CmsBackedProject = {
   routeSlug: string;
   cmsSlug: string;
-  envKey: "HBW_SCK_SOURCE" | "HBW_CLOSED_SOURCE" | "HBW_KOJA_SOURCE" | "HBW_CHRIS_SOURCE" | "HBW_SUB3_SOURCE";
+  envKey:
+    | "HBW_SCK_SOURCE"
+    | "HBW_CLOSED_SOURCE"
+    | "HBW_KOJA_SOURCE"
+    | "HBW_CHRIS_SOURCE"
+    | "HBW_SUB3_SOURCE"
+    | "HBW_OBR_SOURCE";
   label: string;
 };
 
@@ -15,6 +21,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
   { routeSlug: "koja", cmsSlug: "koja", envKey: "HBW_KOJA_SOURCE", label: "KOJA" },
   { routeSlug: "chris-sisarich", cmsSlug: "chris-sisarich", envKey: "HBW_CHRIS_SOURCE", label: "Chris Sisarich" },
   { routeSlug: "sub-3", cmsSlug: "sub-3", envKey: "HBW_SUB3_SOURCE", label: "SUB:3" },
+  { routeSlug: "our-boy-roy", cmsSlug: "our-boy-roy", envKey: "HBW_OBR_SOURCE", label: "Our Boy Roy" },
 ];
 
 export function cmsBackedProject(routeSlug: string): CmsBackedProject | undefined {

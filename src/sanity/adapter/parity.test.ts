@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { SCK_EXPERIENCE, SISARICH_EXPERIENCE, SUB3_EXPERIENCE } from "../../components/home/projects/experiences";
+import { OBR_EXPERIENCE, SCK_EXPERIENCE, SISARICH_EXPERIENCE, SUB3_EXPERIENCE } from "../../components/home/projects/experiences";
 import { movementSpan, type Movement } from "../../components/home/projects/types";
 import { sanityProjectToProjectExperience } from "./map";
 import { TEST_MEDIA, baseProject, blocks, movementFromShipped } from "./fixtures";
@@ -104,4 +104,24 @@ test("SUB:3 parity against shipped experience", () => {
   assert.equal(experience.movements.length, 12);
   const mismatches = compareMovements(SUB3_EXPERIENCE.movements, experience.movements);
   assert.deepEqual(mismatches, [], `SUB:3 movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
+});
+
+test("Our Boy Roy parity against shipped experience", () => {
+  const experience = sanityProjectToProjectExperience(
+    baseProject({
+      title: "Our Boy Roy",
+      slug: { current: "our-boy-roy" },
+      proposition: "The Friendly Neighbour",
+      idea: { heading: "The idea", body: blocks(OBR_EXPERIENCE.infoSections[0].copy) },
+      shift: { heading: "The shift", body: blocks(OBR_EXPERIENCE.infoSections[1].copy) },
+      system: { heading: "The system", body: blocks(OBR_EXPERIENCE.infoSections[2].copy) },
+      outcome: { heading: "The outcome", body: blocks(OBR_EXPERIENCE.infoSections[3].copy) },
+      movements: OBR_EXPERIENCE.movements.map(movementFromShipped),
+    }),
+    TEST_MEDIA
+  );
+  assert.equal(experience.slug, "our-boy-roy");
+  assert.equal(experience.movements.length, 7);
+  const mismatches = compareMovements(OBR_EXPERIENCE.movements, experience.movements);
+  assert.deepEqual(mismatches, [], `OBR movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
 });

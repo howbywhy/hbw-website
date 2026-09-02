@@ -21,6 +21,10 @@ export const CHRIS_LOCAL_FILM_MARKER = "/projects/chris-sisarich/web/HBWCSHOME-W
 export const SUB3_EXPERIENCE_MARKER = "Angular SUB:3 lettering stretching and compressing on black.";
 export const SUB3_LOCAL_FILM_MARKER = "/projects/sub-3/web/SUB3-Type-Stretch-Texture.mp4";
 
+/** OBR film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
+export const OBR_EXPERIENCE_MARKER = "Line-drawn figure in checkered pants holding a bottle as the ground colour shifts.";
+export const OBR_LOCAL_FILM_MARKER = "/projects/our-boy-roy/web/OBR-Colour-Change.mp4";
+
 const APP = path.join(process.cwd(), ".next/server/app");
 
 export function ssgAppDir() {
@@ -59,4 +63,9 @@ export function ssgPayloadHasChrisExperience(rel: string) {
 export function ssgPayloadHasSub3Experience(rel: string) {
   const payload = readSsgPayload(rel);
   return payload.includes(SUB3_EXPERIENCE_MARKER) || payload.includes(SUB3_LOCAL_FILM_MARKER);
+}
+
+export function ssgPayloadHasObrExperience(rel: string) {
+  const payload = readSsgPayload(rel);
+  return payload.includes(OBR_EXPERIENCE_MARKER) || payload.includes(OBR_LOCAL_FILM_MARKER);
 }

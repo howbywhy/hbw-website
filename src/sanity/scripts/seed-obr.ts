@@ -1,12 +1,12 @@
 /**
- * One-project seed: KOJA only.
- * Run: npx sanity exec src/sanity/scripts/seed-koja.ts --with-user-token
- * Seeds project-koja only. Public /projects/koja stays local unless HBW_KOJA_SOURCE=sanity.
+ * One-project seed: Our Boy Roy only.
+ * Run: npx sanity exec src/sanity/scripts/seed-obr.ts --with-user-token
+ * Seeds project-our-boy-roy. Public /projects/our-boy-roy stays local unless HBW_OBR_SOURCE=sanity.
  */
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
-import { KOJA_COPY, KOJA_DOCUMENT_ID, KOJA_IDENTITY, KOJA_MOVEMENTS } from "./koja-content";
+import { OBR_COPY, OBR_DOCUMENT_ID, OBR_IDENTITY, OBR_MOVEMENTS } from "./obr-content";
 
 const client = getCliClient({
   apiVersion: "2025-02-19",
@@ -78,10 +78,13 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId(KOJA_MOVEMENTS[0].still as string, "image");
+  const previewId = await assetId(
+    "public/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg",
+    "image"
+  );
 
   const movements = [];
-  for (const movement of KOJA_MOVEMENTS) {
+  for (const movement of OBR_MOVEMENTS) {
     const row: Record<string, unknown> = {
       _type: "movement",
       _key: movement.key,
@@ -98,35 +101,35 @@ async function main() {
     if (movement.mediaType === "film" && movement.video && movement.poster) {
       row.video = fileRef(await assetId(movement.video, "file"));
       row.poster = imageRef(await assetId(movement.poster, "image"));
-      if (movement.webm) row.webm = fileRef(await assetId(movement.webm, "file"));
     }
     movements.push(row);
   }
 
   const document = {
-    _id: KOJA_DOCUMENT_ID,
+    _id: OBR_DOCUMENT_ID,
     _type: "project",
-    title: KOJA_IDENTITY.title,
-    slug: { _type: "slug", current: KOJA_IDENTITY.slug },
-    proposition: KOJA_IDENTITY.proposition,
-    year: KOJA_IDENTITY.year,
-    sectors: KOJA_IDENTITY.sectors,
-    disciplines: KOJA_IDENTITY.disciplines,
-    portfolioOrder: KOJA_IDENTITY.portfolioOrder,
+    title: OBR_IDENTITY.title,
+    slug: { _type: "slug", current: OBR_IDENTITY.slug },
+    proposition: OBR_IDENTITY.proposition,
+    year: OBR_IDENTITY.year,
+    sectors: OBR_IDENTITY.sectors,
+    disciplines: OBR_IDENTITY.disciplines,
+    portfolioOrder: OBR_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", KOJA_COPY.context)],
-    roles: KOJA_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: KOJA_COPY.idea.heading, body: [block("idea", KOJA_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: KOJA_COPY.shift.heading, body: [block("shift", KOJA_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: KOJA_COPY.system.heading, body: [block("sys", KOJA_COPY.system.body)] },
+    context: [block("ctx", OBR_COPY.context)],
+    roles: OBR_COPY.roles,
+    workingContext: OBR_COPY.workingContext,
+    idea: { _type: "caseStudyBlock", heading: OBR_COPY.idea.heading, body: [block("idea", OBR_COPY.idea.body)] },
+    shift: { _type: "caseStudyBlock", heading: OBR_COPY.shift.heading, body: [block("shift", OBR_COPY.shift.body)] },
+    system: { _type: "caseStudyBlock", heading: OBR_COPY.system.heading, body: [block("sys", OBR_COPY.system.body)] },
     movements,
-    editorialPurpose: KOJA_IDENTITY.editorialPurpose,
-    contributionNotes: KOJA_IDENTITY.contributionNotes,
-    replacementPriority: KOJA_IDENTITY.replacementPriority,
+    editorialPurpose: OBR_IDENTITY.editorialPurpose,
+    contributionNotes: OBR_IDENTITY.contributionNotes,
+    replacementPriority: OBR_IDENTITY.replacementPriority,
   };
 
   await client.createOrReplace(document);
-  console.log(`wrote ${KOJA_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
+  console.log(`wrote ${OBR_DOCUMENT_ID} with ${movements.length} movements, Working Context, and no Outcome`);
 }
 
 main().catch((error) => {
