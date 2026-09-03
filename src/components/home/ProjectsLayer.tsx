@@ -368,34 +368,9 @@ function ArchiveItem({
     isVideoMedia(media) &&
     Boolean(media.videoSrc || media.mp4) &&
     !reduceMotion();
-  const rowRef = useRef<HTMLElement | null>(null);
-  const [ideaIn, setIdeaIn] = useState(false);
-
-  useEffect(() => {
-    if (visual || reduceMotion() || !isMobileViewport()) {
-      setIdeaIn(true);
-      return;
-    }
-    const node = rowRef.current;
-    if (!node) return;
-    setIdeaIn(false);
-    const root = node.closest(".hbw-projects");
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting && (entry.intersectionRatio ?? 0) >= 0.2) {
-          setIdeaIn(true);
-          io.disconnect();
-        }
-      },
-      { root: root instanceof Element ? root : null, threshold: [0, 0.2, 0.5, 1] }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, [project.id, visual]);
-
   const className = `hbw-browse__item ${visual ? "hbw-browse__cell" : "hbw-browse__row"} is-${layout}${
     selected ? " is-active" : ""
-  }${hovered ? " is-hovered" : ""}${expanded ? " is-noted" : ""}${ideaIn ? " is-idea-in" : ""}`;
+  }${hovered ? " is-hovered" : ""}${expanded ? " is-noted" : ""} is-idea-in`;
   const style = {
     ["--hbw-crop" as string]: media.crop,
     ["--hbw-span" as string]: String(span),
@@ -509,15 +484,7 @@ function ArchiveItem({
 
   if (external) {
     return (
-      <a
-        {...shared}
-        ref={(node) => {
-          rowRef.current = node;
-        }}
-        href={external}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a {...shared} href={external} target="_blank" rel="noopener noreferrer">
         {itemBody}
       </a>
     );
@@ -526,9 +493,6 @@ function ArchiveItem({
   return (
     <div
       {...shared}
-      ref={(node) => {
-        rowRef.current = node;
-      }}
       onClick={(event) => enterClick(event, project.id, project.href, onActivate)}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return;

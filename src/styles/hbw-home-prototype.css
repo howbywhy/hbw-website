@@ -4102,7 +4102,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   }
 
   .hbw-browse__archive.hbw-browse__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
   }
 
@@ -4112,17 +4112,16 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     padding-right: 0;
   }
 
-  .hbw-projects.is-visual .hbw-browse__cell {
-    --hbw-span: 1;
-    grid-column: span 1;
-  }
-
+  .hbw-projects.is-visual .hbw-browse__cell,
   .hbw-projects.is-visual .hbw-browse__cell.is-landscape,
   .hbw-projects.is-visual .hbw-browse__cell.is-wide,
   .hbw-projects.is-visual .hbw-browse__cell[data-hbw-project="sub-3"],
   .hbw-projects.is-visual .hbw-browse__cell[data-hbw-project="bistro-nido"] {
-    --hbw-span: 2;
-    grid-column: span 2;
+    --hbw-span: 1;
+    --hbw-start: auto;
+    grid-column: 1 / -1;
+    /* Inline visualBefore otherwise leaks from desktop placement. */
+    margin-top: 0 !important;
   }
 
   .hbw-projects.is-index .hbw-browse {
@@ -4183,26 +4182,16 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     align-self: start;
   }
 
-  .hbw-browse__row .hbw-browse__row-idea {
+  .hbw-browse__row .hbw-browse__row-idea,
+  .hbw-browse__row.is-idea-in .hbw-browse__row-idea {
     grid-area: idea;
     white-space: normal;
     overflow: visible;
     text-overflow: unset;
     color: rgba(51, 51, 51, 0.46);
     align-self: start;
-    opacity: 0;
-  }
-
-  .hbw-browse__row.is-idea-in .hbw-browse__row-idea {
     opacity: 1;
-    transition: opacity var(--hbw-t-gallery) var(--hbw-ease);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hbw-browse__row .hbw-browse__row-idea {
-      opacity: 1;
-      transition: none;
-    }
+    transition: none;
   }
 
   .hbw-browse__row .hbw-browse__row-meta {
@@ -4457,10 +4446,10 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   }
 
   .hbw-mv.is-detail {
-    width: 78%;
+    width: 100%;
     max-width: none;
     height: auto;
-    margin-right: auto;
+    margin-right: 0;
   }
 
   .hbw-mv.is-tight,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState, type ReactNode, type WheelEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type WheelEvent } from "react";
 import { factualBlocks } from "@/components/home/projects/factual";
 import { RichTextBody } from "@/components/home/projects/RichText";
 import type { ExperienceCollaborator, InfoSectionId, ProjectExperience } from "@/components/home/projects/types";
@@ -320,30 +320,13 @@ export function WorkspacePanel({
     event.stopPropagation();
   }
 
-  useEffect(() => {
-    if (panel !== "info") return;
-    let frame = 0;
-    let tries = 0;
-    function toTop() {
-      const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
-      if (!inspector) {
-        if (tries++ < 12) frame = requestAnimationFrame(toTop);
-        return;
-      }
-      inspector.setAttribute("data-hbw-info-anchor", infoAnchor);
-      const section =
-        infoAnchor === "idea"
-          ? null
-          : inspector.querySelector<HTMLElement>(`[data-hbw-info-section="${infoAnchor}"]`);
-      if (!section) {
-        inspector.scrollTop = 0;
-        return;
-      }
-      const pad = Number.parseFloat(getComputedStyle(inspector).paddingTop) || 0;
-      inspector.scrollTop = Math.max(0, section.offsetTop - pad);
-    }
-    toTop();
-    return () => cancelAnimationFrame(frame);
+  const infoWasOpen = useRef(false);
+  useLayoutEffect(() => {
+    const inspector = document.querySelector<HTMLElement>(".hbw-sheet.is-project-right");
+    if (inspector) inspector.setAttribute("data-hbw-info-anchor", infoAnchor);
+    const opening = panel === "info" && !infoWasOpen.current;
+    infoWasOpen.current = panel === "info";
+    if (opening && inspector) inspector.scrollTop = 0;
   }, [panel, infoAnchor]);
 
   useLayoutEffect(() => {
