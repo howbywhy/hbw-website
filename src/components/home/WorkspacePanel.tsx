@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useState, type ReactNode, type WheelEvent } from "react";
-import type { ProjectExperience, InfoSectionId } from "@/components/home/projects/types";
+import { factualBlocks } from "@/components/home/projects/factual";
+import { RichTextBody } from "@/components/home/projects/RichText";
+import type { ExperienceCollaborator, InfoSectionId, ProjectExperience } from "@/components/home/projects/types";
+import { infoSectionHasCopy } from "@/components/home/projects/types";
 import type { StudioView, WorkspacePanelId } from "@/components/home/WorkspaceContext";
 import { InformationSheet } from "@/components/home/InformationSheet";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
+import { useCmsPreviewRecord } from "@/components/home/CmsPreviewContext";
 import { projectById, projectCollaborators, projectDisciplines, projectSectors } from "@/components/home/catalog";
 
 type Props = {
@@ -164,6 +168,26 @@ function ManifestoBody() {
   );
 }
 
+function CollaboratorLines({ collaborators }: { collaborators: ExperienceCollaborator[] }) {
+  return (
+    <p>
+      {collaborators.map((item, index) => (
+        <span key={`${item.name}-${index}`}>
+          {index > 0 ? <br /> : null}
+          {item.url ? (
+            <a className="hbw-sheet__mail" href={item.url} target="_blank" rel="noopener noreferrer">
+              {item.name}
+            </a>
+          ) : (
+            item.name
+          )}
+          {item.contribution ? ` — ${item.contribution}` : null}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 function InfoBody({
   experience,
   atProjectEnd = false,
@@ -175,7 +199,8 @@ function InfoBody({
   nextProjectName?: string | null;
   onNextProject?: () => void;
 }) {
-  const record = projectById(experience.slug);
+  const previewRecord = useCmsPreviewRecord();
+  const record = previewRecord?.id === experience.slug ? previewRecord : projectById(experience.slug);
   const collabNames = projectCollaborators(record).map((item) => item.name);
   const disciplines = projectDisciplines(record);
   const sectors = projectSectors(record);
@@ -217,20 +242,27 @@ function InfoBody({
           {record.idea}
         </p>
       ) : null}
-      {experience.infoSections
-        .filter((section) => section.copy.trim())
-        .map((section) => (
-          <section
-            key={section.id}
-            id={`hbw-info-${section.id}`}
-            data-hbw-info-section={section.id}
-          >
-            <h2>
-              {section.heading.replace(/^The\s+/i, "").replace(/^\w/, (char) => char.toUpperCase())}
-            </h2>
-            <p>{section.copy}</p>
-          </section>
-        ))}
+      {factualBlocks(experience).map((block) => (
+        <section key={block.id} data-hbw-info-factual={block.id}>
+          <h2>{block.heading}</h2>
+          {block.kind === "rich" ? <RichTextBody value={block.body} /> : null}
+          {block.kind === "lines" ? <Lines lines={block.lines} /> : null}
+          {block.kind === "copy" ? <p>{block.copy}</p> : null}
+          {block.kind === "collaborators" ? <CollaboratorLines collaborators={block.collaborators} /> : null}
+        </section>
+      ))}
+      {experience.infoSections.filter(infoSectionHasCopy).map((section) => (
+        <section
+          key={section.id}
+          id={`hbw-info-${section.id}`}
+          data-hbw-info-section={section.id}
+        >
+          <h2>
+            {section.heading.replace(/^The\s+/i, "").replace(/^\w/, (char) => char.toUpperCase())}
+          </h2>
+          {section.body?.length ? <RichTextBody value={section.body} /> : <p>{section.copy}</p>}
+        </section>
+      ))}
       {facts.length ? (
         <dl className="hbw-sheet__facts">
           {facts.map(([label, value]) => (

@@ -3163,6 +3163,14 @@ html.hbw-workspace .hbw-inspector p {
   color: #1d1d1d;
 }
 
+html.hbw-workspace .hbw-inspector em {
+  font-style: italic;
+}
+
+html.hbw-workspace .hbw-inspector strong {
+  font-weight: 600;
+}
+
 html.hbw-workspace .hbw-inspector section {
   margin: 0 0 var(--hbw-space-4);
 }

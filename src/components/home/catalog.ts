@@ -1,3 +1,7 @@
+import { catalogIdForSlug } from "@/lib/cms-source";
+
+export { catalogIdForSlug };
+
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
 export const DISCIPLINES = [
@@ -119,45 +123,6 @@ export const PROJECTS: ProjectRecord[] = [
     credits: ["Mark Blackler"],
   },
   {
-    id: "sub-3",
-    href: "/projects/sub-3",
-    name: "SUB:3",
-    idea: "Bending Time & Space",
-    year: "2025",
-    src: "/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
-    srcSet: srcSetFor("/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", [500, 800, 1080], 1200)!,
-    width: 1200,
-    height: 1500,
-    crop: "center 18%",
-    layout: "portrait",
-    visualSpan: 7,
-    visualStart: 1,
-    homeSelected: true,
-    sectors: ["Sports Nutrition", "FMCG"],
-    disciplines: ["Brand Identity", "Packaging"],
-    collaborators: ["the-colour-club"],
-    credits: ["Mark Blackler", "Nick Mitchell"],
-  },
-  {
-    id: "koja",
-    href: "/projects/koja",
-    name: "KOJA",
-    idea: "Unapologetically Good",
-    year: "2021",
-    src: "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
-    srcSet: srcSetFor("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", [500, 800], 1080)!,
-    width: 1080,
-    height: 1350,
-    crop: "center 68%",
-    layout: "contained",
-    visualSpan: 4,
-    visualStart: 9,
-    homeSelected: true,
-    sectors: ["Food", "FMCG"],
-    disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
-    credits: ["Mark Blackler"],
-  },
-  {
     id: "bar-closed",
     href: "/projects/bar-closed",
     name: "CLOSED",
@@ -189,6 +154,45 @@ export const PROJECTS: ProjectRecord[] = [
       },
     ],
     credits: ["Mark Blackler", "Sasha Burger"],
+  },
+  {
+    id: "koja",
+    href: "/projects/koja",
+    name: "KOJA",
+    idea: "Unapologetically Good",
+    year: "2021",
+    src: "/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg",
+    srcSet: srcSetFor("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", [500, 800], 1080)!,
+    width: 1080,
+    height: 1350,
+    crop: "center 68%",
+    layout: "contained",
+    visualSpan: 4,
+    visualStart: 9,
+    homeSelected: true,
+    sectors: ["Food", "FMCG"],
+    disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
+    credits: ["Mark Blackler"],
+  },
+  {
+    id: "sub-3",
+    href: "/projects/sub-3",
+    name: "SUB:3",
+    idea: "Bending Time & Space",
+    year: "2025",
+    src: "/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg",
+    srcSet: srcSetFor("/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", [500, 800, 1080], 1200)!,
+    width: 1200,
+    height: 1500,
+    crop: "center 18%",
+    layout: "portrait",
+    visualSpan: 7,
+    visualStart: 1,
+    homeSelected: true,
+    sectors: ["Sports Nutrition", "FMCG"],
+    disciplines: ["Brand Identity", "Packaging"],
+    collaborators: ["the-colour-club"],
+    credits: ["Mark Blackler", "Nick Mitchell"],
   },
   {
     id: "chris-sisarich",
@@ -230,27 +234,6 @@ export const PROJECTS: ProjectRecord[] = [
     collaborators: ["the-colour-club"],
     credits: ["Mark Blackler", "Nick Mitchell"],
   },
-  {
-    id: "bistro-nido",
-    href: "/projects/bistro-nido",
-    name: "Bistro Nido",
-    idea: "Twice Cooked",
-    year: "2023",
-    src: "/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg",
-    srcSet: srcSetFor("/projects/bistro-nido/68db910da232382c5cf8fa9d_TCCWEB-Portfolio-Bistro-Nido15.jpg", [500, 800, 1080], 1200)!,
-    width: 1200,
-    height: 1500,
-    crop: "center 38%",
-    layout: "portrait",
-    visualSpan: 6,
-    visualStart: 2,
-    visualBefore: 4,
-    sectors: ["Hospitality"],
-    disciplines: ["Visual Identity", "Print & Digital Design"],
-    collaborators: ["the-colour-club"],
-    location: "501 George Street, Sydney",
-    credits: ["Mark Blackler", "Nick Mitchell"],
-  },
 ];
 
 /**
@@ -270,7 +253,7 @@ export function homePreviewProjects() {
 }
 
 export function projectById(id: string) {
-  return PROJECTS.find((p) => p.id === id) ?? PROJECTS[0];
+  return PROJECTS.find((p) => p.id === id) ?? PROJECTS.find((p) => p.id === catalogIdForSlug(id)) ?? PROJECTS[0];
 }
 
 function serialAnd(items: string[]) {

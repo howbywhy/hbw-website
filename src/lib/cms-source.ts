@@ -1,0 +1,41 @@
+/** Six real CMS-backed projects. Not a migration registry. */
+
+export type ProjectSource = "sanity" | "local";
+
+export type CmsBackedProject = {
+  routeSlug: string;
+  cmsSlug: string;
+  envKey:
+    | "HBW_SCK_SOURCE"
+    | "HBW_CLOSED_SOURCE"
+    | "HBW_KOJA_SOURCE"
+    | "HBW_CHRIS_SOURCE"
+    | "HBW_SUB3_SOURCE"
+    | "HBW_OBR_SOURCE";
+  label: string;
+};
+
+export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
+  { routeSlug: "sck", cmsSlug: "sck", envKey: "HBW_SCK_SOURCE", label: "SCK" },
+  { routeSlug: "bar-closed", cmsSlug: "closed", envKey: "HBW_CLOSED_SOURCE", label: "CLOSED" },
+  { routeSlug: "koja", cmsSlug: "koja", envKey: "HBW_KOJA_SOURCE", label: "KOJA" },
+  { routeSlug: "chris-sisarich", cmsSlug: "chris-sisarich", envKey: "HBW_CHRIS_SOURCE", label: "Chris Sisarich" },
+  { routeSlug: "sub-3", cmsSlug: "sub-3", envKey: "HBW_SUB3_SOURCE", label: "SUB:3" },
+  { routeSlug: "our-boy-roy", cmsSlug: "our-boy-roy", envKey: "HBW_OBR_SOURCE", label: "Our Boy Roy" },
+];
+
+export function cmsBackedProject(routeSlug: string): CmsBackedProject | undefined {
+  return CMS_BACKED_PROJECTS.find((project) => project.routeSlug === routeSlug);
+}
+
+/** CMS slug → public catalog / route id. CLOSED is the first mismatch. */
+export function catalogIdForSlug(slug: string) {
+  return CMS_BACKED_PROJECTS.find((project) => project.cmsSlug === slug)?.routeSlug ?? slug;
+}
+
+export function sourceFlagFromEnv(
+  envKey: CmsBackedProject["envKey"],
+  env: Record<string, string | undefined> = process.env
+): ProjectSource {
+  return env[envKey] === "sanity" ? "sanity" : "local";
+}
