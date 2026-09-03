@@ -1901,6 +1901,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   .hbw-projects.is-index .hbw-browse__archive.hbw-browse__grid {
     position: relative;
     z-index: 1;
+    box-sizing: border-box;
     padding-left: 0;
     padding-right: calc(min(16rem, 20vw) + var(--hbw-space-3));
     background: transparent;
