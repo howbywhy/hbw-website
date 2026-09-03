@@ -38,7 +38,7 @@ type Props = {
   whyHoverLocked?: boolean;
 };
 
-const REST_LINE = "Brand Strategy & Creative Direction";
+const REST_LINE = "Clarity for brands at a turning point.";
 
 export function IdentityNav({
   onMake,

@@ -98,7 +98,7 @@ export function Arrival({ onMake, onBrowse }: Props) {
           <span className="hbw-intro-why">Why</span>
         </span>
         <span className="hbw-intro-line hbw-intro-line--role hbw-intro-support">
-          Brand Strategy &amp; Creative Direction
+          Clarity for brands at a turning point.
         </span>
         <span className="hbw-intro-line hbw-intro-line--practice hbw-intro-support">
           Independent Practice
