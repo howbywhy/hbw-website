@@ -21,6 +21,7 @@ export const project = defineType({
   groups: [
     { name: "context", title: "Context", default: true },
     { name: "caseStudy", title: "Case Study" },
+    { name: "testimonials", title: "Testimonials" },
     { name: "sequence", title: "Sequence" },
     { name: "identity", title: "Identity" },
     { name: "internal", title: "Internal" },
@@ -84,6 +85,14 @@ export const project = defineType({
       type: "caseStudyBlock",
       group: "caseStudy",
       description: "Optional. Leave empty when the case study has no outcome.",
+    }),
+    defineField({
+      name: "testimonials",
+      title: "Testimonials",
+      type: "array",
+      group: "testimonials",
+      of: [{ type: "testimonial" }],
+      description: "Optional. Approved client testimonials for possible future use. Not shown on the site.",
     }),
     defineField({
       name: "movements",
