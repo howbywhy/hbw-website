@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
+import path from "node:path";
 import { test } from "node:test";
 import {
   ssgAppDir,
@@ -13,6 +14,17 @@ import {
 
 const built = existsSync(ssgAppDir());
 
+test("retired Nido is not an SSG project route", { skip: !built }, () => {
+  assert.equal(existsSync(path.join(ssgAppDir(), "projects/bistro-nido.html")), false);
+  assert.equal(existsSync(path.join(ssgAppDir(), "projects/bistro-nido.rsc")), false);
+  assert.equal(ssgPayloadHasSckExperience("projects/bistro-nido"), false);
+  assert.equal(ssgPayloadHasClosedExperience("projects/bistro-nido"), false);
+  assert.equal(ssgPayloadHasKojaExperience("projects/bistro-nido"), false);
+  assert.equal(ssgPayloadHasChrisExperience("projects/bistro-nido"), false);
+  assert.equal(ssgPayloadHasSub3Experience("projects/bistro-nido"), false);
+  assert.equal(ssgPayloadHasObrExperience("projects/bistro-nido"), false);
+});
+
 test("unrelated SSG pages do not serialize SCK, CLOSED, KOJA, Chris, SUB:3, or OBR experiences", { skip: !built }, () => {
   assert.equal(ssgPayloadHasSckExperience("index"), false);
   assert.equal(ssgPayloadHasClosedExperience("index"), false);
@@ -20,12 +32,6 @@ test("unrelated SSG pages do not serialize SCK, CLOSED, KOJA, Chris, SUB:3, or O
   assert.equal(ssgPayloadHasChrisExperience("index"), false);
   assert.equal(ssgPayloadHasSub3Experience("index"), false);
   assert.equal(ssgPayloadHasObrExperience("index"), false);
-  assert.equal(ssgPayloadHasSckExperience("projects/bistro-nido"), false);
-  assert.equal(ssgPayloadHasClosedExperience("projects/bistro-nido"), false);
-  assert.equal(ssgPayloadHasKojaExperience("projects/bistro-nido"), false);
-  assert.equal(ssgPayloadHasChrisExperience("projects/bistro-nido"), false);
-  assert.equal(ssgPayloadHasSub3Experience("projects/bistro-nido"), false);
-  assert.equal(ssgPayloadHasObrExperience("projects/bistro-nido"), false);
   assert.equal(ssgPayloadHasSckExperience("manifesto"), false);
   assert.equal(ssgPayloadHasClosedExperience("manifesto"), false);
   assert.equal(ssgPayloadHasKojaExperience("manifesto"), false);

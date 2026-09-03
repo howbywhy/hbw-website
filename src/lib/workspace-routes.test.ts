@@ -1,12 +1,17 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { catalogIdForSlug, projectById } from "../components/home/catalog";
+import { catalogIdForSlug, PROJECT_SLUGS, projectById } from "../components/home/catalog";
 import { nextProject } from "../components/home/sequence";
 import { previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "./workspace-routes";
 
 test("public project slugs stay on /projects", () => {
   assert.equal(projectSlugFromPath("/projects/sck"), "sck");
   assert.equal(projectSlugFromPath("/projects/bar-closed"), "bar-closed");
+  assert.equal(projectSlugFromPath("/projects/koja"), "koja");
+  assert.equal(projectSlugFromPath("/projects/sub-3"), "sub-3");
+  assert.equal(projectSlugFromPath("/projects/chris-sisarich"), "chris-sisarich");
+  assert.equal(projectSlugFromPath("/projects/our-boy-roy"), "our-boy-roy");
+  assert.equal(projectSlugFromPath("/projects/bistro-nido"), null);
   assert.equal(projectSlugFromPath("/preview/sck"), null);
   assert.equal(projectSlugFromPath("/preview/closed"), null);
   assert.equal(projectSlugFromPath("/preview/koja"), null);
@@ -53,4 +58,15 @@ test("CLOSED CMS slug aliases the public catalog id", () => {
   assert.equal(catalogIdForSlug("koja"), "koja");
   assert.equal(projectById("closed").id, "bar-closed");
   assert.equal(nextProject("closed")?.id, nextProject("bar-closed")?.id);
+});
+
+test("retired Nido is absent from public progression; OBR cycles to SCK", () => {
+  assert.deepEqual(PROJECT_SLUGS, ["sck", "bar-closed", "koja", "sub-3", "chris-sisarich", "our-boy-roy"]);
+  assert.equal(nextProject("sck")?.id, "bar-closed");
+  assert.equal(nextProject("bar-closed")?.id, "koja");
+  assert.equal(nextProject("koja")?.id, "sub-3");
+  assert.equal(nextProject("sub-3")?.id, "chris-sisarich");
+  assert.equal(nextProject("chris-sisarich")?.id, "our-boy-roy");
+  assert.equal(nextProject("our-boy-roy")?.id, "sck");
+  assert.equal(nextProject("bistro-nido"), null);
 });
