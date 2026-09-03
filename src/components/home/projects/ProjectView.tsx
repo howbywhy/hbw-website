@@ -25,6 +25,23 @@ type Props = {
 
 /** Stage home as a fraction of the field. goTo docks a movement here; indexFromX uses the same line so seek and scroll share one current. */
 const STAGE_HOME = 0.07;
+
+/** Predictive film window: previous 1, current, next 2, plus the next film if it sits farther ahead. */
+function filmPlaybackWindow(current: number, movements: ProjectExperience["movements"]) {
+  const total = movements.length;
+  const clamped = Math.min(Math.max(0, current), Math.max(0, total - 1));
+  const window = new Set<number>();
+  for (let i = clamped - 1; i <= clamped + 2; i++) {
+    if (i >= 0 && i < total) window.add(i);
+  }
+  for (let i = clamped + 1; i < total; i++) {
+    if (isVideoMedia(movements[i]?.media)) {
+      window.add(i);
+      break;
+    }
+  }
+  return window;
+}
 /** Outro has entered the reading zone — distinct from current-movement docking. */
 const BOUNDARY_ZONE = 0.4;
 
@@ -97,6 +114,10 @@ export function ProjectView({
     if (!root || !track) return;
     mobile.current = isMobileViewport();
     root.style.setProperty("--hbw-stage-w", `${root.clientWidth}px`);
+    root.style.setProperty("--hbw-stage-h", `${root.clientHeight}px`);
+    const gap = Number.parseFloat(getComputedStyle(root).getPropertyValue("--hbw-stage-gap")) || 32;
+    const field = Math.min(Math.max(0, root.clientHeight - gap), root.clientWidth * 0.88 * (9 / 16));
+    root.style.setProperty("--hbw-mv-field", `${Math.round(field)}px`);
     if (mobile.current) return;
     const items = [...track.querySelectorAll<HTMLElement>(":scope > .hbw-mv")];
     const outro = track.querySelector<HTMLElement>(":scope > .hbw-outro");
@@ -449,8 +470,9 @@ export function ProjectView({
     const ro = new ResizeObserver(() => {
       const track = trackRef.current;
       if (!track) return;
-      if (mobile.current) return;
       if (inspectingRef.current || ignoreResize.current) return;
+      measure();
+      if (mobile.current) return;
       if (parkHold.current != null) {
         measure();
         applyX(parkHold.current, false, true);
@@ -618,16 +640,10 @@ export function ProjectView({
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    const videos = [...track.querySelectorAll("video")];
-    videos.forEach((video, i) => {
-      const nearby = Math.abs(i - Math.min(index, total - 1)) <= 1 && (phase === "active" || phase === "rising" || phase === "assembling" || phase === "handoff-in");
-      if (nearby && !reduceMotion()) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  }, [index, phase, total]);
+    const projectLive = phase === "active" || phase === "rising" || phase === "assembling" || phase === "handoff-in";
+    if (projectLive) return;
+    track.querySelectorAll("video").forEach((video) => video.pause());
+  }, [phase]);
 
   useEffect(() => {
     if (!canDrive || !next) return;
@@ -644,11 +660,11 @@ export function ProjectView({
 
   useEffect(() => {
     if (!canDrive) return;
+    const current = Math.min(index, total - 1);
+    const upcoming = filmPlaybackWindow(current, experience.movements);
     experience.movements.forEach((movement, i) => {
-      if (movement.media.type !== "video") return;
-      const current = Math.min(index, total - 1);
-      const dist = Math.abs(i - current);
-      if (i === 0 || i === 1 || dist <= 1) void prefetchVideo(movement.media.src);
+      if (movement.media.type !== "video" || !upcoming.has(i)) return;
+      void prefetchVideo(movement.media.src);
     });
   }, [canDrive, experience.movements, index, total]);
 
@@ -755,6 +771,8 @@ export function ProjectView({
     onCommitNext?.();
   }
 
+  const playWindow = filmPlaybackWindow(Math.min(index, total - 1), experience.movements);
+
   return (
     <div
       ref={rootRef}
@@ -777,10 +795,10 @@ export function ProjectView({
           const span = movementSpan(movement);
           const pace = movementPace(movement);
           const current = Math.min(index, total - 1);
-          const dist = Math.abs(i - current);
           const eager = i === 0;
           const nearby = inspecting || i < 3;
-          const load = isVideoMedia(media) && (i === 0 || i === 1 || dist <= 1);
+          const inPlayWindow = playWindow.has(i);
+          const load = isVideoMedia(media) && live && inPlayWindow && !reduceMotion();
           const openingName =
             i !== 0 || phase === "handoff-out" || restoreX != null
               ? undefined
@@ -811,7 +829,7 @@ export function ProjectView({
                   media={media}
                   load={load}
                   eager={eager}
-                  active={live && i === current}
+                  active={live && inPlayWindow}
                   viewTransitionName={openingName}
                 />
               ) : (

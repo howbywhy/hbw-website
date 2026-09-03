@@ -55,7 +55,7 @@ export const SCK_MOVEMENTS: SckSeedMovement[] = [
     still: "public/projects/sck/1.jpg",
     alt: "Two people in a sunlit studio beside a large figurative painting in a red frame.",
     scale: "major",
-    pace: "pause",
+    pace: "normal",
     relation: "single",
   },
   {

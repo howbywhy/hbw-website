@@ -350,7 +350,7 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
       "film",
       film("/projects/bar-closed/web/CLOSED-Collage.mp4", 1440, 810, "/projects/bar-closed/web/CLOSED-Collage.jpg"),
       "outcome",
-      { scale: "standard", pace: "pause", alt: "Torn-paper collage of cocktail card, potatoes, bar photo, and CLOSED coaster." }
+      { scale: "standard", pace: "normal", alt: "Torn-paper collage of cocktail card, potatoes, bar photo, and CLOSED coaster." }
     ),
     mv("c09", "portrait", jpg("/projects/bar-closed/670ca0214e0b67cd2aeafe2e_HBWxCLOSED-Portfolio35.jpg", 1080, 1350), "outcome", {
       scale: "standard",
@@ -502,7 +502,7 @@ export const SCK_EXPERIENCE: ProjectExperience = {
   movements: [
     mv("sk01", "portrait", jpg("/projects/sck/1.jpg", 1080, 1350, "contain", []), "idea", {
       scale: "major",
-      pace: "pause",
+      pace: "normal",
       alt: "Two people in a sunlit studio beside a large figurative painting in a red frame.",
     }),
     mv("sk02", "landscape", jpg("/projects/sck/2.jpg", 1920, 1080, "contain", []), "idea", {

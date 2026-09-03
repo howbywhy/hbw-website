@@ -22,7 +22,7 @@ html.hbw-workspace {
   );
   --hbw-gallery-gap: var(--hbw-space-2);
   --hbw-gallery-tight: 2px;
-  --hbw-gallery-pause: 4.5rem;
+  --hbw-gallery-pause: var(--hbw-space-4);
   --hbw-boundary-gap: 12rem;
   --hbw-stage-gap: var(--hbw-space-4);
   --hbw-peek-thumb: 3.25rem;
@@ -2833,7 +2833,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   }
 
   .hbw-outro.is-next .hbw-outro__preview {
-    height: calc(100% - 0.4rem);
+    height: var(--hbw-mv-field, calc(100% - 0.4rem));
     width: auto;
     max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
     aspect-ratio: var(--hbw-mv-ratio, auto);
@@ -2847,19 +2847,13 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     transform: none;
   }
 
-  .hbw-outro.is-next .hbw-outro__preview.is-narrow {
-    height: 84%;
-  }
-
-  .hbw-outro.is-next .hbw-outro__preview.is-contained {
-    height: 68%;
-  }
-
+  .hbw-outro.is-next .hbw-outro__preview.is-narrow,
+  .hbw-outro.is-next .hbw-outro__preview.is-contained,
   .hbw-outro.is-next .hbw-outro__preview.is-full {
-    height: 100%;
-    width: calc(var(--hbw-stage-w, 100%) * 0.88);
+    height: var(--hbw-mv-field, calc(100% - 0.4rem));
+    width: auto;
     max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
-    aspect-ratio: auto;
+    aspect-ratio: var(--hbw-mv-ratio, auto);
   }
 
   .hbw-outro.is-next .hbw-outro__media {
@@ -2887,21 +2881,39 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 }
 
 @media screen and (min-width: 768px) {
-  .hbw-mv.is-major {
-    height: 100%;
-    width: calc(var(--hbw-stage-w, 100%) * 0.88);
-    max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
-    aspect-ratio: auto;
+  /*
+    Shared-height desktop gallery.
+    One vertical field for every active movement. Width follows --hbw-mv-ratio.
+    Field is the lesser of (viewport minus stage gap) and the height at which a
+    16:9 asset still fits inside the existing 88% stage max-width, so landscapes
+    do not overflow and portraits stay held rather than maxed to the window.
+    Scale classes stay on the movement for metadata and mobile, but they
+    do not change desktop height. Width follows --hbw-mv-ratio.
+  */
+  .hbw-project-view {
+    /* Viewport units only, so inherited --hbw-mv-field does not re-resolve % against nested boxes. */
+    --hbw-mv-field: min(
+      calc(100dvh - var(--hbw-header-h) - var(--hbw-edge) - var(--hbw-stage-gap)),
+      calc((100vw - 2 * var(--hbw-edge)) * 0.88 * 9 / 16)
+    );
   }
 
-  .hbw-mv.is-major.hbw-mv--portrait {
+  .hbw-project-view .hbw-mv,
+  .hbw-project-view .hbw-mv--narrow,
+  .hbw-project-view .hbw-mv--contained,
+  .hbw-project-view .hbw-mv--wide,
+  .hbw-project-view .hbw-mv--full,
+  .hbw-project-view .hbw-mv.is-major,
+  .hbw-project-view .hbw-mv.is-standard,
+  .hbw-project-view .hbw-mv.is-detail {
+    height: var(--hbw-mv-field);
     width: auto;
     max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
-    aspect-ratio: var(--hbw-mv-ratio);
+    aspect-ratio: var(--hbw-mv-ratio, auto);
   }
 
-  .hbw-mv.is-detail {
-    height: 68%;
+  .hbw-project-view .hbw-outro {
+    height: var(--hbw-mv-field);
   }
 
   .hbw-mv.is-tight,
@@ -2910,7 +2922,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   }
 
   .hbw-mv.is-pause {
-    margin-right: var(--hbw-gallery-pause);
+    margin-right: calc(var(--hbw-gallery-pause) - var(--hbw-gallery-gap));
   }
 
   .hbw-mv.is-major.hbw-mv--portrait .hbw-mv__media,

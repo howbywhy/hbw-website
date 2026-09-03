@@ -145,7 +145,7 @@ export const CLOSED_MOVEMENTS: ClosedSeedMovement[] = [
     poster: "public/projects/bar-closed/web/CLOSED-Collage.jpg",
     alt: "Torn-paper collage of cocktail card, potatoes, bar photo, and CLOSED coaster.",
     scale: "standard",
-    pace: "pause",
+    pace: "normal",
     relation: "single",
   },
   {

@@ -47,44 +47,22 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
   }, [load]);
 
   useEffect(() => {
-    const node = videoRef.current;
-    const root = rootRef.current;
-    if (!node || !kept || !src) return;
+    const el = videoRef.current;
+    if (!el || !kept || !src) return;
 
-    function pause() {
-      videoRef.current?.pause();
-    }
+    el.muted = true;
+    el.defaultMuted = true;
+    el.playsInline = true;
+    el.setAttribute("playsinline", "");
+    el.setAttribute("webkit-playsinline", "");
 
-    function tryPlay() {
-      const el = videoRef.current;
-      if (!el) return;
-      el.muted = true;
-      el.defaultMuted = true;
-      el.playsInline = true;
-      el.setAttribute("playsinline", "");
-      el.setAttribute("webkit-playsinline", "");
-      void el.play().catch(() => undefined);
-    }
-
-    if (!wantsAutoplay || !active || !load) {
-      pause();
+    if (!wantsAutoplay || !active) {
+      el.pause();
       return;
     }
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting && (entry.intersectionRatio ?? 0) >= 0.2) tryPlay();
-        else pause();
-      },
-      { threshold: [0, 0.2, 0.5, 1] }
-    );
-    io.observe(root || node);
-    tryPlay();
-    return () => {
-      io.disconnect();
-      pause();
-    };
-  }, [kept, load, src, wantsAutoplay, active]);
+    void el.play().catch(() => undefined);
+  }, [kept, src, wantsAutoplay, active]);
 
   function onError() {
     if (fallbackRef.current) {
@@ -127,8 +105,8 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
           muted={muted}
           loop={loop}
           playsInline
-          autoPlay={eager && wantsAutoplay && active}
-          preload={eager || active ? "auto" : "metadata"}
+          autoPlay={wantsAutoplay && active}
+          preload={wantsAutoplay && active ? "auto" : "metadata"}
           disablePictureInPicture
           controls={false}
           aria-hidden="true"
