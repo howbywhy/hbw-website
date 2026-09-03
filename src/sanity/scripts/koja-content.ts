@@ -18,27 +18,25 @@ export const KOJA_IDENTITY = {
 
 export const KOJA_COPY = {
   context:
-    "KOJA was already an operating food brand — name, products, packaging, and customers in place. The work was a refresh: the identity needed a clearer definition, and a stronger foundation for what came next.",
+    "KOJA was already established, with products in market and an existing identity.\n\nThe question was what the brand needed to become next.\n\nWhat began as a brand refresh became an opportunity to clarify KOJA’s position, consolidate what made the products different and create a stronger foundation for future packaging, communication and growth.",
   roles: [
-    "Brand DNA",
+    "Brand Strategy",
     "Creative Direction",
     "Visual Identity",
     "Packaging",
-    "Print",
-    "Digital Design",
-    "Brand Stewardship",
+    "Brand Guidelines",
   ],
   idea: {
     heading: "The idea",
-    body: "Unapologetically Good. Good food doesn’t need dressing up. It just needs to be good — a stance the identity and packaging could hold without explanation.",
+    body: "Unapologetically Good.\n\nKOJA did not need to behave like another worthy health-food brand.\n\nIts strength was the combination of genuinely better ingredients with products people actually wanted to eat.\n\nThe brand could be healthy without becoming clinical, restrained or apologetic about pleasure.",
   },
   shift: {
     heading: "The shift",
-    body: "The brand already existed. What it needed was not a new name or a new business, but a clearer proposition and a more coherent system — one that could carry the next stage of the range.",
+    body: "The work moved KOJA from a collection of good products and messages toward a clearer proposition that could guide decisions across the brand.\n\nRather than treating the refresh as a cosmetic update, positioning, messaging and identity were brought together so future products could feel like extensions of the same idea.",
   },
   system: {
     heading: "The system",
-    body: "The idea set a direct visual language: a logotype with a slight grin, warm colour that reads as food rather than clinic, ingredient-led illustration, and packaging that repeats across formats. A Brand Bible held the strategy, mark, system, and guidance so later products could stay in the same voice.",
+    body: "The resulting Brand Bible brings story, purpose, positioning, messaging and visual identity into one framework.\n\nThat thinking extends through packaging, typography, colour, imagery and communication, creating a system KOJA can continue using as the product range and business evolve.",
   },
 };
 

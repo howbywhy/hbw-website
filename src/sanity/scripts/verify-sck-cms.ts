@@ -107,8 +107,8 @@ async function main() {
   const movementGaps = compareMovements(SCK_EXPERIENCE.movements, experience.movements, project.movements as SanityMovements);
   const sectionIds = experience.infoSections.map((section) => section.id);
   const headingGaps: Mismatch[] = [];
-  if (sectionIds.join() !== "idea,shift,system,outcome") {
-    headingGaps.push({ id: "info", field: "ids", expected: "idea,shift,system,outcome", actual: sectionIds.join() });
+  if (sectionIds.join() !== "idea,shift,system") {
+    headingGaps.push({ id: "info", field: "ids", expected: "idea,shift,system", actual: sectionIds.join() });
   }
   experience.infoSections.forEach((section, index) => {
     const shippedSection = SCK_EXPERIENCE.infoSections[index];
@@ -125,11 +125,10 @@ async function main() {
     idea: experience.infoSections.find((section) => section.id === "idea")?.copy,
     shift: experience.infoSections.find((section) => section.id === "shift")?.copy,
     system: experience.infoSections.find((section) => section.id === "system")?.copy,
-    outcome: experience.infoSections.find((section) => section.id === "outcome")?.copy,
+    outcome: experience.infoSections.find((section) => section.id === "outcome")?.copy ?? null,
     shippedIdea: SCK_EXPERIENCE.infoSections[0].copy,
     shippedShift: SCK_EXPERIENCE.infoSections[1].copy,
     shippedSystem: SCK_EXPERIENCE.infoSections[2].copy,
-    shippedOutcome: SCK_EXPERIENCE.infoSections[3].copy,
   };
 
   const presentationFail = [...recordGaps, ...movementGaps, ...headingGaps];
@@ -154,11 +153,10 @@ async function main() {
           ideaMatchesApproved: editorial.idea === SCK_COPY.idea.body,
           shiftMatchesApproved: editorial.shift === SCK_COPY.shift.body,
           systemMatchesApproved: editorial.system === SCK_COPY.system.body,
-          outcomeMatchesApproved: editorial.outcome === SCK_COPY.outcome.body,
+          outcomeOmitted: editorial.outcome == null,
           ideaDiffersFromShipped: editorial.idea !== editorial.shippedIdea,
           shiftDiffersFromShipped: editorial.shift !== editorial.shippedShift,
           systemDiffersFromShipped: editorial.system !== editorial.shippedSystem,
-          outcomeDiffersFromShipped: editorial.outcome !== editorial.shippedOutcome,
         },
         presentationParity: presentationFail.length === 0,
       },
@@ -169,6 +167,8 @@ async function main() {
 
   assert.equal(project._id, "project-sck");
   assert.equal(experience.movements.length, 21);
+  assert.equal(project.outcome == null, true);
+  assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);
 }
 

@@ -1,38 +1,45 @@
-/** Live Studio / Manifesto copy. Do not rewrite. */
+/** Practice, Studio, and Manifesto copy. Manifesto is the belief layer — do not duplicate it in Studio. */
 
 export const STUDIO_COPY = {
   opening:
-    "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading. That’s where we work.",
-  role: "Our role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention. We partner with founders and teams at moments of change, when something needs to be understood, aligned, or redefined.",
+    "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading.",
+  work: "That’s where we work.",
+  role: "Our role is to create clarity where there’s noise and shape where there’s ambiguity, so what follows can be built with intention.",
+  partners:
+    "We partner with founders and teams at moments of change, when something needs to be understood, aligned or redefined.",
   glimpse: "Our role is to create clarity where there’s noise and shape where there’s ambiguity.",
-  independent:
-    "How by Why is an independent practice led by Mark Blackler. I work directly with founders and teams to shape how brands are understood, expressed and experienced — from the decisions behind them through to the things people ultimately see and use.",
-  philosophy: [
-    "Every brand begins with a reason, though it’s not always immediately clear. We slow things down to understand what truly matters. Asking considered questions. Listening closely to people, context, and intent.",
-    "Only then do we decide what should be said, shaped, or expressed. We don’t lead with assumptions or aesthetics. We begin with clarity and build through curiosity, collaboration, and care. That clarity creates alignment. And alignment allows brands to move forward with confidence, not just momentum.",
+  independent: [
+    "How by Why is an independent brand and design practice led by Mark Blackler.",
+    "I work directly with founders and teams to understand what’s being built, what needs to change and what the brand needs to do next.",
+    "The brief might begin with a name, an identity, packaging, a website or simply the feeling that something isn’t quite right. We use that as a starting point, then work out what the brand actually needs.",
   ],
-  howIntro:
-    "Our work begins with understanding, not execution. We move at the pace clarity requires — sometimes forward, sometimes back — always with intention.",
+  philosophy: [
+    "Strong brands begin with clarity.",
+    "Before deciding what something should look like, we work to understand what it needs to mean, what it needs to change and what it needs to make possible.",
+  ],
+  howIntro: "Our work begins with understanding.",
+  howTools:
+    "Strategy, identity, naming, storytelling and design are tools rather than a fixed sequence. We use what the problem requires.",
   steps: [
     {
       id: "01",
       title: "Clarify",
-      copy: "We focus on what matters most. Purpose, positioning, audience, and direction are understood before decisions are made. This is about sense-making, not solutions.",
+      copy: "Understand what exists, what’s changing and what actually needs to be solved.",
     },
     {
       id: "02",
       title: "Shape",
-      copy: "With direction clear, we translate it into form. Identity, language, and systems are designed for clarity, consistency, and confident use.",
+      copy: "Find the position, idea or organising principle that gives the brand direction.",
     },
     {
       id: "03",
       title: "Express",
-      copy: "We bring the work into the world thoughtfully. Each expression contributes to a larger whole, building recognition, trust, and memory.",
+      copy: "Turn that thinking into a distinctive identity and the systems it needs to live.",
     },
     {
       id: "04",
       title: "Support",
-      copy: "As brands evolve, we stay close where it’s useful. Offering perspective, guidance, and alignment as things grow or shift.",
+      copy: "Stay involved where useful, helping the brand evolve without losing what made it coherent in the first place.",
     },
   ],
   contact: "If you’re navigating a moment that needs clarity, reach out: mark@hbw.works",

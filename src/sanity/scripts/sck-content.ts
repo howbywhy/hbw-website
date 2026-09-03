@@ -12,29 +12,25 @@ export const SCK_IDENTITY = {
   portfolioOrder: 1,
   editorialPurpose: "Definition / Future",
   contributionNotes:
-    "Brand DNA, creative direction and visual identity. The SCK website was developed independently of HBW’s identity work.",
+    "Brand strategy, creative direction and visual identity. The SCK website was developed independently of HBW’s identity work. SCK’s interest in objects and furniture existed before this work; the identity recognised that ambition rather than creating it. No evidenced Outcome.",
   replacementPriority: 8,
 };
 
 export const SCK_COPY = {
   context:
-    "Existing architecture and interiors practice with a basic identity and no clear positioning, looking to grow and broaden perception while leaving room for ambitions beyond architecture into objects, furniture and product.",
-  roles: ["Brand DNA", "Creative Direction", "Visual Identity"],
+    "Studio Carson Kelly was an established architecture and interiors practice looking to grow, but its existing identity offered little sense of who the studio was or where it wanted to go.\n\nThe immediate request was for a new identity. The more fundamental question was how to define the practice in a way that could accommodate its ambitions beyond architecture and interiors.",
+  roles: ["Brand Strategy", "Creative Direction", "Visual Identity"],
   idea: {
     heading: "The idea",
-    body: "The practice sits at the intersection of people, disciplines, perspectives and outputs. Architecture and interiors connect with objects, furniture, art, culture and the wider creative process.",
+    body: "Intersecting Realities.\n\nSCK operates through connection: between architecture and interiors, people and place, objects and art, material and experience.\n\nRather than defining the studio by a single discipline, the brand was built around the intersections between them.",
   },
   shift: {
     heading: "The shift",
-    body: "The project began as an identity brief, but the more important task was to define a brand broad enough for the practice SCK was becoming. The strategic shift was to stop defining the practice only by discipline and instead articulate the value created when different creative realities meet.",
+    body: "This moved the identity away from representing an architecture practice through the conventions of its category.\n\nInstead, SCK could be understood as a broader creative practice — one capable of moving between disciplines without losing a clear point of view.\n\nThe underscore became a simple expression of that idea: a point of connection capable of joining different people, disciplines and outputs.",
   },
   system: {
     heading: "The system",
-    body: "Intersecting Realities is expressed as connection: an underscore that joins names, ideas, disciplines and outputs. That principle is carried through four architectural ways of seeing — contour, datum, grid and section — which frame, divide and reveal rather than impose a fixed graphic treatment.",
-  },
-  outcome: {
-    heading: "The outcome",
-    body: "The identity is a framework for presenting the practice as it evolves, while leaving each project its own character.",
+    body: "The identity uses that connective principle across language, typography and composition.\n\nThe underscore acts as both punctuation and device, while a restrained visual system gives the studio’s work room to lead.\n\nTogether, these elements create an identity capable of holding architecture and interiors alongside the studio’s wider interests in objects, furniture, lighting, art, materials and culture.",
   },
 };
 

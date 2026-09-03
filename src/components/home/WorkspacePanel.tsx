@@ -59,6 +59,7 @@ function PracticeGlimpse() {
     <div className="hbw-sheet__glimpse">
       <p className="hbw-sheet__lead">Practice</p>
       <p className="hbw-sheet__opening">{STUDIO_COPY.opening}</p>
+      <p>{STUDIO_COPY.work}</p>
       <p>{STUDIO_COPY.glimpse}</p>
       <p className="hbw-sheet__enter">Enter Practice</p>
     </div>
@@ -70,11 +71,15 @@ function StudioBody({ onShowManifesto }: { onShowManifesto: () => void }) {
     <>
       <div className="hbw-sheet__opening-block">
         <p className="hbw-sheet__opening">{STUDIO_COPY.opening}</p>
+        <p>{STUDIO_COPY.work}</p>
         <p>{STUDIO_COPY.role}</p>
+        <p>{STUDIO_COPY.partners}</p>
       </div>
       <section className="hbw-sheet__independent">
         <h2>Independent Practice</h2>
-        <p>{STUDIO_COPY.independent}</p>
+        {STUDIO_COPY.independent.map((paragraph) => (
+          <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+        ))}
       </section>
       <figure className="hbw-sheet__portrait">
         <img
@@ -97,6 +102,7 @@ function StudioBody({ onShowManifesto }: { onShowManifesto: () => void }) {
       <section className="hbw-sheet__how">
         <h2>How We Work</h2>
         <p className="hbw-sheet__how-intro">{STUDIO_COPY.howIntro}</p>
+        <p>{STUDIO_COPY.howTools}</p>
         {STUDIO_COPY.steps.map((step) => (
           <div key={step.id} className="hbw-sheet__step">
             <h2>

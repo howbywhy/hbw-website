@@ -124,14 +124,22 @@ test("infoHint inheritance: first idea, later inherit, explicit changes", () => 
   );
 });
 
-test("invalid outcome hint is rejected", () => {
+test("outcome hint without Outcome is kept on the movement", () => {
   const project = baseProject({
     outcome: undefined,
-    movements: [stillMovement("a", "/tmp/a.jpg", 1080, 1350, { infoHint: "outcome" })],
+    movements: [
+      stillMovement("a", "/tmp/a.jpg", 1080, 1350, { infoHint: "system" }),
+      stillMovement("b", "/tmp/b.jpg", 1080, 1350, { infoHint: "outcome" }),
+    ],
   });
-  assert.throws(
-    () => sanityProjectToFrontendProject(project, EMPTY_CATALOG, TEST_MEDIA),
-    (error: unknown) => error instanceof AdapterError && error.code === "INVALID_OUTCOME_HINT"
+  const result = sanityProjectToFrontendProject(project, EMPTY_CATALOG, TEST_MEDIA);
+  assert.deepEqual(
+    result.experience.movements.map((movement) => movement.infoHint),
+    ["system", "outcome"]
+  );
+  assert.deepEqual(
+    result.experience.infoSections.map((section) => section.id),
+    ["idea", "shift", "system"]
   );
 });
 

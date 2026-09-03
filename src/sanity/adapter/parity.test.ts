@@ -52,7 +52,6 @@ test("SCK parity against shipped experience", () => {
       idea: { heading: "The idea", body: blocks(SCK_EXPERIENCE.infoSections[0].copy) },
       shift: { heading: "The shift", body: blocks(SCK_EXPERIENCE.infoSections[1].copy) },
       system: { heading: "The system", body: blocks(SCK_EXPERIENCE.infoSections[2].copy) },
-      outcome: { heading: "The outcome", body: blocks(SCK_EXPERIENCE.infoSections[3].copy) },
       movements: SCK_EXPERIENCE.movements.map(movementFromShipped),
     }),
     TEST_MEDIA
@@ -61,7 +60,7 @@ test("SCK parity against shipped experience", () => {
   assert.equal(experience.movements.length, 21);
   assert.deepEqual(
     experience.infoSections.map((section) => section.id),
-    ["idea", "shift", "system", "outcome"]
+    ["idea", "shift", "system"]
   );
   const mismatches = compareMovements(SCK_EXPERIENCE.movements, experience.movements);
   assert.deepEqual(mismatches, [], `SCK movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
@@ -76,7 +75,6 @@ test("Chris Sisarich parity against shipped experience", () => {
       idea: { heading: "The idea", body: blocks(SISARICH_EXPERIENCE.infoSections[0].copy) },
       shift: { heading: "The shift", body: blocks(SISARICH_EXPERIENCE.infoSections[1].copy) },
       system: { heading: "The system", body: blocks(SISARICH_EXPERIENCE.infoSections[2].copy) },
-      outcome: { heading: "The outcome", body: blocks(SISARICH_EXPERIENCE.infoSections[3].copy) },
       movements: SISARICH_EXPERIENCE.movements.map(movementFromShipped),
     }),
     TEST_MEDIA
@@ -95,7 +93,6 @@ test("SUB:3 parity against shipped experience", () => {
       idea: { heading: "The idea", body: blocks(SUB3_EXPERIENCE.infoSections[0].copy) },
       shift: { heading: "The shift", body: blocks(SUB3_EXPERIENCE.infoSections[1].copy) },
       system: { heading: "The system", body: blocks(SUB3_EXPERIENCE.infoSections[2].copy) },
-      outcome: { heading: "The outcome", body: blocks(SUB3_EXPERIENCE.infoSections[3].copy) },
       movements: SUB3_EXPERIENCE.movements.map(movementFromShipped),
     }),
     TEST_MEDIA
@@ -115,7 +112,6 @@ test("Our Boy Roy parity against shipped experience", () => {
       idea: { heading: "The idea", body: blocks(OBR_EXPERIENCE.infoSections[0].copy) },
       shift: { heading: "The shift", body: blocks(OBR_EXPERIENCE.infoSections[1].copy) },
       system: { heading: "The system", body: blocks(OBR_EXPERIENCE.infoSections[2].copy) },
-      outcome: { heading: "The outcome", body: blocks(OBR_EXPERIENCE.infoSections[3].copy) },
       movements: OBR_EXPERIENCE.movements.map(movementFromShipped),
     }),
     TEST_MEDIA

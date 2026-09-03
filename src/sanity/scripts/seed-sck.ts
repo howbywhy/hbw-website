@@ -6,6 +6,7 @@
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
+import { portableBlocks } from "./portable-blocks";
 import { SCK_COPY, SCK_DOCUMENT_ID, SCK_IDENTITY, SCK_MOVEMENTS } from "./sck-content";
 
 const client = getCliClient({
@@ -13,16 +14,6 @@ const client = getCliClient({
   projectId: "aagd1kcy",
   dataset: "production",
 }).withConfig({ timeout: 300000 });
-
-function block(key: string, text: string) {
-  return {
-    _type: "block",
-    _key: key,
-    style: "normal",
-    markDefs: [],
-    children: [{ _type: "span", _key: `${key}s`, text, marks: [] }],
-  };
-}
 
 function imageRef(id: string) {
   return { _type: "image", asset: { _type: "reference", _ref: id } };
@@ -110,16 +101,11 @@ async function main() {
     disciplines: SCK_IDENTITY.disciplines,
     portfolioOrder: SCK_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", SCK_COPY.context)],
+    context: portableBlocks("ctx", SCK_COPY.context),
     roles: SCK_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: SCK_COPY.idea.heading, body: [block("idea", SCK_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: SCK_COPY.shift.heading, body: [block("shift", SCK_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: SCK_COPY.system.heading, body: [block("sys", SCK_COPY.system.body)] },
-    outcome: {
-      _type: "caseStudyBlock",
-      heading: SCK_COPY.outcome.heading,
-      body: [block("out", SCK_COPY.outcome.body)],
-    },
+    idea: { _type: "caseStudyBlock", heading: SCK_COPY.idea.heading, body: portableBlocks("idea", SCK_COPY.idea.body) },
+    shift: { _type: "caseStudyBlock", heading: SCK_COPY.shift.heading, body: portableBlocks("shift", SCK_COPY.shift.body) },
+    system: { _type: "caseStudyBlock", heading: SCK_COPY.system.heading, body: portableBlocks("sys", SCK_COPY.system.body) },
     movements,
     editorialPurpose: SCK_IDENTITY.editorialPurpose,
     contributionNotes: SCK_IDENTITY.contributionNotes,
@@ -127,7 +113,7 @@ async function main() {
   };
 
   await client.createOrReplace(document);
-  console.log(`wrote ${SCK_DOCUMENT_ID} with ${movements.length} movements`);
+  console.log(`wrote ${SCK_DOCUMENT_ID} with ${movements.length} movements and no Outcome`);
 }
 
 main().catch((error) => {

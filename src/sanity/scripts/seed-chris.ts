@@ -6,6 +6,7 @@
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
+import { portableBlocks } from "./portable-blocks";
 import { CHRIS_COPY, CHRIS_DOCUMENT_ID, CHRIS_IDENTITY, CHRIS_MOVEMENTS } from "./chris-content";
 
 const client = getCliClient({
@@ -13,16 +14,6 @@ const client = getCliClient({
   projectId: "aagd1kcy",
   dataset: "production",
 }).withConfig({ timeout: 300000 });
-
-function block(key: string, text: string) {
-  return {
-    _type: "block",
-    _key: key,
-    style: "normal",
-    markDefs: [],
-    children: [{ _type: "span", _key: `${key}s`, text, marks: [] }],
-  };
-}
 
 function imageRef(id: string) {
   return { _type: "image", asset: { _type: "reference", _ref: id } };
@@ -123,11 +114,11 @@ async function main() {
     disciplines: CHRIS_IDENTITY.disciplines,
     portfolioOrder: CHRIS_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", CHRIS_COPY.context)],
+    context: portableBlocks("ctx", CHRIS_COPY.context),
     roles: CHRIS_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: CHRIS_COPY.idea.heading, body: [block("idea", CHRIS_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: CHRIS_COPY.shift.heading, body: [block("shift", CHRIS_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: CHRIS_COPY.system.heading, body: [block("sys", CHRIS_COPY.system.body)] },
+    idea: { _type: "caseStudyBlock", heading: CHRIS_COPY.idea.heading, body: portableBlocks("idea", CHRIS_COPY.idea.body) },
+    shift: { _type: "caseStudyBlock", heading: CHRIS_COPY.shift.heading, body: portableBlocks("shift", CHRIS_COPY.shift.body) },
+    system: { _type: "caseStudyBlock", heading: CHRIS_COPY.system.heading, body: portableBlocks("sys", CHRIS_COPY.system.body) },
     movements,
     editorialPurpose: CHRIS_IDENTITY.editorialPurpose,
     contributionNotes: CHRIS_IDENTITY.contributionNotes,

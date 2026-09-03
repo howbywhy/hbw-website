@@ -6,6 +6,7 @@
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
+import { portableBlocks } from "./portable-blocks";
 import { KOJA_COPY, KOJA_DOCUMENT_ID, KOJA_IDENTITY, KOJA_MOVEMENTS } from "./koja-content";
 
 const client = getCliClient({
@@ -13,16 +14,6 @@ const client = getCliClient({
   projectId: "aagd1kcy",
   dataset: "production",
 }).withConfig({ timeout: 300000 });
-
-function block(key: string, text: string) {
-  return {
-    _type: "block",
-    _key: key,
-    style: "normal",
-    markDefs: [],
-    children: [{ _type: "span", _key: `${key}s`, text, marks: [] }],
-  };
-}
 
 function imageRef(id: string) {
   return { _type: "image", asset: { _type: "reference", _ref: id } };
@@ -114,11 +105,11 @@ async function main() {
     disciplines: KOJA_IDENTITY.disciplines,
     portfolioOrder: KOJA_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", KOJA_COPY.context)],
+    context: portableBlocks("ctx", KOJA_COPY.context),
     roles: KOJA_COPY.roles,
-    idea: { _type: "caseStudyBlock", heading: KOJA_COPY.idea.heading, body: [block("idea", KOJA_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: KOJA_COPY.shift.heading, body: [block("shift", KOJA_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: KOJA_COPY.system.heading, body: [block("sys", KOJA_COPY.system.body)] },
+    idea: { _type: "caseStudyBlock", heading: KOJA_COPY.idea.heading, body: portableBlocks("idea", KOJA_COPY.idea.body) },
+    shift: { _type: "caseStudyBlock", heading: KOJA_COPY.shift.heading, body: portableBlocks("shift", KOJA_COPY.shift.body) },
+    system: { _type: "caseStudyBlock", heading: KOJA_COPY.system.heading, body: portableBlocks("sys", KOJA_COPY.system.body) },
     movements,
     editorialPurpose: KOJA_IDENTITY.editorialPurpose,
     contributionNotes: KOJA_IDENTITY.contributionNotes,

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { factualBlocks } from "./factual";
 import {
+  infoHintForIndex,
   infoSectionHasCopy,
   infoSectionPlainCopy,
   stringToRichText,
@@ -171,4 +172,30 @@ test("structured body preserves emphasis, strong, and links", () => {
   assert.equal(infoSectionPlainCopy(section), "Linked emphasis");
   assert.deepEqual(section.body?.[0].spans[0].marks, ["em", "strong"]);
   assert.equal(section.body?.[0].spans[0].href, "https://example.com");
+});
+
+test("infoHint falls back when the chapter is absent", () => {
+  const hinted = experience({
+    infoSections: [
+      { id: "idea", heading: "The idea", copy: "Idea." },
+      { id: "shift", heading: "The shift", copy: "Shift." },
+      { id: "system", heading: "The system", copy: "System." },
+    ],
+    movements: [
+      {
+        id: "a",
+        kind: "landscape",
+        infoHint: "system",
+        media: { type: "image", src: "/a.jpg", width: 100, height: 80, fit: "contain" },
+      },
+      {
+        id: "b",
+        kind: "landscape",
+        infoHint: "outcome",
+        media: { type: "image", src: "/b.jpg", width: 100, height: 80, fit: "contain" },
+      },
+    ],
+  });
+  assert.equal(infoHintForIndex(hinted, 0), "system");
+  assert.equal(infoHintForIndex(hinted, 1), "system");
 });

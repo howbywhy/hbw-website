@@ -336,7 +336,7 @@ test("CLOSED + sanity flag + missing document falls back to local", async () => 
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, CLOSED_EXPERIENCE);
   assert.equal(resolved.experience?.movements.length, 9);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
 test("CLOSED + sanity flag + fetch exception falls back to local", async () => {
@@ -396,7 +396,7 @@ test("KOJA + local flag uses shipped experience and does not fetch", async () =>
   assert.equal(resolved.experience, KOJA_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "koja");
   assert.equal(resolved.experience?.movements.length, 8);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
 
@@ -414,7 +414,7 @@ test("KOJA + sanity flag + healthy CMS uses published experience", async () => {
   assert.equal(resolved.experience?.slug, "koja");
   assert.equal(resolved.experience?.movements.length, 8);
   assert.equal(resolved.experience?.context, KOJA_COPY.context);
-  assert.ok(resolved.experience?.authorship?.roles.includes("Brand Stewardship"));
+  assert.ok(resolved.experience?.authorship?.roles.includes("Brand Guidelines"));
   assert.equal(
     resolved.experience?.infoSections.some((section) => section.id === "outcome"),
     false
@@ -437,7 +437,7 @@ test("KOJA + sanity flag + missing document falls back to local", async () => {
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, KOJA_EXPERIENCE);
   assert.equal(resolved.experience?.movements.length, 8);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
 test("KOJA + sanity flag + fetch exception falls back to local", async () => {
@@ -497,7 +497,7 @@ test("Chris + local flag uses shipped experience and does not fetch", async () =
   assert.equal(resolved.experience, SISARICH_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "chris-sisarich");
   assert.equal(resolved.experience?.movements.length, 8);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
 
@@ -536,7 +536,7 @@ test("Chris + sanity flag + missing document falls back to local", async () => {
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SISARICH_EXPERIENCE);
   assert.equal(resolved.experience?.movements.length, 8);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
 test("Chris + sanity flag + fetch exception falls back to local", async () => {
@@ -596,7 +596,7 @@ test("SUB:3 + local flag uses shipped experience and does not fetch", async () =
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "sub-3");
   assert.equal(resolved.experience?.movements.length, 12);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
 
@@ -641,7 +641,7 @@ test("SUB:3 + sanity flag + missing document falls back to local", async () => {
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
   assert.equal(resolved.experience?.movements.length, 12);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
 test("SUB:3 + sanity flag + fetch exception falls back to local", async () => {
@@ -701,7 +701,7 @@ test("OBR + local flag uses shipped experience and does not fetch", async () => 
   assert.equal(resolved.experience, OBR_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "our-boy-roy");
   assert.equal(resolved.experience?.movements.length, 7);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   const o02 = resolved.experience?.movements.find((movement) => movement.id === "o02");
   assert.equal(o02?.media.srcSet, undefined);
   assert.equal(
@@ -760,7 +760,7 @@ test("OBR + sanity flag + missing document falls back to local", async () => {
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, OBR_EXPERIENCE);
   assert.equal(resolved.experience?.movements.length, 7);
-  assert.ok(resolved.experience?.infoSections.some((section) => section.id === "outcome"));
+  assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
 test("OBR + sanity flag + fetch exception falls back to local", async () => {

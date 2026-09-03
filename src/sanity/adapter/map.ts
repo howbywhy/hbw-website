@@ -39,16 +39,9 @@ function deriveKind(movement: SanityMovement, width: number, height: number): Mo
 }
 
 function resolveInfoHints(project: SanityProject): InfoSectionId[] {
-  const hasOutcome = Boolean(project.outcome);
   let current: InfoSectionId = "idea";
   return project.movements.map((movement, index) => {
     const explicit = movement.infoHint;
-    if (explicit === "outcome" && !hasOutcome) {
-      throw new AdapterError(
-        "INVALID_OUTCOME_HINT",
-        `Movement ${movement._key} starts an Outcome chapter, but this project has no Outcome.`
-      );
-    }
     if (explicit) {
       current = explicit;
       return current;

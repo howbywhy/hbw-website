@@ -12,25 +12,25 @@ export const CHRIS_IDENTITY = {
   portfolioOrder: 5,
   editorialPurpose: "Restraint",
   contributionNotes:
-    "Mark delivered Brand DNA, creative direction, visual identity, website, and the portfolio/presentation system. An earlier smaller identity for Bas & Chris preceded this commission; that history is not public case-study copy. During development Chris asked for something more visual; the useful decision was to keep the identity from competing with the photographs. No collaborators. No Working Context required.",
+    "Brand strategy, creative direction, visual identity and digital design, including the website and portfolio/presentation system. An earlier smaller identity for Bas & Chris preceded this commission; that history is not public case-study copy. During development Chris asked for something more visual; the useful decision was to keep the identity from competing with the photographs. No collaborators. No Working Context required. No Outcome.",
   replacementPriority: 5,
 };
 
 export const CHRIS_COPY = {
   context:
-    "Chris already had a distinctive photographic practice. The work had character. The task was to give that practice a recognisable identity without creating another visual subject beside the photographs.",
-  roles: ["Brand DNA", "Creative Direction", "Visual Identity", "Website"],
+    "Photographer Chris Sisarich needed an identity that could give his practice a distinctive presence without competing with the thing people were there to see: the photography.\n\nThe challenge was therefore not how much identity could be added, but how little was needed to make the work feel recognisably his.",
+  roles: ["Brand Strategy", "Creative Direction", "Visual Identity", "Digital Design"],
   idea: {
     heading: "The idea",
-    body: "Beauty Amongst The Mundane. The photographs find character in ordinary and overlooked moments. The identity had to share that sensitivity: notice what is already there, and not add meaning the work did not already hold.",
+    body: "Beauty Amongst The Mundane.\n\nChris’s work finds something compelling in moments, places and subjects that might otherwise be overlooked.\n\nThe identity takes the same position: finding character through restraint rather than spectacle.",
   },
   shift: {
     heading: "The shift",
-    body: "The temptation was to give the identity more presence. The photography already supplied the expression. The stronger decision was to make the identity a way of looking at the work, rather than another layer over it.",
+    body: "Instead of building a conventional photographer identity around a prominent logo or repeated graphic device, the system deliberately recedes.\n\nThat restraint allows the photography to remain the main attraction while the identity creates enough intrigue, personality and consistency to frame it.",
   },
   system: {
     heading: "The system",
-    body: "That decision produced navigation rather than a conventional logo-led identity. Type and hierarchy name and order. Layouts frame. The website lets images rearrange and filter so the photographs stay the subject. A presentation format carries the same behaviour onto the page.",
+    body: "A navigation-led identity uses typography, structure and subtle interruption to create recognition without overwhelming the work.\n\nThe approach extends through the website, portfolio case and presentation material, giving Chris a consistent framework while allowing different bodies of photography to retain their own character.",
   },
 };
 

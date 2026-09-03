@@ -6,6 +6,7 @@
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
+import { portableBlocks } from "./portable-blocks";
 import {
   CLOSED_COPY,
   CLOSED_DOCUMENT_ID,
@@ -18,16 +19,6 @@ const client = getCliClient({
   projectId: "aagd1kcy",
   dataset: "production",
 }).withConfig({ timeout: 300000 });
-
-function block(key: string, text: string) {
-  return {
-    _type: "block",
-    _key: key,
-    style: "normal",
-    markDefs: [],
-    children: [{ _type: "span", _key: `${key}s`, text, marks: [] }],
-  };
-}
 
 function imageRef(id: string) {
   return { _type: "image", asset: { _type: "reference", _ref: id } };
@@ -116,7 +107,7 @@ async function main() {
     disciplines: CLOSED_IDENTITY.disciplines,
     portfolioOrder: CLOSED_IDENTITY.portfolioOrder,
     preview: imageRef(previewId),
-    context: [block("ctx", CLOSED_COPY.context)],
+    context: portableBlocks("ctx", CLOSED_COPY.context),
     roles: CLOSED_COPY.roles,
     workingContext: CLOSED_COPY.workingContext,
     collaborators: CLOSED_COPY.collaborators.map((item, index) => ({
@@ -125,9 +116,9 @@ async function main() {
       name: item.name,
       contribution: item.contribution,
     })),
-    idea: { _type: "caseStudyBlock", heading: CLOSED_COPY.idea.heading, body: [block("idea", CLOSED_COPY.idea.body)] },
-    shift: { _type: "caseStudyBlock", heading: CLOSED_COPY.shift.heading, body: [block("shift", CLOSED_COPY.shift.body)] },
-    system: { _type: "caseStudyBlock", heading: CLOSED_COPY.system.heading, body: [block("sys", CLOSED_COPY.system.body)] },
+    idea: { _type: "caseStudyBlock", heading: CLOSED_COPY.idea.heading, body: portableBlocks("idea", CLOSED_COPY.idea.body) },
+    shift: { _type: "caseStudyBlock", heading: CLOSED_COPY.shift.heading, body: portableBlocks("shift", CLOSED_COPY.shift.body) },
+    system: { _type: "caseStudyBlock", heading: CLOSED_COPY.system.heading, body: portableBlocks("sys", CLOSED_COPY.system.body) },
     movements,
     editorialPurpose: CLOSED_IDENTITY.editorialPurpose,
     contributionNotes: CLOSED_IDENTITY.contributionNotes,

@@ -14,6 +14,7 @@ export const PROJECT_ROLES = [
   "Signage & Wayfinding",
   "Photography Direction",
   "Print",
+  "Brand Guidelines",
   "Brand Stewardship",
 ] as const;
 

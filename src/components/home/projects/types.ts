@@ -154,7 +154,8 @@ export function movementPace(movement: Movement): MovementPace {
 
 export function infoHintForIndex(experience: ProjectExperience, index: number): InfoSectionId {
   const movement = experience.movements[Math.min(Math.max(0, index), experience.movements.length - 1)];
-  if (movement) return movement.infoHint;
+  const hint = movement?.infoHint;
+  if (hint && experience.infoSections.some((section) => section.id === hint)) return hint;
   const last = experience.infoSections[experience.infoSections.length - 1];
   return last?.id ?? "idea";
 }

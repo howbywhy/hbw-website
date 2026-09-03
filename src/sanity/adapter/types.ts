@@ -196,7 +196,6 @@ export type FrontendProject = {
 };
 
 export type AdapterCode =
-  | "INVALID_OUTCOME_HINT"
   | "TERMINAL_PAIR"
   | "MISSING_FIELD"
   | "MISSING_MEDIA"

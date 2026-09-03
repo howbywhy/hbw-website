@@ -20,39 +20,38 @@ export const CLOSED_IDENTITY = {
   portfolioOrder: 4,
   editorialPurpose: "Idea / Experience",
   contributionNotes:
-    "Brand DNA, naming contribution, creative direction, visual identity, photography shot list and direction, exterior and interior signage, menus, print, and some digital including the website. Architects were already engaged. HBW did not design the interior.",
+    "Brand strategy, creative direction, visual identity, signage, print and digital design. CLOSED emerged from the concept process and was subsequently adopted — it was not a naming commission. Patternshop (Rebecca Whan + Afifa Intanjudin) did the interior and architecture. Stanley House Studio photographed. Jordan Lucky / Playstate painted the mural. Developed while working with The Colour Club. HBW did not design the interior or architecture. No Outcome.",
   replacementPriority: 7,
 };
 
 export const CLOSED_COPY = {
   context:
-    "A new Newcastle bar. The founders had a venue and architects already engaged, but no name, no concept, and no plan beyond a request for a logo and brand.",
+    "CLOSED began as a new bar in Newcastle.\n\nThe venue and architects were already in place, but there was no name, concept or broader idea connecting what the place could become.\n\nThe initial conversation was about creating a brand. The work revealed that the venue first needed something more fundamental: an idea people could build around.",
   roles: [
-    "Brand DNA",
-    "Naming",
+    "Brand Strategy",
     "Creative Direction",
     "Visual Identity",
     "Signage & Wayfinding",
-    "Photography Direction",
     "Print",
-    "Website",
+    "Digital Design",
   ],
-  workingContext: "Architectural design was already underway when HBW joined the project.",
+  workingContext: "Developed while working with The Colour Club.",
   collaborators: [
     { name: "Jordan Lucky / Playstate", contribution: "Mural" },
+    { name: "Rebecca Whan + Afifa Intanjudin / Patternshop", contribution: "Interior & Architecture" },
     { name: "Stanley House Studio", contribution: "Photography" },
   ],
   idea: {
     heading: "The idea",
-    body: "A Smuggler’s House. The idea drew Newcastle’s steel and dockside history into an elusive gathering place — found objects, in-the-know belonging, and a room that felt closed until you were inside it.",
+    body: "A Smuggler’s House.\n\nNewcastle’s history of steelworks, docks, the sea and old trade routes became the starting point for an imagined house filled with things accumulated from elsewhere.\n\nCLOSED emerged during that process.\n\nWhat began as an example of how the concept might be expressed became the name of the venue itself.",
   },
   shift: {
     heading: "The shift",
-    body: "The request was for a logo and brand. What the venue needed first was a central idea capable of organising both identity and experience. The name CLOSED appeared during that strategic work, not as a commissioned naming brief.",
+    body: "Instead of designing an identity and then applying it to a bar, the central idea gave the venue a world to inhabit.\n\nCLOSED could be elusive, welcoming and slightly illicit at once — a place that felt discovered rather than announced.\n\nThe identity became one part of a larger experience rather than the thing expected to carry all of its meaning.",
   },
   system: {
     heading: "The system",
-    body: "The idea set the language: punk cut-out menus — Raw, Rotten, Loud — torn-edge print, exterior and interior signage, photography direction, and digital. Brand expression moved into the venue through those touchpoints; it did not design the interior.",
+    body: "The world of A Smuggler’s House extends through the identity, cut-out menus, Raw / Rotten / Loud language, signage, photography direction, print, digital applications and details within the physical venue.\n\nEach expression feels like another object, message or fragment belonging to the same place, allowing the idea to remain coherent without requiring every application to look the same.",
   },
 };
 

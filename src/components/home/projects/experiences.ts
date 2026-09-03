@@ -1,12 +1,19 @@
 import {
   infoSectionPlainCopy,
+  stringToRichText,
+  type ExperienceAuthorship,
   type InfoSection,
   type Movement,
   type ProjectExperience,
   type ProjectMedia,
 } from "@/components/home/projects/types";
 import { srcSetFor } from "@/components/home/catalog";
-import { SUB3_INFO } from "@/components/home/sub3-info";
+import { CHRIS_COPY } from "@/sanity/scripts/chris-content";
+import { CLOSED_COPY } from "@/sanity/scripts/closed-content";
+import { KOJA_COPY } from "@/sanity/scripts/koja-content";
+import { OBR_COPY } from "@/sanity/scripts/obr-content";
+import { SCK_COPY } from "@/sanity/scripts/sck-content";
+import { SUB3_COPY } from "@/sanity/scripts/sub3-content";
 
 function variantsFor(width: number) {
   if (width > 1920) return [500, 800, 1080, 1600];
@@ -89,97 +96,36 @@ function mv(
   return { id, kind, media: alt ? { ...media, alt } : media, infoHint, ...rest };
 }
 
-const KOJA_INFO: InfoSection[] = [
-  {
-    id: "idea",
-    heading: "The idea",
-    copy: "KOJA exists to make healthy simple. Built on real ingredients and straight-talking values, the brand cuts through the noise of the category with clarity and confidence. At its core is Unapologetically Good, a belief that good food doesn’t need dressing up, it just needs to be good.",
-  },
-  {
-    id: "shift",
-    heading: "The shift",
-    copy: "The health snack category often overcomplicates what should be simple. Long ingredient lists, layered claims, and careful language create distance between the product and the person. The opportunity was to strip it back. To say less, but mean more. The shift came in removing the need to justify. If it’s good, it’s good.",
-  },
-  {
-    id: "system",
-    heading: "The system",
-    copy: "The identity brings Unapologetically Good to life through clarity and character. A bold, confident logotype leads the system, designed to feel instantly recognisable and full of personality, with a subtle grin. A warm, approachable palette signals health without feeling clinical, while hand-drawn assets and ingredient-led illustrations introduce a human touch. Typography moves between strong and expressive, creating a system that feels direct, energetic, and easy to connect with.",
-  },
-  {
-    id: "outcome",
-    heading: "The outcome",
-    copy: "KOJA shifts from a functional product to a brand with presence and personality. It stands clearly on shelf, communicates with confidence, and connects through simplicity rather than explanation. By owning what it is, KOJA becomes a brand that feels as good as it tastes, now stocked nationwide.",
-  },
-];
+type CaseStudyCopy = {
+  context: string;
+  roles: readonly string[];
+  workingContext?: string;
+  collaborators?: ExperienceAuthorship["collaborators"];
+  idea: { heading: string; body: string };
+  shift: { heading: string; body: string };
+  system: { heading: string; body: string };
+};
 
-const CLOSED_INFO: InfoSection[] = [
-  {
-    id: "idea",
-    heading: "The idea",
-    copy: "CLOSED is built on the idea of A Smuggler’s House — a space shaped by secrecy, intimacy, and belonging. The name reflects this directly. What appears closed becomes an invitation, revealing a place where privacy meets connection, and hidden moments are shared.",
-  },
-  {
-    id: "shift",
-    heading: "The shift",
-    copy: "Hospitality often competes on visibility — louder spaces, open façades, constant exposure. The opportunity was to move differently. More considered, more intimate, more intentional. The shift came in reframing the experience. Not a place to be seen, but a place to feel part of something. Secrecy becomes the draw, not the barrier.",
-  },
-  {
-    id: "system",
-    heading: "The system",
-    copy: "The identity is shaped by the tension between secrecy and elegance. The brand lives within a poetic structure, where “In the shadows of the night where CLOSED doors open” carries both meaning and form. Torn edges, layered compositions, and contrasting materials create a sense of fragmentation and discovery. Typography, imagery, and layout work together to reveal and conceal in equal measure, building a system that feels intimate, expressive, and deliberately unresolved.",
-  },
-  {
-    id: "outcome",
-    heading: "The outcome",
-    copy: "CLOSED becomes more than a venue. It becomes a place you find, not one that finds you. By embedding meaning into every detail, the brand creates a sense of intrigue, warmth, and belonging — where secrecy meets elegance, and experience feels personal.",
-  },
-];
+function section(id: InfoSection["id"], block: { heading: string; body: string }): InfoSection {
+  return {
+    id,
+    heading: block.heading,
+    copy: block.body,
+    body: stringToRichText(block.body),
+  };
+}
 
-const OBR_INFO: InfoSection[] = [
-  {
-    id: "idea",
-    heading: "The idea",
-    copy: "Some places feel familiar before you’ve even been. Our Boy Roy is built on that feeling. A neighbourhood spot shaped by warmth, personality, and ease. At its core is Our Boy, a character that holds it all together. Not a figure, but a reflection. Of people, of place, of the everyday moments that make somewhere worth returning to.",
-  },
-  {
-    id: "shift",
-    heading: "The shift",
-    copy: "Cafés often follow culture. Trends, finishes, moments of polish. The result can feel considered, but distant. The opportunity was to move closer. To create something that feels lived in, not designed. The shift came in building a brand that feels human. Familiar, open, and easy to step into.",
-  },
-  {
-    id: "system",
-    heading: "The system",
-    copy: "Roy becomes both character and structure. A simple figure that adapts, with interchangeable hats and hairstyles reflecting the breadth of the offering. His trousers extend into pattern, forming a visual language that moves across menus, packaging, and space. Typography is bold and friendly, softened with moments of charm. The system is flexible, expressive, and grounded. Designed to feel effortless, but full of intent.",
-  },
-  {
-    id: "outcome",
-    heading: "The outcome",
-    copy: "Our Boy Roy settles into its surroundings with ease. Not trying to stand out, but impossible to miss. It becomes part of the neighbourhood rhythm. Familiar, welcoming, and full of character. A place you return to without thinking, and remember without trying.",
-  },
-];
+function infoFromCopy(copy: CaseStudyCopy): InfoSection[] {
+  return [section("idea", copy.idea), section("shift", copy.shift), section("system", copy.system)];
+}
 
-const SISARICH_INFO: InfoSection[] = [
-  {
-    id: "idea",
-    heading: "The idea",
-    copy: "What we see is shaped by how we choose to look. Chris Sisarich is built on Beauty Amongst The Mundane, a way of noticing what’s already there. The everyday, often overlooked, observed with intent and sensitivity. It’s not about adding meaning, but revealing it. A shift in perspective that turns quiet moments into something worth holding onto.",
-  },
-  {
-    id: "shift",
-    heading: "The shift",
-    copy: "Photography portfolios often lead with credentials. Clients, awards, recognition. The work becomes secondary. The opportunity was to reverse that. To remove the noise and let the images carry the weight. The shift came in stepping back, creating space for the viewer to find their own way in.",
-  },
-  {
-    id: "system",
-    heading: "The system",
-    copy: "The identity is deliberately restrained. A quiet framework that allows the work to lead. Typography is confident but considered. The palette is reduced to hold focus. Layouts guide rather than dictate, creating a sense of movement and discovery. The system behaves more like navigation than structure, directing attention without controlling it.",
-  },
-  {
-    id: "outcome",
-    heading: "The outcome",
-    copy: "Chris Sisarich is positioned through perspective, not presentation. The work speaks first. The identity supports. What remains is a body of work that invites you in, and stays with you.",
-  },
-];
+function authorshipFromCopy(copy: CaseStudyCopy): ExperienceAuthorship {
+  return {
+    roles: [...copy.roles],
+    ...(copy.workingContext ? { workingContext: copy.workingContext } : {}),
+    ...(copy.collaborators?.length ? { collaborators: copy.collaborators } : {}),
+  };
+}
 
 const NIDO_INFO: InfoSection[] = [
   {
@@ -204,32 +150,11 @@ const NIDO_INFO: InfoSection[] = [
   },
 ];
 
-const SCK_INFO: InfoSection[] = [
-  {
-    id: "idea",
-    heading: "The idea",
-    copy: "Studio Carson Kelly believes the most meaningful spaces emerge where different realities meet. Intersecting Realities brings architecture and interiors together with people, place, art and culture. Rather than treating these as separate inputs, the practice layers them into environments that strengthen spatial interactions and enrich everyday experience.",
-  },
-  {
-    id: "shift",
-    heading: "The shift",
-    copy: "Formerly Klaus Carson Studio, the practice had evolved beyond an identity centred on one name. The transition to Studio Carson Kelly needed to recognise a shared practice while retaining the credibility already established. The opportunity was to express a studio that is precise and experienced, but also personal, approachable and open to different influences.",
-  },
-  {
-    id: "system",
-    heading: "The system",
-    copy: "The identity is built from four architectural ways of seeing: contour, datum, grid and section. These principles frame, divide and reveal imagery and information, creating a flexible system rather than a fixed graphic treatment. A precise S.C.K monogram anchors the identity, supported by restrained typography and a material palette drawn from plaster, lime, stone, clay and slate. Custom motion behaviours extend the same principles into movement.",
-  },
-  {
-    id: "outcome",
-    heading: "The outcome",
-    copy: "The identity gives SCK a clear framework for presenting its evolving practice. It balances architectural rigour with warmth and individuality, while allowing each project to retain its own character. Across imagery, documentation, digital applications and motion, the system creates a recognisable relationship between the studio’s people, thinking and work.",
-  },
-];
-
 export const SUB3_EXPERIENCE: ProjectExperience = {
   slug: "sub-3",
-  infoSections: SUB3_INFO.sections,
+  infoSections: infoFromCopy(SUB3_COPY),
+  context: SUB3_COPY.context,
+  authorship: authorshipFromCopy(SUB3_COPY),
   movements: [
     mv("s301", "portrait", jpg("/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", 1200, 1500), "idea", {
       scale: "standard",
@@ -320,7 +245,9 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
 
 export const KOJA_EXPERIENCE: ProjectExperience = {
   slug: "koja",
-  infoSections: KOJA_INFO,
+  infoSections: infoFromCopy(KOJA_COPY),
+  context: KOJA_COPY.context,
+  authorship: authorshipFromCopy(KOJA_COPY),
   movements: [
     mv("k01", "portrait", jpg("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", 1080, 1350), "idea", {
       scale: "standard",
@@ -381,7 +308,9 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
 
 export const CLOSED_EXPERIENCE: ProjectExperience = {
   slug: "bar-closed",
-  infoSections: CLOSED_INFO,
+  infoSections: infoFromCopy(CLOSED_COPY),
+  context: CLOSED_COPY.context,
+  authorship: authorshipFromCopy(CLOSED_COPY),
   movements: [
     mv("c01", "portrait", jpg("/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", 1080, 1350), "idea", {
       scale: "standard",
@@ -433,7 +362,9 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
 
 export const OBR_EXPERIENCE: ProjectExperience = {
   slug: "our-boy-roy",
-  infoSections: OBR_INFO,
+  infoSections: infoFromCopy(OBR_COPY),
+  context: OBR_COPY.context,
+  authorship: authorshipFromCopy(OBR_COPY),
   movements: [
     mv("o01", "portrait", jpg("/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg", 1080, 1350), "idea", {
       scale: "standard",
@@ -470,7 +401,9 @@ export const OBR_EXPERIENCE: ProjectExperience = {
 
 export const SISARICH_EXPERIENCE: ProjectExperience = {
   slug: "chris-sisarich",
-  infoSections: SISARICH_INFO,
+  infoSections: infoFromCopy(CHRIS_COPY),
+  context: CHRIS_COPY.context,
+  authorship: authorshipFromCopy(CHRIS_COPY),
   movements: [
     mv("s01", "portrait", jpg("/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg", 1080, 1350), "idea", {
       scale: "standard",
@@ -563,7 +496,9 @@ export const NIDO_EXPERIENCE: ProjectExperience = {
 
 export const SCK_EXPERIENCE: ProjectExperience = {
   slug: "sck",
-  infoSections: SCK_INFO,
+  infoSections: infoFromCopy(SCK_COPY),
+  context: SCK_COPY.context,
+  authorship: authorshipFromCopy(SCK_COPY),
   movements: [
     mv("sk01", "portrait", jpg("/projects/sck/1.jpg", 1080, 1350, "contain", []), "idea", {
       scale: "major",

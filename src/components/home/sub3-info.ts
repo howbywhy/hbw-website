@@ -1,27 +1,28 @@
+import { SUB3_COPY, SUB3_IDENTITY } from "@/sanity/scripts/sub3-content";
+import { stringToRichText } from "@/components/home/projects/types";
+
 export const SUB3_INFO = {
-  name: "SUB:3",
-  positioning: "Bending Time & Space",
-  year: "2025",
+  name: SUB3_IDENTITY.title,
+  positioning: SUB3_IDENTITY.proposition,
+  year: SUB3_IDENTITY.year,
   sections: [
     {
       id: "idea" as const,
-      heading: "The idea",
-      copy: "Named after the holy grail of marathon running, breaking the three-hour mark, SUB:3 is built on discipline, obsession, and the pursuit of possibility. At its core is the notion of Bending Time & Space, where time stretches, compresses, and distorts through effort.",
+      heading: SUB3_COPY.idea.heading,
+      copy: SUB3_COPY.idea.body,
+      body: stringToRichText(SUB3_COPY.idea.body),
     },
     {
       id: "shift" as const,
-      heading: "The shift",
-      copy: "Performance nutrition is a category driven by function, electrolytes, carbs, recovery, often communicated through complexity. Brands compete on what products do, not what they mean, leaving the space feeling technical and interchangeable. The challenge wasn’t the product, it was perspective. There was no clear way to express the mindset of a runner. The shift came in recognising that runners don’t chase products, they chase time.",
+      heading: SUB3_COPY.shift.heading,
+      copy: SUB3_COPY.shift.body,
+      body: stringToRichText(SUB3_COPY.shift.body),
     },
     {
       id: "system" as const,
-      heading: "The system",
-      copy: "Bending Time & Space anchors SUB:3, turning time into something felt. Typography moves with pace, timecodes lead the system, and packaging captures moments within the run. A reflective surface carries the same behaviour, shifting with light to extend motion beyond form.",
-    },
-    {
-      id: "outcome" as const,
-      heading: "The outcome",
-      copy: "SUB:3 shifts from product to mindset, establishing a distinct position in a crowded category and a system that connects through shared ambition, not just function. By turning time into the foundation of the brand, it becomes a marker of intent for those who run against the clock.",
+      heading: SUB3_COPY.system.heading,
+      copy: SUB3_COPY.system.body,
+      body: stringToRichText(SUB3_COPY.system.body),
     },
   ],
 };
