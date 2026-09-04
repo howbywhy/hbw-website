@@ -312,50 +312,120 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
   context: CLOSED_COPY.context,
   authorship: authorshipFromCopy(CLOSED_COPY),
   movements: [
-    mv("c01", "portrait", jpg("/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", 1080, 1350), "idea", {
+    mv(
+      "c01",
+      "film",
+      film(
+        "/projects/bar-closed/web/HBWxCLOSED-Portfolio-01.mp4",
+        1920,
+        1080,
+        "/projects/bar-closed/HBWxCLOSED-Portfolio-01.jpg",
+        "contain",
+        "/projects/bar-closed/web/HBWxCLOSED-Portfolio-01.webm"
+      ),
+      "idea",
+      { scale: "standard", alt: "Torn-paper collage of happy-hour type, bottle silhouettes, a bar photo, and plated food." }
+    ),
+    mv("c02", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-02.jpg", 1920, 1080, "contain", []), "idea", {
       scale: "standard",
-      relation: "pair",
-      alt: "Dining table with a CLOSED branded plate among plated dishes and wine.",
+      alt: "CLOSED wordmark in black geometric sans-serif on white.",
     }),
-    mv("c02", "portrait", jpg("/projects/bar-closed/670ca02120d4b38fdbb6bf49_HBWxCLOSED-Portfolio26.jpg", 1080, 1350), "idea", {
-      scale: "standard",
-      alt: "High-contrast halftone of a crane boom and pulley on black.",
-    }),
-    mv("c03", "landscape", jpg("/projects/bar-closed/670ca02123deffa7009a157f_HBWxCLOSED-Portfolio33.jpg", 1920, 1080), "idea", {
+    mv("c03", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-03.jpg", 1920, 1080, "contain", []), "idea", {
       scale: "major",
       pace: "pause",
-      alt: "CLOSED dining table beside a torn-edge industrial smoke graphic.",
-    }),
-    mv(
-      "c04",
-      "film",
-      film("/projects/bar-closed/web/CLOSED-Eyes.mp4", 1920, 1080, "/projects/bar-closed/web/CLOSED-Eyes.jpg", "cover"),
-      "shift",
-      { scale: "detail", alt: "Two white eyes in a rough black bar on white." }
-    ),
-    mv("c05", "portrait", jpg("/projects/bar-closed/670ca0217374160efd5b3ba4_HBWxCLOSED-Portfolio17.jpg", 1080, 1350), "shift", {
-      scale: "standard",
-      alt: "Person in a green apron harvesting herbs into a steel bowl.",
-    }),
-    mv("c06", "landscape", jpg("/projects/bar-closed/670ca0214458519e4d903743_HBWxCLOSED-Portfolio31.jpg", 1920, 1080), "system", {
-      scale: "standard",
       alt: "Dining table with CLOSED ware, steak, and seafood against a green booth.",
     }),
-    mv("c07", "portrait", jpg("/projects/bar-closed/670ca0219b68e610dbf64663_HBWxCLOSED-Portfolio19.jpg", 1080, 1350), "system", {
+    mv("c04", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-04.jpg", 864, 1080, "contain", []), "idea", {
+      scale: "standard",
+      relation: "pair",
+      alt: "Orange type on brown reading CLOSED UNTIL WE'RE NOT.",
+    }),
+    mv("c05", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-05.jpg", 864, 1080, "contain", []), "idea", {
+      scale: "standard",
+      alt: "Black jagged vertical forms on textured white with numbered CLOSED.BAR lettering.",
+    }),
+    mv("c06", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-06.jpg", 864, 1080, "contain", []), "idea", {
+      scale: "standard",
+      alt: "CLOSED business cards on a plate of roasted potatoes.",
+    }),
+    mv("c07", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-07.jpg", 864, 1080, "contain", []), "idea", {
+      scale: "standard",
+      alt: "Tomato print card in a clear pouch with an orange zip, reading CURATED FOOD MADE IN NEWCASTLE.",
+    }),
+    mv("c08", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-08.jpg", 864, 1080, "contain", []), "shift", {
       scale: "detail",
-      alt: "Ironheart Shiraz bottle beside a CLOSED glass of red wine.",
+      alt: "Hand holding a CLOSED wine glass over a scalloped CLOSED coaster.",
+    }),
+    mv("c09", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-09.jpg", 864, 1080, "contain", []), "shift", {
+      scale: "standard",
+      alt: "Orange CLOSED alphabet specimen on brown with a 17 Beaumont Street stamp.",
+    }),
+    mv("c10", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-010.jpg", 864, 1080, "contain", []), "shift", {
+      scale: "standard",
+      alt: "CLOSED menu card over a scallop shell on river stones.",
+    }),
+    mv("c11", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-011.jpg", 1920, 1080, "contain", []), "shift", {
+      scale: "standard",
+      alt: "Two plates of tomato toast, one under jagged black stripes and one under a faint CLOSED sheet.",
+    }),
+    mv("c12", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-012.jpg", 864, 1080, "contain", []), "shift", {
+      scale: "standard",
+      alt: "Orange CLOSED lockup over a grainy vegetable still, reading Local, Friendly, & Consistent.",
+    }),
+    mv("c13", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-013.jpg", 1920, 1080, "contain", []), "system", {
+      scale: "standard",
+      alt: "Orange-and-brown halftone of tomatoes on the vine.",
+    }),
+    mv("c14", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-014.jpg", 1920, 1080, "contain", []), "system", {
+      scale: "standard",
+      alt: "Technical drawing of a wall-mounted TOILETS sign with dimensions.",
+    }),
+    mv("c15", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-015.jpg", 864, 1080, "contain", []), "system", {
+      scale: "standard",
+      alt: "Dim dining alcove with spherical sconces and a TOILETS sign over the doorway.",
+    }),
+    mv("c16", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-017.jpg", 1920, 1080, "contain", []), "system", {
+      scale: "standard",
+      alt: "Four people in plum CLOSED T-shirts against a red wall.",
+    }),
+    mv("c17", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-018.jpg", 1920, 1080, "contain", []), "system", {
+      scale: "standard",
+      alt: "Two guests toasting at a small table in front of a red-and-black mural.",
+    }),
+    mv("c18", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-019.jpg", 1920, 1080, "contain", []), "outcome", {
+      scale: "standard",
+      alt: "Street billboard under a railway bridge with torn CLOSED panels of flowers, address, food, and tomatoes.",
+    }),
+    mv("c19", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-020.jpg", 864, 1080, "contain", []), "outcome", {
+      scale: "standard",
+      alt: "Dining table with CLOSED ware and wine against a green booth and patterned wallpaper.",
     }),
     mv(
-      "c08",
+      "c20",
       "film",
-      film("/projects/bar-closed/web/CLOSED-Collage.mp4", 1440, 810, "/projects/bar-closed/web/CLOSED-Collage.jpg"),
+      film(
+        "/projects/bar-closed/web/HBWxCLOSED-Portfolio-021.mp4",
+        1920,
+        1080,
+        "/projects/bar-closed/HBWxCLOSED-Portfolio-021.jpg",
+        "contain",
+        "/projects/bar-closed/web/HBWxCLOSED-Portfolio-021.webm"
+      ),
       "outcome",
-      { scale: "standard", pace: "normal", alt: "Torn-paper collage of cocktail card, potatoes, bar photo, and CLOSED coaster." }
+      {
+        scale: "standard",
+        pace: "normal",
+        alt: "Three CLOSED_BAR Instagram stories: a branded wine glass, white eyes, and a cocktail collage.",
+      }
     ),
-    mv("c09", "portrait", jpg("/projects/bar-closed/670ca0214e0b67cd2aeafe2e_HBWxCLOSED-Portfolio35.jpg", 1080, 1350), "outcome", {
+    mv("c21", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-022.jpg", 1920, 1080, "contain", []), "outcome", {
+      scale: "standard",
+      alt: "Guest smiling over CLOSED plates and wine in a green booth.",
+    }),
+    mv("c22", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-023.jpg", 1920, 1080, "contain", []), "outcome", {
       scale: "standard",
       pace: "pause",
-      alt: "Grainy flower still life overlaid with orange blocks reading THE REBELLIOUS SPIRIT OF PUNK CULTURE.",
+      alt: "Wheat-pasted Saturday posters and a central eyes sheet on a plywood hoarding.",
     }),
   ],
 };

@@ -42,7 +42,9 @@ async function upload(path: string, kind: "image" | "file") {
   }
   const contentType =
     kind === "file"
-      ? "video/mp4"
+      ? extname(path) === ".webm"
+        ? "video/webm"
+        : "video/mp4"
       : extname(path) === ".png"
         ? "image/png"
         : "image/jpeg";
@@ -68,7 +70,7 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId(CLOSED_MOVEMENTS[0].still as string, "image");
+  const previewId = await assetId((CLOSED_MOVEMENTS[0].still || CLOSED_MOVEMENTS[0].poster) as string, "image");
 
   const movements = [];
   for (const movement of CLOSED_MOVEMENTS) {
@@ -91,6 +93,7 @@ async function main() {
     if (movement.mediaType === "film" && movement.video && movement.poster) {
       row.video = fileRef(await assetId(movement.video, "file"));
       row.poster = imageRef(await assetId(movement.poster, "image"));
+      if (movement.webm) row.webm = fileRef(await assetId(movement.webm, "file"));
     }
     movements.push(row);
   }

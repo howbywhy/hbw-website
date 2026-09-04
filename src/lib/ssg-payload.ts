@@ -6,8 +6,8 @@ export const SCK_MOVEMENT_PAYLOAD_MARKER = "/projects/sck/web/4.mp4";
 export const SCK_MOVEMENT_ID_MARKER = "sk14";
 
 /** CLOSED film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
-export const CLOSED_EXPERIENCE_MARKER = "Two white eyes in a rough black bar on white.";
-export const CLOSED_LOCAL_FILM_MARKER = "/projects/bar-closed/web/CLOSED-Eyes.mp4";
+export const CLOSED_EXPERIENCE_MARKER = "Torn-paper collage of happy-hour type, bottle silhouettes, a bar photo, and plated food.";
+export const CLOSED_LOCAL_FILM_MARKER = "/projects/bar-closed/web/HBWxCLOSED-Portfolio-01.mp4";
 
 /** KOJA film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
 export const KOJA_EXPERIENCE_MARKER = "Peanut Fudge plant-protein bar on a cork coaster beside palo santo.";

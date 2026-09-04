@@ -24,16 +24,34 @@ function assetName(value: unknown) {
   return asset && "originalFilename" in asset ? (asset.originalFilename ?? "") : "";
 }
 
-const EXPECTED_HINTS = ["idea", "idea", "idea", "shift", "shift", "system", "system", "system", "system"] as const;
+const EXPECTED_HINTS = [
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+] as const;
 
 function expectedMovements(): Movement[] {
   return CLOSED_EXPERIENCE.movements.map((movement, index) => {
-    const next = { ...movement, infoHint: EXPECTED_HINTS[index] };
-    // Local experience lists Eyes as 1920×1080; the shipped file and poster are 1440×810.
-    if (movement.id === "c04") {
-      return { ...next, media: { ...next.media, width: 1440, height: 810 } };
-    }
-    return next;
+    return { ...movement, infoHint: EXPECTED_HINTS[index] };
   });
 }
 
@@ -170,15 +188,7 @@ async function main() {
           shiftDiffersFromShipped: editorial.shift !== CLOSED_EXPERIENCE.infoSections[1].copy,
           systemDiffersFromShipped: editorial.system !== CLOSED_EXPERIENCE.infoSections[2].copy,
         },
-        localMetadataCorrections: [
-          {
-            id: "c04",
-            field: "dimensions",
-            local: "1920x1080",
-            actual: "1440x810",
-            reason: "Shipped CLOSED-Eyes.mp4 and poster are 1440×810. Local experiences.ts overstates the size. Aspect and presentation are unchanged.",
-          },
-        ],
+        localMetadataCorrections: [],
         presentationParity: presentationFail.length === 0,
       },
       null,
@@ -189,7 +199,7 @@ async function main() {
   assert.equal(project._id, CLOSED_DOCUMENT_ID);
   assert.equal(result.record.id, "closed");
   assert.equal(experience.slug, "closed");
-  assert.equal(experience.movements.length, 9);
+  assert.equal(experience.movements.length, 22);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);
