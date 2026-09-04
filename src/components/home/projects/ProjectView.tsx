@@ -16,7 +16,7 @@ type Props = {
   phase: ViewPhase;
   index: number;
   inspecting?: boolean;
-  entrance?: "archive" | "reduced" | "handoff";
+  entrance?: "archive" | "reduced" | "handoff" | "field";
   onIndex: (index: number) => void;
   onCommitNext?: () => void;
   onLeaveInspect?: () => void;

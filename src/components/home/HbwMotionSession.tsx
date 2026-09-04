@@ -21,7 +21,7 @@ export type MotionSession = {
   activeId: string;
   viewIndex: number;
   leaving: { id: string; index: number } | null;
-  entrance: "archive" | "reduced" | "handoff";
+  entrance: "archive" | "reduced" | "handoff" | "field";
   keepBrowse: boolean;
   parkedX: number | null;
   handoffFrom?: number | null;

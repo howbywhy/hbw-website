@@ -14,10 +14,10 @@ const rising: MotionSession = {
   activeId: "sck",
   viewIndex: 0,
   leaving: null,
-  entrance: "archive",
+  entrance: "field",
   keepBrowse: true,
   parkedX: null,
-  cinematic: true,
+  cinematic: false,
   startedAt: 1,
 };
 

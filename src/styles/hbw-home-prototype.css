@@ -1798,6 +1798,23 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   transform: translateY(0);
 }
 
+.hbw-home.is-browse.is-phase-idle .hbw-projects.is-open {
+  animation: none;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.hbw-home.is-restored-browse .hbw-projects.is-open {
+  animation: none;
+  transition: none;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 .hbw-projects.is-open.is-dropping,
 .hbw-home.is-phase-exiting.is-make .hbw-projects.is-open {
   pointer-events: none;
@@ -1814,6 +1831,17 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   transform: translateY(0);
   transition-delay: 0s;
   transition-duration: 0s;
+}
+
+.hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-projects.is-open,
+.hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-projects.is-open {
+  visibility: visible;
+  pointer-events: none;
+  transform: none;
+  opacity: 1;
+  transition-delay: 0s;
+  transition-duration: var(--hbw-t-handoff);
+  animation: hbw-yield-out var(--hbw-t-handoff) var(--hbw-ease) both;
 }
 
 .hbw-home.is-phase-exiting .hbw-projects.is-open {
@@ -2588,6 +2616,15 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     opacity var(--hbw-t-handoff) var(--hbw-ease);
 }
 
+.hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-mv:not(:first-child),
+.hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-outro,
+.hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-mv:not(:first-child),
+.hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-outro {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .hbw-project-view.is-active .hbw-mv,
 .hbw-project-view.is-active .hbw-outro {
   opacity: 1;
@@ -2715,6 +2752,43 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 
 .hbw-project-view.is-idle .hbw-project-view__track {
   display: none;
+}
+
+.hbw-home[data-hbw-from="browse"].is-swap-preparing .hbw-project-view.is-idle {
+  visibility: visible;
+  opacity: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+.hbw-home[data-hbw-from="browse"].is-swap-preparing .hbw-project-view.is-idle .hbw-project-view__track {
+  display: flex;
+}
+
+.hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view,
+.hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view {
+  background: transparent;
+}
+
+.hbw-home[data-hbw-from="browse"].is-owning .hbw-projects.is-open .hbw-browse__item,
+.hbw-home[data-hbw-from="browse"].is-owning .hbw-projects.is-index .hbw-browse__item {
+  opacity: 1;
+  transition: none;
+}
+
+.hbw-home[data-hbw-from="view"][data-hbw-to="browse"] .hbw-projects.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: none;
+  transform: none;
+  animation: none;
+  transition: none;
+}
+
+.hbw-home[data-hbw-from="view"][data-hbw-to="browse"].is-swap-preparing .hbw-project-view.is-active {
+  opacity: 1;
+  transform: none;
+  background: var(--hbw-window, #ffffff);
 }
 
 .hbw-project-view__track {
@@ -3538,6 +3612,20 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   html.hbw-intro .hbw-home-strip__mark {
     opacity: 1 !important;
+  }
+
+  .hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-projects.is-open,
+  .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-projects.is-open {
+    visibility: hidden;
+    opacity: 0;
+    animation: none;
+    transition: none;
+  }
+
+  .hbw-home[data-hbw-from="view"][data-hbw-to="browse"] .hbw-project-view.is-exiting {
+    transform: none;
+    opacity: 0;
+    transition: none;
   }
 }
 
