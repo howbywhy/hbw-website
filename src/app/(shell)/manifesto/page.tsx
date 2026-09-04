@@ -7,6 +7,9 @@ const description = MANIFESTO_COPY.opening.join(" ");
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: "/manifesto",
+  },
   openGraph: {
     title,
     description,

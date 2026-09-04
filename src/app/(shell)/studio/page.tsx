@@ -7,6 +7,9 @@ const description = STUDIO_COPY.opening;
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: "/studio",
+  },
   openGraph: {
     title,
     description,

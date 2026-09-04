@@ -256,17 +256,6 @@ export function projectById(id: string) {
   return PROJECTS.find((p) => p.id === id) ?? PROJECTS.find((p) => p.id === catalogIdForSlug(id)) ?? PROJECTS[0];
 }
 
-function serialAnd(items: string[]) {
-  if (items.length === 0) return "";
-  if (items.length === 1) return items[0];
-  if (items.length === 2) return `${items[0]} and ${items[1]}`;
-  return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
-}
-
-function sentence(clause: string) {
-  return clause.charAt(0).toUpperCase() + clause.slice(1);
-}
-
 const COLLABORATORS_BY_ID = Object.fromEntries(COLLABORATORS.map((item) => [item.id, item])) as Record<
   CollaboratorId,
   Collaborator
@@ -312,16 +301,21 @@ export function isKnownFilter(dim: string, value: string) {
   return false;
 }
 
-/** Derived description for generateMetadata. Uses the discipline and sector maps. */
+const PROJECT_DESCRIPTIONS: Record<string, string> = {
+  sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture and interiors studio.",
+  "bar-closed":
+    "CLOSED, a Newcastle bar — A Smuggler’s House. Concept, identity, signage and print. The name emerged during the work.",
+  koja: "KOJA — Unapologetically Good. Brand strategy, visual identity and packaging for an established food brand.",
+  "sub-3": "SUB:3 — Bending Time & Space. Identity, packaging and motion for a new performance nutrition brand.",
+  "chris-sisarich":
+    "Chris Sisarich — Beauty Amongst The Mundane. Identity and website for a photographer, built to stay behind the pictures.",
+  "our-boy-roy":
+    "Our Boy Roy — a hospitality identity organised around Roy, a changing character. Visual identity, signage, print and social.",
+};
+
+/** Public search description. Authored from approved case-study contribution, not lens lists. */
 export function projectDescription(project: ProjectRecord) {
-  const idea = project.idea.replace(/\.\s*$/, "");
-  const lead = `${project.name} — ${idea}.`;
-  const work = serialAnd(projectDisciplines(project).map((item) => DISCIPLINE_CREDIT[item]));
-  const sector = serialAnd(projectSectors(project).map((item) => SECTOR_CREDIT[item]));
-  if (work && sector) return `${lead} ${sentence(work)} for ${sector}.`;
-  if (work) return `${lead} ${sentence(work)}.`;
-  if (sector) return `${lead} ${sentence(sector)}.`;
-  return lead;
+  return PROJECT_DESCRIPTIONS[project.id] ?? `${project.name} — HBW.`;
 }
 
 export function matchesFilter(project: ProjectRecord, dim: string, value: string) {

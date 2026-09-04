@@ -14,6 +14,7 @@ type Props = {
   viewIndex: number;
   experience: ProjectExperience | null;
   boundaryName?: string | null;
+  boundaryHref?: string | null;
 };
 
 function thumbSrc(media: ProjectMedia) {
@@ -34,6 +35,7 @@ export function NavRegister({
   viewIndex,
   experience,
   boundaryName = null,
+  boundaryHref = null,
 }: Props) {
   const { openPanel, closePanel, panel } = useWorkspace();
   const idle = face === "home";
@@ -183,18 +185,30 @@ export function NavRegister({
         </span>
         <span className="hbw-nav-sub__face hbw-nav-sub__face--next" aria-hidden={boundaryName ? undefined : true}>
           <span className="hbw-nav-sub__lead">Next</span>
-          <button
-            type="button"
-            className="hbw-nav-sub__meta hbw-nav-sub__next-name"
-            tabIndex={boundaryName ? 0 : -1}
-            aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
-            onClick={() => {
-              if (!boundaryName) return;
-              window.dispatchEvent(new Event("hbw:boundary-next"));
-            }}
-          >
-            {boundaryName || ""}
-          </button>
+          {boundaryHref ? (
+            <a
+              className="hbw-nav-sub__meta hbw-nav-sub__next-name"
+              href={boundaryHref}
+              tabIndex={boundaryName ? 0 : -1}
+              aria-label={boundaryName ? `Next ${boundaryName}` : undefined}
+              onClick={(event) => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                window.dispatchEvent(new Event("hbw:boundary-next"));
+              }}
+            >
+              {boundaryName || ""}
+            </a>
+          ) : (
+            <button
+              type="button"
+              className="hbw-nav-sub__meta hbw-nav-sub__next-name"
+              tabIndex={-1}
+              aria-label={undefined}
+            >
+              {boundaryName || ""}
+            </button>
+          )}
         </span>
       </div>
     </div>

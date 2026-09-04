@@ -1109,7 +1109,8 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   color: inherit;
 }
 
-.hbw-nav-sub button.hbw-nav-sub__next-name {
+.hbw-nav-sub button.hbw-nav-sub__next-name,
+.hbw-nav-sub a.hbw-nav-sub__next-name {
   appearance: none;
   margin: 0;
   padding: 0;
@@ -1123,7 +1124,9 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 }
 
 .hbw-nav-sub button.hbw-nav-sub__next-name:hover,
-.hbw-nav-sub button.hbw-nav-sub__next-name:focus-visible {
+.hbw-nav-sub button.hbw-nav-sub__next-name:focus-visible,
+.hbw-nav-sub a.hbw-nav-sub__next-name:hover,
+.hbw-nav-sub a.hbw-nav-sub__next-name:focus-visible {
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
@@ -2773,6 +2776,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   letter-spacing: inherit;
   text-align: left;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .hbw-outro__id {
@@ -3202,6 +3206,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__opening {
 
 html.hbw-workspace .hbw-sheet .hbw-sheet__lead {
   font-size: var(--hbw-lg);
+  font-weight: 400;
 }
 
 html.hbw-workspace .hbw-sheet .hbw-sheet__kicker {
@@ -3413,6 +3418,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__next-action {
   color: inherit;
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
 }
 
 html.hbw-workspace .hbw-sheet .hbw-sheet__enter {

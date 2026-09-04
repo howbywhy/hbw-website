@@ -42,6 +42,13 @@ function pad(value: number) {
   return String(value).padStart(2, "0");
 }
 
+function commitClick(event: React.MouseEvent, onCommit: () => void) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  if (event.button !== 0) return;
+  event.preventDefault();
+  onCommit();
+}
+
 function Stage({
   name,
   idea,
@@ -49,6 +56,7 @@ function Stage({
   crop,
   onCommit,
   label,
+  href,
   coverName,
   nextId,
   fromTotal,
@@ -59,6 +67,7 @@ function Stage({
   crop?: string;
   onCommit: () => void;
   label: string;
+  href: string;
   coverName?: string;
   nextId?: string;
   fromTotal?: number;
@@ -74,7 +83,7 @@ function Stage({
       data-hbw-next={coverName}
       style={media ? { ["--hbw-mv-ratio" as string]: `${media.width} / ${media.height}` } : undefined}
     >
-      <button type="button" className="hbw-outro__id" onClick={onCommit}>
+      <a className="hbw-outro__id" href={href} onClick={(event) => commitClick(event, onCommit)}>
         <span className="hbw-outro__name">{name}</span>
         {idea ? <span className="hbw-outro__idea">{idea}</span> : null}
         {nextId ? (
@@ -85,12 +94,12 @@ function Stage({
             <span className="hbw-outro__to">Next {name}</span>
           </span>
         ) : null}
-      </button>
+      </a>
       {media ? (
-        <button
-          type="button"
+        <a
           className={`hbw-outro__preview${span ? ` is-${span}` : ""}${kind ? ` is-${kind}` : ""}`}
-          onClick={onCommit}
+          href={href}
+          onClick={(event) => commitClick(event, onCommit)}
           aria-label={label}
           style={crop ? { ["--hbw-crop" as string]: crop } : undefined}
         >
@@ -105,7 +114,7 @@ function Stage({
             decoding="async"
             style={coverName ? { viewTransitionName: `hbw-cover-${coverName}` } : undefined}
           />
-        </button>
+        </a>
       ) : null}
     </section>
   );
@@ -121,6 +130,7 @@ export function ProjectOutro({ next, onCommit, coverName, fromTotal }: Props) {
       crop={next.crop}
       onCommit={onCommit}
       label={`Continue to ${next.name}`}
+      href={next.href}
       coverName={coverName}
       nextId={next.id}
       fromTotal={fromTotal}

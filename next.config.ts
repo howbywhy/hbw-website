@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@phosphor-icons/react"],
   },
   async redirects() {
-    return [{ source: "/projects", destination: "/", permanent: true }];
+    return [
+      { source: "/projects", destination: "/", permanent: true },
+      { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
+    ];
   },
 };
 

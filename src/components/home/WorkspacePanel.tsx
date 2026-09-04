@@ -21,6 +21,7 @@ type Props = {
   practicePreview?: boolean;
   atProjectEnd?: boolean;
   nextProjectName?: string | null;
+  nextProjectHref?: string | null;
   onShowManifesto: () => void;
   onNextProject?: () => void;
   onPracticePreviewEnter?: () => void;
@@ -194,15 +195,24 @@ function CollaboratorLines({ collaborators }: { collaborators: ExperienceCollabo
   );
 }
 
+function nextClick(event: React.MouseEvent, onNextProject?: () => void) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  if (event.button !== 0) return;
+  event.preventDefault();
+  onNextProject?.();
+}
+
 function InfoBody({
   experience,
   atProjectEnd = false,
   nextProjectName = null,
+  nextProjectHref = null,
   onNextProject,
 }: {
   experience: ProjectExperience;
   atProjectEnd?: boolean;
   nextProjectName?: string | null;
+  nextProjectHref?: string | null;
   onNextProject?: () => void;
 }) {
   const previewRecord = useCmsPreviewRecord();
@@ -240,8 +250,8 @@ function InfoBody({
   ).filter(Boolean) as [string, ReactNode][];
 
   return (
-    <>
-      <p className="hbw-sheet__lead">{record.name}</p>
+    <article>
+      <h1 className="hbw-sheet__lead">{record.name}</h1>
       {record.idea ? (
         <p className="hbw-sheet__opening">
           <span className="hbw-sheet__kicker">Position</span>
@@ -279,16 +289,20 @@ function InfoBody({
           ))}
         </dl>
       ) : null}
-      {atProjectEnd && nextProjectName && onNextProject ? (
+      {atProjectEnd && nextProjectName && nextProjectHref && onNextProject ? (
         <p className="hbw-sheet__next">
-          <button type="button" className="hbw-sheet__next-action" onClick={onNextProject}>
+          <a
+            className="hbw-sheet__next-action"
+            href={nextProjectHref}
+            onClick={(event) => nextClick(event, onNextProject)}
+          >
             Next project
             <br />
             {nextProjectName}
-          </button>
+          </a>
         </p>
       ) : null}
-    </>
+    </article>
   );
 }
 
@@ -303,6 +317,7 @@ export function WorkspacePanel({
   onNextProject,
   atProjectEnd = false,
   nextProjectName = null,
+  nextProjectHref = null,
   practicePreview = false,
   onPracticePreviewEnter,
   onPracticePreviewLeave,
@@ -369,11 +384,12 @@ export function WorkspacePanel({
         label="Project information"
         onWheel={stopWheel}
       >
-        {panel === "info" && experience ? (
+        {experience ? (
           <InfoBody
             experience={experience}
             atProjectEnd={atProjectEnd}
             nextProjectName={nextProjectName}
+            nextProjectHref={nextProjectHref}
             onNextProject={onNextProject}
           />
         ) : null}

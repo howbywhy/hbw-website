@@ -1565,6 +1565,7 @@ export function HbwShell({
                 viewIndex={chromeIndex}
                 experience={chromeExperience}
                 boundaryName={boundaryNext?.name ?? null}
+                boundaryHref={boundaryNext?.href ?? null}
               />
             </div>
             <button
@@ -1669,6 +1670,7 @@ export function HbwShell({
           experience={experience}
           atProjectEnd={Boolean(experience && viewIndex === experience.movements.length - 1)}
           nextProjectName={experience ? nextProject(experience.slug)?.name ?? null : null}
+          nextProjectHref={experience ? nextProject(experience.slug)?.href ?? null : null}
           practicePreview={practicePeek.open}
           onShowManifesto={showManifesto}
           onNextProject={() => window.dispatchEvent(new Event("hbw:boundary-next"))}

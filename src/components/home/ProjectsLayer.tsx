@@ -39,11 +39,8 @@ type Props = {
   onLens: (dim: FilterDim, value: string) => void;
 };
 
-function enterClick(event: React.MouseEvent, id: string, href: string, onEnter: (id: string) => void) {
-  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-    if (event.metaKey || event.ctrlKey) window.open(href, "_blank", "noopener");
-    return;
-  }
+function enterClick(event: React.MouseEvent, id: string, onEnter: (id: string) => void) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   if (event.button !== 0) return;
   event.preventDefault();
   onEnter(id);
@@ -491,9 +488,10 @@ function ArchiveItem({
   }
 
   return (
-    <div
+    <a
       {...shared}
-      onClick={(event) => enterClick(event, project.id, project.href, onActivate)}
+      href={project.href}
+      onClick={(event) => enterClick(event, project.id, onActivate)}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return;
         if (event.key !== "Enter" && event.key !== " ") return;
@@ -502,6 +500,6 @@ function ArchiveItem({
       }}
     >
       {itemBody}
-    </div>
+    </a>
   );
 }
