@@ -29,6 +29,8 @@ export const project = defineType({
   name: "project",
   title: "Project",
   type: "document",
+  description:
+    "Publishing rebuilds www.hbw.works from this published document. The live page updates after that production build succeeds. Draft preview is immediate and does not wait for the rebuild.",
   groups: [
     { name: "identity", title: "Identity", default: true },
     { name: "projectInfo", title: "Project Info" },

@@ -110,6 +110,14 @@ export function cmsProjectByPreviewSlug(slug: string): CmsBackedProject | undefi
   return CMS_BACKED_PROJECTS.find((project) => project.previewSlug === slug);
 }
 
+export function cmsProjectByDocumentId(id: string): CmsBackedProject | undefined {
+  return CMS_BACKED_PROJECTS.find((project) => project.documentId === id);
+}
+
+export function isKnownPublishedProjectId(id: string) {
+  return Boolean(cmsProjectByDocumentId(id));
+}
+
 /** CMS slug → public catalog / route id. CLOSED is the first mismatch. */
 export function catalogIdForSlug(slug: string) {
   return cmsProjectByCmsSlug(slug)?.routeSlug ?? slug;
