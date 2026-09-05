@@ -1,5 +1,6 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { previewOnHbwAction } from "./src/sanity/actions/previewOnHbw";
 import { sanityDataset, sanityProjectId } from "./src/sanity/env";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 
@@ -39,4 +40,8 @@ export default defineConfig({
     }),
   ],
   schema: { types: schemaTypes },
+  document: {
+    actions: (previous, context) =>
+      context.schemaType === "project" ? [...previous, previewOnHbwAction] : previous,
+  },
 });

@@ -1,6 +1,6 @@
 /**
  * Public Sanity connection values only.
- * Do not put tokens here. Preview tokens belong in a later slice.
+ * Do not put tokens here. Draft preview tokens live in preview/token.ts.
  */
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";

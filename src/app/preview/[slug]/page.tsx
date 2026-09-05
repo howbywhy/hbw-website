@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { CmsPreviewBridge } from "@/components/home/CmsPreviewContext";
 import { CMS_PREVIEW_SLUGS, cmsProjectByPreviewSlug } from "@/lib/cms-source";
-import { isCmsPreviewAllowed } from "@/sanity/preview/allowed";
+import { canAccessCmsPreview } from "@/sanity/preview/allowed";
+import { loadDraftFrontendProject } from "@/sanity/preview/load-draft";
+import { safePreviewErrorMessage } from "@/sanity/preview/paths";
 import { loadPublishedFrontendProject } from "@/sanity/load-published";
 
 export const dynamic = "force-dynamic";
@@ -24,16 +27,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PreviewProjectPage({ params }: Props) {
-  if (!isCmsPreviewAllowed()) notFound();
+  const draftEnabled = (await draftMode()).isEnabled;
+  if (!canAccessCmsPreview(draftEnabled)) notFound();
 
   const { slug } = await params;
   const cms = cmsProjectByPreviewSlug(slug);
   if (!cms) notFound();
 
   try {
-    const { experience, record } = await loadPublishedFrontendProject(cms.cmsSlug);
+    const { experience, record } = draftEnabled
+      ? await loadDraftFrontendProject(cms.cmsSlug)
+      : await loadPublishedFrontendProject(cms.cmsSlug);
     return <CmsPreviewBridge experience={experience} record={record} />;
-  } catch {
+  } catch (error) {
+    if (draftEnabled) {
+      return (
+        <p className="hbw-miss" role="alert" data-hbw-preview-error="true">
+          Draft preview error. {safePreviewErrorMessage(error)}
+        </p>
+      );
+    }
     return (
       <p className="hbw-miss" role="status">
         CMS preview unavailable. The public case study at {cms.publicPath} is unaffected.
