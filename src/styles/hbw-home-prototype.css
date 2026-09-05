@@ -22,7 +22,7 @@ html.hbw-workspace {
   );
   --hbw-gallery-gap: var(--hbw-space-2);
   --hbw-gallery-tight: 2px;
-  --hbw-gallery-pause: var(--hbw-space-4);
+  --hbw-gallery-pause: 24px;
   --hbw-boundary-gap: 12rem;
   --hbw-stage-gap: var(--hbw-space-4);
   --hbw-peek-thumb: 3.25rem;
