@@ -181,6 +181,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
     }),
     mv("s304", "landscape", jpg("/projects/sub-3/68db91587ee646ac94cfb67c_TCCWEBR2-SUB34.jpg", 2472, 1500), "shift", {
       scale: "detail",
+      pace: "normal",
       relation: "pair",
       alt: "RUN lettering stretched and compressed in dark grey on white, some inverted.",
     }),
@@ -195,6 +196,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
     }),
     mv("s306", "portrait", jpg("/projects/sub-3/68db91351d50093ee5b0a02f_TCCWEB-SUB330.jpg", 1200, 1500), "system", {
       scale: "standard",
+      pace: "normal",
       relation: "pair",
       alt: "PRE-RUN pouch on asphalt among a tattooed leg, gloved hand, and running shoe.",
     }),
@@ -219,7 +221,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
         "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.webm"
       ),
       "outcome",
-      { scale: "detail", relation: "pair", alt: "Geometric elapsed-time numerals counting on a pale field." }
+      { scale: "detail", pace: "normal", relation: "pair", alt: "Geometric elapsed-time numerals counting on a pale field." }
     ),
     mv(
       "s311",
@@ -449,7 +451,7 @@ export const OBR_EXPERIENCE: ProjectExperience = {
       scale: "standard",
       alt: "Cube lightbox with stacked OUR BOY ROY type hanging under a verandah.",
     }),
-    mv("o04", "film", film("/projects/our-boy-roy/web/OBR-Colour-Change.mp4", 1440, 810, "/projects/our-boy-roy/web/OBR-Colour-Change.jpg"), "system", {
+    mv("o04", "film", film("/projects/our-boy-roy/web/OBR-Colour-Change.mp4", 1440, 810, "/projects/our-boy-roy/web/OBR-Colour-Change.jpg"), "shift", {
       scale: "standard",
       alt: "Line-drawn figure in checkered pants holding a bottle as the ground colour shifts.",
     }),

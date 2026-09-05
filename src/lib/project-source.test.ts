@@ -436,6 +436,20 @@ test("Chris local s05 keeps published pair and explicit normal pace", () => {
   assert.equal(movementPace(s05!), "normal");
 });
 
+test("SUB:3 local pairs keep published explicit normal pace", () => {
+  for (const id of ["s304", "s306", "s310"] as const) {
+    const movement = SUB3_EXPERIENCE.movements.find((item) => item.id === id);
+    assert.equal(movement?.relation, "pair", id);
+    assert.equal(movement?.pace, "normal", id);
+    assert.equal(movementPace(movement!), "normal", id);
+  }
+});
+
+test("OBR local o04 keeps published shift infoHint", () => {
+  const o04 = OBR_EXPERIENCE.movements.find((movement) => movement.id === "o04");
+  assert.equal(o04?.infoHint, "shift");
+});
+
 test("Chris + missing flag uses shipped experience", async () => {
   const previous = process.env.HBW_CHRIS_SOURCE;
   delete process.env.HBW_CHRIS_SOURCE;
