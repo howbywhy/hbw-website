@@ -9,7 +9,7 @@ import {
   SISARICH_EXPERIENCE,
   SUB3_EXPERIENCE,
 } from "../components/home/projects/experiences";
-import type { ProjectExperience } from "../components/home/projects/types";
+import { movementPace, type ProjectExperience } from "../components/home/projects/types";
 import { CHRIS_COPY } from "../sanity/scripts/chris-content";
 import { KOJA_COPY } from "../sanity/scripts/koja-content";
 import { OBR_COPY } from "../sanity/scripts/obr-content";
@@ -427,6 +427,13 @@ test("KOJA + sanity flag + adapter failure falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, KOJA_EXPERIENCE);
+});
+
+test("Chris local s05 keeps published pair and explicit normal pace", () => {
+  const s05 = SISARICH_EXPERIENCE.movements.find((movement) => movement.id === "s05");
+  assert.equal(s05?.relation, "pair");
+  assert.equal(s05?.pace, "normal");
+  assert.equal(movementPace(s05!), "normal");
 });
 
 test("Chris + missing flag uses shipped experience", async () => {

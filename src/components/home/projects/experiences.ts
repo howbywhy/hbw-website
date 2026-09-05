@@ -503,6 +503,7 @@ export const SISARICH_EXPERIENCE: ProjectExperience = {
     }),
     mv("s05", "graphic", jpg("/global/666313d5a9df92c312c71e3f_CS-Layout-DD.12.jpg", 595, 842), "system", {
       scale: "standard",
+      pace: "normal",
       relation: "pair",
       alt: "Low-angle of a person in a white tank, arm casting a shadow, under a type header.",
     }),
