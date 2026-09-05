@@ -21,13 +21,13 @@ export const presentationOverride = defineType({
     }),
     defineField({
       name: "mediaFit",
-      title: "Media fit",
+      title: "Fit",
       type: "string",
       description:
-        "Optional. Use Cover only when the media should fill its frame rather than remain fully contained.",
+        "Contain — the default; the whole image stays visible. Cover — fill the frame and crop if needed. Use Cover only as an exception.",
       options: {
         list: [
-          { title: "Default", value: "default" },
+          { title: "Contain (default)", value: "default" },
           { title: "Cover", value: "cover" },
         ],
       },

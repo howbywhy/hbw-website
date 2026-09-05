@@ -4,6 +4,8 @@ node_modules
 next-env.d.ts
 tsconfig.tsbuildinfo
 out
+dist
+schema.json
 .vercel
 .env
 .env.*

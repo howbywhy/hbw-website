@@ -1,5 +1,11 @@
 import { defineField, defineType } from "sanity";
 import { PROJECT_DISCIPLINES, PROJECT_ROLES, PROJECT_SECTORS } from "../constants";
+import {
+  outcomeHintWarning,
+  terminalPairMessage,
+  uniqueMovementKeyMessage,
+  type EditorMovement,
+} from "./editorRules";
 
 function list(values: readonly string[]) {
   return values.map((value) => ({ title: value, value }));
@@ -14,94 +20,23 @@ function requiredSectionBody(section: string, headingRequired = false) {
   };
 }
 
+function hasOutcomeBody(value: unknown) {
+  const block = value as { body?: unknown[] } | undefined;
+  return Boolean(block?.body?.length);
+}
+
 export const project = defineType({
   name: "project",
   title: "Project",
   type: "document",
   groups: [
-    { name: "context", title: "Context", default: true },
-    { name: "caseStudy", title: "Case Study" },
-    { name: "testimonials", title: "Testimonials" },
+    { name: "identity", title: "Identity", default: true },
+    { name: "projectInfo", title: "Project Info" },
     { name: "sequence", title: "Sequence" },
-    { name: "identity", title: "Identity" },
+    { name: "presentation", title: "Portfolio / Presentation" },
     { name: "internal", title: "Internal" },
   ],
   fields: [
-    defineField({
-      name: "context",
-      title: "Context",
-      type: "projectPortableText",
-      group: "context",
-      validation: (rule) => rule.required().min(1),
-    }),
-    defineField({
-      name: "roles",
-      title: "Roles",
-      type: "array",
-      group: "context",
-      of: [{ type: "string" }],
-      options: { list: list(PROJECT_ROLES), layout: "grid" },
-      validation: (rule) => rule.required().min(1),
-    }),
-    defineField({
-      name: "workingContext",
-      title: "Working context",
-      type: "string",
-      group: "context",
-      description: "Optional provenance. Distinct from collaborators. Not a required Independent default.",
-    }),
-    defineField({
-      name: "collaborators",
-      title: "Collaborators",
-      type: "array",
-      group: "context",
-      of: [{ type: "collaborator" }],
-    }),
-    defineField({
-      name: "idea",
-      title: "Idea",
-      type: "caseStudyBlock",
-      group: "caseStudy",
-      description: "Heading and body are both required.",
-      validation: (rule) => rule.required().custom(requiredSectionBody("Idea", true)),
-    }),
-    defineField({
-      name: "shift",
-      title: "Shift",
-      type: "caseStudyBlock",
-      group: "caseStudy",
-      validation: (rule) => rule.required().custom(requiredSectionBody("Shift")),
-    }),
-    defineField({
-      name: "system",
-      title: "System",
-      type: "caseStudyBlock",
-      group: "caseStudy",
-      validation: (rule) => rule.required().custom(requiredSectionBody("System")),
-    }),
-    defineField({
-      name: "outcome",
-      title: "Outcome",
-      type: "caseStudyBlock",
-      group: "caseStudy",
-      description: "Optional. Leave empty when the case study has no outcome.",
-    }),
-    defineField({
-      name: "testimonials",
-      title: "Testimonials",
-      type: "array",
-      group: "testimonials",
-      of: [{ type: "testimonial" }],
-      description: "Optional. Approved client testimonials for possible future use. Not shown on the site.",
-    }),
-    defineField({
-      name: "movements",
-      title: "Sequence",
-      type: "array",
-      group: "sequence",
-      of: [{ type: "movement" }],
-      validation: (rule) => rule.required().min(1),
-    }),
     defineField({
       name: "title",
       title: "Title",
@@ -114,16 +49,20 @@ export const project = defineType({
       title: "Slug",
       type: "slug",
       group: "identity",
+      description: "CMS and preview identity. Public CLOSED remains /projects/bar-closed.",
       options: { source: "title", maxLength: 96 },
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "proposition",
-      title: "Proposition",
-      type: "string",
-      group: "identity",
-      description: "The positioning line.",
-      validation: (rule) => rule.required(),
+      validation: (rule) =>
+        rule.required().custom(async (slug, context) => {
+          const current = slug && typeof slug === "object" && "current" in slug ? slug.current : "";
+          if (!current || !context.document?._id) return true;
+          const id = context.document._id.replace(/^drafts\./, "");
+          const client = context.getClient({ apiVersion: "2025-02-19" });
+          const count = await client.fetch<number>(
+            `count(*[_type == "project" && slug.current == $slug && !(_id in [$id, $draft])])`,
+            { slug: current, id, draft: `drafts.${id}` }
+          );
+          return count === 0 || "Another project already uses this slug.";
+        }),
     }),
     defineField({
       name: "year",
@@ -131,12 +70,6 @@ export const project = defineType({
       type: "string",
       group: "identity",
       validation: (rule) => rule.required().regex(/^\d{4}$/, { name: "year" }),
-    }),
-    defineField({
-      name: "location",
-      title: "Location",
-      type: "string",
-      group: "identity",
     }),
     defineField({
       name: "sectors",
@@ -156,19 +89,122 @@ export const project = defineType({
       options: { list: list(PROJECT_DISCIPLINES), layout: "grid" },
     }),
     defineField({
+      name: "proposition",
+      title: "Proposition",
+      type: "string",
+      group: "identity",
+      description: "The positioning line.",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "location",
+      title: "Location",
+      type: "string",
+      group: "identity",
+    }),
+    defineField({
+      name: "context",
+      title: "Context",
+      type: "projectPortableText",
+      group: "projectInfo",
+      validation: (rule) => rule.required().min(1),
+    }),
+    defineField({
+      name: "roles",
+      title: "Role",
+      type: "array",
+      group: "projectInfo",
+      of: [{ type: "string" }],
+      options: { list: list(PROJECT_ROLES), layout: "grid" },
+      validation: (rule) => rule.required().min(1),
+    }),
+    defineField({
+      name: "workingContext",
+      title: "Working Context",
+      type: "string",
+      group: "projectInfo",
+      description: "Optional provenance. Distinct from With. Not a required Independent default.",
+    }),
+    defineField({
+      name: "collaborators",
+      title: "With",
+      type: "array",
+      group: "projectInfo",
+      of: [{ type: "collaborator" }],
+    }),
+    defineField({
+      name: "idea",
+      title: "Idea",
+      type: "caseStudyBlock",
+      group: "projectInfo",
+      description: "Heading and body are both required.",
+      validation: (rule) => rule.required().custom(requiredSectionBody("Idea", true)),
+    }),
+    defineField({
+      name: "shift",
+      title: "Shift",
+      type: "caseStudyBlock",
+      group: "projectInfo",
+      validation: (rule) => rule.required().custom(requiredSectionBody("Shift")),
+    }),
+    defineField({
+      name: "system",
+      title: "System",
+      type: "caseStudyBlock",
+      group: "projectInfo",
+      validation: (rule) => rule.required().custom(requiredSectionBody("System")),
+    }),
+    defineField({
+      name: "outcome",
+      title: "Outcome",
+      type: "caseStudyBlock",
+      group: "projectInfo",
+      description: "Optional. Leave empty when the case study has no outcome.",
+    }),
+    defineField({
+      name: "testimonials",
+      title: "Testimonials",
+      type: "array",
+      group: "projectInfo",
+      of: [{ type: "testimonial" }],
+      description: "Optional. Approved client testimonials for possible future use. Not shown on the site.",
+    }),
+    defineField({
+      name: "movements",
+      title: "Movements",
+      type: "array",
+      group: "sequence",
+      of: [{ type: "movement" }],
+      description:
+        "Gallery order is this list order. Each row should read like 03 — STILL — MAJOR — PAUSE. Drag to reorder with the built-in control.",
+      validation: (rule) => [
+        rule.required().min(1),
+        rule.custom((movements) => terminalPairMessage(movements as EditorMovement[] | undefined)),
+        rule.custom((movements) => uniqueMovementKeyMessage(movements as EditorMovement[] | undefined)),
+        rule
+          .custom((movements, context) =>
+            outcomeHintWarning(
+              movements as EditorMovement[] | undefined,
+              hasOutcomeBody(context.document?.outcome)
+            )
+          )
+          .warning(),
+      ],
+    }),
+    defineField({
       name: "preview",
       title: "Preview",
       type: "image",
-      group: "identity",
-      description: "Projects Visual / Index thumbnail.",
+      group: "presentation",
+      description: "Stored portfolio still. Browse Visual / Index currently read catalog.ts, not this field.",
       options: { hotspot: true },
     }),
     defineField({
       name: "portfolioOrder",
       title: "Portfolio order",
       type: "number",
-      group: "identity",
-      description: "Manual editorial order. Not derived from year.",
+      group: "presentation",
+      description: "Manual editorial order. Not derived from year. Does not drive the live site yet.",
       validation: (rule) => rule.required().integer().min(1),
     }),
     defineField({
@@ -209,15 +245,15 @@ export const project = defineType({
     select: {
       title: "title",
       year: "year",
-      proposition: "proposition",
+      slug: "slug.current",
       media: "preview",
-      order: "portfolioOrder",
+      movements: "movements",
     },
-    prepare({ title, year, proposition, media, order }) {
-      const prefix = typeof order === "number" ? `${String(order).padStart(2, "0")} · ` : "";
+    prepare({ title, year, slug, media, movements }) {
+      const count = Array.isArray(movements) ? movements.length : 0;
       return {
-        title: `${prefix}${title || "Untitled project"}`,
-        subtitle: [year, proposition].filter(Boolean).join(" — "),
+        title: title || "Untitled project",
+        subtitle: [year, slug, count ? `${count} movements` : null].filter(Boolean).join(" · "),
         media,
       };
     },

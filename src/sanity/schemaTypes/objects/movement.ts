@@ -1,9 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { INFO_HINTS, MOVEMENT_PACES, MOVEMENT_SCALES } from "../../constants";
-
-function list(values: readonly string[]) {
-  return values.map((value) => ({ title: value, value }));
-}
+import { movementPreviewTitle, pairPaceWarning } from "../editorRules";
 
 export const movement = defineType({
   name: "movement",
@@ -49,7 +45,7 @@ export const movement = defineType({
       name: "video",
       title: "Video",
       type: "file",
-      description: "MP4.",
+      description: "Required MP4 for film movements.",
       options: { accept: "video/mp4" },
       hidden: ({ parent }) => parent?.mediaType !== "film",
       validation: (rule) =>
@@ -63,6 +59,7 @@ export const movement = defineType({
       name: "poster",
       title: "Poster",
       type: "image",
+      description: "Required still shown before the film plays.",
       options: { hotspot: true },
       hidden: ({ parent }) => parent?.mediaType !== "film",
       validation: (rule) =>
@@ -74,9 +71,9 @@ export const movement = defineType({
     }),
     defineField({
       name: "webm",
-      title: "WebM (optional)",
+      title: "WebM",
       type: "file",
-      description: "Optional companion file.",
+      description: "Optional companion file. Leave empty when the film is MP4 only.",
       options: { accept: "video/webm" },
       hidden: ({ parent }) => parent?.mediaType !== "film",
     }),
@@ -92,7 +89,17 @@ export const movement = defineType({
       title: "Scale",
       type: "string",
       initialValue: "standard",
-      options: { list: list(MOVEMENT_SCALES), layout: "radio", direction: "horizontal" },
+      description:
+        "Major — large visual emphasis; the strongest gallery scale the layout allows. Standard — the default beat. Detail — a smaller, more contained beat.",
+      options: {
+        list: [
+          { title: "Major", value: "major" },
+          { title: "Standard", value: "standard" },
+          { title: "Detail", value: "detail" },
+        ],
+        layout: "radio",
+        direction: "horizontal",
+      },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -100,7 +107,17 @@ export const movement = defineType({
       title: "Pace",
       type: "string",
       initialValue: "normal",
-      options: { list: list(MOVEMENT_PACES), layout: "radio", direction: "horizontal" },
+      description:
+        "Tight — reduces space after this movement. Normal — the default interval. Pause — adds intentional space after this movement. Pace stays editorial; Pair does not force Tight.",
+      options: {
+        list: [
+          { title: "Tight", value: "tight" },
+          { title: "Normal", value: "normal" },
+          { title: "Pause", value: "pause" },
+        ],
+        layout: "radio",
+        direction: "horizontal",
+      },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -108,21 +125,30 @@ export const movement = defineType({
       title: "Relation",
       type: "string",
       initialValue: "single",
+      description: "Pair connects this movement to the next as a visual pair. It cannot be the last movement.",
       options: {
         list: [
-          { title: "Single — this movement stands alone", value: "single" },
-          { title: "Pair — show this together with the next movement", value: "pair" },
+          { title: "Single — stands alone", value: "single" },
+          { title: "Pair — connects to the next movement", value: "pair" },
         ],
         layout: "radio",
       },
-      validation: (rule) => rule.required(),
+      validation: (rule) => [
+        rule.required(),
+        rule
+          .custom((value, context) => {
+            const parent = context.parent as { pace?: string } | undefined;
+            return pairPaceWarning(typeof value === "string" ? value : undefined, parent?.pace);
+          })
+          .warning(),
+      ],
     }),
     defineField({
       name: "infoHint",
       title: "Info chapter",
       type: "string",
       description:
-        "Optional. Use this when this movement begins a new Idea, Shift, System or Outcome section. If left empty, the previous chapter continues.",
+        "Optional. Mark the movement that begins Idea, Shift, System, or Outcome. Leave empty to continue the previous chapter.",
       options: {
         list: [
           { title: "Idea", value: "idea" },
@@ -138,26 +164,28 @@ export const movement = defineType({
       type: "presentationOverride",
       fieldset: "advanced",
       description:
-        "Rare. Leave empty unless this movement needs an exceptional frame, fit, or graphic treatment that the default editorial grammar cannot express.",
+        "Rare. Leave empty unless this movement needs an exceptional frame, fit, or graphic treatment.",
     }),
   ],
   preview: {
     select: {
+      key: "_key",
       alt: "alt",
       mediaType: "mediaType",
       scale: "scale",
       pace: "pace",
       relation: "relation",
-      chapter: "infoHint",
       still: "still",
       poster: "poster",
+      mediaFit: "presentationOverride.mediaFit",
     },
-    prepare({ alt, mediaType, scale, pace, relation, chapter, still, poster }) {
-      const media = mediaType === "film" ? "Film" : "Still";
-      const chapterLabel = typeof chapter === "string" && chapter ? chapter : null;
+    prepare({ key, alt, mediaType, scale, pace, relation, still, poster, mediaFit }) {
+      const fit = mediaFit === "cover" ? "COVER" : "CONTAIN";
       return {
-        title: alt || media,
-        subtitle: [media, scale, pace, relation, chapterLabel].filter(Boolean).join(" · "),
+        title: movementPreviewTitle({ mediaType, scale, pace, relation, mediaFit }),
+        subtitle: [key, fit, typeof alt === "string" ? alt : ""]
+          .filter((value) => typeof value === "string" && value.trim())
+          .join(" · "),
         media: still || poster,
       };
     },
