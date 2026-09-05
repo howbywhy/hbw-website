@@ -199,6 +199,7 @@ export function ProjectView({
       if (!silent) inspectHeldX.current = null;
       const instant = reduceMotion() || !animate;
       track.style.transition = instant ? "none" : `transform ${ms}ms var(--hbw-ease)`;
+      root.scrollLeft = 0;
       track.style.transform = `translate3d(${-xRef.current}px, 0, 0)`;
       if (silent) return;
       parkHold.current = null;
