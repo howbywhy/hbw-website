@@ -40,20 +40,20 @@ function applyLocalPublicSanityEnv() {
 
 applyLocalPublicSanityEnv();
 
-function readPublic(name: string, fallback: string) {
-  const value = process.env[name]?.trim();
-  return value || fallback;
-}
-
+// Next only inlines static process.env.NEXT_PUBLIC_* reads. Dynamic
+// process.env[name] resolves to undefined in the production SSG bundle.
 export const sanityProjectId =
   process.env.SANITY_STUDIO_PROJECT_ID?.trim() ||
-  readPublic("NEXT_PUBLIC_SANITY_PROJECT_ID", FALLBACK_PROJECT_ID);
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim() ||
+  FALLBACK_PROJECT_ID;
 export const sanityDataset =
   process.env.SANITY_STUDIO_DATASET?.trim() ||
-  readPublic("NEXT_PUBLIC_SANITY_DATASET", FALLBACK_DATASET);
+  process.env.NEXT_PUBLIC_SANITY_DATASET?.trim() ||
+  FALLBACK_DATASET;
 export const sanityApiVersion =
   process.env.SANITY_API_VERSION?.trim() ||
-  readPublic("NEXT_PUBLIC_SANITY_API_VERSION", FALLBACK_API_VERSION);
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION?.trim() ||
+  FALLBACK_API_VERSION;
 
 export function isSanityConfigured() {
   return sanityProjectId !== FALLBACK_PROJECT_ID;

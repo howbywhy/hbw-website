@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { projectById } from "../components/home/catalog";
 import { CMS_BACKED_PROJECTS, cmsProjectByCmsSlug } from "../lib/cms-source";
 import { catalogOwned, loadPublishedFrontendProject } from "./load-published";
+import { sckMediaConfig } from "./scripts/fetch-sck";
 
 test("published catalog merge keeps shipped chrome out of Sanity for every CMS project", () => {
   for (const project of CMS_BACKED_PROJECTS) {
@@ -19,6 +20,12 @@ test("published catalog merge keeps shipped chrome out of Sanity for every CMS p
     assert.equal(catalog.status, shipped.status, project.label);
     assert.deepEqual(catalog.collaborators, shipped.collaborators, project.label);
   }
+});
+
+test("published Sanity reader keeps the production project id", () => {
+  const media = sckMediaConfig();
+  assert.equal(media.projectId, "aagd1kcy");
+  assert.equal(media.dataset, "production");
 });
 
 test("published loader accepts CMS slugs only and rejects public or unknown slugs", async () => {
