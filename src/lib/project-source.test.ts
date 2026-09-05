@@ -14,16 +14,8 @@ import { CHRIS_COPY } from "../sanity/scripts/chris-content";
 import { KOJA_COPY } from "../sanity/scripts/koja-content";
 import { OBR_COPY } from "../sanity/scripts/obr-content";
 import { SUB3_COPY } from "../sanity/scripts/sub3-content";
-import { cmsBackedProject } from "./cms-source";
-import {
-  chrisSourceFlag,
-  closedSourceFlag,
-  kojaSourceFlag,
-  obrSourceFlag,
-  resolveProjectExperience,
-  sckSourceFlag,
-  sub3SourceFlag,
-} from "./project-source";
+import { cmsBackedProject, sourceFlagFromEnv } from "./cms-source";
+import { resolveProjectExperience } from "./project-source";
 
 const cmsSck: ProjectExperience = {
   ...SCK_EXPERIENCE,
@@ -119,40 +111,15 @@ const cmsObr: ProjectExperience = {
   }),
 };
 
-test("missing env defaults SCK source to local", () => {
-  assert.equal(sckSourceFlag({}), "local");
-  assert.equal(sckSourceFlag({ HBW_SCK_SOURCE: "nope" }), "local");
-  assert.equal(sckSourceFlag({ HBW_SCK_SOURCE: "sanity" }), "sanity");
-});
-
-test("missing env defaults CLOSED source to local", () => {
-  assert.equal(closedSourceFlag({}), "local");
-  assert.equal(closedSourceFlag({ HBW_CLOSED_SOURCE: "nope" }), "local");
-  assert.equal(closedSourceFlag({ HBW_CLOSED_SOURCE: "sanity" }), "sanity");
-});
-
-test("missing env defaults KOJA source to local", () => {
-  assert.equal(kojaSourceFlag({}), "local");
-  assert.equal(kojaSourceFlag({ HBW_KOJA_SOURCE: "nope" }), "local");
-  assert.equal(kojaSourceFlag({ HBW_KOJA_SOURCE: "sanity" }), "sanity");
-});
-
-test("missing env defaults Chris source to local", () => {
-  assert.equal(chrisSourceFlag({}), "local");
-  assert.equal(chrisSourceFlag({ HBW_CHRIS_SOURCE: "nope" }), "local");
-  assert.equal(chrisSourceFlag({ HBW_CHRIS_SOURCE: "sanity" }), "sanity");
-});
-
-test("missing env defaults SUB:3 source to local", () => {
-  assert.equal(sub3SourceFlag({}), "local");
-  assert.equal(sub3SourceFlag({ HBW_SUB3_SOURCE: "nope" }), "local");
-  assert.equal(sub3SourceFlag({ HBW_SUB3_SOURCE: "sanity" }), "sanity");
-});
-
-test("missing env defaults OBR source to local", () => {
-  assert.equal(obrSourceFlag({}), "local");
-  assert.equal(obrSourceFlag({ HBW_OBR_SOURCE: "nope" }), "local");
-  assert.equal(obrSourceFlag({ HBW_OBR_SOURCE: "sanity" }), "sanity");
+test("missing env defaults every CMS source flag to local", () => {
+  assert.equal(sourceFlagFromEnv("HBW_SCK_SOURCE", {}), "local");
+  assert.equal(sourceFlagFromEnv("HBW_SCK_SOURCE", { HBW_SCK_SOURCE: "nope" }), "local");
+  assert.equal(sourceFlagFromEnv("HBW_SCK_SOURCE", { HBW_SCK_SOURCE: "sanity" }), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_CLOSED_SOURCE", {}), "local");
+  assert.equal(sourceFlagFromEnv("HBW_KOJA_SOURCE", {}), "local");
+  assert.equal(sourceFlagFromEnv("HBW_CHRIS_SOURCE", {}), "local");
+  assert.equal(sourceFlagFromEnv("HBW_SUB3_SOURCE", {}), "local");
+  assert.equal(sourceFlagFromEnv("HBW_OBR_SOURCE", {}), "local");
 });
 
 test("CMS-backed routes map to the published slug", () => {
@@ -174,12 +141,12 @@ test("source flags stay independent across the six CMS projects", () => {
     HBW_SUB3_SOURCE: "local",
     HBW_OBR_SOURCE: "sanity",
   };
-  assert.equal(sckSourceFlag(mixedA), "local");
-  assert.equal(closedSourceFlag(mixedA), "local");
-  assert.equal(kojaSourceFlag(mixedA), "local");
-  assert.equal(chrisSourceFlag(mixedA), "local");
-  assert.equal(sub3SourceFlag(mixedA), "local");
-  assert.equal(obrSourceFlag(mixedA), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_SCK_SOURCE", mixedA), "local");
+  assert.equal(sourceFlagFromEnv("HBW_CLOSED_SOURCE", mixedA), "local");
+  assert.equal(sourceFlagFromEnv("HBW_KOJA_SOURCE", mixedA), "local");
+  assert.equal(sourceFlagFromEnv("HBW_CHRIS_SOURCE", mixedA), "local");
+  assert.equal(sourceFlagFromEnv("HBW_SUB3_SOURCE", mixedA), "local");
+  assert.equal(sourceFlagFromEnv("HBW_OBR_SOURCE", mixedA), "sanity");
 
   const mixedB = {
     HBW_SCK_SOURCE: "sanity",
@@ -189,12 +156,12 @@ test("source flags stay independent across the six CMS projects", () => {
     HBW_SUB3_SOURCE: "sanity",
     HBW_OBR_SOURCE: "local",
   };
-  assert.equal(sckSourceFlag(mixedB), "sanity");
-  assert.equal(closedSourceFlag(mixedB), "sanity");
-  assert.equal(kojaSourceFlag(mixedB), "sanity");
-  assert.equal(chrisSourceFlag(mixedB), "sanity");
-  assert.equal(sub3SourceFlag(mixedB), "sanity");
-  assert.equal(obrSourceFlag(mixedB), "local");
+  assert.equal(sourceFlagFromEnv("HBW_SCK_SOURCE", mixedB), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_CLOSED_SOURCE", mixedB), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_KOJA_SOURCE", mixedB), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_CHRIS_SOURCE", mixedB), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_SUB3_SOURCE", mixedB), "sanity");
+  assert.equal(sourceFlagFromEnv("HBW_OBR_SOURCE", mixedB), "local");
 });
 
 test("non-CMS slugs stay on local experiences", async () => {
@@ -372,7 +339,7 @@ test("KOJA + missing flag uses shipped experience", async () => {
         return cmsKoja;
       },
     });
-    assert.equal(kojaSourceFlag({}), "local");
+    assert.equal(sourceFlagFromEnv("HBW_KOJA_SOURCE", {}), "local");
     assert.equal(resolved.source, "local");
     assert.equal(resolved.experience, KOJA_EXPERIENCE);
     assert.equal(resolved.experience?.movements.length, 8);
@@ -473,7 +440,7 @@ test("Chris + missing flag uses shipped experience", async () => {
         return cmsChris;
       },
     });
-    assert.equal(chrisSourceFlag({}), "local");
+    assert.equal(sourceFlagFromEnv("HBW_CHRIS_SOURCE", {}), "local");
     assert.equal(resolved.source, "local");
     assert.equal(resolved.experience, SISARICH_EXPERIENCE);
     assert.equal(resolved.experience?.movements.length, 8);
@@ -572,7 +539,7 @@ test("SUB:3 + missing flag uses shipped experience", async () => {
         return cmsSub3;
       },
     });
-    assert.equal(sub3SourceFlag({}), "local");
+    assert.equal(sourceFlagFromEnv("HBW_SUB3_SOURCE", {}), "local");
     assert.equal(resolved.source, "local");
     assert.equal(resolved.experience, SUB3_EXPERIENCE);
     assert.equal(resolved.experience?.movements.length, 12);
@@ -677,7 +644,7 @@ test("OBR + missing flag uses shipped experience", async () => {
         return cmsObr;
       },
     });
-    assert.equal(obrSourceFlag({}), "local");
+    assert.equal(sourceFlagFromEnv("HBW_OBR_SOURCE", {}), "local");
     assert.equal(resolved.source, "local");
     assert.equal(resolved.experience, OBR_EXPERIENCE);
     assert.equal(resolved.experience?.movements.length, 7);

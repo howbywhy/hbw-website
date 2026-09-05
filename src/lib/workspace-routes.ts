@@ -1,4 +1,5 @@
 import { PROJECT_SLUGS } from "@/components/home/catalog";
+import { cmsProjectByPreviewSlug } from "@/lib/cms-source";
 
 export function normPathname(path: string) {
   return (path || "/").replace(/[?#].*$/, "").replace(/\/+$/, "") || "/";
@@ -10,18 +11,11 @@ export function projectSlugFromPath(path: string): string | null {
   return PROJECT_SLUGS.includes(match[1]) ? match[1] : null;
 }
 
-/** Validation-only CMS preview. SCK, CLOSED, KOJA, Chris, SUB:3, and OBR only. */
+/** Validation-only CMS preview. Registry preview slugs only. */
 export function previewSlugFromPath(path: string): string | null {
   const match = normPathname(path).match(/^\/preview\/([^/]+)$/);
   if (!match) return null;
-  return match[1] === "sck" ||
-    match[1] === "closed" ||
-    match[1] === "koja" ||
-    match[1] === "chris-sisarich" ||
-    match[1] === "sub-3" ||
-    match[1] === "our-boy-roy"
-    ? match[1]
-    : null;
+  return cmsProjectByPreviewSlug(match[1])?.previewSlug ?? null;
 }
 
 export function viewSlugFromPath(path: string): string | null {

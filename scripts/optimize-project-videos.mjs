@@ -85,6 +85,10 @@ const JOBS = [
     webm: true,
     gif: true,
   },
+  // LEGACY CLOSED encode jobs. Live films are web/HBWxCLOSED-Portfolio-01 and
+  // web/HBWxCLOSED-Portfolio-021. These Eyes/Collage names are old inputs/outputs
+  // only. Do not retarget at the already-encoded 01/021 web files. Safe to retire
+  // the six Eyes/Collage files after this script drops these two jobs.
   {
     project: "CLOSED",
     file: "CLOSED-Eyes-1920x1080px.mp4",

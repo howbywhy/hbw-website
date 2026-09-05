@@ -28,6 +28,8 @@ test("CMS preview is SCK, CLOSED, KOJA, Chris, SUB:3, and OBR only, and not a pu
   assert.equal(previewSlugFromPath("/preview/sub-3"), "sub-3");
   assert.equal(previewSlugFromPath("/preview/our-boy-roy"), "our-boy-roy");
   assert.equal(previewSlugFromPath("/preview/bistro-nido"), null);
+  assert.equal(previewSlugFromPath("/preview/bar-closed"), null);
+  assert.equal(previewSlugFromPath("/preview/not-a-project"), null);
   assert.equal(previewSlugFromPath("/projects/sck"), null);
   assert.equal(previewSlugFromPath("/projects/bar-closed"), null);
   assert.equal(previewSlugFromPath("/projects/koja"), null);

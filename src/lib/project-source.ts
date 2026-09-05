@@ -7,7 +7,14 @@ import {
 } from "@/lib/cms-source";
 
 export type { ProjectSource };
-export { catalogIdForSlug, cmsBackedProject, sourceFlagFromEnv } from "@/lib/cms-source";
+export {
+  catalogIdForSlug,
+  cmsBackedProject,
+  cmsProjectByCmsSlug,
+  cmsProjectByPreviewSlug,
+  sourceFlagForProject,
+  sourceFlagFromEnv,
+} from "@/lib/cms-source";
 
 export type ResolvedProjectExperience = {
   experience: ProjectExperience | null;
@@ -18,36 +25,6 @@ export type ResolveProjectExperienceDeps = {
   sourceFlag?: ProjectSource;
   loadPublishedExperience?: (cmsSlug: string) => Promise<ProjectExperience>;
 };
-
-/** Missing or any value other than "sanity" stays on local SCK. Safer default. */
-export function sckSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return sourceFlagFromEnv("HBW_SCK_SOURCE", env);
-}
-
-/** Missing or any value other than "sanity" stays on local CLOSED. Safer default. */
-export function closedSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return sourceFlagFromEnv("HBW_CLOSED_SOURCE", env);
-}
-
-/** Missing or any value other than "sanity" stays on local KOJA. Safer default. */
-export function kojaSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return sourceFlagFromEnv("HBW_KOJA_SOURCE", env);
-}
-
-/** Missing or any value other than "sanity" stays on local Chris. Safer default. */
-export function chrisSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return sourceFlagFromEnv("HBW_CHRIS_SOURCE", env);
-}
-
-/** Missing or any value other than "sanity" stays on local SUB:3. Safer default. */
-export function sub3SourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return sourceFlagFromEnv("HBW_SUB3_SOURCE", env);
-}
-
-/** Missing or any value other than "sanity" stays on local Our Boy Roy. Safer default. */
-export function obrSourceFlag(env: Record<string, string | undefined> = process.env): ProjectSource {
-  return sourceFlagFromEnv("HBW_OBR_SOURCE", env);
-}
 
 async function defaultLoadPublishedExperience(cmsSlug: string): Promise<ProjectExperience> {
   const { loadPublishedFrontendProject } = await import("@/sanity/load-published");

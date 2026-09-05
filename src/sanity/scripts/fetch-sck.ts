@@ -1,26 +1,24 @@
 /**
- * Published project reads. Used by preview and the SCK source resolver.
+ * Published project reads. Used by preview and the published source resolver.
  * Presentation components do not import this module.
  */
 import { createClient } from "@sanity/client";
+import { sanityApiVersion, sanityDataset, sanityProjectId } from "../env";
 import type { SanityProject } from "../adapter/types";
 import { PROJECT_BY_SLUG_QUERY } from "./sck-content";
 
-const PROJECT_ID = "aagd1kcy";
-const DATASET = "production";
-
 export function sckReadClient() {
   return createClient({
-    projectId: PROJECT_ID,
-    dataset: DATASET,
-    apiVersion: "2025-02-19",
+    projectId: sanityProjectId,
+    dataset: sanityDataset,
+    apiVersion: sanityApiVersion,
     useCdn: false,
     perspective: "published",
   });
 }
 
 export function sckMediaConfig() {
-  return { projectId: PROJECT_ID, dataset: DATASET };
+  return { projectId: sanityProjectId, dataset: sanityDataset };
 }
 
 export async function fetchPublishedProjectBySlug(slug: string): Promise<SanityProject> {

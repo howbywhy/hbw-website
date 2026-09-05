@@ -1,71 +1,25 @@
 /**
  * Real Sanity SCK → adapter → shipped local models.
  * Networked validation only. Not part of npm test.
+ *
+ * Protects: document id, 21 movements, order/ids/kind/scale/relation/resolved pace,
+ * media role identity (not local path vs CDN URL), film/poster presence via identity,
+ * idea/shift/system headings, critical Info fields, Sanity CDN host.
+ * Surfaces catalog preview filename vs Sanity preview as editorial drift.
  */
 import assert from "node:assert/strict";
 import { projectById } from "../../components/home/catalog";
 import { SCK_EXPERIENCE } from "../../components/home/projects/experiences";
-import { movementSpan, type Movement } from "../../components/home/projects/types";
 import { sanityProjectToFrontendProject } from "../adapter/map";
 import { portableTextToPlainCopy } from "../adapter/portableText";
+import {
+  compareMovementParity,
+  previewChromeDrift,
+  type SanityMovementAssets,
+  type VerifyMismatch,
+} from "./cms-verify-lib";
 import { SCK_COPY } from "./sck-content";
 import { fetchPublishedSckProject, sckMediaConfig } from "./fetch-sck";
-
-type Mismatch = { id: string; field: string; expected: unknown; actual: unknown };
-
-function basename(path: string | undefined) {
-  return path?.split("/").pop() ?? "";
-}
-
-function assetName(value: unknown) {
-  if (!value || typeof value !== "object") return "";
-  const asset = "asset" in value ? (value as { asset?: { originalFilename?: string } }).asset : undefined;
-  return asset && "originalFilename" in asset ? (asset.originalFilename ?? "") : "";
-}
-
-function compareMovements(expected: Movement[], actual: Movement[], raw: SanityMovements): Mismatch[] {
-  const mismatches: Mismatch[] = [];
-  if (expected.length !== actual.length) {
-    mismatches.push({ id: "*", field: "count", expected: expected.length, actual: actual.length });
-    return mismatches;
-  }
-  expected.forEach((left, index) => {
-    const right = actual[index];
-    const source = raw[index];
-    const fields: Array<[string, unknown, unknown]> = [
-      ["id", left.id, right.id],
-      ["order", index, index],
-      ["media.type", left.media.type, right.media.type],
-      ["media.identity", basename(left.media.type === "video" ? left.media.mp4 || left.media.src : left.media.src), assetName(left.media.type === "video" ? source.video : source.still)],
-      ["media.posterIdentity", basename(left.media.poster), left.media.type === "video" ? assetName(source.poster) : ""],
-      ["media.webm", left.media.webm, right.media.webm],
-      ["media.width", left.media.width, right.media.width],
-      ["media.height", left.media.height, right.media.height],
-      ["media.fit", left.media.fit, right.media.fit],
-      ["media.alt", left.media.alt, right.media.alt],
-      ["scale", left.scale, right.scale],
-      ["pace", left.pace ?? "normal", right.pace],
-      ["relation", left.relation ?? "single", right.relation],
-      ["infoHint", left.infoHint, right.infoHint],
-      ["kind", left.kind, right.kind],
-      ["span.stored", left.span, right.span],
-      ["span.resolved", movementSpan(left), movementSpan(right)],
-    ];
-    for (const [field, exp, act] of fields) {
-      if (exp !== act) mismatches.push({ id: left.id, field, expected: exp, actual: act });
-    }
-    if (!right.media.src.includes("cdn.sanity.io")) {
-      mismatches.push({ id: left.id, field: "media.src.host", expected: "cdn.sanity.io", actual: right.media.src });
-    }
-  });
-  return mismatches;
-}
-
-type SanityMovements = Array<{
-  still?: { asset?: { originalFilename?: string } };
-  poster?: { asset?: { originalFilename?: string } };
-  video?: { asset?: { originalFilename?: string } };
-}>;
 
 async function main() {
   const project = await fetchPublishedSckProject();
@@ -86,7 +40,7 @@ async function main() {
     sckMediaConfig()
   );
 
-  const recordGaps: Mismatch[] = [];
+  const recordGaps: VerifyMismatch[] = [];
   const recordFields: Array<[string, unknown, unknown]> = [
     ["id", shipped.id, result.record.id],
     ["href", shipped.href, result.record.href],
@@ -95,18 +49,20 @@ async function main() {
     ["year", shipped.year, result.record.year],
     ["sectors", (shipped.sectors ?? []).join("|"), (result.record.sectors ?? []).join("|")],
     ["disciplines", (shipped.disciplines ?? []).join("|"), (result.record.disciplines ?? []).join("|")],
-    ["preview.width", shipped.width, result.record.width],
-    ["preview.height", shipped.height, result.record.height],
-    ["preview.identity", basename(shipped.src), assetName(project.preview)],
   ];
   for (const [field, exp, act] of recordFields) {
     if (exp !== act) recordGaps.push({ id: "record", field, expected: exp, actual: act });
   }
+  const editorialDrift = previewChromeDrift(shipped, result.record, project.preview);
 
   const experience = result.experience;
-  const movementGaps = compareMovements(SCK_EXPERIENCE.movements, experience.movements, project.movements as SanityMovements);
+  const movementGaps = compareMovementParity(
+    SCK_EXPERIENCE.movements,
+    experience.movements,
+    project.movements as SanityMovementAssets[]
+  );
   const sectionIds = experience.infoSections.map((section) => section.id);
-  const headingGaps: Mismatch[] = [];
+  const headingGaps: VerifyMismatch[] = [];
   if (sectionIds.join() !== "idea,shift,system") {
     headingGaps.push({ id: "info", field: "ids", expected: "idea,shift,system", actual: sectionIds.join() });
   }
@@ -145,6 +101,7 @@ async function main() {
         recordGaps,
         movementGaps,
         headingGaps,
+        editorialDrift,
         editorialApproved: {
           context: editorial.context === SCK_COPY.context,
           roles: editorial.roles.join("|") === SCK_COPY.roles.join("|"),
