@@ -107,7 +107,7 @@ export const CLOSED_MOVEMENTS: ClosedSeedMovement[] = [
     still: "public/projects/bar-closed/HBWxCLOSED-Portfolio-04.jpg",
     alt: "Orange type on brown reading CLOSED UNTIL WE'RE NOT.",
     scale: "standard",
-    pace: "normal",
+    pace: "tight",
     relation: "pair",
   },
   {
