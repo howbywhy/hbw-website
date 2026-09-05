@@ -2990,6 +2990,15 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     aspect-ratio: var(--hbw-mv-ratio, auto);
   }
 
+  /*
+    Wide major+pause hits the 88% cap while docked at 7%, leaving ~5% after
+    the frame. A slightly lower cap keeps the movement major and leaves
+    enough field for the pause and next peek. Dock and pause tokens stay.
+  */
+  .hbw-project-view .hbw-mv.is-major.is-pause.hbw-mv--full {
+    max-width: calc(var(--hbw-stage-w, 100%) * 0.82);
+  }
+
   .hbw-project-view .hbw-outro {
     height: var(--hbw-mv-field);
   }
