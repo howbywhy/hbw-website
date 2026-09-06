@@ -2992,7 +2992,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 
   /*
     Landscape/film pause at --full or --wide can fill ~82–88% while docked
-    at 7%, leaving only a sliver of a narrower next movement. 78% keeps the
+    at 7%, leaving only a sliver of a narrower next movement. 74% keeps the
     pause dominant and leaves an intentional preview. Dock and pause tokens
     stay. Portrait pauses are not selected.
   */
@@ -3000,7 +3000,11 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   .hbw-project-view .hbw-mv.is-pause.hbw-mv--landscape.hbw-mv--wide,
   .hbw-project-view .hbw-mv.is-pause.hbw-mv--film.hbw-mv--full,
   .hbw-project-view .hbw-mv.is-pause.hbw-mv--film.hbw-mv--wide {
-    max-width: calc(var(--hbw-stage-w, 100%) * 0.78);
+    max-width: calc(var(--hbw-stage-w, 100%) * 0.74);
+  }
+
+  .hbw-project-view .hbw-mv.is-pair.hbw-mv--landscape {
+    max-width: calc(var(--hbw-stage-w, 100%) * 0.68);
   }
 
   .hbw-project-view .hbw-outro {
