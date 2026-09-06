@@ -116,7 +116,7 @@ export function ProjectView({
     root.style.setProperty("--hbw-stage-w", `${root.clientWidth}px`);
     root.style.setProperty("--hbw-stage-h", `${root.clientHeight}px`);
     const gap = Number.parseFloat(getComputedStyle(root).getPropertyValue("--hbw-stage-gap")) || 32;
-    const field = Math.min(Math.max(0, root.clientHeight - gap), root.clientWidth * 0.88 * (9 / 16));
+    const field = Math.min(Math.max(0, root.clientHeight - gap), root.clientWidth * 0.75 * (9 / 16));
     root.style.setProperty("--hbw-mv-field", `${Math.round(field)}px`);
     if (mobile.current) return;
     const items = [...track.querySelectorAll<HTMLElement>(":scope > .hbw-mv")];

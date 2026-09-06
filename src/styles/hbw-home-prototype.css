@@ -2963,8 +2963,8 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     Shared-height desktop gallery.
     One vertical field for every active movement. Width follows --hbw-mv-ratio.
     Field is the lesser of (viewport minus stage gap) and the height at which a
-    16:9 asset still fits inside the existing 88% stage max-width, so landscapes
-    do not overflow and portraits stay held rather than maxed to the window.
+    16:9 asset occupies 75% of the stage, so landscapes leave a readable next
+    movement and portraits stay held rather than maxed to the window.
     Scale classes stay on the movement for metadata and mobile, but they
     do not change desktop height. Width follows --hbw-mv-ratio.
   */
@@ -2972,7 +2972,7 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     /* Viewport units only, so inherited --hbw-mv-field does not re-resolve % against nested boxes. */
     --hbw-mv-field: min(
       calc(100dvh - var(--hbw-header-h) - var(--hbw-edge) - var(--hbw-stage-gap)),
-      calc((100vw - 2 * var(--hbw-edge)) * 0.88 * 9 / 16)
+      calc((100vw - 2 * var(--hbw-edge)) * 0.75 * 9 / 16)
     );
   }
 
@@ -2988,35 +2988,6 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     width: auto;
     max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
     aspect-ratio: var(--hbw-mv-ratio, auto);
-  }
-
-  /*
-    Wide landscape/film: if shared-height width would exceed 68% of stage,
-    cap at 68% and keep --hbw-mv-ratio so the visible image is not clipped.
-    Portraits are not selected. Pause/pair are not selected.
-  */
-  .hbw-project-view .hbw-mv.hbw-mv--landscape,
-  .hbw-project-view .hbw-mv.hbw-mv--film {
-    width: min(
-      calc(var(--hbw-mv-field) * var(--hbw-mv-ratio)),
-      calc(var(--hbw-stage-w, 100%) * 0.68)
-    );
-    height: auto;
-    max-height: var(--hbw-mv-field);
-    max-width: calc(var(--hbw-stage-w, 100%) * 0.68);
-    aspect-ratio: var(--hbw-mv-ratio, auto);
-  }
-
-  .hbw-project-view .hbw-mv.hbw-mv--landscape .hbw-mv__film,
-  .hbw-project-view .hbw-mv.hbw-mv--film .hbw-mv__film,
-  .hbw-project-view .hbw-mv.hbw-mv--landscape .hbw-mv__media,
-  .hbw-project-view .hbw-mv.hbw-mv--film .hbw-mv__media,
-  .hbw-project-view .hbw-mv.hbw-mv--landscape .hbw-mv__poster,
-  .hbw-project-view .hbw-mv.hbw-mv--film .hbw-mv__poster {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
   }
 
   .hbw-project-view .hbw-outro {
