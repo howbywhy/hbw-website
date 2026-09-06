@@ -2991,12 +2991,16 @@ html.hbw-vt-archive .hbw-browse__hover-image {
   }
 
   /*
-    Wide major+pause hits the 88% cap while docked at 7%, leaving ~5% after
-    the frame. A slightly lower cap keeps the movement major and leaves
-    enough field for the pause and next peek. Dock and pause tokens stay.
+    Landscape/film pause at --full or --wide can fill ~82–88% while docked
+    at 7%, leaving only a sliver of a narrower next movement. 78% keeps the
+    pause dominant and leaves an intentional preview. Dock and pause tokens
+    stay. Portrait pauses are not selected.
   */
-  .hbw-project-view .hbw-mv.is-major.is-pause.hbw-mv--full {
-    max-width: calc(var(--hbw-stage-w, 100%) * 0.82);
+  .hbw-project-view .hbw-mv.is-pause.hbw-mv--landscape.hbw-mv--full,
+  .hbw-project-view .hbw-mv.is-pause.hbw-mv--landscape.hbw-mv--wide,
+  .hbw-project-view .hbw-mv.is-pause.hbw-mv--film.hbw-mv--full,
+  .hbw-project-view .hbw-mv.is-pause.hbw-mv--film.hbw-mv--wide {
+    max-width: calc(var(--hbw-stage-w, 100%) * 0.78);
   }
 
   .hbw-project-view .hbw-outro {
