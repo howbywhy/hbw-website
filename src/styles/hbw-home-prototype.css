@@ -2994,15 +2994,6 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     height: var(--hbw-mv-field);
   }
 
-  .hbw-mv.is-tight,
-  .hbw-mv.is-pair.is-tight {
-    margin-right: calc(var(--hbw-gallery-tight) - var(--hbw-gallery-gap));
-  }
-
-  .hbw-mv.is-pause {
-    margin-right: calc(var(--hbw-gallery-pause) - var(--hbw-gallery-gap));
-  }
-
   .hbw-mv.is-major.hbw-mv--portrait .hbw-mv__media,
   .hbw-mv.is-major.hbw-mv--portrait .hbw-mv__poster {
     width: auto;
