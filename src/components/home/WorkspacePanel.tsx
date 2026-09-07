@@ -85,7 +85,7 @@ function StudioBody({ onShowManifesto }: { onShowManifesto: () => void }) {
       <figure className="hbw-sheet__portrait">
         <img
           src="/practice/mark-blackler-studio.jpg"
-          alt=""
+          alt="Mark Blackler in the HBW studio"
           width={819}
           height={1024}
           decoding="async"

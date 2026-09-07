@@ -10,12 +10,12 @@ export const STUDIO_COPY = {
   glimpse: "Our role is to create clarity where there’s noise and shape where there’s ambiguity.",
   independent: [
     "How by Why is an independent brand and design practice led by Mark Blackler.",
-    "I work directly with founders and teams to understand what’s being built, what needs to change and what the brand needs to do next.",
-    "The brief might begin with a name, an identity, packaging, a website or simply the feeling that something isn’t quite right. We use that as a starting point, then work out what the brand actually needs.",
+    "I work directly with founders and teams, bringing strategy and creative direction into the same conversation.",
+    "A brief might begin with a name, an identity, packaging, a website or simply the feeling that something isn’t quite right. We use that as a starting point, then work out what the brand actually needs.",
   ],
   philosophy: [
-    "Strong brands begin with clarity.",
-    "Before deciding what something should look like, we work to understand what it needs to mean, what it needs to change and what it needs to make possible.",
+    "The answer is rarely in the brief alone.",
+    "We ask why before deciding how — looking beyond the immediate request to understand the problem, opportunity or change behind it.",
   ],
   howIntro: "Our work begins with understanding.",
   howTools:
@@ -42,7 +42,7 @@ export const STUDIO_COPY = {
       copy: "Stay involved where useful, helping the brand evolve without losing what made it coherent in the first place.",
     },
   ],
-  contact: "If you’re navigating a moment that needs clarity, reach out: mark@hbw.works",
+  contact: "If you think we should work together, reach out: mark@hbw.works",
   manifestoLabel: "HBW Manifesto",
 } as const;
 
