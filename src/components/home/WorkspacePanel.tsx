@@ -23,15 +23,16 @@ type Props = {
   nextProjectName?: string | null;
   nextProjectHref?: string | null;
   onShowManifesto: () => void;
+  onShowStudio: () => void;
   onNextProject?: () => void;
   onPracticePreviewEnter?: () => void;
   onPracticePreviewLeave?: () => void;
   onPracticePreviewOpen?: () => void;
 };
 
-function Lines({ lines }: { lines: readonly string[] }) {
+function Lines({ lines, className }: { lines: readonly string[]; className?: string }) {
   return (
-    <p>
+    <p className={className}>
       {lines.map((line, i) => (
         <span key={line}>
           {i > 0 ? <br /> : null}
@@ -70,12 +71,6 @@ function PracticeGlimpse() {
 function StudioBody({ onShowManifesto }: { onShowManifesto: () => void }) {
   return (
     <>
-      <div className="hbw-sheet__opening-block">
-        <p className="hbw-sheet__opening">{STUDIO_COPY.opening}</p>
-        <p>{STUDIO_COPY.work}</p>
-        <p>{STUDIO_COPY.role}</p>
-        <p>{STUDIO_COPY.partners}</p>
-      </div>
       <section className="hbw-sheet__independent">
         <h2>Independent Practice</h2>
         {STUDIO_COPY.independent.map((paragraph) => (
@@ -154,23 +149,31 @@ function PracticePlace() {
   );
 }
 
-function ManifestoBody() {
+function ManifestoBody({ onShowStudio }: { onShowStudio: () => void }) {
   return (
     <>
-      <p className="hbw-sheet__opening">
+      <p className="hbw-sheet__opening hbw-sheet__thought--intra">
         {MANIFESTO_COPY.opening[0]}
         <br />
         {MANIFESTO_COPY.opening[1]}
       </p>
-      <Lines lines={MANIFESTO_COPY.reduced} />
-      {MANIFESTO_COPY.body.map((lines) => (
-        <Lines key={lines[0]} lines={lines} />
-      ))}
+      <Lines className="hbw-sheet__thought--break" lines={MANIFESTO_COPY.reduced} />
+      <Lines className="hbw-sheet__thought--mid" lines={MANIFESTO_COPY.body[0]} />
+      <Lines className="hbw-sheet__thought--intra" lines={MANIFESTO_COPY.body[1]} />
+      <Lines className="hbw-sheet__thought--mid" lines={MANIFESTO_COPY.body[2]} />
+      <Lines className="hbw-sheet__thought--intra" lines={MANIFESTO_COPY.body[3]} />
+      <Lines className="hbw-sheet__thought--mid" lines={MANIFESTO_COPY.body[4]} />
+      <Lines className="hbw-sheet__thought--break" lines={MANIFESTO_COPY.body[5]} />
+      <Lines className="hbw-sheet__thought--intra" lines={MANIFESTO_COPY.body[6]} />
+      <Lines className="hbw-sheet__thought--break" lines={MANIFESTO_COPY.body[7]} />
       <p className="hbw-sheet__opening hbw-sheet__closing">
         {MANIFESTO_COPY.close[0]}
         <br />
         {MANIFESTO_COPY.close[1]}
       </p>
+      <button type="button" className="hbw-sheet__link hbw-sheet__pill" onClick={onShowStudio}>
+        Back
+      </button>
     </>
   );
 }
@@ -314,6 +317,7 @@ export function WorkspacePanel({
   infoAnchor,
   experience,
   onShowManifesto,
+  onShowStudio,
   onNextProject,
   atProjectEnd = false,
   nextProjectName = null,
@@ -375,7 +379,7 @@ export function WorkspacePanel({
         label="Manifesto"
         onWheel={stopWheel}
       >
-        <ManifestoBody />
+        <ManifestoBody onShowStudio={onShowStudio} />
       </InformationSheet>
       <InformationSheet
         variant="project-right"

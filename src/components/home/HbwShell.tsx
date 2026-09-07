@@ -1789,6 +1789,7 @@ export function HbwShell({
           nextProjectHref={experience ? nextProject(experience.slug)?.href ?? null : null}
           practicePreview={practicePeek.open}
           onShowManifesto={showManifesto}
+          onShowStudio={showStudioContent}
           onNextProject={() => window.dispatchEvent(new Event("hbw:boundary-next"))}
           onPracticePreviewEnter={practicePeek.show}
           onPracticePreviewLeave={practicePeek.hideSoon}

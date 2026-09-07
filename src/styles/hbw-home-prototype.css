@@ -3358,28 +3358,36 @@ html.hbw-workspace .hbw-inspector .hbw-sheet__independent {
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__independent h2 {
-  margin: 0 0 var(--hbw-space-4);
+  margin: 0 0 var(--hbw-space-3);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__independent p {
-  margin: 0;
+  margin: 0 0 var(--hbw-space-3);
   max-width: 28em;
+}
+
+html.hbw-workspace .hbw-inspector .hbw-sheet__independent p:last-child {
+  margin-bottom: 0;
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy {
-  margin: var(--hbw-space-5) 0;
+  margin: 0 0 var(--hbw-space-5);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy h2 {
-  margin: 0 0 var(--hbw-space-4);
+  margin: 0 0 var(--hbw-space-3);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy p {
-  margin: 0 0 var(--hbw-space-4);
+  margin: 0 0 var(--hbw-space-3);
   max-width: 28em;
 }
 
-html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy .hbw-sheet__pill {
+html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy p:last-of-type {
+  margin-bottom: 0;
+}
+
+html.hbw-workspace .hbw-inspector .hbw-sheet__pill {
   display: inline-flex;
   align-items: center;
   margin: var(--hbw-space-3) 0 0;
@@ -3396,28 +3404,33 @@ html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy .hbw-sheet__pill {
   cursor: pointer;
 }
 
-html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy .hbw-sheet__pill:hover,
-html.hbw-workspace .hbw-inspector .hbw-sheet__philosophy .hbw-sheet__pill:focus-visible {
+html.hbw-workspace .hbw-inspector .hbw-sheet__pill:hover,
+html.hbw-workspace .hbw-inspector .hbw-sheet__pill:focus-visible {
   background: #1d1d1d;
   color: var(--hbw-info, #fcfa9b);
   border-color: #1d1d1d;
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how {
-  margin: var(--hbw-space-5) 0 0;
+  margin: 0;
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how > h2 {
-  margin: 0 0 var(--hbw-space-4);
+  margin: 0 0 var(--hbw-space-3);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how-intro {
-  margin: 0 0 var(--hbw-space-5);
+  margin: 0 0 var(--hbw-space-3);
+  max-width: 28em;
+}
+
+html.hbw-workspace .hbw-inspector .hbw-sheet__how > p:not(.hbw-sheet__how-intro) {
+  margin: 0 0 var(--hbw-space-4);
   max-width: 28em;
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how .hbw-sheet__step {
-  margin: 0 0 var(--hbw-space-5);
+  margin: 0 0 var(--hbw-space-3);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how .hbw-sheet__step:last-child {
@@ -3425,7 +3438,7 @@ html.hbw-workspace .hbw-inspector .hbw-sheet__how .hbw-sheet__step:last-child {
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how .hbw-sheet__step h2 {
-  margin: 0 0 var(--hbw-space-2);
+  margin: 0 0 var(--hbw-space-1);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__how .hbw-sheet__step p {
@@ -3435,24 +3448,38 @@ html.hbw-workspace .hbw-inspector .hbw-sheet__how .hbw-sheet__step p {
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__colophon {
   margin: var(--hbw-space-5) 0 0;
-  padding-top: var(--hbw-space-4);
-}
-
-html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__opening {
-  margin: 0 0 var(--hbw-space-5);
+  padding-top: 0;
 }
 
 html.hbw-workspace .hbw-inspector.is-manifesto p {
-  margin: 0 0 var(--hbw-space-5);
+  margin: 0;
   max-width: 22em;
 }
 
+html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__opening {
+  margin: 0;
+}
+
+html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__thought--intra {
+  margin-bottom: var(--hbw-space-2);
+}
+
+html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__thought--mid {
+  margin-bottom: calc(var(--hbw-space-3) + var(--hbw-space-2));
+}
+
+html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__thought--break,
 html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__closing {
-  margin-top: var(--hbw-space-5);
+  margin-top: 0;
+  margin-bottom: calc(var(--hbw-space-4) + var(--hbw-space-3));
+}
+
+html.hbw-workspace .hbw-inspector.is-manifesto .hbw-sheet__pill {
+  margin: 0;
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__colophon h2 {
-  margin: 0 0 var(--hbw-space-2);
+  margin: 0 0 var(--hbw-space-3);
 }
 
 html.hbw-workspace .hbw-inspector .hbw-sheet__colophon p:not(.hbw-sheet__place) {
