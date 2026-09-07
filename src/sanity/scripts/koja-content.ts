@@ -6,7 +6,7 @@ export const KOJA_IDENTITY = {
   title: "KOJA",
   slug: "koja",
   proposition: "Unapologetically Good",
-  year: "2021",
+  year: "2024",
   sectors: ["Food", "FMCG"],
   disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
   portfolioOrder: 3,
