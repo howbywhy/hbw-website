@@ -1365,7 +1365,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   bottom: calc(var(--hbw-task-bottom, 14px) + var(--hbw-task-h, 2.75rem) + 10px);
   z-index: 2;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 calc(1px + var(--hbw-space-3));
   border: 0;
   background: none;
   color: rgba(51, 51, 51, 0.42);
@@ -4087,6 +4087,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 
   .hbw-poster-note {
     left: calc(50% - min(11.375rem, (100% - (2 * var(--hbw-edge))) / 2));
+    padding-left: calc(1px + var(--hbw-space-2));
   }
 
   .hbw-poster-toolbar {
