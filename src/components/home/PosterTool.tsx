@@ -90,6 +90,8 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   const [tray, setTray] = useState<"none" | "add">("none");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [hasWork, setHasWork] = useState(false);
+  const [hasContent, setHasContent] = useState(false);
+  const noteRef = useRef<HTMLParagraphElement>(null);
   const [emailError, setEmailError] = useState("");
   const [emailStatus, setEmailStatus] = useState("");
   const [preview, setPreview] = useState("");
@@ -133,6 +135,15 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     if (!ctx) return;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     redraw();
+    const note = noteRef.current;
+    const bar = wrap?.querySelector<HTMLElement>(".hbw-poster-toolbar");
+    if (note && bar) {
+      const fr = wrap.getBoundingClientRect();
+      const br = bar.getBoundingClientRect();
+      note.style.left = `${Math.max(0, br.left - fr.left)}px`;
+      note.style.bottom = "auto";
+      note.style.top = `${Math.max(0, br.top - fr.top - note.offsetHeight - 10)}px`;
+    }
   }, [redraw]);
 
   useEffect(() => {
@@ -153,6 +164,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setFamily("select");
       setArmed(null);
       setHasWork(objectsRef.current.length > 0 || workspace.poster.frozen);
+      setHasContent(hasComposition());
     }
     resize();
     window.addEventListener("resize", resize);
@@ -222,6 +234,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       shapeFill,
     });
     setHasWork(objectsRef.current.length > 0 || undoRef.current.length > 0);
+    setHasContent(hasComposition() || Boolean(draftRef.current));
   }
 
   function pos(event: { clientX: number; clientY: number }): Pt {
@@ -384,6 +397,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     }
     setSelectedId(null);
     if (family === "select") return;
+    if (family === "add" && tool !== "shape" && tool !== "upload") return;
     if (tool === "text" || family === "write") {
       snapshot();
       const obj: TextObject = {
@@ -627,6 +641,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     setPreviewUrl("");
     setTray("none");
     setHasWork(false);
+    setHasContent(false);
     redraw();
   }
 
@@ -714,7 +729,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setTray("none");
     } else if (next === "add") {
       setTray("add");
-      setCurrentTool("upload");
+      setCurrentTool("select");
     }
   }
 
@@ -794,6 +809,11 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
   const selectedImage = current?.kind === "image";
   const textActive = selectedText || Boolean(editing);
   const AlignIcon = align === "center" ? AlignCenterHorizontal : align === "right" ? AlignRight : AlignLeft;
+  const showNote = !hasContent && !editingId && !reviewing && !frozen && !sending && !dormant && !hidden;
+
+  useEffect(() => {
+    resize();
+  }, [resize, showNote, family, tray, reviewing]);
 
   return (
     <div
@@ -822,6 +842,11 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
           if (found && found.kind === "text") startEdit(found);
         }}
       />
+      {showNote ? (
+        <p ref={noteRef} className="hbw-poster-note">
+          Write, draw or add something
+        </p>
+      ) : null}
       {editing ? (
         <textarea
           ref={editRef}
@@ -993,13 +1018,13 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
               <button
                 type="button"
                 className={`hbw-poster-send-open${reviewing ? " is-current" : ""}`}
-                aria-label="Send"
+                aria-label="Send to HBW"
                 aria-pressed={reviewing || undefined}
                 disabled={frozen || sending}
                 onClick={() => void submitSend()}
               >
                 <PaperPlaneTilt />
-                <span>Send</span>
+                <span>Send to HBW</span>
               </button>
             </div>
             {emailError || emailStatus ? (
