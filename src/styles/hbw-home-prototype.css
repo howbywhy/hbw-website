@@ -264,6 +264,19 @@ html.hbw-intro-live .hbw-poster-toolbar {
     both;
 }
 
+html.hbw-intro .hbw-poster-note {
+  opacity: 0;
+}
+
+html.hbw-intro-live .hbw-poster-note {
+  animation: hbw-intro-present var(--hbw-t-micro) var(--hbw-ease)
+    calc(
+      var(--hbw-t-enter) + var(--hbw-t-handoff) + var(--hbw-t-ui) +
+        var(--hbw-t-ui) + var(--hbw-t-ui) + var(--hbw-t-ui) + var(--hbw-t-micro)
+    )
+    both;
+}
+
 html.hbw-intro-resolve .hbw-poster-toolbar,
 html.hbw-intro-resolve .hbw-home-strip {
   pointer-events: auto;
@@ -3630,6 +3643,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   html.hbw-intro .hbw-home-strip__nav,
   html.hbw-intro .hbw-window,
   html.hbw-intro .hbw-poster-field,
+  html.hbw-intro .hbw-poster-note,
   html.hbw-intro .hbw-poster-toolbar,
   html.hbw-intro .hbw-projects,
   html.hbw-intro .hbw-projects.is-open,
