@@ -192,6 +192,8 @@ export function HbwShell({
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [infoAnchor, setInfoAnchor] = useState<InfoSectionId>("idea");
   const [viewIndex, setViewIndex] = useState(resumed?.viewIndex ?? 0);
+  const [fullFrame, setFullFrame] = useState(false);
+  const fullFrameLock = useRef(false);
   const [phase, setPhase] = useState<ViewPhase>(() => phaseAfterRouteBoundary(resumed, pathname));
   const [swap, setSwap] = useState<Swap | null>(resumed?.swap ?? null);
   const [leaving, setLeaving] = useState<{ id: string; index: number } | null>(resumed?.leaving ?? null);
@@ -617,7 +619,11 @@ export function HbwShell({
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
-    const sync = () => setNarrow(mq.matches);
+    const sync = () => {
+      const mobile = mq.matches;
+      setNarrow(mobile);
+      if (mobile) setFullFrame(false);
+    };
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
@@ -1061,6 +1067,7 @@ export function HbwShell({
     clearMotionTimers();
     setViewIndex(0);
     savedIndex.current[id] = 0;
+    setFullFrame(false);
     setParkedX(null);
     keepBrowse.current = from === "browse" || from === "view";
     settleEnter.current = null;
@@ -1247,6 +1254,7 @@ export function HbwShell({
         setLeaving({ id: fromId, index: viewIndex });
         setActive(nxt.id);
         setViewIndex(0);
+        setFullFrame(false);
         setWindowMode("view");
         setSwap({ from: "view", to: "view", phase: "entering" });
         setPhase("handoff-in");
@@ -1320,6 +1328,7 @@ export function HbwShell({
         setActive(nextSlug);
         setViewIndex(index);
         savedIndex.current[nextSlug] = index;
+        setFullFrame(false);
         setParkedX(x ?? null);
         setWindowMode("view");
         setSwap(null);
@@ -1334,6 +1343,7 @@ export function HbwShell({
       setActive(nextSlug);
       setViewIndex(index);
       savedIndex.current[nextSlug] = index;
+      setFullFrame(false);
       setParkedX(x ?? null);
       setWindowMode("view");
       setSwap({ from: "view", to: "view", phase: "entering" });
@@ -1502,6 +1512,10 @@ export function HbwShell({
           closePanel();
           return;
         }
+        if (fullFrame) {
+          setFullFrame(false);
+          return;
+        }
         if (windowMode === "view" || phase === "rising" || phase === "assembling" || phase === "active") {
           closeToOrigin();
           return;
@@ -1536,7 +1550,7 @@ export function HbwShell({
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [activeId, browseMode, filterDim, filterValue, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode]);
+  }, [activeId, browseMode, filterDim, filterValue, fullFrame, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode]);
 
   const makeActive = windowMode === "make" && swap?.from !== "browse";
   const browseDropping = swap?.from === "browse" && swap.to === "make";
@@ -1670,7 +1684,9 @@ export function HbwShell({
           isOwning ? " is-owning" : ""
         }${enterBridge ? " is-bridging" : ""}${
           enterBridge?.mode === "fade" ? " is-enter-fade" : ""
-        }${restoredBrowse ? " is-restored-browse" : ""}${boundaryNext ? " is-boundary" : ""} is-phase-${phase}${swap ? ` is-swap-${swap.phase}` : ""}`}
+        }${restoredBrowse ? " is-restored-browse" : ""}${boundaryNext ? " is-boundary" : ""}${
+          fullFrame && phase === "active" ? " is-full-frame" : ""
+        } is-phase-${phase}${swap ? ` is-swap-${swap.phase}` : ""}`}
         data-hbw-project={viewSlug || undefined}
         data-hbw-held-suffix={heldSuffix || undefined}
         data-hbw-origin={originKind}
@@ -1775,6 +1791,16 @@ export function HbwShell({
                 experience={chromeExperience}
                 boundaryName={boundaryNext?.name ?? null}
                 boundaryHref={boundaryNext?.href ?? null}
+                fullFrame={fullFrame}
+                fullFrameEnabled={phase === "active" && !narrow}
+                onToggleFullFrame={() => {
+                  if (phase !== "active" || narrow || fullFrameLock.current) return;
+                  fullFrameLock.current = true;
+                  setFullFrame((on) => !on);
+                  window.setTimeout(() => {
+                    fullFrameLock.current = false;
+                  }, reduceMotion() ? 0 : HBW_T.spatial);
+                }}
               />
             </div>
             <button
@@ -1854,6 +1880,7 @@ export function HbwShell({
               entrance={entranceRef.current}
               onIndex={onViewIndex}
               restoreX={parkedX}
+              fullFrame={fullFrame}
               onCommitNext={commitNext}
               onGeometryReady={(rect) => {
                 if (!window.__hbwEnterTiming?.geometryReady) {

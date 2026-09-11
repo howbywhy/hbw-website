@@ -15,6 +15,9 @@ type Props = {
   experience: ProjectExperience | null;
   boundaryName?: string | null;
   boundaryHref?: string | null;
+  fullFrame?: boolean;
+  fullFrameEnabled?: boolean;
+  onToggleFullFrame?: () => void;
 };
 
 function thumbSrc(media: ProjectMedia) {
@@ -36,6 +39,9 @@ export function NavRegister({
   experience,
   boundaryName = null,
   boundaryHref = null,
+  fullFrame = false,
+  fullFrameEnabled = false,
+  onToggleFullFrame,
 }: Props) {
   const { openPanel, closePanel, panel } = useWorkspace();
   const idle = face === "home";
@@ -182,6 +188,19 @@ export function NavRegister({
               </div>
             ) : null}
           </span>
+          <button
+            type="button"
+            className="hbw-nav-sub__full-frame"
+            aria-pressed={fullFrame}
+            aria-label={fullFrame ? "Standard" : "Full Frame"}
+            tabIndex={boundaryName || !fullFrameEnabled ? -1 : 0}
+            onClick={() => {
+              if (!fullFrameEnabled) return;
+              onToggleFullFrame?.();
+            }}
+          >
+            {fullFrame ? "Standard" : "Full Frame"}
+          </button>
         </span>
         <span className="hbw-nav-sub__face hbw-nav-sub__face--next" aria-hidden={boundaryName ? undefined : true}>
           <span className="hbw-nav-sub__lead">Next</span>

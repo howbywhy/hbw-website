@@ -8,6 +8,7 @@ import { ProjectOutro } from "@/components/home/projects/ProjectOutro";
 import { nextProject } from "@/components/home/sequence";
 import { projectById } from "@/components/home/catalog";
 import { readFirstMovementVisual, type DestinationVisual } from "@/components/home/projects/enter-bridge";
+import { galleryFieldHeight, remapGalleryX } from "@/components/home/projects/gallery-field";
 import { isVideoMedia, movementPace, movementSpan, type ProjectExperience } from "@/components/home/projects/types";
 
 export type ViewPhase = "idle" | "rising" | "assembling" | "active" | "exiting" | "handoff-in" | "handoff-out";
@@ -23,6 +24,7 @@ type Props = {
   onLeaveInspect?: () => void;
   onGeometryReady?: (dest: DestinationVisual) => void;
   restoreX?: number | null;
+  fullFrame?: boolean;
 };
 
 /** Stage home as a fraction of the field. goTo docks a movement here; indexFromX uses the same line so seek and scroll share one current. */
@@ -76,6 +78,7 @@ export function ProjectView({
   onLeaveInspect,
   onGeometryReady,
   restoreX = null,
+  fullFrame = false,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -99,6 +102,9 @@ export function ProjectView({
   const next = nextProject(experience.slug);
   const live = phase !== "idle";
   const canDrive = phase === "active";
+  const fullFrameLive = fullFrame && canDrive;
+  const fullFrameRef = useRef(fullFrameLive);
+  fullFrameRef.current = fullFrameLive;
 
   indexRef.current = index;
 
@@ -119,8 +125,13 @@ export function ProjectView({
     root.style.setProperty("--hbw-stage-w", `${root.clientWidth}px`);
     root.style.setProperty("--hbw-stage-h", `${root.clientHeight}px`);
     const gap = Number.parseFloat(getComputedStyle(root).getPropertyValue("--hbw-stage-gap")) || 32;
-    const field = Math.min(Math.max(0, root.clientHeight - gap), root.clientWidth * 0.75 * (9 / 16));
-    root.style.setProperty("--hbw-mv-field", `${Math.round(field)}px`);
+    const field = galleryFieldHeight(
+      root.clientWidth,
+      root.clientHeight,
+      gap,
+      fullFrameRef.current && !mobile.current
+    );
+    root.style.setProperty("--hbw-mv-field", `${field}px`);
     if (mobile.current) return;
     const items = [...track.querySelectorAll<HTMLElement>(":scope > .hbw-mv")];
     const outro = track.querySelector<HTMLElement>(":scope > .hbw-outro");
@@ -423,6 +434,105 @@ export function ProjectView({
       clearFlip();
     }, HBW_T.spatial);
   }, [clearFlip, currentId]);
+
+  const playFieldFlip = useCallback(() => {
+    const root = rootRef.current;
+    const track = trackRef.current;
+    const prev = flipRects.current;
+    flipRects.current = new Map();
+    window.clearTimeout(flipTimer.current);
+    if (!root || !track || mobile.current || reduceMotion() || !prev.size) {
+      ignoreResize.current = false;
+      return;
+    }
+    const stage = root.getBoundingClientRect();
+    const plays: HTMLElement[] = [];
+    track.querySelectorAll<HTMLElement>(".hbw-mv").forEach((el) => {
+      const id = el.dataset.hbwMv;
+      if (!id) return;
+      const old = prev.get(id);
+      if (!old) return;
+      const next = readRect(el);
+      const current = el.classList.contains("is-current") || id === currentId;
+      const wasOnstage = old.left < stage.right && old.left + old.width > stage.left;
+      const nowOnstage = next.left < stage.right && next.left + next.width > stage.left;
+      if (!current && !wasOnstage && !nowOnstage) return;
+      const dx = old.left - next.left;
+      const dy = old.top - next.top;
+      const sx = old.width / Math.max(1, next.width);
+      const sy = old.height / Math.max(1, next.height);
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
+      el.style.transition = "none";
+      el.style.transformOrigin = "top left";
+      el.style.willChange = "transform";
+      el.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+      el.style.zIndex = current ? "6" : "1";
+      plays.push(el);
+    });
+    if (!plays.length) {
+      ignoreResize.current = false;
+      return;
+    }
+    root.classList.add("is-reflowing");
+    void root.offsetWidth;
+    requestAnimationFrame(() => {
+      plays.forEach((el) => {
+        el.style.transition = `transform ${HBW_T.spatial}ms var(--hbw-ease)`;
+        el.style.transform = "none";
+      });
+    });
+    flipTimer.current = window.setTimeout(() => {
+      clearFlip();
+    }, HBW_T.spatial);
+  }, [clearFlip, currentId]);
+
+  const prevFullFrame = useRef(fullFrameLive);
+  useLayoutEffect(() => {
+    const was = prevFullFrame.current;
+    prevFullFrame.current = fullFrameLive;
+    if (was === fullFrameLive) return;
+    const root = rootRef.current;
+    const track = trackRef.current;
+    if (!root || !track) return;
+    if (phase !== "active" || mobile.current) {
+      measure();
+      return;
+    }
+
+    ignoreResize.current = true;
+    const i = Math.min(indexRef.current, total);
+    const savedX = xRef.current;
+    const oldLefts = offsets.current.slice();
+    const items = [...track.querySelectorAll<HTMLElement>(":scope > .hbw-mv")];
+    const captured = new Map<string, FlipRect>();
+    items.forEach((el) => {
+      const id = el.dataset.hbwMv;
+      if (id) captured.set(id, readRect(el));
+    });
+
+    measure();
+
+    let nextX = savedX;
+    if (i >= total && next) {
+      nextX = nextRestX();
+    } else if (oldLefts.length) {
+      nextX = remapGalleryX({
+        savedX,
+        oldLeft: oldLefts[i] ?? 0,
+        newLeft: offsets.current[i] ?? 0,
+      });
+    }
+    applyX(Math.max(0, nextX), false, true);
+    if (inspectingRef.current) inspectHeldX.current = xRef.current;
+
+    if (reduceMotion()) {
+      ignoreResize.current = false;
+      return;
+    }
+
+    flipRects.current = captured;
+    playFieldFlip();
+  }, [applyX, fullFrameLive, measure, next, nextRestX, phase, playFieldFlip, total]);
 
   useLayoutEffect(() => {
     function onCapture() {
@@ -806,9 +916,12 @@ export function ProjectView({
   return (
     <div
       ref={rootRef}
-      className={`hbw-stage hbw-project-view is-${phase}${inspecting ? " is-read" : ""}`}
+      className={`hbw-stage hbw-project-view is-${phase}${inspecting ? " is-read" : ""}${
+        fullFrameLive ? " is-full-frame" : ""
+      }`}
       data-hbw-track-x={Math.round(xRef.current)}
       data-hbw-index={index}
+      data-hbw-full-frame={fullFrameLive ? "true" : undefined}
       aria-hidden={!live ? true : undefined}
       inert={live ? undefined : true}
       tabIndex={live ? 0 : -1}

@@ -1174,6 +1174,31 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   cursor: pointer;
 }
 
+.hbw-nav-sub button.hbw-nav-sub__full-frame {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hbw-nav-sub button.hbw-nav-sub__full-frame:focus {
+  outline: none;
+}
+
+.hbw-nav-sub button.hbw-nav-sub__full-frame:focus-visible {
+  outline: 1px solid #333;
+  outline-offset: 2px;
+}
+
 .hbw-contact {
   position: absolute;
   right: 0;
@@ -1222,6 +1247,10 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   .hbw-contact__frame {
     width: 2.25rem;
     height: 2.75rem;
+  }
+
+  .hbw-nav-sub button.hbw-nav-sub__full-frame {
+    display: none;
   }
 }
 
@@ -3216,6 +3245,13 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     );
   }
 
+  .hbw-project-view.is-full-frame {
+    --hbw-mv-field: min(
+      calc(100dvh - var(--hbw-header-h) - var(--hbw-edge) - var(--hbw-stage-gap)),
+      calc((100vw - 2 * var(--hbw-edge)) * 9 / 16)
+    );
+  }
+
   .hbw-project-view .hbw-mv,
   .hbw-project-view .hbw-mv--narrow,
   .hbw-project-view .hbw-mv--contained,
@@ -3228,6 +3264,17 @@ html.hbw-vt-archive .hbw-browse__hover-image {
     width: auto;
     max-width: calc(var(--hbw-stage-w, 100%) * 0.88);
     aspect-ratio: var(--hbw-mv-ratio, auto);
+  }
+
+  .hbw-project-view.is-full-frame .hbw-mv,
+  .hbw-project-view.is-full-frame .hbw-mv--narrow,
+  .hbw-project-view.is-full-frame .hbw-mv--contained,
+  .hbw-project-view.is-full-frame .hbw-mv--wide,
+  .hbw-project-view.is-full-frame .hbw-mv--full,
+  .hbw-project-view.is-full-frame .hbw-mv.is-major,
+  .hbw-project-view.is-full-frame .hbw-mv.is-standard,
+  .hbw-project-view.is-full-frame .hbw-mv.is-detail {
+    max-width: var(--hbw-stage-w, 100%);
   }
 
   .hbw-project-view .hbw-outro {
@@ -4145,6 +4192,10 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     padding-block: 0;
     margin-top: 0;
     touch-action: manipulation;
+  }
+
+  .hbw-nav-sub button.hbw-nav-sub__full-frame {
+    display: none;
   }
 
   .hbw-home-strip__mark .hbw-mark-how::before,
