@@ -1,12 +1,12 @@
-import type { Pt, StrokeObject } from "@/components/home/poster/types";
+import type { RelPt, StrokeObject } from "@/components/home/poster/types";
 
-function dist(a: Pt, b: Pt) {
-  return Math.hypot(b.x - a.x, b.y - a.y);
+function dist(a: RelPt, b: RelPt) {
+  return Math.hypot(b.nx - a.nx, b.ny - a.ny);
 }
 
-function resample(points: Pt[], spacing = 2.4): Pt[] {
+function resample(points: RelPt[], spacing = 2.4): RelPt[] {
   if (points.length < 2) return points.slice();
-  const out: Pt[] = [points[0]];
+  const out: RelPt[] = [points[0]];
   let prev = points[0];
   let carry = 0;
   for (let i = 1; i < points.length; i++) {
@@ -15,7 +15,7 @@ function resample(points: Pt[], spacing = 2.4): Pt[] {
     if (d < 0.001) continue;
     while (carry + d >= spacing) {
       const t = (spacing - carry) / d;
-      prev = { x: prev.x + (cur.x - prev.x) * t, y: prev.y + (cur.y - prev.y) * t };
+      prev = { nx: prev.nx + (cur.nx - prev.nx) * t, ny: prev.ny + (cur.ny - prev.ny) * t };
       out.push(prev);
       d = dist(prev, cur);
       carry = 0;
@@ -28,31 +28,31 @@ function resample(points: Pt[], spacing = 2.4): Pt[] {
   return out;
 }
 
-function average(points: Pt[], window = 3): Pt[] {
+function average(points: RelPt[], window = 3): RelPt[] {
   if (points.length < 3) return points.slice();
   const r = Math.max(1, Math.floor(window / 2));
   return points.map((p, i) => {
-    let x = 0;
-    let y = 0;
+    let nx = 0;
+    let ny = 0;
     let n = 0;
     for (let k = i - r; k <= i + r; k++) {
       const q = points[Math.max(0, Math.min(points.length - 1, k))];
-      x += q.x;
-      y += q.y;
+      nx += q.nx;
+      ny += q.ny;
       n += 1;
     }
-    return { x: x / n, y: y / n };
+    return { nx: nx / n, ny: ny / n };
   });
 }
 
-function perpendicularDistance(p: Pt, a: Pt, b: Pt) {
-  const dx = b.x - a.x;
-  const dy = b.y - a.y;
+function perpendicularDistance(p: RelPt, a: RelPt, b: RelPt) {
+  const dx = b.nx - a.nx;
+  const dy = b.ny - a.ny;
   const len = Math.hypot(dx, dy) || 1;
-  return Math.abs(dy * p.x - dx * p.y + b.x * a.y - b.y * a.x) / len;
+  return Math.abs(dy * p.nx - dx * p.ny + b.nx * a.ny - b.ny * a.nx) / len;
 }
 
-function rdp(points: Pt[], epsilon: number): Pt[] {
+function rdp(points: RelPt[], epsilon: number): RelPt[] {
   if (points.length < 3) return points.slice();
   let max = 0;
   let idx = 0;
@@ -74,7 +74,7 @@ function rdp(points: Pt[], epsilon: number): Pt[] {
 }
 
 /** Geometry-only stroke smooth: resample, reduce jitter, keep meaningful turns. */
-export function smoothStrokePoints(points: Pt[]): Pt[] {
+export function smoothStrokePoints(points: RelPt[]): RelPt[] {
   if (points.length < 3) return points.slice();
   const even = resample(points, 2.6);
   const calm = average(even, 3);

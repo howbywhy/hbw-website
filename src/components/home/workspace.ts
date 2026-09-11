@@ -61,6 +61,17 @@ export const workspace = {
   hydrated: false,
 };
 
+/** Original schema-2 payload. Must not be overwritten until promotion is validated. */
+let pendingSchema2Raw: unknown = null;
+
+export function holdSchema2Poster(raw: unknown) {
+  pendingSchema2Raw = raw;
+}
+
+export function releaseSchema2Poster() {
+  pendingSchema2Raw = null;
+}
+
 export function hydrateWorkspace() {
   if (workspace.hydrated || typeof window === "undefined") return;
   workspace.hydrated = true;
@@ -69,6 +80,8 @@ export function hydrateWorkspace() {
     if (!raw) return;
     const data = JSON.parse(raw) as { poster?: unknown; projects?: ProjectsState };
     workspace.poster = migratePoster(data.poster);
+    if (workspace.poster.schema === 2) holdSchema2Poster(data.poster);
+    else releaseSchema2Poster();
     if (data.projects && typeof data.projects.activeId === "string") {
       const filterDim =
         data.projects.filterDim === "year" ||
@@ -90,20 +103,26 @@ export function hydrateWorkspace() {
     }
   } catch {
     workspace.poster = emptyPoster();
+    releaseSchema2Poster();
   }
 }
 
 export function persistWorkspace() {
   if (typeof window === "undefined") return;
   try {
-    const poster = {
-      ...workspace.poster,
-      objects: persistableObjects(workspace.poster.objects),
-    };
+    const poster = pendingSchema2Raw
+      ? pendingSchema2Raw
+      : {
+          ...workspace.poster,
+          objects: persistableObjects(workspace.poster.objects),
+          legacyPixelObjects: null,
+        };
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ poster, projects: workspace.projects }));
   } catch {
     try {
-      const poster = { ...workspace.poster, objects: workspace.poster.objects.filter((o) => o.kind !== "image") };
+      const poster = pendingSchema2Raw
+        ? pendingSchema2Raw
+        : { ...workspace.poster, objects: workspace.poster.objects.filter((o) => o.kind !== "image"), legacyPixelObjects: null };
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ poster, projects: workspace.projects }));
     } catch {
       /* ignore quota */
@@ -112,6 +131,7 @@ export function persistWorkspace() {
 }
 
 export function resetPoster() {
+  releaseSchema2Poster();
   workspace.poster = emptyPoster();
   persistWorkspace();
 }
