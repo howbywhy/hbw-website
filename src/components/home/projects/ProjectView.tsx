@@ -7,6 +7,7 @@ import { MovementVideo } from "@/components/home/projects/MovementVideo";
 import { ProjectOutro } from "@/components/home/projects/ProjectOutro";
 import { nextProject } from "@/components/home/sequence";
 import { projectById } from "@/components/home/catalog";
+import { readFirstMovementVisual, type DestinationVisual } from "@/components/home/projects/enter-bridge";
 import { isVideoMedia, movementPace, movementSpan, type ProjectExperience } from "@/components/home/projects/types";
 
 export type ViewPhase = "idle" | "rising" | "assembling" | "active" | "exiting" | "handoff-in" | "handoff-out";
@@ -20,6 +21,7 @@ type Props = {
   onIndex: (index: number) => void;
   onCommitNext?: () => void;
   onLeaveInspect?: () => void;
+  onGeometryReady?: (dest: DestinationVisual) => void;
   restoreX?: number | null;
 };
 
@@ -72,6 +74,7 @@ export function ProjectView({
   onIndex,
   onCommitNext,
   onLeaveInspect,
+  onGeometryReady,
   restoreX = null,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -124,6 +127,16 @@ export function ProjectView({
     const origin = track.getBoundingClientRect().left;
     offsets.current = items.map((el) => Math.round(el.getBoundingClientRect().left - origin));
     outroLeft.current = outro ? Math.round(outro.getBoundingClientRect().left - origin) : 0;
+  }, []);
+
+  const onGeometryReadyRef = useRef(onGeometryReady);
+  onGeometryReadyRef.current = onGeometryReady;
+  const reportGeometry = useCallback(() => {
+    const notify = onGeometryReadyRef.current;
+    if (!notify) return;
+    const dest = readFirstMovementVisual(trackRef.current);
+    if (!dest || dest.rect.width < 2 || dest.rect.height < 2 || dest.width < 2 || dest.height < 2) return;
+    notify(dest);
   }, []);
 
   const nextRestX = useCallback(() => {
@@ -248,6 +261,7 @@ export function ProjectView({
     }
     if (root && !shouldRestore && indexRef.current <= 0) root.scrollTo({ top: 0, behavior: "auto" });
     measure();
+    reportGeometry();
     const parkedX = restoreXRef.current;
     const atBoundary = indexRef.current >= total;
     boundaryHold.current = Boolean(next) && !mobile.current && atBoundary;
@@ -282,9 +296,12 @@ export function ProjectView({
     if (phase === "idle") {
       const root = rootRef.current;
       root?.scrollTo(0, 0);
+      measure();
+      reportGeometry();
       return;
     }
     measure();
+    reportGeometry();
     if (phase !== "active" || !mobile.current) return;
     const track = trackRef.current;
     if (!track) return;
@@ -292,7 +309,19 @@ export function ProjectView({
     track.querySelectorAll<HTMLElement>(".hbw-mv").forEach((el) => {
       el.style.transform = "none";
     });
-  }, [measure, phase]);
+  }, [measure, phase, reportGeometry]);
+
+  useEffect(() => {
+    const first = trackRef.current?.querySelector("img, video");
+    if (!first) return;
+    const onReady = () => reportGeometry();
+    first.addEventListener("load", onReady);
+    first.addEventListener("loadedmetadata", onReady);
+    return () => {
+      first.removeEventListener("load", onReady);
+      first.removeEventListener("loadedmetadata", onReady);
+    };
+  }, [experience.slug, reportGeometry]);
 
   useEffect(() => {
     return () => {
@@ -799,7 +828,7 @@ export function ProjectView({
           const eager = i === 0;
           const nearby = inspecting || i < 3;
           const inPlayWindow = playWindow.has(i);
-          const load = isVideoMedia(media) && live && inPlayWindow && !reduceMotion();
+          const load = isVideoMedia(media) && canDrive && inPlayWindow && !reduceMotion();
           const openingName =
             i !== 0 || phase === "handoff-out" || restoreX != null
               ? undefined
@@ -830,7 +859,7 @@ export function ProjectView({
                   media={media}
                   load={load}
                   eager={eager}
-                  active={live && inPlayWindow}
+                  active={canDrive && inPlayWindow}
                   viewTransitionName={openingName}
                 />
               ) : (

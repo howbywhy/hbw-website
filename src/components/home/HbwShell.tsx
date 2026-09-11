@@ -12,6 +12,14 @@ import { ProjectsNavPreview, useNavPeek, type PeekProject } from "@/components/h
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { MotionDebug } from "@/components/home/MotionDebug";
+import { EnterBridge } from "@/components/home/projects/EnterBridge";
+import {
+  captureBrowseVisual,
+  destinationStill,
+  markEnterTiming,
+  type BrowseVisual,
+  type DestinationVisual,
+} from "@/components/home/projects/enter-bridge";
 import { ProjectView, type ViewPhase } from "@/components/home/projects/ProjectView";
 import { useCmsPreviewExperience } from "@/components/home/CmsPreviewContext";
 import {
@@ -23,7 +31,7 @@ import { getExperience } from "@/components/home/projects/experiences";
 import type { ProjectExperience } from "@/components/home/projects/types";
 import type { ResolvedProjectExperience } from "@/lib/project-source";
 import { nextProject } from "@/components/home/sequence";
-import { commitProjectMedia, preloadOpening, preloadProject, withTimeout } from "@/components/home/preload";
+import { commitProjectMedia, decodeImage, preloadOpening, preloadProject, withTimeout } from "@/components/home/preload";
 import { infoHintForIndex, type InfoSectionId } from "@/components/home/projects/types";
 import {
   WorkspaceContext,
@@ -216,6 +224,14 @@ export function HbwShell({
   const panelRef = useRef(panel);
   const closingPanelRef = useRef(false);
   const homeRef = useRef<HTMLDivElement>(null);
+  const [enterBridge, setEnterBridge] = useState<{
+    visual: BrowseVisual;
+    dest: DestinationVisual | null;
+    mode: "hold" | "travel" | "fade";
+  } | null>(null);
+  const heldVisual = useRef<BrowseVisual | null>(null);
+  const geometryWait = useRef<((dest: DestinationVisual) => void) | null>(null);
+  const settleEnter = useRef<(() => void) | null>(null);
 
   function commitOrigin(stack: OriginFrame[]) {
     originStack.current = stack;
@@ -322,6 +338,10 @@ export function HbwShell({
 
   function finishSwap(opts?: { unlock?: boolean }) {
     setSwap(null);
+    setEnterBridge(null);
+    heldVisual.current = null;
+    geometryWait.current = null;
+    settleEnter.current = null;
     setReturnBrowseChrome(false);
     setEntryChrome(false);
     motion?.clear();
@@ -490,6 +510,10 @@ export function HbwShell({
       enterGen.current += 1;
       setLeaving(null);
       setSwap(null);
+      setEnterBridge(null);
+      heldVisual.current = null;
+      geometryWait.current = null;
+      settleEnter.current = null;
       const next = modeFromLocation(window.location.pathname);
       const nextSlug = viewSlugFromPath(window.location.pathname);
       if (next !== "view") {
@@ -1020,6 +1044,10 @@ export function HbwShell({
     const from: WindowMode =
       fromHint ?? (windowMode === "view" ? "view" : windowMode === "make" ? "make" : "browse");
     const fromBrowse = from === "browse";
+    const source = fromBrowse ? captureBrowseVisual(id) : null;
+    const mobileEnter = isMobileViewport();
+    const reducedEnter = reduceMotion();
+    const travel = Boolean(source) && !mobileEnter && !reducedEnter;
     entranceRef.current = fromBrowse ? "field" : "reduced";
     setEntryChrome(false);
     setReturnBrowseChrome(false);
@@ -1035,6 +1063,7 @@ export function HbwShell({
     savedIndex.current[id] = 0;
     setParkedX(null);
     keepBrowse.current = from === "browse" || from === "view";
+    settleEnter.current = null;
     if (from === "make") commitOrigin([{ kind: "make" }]);
     else if (from === "browse")
       commitOrigin([
@@ -1054,12 +1083,63 @@ export function HbwShell({
         { kind: "view", slug: viewSlug, index: viewIndex, x: captureViewX() },
       ]);
     }
+    markEnterTiming({ click: performance.now() });
+    if (source) {
+      flushSync(() => {
+        setActive(id);
+        const live = captureBrowseVisual(id) ?? source;
+        heldVisual.current = live;
+        setEnterBridge({ visual: live, dest: null, mode: "hold" });
+      });
+    } else {
+      heldVisual.current = null;
+      setEnterBridge(null);
+    }
     setSwap({ from, to: "view", phase: "preparing" });
-    const prepareMs = reduceMotion() ? 0 : HBW_T.prepareCap;
-    await withTimeout(preloadOpening(id), prepareMs);
-    if (token !== enterGen.current) return;
     const href = PROJECTS.find((p) => p.id === id)?.href || `/projects/${id}`;
-    const assembleAt = fromBrowse ? HBW_T.spatial : 0;
+    const destStill = destinationStill(id);
+    const destReady = new Promise<DestinationVisual | null>((resolve) => {
+      geometryWait.current = (dest) => {
+        geometryWait.current = null;
+        resolve(dest);
+      };
+    });
+    const destDecode = destStill && source ? decodeImage(destStill) : Promise.resolve();
+    const [dest] = await Promise.all([
+      Promise.race([
+        destReady,
+        new Promise<null>((resolve) => window.setTimeout(() => resolve(null), HBW_T.prepareCap)),
+      ]),
+      withTimeout(Promise.all([preloadOpening(id), destDecode]).then(() => undefined), HBW_T.prepareCap),
+    ]);
+    if (token !== enterGen.current) return;
+    markEnterTiming({
+      mounted: performance.now(),
+      geometryReady: dest ? performance.now() : undefined,
+    });
+
+    let finished = false;
+    const finishEnter = () => {
+      if (token !== enterGen.current || finished) return;
+      finished = true;
+      markEnterTiming({ transitionComplete: performance.now(), interactionEnabled: performance.now() });
+      geometryWait.current = null;
+      settleEnter.current = null;
+      flushSync(() => {
+        setEnterBridge(null);
+        setPhase("active");
+        finishSwap();
+      });
+      if (fromBrowse) {
+        markEnterTiming({ routeStart: performance.now() });
+        router.push(href);
+      }
+      focusSelector(
+        ".hbw-home-strip__journey-close.is-on, .hbw-nav-studio.is-sheet-close, .hbw-nav-sub__face--info button"
+      );
+    };
+    settleEnter.current = finishEnter;
+
     later(0, () => {
       if (token !== enterGen.current) return;
       const go = () => {
@@ -1069,6 +1149,13 @@ export function HbwShell({
           setWindowMode("view");
           setSwap({ from, to: "view", phase: "entering" });
           setPhase("rising");
+          if (source) {
+            setEnterBridge({
+              visual: heldVisual.current ?? source,
+              dest,
+              mode: travel && dest ? "travel" : "fade",
+            });
+          }
         });
       };
       writeMotionCrossing({
@@ -1092,29 +1179,33 @@ export function HbwShell({
           scroll: browseScrollRef.current[browseMode],
         },
       });
+      markEnterTiming({ transitionStart: performance.now() });
       if (from === "make") flipMark(go);
       else go();
       if (!fromBrowse) router.push(href);
     });
     if (fromBrowse) {
-      later(HBW_T.spatial, () => {
+      later(travel ? 80 : 0, () => {
         if (token !== enterGen.current) return;
         setEntryChrome(true);
+        setPhase("assembling");
       });
+    } else {
+      later(0, () => {
+        if (token !== enterGen.current) return;
+        setPhase("assembling");
+      });
+      later(HBW_T.continuity, finishEnter);
     }
-    later(assembleAt, () => {
-      if (token !== enterGen.current) return;
-      setPhase("assembling");
-    });
-    later(HBW_T.continuity, () => {
-      if (token !== enterGen.current) return;
-      setPhase("active");
-      finishSwap();
-      if (fromBrowse) router.push(href);
-      focusSelector(
-        ".hbw-home-strip__journey-close.is-on, .hbw-nav-studio.is-sheet-close, .hbw-nav-sub__face--info button"
+    if (fromBrowse && source) {
+      const fallback = window.setTimeout(
+        () => settleEnter.current?.(),
+        (travel ? HBW_T.spatial : HBW_T.ui) + 80
       );
-    });
+      motionTimer.current.push(fallback);
+    } else if (fromBrowse) {
+      later(HBW_T.continuity, finishEnter);
+    }
   }
 
   function commitNext() {
@@ -1577,6 +1668,8 @@ export function HbwShell({
           practicePeek.open && panel !== "studio" ? " is-practice-peek" : ""
         }${
           isOwning ? " is-owning" : ""
+        }${enterBridge ? " is-bridging" : ""}${
+          enterBridge?.mode === "fade" ? " is-enter-fade" : ""
         }${restoredBrowse ? " is-restored-browse" : ""}${boundaryNext ? " is-boundary" : ""} is-phase-${phase}${swap ? ` is-swap-${swap.phase}` : ""}`}
         data-hbw-project={viewSlug || undefined}
         data-hbw-held-suffix={heldSuffix || undefined}
@@ -1762,9 +1855,23 @@ export function HbwShell({
               onIndex={onViewIndex}
               restoreX={parkedX}
               onCommitNext={commitNext}
+              onGeometryReady={(rect) => {
+                if (!window.__hbwEnterTiming?.geometryReady) {
+                  markEnterTiming({ mounted: performance.now(), geometryReady: performance.now() });
+                }
+                geometryWait.current?.(rect);
+              }}
               onLeaveInspect={() => {
                 if (panel === "info") closePanel();
               }}
+            />
+          ) : null}
+          {enterBridge ? (
+            <EnterBridge
+              visual={enterBridge.visual}
+              dest={enterBridge.dest}
+              mode={enterBridge.mode}
+              onSettled={() => settleEnter.current?.()}
             />
           ) : null}
         </div>

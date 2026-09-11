@@ -2788,12 +2788,24 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 }
 
 .hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-mv:not(:first-child),
-.hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-outro,
+.hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-outro {
+  opacity: 0;
+  transform: translate3d(8px, 0, 0);
+  transition: none;
+}
+
 .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-mv:not(:first-child),
 .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-outro {
   opacity: 1;
   transform: none;
-  transition: none;
+  transition:
+    transform var(--hbw-t-ui) var(--hbw-ease),
+    opacity var(--hbw-t-ui) var(--hbw-ease);
+}
+
+.hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-mv:nth-child(n + 3),
+.hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-outro {
+  transition-delay: 40ms;
 }
 
 .hbw-project-view.is-active .hbw-mv,
@@ -2945,6 +2957,63 @@ html.hbw-vt-archive .hbw-browse__hover-image {
 .hbw-home[data-hbw-from="browse"].is-owning .hbw-projects.is-index .hbw-browse__item {
   opacity: 1;
   transition: none;
+}
+
+.hbw-enter-bridge {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.hbw-enter-bridge__frame {
+  position: fixed;
+  overflow: hidden;
+  transform-origin: top left;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.hbw-enter-bridge__media {
+  position: absolute;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: none;
+  pointer-events: none;
+  transform-origin: top left;
+  will-change: transform;
+  background: transparent;
+}
+
+.hbw-home.is-bridging .hbw-browse__item.is-active .hbw-browse__media,
+.hbw-home.is-bridging .hbw-browse__item.is-active .hbw-browse__media img,
+.hbw-home.is-bridging .hbw-browse__item.is-active .hbw-browse__media-video {
+  opacity: 0;
+  transition: none;
+}
+
+.hbw-home.is-bridging .hbw-projects.is-open .hbw-browse__item:not(.is-active),
+.hbw-home.is-bridging .hbw-projects.is-index .hbw-browse__item {
+  opacity: 0;
+  transition: opacity var(--hbw-t-micro) var(--hbw-ease);
+}
+
+.hbw-home.is-bridging .hbw-project-view,
+.hbw-home.is-bridging .hbw-project-view.is-rising,
+.hbw-home.is-bridging .hbw-project-view.is-assembling {
+  background: transparent;
+  pointer-events: none;
+}
+
+.hbw-home.is-bridging .hbw-project-view .hbw-mv:first-child {
+  opacity: 0;
+  transition: none;
+}
+
+.hbw-home.is-bridging.is-enter-fade .hbw-project-view .hbw-mv:first-child {
+  opacity: 1;
 }
 
 .hbw-home[data-hbw-from="view"][data-hbw-to="browse"] .hbw-projects.is-open {
@@ -3758,6 +3827,15 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     animation: none;
   }
 
+  .hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-mv:not(:first-child),
+  .hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-outro,
+  .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-mv:not(:first-child),
+  .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-outro {
+    transform: none;
+    transition: opacity var(--hbw-t-ui) var(--hbw-ease);
+    transition-delay: 0ms;
+  }
+
   .hbw-browse__item img,
   .hbw-outro__media,
   .hbw-mv__media,
@@ -3846,6 +3924,13 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
   .hbw-home {
     height: 100svh;
     overscroll-behavior: none;
+  }
+
+  .hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-mv:not(:first-child),
+  .hbw-home[data-hbw-from="browse"].is-phase-rising .hbw-project-view .hbw-outro,
+  .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-mv:not(:first-child),
+  .hbw-home[data-hbw-from="browse"].is-phase-assembling .hbw-project-view .hbw-outro {
+    transform: none;
   }
 
   .hbw-window {
