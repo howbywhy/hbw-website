@@ -1745,7 +1745,7 @@ export function HbwShell({
           />
         </header>
 
-        <div className="hbw-window">
+        <div className="hbw-window" role="main">
           <PosterTool dormant={!makeActive || panel === "studio"} />
           <WorkScroll
             ref={workScrollRef}
