@@ -6,6 +6,7 @@ import { FluidPill, PillThumb } from "@/components/home/pill-motion";
 
 export const CONTACT_EMAIL = "mark@hbw.works";
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
+const MARK = "How by Why";
 const TAGLINE = "Clarity for brands at a turning point.";
 
 type Props = {
@@ -27,7 +28,7 @@ type Props = {
 };
 
 /**
- * Work · Studio · Contact on the left, HBW at the centre, the line on the right.
+ * Work · Studio · Contact on the left, How by Why at the centre, the line on the right.
  * The line is re-authored by whatever is being viewed: the practice at rest,
  * each project's idea as it passes, the open project's idea inside it.
  */
@@ -91,7 +92,7 @@ export function SiteNav({
 
   return (
     <div className="hbw-pills-wrap">
-      {inProject ? null : <h1 className="hbw-site-nav__h1">HBW — {TAGLINE}</h1>}
+      {inProject ? null : <h1 className="hbw-site-nav__h1">{MARK} — {TAGLINE}</h1>}
       <div className="hbw-pills">
         {inProject ? (
           <>
@@ -146,8 +147,11 @@ export function SiteNav({
           </nav>
         )}
       </div>
-      <button type="button" className="hbw-pill hbw-pill--mark" aria-label="HBW — Poster" onClick={onHome}>
-        HBW
+      <button type="button" className="hbw-pill hbw-pill--mark" aria-label={`${MARK} — Poster`} onClick={onHome}>
+        <span className="hbw-site-nav__mark-full">{MARK}</span>
+        <span className="hbw-site-nav__mark-short" aria-hidden="true">
+          HBW
+        </span>
       </button>
       <p className="hbw-site-nav__line-wrap" aria-live="polite">
         <FluidPill className="hbw-site-nav__line" text={line} />

@@ -127,13 +127,13 @@ html.hbw-workspace .hbw-home .hbw-pill {
 /* One family: every pill is the same frosted field and the same type. The mark is
    told apart by its letters and its place, not by a fill. Hover lifts any pill to
    white, which is also how a group marks where you are. */
-html.hbw-workspace .hbw-home .hbw-pill--mark {
-  letter-spacing: 0.06em;
-}
-
 html.hbw-workspace .hbw-home .hbw-pill--mark:hover,
 html.hbw-workspace .hbw-home .hbw-pill--action:hover {
   background: var(--hbw-pill-on);
+}
+
+.hbw-site-nav__mark-short {
+  display: none;
 }
 
 html.hbw-workspace .hbw-home .hbw-pill-group {
@@ -2003,7 +2003,7 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     --pad: var(--hbw-space-3);
   }
 
-  /* No room for three places: HBW moves to the right, the line drops beneath it. */
+  /* No room for three places: the mark moves to the right, the line drops beneath it. */
   .hbw-pills-wrap {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--hbw-pill-gap);
@@ -2011,6 +2011,15 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
 
   .hbw-pills-wrap > .hbw-pill--mark {
     justify-self: end;
+    letter-spacing: 0.06em;
+  }
+
+  .hbw-site-nav__mark-full {
+    display: none;
+  }
+
+  .hbw-site-nav__mark-short {
+    display: inline;
   }
 
   .hbw-site-nav__line-wrap {
