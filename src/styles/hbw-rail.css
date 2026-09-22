@@ -127,8 +127,7 @@ html.hbw-workspace .hbw-home .hbw-pill {
 /* One family: every pill is the same frosted field and the same type. The mark is
    told apart by its letters and its place, not by a fill. Hover lifts any pill to
    white, which is also how a group marks where you are. */
-html.hbw-workspace .hbw-home .hbw-pill--mark:hover,
-html.hbw-workspace .hbw-home .hbw-pill--action:hover {
+html.hbw-workspace .hbw-home .hbw-pill--mark:hover {
   background: var(--hbw-pill-on);
 }
 
@@ -217,8 +216,7 @@ html.hbw-workspace .hbw-home .hbw-pills :focus {
 }
 
 html.hbw-workspace .hbw-home .hbw-pills :focus-visible,
-html.hbw-workspace .hbw-home .hbw-card__hit:focus-visible,
-html.hbw-workspace .hbw-home .hbw-pill--action:focus-visible {
+html.hbw-workspace .hbw-home .hbw-card__hit:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px rgba(29, 29, 29, 0.28);
 }
