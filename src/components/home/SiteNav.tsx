@@ -7,7 +7,9 @@ import { FluidPill, PillThumb } from "@/components/home/pill-motion";
 export const CONTACT_EMAIL = "mark@hbw.works";
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
 const MARK = "How by Why";
+const MARK_SHORT = "HBW";
 const TAGLINE = "Clarity for brands at a turning point.";
+const MARK_COMPACT = "(max-width: 767px)";
 
 type Props = {
   face: "home" | "browse" | "view";
@@ -50,9 +52,18 @@ export function SiteNav({
   const inProject = face === "view" && Boolean(projectName);
   const line = inProject && projectIdea ? projectIdea : face === "home" && workInView ? workInView.idea : TAGLINE;
   const [copied, setCopied] = useState(false);
+  const [compactMark, setCompactMark] = useState(false);
   const copiedTimer = useRef(0);
 
   useEffect(() => () => window.clearTimeout(copiedTimer.current), []);
+
+  useEffect(() => {
+    const mq = window.matchMedia(MARK_COMPACT);
+    const sync = () => setCompactMark(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   // The Contact pill eases between "Contact" and the copied address, like the line pill,
   // so the nav never jumps when its words change.
@@ -147,10 +158,15 @@ export function SiteNav({
           </nav>
         )}
       </div>
-      <button type="button" className="hbw-pill hbw-pill--mark" aria-label={`${MARK} — Poster`} onClick={onHome}>
+      <button
+        type="button"
+        className="hbw-pill hbw-pill--mark"
+        aria-label={`${compactMark ? MARK_SHORT : MARK}, back to the poster`}
+        onClick={onHome}
+      >
         <span className="hbw-site-nav__mark-full">{MARK}</span>
         <span className="hbw-site-nav__mark-short" aria-hidden="true">
-          HBW
+          {MARK_SHORT}
         </span>
       </button>
       <p className="hbw-site-nav__line-wrap" aria-live="polite">
