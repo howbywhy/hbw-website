@@ -298,14 +298,14 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
               </section>
 
               <section id="studio-approach" data-studio-section="approach" className="hbw-studio__section">
-                <h3 className="hbw-studio__label">Approach</h3>
+                <h2 className="hbw-studio__label">Approach</h2>
                 <div className="hbw-studio__lead">
                   <p className="hbw-studio__ink">{STUDIO_COPY.philosophy[0]}</p>
                   <p className="hbw-studio__grey">{STUDIO_COPY.philosophy[1]}</p>
                   <p className="hbw-studio__grey">{STUDIO_COPY.brief}</p>
                 </div>
                 <div className="hbw-studio__list">
-                  <h4 className="hbw-studio__label">Disciplines</h4>
+                  <h3 className="hbw-studio__label">Disciplines</h3>
                   <ul>
                     {STUDIO_COPY.disciplineList.map((d) => (
                       <li key={d}>{d}</li>
@@ -315,7 +315,7 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
               </section>
 
               <section id="studio-process" data-studio-section="process" className="hbw-studio__section">
-                <h3 className="hbw-studio__label">Process</h3>
+                <h2 className="hbw-studio__label">Process</h2>
                 <p className="hbw-studio__lead hbw-studio__grey">{STUDIO_COPY.howTools}</p>
                 <ol className="hbw-studio__steps">
                   {STUDIO_COPY.steps.map((step) => (
@@ -341,7 +341,7 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
                 aria-label="Manifesto"
               >
                 <div className="hbw-reader__stage">
-                  <h3 className="hbw-studio__label">Manifesto</h3>
+                  <h2 className="hbw-studio__label">Manifesto</h2>
                   <div className="hbw-reader__thoughts">
                     {THOUGHTS.map((t, i) => {
                       const words = t.split(" ");
@@ -380,7 +380,7 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
               </section>
 
               <section id="studio-contact" data-studio-section="contact" className="hbw-studio__section hbw-studio__contact">
-                <h3 className="hbw-studio__label">Contact</h3>
+                <h2 className="hbw-studio__label">Contact</h2>
                 <p className="hbw-studio__statement">
                   <span className="hbw-studio__ink">At a turning point of your own?</span>{" "}
                   <span className="hbw-studio__grey">{STUDIO_COPY.contactLine}</span>
