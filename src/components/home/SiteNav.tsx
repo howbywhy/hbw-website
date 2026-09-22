@@ -136,7 +136,7 @@ export function SiteNav({
               type="button"
               ref={contactRef}
               className="hbw-pill-group__item hbw-site-nav__contact"
-              aria-label={copied ? `${CONTACT_EMAIL} copied` : `Copy ${CONTACT_EMAIL}`}
+              aria-label={copied ? `Copied ${CONTACT_EMAIL}` : `Contact, copies ${CONTACT_EMAIL}`}
               title={CONTACT_EMAIL}
               onClick={copyEmail}
             >
