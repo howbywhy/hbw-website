@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HBW_T, isMobileViewport, reduceMotion } from "@/components/home/motion";
 import { approachProject, commitProjectMedia, prefetchVideo, preloadProject } from "@/components/home/preload";
 import { MovementVideo } from "@/components/home/projects/MovementVideo";
@@ -25,6 +25,8 @@ type Props = {
   onGeometryReady?: (dest: DestinationVisual) => void;
   restoreX?: number | null;
   fullFrame?: boolean;
+  /** Frames take the full height of the window: the project fills the Poster's frame. */
+  fill?: boolean;
 };
 
 /** Stage home as a fraction of the field. goTo docks a movement here; indexFromX uses the same line so seek and scroll share one current. */
@@ -56,9 +58,11 @@ function readRect(el: HTMLElement): FlipRect {
   return { left: box.left, top: box.top, width: box.width, height: box.height };
 }
 
+/** Where the project Info sheet begins; media left of this stays exposed. */
 function sheetCutX() {
-  const studio = document.querySelector<HTMLElement>(".hbw-nav-studio");
-  return studio?.getBoundingClientRect().left ?? 848;
+  const sheet = document.querySelector<HTMLElement>(".hbw-inspector.is-project-right");
+  if (sheet?.offsetWidth) return window.innerWidth - sheet.offsetWidth;
+  return 848;
 }
 
 function intersectsExposed(rect: FlipRect, cut: number, vh: number) {
@@ -79,6 +83,7 @@ export function ProjectView({
   onGeometryReady,
   restoreX = null,
   fullFrame = false,
+  fill = false,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -105,6 +110,13 @@ export function ProjectView({
   const fullFrameLive = fullFrame && canDrive;
   const fullFrameRef = useRef(fullFrameLive);
   fullFrameRef.current = fullFrameLive;
+  const fillRef = useRef(fill);
+  fillRef.current = fill;
+  // Motion preference is read after mount so the server and first client render agree.
+  const [stillPreferred, setStillPreferred] = useState(false);
+  useEffect(() => {
+    setStillPreferred(reduceMotion());
+  }, []);
 
   indexRef.current = index;
 
@@ -125,12 +137,10 @@ export function ProjectView({
     root.style.setProperty("--hbw-stage-w", `${root.clientWidth}px`);
     root.style.setProperty("--hbw-stage-h", `${root.clientHeight}px`);
     const gap = Number.parseFloat(getComputedStyle(root).getPropertyValue("--hbw-stage-gap")) || 32;
-    const field = galleryFieldHeight(
-      root.clientWidth,
-      root.clientHeight,
-      gap,
-      fullFrameRef.current && !mobile.current
-    );
+    const field =
+      fillRef.current && !mobile.current
+        ? root.clientHeight
+        : galleryFieldHeight(root.clientWidth, root.clientHeight, gap, fullFrameRef.current && !mobile.current);
     root.style.setProperty("--hbw-mv-field", `${field}px`);
     if (mobile.current) return;
     const items = [...track.querySelectorAll<HTMLElement>(":scope > .hbw-mv")];
@@ -583,8 +593,33 @@ export function ProjectView({
       goTo(nextIndex);
     }
     window.addEventListener("hbw:seek-index", onSeek);
-    return () => window.removeEventListener("hbw:seek-index", onSeek);
-  }, [canDrive, goTo, onIndex, total]);
+    // A frame chosen on the home work row: travel to it once the project is live.
+    let chosen = 0;
+    try {
+      const raw = sessionStorage.getItem("hbw.seek.v1");
+      const data = raw ? (JSON.parse(raw) as { slug?: string; index?: number }) : null;
+      // Only the view on the project's own route consumes it; a view that goes live before the
+      // route change (reduced motion) would otherwise use it up and remount at frame one.
+      const onRoute = window.location.pathname.replace(/\/+$/, "").endsWith(`/${experience.slug}`);
+      if (onRoute && data?.slug === experience.slug && typeof data.index === "number") {
+        // Cleared only when the jump actually happens: if this effect re-runs first, the next run retries.
+        chosen = window.setTimeout(() => {
+          try {
+            sessionStorage.removeItem("hbw.seek.v1");
+          } catch {
+            /* ignore */
+          }
+          window.dispatchEvent(new CustomEvent("hbw:seek-index", { detail: data.index }));
+        }, 120);
+      }
+    } catch {
+      /* opens at the first frame */
+    }
+    return () => {
+      window.clearTimeout(chosen);
+      window.removeEventListener("hbw:seek-index", onSeek);
+    };
+  }, [canDrive, goTo, onIndex, total, experience.slug]);
 
   useEffect(() => {
     return () => {
@@ -918,6 +953,7 @@ export function ProjectView({
       ref={rootRef}
       className={`hbw-stage hbw-project-view is-${phase}${inspecting ? " is-read" : ""}${
         fullFrameLive ? " is-full-frame" : ""
+      }${fill ? " is-fill" : ""
       }`}
       data-hbw-track-x={Math.round(xRef.current)}
       data-hbw-index={index}
@@ -941,7 +977,7 @@ export function ProjectView({
           const eager = i === 0;
           const nearby = inspecting || i < 3;
           const inPlayWindow = playWindow.has(i);
-          const load = isVideoMedia(media) && canDrive && inPlayWindow && !reduceMotion();
+          const load = isVideoMedia(media) && canDrive && inPlayWindow && !stillPreferred;
           const openingName =
             i !== 0 || phase === "handoff-out" || restoreX != null
               ? undefined

@@ -1,6 +1,7 @@
 import { migrationSafe, normalizeLegacyObject } from "@/components/home/poster/geometry";
 import {
   FIELD_COLOR,
+  LEGACY_FIELD_COLOR,
   type Field,
   type LegacyPixelObj,
   type PosterFont,
@@ -138,7 +139,10 @@ function readMeta(data: Partial<PosterState>, base: PosterState): Omit<PosterSta
     align: ALIGNS.includes(data.align as TextAlign) ? (data.align as TextAlign) : "left",
     shape: SHAPES.includes(data.shape as ShapeKind) ? (data.shape as ShapeKind) : "rect",
     shapeFill: Boolean(data.shapeFill),
-    background: typeof data.background === "string" && data.background ? data.background : base.background,
+    background:
+      typeof data.background === "string" && data.background && data.background.toUpperCase() !== LEGACY_FIELD_COLOR
+        ? data.background
+        : base.background,
   };
 }
 

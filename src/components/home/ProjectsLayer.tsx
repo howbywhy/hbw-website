@@ -37,6 +37,8 @@ type Props = {
   onSelect: (id: string) => void;
   onEnterProject: (id: string) => void;
   onLens: (dim: FilterDim, value: string) => void;
+  onMode?: (mode: ProjectsMode) => void;
+  onClose?: () => void;
 };
 
 function enterClick(event: React.MouseEvent, id: string, onEnter: (id: string) => void) {
@@ -69,6 +71,8 @@ export function ProjectsLayer({
   onSelect,
   onEnterProject,
   onLens,
+  onMode,
+  onClose,
 }: Props) {
   const filtered = useMemo(() => {
     const next = PROJECTS.filter((project) => matchesFilter(project, filterDim, filterValue));
@@ -148,6 +152,27 @@ export function ProjectsLayer({
       aria-hidden={!open || dropping ? true : undefined}
       inert={!open || dropping || entering}
     >
+      <div className="hbw-sheet-head">
+        <span className="hbw-sheet-head__label">
+          Work <span className="hbw-sheet-head__count">{filtered.length} projects</span>
+          {filterValue ? (
+            <button type="button" className="hbw-sheet-head__lens" onClick={() => onLens("all", "")}>
+              {filterValue} ×
+            </button>
+          ) : null}
+        </span>
+        <span className="hbw-sheet-head__modes" role="group" aria-label="View">
+          <button type="button" aria-pressed={mode === "visual"} onClick={() => onMode?.("visual")}>
+            Grid
+          </button>
+          <button type="button" aria-pressed={mode === "index"} onClick={() => onMode?.("index")}>
+            List
+          </button>
+        </span>
+        <button type="button" className="hbw-sheet-head__close" onClick={onClose}>
+          Close
+        </button>
+      </div>
       <div className="hbw-browse">
         {hoverPeek ? (
           <div className={`hbw-browse__hover-image${peekOn ? " is-on" : ""}`} aria-hidden="true">

@@ -3,14 +3,15 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { Arrival } from "@/components/home/Arrival";
-import { IdentityNav } from "@/components/home/IdentityNav";
+import { SiteNav } from "@/components/home/SiteNav";
+import { WorkScroll, type WorkInView, type WorkScrollHandle } from "@/components/home/WorkScroll";
 import { PosterTool } from "@/components/home/PosterTool";
 import { ProjectsLayer } from "@/components/home/ProjectsLayer";
 import { PROJECTS, matchesFilter, projectById, sortProjects } from "@/components/home/catalog";
-import { ProjectsNavPreview, useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
+import { useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
+import { StudioDetail } from "@/components/home/StudioDetail";
 import { MotionDebug } from "@/components/home/MotionDebug";
 import { EnterBridge } from "@/components/home/projects/EnterBridge";
 import {
@@ -182,7 +183,17 @@ export function HbwShell({
   const studioViewRef = useRef(studioView);
   studioViewRef.current = studioView;
   const studioPathRef = useRef(pathname);
-  const [windowMode, setWindowMode] = useState<WindowMode>(() => resumed?.windowMode ?? modeFromLocation(pathname));
+  // Server-safe first render: the server can't see `?layer=`, so the sheet opens in a layout effect below.
+  const [windowMode, setWindowMode] = useState<WindowMode>(
+    () => resumed?.windowMode ?? (viewSlugFromPath(pathname) ? "view" : "make")
+  );
+  useLayoutEffect(() => {
+    if (resumed?.windowMode) return;
+    const next = modeFromLocation(window.location.pathname);
+    if (next !== windowMode) setWindowMode(next);
+    // Mount only: later changes go through the swap handlers and popstate.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [browseMode, setBrowseMode] = useState<ProjectsMode>(resumed?.browse?.mode ?? "visual");
   const [filterDim, setFilterDim] = useState<FilterDim>(resumed?.browse?.filterDim ?? "all");
   const [filterValue, setFilterValue] = useState(resumed?.browse?.filterValue ?? "");
@@ -199,6 +210,8 @@ export function HbwShell({
   const [leaving, setLeaving] = useState<{ id: string; index: number } | null>(resumed?.leaving ?? null);
   const [heldSuffix, setHeldSuffix] = useState<string | null>(() => readMobileSuffixHold());
   const [narrow, setNarrow] = useState(false);
+  const workScrollRef = useRef<WorkScrollHandle>(null);
+  const [workInView, setWorkInView] = useState<WorkInView>(null);
   const motionTimer = useRef<number[]>([]);
   const motionLock = useRef(false);
   const viewTransitionLock = useRef(false);
@@ -393,7 +406,7 @@ export function HbwShell({
           homeRef.current?.style.removeProperty("--hbw-handoff-from");
           if (resumed.kind === "enter") {
             focusSelector(
-              ".hbw-home-strip__journey-close.is-on, .hbw-nav-studio.is-sheet-close, .hbw-nav-sub__face--info button"
+              ".hbw-site-nav__close:not([aria-disabled]), .hbw-site-nav__studio[aria-pressed=\"true\"], .hbw-nav-sub__face--info button"
             );
           }
         });
@@ -727,7 +740,7 @@ export function HbwShell({
     if (next === "studio" && windowMode === "make" && !isStudioPathname(pathname)) {
       router.push("/studio");
     }
-    if (next === "studio") focusSelector(".hbw-nav-studio");
+    if (next === "studio") focusSelector(".hbw-site-nav__studio");
     if (next === "info") focusSelector('.hbw-sheet[data-hbw-sheet="project-right"]');
   }
 
@@ -770,7 +783,7 @@ export function HbwShell({
     setManifestoLeaving(false);
     setStudioView("manifesto");
     if (isStudioPathname(pathname)) router.replace("/manifesto");
-    focusSelector(".hbw-nav-studio");
+    focusSelector(".hbw-site-nav__studio");
   }
 
   function showStudioContent() {
@@ -843,7 +856,6 @@ export function HbwShell({
       else syncProjectsUrl(true);
       later(HBW_T.spatial, () => {
         finishSwap();
-        focusSelector(".hbw-nav-projects__hit");
       });
       return;
     }
@@ -855,22 +867,7 @@ export function HbwShell({
       else syncProjectsUrl(true);
       later(HBW_T.spatial, () => {
         finishSwap();
-        focusSelector(".hbw-nav-projects__hit");
       });
-    });
-  }
-
-  function arriveMake() {
-    document.documentElement.classList.add("hbw-arriving-make");
-    later(HBW_T.micro, completeIntro);
-    later(HBW_T.continuity, () => document.documentElement.classList.remove("hbw-arriving-make"));
-  }
-
-  function arriveBrowse() {
-    document.documentElement.classList.add("hbw-arriving-browse");
-    later(HBW_T.micro, () => {
-      document.documentElement.classList.remove("hbw-arriving-browse");
-      openProjects();
     });
   }
 
@@ -1142,7 +1139,7 @@ export function HbwShell({
         router.push(href);
       }
       focusSelector(
-        ".hbw-home-strip__journey-close.is-on, .hbw-nav-studio.is-sheet-close, .hbw-nav-sub__face--info button"
+        ".hbw-site-nav__close:not([aria-disabled]), .hbw-site-nav__studio[aria-pressed=\"true\"], .hbw-nav-sub__face--info button"
       );
     };
     settleEnter.current = finishEnter;
@@ -1482,7 +1479,7 @@ export function HbwShell({
       const target = event.target;
       if (!(target instanceof Node)) return;
       if (document.querySelector(".hbw-mark-why")?.contains(target)) return;
-      if (document.querySelector(".hbw-nav-studio")?.contains(target)) return;
+      if (document.querySelector(".hbw-site-nav__studio")?.contains(target)) return;
       setWhyPeekLock(false);
     }
     window.addEventListener("pointermove", release);
@@ -1696,93 +1693,35 @@ export function HbwShell({
         data-hbw-from={swap?.from}
         data-hbw-to={swap?.to}
       >
-        <header className="hbw-home-strip">
-          <IdentityNav
-            onMake={returnToMake}
-            onProjects={goProjects}
-            onPractice={goPractice}
-            practiceMuted={muteStudio}
-            inert={panel === "studio"}
-            assembled={assembled}
-            resolved={resolved}
-            suffix={identitySuffix}
-            previewing={peek.open}
-            previewingWhy={practicePeek.open && panel !== "studio"}
+        <header className="hbw-home-strip hbw-site-nav">
+          <SiteNav
+            face={navFace}
+            projectName={namedProject?.name ?? null}
             projectIdea={projectIdea}
-            whyHoverLocked={whyPeekLock}
-            onPreviewShow={() => {
-              practicePeek.hideNow();
-              peek.show();
+            workOpen={navFace === "browse" || (navFace === "home" && Boolean(workInView) && !panel)}
+            studioOpen={studioAsClose}
+            studioMuted={muteStudio}
+            journeyClose={viewJourneyClose}
+            onHome={() => {
+              if (windowMode === "make" && !panel) workScrollRef.current?.toTop();
+              else returnToMake();
             }}
-            onPreviewKeep={peek.show}
-            onPreviewHide={() => {
-              peek.hideSoon();
+            onWork={() => {
+              if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
+              else if (windowMode === "make") {
+                if (panel) closePanel();
+                workScrollRef.current?.toWork();
+              } else goProjects();
             }}
-            onWhyPreviewShow={() => {
-              if (whyPeekLock) return;
-              peek.hideNow();
-              practicePeek.show();
+            workInView={navFace === "home" && !panel ? workInView : null}
+            onStudio={() => {
+              if (studioClose || manifestoSheet) dismissStudioFamily();
+              else openPanel("studio");
             }}
-            onWhyPreviewKeep={practicePeek.show}
-            onWhyPreviewHide={practicePeek.hideSoon}
-          />
-          <div className="hbw-home-strip__brand" inert={manifestoSheet || undefined}>
-            <div className="hbw-home-strip__home">
-              <span className="hbw-home-strip__identity">
-                <span className="hbw-home-strip__times" aria-hidden="true">
-                  ×
-                </span>
-                <span className="hbw-home-strip__project" />
-              </span>
-            </div>
-            <button
-              type="button"
-              className={`hbw-home-strip__exit hbw-home-strip__journey-close${viewJourneyClose ? " is-on" : ""}`}
-              aria-hidden={viewJourneyClose ? undefined : true}
-              tabIndex={viewJourneyClose ? 0 : -1}
-              onClick={closeJourney}
-            >
-              Close
-            </button>
-          </div>
-          <nav
-            className="hbw-home-strip__nav"
-            aria-label={hideProjectsHit && hideStudioHit && navFace === "home" ? undefined : "Workspace"}
-            aria-hidden={hideProjectsHit && hideStudioHit && navFace === "home" ? true : undefined}
-          >
-            <div
-              className="hbw-nav-projects"
-              inert={muteProjects || undefined}
-              aria-hidden={muteProjects || undefined}
-            >
-              <button
-                ref={projectsRef}
-                type="button"
-                className="hbw-nav-projects__hit"
-                data-hbw-peek-enabled={peekEnabled ? "true" : "false"}
-                aria-label={
-                  navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
-                    ? "Close"
-                    : "Projects"
-                }
-                aria-expanded={windowMode === "browse"}
-                aria-controls="hbw-projects-layer"
-                aria-hidden={muteProjects || hideProjectsHit || undefined}
-                tabIndex={muteProjects || hideProjectsHit ? -1 : undefined}
-                onClick={() => {
-                  if (muteProjects) return;
-                  if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) {
-                    peek.hideNow();
-                    closeProjects();
-                  } else openProjects();
-                }}
-              >
-                {navFace === "browse" || (swap?.from === "browse" && swap.to === "make")
-                  ? "Close"
-                  : "Projects"}
-              </button>
+            onClose={closeJourney}
+            register={
               <NavRegister
-                face={navFace}
+                face={navFace === "view" ? "view" : "home"}
                 browseMode={browseMode}
                 onBrowseMode={setProjectsMode}
                 filterValue={filterValue}
@@ -1792,7 +1731,7 @@ export function HbwShell({
                 boundaryName={boundaryNext?.name ?? null}
                 boundaryHref={boundaryNext?.href ?? null}
                 fullFrame={fullFrame}
-                fullFrameEnabled={phase === "active" && !narrow}
+                fullFrameEnabled={false}
                 onToggleFullFrame={() => {
                   if (phase !== "active" || narrow || fullFrameLock.current) return;
                   fullFrameLock.current = true;
@@ -1802,47 +1741,32 @@ export function HbwShell({
                   }, reduceMotion() ? 0 : HBW_T.spatial);
                 }}
               />
-            </div>
-            <button
-              type="button"
-              className={`hbw-nav-studio${studioAsClose ? " is-sheet-close" : ""}`}
-              data-hbw-sheet-close={
-                manifestoSheet ? "manifesto" : studioClose ? "studio" : undefined
-              }
-              aria-pressed={panel === "studio"}
-              aria-label={studioAsClose ? "Close" : "Studio"}
-              aria-hidden={muteStudio || hideStudioHit || undefined}
-              tabIndex={muteStudio || hideStudioHit ? -1 : undefined}
-              onClick={() => {
-                if (muteStudio) return;
-                if (studioClose || manifestoSheet) dismissStudioFamily();
-                else openPanel("studio");
-              }}
-            >
-              {studioAsClose ? "Close" : "Studio"}
-            </button>
-          </nav>
+            }
+          />
         </header>
-
-        <ProjectsNavPreview
-          open={peek.open}
-          enabled={peekEnabled}
-          onEnter={(id) => {
-            enterProject(id, "make");
-          }}
-          onKeep={peek.show}
-          onLeave={peek.hideSoon}
-          onHoverProject={onPeekProject}
-          onViewAll={() => {
-            if (browseMode !== "visual") setProjectsMode("visual");
-            openProjects();
-          }}
-        />
 
         <div className="hbw-window">
           <PosterTool dormant={!makeActive || panel === "studio"} />
-          <Arrival onMake={arriveMake} onBrowse={arriveBrowse} />
+          <WorkScroll
+            ref={workScrollRef}
+            visible={makeActive && !swap && panel !== "studio"}
+            onInView={setWorkInView}
+            onStudio={() => openPanel("studio")}
+          />
+          {panel === "studio" ? (
+            <StudioDetail
+              view={studioView === "manifesto" ? "manifesto" : "studio"}
+              leaving={panelLeaving}
+              onClose={closePanel}
+              onPoster={() => {
+                closePanel();
+                if (windowMode !== "make") returnToMake();
+                else workScrollRef.current?.toTop();
+              }}
+            />
+          ) : null}
           {children}
+          {browseOpen ? (
           <ProjectsLayer
             open={browseOpen && !inspecting}
             dropping={browseDropping}
@@ -1860,7 +1784,10 @@ export function HbwShell({
             onSelect={setActive}
             onEnterProject={(id) => enterProject(id, "browse")}
             onLens={setProjectsLens}
+            onMode={setProjectsMode}
+            onClose={closeProjects}
           />
+          ) : null}
           {leaving && leavingExp ? (
             <ProjectView
               key={`out-${leaving.id}`}
@@ -1881,6 +1808,7 @@ export function HbwShell({
               onIndex={onViewIndex}
               restoreX={parkedX}
               fullFrame={fullFrame}
+              fill
               onCommitNext={commitNext}
               onGeometryReady={(rect) => {
                 if (!window.__hbwEnterTiming?.geometryReady) {
@@ -1912,7 +1840,7 @@ export function HbwShell({
       </div>
       <div className={`hbw-sheet-layer${manifestoOpen ? " is-manifesto" : ""}${panel === "studio" ? " is-studio" : ""}`}>
         <WorkspacePanel
-          panel={panel}
+          panel={panel === "studio" ? null : panel}
           leaving={panelLeaving}
           manifestoClosing={manifestoLeaving}
           studioView={studioView}

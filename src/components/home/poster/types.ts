@@ -158,7 +158,9 @@ export type PosterState = {
   background: string;
 };
 
-export const FIELD_COLOR = "#F4F5F3";
+export const FIELD_COLOR = "#FFFFFF";
+/** The previous default paper. Saved posters that never chose a colour move to the new white. */
+export const LEGACY_FIELD_COLOR = "#F4F5F3";
 
 export const PALETTE = [
   "#e23b2e",

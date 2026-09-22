@@ -135,8 +135,13 @@ test("empty poster is schema 3", () => {
   assert.equal(empty.schema, 3);
   assert.equal(empty.legacyPixelObjects, null);
   assert.deepEqual(empty.objects, []);
-  assert.equal(empty.background, "#F4F5F3");
-  assert.equal(migratePoster({ schema: 3, objects: [] }).background, "#F4F5F3");
+  assert.equal(empty.background, "#FFFFFF");
+  assert.equal(migratePoster({ schema: 3, objects: [] }).background, "#FFFFFF");
+});
+
+test("the old default paper migrates to white; chosen colours stay", () => {
+  assert.equal(migratePoster({ schema: 3, objects: [], background: "#F4F5F3" }).background, "#FFFFFF");
+  assert.equal(migratePoster({ schema: 3, objects: [], background: "#fcfa9b" }).background, "#fcfa9b");
 });
 
 test("schema 2 type waits for field then normalizes", () => {

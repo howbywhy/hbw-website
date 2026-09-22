@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ArrowUUpLeft,
@@ -100,7 +100,8 @@ type Props = {
   hidden?: boolean;
 };
 
-export function PosterTool({ dormant = false, hidden = false }: Props) {
+/** Memoised: the shell re-renders as the work line reports what's in view; the canvas must not. */
+export const PosterTool = memo(function PosterTool({ dormant = false, hidden = false }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -236,9 +237,12 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
     if (note && bar) {
       const fr = wrap.getBoundingClientRect();
       const br = bar.getBoundingClientRect();
+      // The toolbar slides in and out (e.g. on Back it re-enters from 18px lower). Measure
+      // where it rests, not where it is mid-slide, or the note lands on top of it.
+      const slide = new DOMMatrixReadOnly(getComputedStyle(bar).transform === "none" ? undefined : getComputedStyle(bar).transform).m42;
       note.style.left = `${Math.max(0, br.left - fr.left)}px`;
       note.style.bottom = "auto";
-      note.style.top = `${Math.max(0, br.top - fr.top - note.offsetHeight - 10)}px`;
+      note.style.top = `${Math.max(0, br.top - slide - fr.top - note.offsetHeight - 10)}px`;
     }
   }, [redraw]);
 
@@ -251,7 +255,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       setBackground(workspace.poster.background || FIELD_COLOR);
       setDecision(workspace.poster.decision);
       setFrozen(workspace.poster.frozen);
-      if (workspace.poster.frozen) setEmailStatus("Sent.");
+      if (workspace.poster.frozen) setEmailStatus("Sent. We’ll be in touch.");
       setMaking("rest");
       setPlaceKind(null);
       setHasWork(objectsRef.current.length > 0 || workspace.poster.frozen || Boolean(workspace.poster.legacyPixelObjects?.length));
@@ -1062,7 +1066,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
           frozen: true,
           font: "Visual",
         });
-        setEmailStatus("Sent.");
+        setEmailStatus("Sent. We’ll be in touch.");
         return;
       }
       setEmailStatus(data.reason || "The send did not go through. Try again.");
@@ -1500,7 +1504,7 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       ) : null}
       {showNote ? (
         <p ref={noteRef} className="hbw-poster-note">
-          Click to make a poster
+          What are you trying to solve? Make it a poster and send it to HBW.
         </p>
       ) : null}
       {editing && viewedEdit ? (
@@ -1944,4 +1948,4 @@ export function PosterTool({ dormant = false, hidden = false }: Props) {
       </IconContext.Provider>
     </div>
   );
-}
+});

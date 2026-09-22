@@ -34,7 +34,13 @@ export function MovementVideo({ media, load, eager, active = false, viewTransiti
   const alt = media.alt ?? "";
   const muted = media.muted !== false;
   const loop = media.loop !== false;
-  const wantsAutoplay = media.autoplay !== false && !reduceMotion();
+  // Read the motion preference after mount: the server can't know it, and reading it
+  // during render made reduced-motion visitors hydrate an <img> against a server <video>.
+  const [still, setStill] = useState(false);
+  useEffect(() => {
+    setStill(reduceMotion());
+  }, []);
+  const wantsAutoplay = media.autoplay !== false && !still;
 
   useEffect(() => {
     fallbackRef.current = false;

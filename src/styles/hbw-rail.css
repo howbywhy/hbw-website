@@ -1,0 +1,2261 @@
+/* ==========================================================================
+   A continuously re-authored viewing environment
+   The Poster is the permanent base layer. The work rises over it as one line,
+   projects play over it, and the page is never left.
+   Loaded after hbw-home-prototype.css. Component rules are scoped to
+   `html.hbw-workspace .hbw-home` so they outrank the prototype's resets.
+   ========================================================================== */
+
+html.hbw-workspace {
+  --hbw-field: #ffffff;
+  --hbw-window: #ffffff;
+  --hbw-page: #ffffff;
+  --hbw-sheet-top: clamp(56px, 9vh, 96px);
+  --hbw-muted: rgba(29, 29, 29, 0.46);
+  --hbw-hair: rgba(29, 29, 29, 0.12);
+  --hbw-ink: #1d1d1d;
+  /* One motion language: things arrive with a long, soft ease-out; controls answer quickly. */
+  --hbw-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+  --hbw-answer: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Three durations carry every movement on the site: a control moves, a surface
+     arrives, an image settles. One ease (--hbw-arrive) under all of them. */
+  --hbw-t-move: 420ms;
+  --hbw-t-arrive: 600ms;
+  --hbw-t-settle: 900ms;
+  /* The pill system, on an 8pt rhythm: 32 tall, 8 radius, 12 inset, 4 between. */
+  --hbw-pill-h: 32px;
+  --hbw-pill-r: 8px;
+  --hbw-pill-x: 12px;
+  --hbw-pill-gap: 4px;
+  --hbw-pill-bg: rgba(240, 240, 236, 0.66);
+  --hbw-pill-on: #ffffff;
+  --hbw-pill-font: 0.9375rem;
+  /* Tags: labels that sit on the work. The size of a group's inner item — 24 tall,
+     4 radius — set in from the corner by 8, so every label on an image lines up. */
+  --hbw-tag-h: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap));
+  --hbw-tag-r: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
+  --hbw-tag-inset: 8px;
+  --hbw-card-r: 8px;
+}
+
+/* --- The frame: white, edge to edge, no border -------------------------------- */
+
+html.hbw-workspace .hbw-home {
+  background: #ffffff;
+}
+
+html.hbw-workspace .hbw-home .hbw-window {
+  margin: 0;
+  border-radius: 0;
+  background: #ffffff;
+}
+
+/* --- Pills: the only chrome. Frosted, so the Poster and the work tint them ------ */
+
+html.hbw-workspace .hbw-home .hbw-home-strip.hbw-site-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  display: block;
+  flex: none;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding: var(--hbw-space-3);
+  background: transparent;
+  pointer-events: none;
+}
+
+/* Three places on one row: the nav on the left, HBW at the centre, the line on the right. */
+.hbw-pills-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--hbw-space-3);
+  width: 100%;
+}
+
+.hbw-pills-wrap > .hbw-pills {
+  justify-self: start;
+}
+
+.hbw-pills-wrap > .hbw-pill--mark {
+  justify-self: center;
+  pointer-events: auto;
+}
+
+.hbw-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--hbw-pill-gap);
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-pill,
+html.hbw-workspace .hbw-home .hbw-pill-group,
+html.hbw-workspace .hbw-home .hbw-site-nav__line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  box-sizing: border-box;
+  height: var(--hbw-pill-h);
+  margin: 0;
+  border: 0;
+  border-radius: var(--hbw-pill-r);
+  background: var(--hbw-pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: var(--hbw-ink);
+  font: inherit;
+  line-height: 1;
+  letter-spacing: inherit;
+  white-space: nowrap;
+}
+
+html.hbw-workspace .hbw-home .hbw-pill {
+  padding: 0 var(--hbw-pill-x);
+  cursor: pointer;
+  transition:
+    background-color var(--hbw-answer),
+    color var(--hbw-answer),
+    transform var(--hbw-answer);
+}
+
+/* One family: every pill is the same frosted field and the same type. The mark is
+   told apart by its letters and its place, not by a fill. Hover lifts any pill to
+   white, which is also how a group marks where you are. */
+html.hbw-workspace .hbw-home .hbw-pill--mark {
+  letter-spacing: 0.06em;
+}
+
+html.hbw-workspace .hbw-home .hbw-pill--mark:hover,
+html.hbw-workspace .hbw-home .hbw-pill--action:hover {
+  background: var(--hbw-pill-on);
+}
+
+html.hbw-workspace .hbw-home .hbw-pill-group {
+  position: relative;
+  gap: 0;
+  padding: var(--hbw-pill-gap);
+}
+
+/* The thumb: the only moving part in a group. It travels to what's current. */
+.hbw-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap));
+  border-radius: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
+  background: var(--hbw-pill-on);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--hbw-t-move) var(--hbw-arrive),
+    width var(--hbw-t-move) var(--hbw-arrive),
+    height var(--hbw-t-move) var(--hbw-arrive),
+    opacity 240ms var(--hbw-arrive);
+}
+
+/* Every control inside a group behaves the same, including Info and the frame count. */
+html.hbw-workspace .hbw-home .hbw-pill-group__item,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--info > button,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  position: relative;
+  z-index: 1;
+  height: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap));
+  margin: 0;
+  padding: 0 calc(var(--hbw-pill-x) - var(--hbw-pill-gap));
+  border: 0;
+  border-radius: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
+  line-height: 1;
+  background: transparent;
+  color: rgba(29, 29, 29, 0.52);
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--hbw-answer),
+    color var(--hbw-answer),
+    transform var(--hbw-answer);
+}
+
+/* Groups with a thumb only change colour; the thumb carries the "you are here". */
+html.hbw-workspace .hbw-home .hbw-pill-group__item:hover,
+html.hbw-workspace .hbw-home .hbw-pill-group__item[aria-pressed="true"],
+html.hbw-workspace .hbw-home .hbw-pill-group__item[aria-selected="true"],
+html.hbw-workspace .hbw-home .hbw-pill-group__item.is-current {
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--info > button:hover,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--info > button[aria-pressed="true"] {
+  background: var(--hbw-pill-on);
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-pill:active,
+html.hbw-workspace .hbw-home .hbw-pill-group__item:active,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--info > button:active {
+  transform: scale(0.97);
+}
+
+html.hbw-workspace .hbw-home .hbw-pill-group__item[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* Focus is visible for keyboards, and soft: a ring, never the browser's black box. */
+html.hbw-workspace .hbw-home .hbw-pills :focus {
+  outline: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-pills :focus-visible,
+html.hbw-workspace .hbw-home .hbw-card__hit:focus-visible,
+html.hbw-workspace .hbw-home .hbw-pill--action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(29, 29, 29, 0.28);
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__contact {
+  min-width: 5.2em;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Groups arrive when the context changes (home → project), the mark stays put. */
+.hbw-pill-group {
+  animation: hbw-pill-in var(--hbw-t-move) var(--hbw-arrive) both;
+}
+
+.hbw-pills > .hbw-pill-group:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+@keyframes hbw-pill-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The re-authored line: the practice at rest, each project's idea as it comes forward. */
+.hbw-site-nav__line-wrap {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+  margin: 0 0 0 auto;
+  pointer-events: none;
+  transition:
+    opacity var(--hbw-t-move) var(--hbw-arrive),
+    transform var(--hbw-t-move) var(--hbw-arrive);
+}
+
+html.hbw-viewing .hbw-site-nav__line-wrap {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__line {
+  padding: 0 var(--hbw-pill-x);
+  color: rgba(29, 29, 29, 0.56);
+  overflow: hidden;
+  box-sizing: border-box;
+  justify-content: flex-end;
+  transition: width var(--hbw-t-arrive) var(--hbw-arrive);
+}
+
+.hbw-fluid__text {
+  display: inline-block;
+  animation: hbw-line-in var(--hbw-t-arrive) var(--hbw-arrive) both;
+}
+
+@keyframes hbw-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hbw-site-nav__h1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The project register, reduced to Info and the count. */
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__view {
+  position: static;
+  display: flex;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--info {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__browse,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--next,
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__face--info > button.hbw-nav-sub__full-frame {
+  display: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The environment: the Poster recedes as the work rises, returns when it leaves --- */
+
+/* One transition in, one out. A filter that changed every scroll frame was the main cost. */
+.hbw-window .hbw-poster-field {
+  transition:
+    filter var(--hbw-t-settle) var(--hbw-arrive),
+    opacity var(--hbw-t-settle) var(--hbw-arrive);
+}
+
+.hbw-window[data-hbw-work="in"] .hbw-poster-field {
+  filter: blur(10px);
+  opacity: 0.72;
+}
+
+.hbw-window .hbw-poster-toolbar,
+.hbw-window .hbw-poster-note {
+  transition:
+    opacity var(--hbw-t-move) var(--hbw-arrive),
+    transform var(--hbw-t-move) var(--hbw-arrive);
+}
+
+.hbw-window[data-hbw-work="in"] .hbw-poster-toolbar {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(14px);
+}
+
+.hbw-window[data-hbw-work="in"] .hbw-poster-note {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.hbw-scroll {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  /* It fades out, then hides; it shows, then fades in — never a blink. */
+  transition:
+    opacity var(--hbw-t-move) var(--hbw-arrive),
+    visibility 0s linear var(--hbw-t-move);
+}
+
+.hbw-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hbw-scroll.is-on {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity var(--hbw-t-arrive) var(--hbw-arrive),
+    visibility 0s;
+}
+
+/* --- The line: cards rise, arrange into a row, then travel ------------------- */
+
+.hbw-line-track {
+  position: relative;
+}
+
+.hbw-line-stage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: var(--stage-h, 100vh);
+  padding-bottom: clamp(24px, 7vh, 72px);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* Dead space above the line: live only while the work is up, so the Poster stays usable at rest. */
+html.hbw-workspace .hbw-home .hbw-line-away {
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-window[data-hbw-work="in"] .hbw-line-away {
+  pointer-events: auto;
+}
+
+.hbw-line {
+  --rise: 0;
+  --pad: var(--hbw-space-4);
+  padding: 0 var(--pad);
+}
+
+.hbw-line__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: var(--hbw-ink);
+  opacity: clamp(0, calc(var(--rise) * 2.2 - 1.1), 1);
+  transform: translateY(calc((1 - var(--rise)) * 12px));
+}
+
+.hbw-line__dashes {
+  display: flex;
+  gap: 3px;
+}
+
+html.hbw-workspace .hbw-home .hbw-line__dashes button {
+  display: block;
+  width: 22px;
+  height: 14px;
+  margin: 0;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  background-clip: content-box;
+  cursor: pointer;
+  position: relative;
+}
+
+html.hbw-workspace .hbw-home .hbw-line__dashes button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(29, 29, 29, 0.16);
+  transition: background-color var(--hbw-t-move) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-line__dashes button:hover::after {
+  background: rgba(29, 29, 29, 0.4);
+}
+
+html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on {
+  width: 34px;
+  transition: width var(--hbw-t-move) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on::after {
+  background: var(--hbw-ink);
+}
+
+.hbw-line__cards {
+  display: flex;
+  column-gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+/*
+ * Each card has its own moment in the rise (--t, staggered by --i). Before it
+ * settles it sits lower, a little apart and a little turned, like prints being
+ * gathered into a line; at --t = 1 it is squared into the row.
+ */
+.hbw-card {
+  --t: clamp(0, calc(var(--rise) * 1.9 - var(--i) * 0.15), 1);
+  flex: 0 0 var(--card-w, clamp(18rem, 33vw, 36rem));
+  pointer-events: auto;
+  opacity: clamp(0, calc(var(--t) * 1.6), 1);
+  transform:
+    translate3d(calc((1 - var(--t)) * (var(--i) - 2.5) * 3vw), calc((1 - var(--t)) * 62vh), 0)
+    rotate(calc((1 - var(--t)) * (var(--i) - 2.5) * 2.2deg));
+}
+
+html.hbw-workspace .hbw-home .hbw-card__hit {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--hbw-card-r);
+  background: #f2f2f0;
+  color: var(--hbw-ink);
+  text-decoration: none;
+  transform-origin: 50% 100%;
+  transition:
+    transform var(--hbw-t-arrive) var(--hbw-arrive),
+    opacity var(--hbw-t-arrive) var(--hbw-arrive),
+    filter var(--hbw-t-arrive) var(--hbw-arrive);
+}
+
+.hbw-card__media img,
+.hbw-card__media video {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--hbw-arrive);
+}
+
+@media (hover: hover) {
+  html.hbw-workspace .hbw-home .hbw-card__hit:hover {
+    transform: translateY(-6px);
+  }
+
+  .hbw-card__hit:hover .hbw-card__media img,
+  .hbw-card__hit:hover .hbw-card__media video {
+    transform: scale(1.03);
+  }
+}
+
+html.hbw-workspace .hbw-home .hbw-card__label,
+html.hbw-workspace .hbw-home .hbw-viewer__next-label {
+  position: absolute;
+  top: var(--hbw-tag-inset);
+  left: var(--hbw-tag-inset);
+  height: var(--hbw-tag-h);
+  padding: 0 calc(var(--hbw-pill-x) - var(--hbw-pill-gap));
+  border-radius: var(--hbw-tag-r);
+  font-size: 0.8125rem;
+  pointer-events: none;
+  cursor: inherit;
+}
+
+html.hbw-workspace .hbw-home .hbw-card.is-active .hbw-card__label {
+  background: var(--hbw-pill-on);
+}
+
+/* Only the project at the front is at full strength; the rest wait, softened.
+   It tells you where you are in the line. Hover brings one forward to look. */
+html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active) .hbw-card__hit {
+  opacity: 0.28;
+  filter: saturate(0.5);
+}
+
+html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active):hover .hbw-card__hit,
+html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active).is-preview .hbw-card__hit,
+html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active) .hbw-card__hit:focus-visible {
+  opacity: 0.92;
+  filter: none;
+}
+
+/* The hover card: after a moment's intent the card lifts, grows from its base
+   and opens into a preview — idea, sector, year, ▶ View and More. */
+.hbw-card {
+  position: relative;
+}
+
+html.hbw-workspace .hbw-home .hbw-card.is-preview {
+  z-index: 3;
+}
+
+html.hbw-workspace .hbw-home .hbw-card.is-preview .hbw-card__hit {
+  transform: translateY(-10px) scale(1.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+html.hbw-workspace .hbw-home .hbw-card.is-first .hbw-card__hit {
+  transform-origin: 0% 100%;
+}
+
+html.hbw-workspace .hbw-home .hbw-card.is-last .hbw-card__hit {
+  transform-origin: 100% 100%;
+}
+
+.hbw-card__preview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  gap: 2px;
+  padding: 44px 14px 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0));
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--hbw-t-move) var(--hbw-arrive),
+    transform var(--hbw-t-move) var(--hbw-arrive);
+  pointer-events: none;
+}
+
+.hbw-card__idea {
+  font-size: 1.0625rem;
+  letter-spacing: -0.005em;
+}
+
+.hbw-card__meta {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hbw-card.is-preview .hbw-card__preview {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- The viewer: the project in one place, over the Poster ------------------ */
+
+.hbw-detail {
+  position: absolute;
+  inset: 0;
+  z-index: 65;
+  outline: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-detail__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  cursor: default;
+}
+
+.hbw-viewer {
+  position: absolute;
+  /* The container meets the nav's outside edges: the same 16 in from every side. */
+  top: calc(var(--hbw-space-3) + var(--hbw-pill-h) + var(--hbw-space-3));
+  left: var(--hbw-space-3);
+  right: var(--hbw-space-3);
+  bottom: var(--hbw-space-3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* The viewer's own insets, shared by the bar, Info and Studio: content sits on the
+     title's edge (16), and one 8 step under the bar before the first hairline. */
+  --viewer-x: var(--hbw-space-3);
+  --viewer-top: var(--hbw-space-2);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transform-origin: 0 0;
+}
+
+.hbw-viewer__bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hbw-space-3);
+  padding: var(--hbw-space-2) var(--hbw-space-2) var(--hbw-space-2) var(--viewer-x);
+}
+
+.hbw-viewer__title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  min-width: 0;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hbw-viewer__idea {
+  color: var(--hbw-muted);
+}
+
+.hbw-viewer__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--hbw-pill-gap);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__count {
+  min-width: 5.2em;
+  justify-content: center;
+  cursor: default;
+  font-variant-numeric: tabular-nums;
+  transition: opacity var(--hbw-t-move) var(--hbw-arrive), transform var(--hbw-t-move) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__count.is-away {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__close {
+  width: var(--hbw-pill-h);
+  justify-content: center;
+  padding: 0;
+}
+
+.hbw-viewer__body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Gallery: one horizontal carousel you scroll, frames at the viewer's full height. */
+.hbw-viewer__gallery {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: var(--hbw-space-2);
+  padding: 0 var(--hbw-space-2) var(--hbw-space-2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior: contain;
+  /* No scroll-snap: frames are nearly viewer-wide, so snapping pulled every eased step back. */
+  scrollbar-width: none;
+  cursor: grab;
+  transition:
+    opacity var(--hbw-t-arrive) var(--hbw-arrive),
+    transform var(--hbw-t-arrive) var(--hbw-arrive);
+}
+
+.hbw-viewer__gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.hbw-viewer__gallery.is-dragging {
+  cursor: grabbing;
+}
+
+.hbw-viewer__frame {
+  flex: 0 0 auto;
+  height: 100%;
+  max-width: calc(100% - var(--hbw-space-4));
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f4f4f2;
+}
+
+.hbw-viewer__frame img,
+.hbw-viewer__frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* The end of a project: a pause, then the next one edges in. Only part of it is
+   reachable, so it reads as "what comes next", not another frame. */
+.hbw-viewer__next-clip {
+  --next-w: 34vw;
+  --next-shown: 16vw;
+  flex: 0 0 var(--next-shown);
+  height: 100%;
+  margin-left: var(--hbw-space-5);
+  overflow: hidden;
+  border-radius: 8px 0 0 8px;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__next {
+  position: relative;
+  display: block;
+  width: var(--next-w);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f4f4f2;
+  cursor: pointer;
+}
+
+/* The end of a project is its own moment, led by the scroll (--end, 0 → 1):
+   the last frame steps back, the next project is wiped into view from behind a
+   white leaf, its image settling as it comes, and its name rises in last. The
+   counter turns to "Up next". It reads as a turn of page, not one more frame. */
+.hbw-viewer__gallery {
+  --end: 0;
+}
+
+.hbw-viewer__frame:nth-last-child(2) {
+  opacity: calc(1 - var(--end) * 0.45);
+  transform: scale(calc(1 - var(--end) * 0.03));
+  transform-origin: 100% 50%;
+}
+
+.hbw-viewer__next-clip {
+  clip-path: inset(0 calc((1 - var(--end)) * 100%) 0 0 round 8px 0 0 8px);
+}
+
+.hbw-viewer__next img {
+  transform: scale(calc(1.18 - var(--end) * 0.18));
+}
+
+.hbw-viewer__next:hover img {
+  transform: scale(1.03);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__next-label {
+  opacity: clamp(0, calc((var(--end) - 0.55) * 3), 1);
+  translate: 0 calc((1 - clamp(0, calc((var(--end) - 0.55) * 2.2), 1)) * 10px);
+}
+
+.hbw-viewer__count-text {
+  display: inline-block;
+  animation: hbw-line-in var(--hbw-t-move) var(--hbw-arrive) both;
+}
+
+.hbw-viewer__next img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Short, so the settle follows the scroll rather than trailing it. */
+  transition: transform 280ms var(--hbw-arrive);
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__next-label {
+  background: var(--hbw-pill-on);
+  color: rgba(29, 29, 29, 0.52);
+}
+
+.hbw-viewer__next-name {
+  color: var(--hbw-ink);
+}
+
+/* Info: the same frame turns to the story, set to be read in one pass.
+
+   The type system — after Müller-Brockmann (Grid Systems) and Alex Hunting Studio:
+   · One scale, one ratio (4:3). Caption 0.75 · Text 1 · Lead 1.333. The name stays
+     in the bar, as in the gallery. Each size a clear step; nothing "nearly the same".
+   · One baseline unit, --L (1.5 × text). Every line-height and every space is a
+     multiple of it (or of half of it), so lines run level across the columns.
+   · Two tones: ink for what you read, grey for what names it. Hierarchy is carried
+     by size and tone, never by weight.
+   · One structure, repeated: label | text. Chapters, facts and the ask are all rows
+     on a hairline, the label in a field of its own, the text beside it.
+   · Twelve fields, one interval. Left five: why and the facts. Right six: how.
+   Type scales with the frame (--fit), so it never scrolls. */
+.hbw-viewer__info {
+  --fit: 1;
+  --t: calc(clamp(0.78rem, 1.5vh, 0.9375rem) * var(--fit));
+  --L: calc(var(--t) * 1.5);
+  --t-caption: max(0.75rem, calc(var(--t) * 0.75));
+  --t-lead: calc(var(--t) * 1.333);
+  --interval: var(--hbw-space-4);
+  position: absolute;
+  inset: 0;
+  padding: var(--viewer-top) var(--viewer-x) var(--viewer-x);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity var(--hbw-t-arrive) var(--hbw-arrive),
+    transform var(--hbw-t-arrive) var(--hbw-arrive);
+}
+
+.hbw-viewer.is-info .hbw-viewer__gallery {
+  opacity: 0;
+  transform: translateX(-3%);
+  pointer-events: none;
+}
+
+.hbw-viewer.is-info .hbw-viewer__info {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__flow {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr) auto;
+  column-gap: var(--interval);
+  row-gap: var(--L);
+  height: 100%;
+  font-size: var(--t);
+  line-height: var(--L);
+  color: var(--hbw-ink);
+}
+
+.hbw-viewer__flow > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.hbw-viewer__flow p {
+  margin: 0 0 calc(var(--L) * 0.5);
+}
+
+.hbw-viewer__flow p:last-child {
+  margin-bottom: 0;
+}
+
+/* Every block opens on a hairline and half a line of space. */
+.hbw-viewer__intro,
+.hbw-viewer__row,
+.hbw-viewer__facts,
+.hbw-viewer__ask {
+  border-top: 1px solid var(--hbw-hair);
+  padding-top: calc(var(--L) * 0.5);
+}
+
+/* What and why. */
+.hbw-viewer__intro {
+  grid-column: 1 / span 5;
+  grid-row: 1;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__lead {
+  font-size: var(--t-lead);
+  line-height: calc(var(--L) * 1.25);
+  letter-spacing: -0.008em;
+}
+
+.hbw-viewer__lead p {
+  margin-bottom: calc(var(--L) * 0.5);
+  text-wrap: pretty;
+}
+
+/* How: rows of label | text on the right six fields (two for the label, four for text). */
+.hbw-viewer__chapters,
+.hbw-viewer__ask {
+  grid-column: 7 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-content: start;
+}
+
+.hbw-viewer__chapters {
+  grid-row: 1;
+}
+
+.hbw-viewer__row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  padding-bottom: var(--L);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__label {
+  grid-column: 1 / span 2;
+  margin: 0;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: var(--hbw-muted);
+}
+
+.hbw-viewer__text {
+  grid-column: 3 / -1;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* The facts: the same rows, in captions, under the lead — label in one field, value in four. */
+html.hbw-workspace .hbw-home .hbw-viewer__facts {
+  grid-column: 1 / span 5;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: subgrid;
+  row-gap: calc(var(--L) * 0.25);
+  margin: 0;
+  font-size: var(--t-caption);
+  line-height: calc(var(--L) * 0.75);
+}
+
+.hbw-viewer__fact {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__fact .hbw-viewer__label {
+  grid-column: 1 / span 1;
+}
+
+.hbw-viewer__fact .hbw-viewer__text {
+  grid-column: 2 / -1;
+}
+
+.hbw-viewer__facts a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* The ask closes the right side, in captions, on the same label | text line. */
+html.hbw-workspace .hbw-home .hbw-viewer__ask {
+  grid-row: 2;
+  align-self: end;
+  align-items: baseline;
+  font-size: var(--t-caption);
+  line-height: calc(var(--L) * 0.75);
+}
+
+/* The ask is a line of text, not a button: the link sits at the far right of the row. */
+html.hbw-workspace .hbw-home .hbw-viewer__ask .hbw-viewer__text {
+  justify-self: end;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__ask .hbw-viewer__label {
+  grid-column: 1 / span 4;
+  white-space: nowrap;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__ask .hbw-viewer__text {
+  grid-column: 5 / -1;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__link {
+  display: inline-flex;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--hbw-ink);
+  font: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+  transition: text-decoration-color var(--hbw-answer), color var(--hbw-answer);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__link:hover {
+  text-decoration-color: currentColor;
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__link span {
+  transition: transform var(--hbw-answer);
+}
+
+html.hbw-workspace .hbw-home .hbw-viewer__link:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* --- Studio: one page in the viewer, read top to bottom ------------------------
+   After Alex Hunting Studio's About: a two-tone statement and the studio's image,
+   then sections under small labels, an index that holds its place on the left.
+   The same scale and baseline as Info (text · lead · display on 4:3, --L). */
+html.hbw-workspace .hbw-home .hbw-detail--studio {
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio {
+  --t: clamp(0.875rem, 0.45rem + 0.55vw, 1.0625rem);
+  --L: calc(var(--t) * 1.5);
+  --t-caption: max(0.75rem, calc(var(--t) * 0.8));
+  --t-lead: calc(var(--t) * 1.333);
+  --t-display: calc(var(--t) * 2.37);
+  --interval: var(--hbw-space-4);
+  position: absolute;
+  inset: 0;
+  container-type: size;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  column-gap: var(--interval);
+  padding: var(--viewer-top) var(--viewer-x) 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  outline: none;
+  font-size: var(--t);
+  line-height: var(--L);
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio::-webkit-scrollbar {
+  display: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio :where(p, ul, ol, dl, figure) {
+  margin: 0;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__ink {
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__grey {
+  color: var(--hbw-muted);
+}
+
+/* The index: it holds its place while the page moves, and marks where you are. */
+html.hbw-workspace .hbw-home .hbw-studio__index {
+  grid-column: 1 / span 2;
+  /* Sticky offsets count from inside the page's top inset, so 0 lands on it. */
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--L) * 0.5);
+  border-top: 1px solid var(--hbw-hair);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__index-item {
+  position: relative;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  line-height: var(--L);
+  color: var(--hbw-muted);
+  cursor: pointer;
+  transition:
+    color var(--hbw-answer),
+    transform var(--hbw-t-move) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__index-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  width: 6px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition:
+    opacity var(--hbw-t-move) var(--hbw-arrive),
+    transform var(--hbw-t-move) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__index-item:hover,
+html.hbw-workspace .hbw-home .hbw-studio__index-item[aria-current="true"] {
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__index-item[aria-current="true"] {
+  transform: translateX(12px);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__index-item[aria-current="true"]::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__sections {
+  grid-column: 3 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* Every section opens on a hairline; each settles in once as it arrives. */
+html.hbw-workspace .hbw-home .hbw-studio__section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: start;
+  padding: calc(var(--L) * 0.5) 0 calc(var(--L) * 2.5);
+  border-top: 1px solid var(--hbw-hair);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--hbw-t-settle) var(--hbw-arrive),
+    transform var(--hbw-t-settle) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__section.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__label {
+  grid-column: 1 / -1;
+  margin: 0 0 var(--L);
+  font-size: var(--t-caption);
+  font-weight: 400;
+  line-height: var(--L);
+  letter-spacing: 0.01em;
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__statement {
+  grid-column: 1 / span 8;
+  margin: 0 0 calc(var(--L) * 1.5);
+  font-size: var(--t-display);
+  line-height: calc(var(--L) * 2);
+  letter-spacing: -0.022em;
+  text-wrap: pretty;
+}
+
+/* Practice: the statement, then the facts against the studio's image. */
+html.hbw-workspace .hbw-home .hbw-studio__hero {
+  padding-bottom: calc(var(--L) * 2.5);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__facts {
+  grid-column: 1 / span 3;
+  grid-row: 2;
+  align-self: start;
+  display: grid;
+  gap: calc(var(--L) * 0.5);
+  font-size: var(--t-caption);
+  line-height: calc(var(--L) * 0.8);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__facts dt {
+  color: var(--hbw-muted);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__facts dd {
+  margin: 0;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__portrait {
+  grid-column: 6 / span 4;
+  grid-row: 2;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 819 / 1024;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f4f4f2;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__portrait figcaption {
+  margin-top: calc(var(--L) * 0.25);
+  font-size: var(--t-caption);
+  color: var(--hbw-muted);
+}
+
+/* Approach: the thinking in the lead, the disciplines as a list beside it. */
+html.hbw-workspace .hbw-home .hbw-studio__lead {
+  grid-column: 1 / span 6;
+  font-size: var(--t-lead);
+  line-height: calc(var(--L) * 1.25);
+  letter-spacing: -0.008em;
+  text-wrap: pretty;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__lead p + p {
+  margin-top: calc(var(--L) * 0.5);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__list {
+  grid-column: 8 / span 3;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__list .hbw-studio__label {
+  margin-bottom: calc(var(--L) * 0.5);
+  color: var(--hbw-muted);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__list ul {
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-lead);
+  line-height: calc(var(--L) * 1.25);
+}
+
+/* Process: four steps as rows — number, name, what it means. */
+html.hbw-workspace .hbw-home .hbw-studio__section > .hbw-studio__lead + .hbw-studio__steps {
+  margin-top: calc(var(--L) * 1.5);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__steps {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  padding: 0;
+  list-style: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__steps li {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+  padding: calc(var(--L) * 0.5) 0 var(--L);
+  border-top: 1px solid var(--hbw-hair);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__step-n {
+  display: inline-block;
+  min-width: 2.2em;
+  margin-right: 0.5em;
+  font-size: var(--t-caption);
+  color: var(--hbw-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__step-name {
+  grid-column: 1 / span 3;
+  font-size: var(--t-lead);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__step-copy {
+  grid-column: 4 / span 5;
+  color: var(--hbw-muted);
+}
+
+/* Contact closes the page on the same ask as every project. */
+html.hbw-workspace .hbw-home .hbw-studio__contact {
+  min-height: 50cqh;
+  padding-bottom: var(--viewer-x);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--interval);
+  font-size: var(--t-lead);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__actions .hbw-viewer__link {
+  text-decoration-color: var(--hbw-hair);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__actions .hbw-viewer__link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* --- The manifesto, read ----------------------------------------------------
+   A tall run of page under a pinned stage. One thought holds the stage; its words
+   light from grey to ink as you scroll (--k), then it lifts away and the next
+   rises in. A quiet counter and a line of progress (--p) keep your place. */
+html.hbw-workspace .hbw-home .hbw-studio__section.hbw-reader {
+  height: calc(var(--thoughts) * var(--span) * 100cqh + 100cqh);
+  padding: 0;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__stage {
+  --k: 0;
+  --p: 0;
+  grid-column: 1 / -1;
+  /* Sticky offsets count from inside the page's top inset, so 0 lands on it. */
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100cqh;
+  padding: calc(var(--L) * 0.5) 0 var(--viewer-x);
+  box-sizing: border-box;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__thoughts {
+  position: relative;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__thought {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 80%;
+  max-width: 21em;
+  margin: 0;
+  font-size: calc(var(--t) * 2.8);
+  line-height: 1.16;
+  letter-spacing: -0.024em;
+  text-wrap: balance;
+  opacity: 0;
+  transform: translateY(calc(-50% + 56px));
+  transition:
+    opacity var(--hbw-t-arrive) var(--hbw-arrive),
+    transform var(--hbw-t-settle) var(--hbw-arrive);
+  pointer-events: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__thought.is-now {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__thought.is-read {
+  opacity: 0;
+  transform: translateY(calc(-50% - 56px));
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__word {
+  color: var(--hbw-ink);
+  opacity: 0.16;
+  transition: opacity 220ms linear;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__thought.is-now .hbw-reader__word {
+  opacity: clamp(0.16, calc(var(--k) * (var(--n) + 1) - var(--w)), 1);
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__thought.is-read .hbw-reader__word {
+  opacity: 1;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--hbw-space-3);
+  font-size: var(--t-caption);
+  color: var(--hbw-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--hbw-hair);
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--hbw-ink);
+  transform: scaleX(var(--p));
+  transform-origin: 0 50%;
+}
+
+html.hbw-workspace .hbw-home .hbw-reader__plain {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.hbw-workspace .hbw-home .hbw-studio__section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-reader__thought,
+  html.hbw-workspace .hbw-home .hbw-reader__thought.is-now,
+  html.hbw-workspace .hbw-home .hbw-reader__thought.is-read {
+    transition: none;
+    transform: translateY(-50%);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-reader__word,
+  html.hbw-workspace .hbw-home .hbw-reader__thought.is-now .hbw-reader__word {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html.hbw-workspace .hbw-home .hbw-studio {
+    --t: 0.9375rem;
+    --t-display: 1.625rem;
+    display: block;
+    padding: var(--viewer-top) var(--viewer-x) 0;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__index {
+    display: none;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__sections,
+  html.hbw-workspace .hbw-home .hbw-studio__section,
+  html.hbw-workspace .hbw-home .hbw-studio__steps,
+  html.hbw-workspace .hbw-home .hbw-studio__steps li {
+    display: block;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__statement {
+    line-height: 1.22;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__facts {
+    margin-bottom: var(--L);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__list {
+    margin-top: calc(var(--L) * 1.5);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__step-n {
+    display: block;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-studio__step-copy {
+    display: block;
+    margin-top: calc(var(--L) * 0.25);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-reader__stage {
+    display: grid;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-reader__thought {
+    width: 100%;
+    font-size: 1.75rem;
+  }
+}
+
+/* Soft focus in the viewer, never the browser's ring. */
+html.hbw-workspace .hbw-home .hbw-detail :focus {
+  outline: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-detail :focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(29, 29, 29, 0.3);
+}
+
+/* --- The Poster's tools: the same family as the nav ---------------------------
+   No boxed toolbar: the same frosted pills, the same 32 / 8 / 12 / 4 rhythm and
+   the same white "you are here". Poster, the tools, your email and Send are four
+   pills in a row; the trays that open under them are pill rows of the same kind. */
+
+html.hbw-workspace .hbw-home .hbw-poster-toolbar {
+  width: max-content;
+  max-width: calc(100% - 2 * var(--hbw-space-3));
+  min-height: 0;
+  justify-content: center;
+  gap: var(--hbw-pill-gap);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  bottom: clamp(var(--hbw-space-3) + 8px, 4.5vh, var(--hbw-space-4) + 16px);
+}
+
+/* The four pills of the main row. */
+html.hbw-workspace .hbw-home .hbw-poster-title,
+html.hbw-workspace .hbw-home .hbw-poster-input,
+html.hbw-workspace .hbw-home .hbw-poster-send-open,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__context,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__work,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__review,
+html.hbw-workspace .hbw-home .hbw-poster-send-status {
+  box-sizing: border-box;
+  min-height: var(--hbw-pill-h);
+  margin: 0;
+  border: 0;
+  border-radius: var(--hbw-pill-r);
+  background: var(--hbw-pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  font-size: var(--hbw-pill-font);
+  opacity: 1;
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-title,
+html.hbw-workspace .hbw-home .hbw-poster-send-open {
+  height: var(--hbw-pill-h);
+  padding: 0 var(--hbw-pill-x);
+  color: rgba(29, 29, 29, 0.52);
+  transition:
+    background-color var(--hbw-answer),
+    color var(--hbw-answer),
+    transform var(--hbw-answer);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-send-open {
+  gap: 0.45em;
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-title:hover,
+html.hbw-workspace .hbw-home .hbw-poster-title.is-current,
+html.hbw-workspace .hbw-home .hbw-poster-send-open:hover,
+html.hbw-workspace .hbw-home .hbw-poster-send-open.is-current {
+  background: var(--hbw-pill-on);
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__send {
+  align-items: stretch;
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-input {
+  height: var(--hbw-pill-h);
+  flex: 0 1 11rem;
+  width: 11rem;
+  min-width: 8rem;
+  max-width: 11rem;
+  padding: 0 var(--hbw-pill-x);
+  color: var(--hbw-ink);
+  transition: background-color var(--hbw-answer);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-input::placeholder {
+  color: rgba(29, 29, 29, 0.46);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-input:focus {
+  background: var(--hbw-pill-on);
+}
+
+/* Groups of tools: an inset of 4, items of 24, and white for what's on. */
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__context,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__work {
+  align-items: center;
+  gap: 0;
+  padding: var(--hbw-pill-gap);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__context,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__work,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__review,
+html.hbw-workspace .hbw-home .hbw-poster-send-status {
+  flex: 1 1 100%;
+}
+
+/* The main row sets the width; the trays under it take that width and never widen it
+   (width 0, min-width 100%), wrapping onto a second line of the same pill if they must. */
+@media screen and (min-width: 768px) {
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar > :not(.hbw-poster-title):not(.hbw-poster-toolbar__primary):not(.hbw-poster-input):not(.hbw-poster-toolbar__send) {
+    grid-column: 1 / -1;
+    width: 0;
+    min-width: 100%;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__context,
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray,
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__work {
+    flex-wrap: wrap;
+  }
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-tool,
+html.hbw-workspace .hbw-home .hbw-poster-reset {
+  box-sizing: border-box;
+  height: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap));
+  min-height: 0;
+  padding: 0 calc(var(--hbw-pill-x) - var(--hbw-pill-gap));
+  border: 0;
+  border-radius: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
+  background: transparent;
+  color: rgba(29, 29, 29, 0.52);
+  font-size: var(--hbw-pill-font);
+  line-height: 1;
+  transition:
+    background-color var(--hbw-answer),
+    color var(--hbw-answer),
+    transform var(--hbw-answer);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-tool:hover:not(:disabled),
+html.hbw-workspace .hbw-home .hbw-poster-reset:hover {
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-tool.is-current,
+html.hbw-workspace .hbw-home .hbw-poster-tool[aria-pressed="true"] {
+  background: var(--hbw-pill-on);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-reset.is-ask {
+  color: #e23b2e;
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-title:active,
+html.hbw-workspace .hbw-home .hbw-poster-send-open:active,
+html.hbw-workspace .hbw-home .hbw-poster-tool:active,
+html.hbw-workspace .hbw-home .hbw-poster-reset:active {
+  transform: scale(0.97);
+}
+
+@media screen and (min-width: 768px) {
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon,
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon {
+    width: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap) + 8px);
+    padding: 0;
+  }
+
+  /* The tool's name, on hover: a small pill of the same kind. */
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon span,
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon span {
+    bottom: calc(100% + 10px);
+    padding: 6px 8px;
+    border: 0;
+    border-radius: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
+    background: var(--hbw-pill-on);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 6px 20px rgba(0, 0, 0, 0.06);
+    color: var(--hbw-ink);
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: opacity var(--hbw-answer);
+  }
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__review {
+  padding: var(--hbw-space-2) var(--hbw-pill-x);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-send-status {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--hbw-pill-x);
+  color: rgba(29, 29, 29, 0.56);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-send-status.is-invalid {
+  color: #e23b2e;
+}
+
+/* Colour chips: small rounded squares, the ring of the pill focus for "current". */
+html.hbw-workspace .hbw-home .hbw-poster-chips {
+  gap: 4px;
+  padding: 0 6px;
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-chip {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(29, 29, 29, 0.12);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-chip.is-current {
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(29, 29, 29, 0.12), 0 0 0 2px #ffffff, 0 0 0 3px rgba(29, 29, 29, 0.5);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-type__label {
+  padding: 0 calc(var(--hbw-pill-x) - var(--hbw-pill-gap));
+  color: rgba(29, 29, 29, 0.46);
+  font-size: var(--hbw-pill-font);
+}
+
+html.hbw-workspace .hbw-home .hbw-poster-toolbar button:focus-visible,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar input:focus-visible,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(29, 29, 29, 0.28);
+}
+
+/* The invitation sits on the same left edge as the row, in the line's voice. */
+html.hbw-workspace .hbw-home .hbw-poster-note {
+  color: rgba(29, 29, 29, 0.46);
+}
+
+/* --- After the line: the practice, then back to the Poster ------------------- */
+
+.hbw-scroll__practice {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--hbw-space-3) var(--hbw-space-2);
+  padding: clamp(6rem, 20vh, 12rem) var(--hbw-space-4) 0;
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-scroll__statement {
+  grid-column: 1 / span 8;
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--hbw-ink);
+}
+
+.hbw-scroll__body {
+  grid-column: 1 / span 6;
+  margin: 0;
+  max-width: 34em;
+  line-height: var(--hbw-lh-body);
+  color: var(--hbw-ink);
+}
+
+.hbw-scroll__links {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--hbw-space-4);
+  margin: var(--hbw-space-3) 0 0;
+}
+
+.hbw-scroll__tail {
+  height: 40vh;
+}
+
+/* --- Inside a project: the work fills the frame, edge to edge ------------------ */
+
+.hbw-home.is-view .hbw-poster-field.is-dormant,
+.hbw-home.is-phase-rising .hbw-poster-field.is-dormant,
+.hbw-home.is-phase-assembling .hbw-poster-field.is-dormant {
+  opacity: 0.7;
+  filter: blur(18px);
+}
+
+.hbw-project-view.is-rising,
+.hbw-project-view.is-assembling,
+.hbw-project-view.is-active,
+.hbw-project-view.is-handoff-in {
+  background: #ffffff;
+}
+
+@media screen and (min-width: 768px) {
+  .hbw-project-view.is-fill .hbw-project-view__track {
+    gap: var(--hbw-gallery-tight, 2px);
+  }
+
+  .hbw-project-view.is-fill .hbw-mv,
+  .hbw-project-view.is-fill .hbw-mv--narrow,
+  .hbw-project-view.is-fill .hbw-mv--contained,
+  .hbw-project-view.is-fill .hbw-mv--wide,
+  .hbw-project-view.is-fill .hbw-mv--full,
+  .hbw-project-view.is-fill .hbw-mv.is-major,
+  .hbw-project-view.is-fill .hbw-mv.is-standard,
+  .hbw-project-view.is-fill .hbw-mv.is-detail {
+    height: var(--hbw-mv-field);
+    max-width: var(--hbw-stage-w, 100%);
+    margin: 0;
+  }
+
+  .hbw-project-view.is-fill .hbw-mv__media,
+  .hbw-project-view.is-fill .hbw-mv__poster,
+  .hbw-project-view.is-fill .hbw-mv__film .hbw-mv__media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* --- Sheet: the Projects layer rises over the Poster ----------------------- */
+
+.hbw-projects {
+  inset: auto 0 0 0;
+  top: var(--hbw-sheet-top);
+  background: #ffffff;
+  border-top: 1px solid var(--hbw-hair);
+  transform: translateY(calc(100% + 1px));
+  transition:
+    transform var(--hbw-t-continuity) var(--hbw-ease),
+    opacity var(--hbw-t-spatial) var(--hbw-ease);
+}
+
+.hbw-projects.is-open,
+.hbw-home.is-browse.is-phase-idle .hbw-projects.is-open,
+.hbw-home.is-restored-browse .hbw-projects.is-open {
+  transform: translateY(0);
+}
+
+.hbw-projects.is-open.is-dropping,
+.hbw-home.is-phase-exiting.is-make .hbw-projects.is-open {
+  opacity: 1;
+  transform: translateY(calc(100% + 1px));
+}
+
+/* The Poster stays visible in the strip above the sheet. */
+.hbw-home.is-browse .hbw-poster-field.is-dormant {
+  opacity: 0.55;
+}
+
+.hbw-sheet-head {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--hbw-space-3);
+  padding: var(--hbw-space-2) var(--hbw-space-3) var(--hbw-space-3);
+  background: #ffffff;
+  color: #333;
+}
+
+.hbw-sheet-head button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.hbw-sheet-head__count {
+  color: var(--hbw-muted);
+}
+
+.hbw-sheet-head__lens {
+  margin-left: 0.75rem;
+}
+
+.hbw-sheet-head__modes {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.hbw-sheet-head__modes button {
+  color: var(--hbw-muted);
+}
+
+.hbw-sheet-head__modes button[aria-pressed="true"],
+.hbw-sheet-head__modes button:hover {
+  color: #333;
+}
+
+.hbw-sheet-head__close {
+  justify-self: end;
+}
+
+.hbw-sheet-head__close:hover {
+  color: var(--hbw-muted);
+}
+
+/* Grid: an even, scannable wall instead of the scattered editorial layout. */
+.hbw-projects.is-visual .hbw-browse {
+  width: 100%;
+  margin-left: 0;
+  padding: 0 var(--hbw-space-3) var(--hbw-space-5);
+}
+
+.hbw-projects.is-visual .hbw-browse__archive.hbw-browse__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--hbw-space-4) var(--hbw-space-2);
+}
+
+.hbw-projects.is-visual .hbw-browse__cell,
+.hbw-projects.is-visual .hbw-browse__cell.is-landscape,
+.hbw-projects.is-visual .hbw-browse__cell.is-wide {
+  grid-column: auto;
+  margin-top: 0 !important;
+}
+
+.hbw-projects.is-visual .hbw-browse__cell .hbw-browse__media,
+.hbw-projects.is-visual .hbw-browse__cell.is-landscape .hbw-browse__media,
+.hbw-projects.is-visual .hbw-browse__cell.is-wide .hbw-browse__media {
+  aspect-ratio: 4 / 5;
+}
+
+@media screen and (min-width: 1200px) {
+  .hbw-projects.is-visual .hbw-browse__archive.hbw-browse__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.hbw-projects.is-index .hbw-browse {
+  padding-top: 0;
+}
+
+/* --- Phone ------------------------------------------------------------ */
+
+@media screen and (max-width: 767px) {
+  html.hbw-workspace {
+    --hbw-sheet-top: 40px;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-home-strip.hbw-site-nav {
+    padding: var(--hbw-space-2);
+  }
+
+  .hbw-line {
+    --pad: var(--hbw-space-3);
+  }
+
+  /* No room for three places: HBW moves to the right, the line drops beneath it. */
+  .hbw-pills-wrap {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--hbw-pill-gap);
+  }
+
+  .hbw-pills-wrap > .hbw-pill--mark {
+    justify-self: end;
+  }
+
+  .hbw-site-nav__line-wrap {
+    grid-column: 1 / -1;
+  }
+
+  .hbw-viewer__next-clip {
+    --next-w: 70vw;
+    --next-shown: 30vw;
+    margin-left: var(--hbw-space-4);
+  }
+
+  .hbw-card {
+    --card-w: 78vw;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-line__dashes button {
+    width: 12px;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on {
+    width: 20px;
+  }
+
+  .hbw-viewer {
+    top: calc(var(--hbw-space-2) + var(--hbw-pill-h) + var(--hbw-space-2));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .hbw-viewer__idea {
+    display: none;
+  }
+
+
+  /* On a phone the frames stack: full width, each at its own proportion, scrolled down. */
+  .hbw-viewer__gallery {
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: auto;
+  }
+
+  .hbw-viewer__frame {
+    flex: none;
+    width: 100%;
+    height: auto;
+    max-width: none;
+  }
+
+  .hbw-viewer__next-clip {
+    flex: none;
+    width: 100%;
+    height: auto;
+    margin: var(--hbw-space-4) 0 0;
+    border-radius: 8px;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-viewer__next {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .hbw-viewer__next-clip {
+    clip-path: inset(0 0 calc((1 - var(--end)) * 100%) 0 round 8px);
+  }
+
+  .hbw-viewer__frame:nth-last-child(2) {
+    transform-origin: 50% 100%;
+  }
+
+  /* On a phone the page becomes a column you scroll, in reading order. */
+  .hbw-viewer__info {
+    padding: var(--hbw-space-3) var(--hbw-space-3) var(--hbw-space-5);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    --t: 0.9375rem;
+    --t-lead: 1.125rem;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-viewer__flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--L);
+    height: auto;
+  }
+
+  .hbw-viewer__flow > * {
+    flex: none;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .hbw-viewer__intro {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .hbw-viewer__chapters {
+    display: block;
+    order: 1;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-viewer__facts {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-viewer__ask {
+    order: 3;
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--hbw-space-3);
+  }
+
+  .hbw-viewer__row {
+    display: block;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-viewer__row .hbw-viewer__label {
+    margin-bottom: calc(var(--L) * 0.25);
+  }
+
+  .hbw-viewer__fact {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+  }
+
+  .hbw-viewer__fact .hbw-viewer__text,
+  html.hbw-workspace .hbw-home .hbw-viewer__fact .hbw-viewer__label {
+    grid-column: auto;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar {
+    gap: var(--hbw-pill-gap);
+    width: calc(100% - 2 * var(--hbw-space-2));
+    max-width: none;
+    bottom: calc(var(--hbw-space-2) + env(safe-area-inset-bottom, 0px) + var(--hbw-vv-inset, 0px));
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-title,
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary {
+    border: 0;
+    justify-content: center;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-input {
+    width: auto;
+    max-width: none;
+    height: var(--hbw-pill-h);
+    min-height: var(--hbw-pill-h);
+    font-size: 16px;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__send .hbw-poster-send-open {
+    min-height: var(--hbw-pill-h);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool {
+    min-height: 0;
+    flex: 1 1 0;
+  }
+
+  .hbw-scroll__practice {
+    padding-left: var(--hbw-space-3);
+    padding-right: var(--hbw-space-3);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-scroll__statement {
+    grid-column: 1 / -1;
+    font-size: 1.375rem;
+    line-height: 1.18;
+  }
+
+  .hbw-scroll__body {
+    grid-column: 1 / -1;
+  }
+
+  .hbw-sheet-head {
+    padding: var(--hbw-space-2);
+  }
+
+  .hbw-projects.is-visual .hbw-browse {
+    padding: 0 var(--hbw-space-2) var(--hbw-space-5);
+  }
+
+  .hbw-projects.is-visual .hbw-browse__archive.hbw-browse__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--hbw-space-3) var(--hbw-space-2);
+  }
+
+  .hbw-projects.is-visual .hbw-browse__cell,
+  .hbw-projects.is-visual .hbw-browse__cell.is-landscape,
+  .hbw-projects.is-visual .hbw-browse__cell.is-wide,
+  .hbw-projects.is-visual .hbw-browse__cell[data-hbw-project="sub-3"],
+  .hbw-projects.is-visual .hbw-browse__cell[data-hbw-project="bistro-nido"] {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-viewer__next-clip {
+    clip-path: none;
+    opacity: clamp(0.35, var(--end), 1);
+  }
+
+  .hbw-viewer__next img,
+  .hbw-viewer__frame:nth-last-child(2) {
+    transform: none;
+  }
+
+  .hbw-viewer__count-text {
+    animation: none;
+  }
+
+  /* No staggered rise: the cards are simply there once the line is up, and absent at rest. */
+  .hbw-card {
+    --t: clamp(0, calc((var(--rise) - 0.5) * 1000), 1);
+  }
+
+  .hbw-pill-group,
+  .hbw-fluid__text {
+    animation: none;
+  }
+
+  .hbw-thumb,
+  html.hbw-workspace .hbw-home .hbw-site-nav__line {
+    transition: none;
+  }
+
+  .hbw-projects {
+    transition-duration: 0ms;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* The Poster's invitation wraps on a phone rather than being cut off. */
+  .hbw-window .hbw-poster-note {
+    white-space: normal;
+    max-width: calc(100% - 2 * var(--hbw-space-4));
+  }
+}

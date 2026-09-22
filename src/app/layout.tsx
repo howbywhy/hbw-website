@@ -3,6 +3,7 @@ import { CmsPreviewProvider } from "@/components/home/CmsPreviewContext";
 import { HbwMotionSessionProvider } from "@/components/home/HbwMotionSession";
 import "@/styles/document.css";
 import "@/styles/hbw-home-prototype.css";
+import "@/styles/hbw-rail.css";
 
 const title = "HBW — Clarity for brands at a turning point";
 const description =
@@ -44,10 +45,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="hbw-workspace" suppressHydrationWarning>
+    <html lang="en" className="hbw-workspace hbw-entered" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <script src="/runtime/hbw-workspace-boot.js" />
       </head>
       <body className="body" suppressHydrationWarning>
         <CmsPreviewProvider>
