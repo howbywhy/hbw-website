@@ -2617,3 +2617,92 @@ html.hbw-workspace .hbw-home .hbw-studio__elsewhere {
   margin: var(--hbw-space-3) 0 0;
   font-size: var(--t-caption);
 }
+
+/* --- Arrival: the page settles in beats, instead of all at once -------------- */
+
+/*
+ * The ground and the poster are already there in the server HTML, so there is
+ * never a blank screen to wait through. What arrives is the chrome, in the
+ * order it means something: the name, then what the studio does, then where you
+ * can go, then the invitation to make something.
+ *
+ * Opacity only. The toolbar and the note already carry their own transforms —
+ * the note measures the toolbar's transform to position itself — and animating
+ * those a second time is how a thing ends up landing in the wrong place.
+ *
+ * Gated on an attribute, which the boot script in layout.tsx sets before first
+ * paint and drops once the sequence is done. Without the gate this would replay
+ * mid-session: the site nav group is keyed, so closing a project remounts it,
+ * and the pills would fade in again for no reason.
+ *
+ * An attribute rather than a class because IdentityNav and pill-motion both
+ * watch <html> with attributeFilter: ["class"]. Dropping a class at the end of
+ * the sequence woke both observers, pill-motion re-placed the pills, and the
+ * nav dipped to 0.56 and faded back in — a flicker at the exact moment the
+ * page was supposed to have settled. They ignore every other attribute.
+ */
+
+@keyframes hbw-arriving {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html[data-hbw-arriving] .hbw-pill--mark,
+html[data-hbw-arriving] .hbw-site-nav__line-wrap,
+html[data-hbw-arriving] .hbw-poster-note,
+html[data-hbw-arriving] .hbw-poster-toolbar {
+  opacity: 0;
+  animation: hbw-arriving var(--hbw-motion-continuity) var(--hbw-ease) forwards;
+}
+
+/* The name first. It is the one thing that has to land before anything else. */
+html[data-hbw-arriving] .hbw-pill--mark {
+  animation-delay: 0ms;
+}
+
+/* What the studio does. */
+html[data-hbw-arriving] .hbw-site-nav__line-wrap {
+  animation-delay: var(--hbw-motion-ui);
+}
+
+/*
+ * Where you can go. The pill group already owns hbw-pill-in, so this schedules
+ * that animation rather than adding a second one. Animating over it looked
+ * right until the gate dropped, at which point hbw-pill-in started from the
+ * beginning, 1.5s late, and the nav visibly dipped and faded back in.
+ */
+html[data-hbw-arriving] .hbw-pills .hbw-pill-group {
+  animation-delay: calc(2 * var(--hbw-motion-ui));
+}
+
+/* The invitation, and then the means to accept it. */
+html[data-hbw-arriving] .hbw-poster-note {
+  animation-delay: calc(3 * var(--hbw-motion-ui));
+}
+
+html[data-hbw-arriving] .hbw-poster-toolbar {
+  animation-delay: calc((3 * var(--hbw-motion-ui)) + var(--hbw-motion-micro));
+}
+
+/*
+ * The boot script does not add the class when reduced motion is set, so this
+ * should never apply. It is here because a stylesheet that can hide the whole
+ * of the site's chrome should not depend on a script to stop it.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html[data-hbw-arriving] .hbw-pill--mark,
+  html[data-hbw-arriving] .hbw-site-nav__line-wrap,
+  html[data-hbw-arriving] .hbw-poster-note,
+  html[data-hbw-arriving] .hbw-poster-toolbar {
+    opacity: 1;
+    animation: none;
+  }
+
+  html[data-hbw-arriving] .hbw-pills .hbw-pill-group {
+    animation-delay: 0ms;
+  }
+}

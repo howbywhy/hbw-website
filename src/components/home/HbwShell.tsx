@@ -948,6 +948,36 @@ export function HbwShell({
     if (panel) closePanel();
   }
 
+  /**
+   * Back to the Poster. The mark means this and nothing else: not "up a level",
+   * not "back to the work you were looking at" — the Poster, every time.
+   *
+   * If the line is the thing in front of you it glides back, because you can
+   * see it travel. If something is covering it — a project, the index, the
+   * Studio — the line is put back instantly instead, so lifting the cover
+   * reveals the Poster rather than a scroll that starts off-screen.
+   */
+  function toPoster() {
+    // A project opened over the line belongs to WorkScroll, not to panel or
+    // windowMode, so closing the surface is not enough to clear it. Without
+    // this, pressing the mark on a deep-linked project scrolled the line home
+    // underneath a viewer that stayed open, with ?work= still in the URL.
+    //
+    // Closing a project normally returns you to wherever you opened it from,
+    // which for one opened from the index means the index comes back. That is
+    // right for Close and wrong for the mark: pressing it from a project you
+    // reached through the index landed on /projects with the index open again.
+    // The mark leaves.
+    cameFromIndex.current = false;
+    const hadProject = workScrollRef.current?.closeWork() ?? false;
+    if (!hadProject && windowMode === "make" && !panel) {
+      workScrollRef.current?.toTop();
+      return;
+    }
+    workScrollRef.current?.settleTop();
+    returnToMake();
+  }
+
   function goProjects() {
     if (windowMode === "browse" || (swap?.from === "browse" && swap.to === "make")) return;
     openProjects();
@@ -1753,10 +1783,7 @@ export function HbwShell({
             surfaceOpen={studioAsClose || indexOpen}
             studioMuted={muteStudio}
             journeyClose={viewJourneyClose}
-            onHome={() => {
-              if (windowMode === "make" && !panel) workScrollRef.current?.toTop();
-              else returnToMake();
-            }}
+            onHome={toPoster}
             onWork={() => {
               if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
               else if (windowMode === "make") {
@@ -1839,11 +1866,7 @@ export function HbwShell({
               view={studioView === "manifesto" ? "manifesto" : "studio"}
               leaving={panelLeaving}
               onClose={closePanel}
-              onPoster={() => {
-                closePanel();
-                if (windowMode !== "make") returnToMake();
-                else workScrollRef.current?.toTop();
-              }}
+              onPoster={toPoster}
             />
           ) : null}
           {indexOpen ? (
