@@ -8,7 +8,7 @@ export const OBR_IDENTITY = {
   proposition: "The Friendly Neighbour",
   year: "2022",
   sectors: ["Hospitality"],
-  disciplines: ["Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
+  disciplines: ["Visual Identity", "Signage & Wayfinding", "Print", "Digital Design"],
   portfolioOrder: 6,
   editorialPurpose: "Character / World",
   contributionNotes:

@@ -8,7 +8,7 @@ export const SCK_IDENTITY = {
   proposition: "Intersecting Realities",
   year: "2026",
   sectors: ["Architecture", "Interior Design"],
-  disciplines: ["Brand DNA", "Visual Identity", "Motion", "Digital Design"],
+  disciplines: ["Brand Strategy", "Visual Identity", "Motion", "Digital Design"],
   portfolioOrder: 1,
   editorialPurpose: "Definition / Future",
   contributionNotes:

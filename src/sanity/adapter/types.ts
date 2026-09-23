@@ -222,13 +222,13 @@ export const SECTORS: readonly Sector[] = [
 ];
 
 export const DISCIPLINES: readonly Discipline[] = [
-  "Brand DNA",
+  "Brand Strategy",
   "Naming",
   "Visual Identity",
   "Packaging",
-  "Signage/Wayfinding",
+  "Signage & Wayfinding",
   "Website",
-  "Print & Digital Design",
+  "Print", "Digital Design",
   "Motion",
   "Digital Design",
 ];

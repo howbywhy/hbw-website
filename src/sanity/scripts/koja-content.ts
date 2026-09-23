@@ -8,7 +8,7 @@ export const KOJA_IDENTITY = {
   proposition: "Unapologetically Good",
   year: "2024",
   sectors: ["Food", "FMCG"],
-  disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
+  disciplines: ["Brand Strategy", "Visual Identity", "Packaging", "Print", "Digital Design"],
   portfolioOrder: 3,
   editorialPurpose: "Definition / Stewardship",
   contributionNotes:

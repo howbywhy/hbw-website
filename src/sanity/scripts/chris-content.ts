@@ -8,7 +8,7 @@ export const CHRIS_IDENTITY = {
   proposition: "Beauty Amongst The Mundane",
   year: "2024",
   sectors: ["Photography"],
-  disciplines: ["Brand DNA", "Visual Identity", "Website"],
+  disciplines: ["Brand Strategy", "Visual Identity", "Website"],
   portfolioOrder: 5,
   editorialPurpose: "Restraint",
   contributionNotes:
