@@ -50,7 +50,7 @@ export function featuredOnly({ document }: { document?: MaybeDoc }) {
 }
 
 /** Non-empty for a required index column: a string, or a non-empty array. */
-export function isPresent(value: unknown) {
+function isPresent(value: unknown) {
   if (Array.isArray(value)) return value.length > 0;
   if (typeof value === "string") return value.trim().length > 0;
   return value != null;

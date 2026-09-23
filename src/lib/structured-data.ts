@@ -10,14 +10,12 @@
  * awards — those go in only when there is a URL to back them.
  */
 import { liveProjects, type ProjectRecord } from "@/components/home/catalog";
+import { CONTACT_EMAIL, CONTACT_PHONE_E164, STUDIO_COUNTRY, STUDIO_LOCALITY } from "@/lib/contact";
 
-export const SITE_ORIGIN = "https://www.hbw.works";
-export const STUDIO_NAME = "HBW";
-export const STUDIO_LEGAL_NAME = "How by Why";
-export const FOUNDER = "Mark Blackler";
-export const CONTACT = "mark@hbw.works";
-/** E.164, matching the number shown on /studio and on the Google profile. */
-export const CONTACT_PHONE_E164 = "+61414833791";
+const SITE_ORIGIN = "https://www.hbw.works";
+const STUDIO_NAME = "HBW";
+const STUDIO_LEGAL_NAME = "How by Why";
+const FOUNDER = "Mark Blackler";
 
 /** Ids let one node reference another rather than repeating it. */
 const ORG_ID = `${SITE_ORIGIN}/#studio`;
@@ -85,7 +83,7 @@ export function studioNode(): Node {
     legalName: STUDIO_LEGAL_NAME,
     alternateName: STUDIO_LEGAL_NAME,
     url: SITE_ORIGIN,
-    email: CONTACT,
+    email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE_E164,
     description:
       "Independent brand and design practice working with founders and leadership teams at moments of change. Brand strategy, identity and design.",
@@ -93,8 +91,8 @@ export function studioNode(): Node {
     founder: { "@id": PERSON_ID },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Wentworth Falls",
-      addressCountry: "AU",
+      addressLocality: STUDIO_LOCALITY,
+      addressCountry: STUDIO_COUNTRY,
     },
     sameAs: PROFILES.map((profile) => profile.url),
     areaServed: [
@@ -127,7 +125,7 @@ export function founderNode(): Node {
     "@id": PERSON_ID,
     name: FOUNDER,
     jobTitle: "Brand consultant and designer",
-    email: CONTACT,
+    email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE_E164,
     url: `${SITE_ORIGIN}/studio`,
     worksFor: { "@id": ORG_ID },

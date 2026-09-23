@@ -1,10 +1,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { liveProjects } from "../components/home/catalog";
-import { CONTACT_PHONE } from "../components/home/SiteNav";
+import { CONTACT_PHONE, CONTACT_PHONE_E164, STUDIO_PLACE } from "./contact";
 import { STUDIO_COPY } from "../components/home/studio-copy";
 import {
-  CONTACT_PHONE_E164,
   PRESS,
   breadcrumbNode,
   founderNode,
@@ -115,4 +114,18 @@ test("the phone shown and the phone marked up are the same number", () => {
   // drop the leading 0, add 61. If these ever drift, the entity looks like two.
   assert.equal(digits(CONTACT_PHONE).replace(/^0/, "61"), digits(String(s.telephone)));
   assert.equal(String(s.telephone), CONTACT_PHONE_E164);
+});
+
+test("the place and the phone are each defined once", () => {
+  // Four copies of the location and two of the phone is how an entity ends up
+  // looking like two businesses. These guard the single source in lib/contact.
+  assert.ok(STUDIO_PLACE.includes("Wentworth Falls"));
+  assert.ok(STUDIO_PLACE.includes("Australia"), "the country has to be visible somewhere");
+  assert.equal(STUDIO_COPY.place, STUDIO_PLACE, "the Studio page must show the canonical place");
+  const s = studioNode() as Record<string, never>;
+  const address = s.address as unknown as Record<string, string>;
+  assert.ok(
+    STUDIO_PLACE.includes(address.addressLocality),
+    "structured data may only claim a locality the page actually shows"
+  );
 });

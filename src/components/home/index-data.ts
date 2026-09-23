@@ -7,7 +7,7 @@
  * nothing and asks the reader to take the studio's word for it.
  */
 
-export type IndexRow = {
+type IndexRow = {
   /** Matches a key in INDEX_MARKS, and a catalog id where the project is live. */
   id: string;
   name: string;
@@ -16,17 +16,15 @@ export type IndexRow = {
   work: string;
   sector: string;
   year: number;
-  /** Featured rows open their case study. Index-only rows are a record. */
-  featured: boolean;
 };
 
 export const INDEX_ROWS: IndexRow[] = [
-  { id: "sck", name: "SCK", idea: "Intersecting Realities", work: "Brand Strategy, Identity", sector: "Architecture · Interior", year: 2026, featured: true },
-  { id: "sub-3", name: "SUB:3", idea: "Bending Time & Space", work: "Identity, Packaging", sector: "Sports Nutrition", year: 2025, featured: true },
-  { id: "closed", name: "CLOSED", idea: "A Smuggler’s House", work: "Naming, Identity, Signage", sector: "Hospitality", year: 2024, featured: true },
-  { id: "koja", name: "KOJA", idea: "Unapologetically Good", work: "Strategy, Identity, Packaging", sector: "FMCG · Food", year: 2024, featured: true },
-  { id: "chris-sisarich", name: "Chris Sisarich", idea: "Beauty Amongst The Mundane", work: "Identity, Website", sector: "Photography", year: 2024, featured: true },
-  { id: "our-boy-roy", name: "Our Boy Roy", idea: "Dinner, Sorted", work: "Identity, Packaging", sector: "Hospitality", year: 2022, featured: true },
+  { id: "sck", name: "SCK", idea: "Intersecting Realities", work: "Brand Strategy, Identity", sector: "Architecture · Interior", year: 2026 },
+  { id: "sub-3", name: "SUB:3", idea: "Bending Time & Space", work: "Identity, Packaging", sector: "Sports Nutrition", year: 2025 },
+  { id: "closed", name: "CLOSED", idea: "A Smuggler’s House", work: "Naming, Identity, Signage", sector: "Hospitality", year: 2024 },
+  { id: "koja", name: "KOJA", idea: "Unapologetically Good", work: "Strategy, Identity, Packaging", sector: "FMCG · Food", year: 2024 },
+  { id: "chris-sisarich", name: "Chris Sisarich", idea: "Beauty Amongst The Mundane", work: "Identity, Website", sector: "Photography", year: 2024 },
+  { id: "our-boy-roy", name: "Our Boy Roy", idea: "Dinner, Sorted", work: "Identity, Packaging", sector: "Hospitality", year: 2022 },
 ];
 
 export const INDEX_SPAN = (() => {
