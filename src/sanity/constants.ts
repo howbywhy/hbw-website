@@ -27,6 +27,16 @@ export const PROJECT_SECTORS = [
   "Photography",
   "Architecture",
   "Interior Design",
+  // Added for the archive: the seven above covered the six featured projects
+  // and nothing else the studio has actually done.
+  "Sport & Fitness",
+  "Health & Wellbeing",
+  "Fashion",
+  "Jewellery",
+  "Retail",
+  "Professional Services",
+  "Arts & Culture",
+  "Property",
 ] as const;
 
 /** Browse-filter disciplines. Distinct from authorship roles. */

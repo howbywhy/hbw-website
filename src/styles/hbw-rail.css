@@ -2574,3 +2574,10 @@ html.hbw-workspace .hbw-home .hbw-studio__elsewhere {
   margin: var(--hbw-space-3) 0 0;
   font-size: var(--t-caption);
 }
+
+/* Who the work was made with. Quieter than the idea, because it is a fact
+   about authorship rather than part of the project's name. */
+html.hbw-workspace .hbw-home .hbw-index__credit {
+  color: var(--hbw-faint);
+  white-space: nowrap;
+}

@@ -22,6 +22,8 @@ export type IndexEntry = {
   markScale: number | null;
   /** True when the project has a case study to open. */
   featured: boolean;
+  /** Who it was made with, e.g. "The Colour Club". Empty when it was HBW alone. */
+  credit: string;
 };
 
 /** The span line: how many projects, and the years they cover. */
