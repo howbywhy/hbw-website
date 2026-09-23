@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { previewOnHbwAction } from "./src/sanity/actions/previewOnHbw";
+import { LISTING_FEATURED, LISTING_INDEX } from "./src/sanity/schemaTypes/listing";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 import { studioDataset, studioProjectId } from "./src/sanity/studio-env";
 
@@ -30,17 +31,61 @@ export default defineConfig({
           .title("Content")
           .items([
             S.listItem()
-              .title("Projects")
+              .title("Featured work")
               .schemaType("project")
               .child(
                 S.documentTypeList("project")
-                  .title("Projects")
+                  .title("Featured work")
+                  .filter('_type == "project" && listing != $index')
+                  .params({ index: LISTING_INDEX })
+                  .initialValueTemplates([S.initialValueTemplateItem("project-featured")])
                   .defaultOrdering([{ field: "portfolioOrder", direction: "asc" }])
+              ),
+            S.listItem()
+              .title("Index")
+              .schemaType("project")
+              .child(
+                S.documentTypeList("project")
+                  .title("Index")
+                  .filter('_type == "project" && listing == $index')
+                  .params({ index: LISTING_INDEX })
+                  .initialValueTemplates([S.initialValueTemplateItem("project-index")])
+                  .defaultOrdering([{ field: "year", direction: "desc" }])
+              ),
+            S.divider(),
+            S.listItem()
+              .title("All projects")
+              .schemaType("project")
+              .child(
+                S.documentTypeList("project")
+                  .title("All projects")
+                  .defaultOrdering([{ field: "year", direction: "desc" }])
               ),
           ]),
     }),
   ],
-  schema: { types: schemaTypes },
+  schema: {
+    types: schemaTypes,
+    // The + button in each list creates the right kind of document, so adding
+    // an archive row never starts life as a half-filled case study.
+    templates: (previous) => [
+      ...previous.filter((template) => template.id !== "project"),
+      {
+        id: "project-featured",
+        title: "Featured project",
+        description: "Full case study on the work line.",
+        schemaType: "project",
+        value: { listing: LISTING_FEATURED },
+      },
+      {
+        id: "project-index",
+        title: "Index entry",
+        description: "Archive row: name, year, sectors, disciplines, logotype.",
+        schemaType: "project",
+        value: { listing: LISTING_INDEX },
+      },
+    ],
+  },
   document: {
     actions: (previous, context) =>
       context.schemaType === "project" ? [...previous, previewOnHbwAction] : previous,
