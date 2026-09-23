@@ -17,6 +17,21 @@ import { normaliseLogotype } from "@/lib/logotype";
 import type { IndexEntry } from "@/components/home/index-entry";
 import { sanityApiVersion, sanityDataset, sanityProjectId } from "@/sanity/env";
 
+/**
+ * The studio's own project and dataset, as sanity.cli.ts already hardcodes
+ * them. Neither is a secret: both sit in the public query URL, and the dataset
+ * is world-readable.
+ *
+ * env.ts answers "placeholder" when NEXT_PUBLIC_SANITY_PROJECT_ID is unset,
+ * which is right for a fork but wrong here. The production build does not
+ * have that variable, so every deploy quietly fell back to the six projects
+ * in catalog.ts while the CMS held fourteen — a silent, plausible-looking
+ * wrong answer, which is the worst kind. The index reads the real dataset
+ * whether or not the environment is configured.
+ */
+const PROJECT_ID = sanityProjectId === "placeholder" ? "aagd1kcy" : sanityProjectId;
+const DATASET = sanityDataset || "production";
+
 type CmsRow = {
   slug?: string | null;
   title?: string | null;
@@ -102,10 +117,9 @@ function fromCatalog(): IndexEntry[] {
 export type { IndexEntry };
 
 export async function loadIndex(): Promise<IndexEntry[]> {
-  if (sanityProjectId === "placeholder") return fromCatalog();
   const url =
-    `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/` +
-    `${sanityDataset}?query=${encodeURIComponent(QUERY)}`;
+    `https://${PROJECT_ID}.api.sanity.io/v${sanityApiVersion}/data/query/` +
+    `${DATASET}?query=${encodeURIComponent(QUERY)}`;
   const body = await getText(url);
   if (!body) return fromCatalog();
   let rows: CmsRow[] = [];

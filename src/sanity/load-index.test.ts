@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { readFile } from "node:fs/promises";
 import { liveProjects, PROJECT_SLUGS } from "../components/home/catalog";
 import { INDEX_MARKS } from "../components/home/index-marks";
 import { indexSpan, type IndexEntry } from "../components/home/index-entry";
@@ -58,3 +59,17 @@ test("only a project the site can route to is openable", () => {
 });
 
 
+
+test("the index does not depend on the environment being configured", async () => {
+  // The production build has no NEXT_PUBLIC_SANITY_PROJECT_ID, so env.ts
+  // answered "placeholder" and every deploy silently served the six catalog
+  // projects while the CMS held fourteen. The loader now resolves the real
+  // project the same way sanity.cli.ts does.
+  const source = await readFile(new URL("./load-index.ts", import.meta.url), "utf8");
+  assert.match(source, /aagd1kcy/, "the public project id must be the fallback");
+  assert.doesNotMatch(
+    source,
+    /if \(sanityProjectId === "placeholder"\) return fromCatalog\(\)/,
+    "an unset variable must not silently swap the CMS for the catalog"
+  );
+});
