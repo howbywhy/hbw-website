@@ -125,6 +125,14 @@ export const project = defineType({
       group: "identity",
     }),
     defineField({
+      name: "madeWith",
+      title: "Made with",
+      type: "string",
+      group: "identity",
+      description:
+        "The studio the work was made with, if it was not HBW alone — for example The Colour Club. Shown on the index row as \"with …\". Leave empty for HBW's own work. This is the studio credit, not the production credits under With.",
+    }),
+    defineField({
       name: "logotype",
       title: "Logotype (SVG)",
       type: "file",
