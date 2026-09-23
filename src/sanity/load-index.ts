@@ -10,6 +10,7 @@
  * Logotypes are fetched and stripped to one colour here, at build time, so the
  * browser is never asked to parse an SVG from a third party.
  */
+import { get as httpsGet } from "node:https";
 import { liveProjects } from "@/components/home/catalog";
 import { catalogIdForSlug } from "@/lib/cms-source";
 import { normaliseLogotype } from "@/lib/logotype";
@@ -33,6 +34,40 @@ const QUERY = `*[_type == "project" && defined(title) && defined(year)]|order(ye
   "logo": logotype.asset->{url, extension}
 }`;
 
+/**
+ * Fetches over plain node:https rather than fetch().
+ *
+ * Next patches global fetch and Vercel restores its data cache between builds,
+ * so a cached read can answer a build from before the CMS changed — eight new
+ * archive entries were published and the next deploy still rendered six.
+ * Marking the fetch no-store fixes the staleness but makes every page that
+ * renders the shell dynamic, and this site is statically generated.
+ *
+ * An unpatched request is neither cached nor dynamic: fresh every build,
+ * static every page.
+ */
+function getText(url: string, timeoutMs = 20000): Promise<string | null> {
+  return new Promise((resolve) => {
+    const request = httpsGet(url, (response) => {
+      const status = response.statusCode ?? 0;
+      if (status < 200 || status >= 300) {
+        response.resume();
+        resolve(null);
+        return;
+      }
+      let body = "";
+      response.setEncoding("utf8");
+      response.on("data", (chunk) => (body += chunk));
+      response.on("end", () => resolve(body));
+    });
+    request.on("error", () => resolve(null));
+    request.setTimeout(timeoutMs, () => {
+      request.destroy();
+      resolve(null);
+    });
+  });
+}
+
 /** A list reads better with two or three labels than with seven. */
 function trim(values: string[] | null | undefined, most: number) {
   return (values ?? []).filter(Boolean).slice(0, most).join(", ");
@@ -40,14 +75,8 @@ function trim(values: string[] | null | undefined, most: number) {
 
 async function fetchMark(url: string | null | undefined): Promise<IndexEntry["mark"]> {
   if (!url) return null;
-  try {
-    const response = await fetch(url, { next: { revalidate: false } });
-    if (!response.ok) return null;
-    return normaliseLogotype(await response.text());
-  } catch {
-    // A logotype that will not load is a row without a mark, not a broken page.
-    return null;
-  }
+  // A logotype that will not load is a row without a mark, not a broken page.
+  return normaliseLogotype(await getText(url));
 }
 
 /**
@@ -74,14 +103,14 @@ export type { IndexEntry };
 
 export async function loadIndex(): Promise<IndexEntry[]> {
   if (sanityProjectId === "placeholder") return fromCatalog();
+  const url =
+    `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/` +
+    `${sanityDataset}?query=${encodeURIComponent(QUERY)}`;
+  const body = await getText(url);
+  if (!body) return fromCatalog();
   let rows: CmsRow[] = [];
   try {
-    const url =
-      `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/` +
-      `${sanityDataset}?query=${encodeURIComponent(QUERY)}`;
-    const response = await fetch(url, { next: { revalidate: false } });
-    if (!response.ok) return fromCatalog();
-    rows = ((await response.json()) as { result?: CmsRow[] }).result ?? [];
+    rows = (JSON.parse(body) as { result?: CmsRow[] }).result ?? [];
   } catch {
     return fromCatalog();
   }
