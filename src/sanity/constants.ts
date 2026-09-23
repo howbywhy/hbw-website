@@ -42,7 +42,6 @@ export const PROJECT_SECTORS = [
 /** Browse-filter disciplines. Distinct from authorship roles. */
 export const PROJECT_DISCIPLINES = [
   "Brand DNA",
-  "Brand Identity",
   "Naming",
   "Visual Identity",
   "Packaging",

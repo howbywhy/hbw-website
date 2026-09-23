@@ -26,12 +26,10 @@ type CmsRow = {
   listing?: string | null;
   logotypeScale?: number | null;
   logo?: { url?: string | null; extension?: string | null } | null;
-  madeWith?: string | null;
 };
 
 const QUERY = `*[_type == "project" && defined(title) && defined(year)]|order(year desc, title asc){
   "slug": slug.current, title, year, proposition, sectors, disciplines, listing, logotypeScale,
-  madeWith,
   "logo": logotype.asset->{url, extension}
 }`;
 
@@ -68,7 +66,6 @@ function fromCatalog(): IndexEntry[] {
       mark: null,
       markScale: null,
       featured: true,
-      credit: "",
     }))
     .sort((a, b) => b.year - a.year || a.name.localeCompare(b.name));
 }
@@ -109,7 +106,6 @@ export async function loadIndex(): Promise<IndexEntry[]> {
           typeof row.logotypeScale === "number" && row.logotypeScale > 0 ? row.logotypeScale : null,
         // Only a project the site can actually route to opens from a row.
         featured: row.listing !== "index" && known.has(id),
-        credit: row.madeWith?.trim() ?? "",
       };
     });
 }

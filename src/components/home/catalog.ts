@@ -6,7 +6,6 @@ export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
 export const DISCIPLINES = [
   "Brand DNA",
-  "Brand Identity",
   "Naming",
   "Visual Identity",
   "Packaging",
@@ -31,7 +30,6 @@ export type CollaboratorId = Collaborator["id"];
 /** Credits prose for each discipline. Adding a discipline without a form is a build error. */
 export const DISCIPLINE_CREDIT = {
   "Brand DNA": "brand DNA",
-  "Brand Identity": "brand identity",
   "Naming": "naming",
   "Visual Identity": "visual identity",
   Packaging: "packaging design",
@@ -190,7 +188,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 1,
     homeSelected: true,
     sectors: ["Sports Nutrition", "FMCG"],
-    disciplines: ["Brand Identity", "Packaging"],
+    disciplines: ["Visual Identity", "Packaging"],
     collaborators: ["the-colour-club"],
     credits: ["Mark Blackler", "Nick Mitchell"],
   },

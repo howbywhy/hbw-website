@@ -8,7 +8,7 @@ export const SUB3_IDENTITY = {
   proposition: "Bending Time & Space",
   year: "2025",
   sectors: ["Sports Nutrition", "FMCG"],
-  disciplines: ["Brand Identity", "Packaging"],
+  disciplines: ["Visual Identity", "Packaging"],
   portfolioOrder: 2,
   editorialPurpose: "Concept / Expression",
   contributionNotes:
