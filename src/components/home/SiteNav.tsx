@@ -20,6 +20,8 @@ type Props = {
   onHome: () => void;
   onWork: () => void;
   onStudio: () => void;
+  /** The nav's ✕ while the Studio is open: always closes, wherever you are in it. */
+  onStudioClose: () => void;
   onClose: () => void;
   /** Project register (Info, sequence). Only shown inside a project. */
   register: ReactNode;
@@ -43,6 +45,7 @@ export function SiteNav({
   onHome,
   onWork,
   onStudio,
+  onStudioClose,
   onClose,
   register,
   workInView = null,
@@ -146,6 +149,7 @@ export function SiteNav({
             </button>
           </nav>
         )}
+
       </div>
       <button type="button" className="hbw-pill hbw-pill--mark" aria-label={`${MARK} — Poster`} onClick={onHome}>
         <span className="hbw-site-nav__mark-full">{MARK}</span>
@@ -153,9 +157,18 @@ export function SiteNav({
           HBW
         </span>
       </button>
-      <p className="hbw-site-nav__line-wrap" aria-live="polite">
-        <FluidPill className="hbw-site-nav__line" text={line} />
-      </p>
+      {studioOpen && !inProject ? (
+        // The Studio has no bar of its own, so the way out sits where the line does.
+        <p className="hbw-site-nav__shut-wrap">
+          <button type="button" className="hbw-pill hbw-site-nav__shut" onClick={onStudioClose}>
+            Close
+          </button>
+        </p>
+      ) : (
+        <p className="hbw-site-nav__line-wrap" aria-live="polite">
+          <FluidPill className="hbw-site-nav__line" text={line} />
+        </p>
+      )}
     </div>
   );
 }

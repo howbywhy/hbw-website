@@ -719,6 +719,21 @@ html.hbw-workspace .hbw-home .hbw-viewer__count.is-away {
   transform: translateY(4px);
 }
 
+.hbw-site-nav__shut-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__shut {
+  cursor: pointer;
+}
+
+html.hbw-workspace .hbw-home .hbw-site-nav__shut:hover {
+  background: var(--hbw-pill-on);
+}
+
 html.hbw-workspace .hbw-home .hbw-viewer__close {
   width: var(--hbw-pill-h);
   justify-content: center;
@@ -1074,6 +1089,24 @@ html.hbw-workspace .hbw-home .hbw-viewer__link:hover span {
   transform: translate(2px, -2px);
 }
 
+/* Studio is the practice behind the work, not another project: its panel rises from
+   the bottom edge and stays attached to it, so it reads as context, not a case study.
+   Everything inside it is the viewer's: the same bar, grid, type and close. */
+html.hbw-workspace .hbw-home .hbw-viewer--studio {
+  top: calc(var(--hbw-space-3) + var(--hbw-pill-h) + var(--hbw-space-3));
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The field the Studio reads on: the Poster's own page, quieted behind it. */
+html.hbw-workspace .hbw-home .hbw-detail--studio .hbw-detail__scrim {
+  background: rgba(255, 255, 255, 0.92);
+}
+
 /* --- Studio: one page in the viewer, read top to bottom ------------------------
    After Alex Hunting Studio's About: a two-tone statement and the studio's image,
    then sections under small labels, an index that holds its place on the left.
@@ -1093,7 +1126,8 @@ html.hbw-workspace .hbw-home .hbw-studio {
   inset: 0;
   container-type: size;
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  /* The index is as wide as the nav group above it (measured), so the two line up. */
+  grid-template-columns: var(--index-w, 208px) minmax(0, 1fr);
   align-items: start;
   column-gap: var(--interval);
   padding: var(--viewer-top) var(--viewer-x) 0;
@@ -1124,7 +1158,7 @@ html.hbw-workspace .hbw-home .hbw-studio__grey {
 
 /* The index: it holds its place while the page moves, and marks where you are. */
 html.hbw-workspace .hbw-home .hbw-studio__index {
-  grid-column: 1 / span 2;
+  grid-column: 1;
   /* Sticky offsets count from inside the page's top inset, so 0 lands on it. */
   position: sticky;
   top: 0;
@@ -1181,9 +1215,10 @@ html.hbw-workspace .hbw-home .hbw-studio__index-item[aria-current="true"]::befor
 }
 
 html.hbw-workspace .hbw-home .hbw-studio__sections {
-  grid-column: 3 / -1;
+  grid-column: 2;
   display: grid;
-  grid-template-columns: subgrid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  column-gap: var(--interval);
 }
 
 /* Every section opens on a hairline; each settles in once as it arrives. */
@@ -2022,7 +2057,8 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     display: inline;
   }
 
-  .hbw-site-nav__line-wrap {
+  .hbw-site-nav__line-wrap,
+  .hbw-site-nav__shut-wrap {
     grid-column: 1 / -1;
   }
 
@@ -2157,6 +2193,10 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
   .hbw-viewer__fact .hbw-viewer__text,
   html.hbw-workspace .hbw-home .hbw-viewer__fact .hbw-viewer__label {
     grid-column: auto;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-viewer--studio {
+    top: calc(var(--hbw-space-2) + var(--hbw-pill-h) + var(--hbw-space-2));
   }
 
   html.hbw-workspace .hbw-home .hbw-poster-toolbar {
