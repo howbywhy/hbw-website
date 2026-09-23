@@ -20,10 +20,14 @@ export type IndexEntry = {
   mark: { body: string; viewBox: string; ratio: number } | null;
   /** Optional size nudge for a mark that reads too large against the others. */
   markScale: number | null;
-  /** True when the project has a case study to open. */
+  /**
+   * True when the project has a case study to open.
+   *
+   * There is deliberately no credit here. "Made with" is still on the project
+   * in the CMS, and belongs on the project's own page — a row in a record does
+   * not need to relitigate authorship.
+   */
   featured: boolean;
-  /** Who it was made with, e.g. "The Colour Club". Empty when it was HBW alone. */
-  credit: string;
 };
 
 /** The span line: how many projects, and the years they cover. */

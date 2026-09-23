@@ -240,9 +240,6 @@ export function IndexDetail({ entries, span, leaving, resuming = false, onClose,
                     <span className="hbw-index__name">
                       {row.name}
                       {row.idea ? <span className="hbw-index__idea"> {row.idea}</span> : null}
-                      {row.credit ? (
-                        <span className="hbw-index__credit"> with {row.credit}</span>
-                      ) : null}
                     </span>
                     <span className="hbw-index__w">{row.work}</span>
                     <span className="hbw-index__s">{row.sector}</span>

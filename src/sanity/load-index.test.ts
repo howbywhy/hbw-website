@@ -15,7 +15,6 @@ function entry(over: Partial<IndexEntry> = {}): IndexEntry {
     mark: null,
     markScale: null,
     featured: true,
-    credit: "",
     ...over,
   };
 }
@@ -58,22 +57,4 @@ test("only a project the site can route to is openable", () => {
   assert.ok(!PROJECT_SLUGS.includes(archive.id));
 });
 
-test("a row states who the work was made with", () => {
-  // SUB:3 and Our Boy Roy already say "Developed while working with The Colour
-  // Club" on their case studies. An archive row needs the same, or it claims
-  // the work outright.
-  const shared = entry({ credit: "The Colour Club" });
-  assert.equal(shared.credit, "The Colour Club");
-  // HBW's own work says nothing rather than "with HBW".
-  assert.equal(entry().credit, "");
-});
 
-test("the studio credit is not the production credits", () => {
-  // The collaborators field carries photographers, developers and the like:
-  // SCK alone lists three. Rendering that on a row gave "with Jordan Lucky /
-  // Playstate and Rebecca Whan + Afifa Intanjudin / Patternshop and Stanley
-  // House Studio". Made with is a separate, short, studio-level credit.
-  const shared = entry({ credit: "The Colour Club" });
-  assert.ok(shared.credit.length < 40, "a row credit has to fit on one line");
-  assert.ok(!shared.credit.includes("/"), "production credits do not belong here");
-});

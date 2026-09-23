@@ -223,7 +223,6 @@ export const SECTORS: readonly Sector[] = [
 
 export const DISCIPLINES: readonly Discipline[] = [
   "Brand DNA",
-  "Brand Identity",
   "Naming",
   "Visual Identity",
   "Packaging",
