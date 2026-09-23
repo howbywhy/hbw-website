@@ -38,7 +38,8 @@ const inset = (page: HTMLElement) => Number.parseFloat(getComputedStyle(page).pa
 const THOUGHT_SPAN = 0.62;
 
 /**
- * Studio, in the viewer over the Poster: one continuous page, read top to bottom.
+ * Studio, on the Poster's own page rather than in a box: one continuous page that rises
+ * from the bottom and is closed from the nav, because the practice isn't an object.
  * After Alex Hunting Studio's About: a two-tone statement, the studio's image, then
  * sections under small labels, with an index that holds its place on the left and
  * glides you between them. The Manifesto is read, not scanned: one thought at a
@@ -66,13 +67,8 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
     if (view === "manifesto" && page && readerRef.current) page.scrollTop = readerRef.current.offsetTop - inset(page);
     if (reduceMotion()) return;
     root.animate([{ opacity: 0 }, { opacity: 1 }], { duration: HBW_T.spatial, easing: EASE });
-    panel.animate(
-      [
-        { transform: "translateY(24px) scale(0.98)", opacity: 0 },
-        { transform: "none", opacity: 1 },
-      ],
-      { duration: 600, easing: EASE }
-    );
+    // It rises from the bottom edge, whole: no growing box, no fade.
+    panel.animate([{ transform: "translateY(100%)" }, { transform: "none" }], { duration: 600, easing: EASE });
     // Mount only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -81,14 +77,24 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
   useEffect(() => {
     if (!leaving || reduceMotion()) return;
     rootRef.current?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: HBW_T.spatial, easing: EASE, fill: "forwards" });
-    panelRef.current?.animate(
-      [
-        { transform: "none", opacity: 1 },
-        { transform: "translateY(16px) scale(0.985)", opacity: 0 },
-      ],
-      { duration: HBW_T.spatial, easing: EASE, fill: "forwards" }
-    );
+    panelRef.current?.animate([{ transform: "none" }, { transform: "translateY(100%)" }], {
+      duration: HBW_T.spatial,
+      easing: EASE,
+      fill: "forwards",
+    });
   }, [leaving]);
+
+  // The index takes its width from the nav group above it, so the two edges agree.
+  useLayoutEffect(() => {
+    const page = pageRef.current;
+    const group = document.querySelector<HTMLElement>(".hbw-pills .hbw-pill-group");
+    if (!page || !group) return;
+    const measure = () => page.style.setProperty("--index-w", `${Math.round(group.offsetWidth)}px`);
+    measure();
+    const sizes = new ResizeObserver(measure);
+    sizes.observe(group);
+    return () => sizes.disconnect();
+  }, []);
 
   // The viewer names itself, so the nav's line steps aside — as it does for a project.
   useEffect(() => {
@@ -233,18 +239,7 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
   return (
     <div ref={rootRef} className="hbw-detail hbw-detail--studio" role="dialog" aria-modal="true" aria-label="Studio" tabIndex={-1}>
       <button type="button" className="hbw-detail__scrim" aria-label="Close" tabIndex={-1} onClick={onClose} />
-      <article ref={panelRef} className="hbw-viewer hbw-viewer--studio">
-        <header className="hbw-viewer__bar">
-          <p className="hbw-viewer__title">
-            <span className="hbw-viewer__name">HBW</span>
-            <span className="hbw-viewer__idea">{STUDIO_COPY.line}</span>
-          </p>
-          <div className="hbw-viewer__tools">
-            <button type="button" className="hbw-pill hbw-viewer__close" aria-label="Close" onClick={onClose}>
-              ✕
-            </button>
-          </div>
-        </header>
+      <article ref={panelRef} className="hbw-viewer hbw-viewer--studio" aria-label="Studio">
 
         <div className="hbw-viewer__body">
           <div ref={pageRef} className="hbw-studio" tabIndex={-1}>

@@ -1718,6 +1718,7 @@ export function HbwShell({
               if (studioClose || manifestoSheet) dismissStudioFamily();
               else openPanel("studio");
             }}
+            onStudioClose={closePanel}
             onClose={closeJourney}
             register={
               <NavRegister
