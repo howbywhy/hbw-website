@@ -7,9 +7,11 @@
    ========================================================================== */
 
 html.hbw-workspace {
-  --hbw-field: #ffffff;
-  --hbw-window: #ffffff;
-  --hbw-page: #ffffff;
+  --hbw-field: #faf8f3;
+  --hbw-window: #faf8f3;
+  --hbw-page: #faf8f3;
+  /* The paper, by the name the index asks for it by. */
+  --hbw-ground: #faf8f3;
   --hbw-sheet-top: clamp(56px, 9vh, 96px);
   --hbw-muted: rgba(29, 29, 29, 0.46);
   --hbw-hair: rgba(29, 29, 29, 0.12);
@@ -41,13 +43,13 @@ html.hbw-workspace {
 /* --- The frame: white, edge to edge, no border -------------------------------- */
 
 html.hbw-workspace .hbw-home {
-  background: #ffffff;
+  background: #faf8f3;
 }
 
 html.hbw-workspace .hbw-home .hbw-window {
   margin: 0;
   border-radius: 0;
-  background: #ffffff;
+  background: #faf8f3;
 }
 
 /* --- Pills: the only chrome. Frosted, so the Poster and the work tint them ------ */
@@ -1104,7 +1106,7 @@ html.hbw-workspace .hbw-home .hbw-viewer--studio {
 
 /* The field the Studio reads on: the Poster's own page, quieted behind it. */
 html.hbw-workspace .hbw-home .hbw-detail--studio .hbw-detail__scrim {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(250, 248, 243, 0.92);
 }
 
 /* --- Studio: one page in the viewer, read top to bottom ------------------------
@@ -1873,7 +1875,7 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
 .hbw-project-view.is-assembling,
 .hbw-project-view.is-active,
 .hbw-project-view.is-handoff-in {
-  background: #ffffff;
+  background: #faf8f3;
 }
 
 @media screen and (min-width: 768px) {
@@ -1908,7 +1910,7 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
 .hbw-projects {
   inset: auto 0 0 0;
   top: var(--hbw-sheet-top);
-  background: #ffffff;
+  background: #faf8f3;
   border-top: 1px solid var(--hbw-hair);
   transform: translateY(calc(100% + 1px));
   transition:
@@ -2330,7 +2332,7 @@ html.hbw-workspace .hbw-home .hbw-detail--index {
 }
 
 html.hbw-workspace .hbw-home .hbw-detail--index .hbw-detail__scrim {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(250, 248, 243, 0.92);
 }
 
 html.hbw-workspace .hbw-home .hbw-index {
@@ -2440,8 +2442,24 @@ html.hbw-workspace .hbw-home .hbw-index__row {
   transition: opacity var(--hbw-t-answer) var(--hbw-arrive);
 }
 
-html.hbw-workspace .hbw-home .hbw-index__row {
+/* Only a row that opens something invites a click. The rest are a record. */
+html.hbw-workspace .hbw-home button.hbw-index__row {
   cursor: pointer;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__go {
+  margin-left: 0.4em;
+  color: var(--hbw-faint);
+  transition:
+    color var(--hbw-t-answer) var(--hbw-arrive),
+    transform var(--hbw-t-answer) var(--hbw-arrive);
+  display: inline-block;
+}
+
+html.hbw-workspace .hbw-home button.hbw-index__row:hover .hbw-index__go,
+html.hbw-workspace .hbw-home button.hbw-index__row:focus-visible .hbw-index__go {
+  color: var(--hbw-ink);
+  transform: translate(2px, -2px);
 }
 
 /* Resting on one row quietens the others, so the eye has one place to be. */

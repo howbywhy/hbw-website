@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { objectBox, viewText } from "./geometry";
 import { emptyPoster, migratePoster, promoteLegacyPoster } from "./migrate";
+import { FIELD_COLOR, LEGACY_FIELD_COLORS } from "./types";
 import type { LegacyPixelObj, PosterObj } from "./types";
 
 const DESKTOP = { w: 1440, h: 820 };
@@ -135,12 +136,19 @@ test("empty poster is schema 3", () => {
   assert.equal(empty.schema, 3);
   assert.equal(empty.legacyPixelObjects, null);
   assert.deepEqual(empty.objects, []);
-  assert.equal(empty.background, "#FFFFFF");
-  assert.equal(migratePoster({ schema: 3, objects: [] }).background, "#FFFFFF");
+  assert.equal(empty.background, FIELD_COLOR);
+  assert.equal(migratePoster({ schema: 3, objects: [] }).background, FIELD_COLOR);
 });
 
-test("the old default paper migrates to white; chosen colours stay", () => {
-  assert.equal(migratePoster({ schema: 3, objects: [], background: "#F4F5F3" }).background, "#FFFFFF");
+test("every superseded default paper migrates; a chosen colour stays", () => {
+  // Assert the literals too, not only the constant: a test written entirely in
+  // terms of FIELD_COLOR passes even if the paper changes again and nobody
+  // adds the colour it left behind to LEGACY_FIELD_COLORS.
+  assert.deepEqual([...LEGACY_FIELD_COLORS], ["#F4F5F3", "#FFFFFF"]);
+  for (const stale of LEGACY_FIELD_COLORS) {
+    assert.equal(migratePoster({ schema: 3, objects: [], background: stale }).background, FIELD_COLOR);
+  }
+  assert.equal(migratePoster({ schema: 3, objects: [], background: "#ffffff" }).background, FIELD_COLOR);
   assert.equal(migratePoster({ schema: 3, objects: [], background: "#fcfa9b" }).background, "#fcfa9b");
 });
 
