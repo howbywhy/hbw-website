@@ -240,6 +240,14 @@ export function IndexDetail({ entries, span, leaving, resuming = false, onClose,
                     <span className="hbw-index__name">
                       {row.name}
                       {row.idea ? <span className="hbw-index__idea"> {row.idea}</span> : null}
+                      {/* The site already means "this goes somewhere" by an arrow.
+                          A row without one is a record, and says so by omission
+                          rather than by announcing itself unfinished. */}
+                      {row.featured ? (
+                        <span className="hbw-index__go" aria-hidden="true">
+                          ↗
+                        </span>
+                      ) : null}
                     </span>
                     <span className="hbw-index__w">{row.work}</span>
                     <span className="hbw-index__s">{row.sector}</span>

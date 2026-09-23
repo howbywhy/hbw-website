@@ -130,7 +130,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   const pendingImageRef = useRef<{ src: string; mime: string; w: number; h: number } | null>(null);
   const lastPtrRef = useRef<Pt | null>(null);
   const [dropping, setDropping] = useState(false);
-  const [making, setMaking] = useState<Making>("rest");
+  // Opens with the pencil already in hand. "rest" armed nothing, so the first
+  // thing a visitor did on a poster was work out which button to press.
+  const [making, setMaking] = useState<Making>("draw");
   const [placeKind, setPlaceKind] = useState<PlaceKind>(null);
   const [ghost, setGhost] = useState<{ x: number; y: number } | null>(null);
   const [color, setColor] = useState("#e23b2e");
@@ -256,7 +258,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       setDecision(workspace.poster.decision);
       setFrozen(workspace.poster.frozen);
       if (workspace.poster.frozen) setEmailStatus("Sent. We’ll be in touch.");
-      setMaking("rest");
+      // Pencil in hand, same as a fresh poster. A sent poster is read-only, so
+      // arming a tool there would only light a button that cannot be used.
+      setMaking(workspace.poster.frozen ? "rest" : "draw");
       setPlaceKind(null);
       setHasWork(objectsRef.current.length > 0 || workspace.poster.frozen || Boolean(workspace.poster.legacyPixelObjects?.length));
       setHasContent(hasComposition() || Boolean(workspace.poster.legacyPixelObjects?.length));
@@ -1094,7 +1098,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     setFrozen(false);
     setColor("#e23b2e");
     setBackground(FIELD_COLOR);
-    setMaking("rest");
+    setMaking("draw");
     setPlaceKind(null);
     commitSelection([]);
     setEditingId(null);

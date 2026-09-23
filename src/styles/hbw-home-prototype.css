@@ -1,8 +1,11 @@
 /* One communication window: Make / Browse / View occupy the same field. */
 
 html.hbw-workspace {
-  --hbw-page: #ffffff;
-  --hbw-window: #ffffff;
+  /* The ground. hbw-rail.css defines these on the same selector and wins by
+     load order; they agree here so a change in that order cannot put the site
+     back on white. */
+  --hbw-page: #faf8f3;
+  --hbw-window: #faf8f3;
   --hbw-info: #fcfa9b;
   --hbw-manifesto: #e3ddd4;
   --hbw-x-practice: calc(var(--hbw-x-projects) - 2rem);
@@ -85,8 +88,11 @@ html.hbw-home-prototype,
 html.hbw-home-prototype body {
   height: 100%;
   overflow: hidden;
-  background: var(--hbw-page, #ffffff);
-  background-color: #ffffff;
+  background: var(--hbw-page, #faf8f3);
+  /* The literal repeat is the fallback for a browser that drops the custom
+     property. It has to be the ground, or the page behind everything stays
+     white while the shell on top of it is warm. */
+  background-color: #faf8f3;
   color: #333;
   font-family: var(--hbw-font);
   font-weight: 400;
@@ -139,7 +145,7 @@ html.hbw-workspace .hbw-sheet-layer :where(*):not(img, video, canvas, svg, path)
   flex-direction: column;
   overflow: hidden;
   overflow-x: hidden;
-  background: #ffffff;
+  background: #faf8f3;
   color: #333;
   font-family: var(--hbw-font);
   font-size: var(--hbw-lg);
@@ -4020,7 +4026,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     min-height: 0;
     max-height: none;
     overflow: visible;
-    background: #ffffff;
+    background: #faf8f3;
     z-index: 70;
     padding: max(var(--hbw-space-2), env(safe-area-inset-top, 0px))
       max(var(--hbw-edge), env(safe-area-inset-right, 0px)) var(--hbw-space-2)

@@ -158,9 +158,17 @@ export type PosterState = {
   background: string;
 };
 
-export const FIELD_COLOR = "#FFFFFF";
-/** The previous default paper. Saved posters that never chose a colour move to the new white. */
-export const LEGACY_FIELD_COLOR = "#F4F5F3";
+export const FIELD_COLOR = "#FAF8F3";
+/**
+ * Defaults this paper has had before. A saved poster still sitting on one of
+ * them never chose a colour — it just kept whatever the studio shipped — so it
+ * moves to the current paper rather than stranding one visitor on old white.
+ *
+ * #FFFFFF is also in PALETTE, so in theory someone picked it on purpose. At the
+ * time it was the default, which makes "chose white" and "chose nothing"
+ * identical states; picking a colour again is one tap.
+ */
+export const LEGACY_FIELD_COLORS = ["#F4F5F3", "#FFFFFF"] as const;
 
 export const PALETTE = [
   "#e23b2e",
