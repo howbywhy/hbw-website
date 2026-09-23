@@ -3,12 +3,9 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { WorkInView } from "@/components/home/WorkScroll";
 import { FluidPill, PillThumb } from "@/components/home/pill-motion";
+import { CONTACT_EMAIL, CONTACT_HREF } from "@/lib/contact";
 
-export const CONTACT_EMAIL = "mark@hbw.works";
-export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
-/** Shown as it is written here; dialled in E.164. Both must agree. */
-export const CONTACT_PHONE = "0414 833 791";
-export const CONTACT_PHONE_E164 = "+61414833791";
+export { CONTACT_EMAIL, CONTACT_HREF, CONTACT_PHONE, CONTACT_PHONE_E164 } from "@/lib/contact";
 const MARK = "How by Why";
 const TAGLINE = "Clarity for brands at a turning point.";
 

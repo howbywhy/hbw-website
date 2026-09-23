@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type WheelEvent } from "react";
+import { STUDIO_PLACE } from "@/lib/contact";
 import { factualBlocks } from "@/components/home/projects/factual";
 import { RichTextBody } from "@/components/home/projects/RichText";
 import type { ExperienceCollaborator, InfoSectionId, ProjectExperience } from "@/components/home/projects/types";
@@ -136,7 +137,7 @@ function PracticePlace() {
 
   return (
     <p className="hbw-sheet__place">
-      <span className="hbw-sheet__place-name">Wentworth Falls, Blue Mountains</span>
+      <span className="hbw-sheet__place-name">{STUDIO_PLACE}</span>
       {now ? (
         <>
           <br />

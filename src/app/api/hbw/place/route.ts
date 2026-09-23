@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const LAT = -33.7106;
 const LON = 150.3753;
-const PLACE = "Wentworth Falls, Blue Mountains";
+import { STUDIO_PLACE as PLACE } from "@/lib/contact";
 const SOURCE = "https://api.open-meteo.com/v1/forecast";
 
 function conditionFromCode(code: number) {
