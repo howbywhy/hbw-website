@@ -28,7 +28,7 @@ export default async function Image() {
           Clarity for brands at a turning point
         </div>
         <div style={{ display: "flex", fontSize: 36, marginTop: 16, opacity: 0.55 }}>
-          HBW is a Sydney brand and design practice working with founders at moments of change. Strategy, identity, and design.
+          HBW is an independent brand and design practice working with founders at moments of change. Strategy, identity, and design.
         </div>
       </div>
     ),

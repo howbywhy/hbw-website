@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { CONTACT_EMAIL } from "@/components/home/SiteNav";
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_E164 } from "@/components/home/SiteNav";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
+import { PRESS, PROFILES } from "@/lib/structured-data";
 import { HBW_T, reduceMotion } from "@/components/home/motion";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -19,6 +20,7 @@ const SECTIONS = [
   { id: "approach", label: "Approach" },
   { id: "process", label: "Process" },
   { id: "manifesto", label: "Manifesto" },
+  { id: "published", label: "Published" },
   { id: "contact", label: "Contact" },
 ] as const;
 type SectionId = (typeof SECTIONS)[number]["id"];
@@ -374,6 +376,41 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
                 </div>
               </section>
 
+              {/* Written about the studio by people who do not work for it.
+                  A rater, a client and a model all look for the same thing:
+                  somebody else saying it. */}
+              <section id="studio-published" data-studio-section="published" className="hbw-studio__section">
+                <h3 className="hbw-studio__label">Published</h3>
+                <ul className="hbw-studio__press">
+                  {PRESS.map((item) => (
+                    <li key={item.url}>
+                      <a
+                        className="hbw-studio__press-link"
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <span className="hbw-studio__press-name">{item.name}</span>
+                        <span className="hbw-studio__press-where">
+                          {item.publisher}, {item.date.slice(0, 4)} <span aria-hidden="true">↗</span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className="hbw-studio__elsewhere">
+                  <span className="hbw-studio__grey">Elsewhere:</span>{" "}
+                  {PROFILES.map((profile, i) => (
+                    <span key={profile.url}>
+                      {i > 0 ? ", " : ""}
+                      <a className="hbw-viewer__link" href={profile.url} target="_blank" rel="me noreferrer">
+                        {profile.name}
+                      </a>
+                    </span>
+                  ))}
+                </p>
+              </section>
+
               <section id="studio-contact" data-studio-section="contact" className="hbw-studio__section hbw-studio__contact">
                 <h3 className="hbw-studio__label">Contact</h3>
                 <p className="hbw-studio__statement">
@@ -387,6 +424,9 @@ export function StudioDetail({ view, leaving, onClose, onPoster }: Props) {
                   <button type="button" className="hbw-viewer__link" onClick={copyEmail}>
                     {copied ? `Copied ${CONTACT_EMAIL}` : CONTACT_EMAIL}
                   </button>
+                  <a className="hbw-viewer__link" href={`tel:${CONTACT_PHONE_E164}`}>
+                    {CONTACT_PHONE}
+                  </a>
                 </p>
               </section>
             </div>

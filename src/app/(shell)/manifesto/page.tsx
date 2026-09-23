@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StructuredData } from "@/components/StructuredData";
+import { founderNode, studioNode } from "@/lib/structured-data";
 import { MANIFESTO_COPY } from "@/components/home/studio-copy";
 
 const title = "Manifesto — HBW";
@@ -8,7 +10,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: {
-    canonical: "/manifesto",
+    canonical: "/studio",
   },
   openGraph: {
     title,
@@ -24,5 +26,5 @@ export const metadata: Metadata = {
 };
 
 export default function ManifestoPage() {
-  return null;
+  return <StructuredData nodes={[studioNode(), founderNode()]} />;
 }

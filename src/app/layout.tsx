@@ -7,7 +7,7 @@ import "@/styles/hbw-rail.css";
 
 const title = "HBW — Clarity for brands at a turning point";
 const description =
-  "HBW (How by why) is a Sydney-based brand and design practice led by Mark Blackler.";
+  "HBW (How by Why) is an independent brand and design practice led by Mark Blackler, based in the Blue Mountains and working with founders across Sydney and Australia. Brand strategy, identity and design.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hbw.works"),
