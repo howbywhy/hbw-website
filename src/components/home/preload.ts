@@ -27,10 +27,34 @@ export function decodeImage(src: string): Promise<void> {
   return pending;
 }
 
+/**
+ * True when the URL is served from somewhere we cannot fetch() from.
+ *
+ * Sanity's file CDN answers 403 "CORS Origin not allowed" to any request
+ * carrying our Origin, while serving the same file happily to a <video>
+ * element, which sends no Origin. So a fetch() prefetch of a CMS video is not
+ * slow or unreliable — it cannot succeed, and it logs a CORS error every time.
+ */
+function crossOrigin(src: string) {
+  if (typeof window === "undefined") return false;
+  try {
+    return new URL(src, window.location.href).origin !== window.location.origin;
+  } catch {
+    // A malformed URL is nothing we can prefetch either.
+    return true;
+  }
+}
+
 export function prefetchVideo(src: string): Promise<void> {
   if (!src || typeof window === "undefined") return Promise.resolve();
   const hit = videos.get(src);
   if (hit) return hit;
+  // The video element fetches it without an Origin when it is needed.
+  if (crossOrigin(src)) {
+    const skipped = Promise.resolve();
+    videos.set(src, skipped);
+    return skipped;
+  }
   const pending = fetch(src, { cache: "force-cache", credentials: "same-origin" })
     .then(() => undefined)
     .catch(() => undefined);
