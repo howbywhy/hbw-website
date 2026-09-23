@@ -48,6 +48,28 @@ export default function RootLayout({
     <html lang="en" className="hbw-workspace hbw-entered" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/*
+          Arrival. Runs before first paint so the chrome starts hidden rather
+          than flashing in and then fading. The class is dropped once the
+          sequence has played, so nothing replays later in the session.
+
+          It only ever hides things, so every failure mode is the site as it
+          was: no class on reduced motion, no class if the script throws, and
+          no class if scripting is off.
+
+          1500ms covers the sequence in hbw-rail.css — the last beat starts at
+          3 × ui + micro and runs for continuity, which is 1380ms.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{' +
+              'if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;' +
+              'var r=document.documentElement;r.setAttribute("data-hbw-arriving","");' +
+              'setTimeout(function(){r.removeAttribute("data-hbw-arriving")},1500);' +
+              '}catch(e){}})()',
+          }}
+        />
       </head>
       <body className="body" suppressHydrationWarning>
         <CmsPreviewProvider>

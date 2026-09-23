@@ -69,7 +69,7 @@ html.hbw-workspace {
   --hbw-t-handoff: var(--hbw-motion-continuity);
   --hbw-t-identity: var(--hbw-motion-continuity);
   --hbw-t-gallery: var(--hbw-motion-ui);
-  --hbw-field: #f4f5f3;
+  --hbw-field: #faf8f3;
   --hbw-vv-inset: 0px;
   /* Composed first-visit hold. Source: HBW_INTRO_MS in motion.ts. */
   --hbw-t-intro: 2280ms;
