@@ -2057,7 +2057,8 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     display: inline;
   }
 
-  .hbw-site-nav__line-wrap {
+  .hbw-site-nav__line-wrap,
+  .hbw-site-nav__shut-wrap {
     grid-column: 1 / -1;
   }
 
