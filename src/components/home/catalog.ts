@@ -5,15 +5,15 @@ export { catalogIdForSlug };
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
 export const DISCIPLINES = [
-  "Brand DNA",
+  "Brand Strategy",
   "Naming",
   "Visual Identity",
   "Packaging",
-  "Signage/Wayfinding",
+  "Signage & Wayfinding",
   "Website",
-  "Print & Digital Design",
-  "Motion",
+  "Print",
   "Digital Design",
+  "Motion",
 ] as const;
 
 export const SECTORS = ["Sports Nutrition", "FMCG", "Food", "Hospitality", "Photography", "Architecture", "Interior Design"] as const;
@@ -29,13 +29,13 @@ export type CollaboratorId = Collaborator["id"];
 
 /** Credits prose for each discipline. Adding a discipline without a form is a build error. */
 export const DISCIPLINE_CREDIT = {
-  "Brand DNA": "brand DNA",
+  "Brand Strategy": "brand DNA",
   "Naming": "naming",
   "Visual Identity": "visual identity",
   Packaging: "packaging design",
-  "Signage/Wayfinding": "signage and wayfinding",
+  "Signage & Wayfinding": "signage and wayfinding",
   Website: "website design",
-  "Print & Digital Design": "print and digital",
+  "Print": "print and digital",
   Motion: "motion",
   "Digital Design": "digital design",
 } as const satisfies Record<Discipline, string>;
@@ -117,7 +117,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 5,
     visualStart: 8,
     sectors: ["Architecture", "Interior Design"],
-    disciplines: ["Brand DNA", "Visual Identity", "Motion", "Digital Design"],
+    disciplines: ["Brand Strategy", "Visual Identity", "Motion", "Digital Design"],
     credits: ["Mark Blackler"],
   },
   {
@@ -138,12 +138,12 @@ export const PROJECTS: ProjectRecord[] = [
     homeSelected: true,
     sectors: ["Hospitality"],
     disciplines: [
-      "Brand DNA",
+      "Brand Strategy",
       "Naming",
       "Visual Identity",
-      "Signage/Wayfinding",
+      "Signage & Wayfinding",
       "Website",
-      "Print & Digital Design",
+      "Print",
     ],
     features: [
       {
@@ -169,7 +169,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 9,
     homeSelected: true,
     sectors: ["Food", "FMCG"],
-    disciplines: ["Brand DNA", "Visual Identity", "Packaging", "Print & Digital Design"],
+    disciplines: ["Brand Strategy", "Visual Identity", "Packaging", "Print"],
     credits: ["Mark Blackler"],
   },
   {
@@ -209,7 +209,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualBefore: 3,
     homeSelected: true,
     sectors: ["Photography"],
-    disciplines: ["Brand DNA", "Visual Identity", "Website"],
+    disciplines: ["Brand Strategy", "Visual Identity", "Website"],
     credits: ["Mark Blackler"],
   },
   {
@@ -228,7 +228,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 8,
     homeSelected: true,
     sectors: ["Hospitality"],
-    disciplines: ["Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
+    disciplines: ["Visual Identity", "Signage & Wayfinding", "Print"],
     collaborators: ["the-colour-club"],
     credits: ["Mark Blackler", "Nick Mitchell"],
   },

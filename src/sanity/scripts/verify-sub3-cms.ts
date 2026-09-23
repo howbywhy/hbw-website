@@ -123,7 +123,7 @@ async function main() {
         editorialApproved: {
           context: editorial.context === SUB3_COPY.context,
           roles: editorial.roles.join("|") === SUB3_COPY.roles.join("|"),
-          noBrandDna: !editorial.roles.includes("Brand DNA"),
+          noStrategy: !editorial.roles.includes("Brand Strategy"),
           noPhotography: editorial.roles.every((role) => !/photo/i.test(role)),
           workingContext: editorial.workingContext === SUB3_COPY.workingContext,
           collaboratorsOmitted: editorial.collaborators.length === 0,
@@ -150,7 +150,7 @@ async function main() {
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.equal(experience.authorship?.workingContext, SUB3_COPY.workingContext);
   assert.equal(experience.authorship?.collaborators?.length ?? 0, 0);
-  assert.equal(experience.authorship?.roles.includes("Brand DNA"), false);
+  assert.equal(experience.authorship?.roles.includes("Brand Strategy"), false);
   assert.equal(
     experience.movements.filter((movement) => movement.media.type === "video").every((movement) => movement.media.fit === "contain"),
     true

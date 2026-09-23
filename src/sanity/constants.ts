@@ -1,7 +1,6 @@
 /** Authorship roles. Distinct from catalog filter disciplines. */
 export const PROJECT_ROLES = [
   "Brand Strategy",
-  "Brand DNA",
   "Naming",
   "Creative Direction",
   "Visual Identity",
@@ -41,15 +40,15 @@ export const PROJECT_SECTORS = [
 
 /** Browse-filter disciplines. Distinct from authorship roles. */
 export const PROJECT_DISCIPLINES = [
-  "Brand DNA",
+  "Brand Strategy",
   "Naming",
   "Visual Identity",
   "Packaging",
-  "Signage/Wayfinding",
+  "Signage & Wayfinding",
   "Website",
-  "Print & Digital Design",
-  "Motion",
+  "Print",
   "Digital Design",
+  "Motion",
 ] as const;
 
 export const MOVEMENT_SCALES = ["major", "standard", "detail"] as const;
