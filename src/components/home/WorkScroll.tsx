@@ -34,6 +34,15 @@ function workFromUrl() {
 export type WorkScrollHandle = {
   toWork: () => void;
   toTop: () => void;
+  /** Put the line back at the Poster with no move to see. For when something is
+   *  covering it: lifting that cover should reveal the Poster, not a scroll the
+   *  reader did not ask for and cannot see the start of. */
+  settleTop: () => void;
+  /** Close a project that is open over the line, and clear it from the URL.
+   *  It leaves rather than flying back to its card, because whoever pressed the
+   *  mark is not going back to the line. Answers whether anything was open, so
+   *  the caller knows whether the line is covered while it puts it back. */
+  closeWork: () => boolean;
   /** Open a project in the viewer over the poster, as a card on the line does.
    *  `away` means it was opened from somewhere other than the line, so closing
    *  leaves rather than flying back to a card the reader is not returning to. */
@@ -237,6 +246,15 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     },
     toTop() {
       glideTo(0);
+    },
+    settleTop() {
+      settleAt(0);
+    },
+    closeWork() {
+      const wasOpen = Boolean(openRef.current);
+      returnsAway.current = true;
+      closeDetail();
+      return wasOpen;
     },
     openWork(slug: string, options?: { away?: boolean }) {
       returnsAway.current = Boolean(options?.away);
