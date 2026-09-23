@@ -1,11 +1,8 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { previewOnHbwAction } from "./src/sanity/actions/previewOnHbw";
-import { sanityDataset, sanityProjectId } from "./src/sanity/env";
 import { schemaTypes } from "./src/sanity/schemaTypes";
-
-const STUDIO_PROJECT_ID = sanityProjectId === "placeholder" ? "aagd1kcy" : sanityProjectId;
-const STUDIO_DATASET = sanityDataset || "production";
+import { studioDataset, studioProjectId } from "./src/sanity/studio-env";
 
 /**
  * Standalone hosted Studio. Not the public /studio practice page.
@@ -16,12 +13,16 @@ const STUDIO_DATASET = sanityDataset || "production";
  * Turbopack cannot compile — that error poisoned every local route.
  *
  * Run `npm run cms` (sanity dev / Vite) locally, or open the hosted Studio.
+ *
+ * Connection values come from studio-env, not src/sanity/env: the latter
+ * reads .env.local off disk, and bundling node:fs and a bare `process` into
+ * the browser broke the deployed Studio with "process is not defined".
  */
 export default defineConfig({
   name: "hbw-website",
   title: "HBW Projects",
-  projectId: STUDIO_PROJECT_ID,
-  dataset: STUDIO_DATASET,
+  projectId: studioProjectId,
+  dataset: studioDataset,
   plugins: [
     structureTool({
       structure: (S) =>
