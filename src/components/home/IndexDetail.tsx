@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HBW_EASE, HBW_T, reduceMotion } from "@/components/home/motion";
-import { INDEX_PLACEHOLDERS, INDEX_ROWS, INDEX_SPAN } from "@/components/home/index-data";
+import { INDEX_ROWS, INDEX_SPAN } from "@/components/home/index-data";
 import { INDEX_MARKS } from "@/components/home/index-marks";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -239,21 +239,9 @@ export function IndexDetail({ leaving, resuming = false, onClose, onOpen }: Prop
                   </button>
                 );
               })}
-
-              {INDEX_PLACEHOLDERS.map((row, i) => (
-                <div key={`placeholder-${i}`} className="hbw-index__row hbw-index__grid is-waiting">
-                  <span className="hbw-index__name">Not yet catalogued</span>
-                  <span className="hbw-index__w">{row.work}</span>
-                  <span className="hbw-index__s">{row.sector}</span>
-                  <span className="hbw-index__y">{row.year}</span>
-                </div>
-              ))}
             </div>
 
-            <p className="hbw-index__foot">
-              Older work is still being catalogued. Rows without a name are real projects whose
-              details are being gathered.
-            </p>
+            <p className="hbw-index__foot">Older work joins this list as it is catalogued.</p>
           </div>
         </div>
       </article>

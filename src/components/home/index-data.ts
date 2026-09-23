@@ -2,10 +2,9 @@
  * The index: every project the studio has done, not only the six on the line.
  *
  * PROTOTYPE DATA. These rows stand in for the Sanity query while the archive
- * is being judged. The six live rows are real and match catalog.ts. The rest
- * are placeholders — they carry a year, a sector and a discipline, and nothing
- * else, because inventing client names or claims for work that isn't catalogued
- * yet would put fiction on the site.
+ * is being judged. Every row here is real and matches catalog.ts. Older work
+ * joins the list as it is catalogued, with a name — an empty row states
+ * nothing and asks the reader to take the studio's word for it.
  */
 
 export type IndexRow = {
@@ -30,19 +29,7 @@ export const INDEX_ROWS: IndexRow[] = [
   { id: "our-boy-roy", name: "Our Boy Roy", idea: "Dinner, Sorted", work: "Identity, Packaging", sector: "Hospitality", year: 2022, featured: true },
 ];
 
-/** Rows still to be catalogued. No names, no claims — only what is true. */
-export const INDEX_PLACEHOLDERS: Omit<IndexRow, "id" | "name" | "idea" | "featured">[] = [
-  { work: "Identity", sector: "Hospitality", year: 2023 },
-  { work: "Packaging", sector: "Retail", year: 2023 },
-  { work: "Naming, Identity", sector: "Property", year: 2022 },
-  { work: "Packaging", sector: "Food & Drink", year: 2021 },
-  { work: "Identity, Website", sector: "Professional services", year: 2021 },
-  { work: "Print", sector: "Arts & culture", year: 2020 },
-  { work: "Identity", sector: "Hospitality", year: 2019 },
-  { work: "Brand Strategy", sector: "Retail", year: 2018 },
-];
-
 export const INDEX_SPAN = (() => {
-  const years = [...INDEX_ROWS.map((r) => r.year), ...INDEX_PLACEHOLDERS.map((r) => r.year)];
+  const years = INDEX_ROWS.map((row) => row.year);
   return { from: Math.min(...years), to: Math.max(...years), count: years.length };
 })();

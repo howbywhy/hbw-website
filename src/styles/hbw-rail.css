@@ -2440,7 +2440,7 @@ html.hbw-workspace .hbw-home .hbw-index__row {
   transition: opacity var(--hbw-t-answer) var(--hbw-arrive);
 }
 
-html.hbw-workspace .hbw-home .hbw-index__row:not(.is-waiting) {
+html.hbw-workspace .hbw-home .hbw-index__row {
   cursor: pointer;
 }
 
@@ -2462,14 +2462,6 @@ html.hbw-workspace .hbw-home .hbw-index__s {
 html.hbw-workspace .hbw-home .hbw-index__y {
   color: var(--hbw-muted);
   font-variant-numeric: tabular-nums;
-}
-
-/* Not yet catalogued: present, but plainly not a claim. */
-html.hbw-workspace .hbw-home .hbw-index__row.is-waiting,
-html.hbw-workspace .hbw-home .hbw-index__row.is-waiting .hbw-index__w,
-html.hbw-workspace .hbw-home .hbw-index__row.is-waiting .hbw-index__s,
-html.hbw-workspace .hbw-home .hbw-index__row.is-waiting .hbw-index__y {
-  color: var(--hbw-faint);
 }
 
 html.hbw-workspace .hbw-home .hbw-index__foot {
