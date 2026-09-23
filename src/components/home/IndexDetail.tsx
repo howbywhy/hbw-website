@@ -2,8 +2,8 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HBW_EASE, HBW_T, reduceMotion } from "@/components/home/motion";
-import { INDEX_ROWS, INDEX_SPAN } from "@/components/home/index-data";
 import { INDEX_MARKS } from "@/components/home/index-marks";
+import type { IndexEntry } from "@/components/home/index-entry";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -14,7 +14,19 @@ const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
  */
 let lastPlace = 0;
 
+/**
+ * The mark to show behind a row: the logotype uploaded to the CMS, or the one
+ * committed with the site until that project has one. Both arrive already
+ * stripped to a single colour.
+ */
+function markFor(entry: IndexEntry) {
+  return entry.mark ?? INDEX_MARKS[entry.id] ?? null;
+}
+
 type Props = {
+  /** The record, read from the CMS on the server. */
+  entries: IndexEntry[];
+  span: { count: number; from: number; to: number };
   leaving: boolean;
   /** Coming back from a project opened here: resume, do not arrive. */
   resuming?: boolean;
@@ -35,7 +47,7 @@ type Props = {
  * none. There is no hover on a phone, so the mark follows the row nearest the
  * middle of the screen instead.
  */
-export function IndexDetail({ leaving, resuming = false, onClose, onOpen }: Props) {
+export function IndexDetail({ entries, span, leaving, resuming = false, onClose, onOpen }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
@@ -184,22 +196,28 @@ export function IndexDetail({ leaving, resuming = false, onClose, onOpen }: Prop
           <div ref={pageRef} className="hbw-index" tabIndex={-1}>
             {/* The marks sit behind the list, in the page's own ink. */}
             <div className="hbw-index__marks" aria-hidden="true">
-              {Object.entries(INDEX_MARKS).map(([id, m]) => (
-                <svg
-                  key={id}
-                  className={`hbw-index__mark${mark === id ? " is-on" : ""}`}
-                  viewBox={m.viewBox}
-                  preserveAspectRatio="xMidYMid meet"
-                  fill="currentColor"
-                  dangerouslySetInnerHTML={{ __html: m.body }}
-                />
-              ))}
+              {entries.map((entry) => {
+                const m = markFor(entry);
+                if (!m) return null;
+                return (
+                  <svg
+                    key={entry.id}
+                    className={`hbw-index__mark${mark === entry.id ? " is-on" : ""}`}
+                    style={entry.markScale ? { scale: String(entry.markScale) } : undefined}
+                    viewBox={m.viewBox}
+                    preserveAspectRatio="xMidYMid meet"
+                    fill="currentColor"
+                    /* Stripped of scripts and colour on the server, never in the browser. */
+                    dangerouslySetInnerHTML={{ __html: m.body }}
+                  />
+                );
+              })}
             </div>
 
             <div className="hbw-index__head">
               <h2 className="hbw-index__title">Index</h2>
               <p className="hbw-index__span">
-                {INDEX_SPAN.count} projects · {INDEX_SPAN.from}–{INDEX_SPAN.to}
+                {span.count} {span.count === 1 ? "project" : "projects"} · {span.from}–{span.to}
               </p>
             </div>
 
@@ -215,28 +233,43 @@ export function IndexDetail({ leaving, resuming = false, onClose, onOpen }: Prop
               className={`hbw-index__rows${mark ? " is-resting" : ""}`}
               onMouseLeave={() => rest(null)}
             >
-              {INDEX_ROWS.map((row) => {
-                const has = Boolean(INDEX_MARKS[row.id]);
-                return (
+              {entries.map((row) => {
+                const has = Boolean(markFor(row));
+                const inside = (
+                  <>
+                    <span className="hbw-index__name">
+                      {row.name}
+                      {row.idea ? <span className="hbw-index__idea"> {row.idea}</span> : null}
+                    </span>
+                    <span className="hbw-index__w">{row.work}</span>
+                    <span className="hbw-index__s">{row.sector}</span>
+                    <span className="hbw-index__y">{row.year}</span>
+                  </>
+                );
+                const shared = {
+                  "data-mark": has ? row.id : undefined,
+                  className: `hbw-index__row hbw-index__grid${mark === row.id ? " is-on" : ""}`,
+                  onMouseEnter: () => rest(has ? row.id : null),
+                };
+                // An entry with no case study is a record, not a control: it
+                // stays out of the tab order rather than offering a dead click.
+                return row.featured ? (
                   <button
                     key={row.id}
                     type="button"
-                    data-mark={has ? row.id : undefined}
-                    className={`hbw-index__row hbw-index__grid${mark === row.id ? " is-on" : ""}`}
-                    onMouseEnter={() => rest(has ? row.id : null)}
+                    {...shared}
                     onFocus={() => rest(has ? row.id : null)}
                     onClick={() => {
                       handingOver.current = true;
                       onOpen(row.id);
                     }}
                   >
-                    <span className="hbw-index__name">
-                      {row.name} <span className="hbw-index__idea">{row.idea}</span>
-                    </span>
-                    <span className="hbw-index__w">{row.work}</span>
-                    <span className="hbw-index__s">{row.sector}</span>
-                    <span className="hbw-index__y">{row.year}</span>
+                    {inside}
                   </button>
+                ) : (
+                  <div key={row.id} {...shared}>
+                    {inside}
+                  </div>
                 );
               })}
             </div>

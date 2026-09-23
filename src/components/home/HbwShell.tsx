@@ -13,6 +13,7 @@ import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { StudioDetail } from "@/components/home/StudioDetail";
 import { IndexDetail } from "@/components/home/IndexDetail";
+import { indexSpan, type IndexEntry } from "@/components/home/index-entry";
 import { MotionDebug } from "@/components/home/MotionDebug";
 import { EnterBridge } from "@/components/home/projects/EnterBridge";
 import {
@@ -155,9 +156,12 @@ function modeFromLocation(path: string): WindowMode {
 export function HbwShell({
   children,
   published = null,
+  index = [],
 }: {
   children: React.ReactNode;
   published?: ResolvedProjectExperience | null;
+  /** The record of work, read from the CMS by the server layout above. */
+  index?: IndexEntry[];
 }) {
   const pathname = usePathname() || "/";
   const router = useRouter();
@@ -1844,6 +1848,8 @@ export function HbwShell({
           ) : null}
           {indexOpen ? (
             <IndexDetail
+              entries={index}
+              span={indexSpan(index)}
               leaving={panelLeaving}
               onClose={closePanel}
               /* Open it the way a card on the line does: in the viewer over the

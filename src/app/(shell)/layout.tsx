@@ -1,5 +1,6 @@
 import { HbwShell } from "@/components/home/HbwShell";
+import { loadIndex } from "@/sanity/load-index";
 
-export default function ShellLayout({ children }: { children: React.ReactNode }) {
-  return <HbwShell>{children}</HbwShell>;
+export default async function ShellLayout({ children }: { children: React.ReactNode }) {
+  return <HbwShell index={await loadIndex()}>{children}</HbwShell>;
 }
