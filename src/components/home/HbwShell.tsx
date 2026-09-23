@@ -12,6 +12,7 @@ import { useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPrevi
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { StudioDetail } from "@/components/home/StudioDetail";
+import { IndexDetail } from "@/components/home/IndexDetail";
 import { MotionDebug } from "@/components/home/MotionDebug";
 import { EnterBridge } from "@/components/home/projects/EnterBridge";
 import {
@@ -55,7 +56,7 @@ import {
   type WindowMode,
 } from "@/components/home/workspace";
 import { HBW_EASE, HBW_INTRO_MS, HBW_T, isMobileViewport, reduceMotion, type SwapPhase } from "@/components/home/motion";
-import { isStudioPathname, previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "@/lib/workspace-routes";
+import { isIndexPathname, isStudioPathname, previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "@/lib/workspace-routes";
 
 const INTRO_KEY = "hbw.entered.v2";
 
@@ -171,12 +172,23 @@ export function HbwShell({
   if (cmsPreview) previewHeld.current = cmsPreview;
   const onPreviewPath = Boolean(previewSlugFromPath(pathname));
   const [panel, setPanel] = useState<WorkspacePanelId>(() =>
-    isStudioPathname(pathname) ? "studio" : null
+    isStudioPathname(pathname) ? "studio" : isIndexPathname(pathname) ? "index" : null
   );
   const [studioView, setStudioView] = useState<StudioView>(() =>
     pathname === "/manifesto" ? "manifesto" : "studio"
   );
   const [panelLeaving, setPanelLeaving] = useState(false);
+  /** A project opened from the index returns to the index, not to the line. */
+  const cameFromIndex = useRef(false);
+  /** That return is a resumption, not an arrival: it does not rise again. */
+  const [indexResuming, setIndexResuming] = useState(false);
+  /**
+   * Which surface Work means right now. The index is part of the work, so
+   * leaving it for the Studio and pressing Work again comes back to the index,
+   * not to the line you were not looking at.
+   */
+  const lastWorkSurface = useRef<"line" | "index">("line");
+  const indexPathRef = useRef(pathname);
   const [manifestoLeaving, setManifestoLeaving] = useState(false);
   const manifestoGen = useRef(0);
   const manifestoLeavingRef = useRef(false);
@@ -605,6 +617,23 @@ export function HbwShell({
     }
   }, [pathname, slug]);
 
+  // The index follows its address, the way Studio follows /studio.
+  useEffect(() => {
+    const prev = indexPathRef.current;
+    indexPathRef.current = pathname;
+    if (isIndexPathname(pathname)) {
+      setPanel("index");
+      setPanelLeaving(false);
+    } else if (isIndexPathname(prev) && panelRef.current === "index") {
+      if (closingPanelRef.current) {
+        closingPanelRef.current = false;
+        return;
+      }
+      setPanel(null);
+      setPanelLeaving(false);
+    }
+  }, [pathname]);
+
   useEffect(() => {
     const prev = studioPathRef.current;
     if (pathname === "/studio") {
@@ -740,13 +769,19 @@ export function HbwShell({
     if (next === "studio" && windowMode === "make" && !isStudioPathname(pathname)) {
       router.push("/studio");
     }
+    if (next === "index" && windowMode === "make" && !isIndexPathname(pathname)) {
+      router.push("/projects");
+    }
     if (next === "studio") focusSelector(".hbw-site-nav__studio");
     if (next === "info") focusSelector('.hbw-sheet[data-hbw-sheet="project-right"]');
   }
 
-  function closePanel() {
+  function closePanel(options?: { keepRoute?: boolean }) {
     if (!panel || panelLeaving) return;
-    const leaveRoute = panel === "studio" && isStudioPathname(pathname);
+    if (panel === "index" && !options?.keepRoute) lastWorkSurface.current = "line";
+    const leaveRoute =
+      !options?.keepRoute &&
+      ((panel === "studio" && isStudioPathname(pathname)) || (panel === "index" && isIndexPathname(pathname)));
     const spreadMark = panel === "studio" && !identityAssembled(windowMode, swap);
     const applyLeave = () => {
       closingPanelRef.current = true;
@@ -1601,7 +1636,7 @@ export function HbwShell({
     (fromBrowse && preparingView
       ? true
       : !preparingView && (windowMode === "view" || phase !== "idle"));
-  const viewExit = navFace === "view" && panel !== "info" && panel !== "studio";
+  const viewExit = navFace === "view" && panel !== "info" && panel !== "studio" && panel !== "index";
   const assembled = identityAssembled(windowMode, swap);
   const sheetResolved = panel === "studio" && !panelLeaving && !assembled;
   const peekResolved = Boolean(!assembled && peek.open && peekProject);
@@ -1636,9 +1671,19 @@ export function HbwShell({
   const manifestoSheet = panel === "studio" && (studioView === "manifesto" || manifestoLeaving);
   const manifestoOpen = manifestoSheet && !manifestoLeaving;
   const studioClose = panel === "studio" && !manifestoSheet;
-  const viewJourneyClose = viewExit && panel !== "info";
+  const viewJourneyClose = viewExit;
   const studioAsClose = studioClose || manifestoSheet;
-  const muteProjects = panel === "studio";
+  const indexOpen = panel === "index";
+  /** One h1 per page. Three pages sharing "How by Why" told a crawler nothing. */
+  const pageHeading =
+    indexOpen || isIndexPathname(pathname)
+      ? "HBW Projects — every project the studio has worked on, 2018 to now"
+      : pathname === "/manifesto"
+        ? "HBW Manifesto — brand is not what you see, it is what you feel"
+        : panel === "studio" || isStudioPathname(pathname)
+          ? "HBW Studio — Mark Blackler, independent brand and design practice"
+          : "HBW — clarity for brands at a turning point";
+  const muteProjects = panel === "studio" || indexOpen;
   const muteStudio = panel === "info";
   const hideProjectsHit =
     navFace !== "browse" && !(swap?.from === "browse" && swap.to === "make");
@@ -1698,8 +1743,10 @@ export function HbwShell({
             face={navFace}
             projectName={namedProject?.name ?? null}
             projectIdea={projectIdea}
-            workOpen={navFace === "browse" || (navFace === "home" && Boolean(workInView) && !panel)}
+            /* Studio lights its own pill while it is open; the index belongs to Work, so Work stays lit. */
+            workOpen={navFace === "browse" || (navFace === "home" && Boolean(workInView) && (!panel || indexOpen))}
             studioOpen={studioAsClose}
+            surfaceOpen={studioAsClose || indexOpen}
             studioMuted={muteStudio}
             journeyClose={viewJourneyClose}
             onHome={() => {
@@ -1709,11 +1756,23 @@ export function HbwShell({
             onWork={() => {
               if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
               else if (windowMode === "make") {
-                if (panel) closePanel();
-                workScrollRef.current?.toWork();
+                // Work means the work surface you were last on. Pressing it from
+                // the Studio returns you to the index if that is where you were;
+                // pressing it inside the index takes you back out to the line.
+                if (panel === "index") {
+                  closePanel();
+                  workScrollRef.current?.toWork();
+                } else if (lastWorkSurface.current === "index") {
+                  setIndexResuming(false);
+                  openPanel("index");
+                } else {
+                  if (panel) closePanel();
+                  workScrollRef.current?.toWork();
+                }
               } else goProjects();
             }}
             workInView={navFace === "home" && !panel ? workInView : null}
+            heading={pageHeading}
             onStudio={() => {
               if (studioClose || manifestoSheet) dismissStudioFamily();
               else openPanel("studio");
@@ -1747,12 +1806,29 @@ export function HbwShell({
         </header>
 
         <div className="hbw-window">
-          <PosterTool dormant={!makeActive || panel === "studio"} />
+          <PosterTool dormant={!makeActive || panel === "studio" || indexOpen} />
           <WorkScroll
             ref={workScrollRef}
-            visible={makeActive && !swap && panel !== "studio"}
+            visible={makeActive && !swap && panel !== "studio" && !indexOpen}
             onInView={setWorkInView}
             onStudio={() => openPanel("studio")}
+            onIndex={() => {
+              cameFromIndex.current = false;
+              setIndexResuming(false);
+              lastWorkSurface.current = "index";
+              openPanel("index");
+            }}
+            onDetailClosing={() => {
+              if (!cameFromIndex.current) return;
+              cameFromIndex.current = false;
+              // Come back underneath the leaving project, so the two cross
+              // instead of queueing with a blank poster in between.
+              setIndexResuming(true);
+              openPanel("index");
+              // closeDetail drops ?work= from the address in this same tick;
+              // put /index back once it has.
+              later(0, () => router.replace("/projects"));
+            }}
           />
           {panel === "studio" ? (
             <StudioDetail
@@ -1763,6 +1839,25 @@ export function HbwShell({
                 closePanel();
                 if (windowMode !== "make") returnToMake();
                 else workScrollRef.current?.toTop();
+              }}
+            />
+          ) : null}
+          {indexOpen ? (
+            <IndexDetail
+              leaving={panelLeaving}
+              onClose={closePanel}
+              /* Open it the way a card on the line does: in the viewer over the
+                 poster, with ?work= in the address. enterProject would navigate
+                 to /projects/<slug> and leave the page. */
+              resuming={indexResuming}
+              onOpen={(id) => {
+                cameFromIndex.current = true;
+                // The project owns the address from here, so closePanel must not
+                // replace it — that race is what wiped ?work= before. Opening at
+                // once lets the project rise through the leaving index instead
+                // of waiting for a blank poster in between.
+                closePanel({ keepRoute: true });
+                workScrollRef.current?.openWork(id, { away: true });
               }}
             />
           ) : null}

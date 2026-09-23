@@ -34,6 +34,10 @@ function workFromUrl() {
 export type WorkScrollHandle = {
   toWork: () => void;
   toTop: () => void;
+  /** Open a project in the viewer over the poster, as a card on the line does.
+   *  `away` means it was opened from somewhere other than the line, so closing
+   *  leaves rather than flying back to a card the reader is not returning to. */
+  openWork: (slug: string, options?: { away?: boolean }) => void;
 };
 
 export type WorkInView = { n: string; total: string; name: string; idea: string } | null;
@@ -45,6 +49,13 @@ type Props = {
   onInView: (work: WorkInView) => void;
   /** After the work: on to the studio behind it. */
   onStudio?: () => void;
+  /** After the six on the line: the whole record underneath them. */
+  onIndex?: () => void;
+  /** A project opened from here has started closing. Whoever sent you in can
+   *  come back underneath it, so the two cross rather than queue. */
+  onDetailClosing?: () => void;
+  /** …and has finished closing. */
+  onDetailClosed?: () => void;
 };
 
 function pad(n: number) {
@@ -63,7 +74,7 @@ type Geometry = { rise: number; travel: number; step: number };
  * a card and it opens into a preview; choose it and its detail grows out of it,
  * over everything. Nothing ever navigates away from the Poster.
  */
-export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onStudio }, ref) {
+export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onStudio, onIndex, onDetailClosing, onDetailClosed }, ref) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLElement>(null);
@@ -78,6 +89,11 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
   const [open, setOpen] = useState<{ slug: string; origin: DOMRect | null } | null>(null);
   const [closing, setClosing] = useState(false);
   const [away, setAway] = useState(false);
+  /** Opened from the index: closing goes back there, so it must not fly to a card. */
+  const returnsAway = useRef(false);
+  /** closeDetail is memoised with no deps; the latest callback lives here. */
+  const closingSignal = useRef(onDetailClosing);
+  closingSignal.current = onDetailClosing;
   const openRef = useRef(open);
   openRef.current = open;
   const glide = useRef<{ target: number | null; raf: number }>({ target: null, raf: 0 });
@@ -136,6 +152,72 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     return rise + Math.min(travel, Math.max(0, i) * step);
   }, []);
 
+  /**
+   * A row of cards on a phone reads as a carousel, so a sideways swipe has to
+   * move the line — even though the rail is really driven by vertical scroll.
+   * The transform tracks scrollTop one for one, so a horizontal drag maps
+   * straight onto it, and letting go settles on the nearest project.
+   *
+   * The axis is decided once per gesture: past an 8px threshold, whichever of
+   * dx or dy is larger wins, and a vertical swipe is left alone so the page
+   * still scrolls normally.
+   */
+  useEffect(() => {
+    const line = lineRef.current;
+    const scroller = scrollerRef.current;
+    if (!line || !scroller) return;
+    if (typeof window === "undefined" || !window.matchMedia("(hover: none)").matches) return;
+
+    let startX = 0;
+    let startY = 0;
+    let from = 0;
+    let axis: "x" | "y" | null = null;
+
+    const onStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      from = scroller.scrollTop;
+      axis = null;
+    };
+
+    const onMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      if (!axis) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      }
+      if (axis !== "x") return;
+      // Take the gesture over: otherwise the browser treats it as a page pan.
+      event.preventDefault();
+      const { rise, travel } = geo.current;
+      scroller.scrollTop = Math.min(rise + travel, Math.max(rise, from - dx));
+    };
+
+    const onEnd = () => {
+      if (axis !== "x") return;
+      axis = null;
+      const { rise, step } = geo.current;
+      const i = Math.round((scroller.scrollTop - rise) / Math.max(1, step));
+      glideTo(frontOf(Math.min(WORK.length - 1, Math.max(0, i))));
+    };
+
+    line.addEventListener("touchstart", onStart, { passive: true });
+    line.addEventListener("touchmove", onMove, { passive: false });
+    line.addEventListener("touchend", onEnd, { passive: true });
+    line.addEventListener("touchcancel", onEnd, { passive: true });
+    return () => {
+      line.removeEventListener("touchstart", onStart);
+      line.removeEventListener("touchmove", onMove);
+      line.removeEventListener("touchend", onEnd);
+      line.removeEventListener("touchcancel", onEnd);
+    };
+  }, [frontOf, glideTo]);
+
   /** Rearrange without a move you'd see: used while the viewer covers the line. */
   const settleAt = useCallback((y: number) => {
     const scroller = scrollerRef.current;
@@ -155,6 +237,14 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     },
     toTop() {
       glideTo(0);
+    },
+    openWork(slug: string, options?: { away?: boolean }) {
+      returnsAway.current = Boolean(options?.away);
+      // Put that project at the front of the line behind the viewer, so closing
+      // lands on its card rather than wherever the line happened to be.
+      const i = WORK.findIndex((project) => project.id === slug);
+      settleAt(i >= 0 ? frontOf(i) : geo.current.rise);
+      openDetail(slug, null);
     },
   }));
 
@@ -277,12 +367,17 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     if (push) {
       const url = new URL(window.location.href);
       url.searchParams.set("work", slug);
-      window.history.pushState({ hbw: "work", slug }, "", url.pathname + url.search);
+      // Always "/": a project opened from /index still belongs to the home path.
+      window.history.pushState({ hbw: "work", slug }, "", "/" + url.search);
     }
   }, []);
 
   const closeDetail = useCallback(() => {
     if (!openRef.current) return;
+    if (returnsAway.current) {
+      setAway(true);
+      closingSignal.current?.();
+    }
     setClosing(true);
     const url = new URL(window.location.href);
     if (url.searchParams.has("work")) {
@@ -339,7 +434,15 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
             />
             <section ref={lineRef} className={`hbw-line${active >= 0 ? " has-front" : ""}`} aria-label="Work">
               <header className="hbw-line__head">
-                <span className="hbw-line__title">Work</span>
+                <span className="hbw-line__heading">
+                  <span className="hbw-line__title">Work</span>
+                  {/* The six here are what we lead with; the record is one click away. */}
+                  {onIndex ? (
+                    <button type="button" className="hbw-line__index" onClick={onIndex}>
+                      Index <span aria-hidden="true">↗</span>
+                    </button>
+                  ) : null}
+                </span>
                 <span className="hbw-line__dashes">
                   {WORK.map((project, i) => (
                     <button
@@ -459,6 +562,8 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
             setOpen(null);
             setClosing(false);
             setAway(false);
+            returnsAway.current = false;
+            onDetailClosed?.();
           }}
           onSwitch={(slug) => {
             setOpen({ slug, origin: null });

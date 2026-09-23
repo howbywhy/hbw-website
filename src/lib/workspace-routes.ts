@@ -26,6 +26,17 @@ export function isCmsPreviewPath(path: string) {
   return previewSlugFromPath(path) !== null;
 }
 
+/**
+ * The index of work, on its own address so it can be sent to someone.
+ *
+ * Not "/index": the root page prerenders to index.html, so a route segment of
+ * that name collides with it and serves the home page instead. /projects is
+ * also the better address — it is what the page is, and what people search.
+ */
+export function isIndexPathname(path: string) {
+  return normPathname(path) === "/projects";
+}
+
 export function isStudioPathname(path: string) {
   const p = normPathname(path);
   return p === "/studio" || p === "/manifesto";
