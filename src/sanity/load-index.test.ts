@@ -31,11 +31,11 @@ test("every committed mark is keyed by a real route slug", () => {
   }
 });
 
-test("the marks cover the projects that have a logotype", () => {
-  const withMarks = liveProjects().filter((project) => INDEX_MARKS[project.id]);
-  assert.equal(withMarks.length, Object.keys(INDEX_MARKS).length);
-  // Our Boy Roy exists only as raster artwork, so it is deliberately absent.
-  assert.equal(INDEX_MARKS["our-boy-roy"], undefined);
+test("every live project has a mark to fall back on", () => {
+  for (const project of liveProjects()) {
+    assert.ok(INDEX_MARKS[project.id], `${project.id} has no committed logotype`);
+  }
+  assert.equal(Object.keys(INDEX_MARKS).length, liveProjects().length);
 });
 
 test("the span reads the years it is given", () => {
