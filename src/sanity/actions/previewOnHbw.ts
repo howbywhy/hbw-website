@@ -3,9 +3,10 @@ import { createPreviewSecret } from "@sanity/preview-url-secret/create-secret";
 import { urlSearchParamPreviewPathname, urlSearchParamPreviewSecret } from "@sanity/preview-url-secret";
 import { useClient, useCurrentUser, type DocumentActionComponent } from "sanity";
 import { previewPathForCmsSlug } from "../preview/paths";
+import { studioOrigin, studioPreviewOrigin } from "../studio-env";
 
-const PREVIEW_ORIGIN = process.env.SANITY_STUDIO_PREVIEW_ORIGIN?.trim() || "https://www.hbw.works";
-const STUDIO_ORIGIN = process.env.SANITY_STUDIO_URL?.trim() || "https://hbw.sanity.studio";
+const PREVIEW_ORIGIN = studioPreviewOrigin;
+const STUDIO_ORIGIN = studioOrigin;
 
 function readSlug(doc: unknown) {
   if (!doc || typeof doc !== "object" || !("slug" in doc)) return "";

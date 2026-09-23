@@ -6,6 +6,9 @@ import { FluidPill, PillThumb } from "@/components/home/pill-motion";
 
 export const CONTACT_EMAIL = "mark@hbw.works";
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
+/** Shown as it is written here; dialled in E.164. Both must agree. */
+export const CONTACT_PHONE = "0414 833 791";
+export const CONTACT_PHONE_E164 = "+61414833791";
 const MARK = "How by Why";
 const TAGLINE = "Clarity for brands at a turning point.";
 
@@ -15,6 +18,8 @@ type Props = {
   projectIdea?: string | null;
   workOpen: boolean;
   studioOpen: boolean;
+  /** Any full surface over the poster — Studio or Index. Turns the line into Close. */
+  surfaceOpen?: boolean;
   studioMuted?: boolean;
   journeyClose: boolean;
   onHome: () => void;
@@ -27,6 +32,8 @@ type Props = {
   register: ReactNode;
   /** On home, the plate in view re-authors the line under the mark. */
   workInView?: WorkInView;
+  /** The page's own heading. One h1 per page, saying what the page is. */
+  heading?: string;
 };
 
 /**
@@ -40,6 +47,7 @@ export function SiteNav({
   projectIdea = null,
   workOpen,
   studioOpen,
+  surfaceOpen = false,
   studioMuted = false,
   journeyClose,
   onHome,
@@ -49,6 +57,7 @@ export function SiteNav({
   onClose,
   register,
   workInView = null,
+  heading,
 }: Props) {
   const inProject = face === "view" && Boolean(projectName);
   const line = inProject && projectIdea ? projectIdea : face === "home" && workInView ? workInView.idea : TAGLINE;
@@ -95,7 +104,7 @@ export function SiteNav({
 
   return (
     <div className="hbw-pills-wrap">
-      {inProject ? null : <h1 className="hbw-site-nav__h1">{MARK} — {TAGLINE}</h1>}
+      {inProject ? null : <h1 className="hbw-site-nav__h1">{heading ?? `${MARK} — ${TAGLINE}`}</h1>}
       <div className="hbw-pills">
         {inProject ? (
           <>
@@ -157,7 +166,7 @@ export function SiteNav({
           HBW
         </span>
       </button>
-      {studioOpen && !inProject ? (
+      {surfaceOpen && !inProject ? (
         // The Studio has no bar of its own, so the way out sits where the line does.
         <p className="hbw-site-nav__shut-wrap">
           <button type="button" className="hbw-pill hbw-site-nav__shut" onClick={onStudioClose}>

@@ -18,7 +18,7 @@ export const STUDIO_COPY = {
     "A brief might begin with a name, an identity, packaging, a website or simply the sense that something isn’t quite right. We start there, then work out what the brand actually needs.",
   disciplineList: ["Strategy", "Naming", "Identity", "Storytelling", "Design"],
   contactLine: "Start a poster, or just email. We’ll take it from there.",
-  place: "Wentworth Falls, Blue Mountains",
+  place: "Wentworth Falls, Blue Mountains, Australia",
   opening:
     "You’ve built something real. But somewhere along the way, the brand stopped reflecting where it’s heading.",
   work: "That’s where we work.",

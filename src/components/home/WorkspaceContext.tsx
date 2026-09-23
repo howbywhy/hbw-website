@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import type { WindowMode } from "@/components/home/workspace";
 
-export type WorkspacePanelId = "studio" | "info" | null;
+export type WorkspacePanelId = "studio" | "index" | "info" | null;
 export type StudioView = "studio" | "manifesto";
 
 export type WorkspaceApi = {

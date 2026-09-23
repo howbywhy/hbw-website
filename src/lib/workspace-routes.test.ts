@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { catalogIdForSlug, PROJECT_SLUGS, projectById } from "../components/home/catalog";
 import { nextProject } from "../components/home/sequence";
-import { previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "./workspace-routes";
+import { isIndexPathname, previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "./workspace-routes";
 
 test("public project slugs stay on /projects", () => {
   assert.equal(projectSlugFromPath("/projects/sck"), "sck");
@@ -71,4 +71,16 @@ test("retired Nido is absent from public progression; OBR cycles to SCK", () => 
   assert.equal(nextProject("chris-sisarich")?.id, "our-boy-roy");
   assert.equal(nextProject("our-boy-roy")?.id, "sck");
   assert.equal(nextProject("bistro-nido"), null);
+});
+
+test("the index of work has its own address", () => {
+  assert.equal(isIndexPathname("/projects"), true);
+  assert.equal(isIndexPathname("/projects/"), true);
+  assert.equal(isIndexPathname("/projects?work=koja"), true);
+  assert.equal(isIndexPathname("/"), false);
+  assert.equal(isIndexPathname("/studio"), false);
+  // A single project is not the list of them.
+  assert.equal(isIndexPathname("/projects/koja"), false);
+  // "/index" collides with the home page's own prerender: never use it.
+  assert.equal(isIndexPathname("/index"), false);
 });

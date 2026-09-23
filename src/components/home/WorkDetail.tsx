@@ -2,7 +2,7 @@
 
 import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { RichTextBody } from "@/components/home/projects/RichText";
-import { HBW_T, reduceMotion } from "@/components/home/motion";
+import { HBW_EASE, HBW_T, reduceMotion } from "@/components/home/motion";
 import { PillThumb } from "@/components/home/pill-motion";
 import { WORK, detail, keyArt } from "@/components/home/work-data";
 
@@ -319,9 +319,14 @@ export function WorkDetail({ slug, origin, closing, closingAway = false, onClose
     const card = document.querySelector<HTMLElement>(`.hbw-card[data-hbw-plate="${slug}"] .hbw-card__hit`);
     const r = card?.getBoundingClientRect();
     const visible = !closingAway && r && r.right > 0 && r.left < window.innerWidth;
-    root.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 440, easing: EASE, fill: "forwards" });
+    // A plain ease for the fade: the spatial one is so front-loaded that the
+    // project is 64% gone in the first frame, which reads as a pop rather than
+    // a close. The panel keeps the spatial ease, because it travels.
+    root.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 440, easing: HBW_EASE, fill: "forwards" });
+    // The panel travels on the spatial ease; the fade is the root's job alone.
+    // Fading both, on an ease that is 64% done in one frame, was the pop.
     const anim = panel.animate(
-      [{ transform: "none" }, { transform: visible && r ? towards(panel, r) : "translateY(24px) scale(0.98)", opacity: visible ? 1 : 0 }],
+      [{ transform: "none" }, { transform: visible && r ? towards(panel, r) : "translateY(24px) scale(0.98)" }],
       { duration: 440, easing: EASE, fill: "forwards" }
     );
     anim.onfinish = onClosed;

@@ -2308,3 +2308,277 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     max-width: calc(100% - 2 * var(--hbw-space-4));
   }
 }
+
+/* --- Index: the whole record, on the Poster's own page ------------------------
+   The same surface as Studio — it rises from the bottom, loses the box, and is
+   closed from the nav — because a second full surface should not be a second
+   grammar. The list is quiet so it can be read: four columns, a hairline a row,
+   newest first. Resting on a row drops the rest away and brings that client's
+   logotype up behind it, in the page's own ink. */
+html.hbw-workspace .hbw-home .hbw-viewer--index {
+  top: calc(var(--hbw-space-3) + var(--hbw-pill-h) + var(--hbw-space-3));
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-detail--index {
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-detail--index .hbw-detail__scrim {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+html.hbw-workspace .hbw-home .hbw-index {
+  --t: clamp(0.875rem, 0.45rem + 0.55vw, 1.0625rem);
+  --L: calc(var(--t) * 1.5);
+  --t-caption: max(0.75rem, calc(var(--t) * 0.8));
+  --ink-mark: rgba(29, 29, 29, 0.09);
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: var(--viewer-top) var(--viewer-x) var(--hbw-space-5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-size: var(--t);
+  line-height: var(--L);
+}
+
+html.hbw-workspace .hbw-home .hbw-index:focus-visible {
+  outline: none;
+}
+
+/* The marks sit behind the list and never take a click. */
+html.hbw-workspace .hbw-home .hbw-index__marks {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__mark {
+  grid-area: 1 / 1;
+  width: min(42%, 380px);
+  height: 22vh;
+  margin-top: 32vh;
+  color: var(--ink-mark);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity var(--hbw-t-arrive) var(--hbw-arrive),
+    transform var(--hbw-t-arrive) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-index__mark.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--hbw-space-3);
+  padding-bottom: var(--hbw-space-3);
+}
+
+html.hbw-workspace .hbw-home .hbw-index__title {
+  margin: 0;
+  font-size: var(--t);
+  font-weight: 400;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__span {
+  margin: 0;
+  font-size: var(--t-caption);
+  color: var(--hbw-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4.4fr) minmax(0, 3.2fr) minmax(0, 3fr) auto;
+  column-gap: var(--hbw-space-4);
+  align-items: baseline;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__cols {
+  position: relative;
+  z-index: 1;
+  padding-bottom: var(--hbw-space-1);
+  border-bottom: 1px solid var(--hbw-hair);
+  font-size: var(--t-caption);
+  color: var(--hbw-muted);
+}
+
+html.hbw-workspace .hbw-home .hbw-index__rows {
+  position: relative;
+  z-index: 1;
+  display: grid;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__row {
+  width: 100%;
+  margin: 0;
+  padding: var(--hbw-space-2) 0;
+  border: 0;
+  border-bottom: 1px solid var(--hbw-hair);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  transition: opacity var(--hbw-t-answer) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-index__row:not(.is-waiting) {
+  cursor: pointer;
+}
+
+/* Resting on one row quietens the others, so the eye has one place to be. */
+html.hbw-workspace .hbw-home .hbw-index__rows.is-resting .hbw-index__row {
+  opacity: 0.26;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__rows.is-resting .hbw-index__row.is-on {
+  opacity: 1;
+}
+
+html.hbw-workspace .hbw-home .hbw-index__idea,
+html.hbw-workspace .hbw-home .hbw-index__w,
+html.hbw-workspace .hbw-home .hbw-index__s {
+  color: var(--hbw-muted);
+}
+
+html.hbw-workspace .hbw-home .hbw-index__y {
+  color: var(--hbw-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Not yet catalogued: present, but plainly not a claim. */
+html.hbw-workspace .hbw-home .hbw-index__row.is-waiting,
+html.hbw-workspace .hbw-home .hbw-index__row.is-waiting .hbw-index__w,
+html.hbw-workspace .hbw-home .hbw-index__row.is-waiting .hbw-index__s,
+html.hbw-workspace .hbw-home .hbw-index__row.is-waiting .hbw-index__y {
+  color: var(--hbw-faint);
+}
+
+html.hbw-workspace .hbw-home .hbw-index__foot {
+  position: relative;
+  z-index: 1;
+  margin: var(--hbw-space-4) 0 0;
+  max-width: 60ch;
+  font-size: var(--t-caption);
+  color: var(--hbw-faint);
+}
+
+@media (max-width: 767px) {
+  html.hbw-workspace .hbw-home .hbw-index__grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-index__w,
+  html.hbw-workspace .hbw-home .hbw-index__s {
+    display: none;
+  }
+
+  html.hbw-workspace .hbw-home .hbw-index__mark {
+    width: 64%;
+    height: 16vh;
+    margin-top: 30vh;
+  }
+}
+
+/* --- Index, beside the label ------------------------------------------------
+   The six on the line are what the studio leads with. The record sits with
+   them, named where the work is named, rather than waiting at the end. */
+.hbw-line__heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--hbw-space-3);
+  min-width: 0;
+}
+
+html.hbw-workspace .hbw-home .hbw-line__index {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--hbw-muted);
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--hbw-t-answer) var(--hbw-arrive);
+}
+
+/* .hbw-scroll is pointer-events: none. This opts back in, but only once the
+   line is in: at rest the head is opacity 0, and an invisible hit target over
+   the poster would swallow clicks meant for the poster itself. */
+html.hbw-workspace .hbw-home .hbw-window[data-hbw-work="in"] .hbw-line__index {
+  pointer-events: auto;
+}
+
+html.hbw-workspace .hbw-home .hbw-line__index:hover {
+  color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-line__index span {
+  display: inline-block;
+  transition: transform var(--hbw-t-answer) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-line__index:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* --- Published: the studio, written about by other people ------------------ */
+html.hbw-workspace .hbw-home .hbw-studio__press {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__press-link {
+  display: grid;
+  gap: var(--hbw-space-1);
+  padding: var(--hbw-space-2) 0;
+  border-top: 1px solid var(--hbw-hair);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color var(--hbw-t-answer) var(--hbw-arrive);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__press li:last-child .hbw-studio__press-link {
+  border-bottom: 1px solid var(--hbw-hair);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__press-link:hover {
+  border-top-color: var(--hbw-ink);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__press-name {
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__press-where {
+  font-size: var(--t-caption);
+  color: var(--hbw-muted);
+}
+
+html.hbw-workspace .hbw-home .hbw-studio__elsewhere {
+  grid-column: 1 / -1;
+  margin: var(--hbw-space-3) 0 0;
+  font-size: var(--t-caption);
+}

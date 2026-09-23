@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { StructuredData } from "@/components/StructuredData";
+import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
 
 const title = "HBW — Clarity for brands at a turning point";
 const description =
-  "HBW is a Sydney brand and design practice working with founders at moments of change. Strategy, identity, and design.";
+  "HBW (How by Why) is an independent brand and design practice led by Mark Blackler, based in the Blue Mountains and working with founders across Sydney and Australia. Brand strategy, identity and design.";
 
 export const metadata: Metadata = {
   title,
@@ -33,5 +35,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return null;
+  return <StructuredData nodes={[studioNode(), founderNode(), websiteNode(), workListNode()]} />;
 }

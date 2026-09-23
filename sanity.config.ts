@@ -1,11 +1,9 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { previewOnHbwAction } from "./src/sanity/actions/previewOnHbw";
-import { sanityDataset, sanityProjectId } from "./src/sanity/env";
+import { LISTING_FEATURED, LISTING_INDEX } from "./src/sanity/schemaTypes/listing";
 import { schemaTypes } from "./src/sanity/schemaTypes";
-
-const STUDIO_PROJECT_ID = sanityProjectId === "placeholder" ? "aagd1kcy" : sanityProjectId;
-const STUDIO_DATASET = sanityDataset || "production";
+import { studioDataset, studioProjectId } from "./src/sanity/studio-env";
 
 /**
  * Standalone hosted Studio. Not the public /studio practice page.
@@ -16,12 +14,16 @@ const STUDIO_DATASET = sanityDataset || "production";
  * Turbopack cannot compile — that error poisoned every local route.
  *
  * Run `npm run cms` (sanity dev / Vite) locally, or open the hosted Studio.
+ *
+ * Connection values come from studio-env, not src/sanity/env: the latter
+ * reads .env.local off disk, and bundling node:fs and a bare `process` into
+ * the browser broke the deployed Studio with "process is not defined".
  */
 export default defineConfig({
   name: "hbw-website",
   title: "HBW Projects",
-  projectId: STUDIO_PROJECT_ID,
-  dataset: STUDIO_DATASET,
+  projectId: studioProjectId,
+  dataset: studioDataset,
   plugins: [
     structureTool({
       structure: (S) =>
@@ -29,17 +31,61 @@ export default defineConfig({
           .title("Content")
           .items([
             S.listItem()
-              .title("Projects")
+              .title("Featured work")
               .schemaType("project")
               .child(
                 S.documentTypeList("project")
-                  .title("Projects")
+                  .title("Featured work")
+                  .filter('_type == "project" && listing != $index')
+                  .params({ index: LISTING_INDEX })
+                  .initialValueTemplates([S.initialValueTemplateItem("project-featured")])
                   .defaultOrdering([{ field: "portfolioOrder", direction: "asc" }])
+              ),
+            S.listItem()
+              .title("Index")
+              .schemaType("project")
+              .child(
+                S.documentTypeList("project")
+                  .title("Index")
+                  .filter('_type == "project" && listing == $index')
+                  .params({ index: LISTING_INDEX })
+                  .initialValueTemplates([S.initialValueTemplateItem("project-index")])
+                  .defaultOrdering([{ field: "year", direction: "desc" }])
+              ),
+            S.divider(),
+            S.listItem()
+              .title("All projects")
+              .schemaType("project")
+              .child(
+                S.documentTypeList("project")
+                  .title("All projects")
+                  .defaultOrdering([{ field: "year", direction: "desc" }])
               ),
           ]),
     }),
   ],
-  schema: { types: schemaTypes },
+  schema: {
+    types: schemaTypes,
+    // The + button in each list creates the right kind of document, so adding
+    // an archive row never starts life as a half-filled case study.
+    templates: (previous) => [
+      ...previous.filter((template) => template.id !== "project"),
+      {
+        id: "project-featured",
+        title: "Featured project",
+        description: "Full case study on the work line.",
+        schemaType: "project",
+        value: { listing: LISTING_FEATURED },
+      },
+      {
+        id: "project-index",
+        title: "Index entry",
+        description: "Archive row: name, year, sectors, disciplines, logotype.",
+        schemaType: "project",
+        value: { listing: LISTING_INDEX },
+      },
+    ],
+  },
   document: {
     actions: (previous, context) =>
       context.schemaType === "project" ? [...previous, previewOnHbwAction] : previous,

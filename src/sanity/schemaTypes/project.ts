@@ -6,6 +6,14 @@ import {
   uniqueMovementKeyMessage,
   type EditorMovement,
 } from "./editorRules";
+import {
+  LISTING_INDEX,
+  LISTING_OPTIONS,
+  featuredOnly,
+  onlyWhenFeatured,
+  requiredWhenFeatured,
+  requiredWhenIndexed,
+} from "./listing";
 
 function list(values: readonly string[]) {
   return values.map((value) => ({ title: value, value }));
@@ -40,6 +48,16 @@ export const project = defineType({
   ],
   fields: [
     defineField({
+      name: "listing",
+      title: "Listing",
+      type: "string",
+      group: "identity",
+      description:
+        "Featured projects carry a full case study and sit on the work line. Index entries are archive rows: four fields and a logotype, nothing else. Left empty it reads as Featured, which is what the original six are.",
+      options: { list: [...LISTING_OPTIONS], layout: "radio" },
+      initialValue: LISTING_INDEX,
+    }),
+    defineField({
       name: "title",
       title: "Title",
       type: "string",
@@ -54,7 +72,7 @@ export const project = defineType({
       description: "CMS and preview identity. Public CLOSED remains /projects/bar-closed.",
       options: { source: "title", maxLength: 96 },
       validation: (rule) =>
-        rule.required().custom(async (slug, context) => {
+        rule.custom(requiredWhenFeatured("Slug")).custom(async (slug, context) => {
           const current = slug && typeof slug === "object" && "current" in slug ? slug.current : "";
           if (!current || !context.document?._id) return true;
           const id = context.document._id.replace(/^drafts\./, "");
@@ -80,6 +98,7 @@ export const project = defineType({
       group: "identity",
       of: [{ type: "string" }],
       options: { list: list(PROJECT_SECTORS), layout: "grid" },
+      validation: (rule) => rule.custom(requiredWhenIndexed("Sectors")),
     }),
     defineField({
       name: "disciplines",
@@ -89,14 +108,15 @@ export const project = defineType({
       description: "Browse-filter labels. Authorship uses Roles.",
       of: [{ type: "string" }],
       options: { list: list(PROJECT_DISCIPLINES), layout: "grid" },
+      validation: (rule) => rule.custom(requiredWhenIndexed("Disciplines")),
     }),
     defineField({
       name: "proposition",
       title: "Proposition",
       type: "string",
       group: "identity",
-      description: "The positioning line.",
-      validation: (rule) => rule.required(),
+      description: "The positioning line. On an index row this is the grey line beside the name.",
+      validation: (rule) => rule.custom(requiredWhenFeatured("Proposition")),
     }),
     defineField({
       name: "location",
@@ -105,11 +125,36 @@ export const project = defineType({
       group: "identity",
     }),
     defineField({
+      name: "logotype",
+      title: "Logotype (SVG)",
+      type: "file",
+      group: "identity",
+      description:
+        "The client logotype, as SVG. It is recoloured to a single ink on the way out, so any fills in the file are ignored. Upload the plain logotype, not a lockup with a strapline.",
+      options: { accept: "image/svg+xml,.svg" },
+      validation: (rule) =>
+        rule.custom((value) => {
+          const asset = (value as { asset?: { _ref?: string } } | undefined)?.asset?._ref;
+          if (!asset) return true;
+          return asset.endsWith("-svg") || "The logotype has to be an SVG so it can be recoloured.";
+        }),
+    }),
+    defineField({
+      name: "logotypeScale",
+      title: "Logotype scale",
+      type: "number",
+      group: "identity",
+      description:
+        "Optional nudge, 0.5 to 1.5, for a mark that reads too big or too small against the others. 1 is the default size.",
+      validation: (rule) => rule.min(0.5).max(1.5),
+    }),
+    defineField({
       name: "context",
       title: "Context",
       type: "projectPortableText",
       group: "projectInfo",
-      validation: (rule) => rule.required().min(1),
+      hidden: featuredOnly,
+      validation: (rule) => rule.custom(requiredWhenFeatured("Context")),
     }),
     defineField({
       name: "roles",
@@ -118,7 +163,8 @@ export const project = defineType({
       group: "projectInfo",
       of: [{ type: "string" }],
       options: { list: list(PROJECT_ROLES), layout: "grid" },
-      validation: (rule) => rule.required().min(1),
+      hidden: featuredOnly,
+      validation: (rule) => rule.custom(requiredWhenFeatured("Role")),
     }),
     defineField({
       name: "workingContext",
@@ -126,6 +172,7 @@ export const project = defineType({
       type: "string",
       group: "projectInfo",
       description: "Optional provenance. Distinct from With. Not a required Independent default.",
+      hidden: featuredOnly,
     }),
     defineField({
       name: "collaborators",
@@ -133,6 +180,7 @@ export const project = defineType({
       type: "array",
       group: "projectInfo",
       of: [{ type: "collaborator" }],
+      hidden: featuredOnly,
     }),
     defineField({
       name: "idea",
@@ -140,21 +188,24 @@ export const project = defineType({
       type: "caseStudyBlock",
       group: "projectInfo",
       description: "Heading and body are both required.",
-      validation: (rule) => rule.required().custom(requiredSectionBody("Idea", true)),
+      hidden: featuredOnly,
+      validation: (rule) => rule.custom(onlyWhenFeatured(requiredSectionBody("Idea", true))),
     }),
     defineField({
       name: "shift",
       title: "Shift",
       type: "caseStudyBlock",
       group: "projectInfo",
-      validation: (rule) => rule.required().custom(requiredSectionBody("Shift")),
+      hidden: featuredOnly,
+      validation: (rule) => rule.custom(onlyWhenFeatured(requiredSectionBody("Shift"))),
     }),
     defineField({
       name: "system",
       title: "System",
       type: "caseStudyBlock",
       group: "projectInfo",
-      validation: (rule) => rule.required().custom(requiredSectionBody("System")),
+      hidden: featuredOnly,
+      validation: (rule) => rule.custom(onlyWhenFeatured(requiredSectionBody("System"))),
     }),
     defineField({
       name: "outcome",
@@ -162,6 +213,7 @@ export const project = defineType({
       type: "caseStudyBlock",
       group: "projectInfo",
       description: "Optional. Leave empty when the case study has no outcome.",
+      hidden: featuredOnly,
     }),
     defineField({
       name: "testimonials",
@@ -170,6 +222,7 @@ export const project = defineType({
       group: "projectInfo",
       of: [{ type: "testimonial" }],
       description: "Optional. Approved client testimonials for possible future use. Not shown on the site.",
+      hidden: featuredOnly,
     }),
     defineField({
       name: "movements",
@@ -179,8 +232,9 @@ export const project = defineType({
       of: [{ type: "movement" }],
       description:
         "Gallery order is this list order. Each row should read like 03 — STILL — MAJOR — PAUSE. Drag to reorder with the built-in control.",
+      hidden: featuredOnly,
       validation: (rule) => [
-        rule.required().min(1),
+        rule.custom(requiredWhenFeatured("A movement sequence")),
         rule.custom((movements) => terminalPairMessage(movements as EditorMovement[] | undefined)),
         rule.custom((movements) => uniqueMovementKeyMessage(movements as EditorMovement[] | undefined)),
         rule
@@ -200,14 +254,17 @@ export const project = defineType({
       group: "presentation",
       description: "Stored portfolio still. Browse Visual / Index currently read catalog.ts, not this field.",
       options: { hotspot: true },
+      hidden: featuredOnly,
     }),
     defineField({
       name: "portfolioOrder",
       title: "Portfolio order",
       type: "number",
       group: "presentation",
-      description: "Manual editorial order. Not derived from year. Does not drive the live site yet.",
-      validation: (rule) => rule.required().integer().min(1),
+      description:
+        "Manual editorial order for the work line. Not derived from year. Index entries are ordered by year instead.",
+      hidden: featuredOnly,
+      validation: (rule) => rule.integer().min(1).custom(requiredWhenFeatured("Portfolio order")),
     }),
     defineField({
       name: "contributionNotes",
@@ -233,6 +290,11 @@ export const project = defineType({
   ],
   orderings: [
     {
+      title: "Year, newest first",
+      name: "yearDesc",
+      by: [{ field: "year", direction: "desc" }],
+    },
+    {
       title: "Portfolio order",
       name: "portfolioOrderAsc",
       by: [{ field: "portfolioOrder", direction: "asc" }],
@@ -250,12 +312,18 @@ export const project = defineType({
       slug: "slug.current",
       media: "preview",
       movements: "movements",
+      listing: "listing",
+      logotype: "logotype.asset._ref",
     },
-    prepare({ title, year, slug, media, movements }) {
+    prepare({ title, year, slug, media, movements, listing, logotype }) {
+      const indexOnly = listing === LISTING_INDEX;
       const count = Array.isArray(movements) ? movements.length : 0;
+      const parts = indexOnly
+        ? [year, logotype ? "logotype" : "no logotype"]
+        : [year, slug, count ? `${count} movements` : null];
       return {
         title: title || "Untitled project",
-        subtitle: [year, slug, count ? `${count} movements` : null].filter(Boolean).join(" · "),
+        subtitle: [indexOnly ? "Index" : "Featured", ...parts].filter(Boolean).join(" · "),
         media,
       };
     },
