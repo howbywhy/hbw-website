@@ -7,6 +7,11 @@
    ========================================================================== */
 
 html.hbw-workspace {
+  /*
+   * How much of the work line shows while the Poster is at rest. The Poster's
+   * toolbar sits above it, so the band owns the bottom edge at every width.
+   */
+  --hbw-band: 200px;
   --hbw-field: #faf8f3;
   --hbw-window: #faf8f3;
   --hbw-page: #faf8f3;
@@ -432,7 +437,15 @@ html.hbw-workspace .hbw-home .hbw-window[data-hbw-work="in"] .hbw-line-away {
 .hbw-line {
   --rise: 0;
   --pad: var(--hbw-space-4);
-  padding: 0 var(--pad);
+  /*
+   * How much of the work shows while the Poster is at rest. The line is parked
+   * at the foot rather than hidden below it, so the homepage has the work on
+   * it without the Poster giving up the page.
+   */
+  --band: var(--hbw-band, 200px);
+  --card-w: clamp(18rem, 33vw, 36rem);
+  /* Flush to both edges while it is a band; padded once it is a line. */
+  padding: 0 calc(var(--rise) * var(--pad));
 }
 
 .hbw-line__head {
@@ -498,18 +511,24 @@ html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on::after {
 }
 
 /*
- * Each card has its own moment in the rise (--t, staggered by --i). Before it
- * settles it sits lower, a little apart and a little turned, like prints being
- * gathered into a line; at --t = 1 it is squared into the row.
+ * Each card has its own moment in the rise (--t, staggered by --i).
+ *
+ * At rest the cards are parked at the very foot of the window, aligned and at
+ * full strength, so a band of the work is always on the homepage. The old
+ * resting state scattered and turned them 62vh below the fold, like prints
+ * waiting to be gathered — a lovely arrival, but it cannot coexist with a
+ * band that has to sit square and flush to the edge.
+ *
+ * --park is how far down that is: the stage's own bottom padding, plus
+ * whatever of the card's height is not meant to show.
  */
 .hbw-card {
   --t: clamp(0, calc(var(--rise) * 1.9 - var(--i) * 0.15), 1);
+  --card-h: calc(var(--card-w, clamp(18rem, 33vw, 36rem)) * 9 / 16);
+  --park: calc(clamp(24px, 7vh, 72px) + var(--card-h) - var(--band, var(--hbw-band, 200px)));
   flex: 0 0 var(--card-w, clamp(18rem, 33vw, 36rem));
   pointer-events: auto;
-  opacity: clamp(0, calc(var(--t) * 1.6), 1);
-  transform:
-    translate3d(calc((1 - var(--t)) * (var(--i) - 2.5) * 3vw), calc((1 - var(--t)) * 62vh), 0)
-    rotate(calc((1 - var(--t)) * (var(--i) - 2.5) * 2.2deg));
+  transform: translate3d(0, calc((1 - var(--t)) * var(--park)), 0);
 }
 
 html.hbw-workspace .hbw-home .hbw-card__hit {
@@ -517,7 +536,8 @@ html.hbw-workspace .hbw-home .hbw-card__hit {
   display: block;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: var(--hbw-card-r);
+  /* Square while it is a band running off the edge; rounded once it is a line. */
+  border-radius: calc(var(--rise) * var(--hbw-card-r));
   background: #f2f2f0;
   color: var(--hbw-ink);
   text-decoration: none;
@@ -1596,7 +1616,8 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar {
   padding: 0;
   border: 0;
   background: transparent;
-  bottom: clamp(var(--hbw-space-3) + 8px, 4.5vh, var(--hbw-space-4) + 16px);
+  /* Above the band, which owns the bottom edge. */
+  bottom: calc(var(--hbw-band, 0px) + clamp(var(--hbw-space-3) + 8px, 4.5vh, var(--hbw-space-4) + 16px));
 }
 
 /* The four pills of the main row. */
@@ -2095,6 +2116,9 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
 
   .hbw-card {
     --card-w: 78vw;
+    /* A phone card is 171px tall, so the band is shorter than the desktop one
+       or it would ask the card to show more of itself than it has. */
+    --band: 150px;
   }
 
   html.hbw-workspace .hbw-home .hbw-line__dashes button {
@@ -2228,7 +2252,10 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     gap: var(--hbw-pill-gap);
     width: calc(100% - 2 * var(--hbw-space-2));
     max-width: none;
-    bottom: calc(var(--hbw-space-2) + env(safe-area-inset-bottom, 0px) + var(--hbw-vv-inset, 0px));
+    bottom: calc(
+      var(--hbw-band, 0px) + var(--hbw-space-2) + env(safe-area-inset-bottom, 0px) +
+        var(--hbw-vv-inset, 0px)
+    );
   }
 
   html.hbw-workspace .hbw-home .hbw-poster-title,
@@ -2519,6 +2546,11 @@ html.hbw-workspace .hbw-home .hbw-index__y {
      logotype takes the top of the screen and the record starts below it, so
      the thing you are resting on is shown rather than glimpsed. The marks
      block has real height here, which is what pushes the list down. */
+  html.hbw-workspace .hbw-home,
+  html.hbw-workspace {
+    --hbw-band: 150px;
+  }
+
   html.hbw-workspace .hbw-home .hbw-index {
     /* Behind a list the mark is a watermark, so it stays faint. Above the
        list it is the subject: it says which project you are on, and a
