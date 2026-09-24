@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { CmsPreviewProvider } from "@/components/home/CmsPreviewContext";
 import { HbwMotionSessionProvider } from "@/components/home/HbwMotionSession";
@@ -75,6 +76,12 @@ export default function RootLayout({
         <CmsPreviewProvider>
           <HbwMotionSessionProvider>{children}</HbwMotionSessionProvider>
         </CmsPreviewProvider>
+        {/*
+          Page views, referrers, countries and devices, from the host the site
+          already runs on. Cookieless, so it needs no consent banner — which is
+          the reason to prefer it here over Google Analytics.
+        */}
+        <Analytics />
       </body>
     </html>
   );
