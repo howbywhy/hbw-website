@@ -149,7 +149,6 @@ function flipMark(update: () => void, ms: number = HBW_T.continuity) {
 
 function modeFromLocation(path: string): WindowMode {
   if (viewSlugFromPath(path)) return "view";
-  if (path === "/" && projectsLayerFromUrl()) return "browse";
   return "make";
 }
 
@@ -1459,8 +1458,20 @@ export function HbwShell({
   }
 
   function resumeOrigin(origin: OriginFrame | undefined) {
-    if (!origin || origin.kind === "browse") {
-      if (origin?.kind === "browse") restoreBrowseOrigin(origin);
+    /*
+     * No origin means the reader did not arrive from anywhere in the site:
+     * a search result, a shared link, an old bookmark. They were falling into
+     * the browse branch, so the one control on a /projects/<slug> page sent
+     * them to a grid of six projects that nothing else links to and that the
+     * index contradicts. They land on the Poster now, like anyone else who
+     * has just arrived.
+     */
+    if (!origin) {
+      homeFromView();
+      return;
+    }
+    if (origin.kind === "browse") {
+      restoreBrowseOrigin(origin);
       exitToProjects("replace");
       return;
     }
@@ -1807,7 +1818,11 @@ export function HbwShell({
                   if (panel) closePanel();
                   workScrollRef.current?.toWork();
                 }
-              } else goProjects();
+              } else {
+                // Work means the record of the work, which is the index.
+                lastWorkSurface.current = "index";
+                openPanel("index");
+              }
             }}
             workInView={navFace === "home" && !panel ? workInView : null}
             heading={pageHeading}

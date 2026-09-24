@@ -241,6 +241,11 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       const br = bar.getBoundingClientRect();
       // The toolbar slides in and out (e.g. on Back it re-enters from 18px lower). Measure
       // where it rests, not where it is mid-slide, or the note lands on top of it.
+      //
+      // Only the vertical slide is subtracted. The horizontal transform is
+      // translateX(-50%), which is how the toolbar is centred — it is part of
+      // where it rests, not a slide, and taking it out puts the note 246px to
+      // the right.
       const slide = new DOMMatrixReadOnly(getComputedStyle(bar).transform === "none" ? undefined : getComputedStyle(bar).transform).m42;
       note.style.left = `${Math.max(0, br.left - fr.left)}px`;
       note.style.bottom = "auto";
@@ -267,6 +272,17 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     }
     resize();
     window.addEventListener("resize", resize);
+    /*
+     * The note is placed from wherever the toolbar is at the moment it is
+     * measured. Coming home from a project the toolbar is still sliding, so
+     * the note kept the mid-flight position — 50px right of the toolbar, for
+     * the rest of the session. Place it again once the slide finishes.
+     */
+    const settle = (event: Event) => {
+      if ((event.target as HTMLElement | null)?.classList?.contains("hbw-poster-toolbar")) resize();
+    };
+    const wrapEl = wrapRef.current;
+    wrapEl?.addEventListener("transitionend", settle);
     const vv = window.visualViewport;
     let frame = 0;
     let last = -1;
@@ -290,6 +306,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     applyInset();
     return () => {
       window.removeEventListener("resize", resize);
+      wrapEl?.removeEventListener("transitionend", settle);
       vv?.removeEventListener("resize", onViewport);
       vv?.removeEventListener("scroll", onViewport);
       if (frame) window.cancelAnimationFrame(frame);
