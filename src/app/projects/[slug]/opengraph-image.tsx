@@ -30,7 +30,7 @@ export default async function Image({ params }: Props) {
           flexDirection: "column",
           justifyContent: "center",
           padding: 80,
-          backgroundColor: "#f4f5f3",
+          backgroundColor: "#faf8f3",
           fontFamily: "Geist",
           color: "#333",
         }}
