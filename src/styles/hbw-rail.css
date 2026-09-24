@@ -2505,15 +2505,6 @@ html.hbw-workspace .hbw-home .hbw-index__y {
   font-variant-numeric: tabular-nums;
 }
 
-html.hbw-workspace .hbw-home .hbw-index__foot {
-  position: relative;
-  z-index: 1;
-  margin: var(--hbw-space-4) 0 0;
-  max-width: 60ch;
-  font-size: var(--t-caption);
-  color: var(--hbw-faint);
-}
-
 @media (max-width: 767px) {
   html.hbw-workspace .hbw-home .hbw-index__grid {
     grid-template-columns: minmax(0, 1fr) auto;

@@ -281,8 +281,6 @@ export function IndexDetail({ entries, span, leaving, resuming = false, onClose,
                 );
               })}
             </div>
-
-            <p className="hbw-index__foot">Older work joins this list as it is catalogued.</p>
           </div>
         </div>
       </article>
