@@ -9,7 +9,7 @@ import {
 const rising: MotionSession = {
   kind: "enter",
   phase: "rising",
-  swap: { from: "browse", to: "view", phase: "entering" },
+  swap: { from: "make", to: "view", phase: "entering" },
   windowMode: "view",
   activeId: "sck",
   viewIndex: 0,
@@ -55,9 +55,9 @@ test("close/back session keeps exiting across the project → home boundary", ()
     ...rising,
     kind: "exit",
     phase: "exiting",
-    swap: { from: "view", to: "browse", phase: "exiting" },
+    swap: { from: "view", to: "make", phase: "exiting" },
     cinematic: false,
     entrance: "reduced",
   });
-  assert.equal(phaseAfterRouteBoundary(store.read(), "/?layer=projects"), "exiting");
+  assert.equal(phaseAfterRouteBoundary(store.read(), "/"), "exiting");
 });

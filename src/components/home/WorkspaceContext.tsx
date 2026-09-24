@@ -11,8 +11,6 @@ export type WorkspaceApi = {
   openPanel: (id: Exclude<WorkspacePanelId, null>) => void;
   closePanel: () => void;
   panel: WorkspacePanelId;
-  openProjects: () => void;
-  closeProjects: () => void;
   returnToMake: () => void;
 };
 
