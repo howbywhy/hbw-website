@@ -54,8 +54,7 @@ html.hbw-workspace {
   --hbw-lh-body: 1.45;
   --hbw-tool: 1.9rem;
   --hbw-task-h: 2.75rem;
-  /* Clear of the work band, which owns the bottom edge. */
-  --hbw-task-bottom: calc(var(--hbw-band, 0px) + var(--hbw-space-3));
+  --hbw-task-bottom: var(--hbw-space-3);
   --hbw-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --hbw-motion-micro: 140ms;
   --hbw-motion-ui: 240ms;
@@ -3646,7 +3645,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
 @media screen and (max-width: 767px) {
   html.hbw-workspace {
     --hbw-edge: var(--hbw-space-2);
-    --hbw-task-bottom: calc(var(--hbw-band, 0px) + var(--hbw-space-2));
+    --hbw-task-bottom: var(--hbw-space-2);
     --hbw-hit: 2.75rem;
     --hbw-header-h: calc(
       max(var(--hbw-space-2), env(safe-area-inset-top, 0px)) + var(--hbw-nav-line) + var(--hbw-nav-gap) +
