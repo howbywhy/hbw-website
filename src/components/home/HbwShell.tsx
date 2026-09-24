@@ -6,7 +6,6 @@ import { flushSync } from "react-dom";
 import { SiteNav } from "@/components/home/SiteNav";
 import { WorkScroll, type WorkInView, type WorkScrollHandle } from "@/components/home/WorkScroll";
 import { PosterTool } from "@/components/home/PosterTool";
-import { ProjectsLayer } from "@/components/home/ProjectsLayer";
 import { PROJECTS, matchesFilter, projectById, sortProjects } from "@/components/home/catalog";
 import { useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
 import { NavRegister } from "@/components/home/NavRegister";
@@ -103,9 +102,8 @@ const MARK_FLIP_SELECTORS = [
 ] as const;
 
 function identityAssembled(mode: WindowMode, swap: Swap | null) {
-  if (mode === "browse" || mode === "view") return true;
+  if (mode === "view") return true;
   if (swap?.to === "make") return false;
-  if (swap?.to === "browse") return true;
   return false;
 }
 
@@ -149,7 +147,6 @@ function flipMark(update: () => void, ms: number = HBW_T.continuity) {
 
 function modeFromLocation(path: string): WindowMode {
   if (viewSlugFromPath(path)) return "view";
-  if (path === "/" && projectsLayerFromUrl()) return "browse";
   return "make";
 }
 
@@ -216,7 +213,6 @@ export function HbwShell({
   const [sort, setSort] = useState<SortId>(resumed?.browse?.sort ?? "edited");
   const [activeId, setActiveId] = useState(resumed?.activeId ?? (slug || PROJECTS[0].id));
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [infoAnchor, setInfoAnchor] = useState<InfoSectionId>("idea");
   const [viewIndex, setViewIndex] = useState(resumed?.viewIndex ?? 0);
   const [fullFrame, setFullFrame] = useState(false);
@@ -238,23 +234,13 @@ export function HbwShell({
   const savedIndex = useRef<Record<string, number>>({});
   const keepBrowse = useRef(resumed?.keepBrowse ?? false);
   const entranceRef = useRef<"archive" | "reduced" | "handoff" | "field">(resumed?.entrance ?? "reduced");
-  const [returnBrowseChrome, setReturnBrowseChrome] = useState(false);
   const [entryChrome, setEntryChrome] = useState(false);
-  const [restoredBrowse, setRestoredBrowse] = useState(
-    () => resumed?.kind === "exit" && resumed.entrance === "field"
-  );
   const resumeLock = useRef(Boolean(resumed));
   const routeHold = useRef(false);
   if (resumeLock.current) motionLock.current = true;
   const originStack = useRef<OriginFrame[]>([]);
   const [originKind, setOriginKind] = useState<OriginFrame["kind"] | "none">("none");
   const [parkedX, setParkedX] = useState<number | null>(resumed?.parkedX ?? null);
-  const browseScrollRef = useRef({ visual: 0, index: 0 });
-  const pendingBrowseScroll = useRef<{ mode: ProjectsMode; y: number } | null>(
-    resumed?.browse?.scroll != null && resumed.browse.mode
-      ? { mode: resumed.browse.mode, y: resumed.browse.scroll }
-      : null
-  );
   const panelRef = useRef(panel);
   const closingPanelRef = useRef(false);
   const homeRef = useRef<HTMLDivElement>(null);
@@ -271,27 +257,6 @@ export function HbwShell({
     originStack.current = stack;
     persistOrigin(stack);
     setOriginKind(stack.at(-1)?.kind || "none");
-  }
-
-  function projectsScroller() {
-    return homeRef.current?.querySelector<HTMLElement>(".hbw-projects");
-  }
-
-  function captureBrowseScroll() {
-    const el = projectsScroller();
-    const y = el ? el.scrollTop : browseScrollRef.current[browseMode];
-    browseScrollRef.current[browseMode] = y;
-    return y;
-  }
-
-  function restoreBrowseScroll(mode: ProjectsMode, y?: number) {
-    const target = y ?? browseScrollRef.current[mode];
-    const apply = () => {
-      const el = projectsScroller();
-      if (el) el.scrollTop = target;
-    };
-    apply();
-    requestAnimationFrame(apply);
   }
 
   function captureViewX() {
@@ -376,7 +341,6 @@ export function HbwShell({
     heldVisual.current = null;
     geometryWait.current = null;
     settleEnter.current = null;
-    setReturnBrowseChrome(false);
     setEntryChrome(false);
     motion?.clear();
     homeRef.current?.querySelectorAll<HTMLElement>(".hbw-projects").forEach((node) => {
@@ -405,9 +369,7 @@ export function HbwShell({
       const elapsed = Date.now() - resumed.startedAt;
       const remain = (ms: number) => Math.max(0, ms - elapsed);
       if (resumed.kind === "enter" || resumed.kind === "handoff") {
-        const fieldEnter =
-          resumed.kind === "enter" &&
-          (resumed.entrance === "field" || resumed.swap?.from === "browse");
+        const fieldEnter = resumed.kind === "enter" && resumed.entrance === "field";
         if (resumed.kind === "handoff" && !reduceMotion()) {
           requestAnimationFrame(() => requestAnimationFrame(() => setPhase("assembling")));
         } else if (fieldEnter) {
@@ -430,37 +392,18 @@ export function HbwShell({
           }
         });
       } else if (resumed.kind === "exit") {
-        if (resumed.phase === "idle" || (resumed.entrance === "field" && !resumed.swap)) {
-          setWindowMode("browse");
+        /*
+         * "exit" was a project closing back into the browse grid. A session
+         * written by the old build can still say this — it lives in
+         * sessionStorage, not in the bundle — so it settles on the Poster
+         * rather than being treated as a state that no longer exists.
+         */
+        later(remain(HBW_T.continuity), () => {
+          setWindowMode("make");
           setPhase("idle");
-          setRestoredBrowse(true);
           finishSwap();
-          const pending = pendingBrowseScroll.current;
-          pendingBrowseScroll.current = null;
-          if (pending) {
-            browseScrollRef.current[pending.mode] = pending.y;
-            restoreBrowseScroll(pending.mode, pending.y);
-          }
           restoreFocus();
-        } else {
-          later(remain(HBW_T.spatial), () => setReturnBrowseChrome(true));
-          later(remain(HBW_T.continuity), () => {
-            setWindowMode("browse");
-            setPhase("idle");
-            finishSwap({ unlock: false });
-            setRestoredBrowse(true);
-            const pending = pendingBrowseScroll.current;
-            pendingBrowseScroll.current = null;
-            if (pending) {
-              browseScrollRef.current[pending.mode] = pending.y;
-              restoreBrowseScroll(pending.mode, pending.y);
-            }
-            routeHold.current = true;
-            if (viewSlugFromPath(window.location.pathname)) router.replace("/?layer=projects");
-            else if (projectsLayerFromUrl()) releaseRouteHold();
-            restoreFocus();
-          });
-        }
+        });
       } else {
         later(remain(HBW_T.continuity), () => {
           setPhase("idle");
@@ -518,7 +461,6 @@ export function HbwShell({
     setFilterDim(workspace.projects.filterDim);
     setFilterValue(workspace.projects.filterValue);
     setSort(workspace.projects.sort);
-    setExpandedId(workspace.projects.expandedId);
     if (!slug) setActiveId(workspace.projects.activeId);
     return () => {
       document.documentElement.classList.remove("hbw-workspace", "hbw-home-prototype");
@@ -719,26 +661,9 @@ export function HbwShell({
   }, [heldSuffix]);
 
   useEffect(() => {
-    if (windowMode !== "browse") return;
-    PROJECTS.forEach((project) => preloadProject(project.id));
-  }, [windowMode]);
-
-  useEffect(() => {
     if (!hoveredId) return;
     preloadProject(hoveredId);
   }, [hoveredId]);
-
-  useEffect(() => {
-    const root = homeRef.current;
-    if (!root) return;
-    function onScroll(event: Event) {
-      const el = event.target;
-      if (!(el instanceof HTMLElement) || !el.classList.contains("hbw-projects")) return;
-      browseScrollRef.current[browseMode] = el.scrollTop;
-    }
-    root.addEventListener("scroll", onScroll, true);
-    return () => root.removeEventListener("scroll", onScroll, true);
-  }, [browseMode]);
 
   function captureInspectMedia() {
     window.dispatchEvent(new Event("hbw:inspect-capture"));
@@ -871,85 +796,10 @@ export function HbwShell({
     closePanel();
   }
 
-  function openProjects() {
-    completeIntro();
-    rememberFocus();
-    if (windowMode === "view" || phase === "rising" || phase === "assembling" || phase === "active") {
-      exitToProjects();
-      return;
-    }
-    if (motionLock.current) return;
-    setHoveredId(null);
-    setPanel(null);
-    setPanelLeaving(false);
-    motionLock.current = true;
-    clearMotionTimers();
-    const fromPeek = peek.open;
-    flipMark(() => {
-      flushSync(() => {
-        peek.hideNow();
-        if (fromPeek) {
-          setWindowMode("browse");
-          setPhase("idle");
-          setSwap({ from: "make", to: "browse", phase: "entering" });
-        } else {
-          setSwap({ from: "make", to: "browse", phase: "exiting" });
-        }
-      });
-    }, HBW_T.spatial);
-    if (fromPeek) {
-      if (pathname !== "/") router.push("/?layer=projects");
-      else syncProjectsUrl(true);
-      later(HBW_T.spatial, () => {
-        finishSwap();
-      });
-      return;
-    }
-    later(HBW_T.micro, () => {
-      setWindowMode("browse");
-      setPhase("idle");
-      setSwap({ from: "make", to: "browse", phase: "entering" });
-      if (pathname !== "/") router.push("/?layer=projects");
-      else syncProjectsUrl(true);
-      later(HBW_T.spatial, () => {
-        finishSwap();
-      });
-    });
-  }
-
-  function closeProjects() {
-    if (motionLock.current) return;
-    setRestoredBrowse(false);
-    setHoveredId(null);
-    closePanel();
-    motionLock.current = true;
-    clearMotionTimers();
-    flipMark(() => {
-      flushSync(() => {
-        setSwap({ from: "browse", to: "make", phase: "exiting" });
-        setWindowMode("make");
-        setPhase("idle");
-      });
-    }, HBW_T.spatial);
-    if (pathname !== "/") {
-      router.push("/");
-    } else {
-      syncProjectsUrl(false);
-    }
-    later(HBW_T.spatial, () => {
-      finishSwap();
-      restoreFocus();
-    });
-  }
-
   function returnToMake() {
     completeIntro();
     if (windowMode === "view" || phase === "rising" || phase === "assembling" || phase === "active" || phase === "handoff-in") {
       homeFromView();
-      return;
-    }
-    if (windowMode === "browse") {
-      closeProjects();
       return;
     }
     if (panel) closePanel();
@@ -985,96 +835,11 @@ export function HbwShell({
     returnToMake();
   }
 
-  function goProjects() {
-    if (windowMode === "browse" || (swap?.from === "browse" && swap.to === "make")) return;
-    openProjects();
-  }
-
   function goPractice() {
     if (panel === "info") return;
     if (manifestoOpen) return;
     if (studioClose) return;
     openPanel("studio");
-  }
-
-  function exitToProjects(history: "push" | "replace" = "push") {
-    if (phase === "exiting" || motionLock.current) return;
-    commitOrigin([]);
-    setHoveredId(null);
-    setPanel(null);
-    setPanelLeaving(false);
-    setLeaving(null);
-    setEntryChrome(false);
-    setReturnBrowseChrome(false);
-    motionLock.current = true;
-    clearMotionTimers();
-    if (viewSlug) savedIndex.current[viewSlug] = viewIndex;
-    keepBrowse.current = true;
-    const pending = pendingBrowseScroll.current;
-    const browseState = pending
-      ? { mode: pending.mode, filterDim, filterValue, sort, scroll: pending.y }
-      : { mode: browseMode, filterDim, filterValue, sort, scroll: captureBrowseScroll() };
-    pendingBrowseScroll.current = { mode: browseState.mode, y: browseState.scroll ?? 0 };
-    restoreBrowseScroll(browseState.mode, browseState.scroll);
-    setSwap({ from: "view", to: "browse", phase: "preparing" });
-    restoreBrowseScroll(browseState.mode, browseState.scroll);
-    flushSync(() => {
-      setSwap({ from: "view", to: "browse", phase: "exiting" });
-      setPhase("exiting");
-    });
-    writeMotionCrossing({
-      kind: "exit",
-      phase: "exiting",
-      swap: { from: "view", to: "browse", phase: "exiting" },
-      windowMode: "view",
-      activeId,
-      viewIndex,
-      leaving: null,
-      entrance: "field",
-      keepBrowse: true,
-      parkedX: null,
-      cinematic: false,
-      startedAt: Date.now(),
-      browse: browseState,
-    });
-    later(HBW_T.spatial, () => setReturnBrowseChrome(true));
-    later(HBW_T.continuity, () => {
-      setWindowMode("browse");
-      setPhase("idle");
-      setSwap(null);
-      setReturnBrowseChrome(false);
-      setEntryChrome(false);
-      setRestoredBrowse(true);
-      homeRef.current?.querySelectorAll<HTMLElement>(".hbw-projects").forEach((node) => {
-        node.getAnimations().forEach((anim) => anim.cancel());
-      });
-      writeMotionCrossing({
-        kind: "exit",
-        phase: "idle",
-        swap: null,
-        windowMode: "browse",
-        activeId,
-        viewIndex,
-        leaving: null,
-        entrance: "field",
-        keepBrowse: true,
-        parkedX: null,
-        cinematic: false,
-        startedAt: Date.now(),
-        browse: browseState,
-      });
-      const next = pendingBrowseScroll.current;
-      pendingBrowseScroll.current = null;
-      if (next) {
-        browseScrollRef.current[next.mode] = next.y;
-        restoreBrowseScroll(next.mode, next.y);
-      }
-      routeHold.current = true;
-      if (history === "replace") router.replace("/?layer=projects");
-      else router.push("/?layer=projects");
-      if (!viewSlugFromPath(window.location.pathname)) releaseRouteHold();
-      restoreFocus();
-    });
   }
 
   function homeFromView() {
@@ -1115,22 +880,19 @@ export function HbwShell({
     });
   }
 
-  async function enterProject(id: string, fromHint?: "make" | "browse") {
+  async function enterProject(id: string, fromHint?: "make") {
     completeIntro();
     if (motionLock.current) return;
     rememberFocus();
     const token = ++enterGen.current;
-    const from: WindowMode =
-      fromHint ?? (windowMode === "view" ? "view" : windowMode === "make" ? "make" : "browse");
-    const fromBrowse = from === "browse";
-    const source = fromBrowse ? captureBrowseVisual(id) : null;
+    const from: WindowMode = fromHint ?? (windowMode === "view" ? "view" : "make");
+    // The travelling card came from the grid, which is where a card was.
+    const source = null;
     const mobileEnter = isMobileViewport();
     const reducedEnter = reduceMotion();
-    const travel = Boolean(source) && !mobileEnter && !reducedEnter;
-    entranceRef.current = fromBrowse ? "field" : "reduced";
+    const travel = false;
+    entranceRef.current = "reduced";
     setEntryChrome(false);
-    setReturnBrowseChrome(false);
-    setRestoredBrowse(false);
     setLeaving(null);
     setActive(id);
     setHoveredId(null);
@@ -1142,21 +904,8 @@ export function HbwShell({
     savedIndex.current[id] = 0;
     setFullFrame(false);
     setParkedX(null);
-    keepBrowse.current = from === "browse" || from === "view";
     settleEnter.current = null;
     if (from === "make") commitOrigin([{ kind: "make" }]);
-    else if (from === "browse")
-      commitOrigin([
-        {
-          kind: "browse",
-          mode: browseMode,
-          id,
-          filterDim,
-          filterValue,
-          sort,
-          scroll: captureBrowseScroll(),
-        },
-      ]);
     else if (viewSlug) {
       commitOrigin([
         ...originStack.current,
@@ -1164,17 +913,8 @@ export function HbwShell({
       ]);
     }
     markEnterTiming({ click: performance.now() });
-    if (source) {
-      flushSync(() => {
-        setActive(id);
-        const live = captureBrowseVisual(id) ?? source;
-        heldVisual.current = live;
-        setEnterBridge({ visual: live, dest: null, mode: "hold" });
-      });
-    } else {
-      heldVisual.current = null;
-      setEnterBridge(null);
-    }
+    heldVisual.current = null;
+    setEnterBridge(null);
     setSwap({ from, to: "view", phase: "preparing" });
     const href = PROJECTS.find((p) => p.id === id)?.href || `/projects/${id}`;
     const destStill = destinationStill(id);
@@ -1210,10 +950,6 @@ export function HbwShell({
         setPhase("active");
         finishSwap();
       });
-      if (fromBrowse) {
-        markEnterTiming({ routeStart: performance.now() });
-        router.push(href);
-      }
       focusSelector(
         ".hbw-site-nav__close:not([aria-disabled]), .hbw-site-nav__studio[aria-pressed=\"true\"], .hbw-nav-sub__face--info button"
       );
@@ -1251,41 +987,17 @@ export function HbwShell({
         parkedX: null,
         cinematic: false,
         startedAt: Date.now(),
-        browse: {
-          mode: browseMode,
-          filterDim,
-          filterValue,
-          sort,
-          scroll: browseScrollRef.current[browseMode],
-        },
       });
       markEnterTiming({ transitionStart: performance.now() });
       if (from === "make") flipMark(go);
       else go();
-      if (!fromBrowse) router.push(href);
+      router.push(href);
     });
-    if (fromBrowse) {
-      later(travel ? 80 : 0, () => {
-        if (token !== enterGen.current) return;
-        setEntryChrome(true);
-        setPhase("assembling");
-      });
-    } else {
-      later(0, () => {
-        if (token !== enterGen.current) return;
-        setPhase("assembling");
-      });
-      later(HBW_T.continuity, finishEnter);
-    }
-    if (fromBrowse && source) {
-      const fallback = window.setTimeout(
-        () => settleEnter.current?.(),
-        (travel ? HBW_T.spatial : HBW_T.ui) + 80
-      );
-      motionTimer.current.push(fallback);
-    } else if (fromBrowse) {
-      later(HBW_T.continuity, finishEnter);
-    }
+    later(0, () => {
+      if (token !== enterGen.current) return;
+      setPhase("assembling");
+    });
+    later(HBW_T.continuity, finishEnter);
   }
 
   function commitNext() {
@@ -1294,7 +1006,7 @@ export function HbwShell({
     if (!fromId) return;
     const nxt = nextProject(fromId);
     if (!nxt) {
-      exitToProjects();
+      homeFromView();
       return;
     }
     setHoveredId(null);
@@ -1381,7 +1093,7 @@ export function HbwShell({
     if (motionLock.current) return;
     const fromId = viewSlug;
     if (!fromId || fromId === nextSlug) {
-      exitToProjects();
+      homeFromView();
       return;
     }
     setHoveredId(null);
@@ -1447,21 +1159,17 @@ export function HbwShell({
     });
   }
 
-  function restoreBrowseOrigin(origin: Extract<OriginFrame, { kind: "browse" }>) {
-    setProjectsMode(origin.mode, { silent: true });
-    setActive(origin.id);
-    setProjectsLens(origin.filterDim || "all", origin.filterValue || "");
-    if (origin.sort) setProjectsSort(origin.sort);
-    pendingBrowseScroll.current = {
-      mode: origin.mode,
-      y: origin.scroll ?? browseScrollRef.current[origin.mode],
-    };
-  }
-
   function resumeOrigin(origin: OriginFrame | undefined) {
-    if (!origin || origin.kind === "browse") {
-      if (origin?.kind === "browse") restoreBrowseOrigin(origin);
-      exitToProjects("replace");
+    /*
+     * No origin means the reader did not arrive from anywhere in the site:
+     * a search result, a shared link, an old bookmark. They were falling into
+     * the browse branch, so the one control on a /projects/<slug> page sent
+     * them to a grid of six projects that nothing else links to and that the
+     * index contradicts. They land on the Poster now, like anyone else who
+     * has just arrived.
+     */
+    if (!origin) {
+      homeFromView();
       return;
     }
     if (origin.kind === "make") {
@@ -1511,18 +1219,12 @@ export function HbwShell({
       apply();
       return;
     }
-    const y = captureBrowseScroll();
-    runViewTransition(() => {
-      flushSync(apply);
-      const el = projectsScroller();
-      if (el) el.scrollTop = y;
-    }, "archive");
+    runViewTransition(() => flushSync(apply), "archive");
   }
 
   function setProjectsLens(dim: FilterDim, value: string) {
     setFilterDim(dim);
     setFilterValue(value);
-    setExpandedId(null);
     workspace.projects.filterDim = dim;
     workspace.projects.filterValue = value;
     workspace.projects.expandedId = null;
@@ -1531,15 +1233,8 @@ export function HbwShell({
 
   function setProjectsSort(next: SortId) {
     setSort(next);
-    setExpandedId(null);
     workspace.projects.sort = next;
     workspace.projects.expandedId = null;
-    persistWorkspace();
-  }
-
-  function setProjectsExpanded(id: string | null) {
-    setExpandedId(id);
-    workspace.projects.expandedId = id;
     persistWorkspace();
   }
 
@@ -1593,10 +1288,10 @@ export function HbwShell({
           closeToOrigin();
           return;
         }
-        if (windowMode === "browse") closeProjects();
         return;
       }
-      if (windowMode !== "browse" || panel || peek.open || practicePeek.open) return;
+      // Arrow keys walked the grid. Nothing walks now.
+      return;
       const list = sortProjects(
         PROJECTS.filter((p) => matchesFilter(p, filterDim, filterValue)),
         sort
@@ -1625,41 +1320,19 @@ export function HbwShell({
     return () => document.removeEventListener("keydown", onKey);
   }, [activeId, browseMode, filterDim, filterValue, fullFrame, hoveredId, panel, peek.open, practicePeek.open, phase, sort, windowMode]);
 
-  const makeActive = windowMode === "make" && swap?.from !== "browse";
-  const browseDropping = swap?.from === "browse" && swap.to === "make";
+  const makeActive = windowMode === "make";
   const preparingView = swap?.to === "view" && swap.phase === "preparing";
-  const fromBrowse = swap?.from === "browse";
-  const holdBrowseChrome =
-    fromBrowse &&
-    !entryChrome &&
-    (swap?.phase === "preparing" || phase === "rising");
-  const holdViewChromeOnReturn =
-    swap?.from === "view" && swap.to === "browse" && !returnBrowseChrome;
-  const browseOpen =
-    windowMode === "browse" ||
-    browseDropping ||
-    (swap?.to === "browse" && (swap.phase === "preparing" || swap.phase === "exiting")) ||
-    (keepBrowse.current &&
-      (windowMode === "view" || preparingView || phase === "exiting" || phase === "rising" || phase === "assembling"));
   const viewToMakeExit = swap?.from === "view" && swap?.to === "make";
   const navFace =
-    holdViewChromeOnReturn
-      ? "view"
-      : returnBrowseChrome && swap?.to === "browse"
-        ? "browse"
-        : holdBrowseChrome
-      ? "browse"
-      : viewToMakeExit
-        ? "home"
-        : phase === "assembling" ||
-            phase === "active" ||
-            phase === "handoff-in" ||
-            phase === "exiting" ||
-            (windowMode === "view" && phase !== "rising" && phase !== "idle")
-          ? "view"
-          : windowMode === "browse" || browseDropping
-            ? "browse"
-            : "home";
+    viewToMakeExit
+      ? "home"
+      : phase === "assembling" ||
+          phase === "active" ||
+          phase === "handoff-in" ||
+          phase === "exiting" ||
+          (windowMode === "view" && phase !== "rising" && phase !== "idle")
+        ? "view"
+        : "home";
   const leavingExp = leaving
     ? previewHeld.current?.slug === leaving.id
       ? previewHeld.current
@@ -1673,23 +1346,16 @@ export function HbwShell({
   const chromeExperience = chromeLocked ? leavingExp : experience;
   const chromeIndex = chromeLocked && leaving ? leaving.index : viewIndex;
   const showView =
-    Boolean(experience) &&
-    (fromBrowse && preparingView
-      ? true
-      : !preparingView && (windowMode === "view" || phase !== "idle"));
+    Boolean(experience) && !preparingView && (windowMode === "view" || phase !== "idle");
   const viewExit = navFace === "view" && panel !== "info" && panel !== "studio" && panel !== "index";
   const assembled = identityAssembled(windowMode, swap);
   const sheetResolved = panel === "studio" && !panelLeaving && !assembled;
   const peekResolved = Boolean(!assembled && peek.open && peekProject);
   const resolved = sheetResolved || peekResolved;
-  const hoverName =
-    assembled && !narrow && windowMode === "browse" && hoveredId
-      ? PROJECTS.find((project) => project.id === hoveredId)?.name
-      : null;
+  // The grid was the only surface with cards to hover.
+  const hoverName = null;
   const identitySuffix =
-    holdBrowseChrome || (returnBrowseChrome && swap?.to === "browse")
-      ? hoverName || "Projects"
-      : viewToMakeExit && swap.phase === "exiting" && experience && !reduceMotion()
+    viewToMakeExit && swap.phase === "exiting" && experience && !reduceMotion()
       ? projectById(experience.slug).name
       : (navFace === "view" || windowMode === "view") && experience
         ? heldSuffix ||
@@ -1726,14 +1392,7 @@ export function HbwShell({
           : "HBW — clarity for brands at a turning point";
   const muteProjects = panel === "studio" || indexOpen;
   const muteStudio = panel === "info";
-  const hideProjectsHit =
-    navFace !== "browse" && !(swap?.from === "browse" && swap.to === "make");
-  const isOwning = fromBrowse
-    ? phase === "rising" || phase === "assembling"
-    : Boolean(swap?.to === "view" || phase === "rising" || phase === "assembling");
-  const browseEntering = fromBrowse
-    ? phase === "rising" || phase === "assembling"
-    : windowMode === "view" || phase === "rising" || phase === "assembling";
+  const hideProjectsHit = true;
   const hideStudioHit = !studioAsClose;
   const boundaryNext =
     !narrow &&
@@ -1750,8 +1409,6 @@ export function HbwShell({
         openPanel,
         closePanel,
         panel,
-        openProjects,
-        closeProjects,
         returnToMake,
       }}
     >
@@ -1764,17 +1421,15 @@ export function HbwShell({
         }${
           practicePeek.open && panel !== "studio" ? " is-practice-peek" : ""
         }${
-          isOwning ? " is-owning" : ""
+          swap?.to === "view" || phase === "rising" || phase === "assembling" ? " is-owning" : ""
         }${enterBridge ? " is-bridging" : ""}${
           enterBridge?.mode === "fade" ? " is-enter-fade" : ""
-        }${restoredBrowse ? " is-restored-browse" : ""}${boundaryNext ? " is-boundary" : ""}${
+        }${boundaryNext ? " is-boundary" : ""}${
           fullFrame && phase === "active" ? " is-full-frame" : ""
         } is-phase-${phase}${swap ? ` is-swap-${swap.phase}` : ""}`}
         data-hbw-project={viewSlug || undefined}
         data-hbw-held-suffix={heldSuffix || undefined}
         data-hbw-origin={originKind}
-        data-hbw-lens={filterValue || undefined}
-        data-hbw-browse={browseMode}
         data-hbw-motion={swap?.phase || phase}
         data-hbw-from={swap?.from}
         data-hbw-to={swap?.to}
@@ -1785,15 +1440,14 @@ export function HbwShell({
             projectName={namedProject?.name ?? null}
             projectIdea={projectIdea}
             /* Studio lights its own pill while it is open; the index belongs to Work, so Work stays lit. */
-            workOpen={navFace === "browse" || (navFace === "home" && Boolean(workInView) && (!panel || indexOpen))}
+            workOpen={navFace === "home" && Boolean(workInView) && (!panel || indexOpen)}
             studioOpen={studioAsClose}
             surfaceOpen={studioAsClose || indexOpen}
             studioMuted={muteStudio}
             journeyClose={viewJourneyClose}
             onHome={toPoster}
             onWork={() => {
-              if (navFace === "browse" || (swap?.from === "browse" && swap.to === "make")) closeProjects();
-              else if (windowMode === "make") {
+              if (windowMode === "make") {
                 // Work means the work surface you were last on. Pressing it from
                 // the Studio returns you to the index if that is where you were;
                 // pressing it inside the index takes you back out to the line.
@@ -1807,7 +1461,11 @@ export function HbwShell({
                   if (panel) closePanel();
                   workScrollRef.current?.toWork();
                 }
-              } else goProjects();
+              } else {
+                // Work means the record of the work, which is the index.
+                lastWorkSurface.current = "index";
+                openPanel("index");
+              }
             }}
             workInView={navFace === "home" && !panel ? workInView : null}
             heading={pageHeading}
@@ -1899,28 +1557,6 @@ export function HbwShell({
             />
           ) : null}
           {children}
-          {browseOpen ? (
-          <ProjectsLayer
-            open={browseOpen && !inspecting}
-            dropping={browseDropping}
-            entering={browseEntering}
-            owning={isOwning}
-            mode={browseMode}
-            selectedId={activeId}
-            hoveredId={hoveredId}
-            expandedId={expandedId}
-            filterDim={filterDim}
-            filterValue={filterValue}
-            sort={sort}
-            onHover={setHoveredId}
-            onExpand={setProjectsExpanded}
-            onSelect={setActive}
-            onEnterProject={(id) => enterProject(id, "browse")}
-            onLens={setProjectsLens}
-            onMode={setProjectsMode}
-            onClose={closeProjects}
-          />
-          ) : null}
           {leaving && leavingExp ? (
             <ProjectView
               key={`out-${leaving.id}`}

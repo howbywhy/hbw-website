@@ -7,7 +7,7 @@ export type { PosterObj, PosterState, PosterToolId, Pt } from "@/components/home
 
 export type ProjectsMode = "visual" | "index";
 
-export type WindowMode = "make" | "browse" | "view";
+export type WindowMode = "make" | "view";
 
 export type FilterDim = "all" | "year" | "sector" | "discipline" | "collaborator";
 export type SortId = "edited" | "newest" | "az";
@@ -18,22 +18,16 @@ export type SortId = "edited" | "newest" | "az";
  * entered from, not whatever happened to render previously.
  *
  * Home → project            [{ make }]
- * Projects → project        [{ browse, mode, scroll, … }]
  * project → Next project    […entry, { view, slug, index, x }]
+ *
+ * An empty stack is someone who arrived from outside, and they go to the
+ * Poster. It used to mean the browse grid, which is how a search result
+ * ended up on a page that listed six of the fourteen projects.
  *
  * Animation only renders the transition. It must not invent the destination.
  */
 export type OriginFrame =
   | { kind: "make" }
-  | {
-      kind: "browse";
-      mode: ProjectsMode;
-      id: string;
-      filterDim?: FilterDim;
-      filterValue?: string;
-      sort?: SortId;
-      scroll?: number;
-    }
   | { kind: "view"; slug: string; index: number; x?: number };
 
 export type ProjectsState = {
@@ -151,20 +145,6 @@ export function persistOrigin(stack: OriginFrame[]) {
 function parseOriginFrame(frame: OriginFrame): OriginFrame | null {
   if (!frame || typeof frame !== "object") return null;
   if (frame.kind === "make") return { kind: "make" };
-  if (frame.kind === "browse") {
-    const filterDim = frame.filterDim;
-    const filterValue = typeof frame.filterValue === "string" ? frame.filterValue : "";
-    const live = isKnownFilter(filterDim || "all", filterValue);
-    return {
-      kind: "browse",
-      mode: frame.mode === "index" ? "index" : "visual",
-      id: typeof frame.id === "string" ? frame.id : PROJECTS[0].id,
-      filterDim: live ? filterDim : "all",
-      filterValue: live ? filterValue : "",
-      sort: frame.sort,
-      scroll: typeof frame.scroll === "number" ? frame.scroll : undefined,
-    };
-  }
   if (frame.kind === "view") {
     return {
       kind: "view",
