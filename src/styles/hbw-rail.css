@@ -2510,6 +2510,7 @@ html.hbw-workspace .hbw-home .hbw-index__foot {
        list it is the subject: it says which project you are on, and a
        subject you cannot read is not doing its job. */
     --ink-mark: var(--hbw-ink);
+    padding-top: 0;
   }
 
   html.hbw-workspace .hbw-home .hbw-index__marks {
@@ -2518,6 +2519,11 @@ html.hbw-workspace .hbw-home .hbw-index__foot {
     height: 38vh;
     margin-bottom: var(--hbw-space-3);
     background: var(--hbw-ground);
+    /* The panel's own top padding sat above the mark, leaving an 8px band where
+       rows slid past under the pills — a sliver of a name and a hairline, which
+       is what the list looked broken at. The padding moves onto the mark, so
+       its background starts at the very top of the scrollport. */
+    padding-top: var(--viewer-top);
   }
 
   html.hbw-workspace .hbw-home .hbw-index__mark {
@@ -2526,10 +2532,37 @@ html.hbw-workspace .hbw-home .hbw-index__foot {
     margin-top: 0;
   }
 
+  /* The list scrolls beneath the mark, not across it. The rows carry z-index 1
+     for the desktop treatment, where the mark is a watermark behind them; here
+     the mark is the header and a name sliding over a logotype is just noise. */
+  html.hbw-workspace .hbw-home .hbw-index__marks {
+    z-index: 2;
+  }
+
   /* One column for the name and one for the line beneath it, so every
-     positioning line starts at the same place instead of trailing the name. */
+     positioning line starts at the same place instead of trailing the name.
+
+     The arrow used to sit after the line. Once the line is a block of its own
+     the arrow has nowhere to go but a third row, which made every openable row
+     21px taller than every record and gave the list a limp. It rides with the
+     name now, where it also reads as part of what you are about to press. */
+  html.hbw-workspace .hbw-home .hbw-index__name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
   html.hbw-workspace .hbw-home .hbw-index__idea {
-    display: block;
+    order: 1;
+    flex: 0 0 100%;
+  }
+
+  /* Resting quietens the other rows so the eye has one place to be. That is an
+     answer to a pointer — "this is the one you are on" — and there is no
+     pointer here, so it only left thirteen of fourteen rows too faint to read.
+     The mark above the list does the pointing instead. */
+  html.hbw-workspace .hbw-home .hbw-index__rows.is-resting .hbw-index__row {
+    opacity: 1;
   }
 }
 
