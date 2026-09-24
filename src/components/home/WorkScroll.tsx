@@ -65,6 +65,11 @@ type Props = {
   onDetailClosing?: () => void;
   /** …and has finished closing. */
   onDetailClosed?: () => void;
+  /** Whether a project is currently open over the Poster. Reported as state
+   *  rather than as two events, so no path can set one edge and miss the
+   *  other — switching straight from one project to the next sets `open`
+   *  twice without ever closing. */
+  onDetailState?: (open: boolean) => void;
 };
 
 function pad(n: number) {
@@ -83,7 +88,7 @@ type Geometry = { rise: number; travel: number; step: number };
  * a card and it opens into a preview; choose it and its detail grows out of it,
  * over everything. Nothing ever navigates away from the Poster.
  */
-export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onStudio, onIndex, onDetailClosing, onDetailClosed }, ref) {
+export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onStudio, onIndex, onDetailClosing, onDetailClosed, onDetailState }, ref) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLElement>(null);
@@ -96,6 +101,12 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
   const [preview, setPreview] = useState<string | null>(null);
   const intent = useRef(0);
   const [open, setOpen] = useState<{ slug: string; origin: DOMRect | null } | null>(null);
+
+  // Tell the shell when the Poster is covered, so it can stand down.
+  const detailOpen = Boolean(open);
+  useEffect(() => {
+    onDetailState?.(detailOpen);
+  }, [detailOpen, onDetailState]);
   const [closing, setClosing] = useState(false);
   const [away, setAway] = useState(false);
   /** Opened from the index: closing goes back there, so it must not fly to a card. */

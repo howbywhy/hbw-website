@@ -1460,6 +1460,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
                   ? "shape"
                   : "none"
       }
+      // Dormant means something is drawn over the Poster — the Studio, the
+      // index, a project — so it is neither readable nor reachable. It only
+      // started covering the project case when the shell learned to report it.
       aria-hidden={hidden || dormant ? true : undefined}
       inert={hidden || dormant || undefined}
       style={{ ["--hbw-field" as string]: background }}

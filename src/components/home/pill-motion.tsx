@@ -95,9 +95,38 @@ export function FluidPill({ className = "", text, children }: { className?: stri
     const el = pill.current;
     const body = inner.current;
     if (!el || !body) return;
-    const styles = getComputedStyle(el);
-    const pad = Number.parseFloat(styles.paddingLeft) + Number.parseFloat(styles.paddingRight);
-    el.style.width = `${Math.ceil(body.scrollWidth + pad)}px`;
+    let live = true;
+
+    const measure = () => {
+      if (!live) return;
+      const styles = getComputedStyle(el);
+      const pad = Number.parseFloat(styles.paddingLeft) + Number.parseFloat(styles.paddingRight);
+      const want = `${Math.ceil(body.scrollWidth + pad)}px`;
+      // Writing the same value back would restart the width transition for no
+      // reason, and this runs again every time a font finishes loading.
+      if (el.style.width !== want) el.style.width = want;
+    };
+
+    measure();
+
+    /**
+     * Measure again once the fonts have settled. The first measurement can
+     * land before the face is usable, and the pill then keeps the fallback's
+     * metrics for the life of the text — the practice line rendered 270px
+     * wide instead of 282 on a cold cache, which is a visible step on the one
+     * edge of the page that is meant to be still.
+     *
+     * document.fonts is absent in older browsers and rejects in none of the
+     * ones that have it, but a failed promise here would be a pill stuck at
+     * the wrong width, so it is caught.
+     */
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(measure).catch(() => {});
+    }
+
+    return () => {
+      live = false;
+    };
   }, [text]);
 
   return (

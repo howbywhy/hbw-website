@@ -228,6 +228,9 @@ export function HbwShell({
   const [narrow, setNarrow] = useState(false);
   const workScrollRef = useRef<WorkScrollHandle>(null);
   const [workInView, setWorkInView] = useState<WorkInView>(null);
+  /** A project is open over the Poster. The Poster is not merely behind it —
+   *  it is completely covered, and a covered surface should not hold focus. */
+  const [workCovering, setWorkCovering] = useState(false);
   const motionTimer = useRef<number[]>([]);
   const motionLock = useRef(false);
   const viewTransitionLock = useRef(false);
@@ -776,7 +779,11 @@ export function HbwShell({
     if (next === "index" && windowMode === "make" && !isIndexPathname(pathname)) {
       router.push("/projects");
     }
-    if (next === "studio") focusSelector(".hbw-site-nav__studio");
+    // The Studio is not listed here. It is a role="dialog" aria-modal="true"
+    // panel and it focuses its own root on mount; pointing focus back at the
+    // nav pill afterwards left the reader standing outside a dialog that tells
+    // assistive technology everything outside it is hidden. Escape still
+    // returns focus to the pill, through rememberFocus/restoreFocus.
     if (next === "info") focusSelector('.hbw-sheet[data-hbw-sheet="project-right"]');
   }
 
@@ -1837,11 +1844,12 @@ export function HbwShell({
         </header>
 
         <div className="hbw-window">
-          <PosterTool dormant={!makeActive || panel === "studio" || indexOpen} />
+          <PosterTool dormant={!makeActive || panel === "studio" || indexOpen || workCovering} />
           <WorkScroll
             ref={workScrollRef}
             visible={makeActive && !swap && panel !== "studio" && !indexOpen}
             onInView={setWorkInView}
+            onDetailState={setWorkCovering}
             onStudio={() => openPanel("studio")}
             onIndex={() => {
               cameFromIndex.current = false;

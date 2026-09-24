@@ -6,7 +6,7 @@ import { join } from "node:path";
 export const OG = {
   width: 1200,
   height: 630,
-  field: "#f4f5f3", // --hbw-field
+  field: "#faf8f3", // --hbw-field
   ink: "#333", // workspace body; not a named token
   mutedAlpha: 0.55, // .hbw-mark-descriptor
   track: 0.02, // --hbw-ui-track (em)
