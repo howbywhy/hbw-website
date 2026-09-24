@@ -2059,9 +2059,32 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     display: inline;
   }
 
-  .hbw-site-nav__line-wrap,
-  .hbw-site-nav__shut-wrap {
+  .hbw-site-nav__line-wrap {
     grid-column: 1 / -1;
+  }
+
+  /* Close is a pill; the line is a sentence. Only the sentence needs a row of
+     its own — sending Close down with it cost 36px of the screen and left the
+     top of the nav looking like it had failed to fit. A third track appears
+     only when there is a Close to put in it, so the mark stays flush right on
+     the Poster. */
+  .hbw-pills-wrap:has(> .hbw-site-nav__shut-wrap) {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  /* Work, Studio and Contact come to 201px, the mark 59 and Close 65, which
+     with the gaps and the edge needs 349. Under that the three of them do not
+     fit and the mark starts crossing Contact, so Close goes back to a row of
+     its own. Measured, not guessed: at 375 there are 30px to spare and at 320
+     the mark overlapped by 25. */
+  @media (max-width: 359px) {
+    .hbw-pills-wrap:has(> .hbw-site-nav__shut-wrap) {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .hbw-site-nav__shut-wrap {
+      grid-column: 1 / -1;
+    }
   }
 
   .hbw-viewer__next-clip {
