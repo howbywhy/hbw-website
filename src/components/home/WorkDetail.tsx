@@ -41,13 +41,12 @@ export function WorkDetail({ slug, origin, closing, closingAway = false, onClose
   const project = WORK.find((p) => p.id === slug) ?? WORK[0];
   const d = detail(project);
   const total = d.frames.length;
-  const start = Math.max(0, d.frames.findIndex((f) => f.src === d.art.src));
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<Mode>("gallery");
-  const [index, setIndex] = useState(start);
+  const [index, setIndex] = useState(0);
   /** The strip has run past this project's last frame: the next one is being revealed. */
   const [upNext, setUpNext] = useState(false);
   const glide = useRef<{ target: number | null; raf: number }>({ target: null, raf: 0 });
@@ -257,8 +256,10 @@ export function WorkDetail({ slug, origin, closing, closingAway = false, onClose
   );
   useLayoutEffect(() => {
     const strip = stripRef.current;
-    // A carousel opens on the project's key frame; a stack opens at its top.
-    const first = stacked() ? 0 : start;
+    // Every project opens at its first frame. The carousel used to open on the
+    // key frame — the one the card showed — so the image you clicked stayed put,
+    // but the counter then read 02 / 21 on arrival, which reads as a fault.
+    const first = 0;
     if (strip) {
       strip.scrollLeft = stacked() ? 0 : frameLeft(first);
       strip.scrollTop = 0;
@@ -496,7 +497,7 @@ export function WorkDetail({ slug, origin, closing, closingAway = false, onClose
                     srcSet={f.srcSet}
                     sizes="(max-width: 767px) 90vw, 70vw"
                     alt={f.alt ?? ""}
-                    loading={Math.abs(f.index - start) <= 2 ? "eager" : "lazy"}
+                    loading={f.index <= 2 ? "eager" : "lazy"}
                     decoding="async"
                     draggable={false}
                   />
