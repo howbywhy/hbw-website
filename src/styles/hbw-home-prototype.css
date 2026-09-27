@@ -11,10 +11,10 @@ html.hbw-workspace {
   --hbw-x-practice: calc(var(--hbw-x-projects) - 2rem);
   --hbw-x-manifesto: calc(var(--hbw-x-edge) - min(26rem, 29vw));
   --hbw-space-1: 4px;
-  --hbw-space-2: 8px;
-  --hbw-space-3: 16px;
-  --hbw-space-4: 32px;
-  --hbw-space-5: 64px;
+  --hbw-space-2: 6px;
+  --hbw-space-3: 12px;
+  --hbw-space-4: 20px;
+  --hbw-space-5: 40px;
   --hbw-edge: 12px;
   --hbw-header-pad-y: var(--hbw-space-2);
   --hbw-nav-line: calc(var(--hbw-lg) * 1.2);
@@ -1087,10 +1087,10 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 
 .hbw-poster-field {
   position: absolute;
-  inset: 0;
+  inset: 0 0 calc(var(--hbw-work-h, 0px) + var(--hbw-poster-stack, 0px)) 0;
   margin: 0;
   background: var(--hbw-field, #f4f5f3);
-  overflow: hidden;
+  overflow: visible;
   z-index: 1;
   user-select: none;
   -webkit-user-select: none;

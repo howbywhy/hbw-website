@@ -162,9 +162,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   const noteRef = useRef<HTMLParagraphElement>(null);
   const [emailError, setEmailError] = useState("");
   const [emailStatus, setEmailStatus] = useState("");
-  const [reviewing, setReviewing] = useState(false);
   const [sending, setSending] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState("");
   editingIdRef.current = editingId;
   skipIdRef.current = editingId;
   selectedIdsRef.current = selectedIds;
@@ -186,14 +184,14 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     const wrap = wrapRef.current;
     const marquee = marqueeRef.current;
     paint(ctx, objectsRef.current, draftRef.current, wrap?.clientWidth ?? 0, wrap?.clientHeight ?? 0, {
-      selectedIds: frozen || reviewing || sending || making !== "rest" ? [] : selectedIds,
-      chrome: !frozen && !reviewing && !sending && !editingIdRef.current && making === "rest",
+      selectedIds: frozen || sending || making !== "rest" ? [] : selectedIds,
+      chrome: !frozen && !sending && !editingIdRef.current && making === "rest",
       skipId: skipIdRef.current,
       reposition,
       marquee: marquee ? rectFromPoints(marquee.start, marquee.current) : null,
       background,
     });
-  }, [background, frozen, making, reviewing, reposition, selectedIds, sending]);
+  }, [background, frozen, making, reposition, selectedIds, sending]);
 
   function tryPromote(w: number, h: number) {
     if (workspace.poster.schema !== 2) return;
@@ -218,6 +216,13 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
+    const noteEl = noteRef.current;
+    const barEl = wrap.querySelector<HTMLElement>(".hbw-poster-toolbar");
+    if (noteEl && barEl) {
+      const gap = window.matchMedia("(max-width: 767px)").matches ? 12 : 14;
+      const stack = Math.round(barEl.getBoundingClientRect().height + gap + noteEl.getBoundingClientRect().height + 10);
+      wrap.style.setProperty("--hbw-poster-stack", `${stack}px`);
+    }
     const w = wrap.clientWidth;
     const h = wrap.clientHeight;
     const keyboard =
@@ -283,6 +288,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     };
     const wrapEl = wrapRef.current;
     wrapEl?.addEventListener("transitionend", settle);
+    const host = wrapEl?.closest<HTMLElement>(".hbw-window");
+    const onWorkHeight = new MutationObserver(resize);
+    if (host) onWorkHeight.observe(host, { attributes: true, attributeFilter: ["style"] });
     const vv = window.visualViewport;
     let frame = 0;
     let last = -1;
@@ -307,6 +315,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     return () => {
       window.removeEventListener("resize", resize);
       wrapEl?.removeEventListener("transitionend", settle);
+      onWorkHeight.disconnect();
       vv?.removeEventListener("resize", onViewport);
       vv?.removeEventListener("scroll", onViewport);
       if (frame) window.cancelAnimationFrame(frame);
@@ -327,10 +336,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   useEffect(() => {
     redraw();
-    if (!reviewing || frozen || sending) return;
-    const canvas = canvasRef.current;
-    if (canvas) setPreviewUrl(canvasToSendDataUrl(canvas));
-  }, [redraw, reviewing, frozen, sending]);
+  }, [redraw]);
 
   function snapshot() {
     undoRef.current = undoRef.current.concat([objectsRef.current.map((o) => structuredClone(o))]).slice(-40);
@@ -641,7 +647,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   }
 
   function onPointerDown(event: React.PointerEvent<HTMLCanvasElement>) {
-    if (frozen || dormant || reviewing || sending) return;
+    if (frozen || dormant || sending) return;
     if (making === "draw" && !placeKind) event.preventDefault();
     const p = pos(event);
     lastPtrRef.current = p;
@@ -791,7 +797,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   }
 
   function onPointerMove(event: React.PointerEvent<HTMLCanvasElement>) {
-    if (frozen || dormant || reviewing || sending) return;
+    if (frozen || dormant || sending) return;
     const p = pos(event);
     lastPtrRef.current = p;
     const f = field();
@@ -972,7 +978,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function onDragOver(event: React.DragEvent) {
     event.preventDefault();
-    if (frozen || dormant || reviewing || sending) return;
+    if (frozen || dormant || sending) return;
     if (![...event.dataTransfer.types].includes("Files")) return;
     const p = pos(event);
     lastPtrRef.current = p;
@@ -990,7 +996,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     event.preventDefault();
     setDropping(false);
     setGhost(null);
-    if (frozen || dormant || reviewing || sending) return;
+    if (frozen || dormant || sending) return;
     const file = firstDroppedImage(event.dataTransfer.files);
     if (!file) return;
     void dropImageFile(file, pos(event));
@@ -1009,25 +1015,12 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     });
   }
 
-  function openReview() {
-    if (editingIdRef.current) commitEdit();
-    if (!hasComposition()) {
-      setEmailError("Add something to send.");
-      setEmailStatus("");
-      return;
-    }
-    setEmailError("");
-    setEmailStatus("");
-    restWithSelection(null);
-    setReviewing(true);
-    remember();
-  }
-
-  function exitReview() {
-    if (sendingRef.current) return;
-    setReviewing(false);
-    setEmailStatus("");
-    remember();
+  function messageFromPoster() {
+    return objectsRef.current
+      .filter((obj): obj is TextObject => obj.kind === "text")
+      .map((obj) => obj.text.trim())
+      .filter((line) => line.length > 0)
+      .join("\n");
   }
 
   function thaw() {
@@ -1040,8 +1033,10 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   async function submitSend() {
     if (frozen || sendingRef.current) return;
-    if (!reviewing) {
-      openReview();
+    if (editingIdRef.current) commitEdit();
+    if (!hasComposition()) {
+      setEmailError("Add something to send.");
+      setEmailStatus("");
       return;
     }
     const address = email.trim();
@@ -1051,11 +1046,13 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       return;
     }
     setEmailError("");
-    const payload = previewUrl || (canvasRef.current ? canvasToSendDataUrl(canvasRef.current) : "");
+    const payload = canvasRef.current ? canvasToSendDataUrl(canvasRef.current) : "";
     if (!payload) {
       setEmailStatus("The send did not go through. Try again.");
       return;
     }
+    const message = messageFromPoster();
+    setDecision(message);
     sendingRef.current = true;
     setSending(true);
     try {
@@ -1065,7 +1062,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
         body: JSON.stringify({
           email: address,
           name: "",
-          decision: decision.trim(),
+          decision: message,
           poster: payload,
         }),
       });
@@ -1078,10 +1075,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       }
       if (data.ok) {
         setFrozen(true);
-        setReviewing(false);
         commitPoster({
           objects: objectsRef.current,
-          decision,
+          decision: message,
           color,
           background,
           frozen: true,
@@ -1125,10 +1121,8 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     setEmail("");
     setEmailError("");
     setEmailStatus("");
-    setReviewing(false);
     setSending(false);
     sendingRef.current = false;
-    setPreviewUrl("");
     setTray("none");
     setReposition(false);
     setGhost(null);
@@ -1221,7 +1215,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function choosePoster() {
     if (frozen || sendingRef.current) return;
-    if (reviewing) exitReview();
     if (editingIdRef.current) commitEdit();
     if (tray === "poster") {
       setTray("none");
@@ -1237,7 +1230,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function chooseWrite() {
     if (frozen || sendingRef.current) return;
-    if (reviewing) exitReview();
     if (editingIdRef.current) commitEdit();
     setMaking("write");
     setPlaceKind(null);
@@ -1250,7 +1242,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function chooseDraw() {
     if (frozen || sendingRef.current) return;
-    if (reviewing) exitReview();
     if (editingIdRef.current) commitEdit();
     if (making === "draw" && tray === "shape") {
       setPlaceKind(null);
@@ -1273,7 +1264,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function chooseUpload() {
     if (frozen || sendingRef.current) return;
-    if (reviewing) exitReview();
     if (editingIdRef.current) commitEdit();
     setPlaceKind(null);
     setTray("none");
@@ -1321,7 +1311,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     }
 
     function onKey(event: KeyboardEvent) {
-      if (frozen || dormant || reviewing || sending) return;
+      if (frozen || dormant || sending) return;
       if (event.isComposing || event.key === "Process") return;
       if (typingTarget(event)) {
         if (event.key === "Escape") {
@@ -1358,11 +1348,11 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [dormant, frozen, making, redraw, reposition, reviewing, selectedIds, sending]);
+  }, [dormant, frozen, making, redraw, reposition, selectedIds, sending]);
 
   useEffect(() => {
     function onPaste(event: ClipboardEvent) {
-      if (frozen || dormant || reviewing || sending) return;
+      if (frozen || dormant || sending) return;
       const target = event.target;
       if (target instanceof HTMLElement && target.closest("textarea, input, [contenteditable]")) return;
       if (editingIdRef.current) return;
@@ -1379,7 +1369,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     }
     window.addEventListener("paste", onPaste);
     return () => window.removeEventListener("paste", onPaste);
-  }, [dormant, frozen, reviewing, sending]);
+  }, [dormant, frozen, sending]);
 
   const editing = objectsRef.current.find((o): o is TextObject => o.kind === "text" && o.id === editingId);
   const current = selected();
@@ -1389,9 +1379,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   const selectedBox = current && isBoxShape(current) ? current : null;
   const selectedLine =
     current?.kind === "shape" && (current.shape === "line" || current.shape === "arrow") ? current : null;
-  const showNote = !hasContent && !editingId && !reviewing && !frozen && !sending && !dormant && !hidden;
+  const showNote = !hasContent && !editingId && !frozen && !sending && !dormant && !hidden;
   const multiSelected = selectedIds.length > 1;
-  const showContext = selectedIds.length > 0 && !editingId && !reviewing && !frozen && making === "rest" && tray !== "poster";
+  const showContext = selectedIds.length > 0 && !editingId && !frozen && making === "rest" && tray !== "poster";
   const fieldKind = making === "rest" ? "idle" : making;
   const liveField = field();
   const gifLayers = objectsRef.current.filter(
@@ -1402,7 +1392,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   useEffect(() => {
     resize();
-  }, [resize, showNote, making, tray, reviewing]);
+  }, [resize, showNote, making, tray]);
 
   function colourRow(active: string) {
     return (
@@ -1460,7 +1450,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       ref={wrapRef}
       className={`hbw-poster-field${fieldKind ? ` is-${fieldKind}` : " is-idle"}${dormant ? " is-dormant" : ""}${
         hidden ? " is-hidden" : ""
-      }${reviewing ? " is-reviewing" : ""}${sending ? " is-sending" : ""}${frozen ? " is-frozen" : ""}${
+      }${sending ? " is-sending" : ""}${frozen ? " is-frozen" : ""}${
         dropping ? " is-drop" : ""
       }`}
       data-hbw-family={making}
@@ -1489,12 +1479,12 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     >
       <canvas
         ref={canvasRef}
-        onPointerDown={frozen || reviewing || sending ? undefined : onPointerDown}
-        onPointerMove={frozen || reviewing || sending ? undefined : onPointerMove}
-        onPointerUp={frozen || reviewing || sending ? undefined : onPointerUp}
+        onPointerDown={frozen || sending ? undefined : onPointerDown}
+        onPointerMove={frozen || sending ? undefined : onPointerMove}
+        onPointerUp={frozen || sending ? undefined : onPointerUp}
         onPointerCancel={onPointerUp}
         onDoubleClick={(event) => {
-          if (frozen || reviewing || sending || (event.nativeEvent as PointerEvent).pointerType === "touch") return;
+          if (frozen || sending || (event.nativeEvent as PointerEvent).pointerType === "touch") return;
           const found = [...objectsRef.current].reverse().find((o) => o.kind === "text" && hit(o, pos(event), field()));
           if (found && found.kind === "text") startEdit(found);
         }}
@@ -1600,15 +1590,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       />
       <IconContext.Provider value={{ weight: "light", size: 18, color: "currentColor" }}>
         <div className="hbw-poster-toolbar" role="toolbar" aria-label="Poster" aria-busy={sending || undefined}>
-          <button
-            type="button"
-            className={`hbw-poster-title${tray === "poster" ? " is-current" : ""}`}
-            aria-pressed={tray === "poster"}
-            disabled={frozen || sending}
-            onClick={choosePoster}
-          >
-            Poster
-          </button>
           <div className="hbw-poster-toolbar__primary">
             <button
               type="button"
@@ -1647,6 +1628,16 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               <UploadSimple />
               <span>Upload</span>
             </button>
+            <button
+              type="button"
+              className={`hbw-poster-tool is-icon hbw-poster-bg${tray === "poster" ? " is-current" : ""}`}
+              aria-label="Background colour"
+              aria-pressed={tray === "poster"}
+              disabled={frozen || sending}
+              onClick={choosePoster}
+            >
+              <span className="hbw-poster-bg__swatch" style={{ background }} aria-hidden="true" />
+            </button>
           </div>
           <input
             className={`hbw-poster-input${emailError ? " is-invalid" : ""}`}
@@ -1673,9 +1664,8 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
           <div className="hbw-poster-toolbar__send">
             <button
               type="button"
-              className={`hbw-poster-send-open${reviewing ? " is-current" : ""}`}
+              className="hbw-poster-send-open"
               aria-label="Send to HBW"
-              aria-pressed={reviewing || undefined}
               disabled={frozen || sending}
               onClick={() => void submitSend()}
             >
@@ -1692,27 +1682,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               {emailError || emailStatus}
             </p>
           ) : null}
-          {reviewing && !frozen ? (
-            <div className="hbw-poster-toolbar__review">
-              <label className="hbw-poster-type__label" htmlFor="hbw-poster-decision">
-                What are you trying to solve?
-              </label>
-              <textarea
-                id="hbw-poster-decision"
-                className="hbw-poster-toolbar__message"
-                rows={3}
-                value={decision}
-                readOnly={sending}
-                data-gramm="false"
-                onChange={(event) => {
-                  if (sending) return;
-                  setDecision(event.target.value);
-                  commitPoster({ decision: event.target.value });
-                }}
-              />
-            </div>
-          ) : null}
-          {tray === "draw" && !reviewing && !frozen ? (
+          {tray === "draw" && !frozen ? (
             <div className="hbw-poster-toolbar__tray" data-stage="draw">
               <button type="button" className="hbw-poster-tool" aria-label="Shape" onClick={openShapeTray}>
                 <Rectangle />
@@ -1739,7 +1709,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               {colourRow(color)}
             </div>
           ) : null}
-          {tray === "shape" && !reviewing && !frozen ? (
+          {tray === "shape" && !frozen ? (
             <div className="hbw-poster-toolbar__tray is-shapes" data-stage="shape">
               <button
                 type="button"
@@ -1801,7 +1771,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               {colourRow(color)}
             </div>
           ) : null}
-          {tray === "poster" && !reviewing && !frozen ? (
+          {tray === "poster" && !frozen ? (
             <div className="hbw-poster-toolbar__context" data-stage="poster">
               <span className="hbw-poster-type__label">Background</span>
               {colourRow(background)}

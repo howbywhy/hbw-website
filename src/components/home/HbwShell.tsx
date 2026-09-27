@@ -224,6 +224,7 @@ export function HbwShell({
   const [narrow, setNarrow] = useState(false);
   const workScrollRef = useRef<WorkScrollHandle>(null);
   const [workInView, setWorkInView] = useState<WorkInView>(null);
+  const [hoverIdea, setHoverIdea] = useState<string | null>(null);
   /** A project is open over the Poster. The Poster is not merely behind it —
    *  it is completely covered, and a covered surface should not hold focus. */
   const [workCovering, setWorkCovering] = useState(false);
@@ -1467,7 +1468,7 @@ export function HbwShell({
                 openPanel("index");
               }
             }}
-            workInView={navFace === "home" && !panel ? workInView : null}
+            hoverIdea={navFace === "home" && !panel ? hoverIdea : null}
             heading={pageHeading}
             onStudio={() => {
               if (studioClose || manifestoSheet) dismissStudioFamily();
@@ -1507,8 +1508,8 @@ export function HbwShell({
             ref={workScrollRef}
             visible={makeActive && !swap && panel !== "studio" && !indexOpen}
             onInView={setWorkInView}
+            onHoverIdea={setHoverIdea}
             onDetailState={setWorkCovering}
-            onStudio={() => openPanel("studio")}
             onIndex={() => {
               cameFromIndex.current = false;
               setIndexResuming(false);

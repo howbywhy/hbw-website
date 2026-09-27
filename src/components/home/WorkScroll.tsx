@@ -2,7 +2,6 @@
 
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState, type CSSProperties } from "react";
 import { preloadProject } from "@/components/home/preload";
-import { STUDIO_COPY } from "@/components/home/studio-copy";
 import { WorkDetail } from "@/components/home/WorkDetail";
 import { WORK, keyArt } from "@/components/home/work-data";
 
@@ -54,10 +53,10 @@ export type WorkInView = { n: string; total: string; name: string; idea: string 
 type Props = {
   /** Home only. Hidden (but kept mounted, so scroll is remembered) while a project or Studio owns the window. */
   visible: boolean;
-  /** Re-authors the header line with whatever the viewer is looking at. */
+  /** Re-authors nothing in the nav; keeps Work lit and the dashes on the project in front. */
   onInView: (work: WorkInView) => void;
-  /** After the work: on to the studio behind it. */
-  onStudio?: () => void;
+  /** The nav line, only while a card is hovered or keyboard-focused. */
+  onHoverIdea?: (idea: string | null) => void;
   /** After the six on the line: the whole record underneath them. */
   onIndex?: () => void;
   /** A project opened from here has started closing. Whoever sent you in can
@@ -88,7 +87,7 @@ type Geometry = { rise: number; travel: number; step: number };
  * a card and it opens into a preview; choose it and its detail grows out of it,
  * over everything. Nothing ever navigates away from the Poster.
  */
-export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onStudio, onIndex, onDetailClosing, onDetailClosed, onDetailState }, ref) {
+export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onHoverIdea, onIndex, onDetailClosing, onDetailClosed, onDetailState }, ref) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLElement>(null);
@@ -285,15 +284,20 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     if (!scroller || !track || !cards) return;
     const measure = () => {
       const h = scroller.clientHeight;
-      const narrow = scroller.clientWidth < 768;
-      const rise = Math.round(h * (narrow ? 0.55 : 0.7));
+      const rise = 0;
       const first = cards.children[0] as HTMLElement | undefined;
       const gap = Number.parseFloat(getComputedStyle(cards).columnGap) || 8;
       const step = first ? first.offsetWidth + gap : 1;
-      const travel = step * Math.max(0, WORK.length - 1);
+      const travel = Math.max(0, cards.scrollWidth - cards.clientWidth);
       geo.current = { rise, travel, step };
-      track.style.height = `${h + rise + travel}px`;
+      track.style.height = `${h + travel}px`;
       track.style.setProperty("--stage-h", `${h}px`);
+      const host = scroller.closest<HTMLElement>(".hbw-window");
+      const head = scroller.querySelector<HTMLElement>(".hbw-line__head");
+      if (host && head) {
+        const workH = Math.round(scroller.getBoundingClientRect().bottom - head.getBoundingClientRect().top);
+        host.style.setProperty("--hbw-work-h", `${workH}px`);
+      }
       scroller.dispatchEvent(new Event("scroll"));
     };
     measure();
@@ -305,21 +309,19 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
   // Scroll → rise and travel. Written straight to two elements, only when a value actually changes.
   useEffect(() => {
     const scroller = scrollerRef.current;
-    const host = scroller?.closest<HTMLElement>(".hbw-window");
     const line = lineRef.current;
     const cards = cardsRef.current;
-    if (!scroller || !host || !line || !cards) return;
+    if (!scroller || !line || !cards) return;
     let frame = 0;
     let lastRise = -1;
     let lastX = -1;
-    let lastIn = "";
     const write = () => {
       frame = 0;
-      const { rise, travel, step } = geo.current;
+      const { travel } = geo.current;
       const y = scroller.scrollTop;
       if (visibleRef.current) writeScroll(y);
-      const up = Math.round(clamp(y / Math.max(1, rise)) * 1000) / 1000;
-      const x = Math.round(clamp(y - rise, 0, travel));
+      const up = 1;
+      const x = Math.round(clamp(y, 0, travel));
       if (up !== lastRise) {
         line.style.setProperty("--rise", String(up));
         lastRise = up;
@@ -328,14 +330,8 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
         cards.style.transform = `translate3d(${-x}px, 0, 0)`;
         lastX = x;
       }
-      // The Poster recedes once, as a transition — never a per-frame filter.
-      const state = up > 0.02 ? "in" : "out";
-      if (state !== lastIn) {
-        host.dataset.hbwWork = state;
-        lastIn = state;
-      }
-      const past = y > rise + travel + scroller.clientHeight * 0.35;
-      report(up < 0.5 || past ? -1 : Math.min(WORK.length - 1, Math.round(x / step)));
+      const along = travel > 0 ? Math.round((x / travel) * (WORK.length - 1)) : 0;
+      report(Math.min(WORK.length - 1, Math.max(0, along)));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(write);
@@ -348,7 +344,6 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     return () => {
       scroller.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
-      delete host.dataset.hbwWork;
     };
   }, [report]);
 
@@ -443,6 +438,12 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     setPreview(null);
   }
 
+  function lineFor(target: EventTarget | null) {
+    const card = target instanceof Element ? target.closest("[data-hbw-plate]") : null;
+    const id = card?.getAttribute("data-hbw-plate");
+    return WORK.find((project) => project.id === id)?.idea ?? null;
+  }
+
   return (
     <>
       <div
@@ -461,7 +462,25 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
               tabIndex={-1}
               onClick={() => glideTo(0)}
             />
-            <section ref={lineRef} className={`hbw-line${active >= 0 ? " has-front" : ""}`} aria-label="Work">
+            <section
+              ref={lineRef}
+              className={`hbw-line${active >= 0 ? " has-front" : ""}`}
+              aria-label="Work"
+              onPointerOver={(event) => {
+                if (event.pointerType === "touch") return;
+                onHoverIdea?.(lineFor(event.target));
+              }}
+              onPointerLeave={(event) => {
+                if (event.currentTarget.contains(document.activeElement)) return;
+                onHoverIdea?.(null);
+              }}
+              onFocus={(event) => onHoverIdea?.(lineFor(event.target))}
+              onBlur={(event) => {
+                const next = event.relatedTarget;
+                if (next instanceof Node && event.currentTarget.contains(next)) return;
+                onHoverIdea?.(null);
+              }}
+            >
               <header className="hbw-line__head">
                 <span className="hbw-line__heading">
                   <span className="hbw-line__title">Work</span>
@@ -557,26 +576,6 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
             </section>
           </div>
         </div>
-
-        <section className="hbw-scroll__practice" aria-label="Practice">
-          <p className="hbw-scroll__statement">{STUDIO_COPY.partners}</p>
-          <p className="hbw-scroll__body">
-            Got something you’re trying to solve? Put it on the poster: write it, draw it, drop in a picture, then
-            send it over.
-          </p>
-          <p className="hbw-scroll__links">
-            <button type="button" className="hbw-viewer__link" onClick={() => glideTo(0)}>
-              Start a poster <span aria-hidden="true">↑</span>
-            </button>
-            {onStudio ? (
-              <button type="button" className="hbw-viewer__link" onClick={onStudio}>
-                About the studio <span aria-hidden="true">↗</span>
-              </button>
-            ) : null}
-          </p>
-        </section>
-
-        <div className="hbw-scroll__tail" aria-hidden="true" />
       </div>
 
       {open ? (

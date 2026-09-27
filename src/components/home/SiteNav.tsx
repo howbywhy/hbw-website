@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import type { WorkInView } from "@/components/home/WorkScroll";
 import { FluidPill, PillThumb } from "@/components/home/pill-motion";
 import { CONTACT_EMAIL, CONTACT_HREF } from "@/lib/contact";
 
@@ -27,16 +26,16 @@ type Props = {
   onClose: () => void;
   /** Project register (Info, sequence). Only shown inside a project. */
   register: ReactNode;
-  /** On home, the plate in view re-authors the line under the mark. */
-  workInView?: WorkInView;
+  /** The project's line, only while a card is hovered or focused. */
+  hoverIdea?: string | null;
   /** The page's own heading. One h1 per page, saying what the page is. */
   heading?: string;
 };
 
 /**
  * Work · Studio · Contact on the left, How by Why at the centre, the line on the right.
- * The line is re-authored by whatever is being viewed: the practice at rest,
- * each project's idea as it passes, the open project's idea inside it.
+ * The line is the studio's positioning line, a project's line while its card is
+ * hovered or focused, and the open project's line inside a project.
  */
 export function SiteNav({
   face,
@@ -53,11 +52,11 @@ export function SiteNav({
   onStudioClose,
   onClose,
   register,
-  workInView = null,
+  hoverIdea = null,
   heading,
 }: Props) {
   const inProject = face === "view" && Boolean(projectName);
-  const line = inProject && projectIdea ? projectIdea : face === "home" && workInView ? workInView.idea : TAGLINE;
+  const line = inProject && projectIdea ? projectIdea : face === "home" && hoverIdea ? hoverIdea : TAGLINE;
   const [copied, setCopied] = useState(false);
   const copiedTimer = useRef(0);
 

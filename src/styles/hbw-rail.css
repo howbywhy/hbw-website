@@ -26,7 +26,7 @@ html.hbw-workspace {
   --hbw-t-settle: 900ms;
   /* The pill system, on an 8pt rhythm: 32 tall, 8 radius, 12 inset, 4 between. */
   --hbw-pill-h: 32px;
-  --hbw-pill-r: 8px;
+  --hbw-pill-r: 2px;
   --hbw-pill-x: 12px;
   --hbw-pill-gap: 4px;
   --hbw-pill-bg: rgba(240, 240, 236, 0.66);
@@ -37,7 +37,7 @@ html.hbw-workspace {
   --hbw-tag-h: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap));
   --hbw-tag-r: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
   --hbw-tag-inset: 8px;
-  --hbw-card-r: 8px;
+  --hbw-card-r: 2px;
 }
 
 /* --- The frame: white, edge to edge, no border -------------------------------- */
@@ -343,27 +343,11 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
     opacity var(--hbw-t-settle) var(--hbw-arrive);
 }
 
-.hbw-window[data-hbw-work="in"] .hbw-poster-field {
-  filter: blur(10px);
-  opacity: 0.72;
-}
-
 .hbw-window .hbw-poster-toolbar,
 .hbw-window .hbw-poster-note {
   transition:
     opacity var(--hbw-t-move) var(--hbw-arrive),
     transform var(--hbw-t-move) var(--hbw-arrive);
-}
-
-.hbw-window[data-hbw-work="in"] .hbw-poster-toolbar {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%) translateY(14px);
-}
-
-.hbw-window[data-hbw-work="in"] .hbw-poster-note {
-  opacity: 0;
-  transform: translateY(14px);
 }
 
 .hbw-scroll {
@@ -408,7 +392,7 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
   flex-direction: column;
   justify-content: flex-end;
   height: var(--stage-h, 100vh);
-  padding-bottom: clamp(24px, 7vh, 72px);
+  padding-bottom: clamp(12px, 3vh, 32px);
   box-sizing: border-box;
   pointer-events: none;
 }
@@ -425,12 +409,8 @@ html.hbw-workspace .hbw-home .hbw-line-away {
   pointer-events: none;
 }
 
-html.hbw-workspace .hbw-home .hbw-window[data-hbw-work="in"] .hbw-line-away {
-  pointer-events: auto;
-}
-
 .hbw-line {
-  --rise: 0;
+  --rise: 1;
   --pad: var(--hbw-space-4);
   padding: 0 var(--pad);
 }
@@ -439,7 +419,7 @@ html.hbw-workspace .hbw-home .hbw-window[data-hbw-work="in"] .hbw-line-away {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: var(--hbw-ink);
   opacity: clamp(0, calc(var(--rise) * 2.2 - 1.1), 1);
   transform: translateY(calc((1 - var(--rise)) * 12px));
@@ -567,18 +547,12 @@ html.hbw-workspace .hbw-home .hbw-card.is-active .hbw-card__label {
   background: var(--hbw-pill-on);
 }
 
-/* Only the project at the front is at full strength; the rest wait, softened.
-   It tells you where you are in the line. Hover brings one forward to look. */
-html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active) .hbw-card__hit {
+/* A hovered or focused card stays full; the rest of the line steps back.
+   At rest every card is at full strength. */
+html.hbw-workspace .hbw-home .hbw-line:has(.hbw-card__hit:hover, .hbw-card__hit:focus-visible)
+  .hbw-card:not(:hover):not(:focus-within) .hbw-card__hit {
   opacity: 0.28;
   filter: saturate(0.5);
-}
-
-html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active):hover .hbw-card__hit,
-html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active).is-preview .hbw-card__hit,
-html.hbw-workspace .hbw-home .hbw-line.has-front .hbw-card:not(.is-active) .hbw-card__hit:focus-visible {
-  opacity: 0.92;
-  filter: none;
 }
 
 /* The hover card: after a moment's intent the card lifts, grows from its base
@@ -672,7 +646,7 @@ html.hbw-workspace .hbw-home .hbw-detail__scrim {
      title's edge (16), and one 8 step under the bar before the first hairline. */
   --viewer-x: var(--hbw-space-3);
   --viewer-top: var(--hbw-space-2);
-  border-radius: 14px;
+  border-radius: 4px;
   background: #ffffff;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.05);
   transform-origin: 0 0;
@@ -780,7 +754,7 @@ html.hbw-workspace .hbw-home .hbw-viewer__close {
   max-width: calc(100% - var(--hbw-space-4));
   margin: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 2px;
   background: #f4f4f2;
 }
 
@@ -803,7 +777,7 @@ html.hbw-workspace .hbw-home .hbw-viewer__close {
   height: 100%;
   margin-left: var(--hbw-space-5);
   overflow: hidden;
-  border-radius: 8px 0 0 8px;
+  border-radius: 2px 0 0 2px;
 }
 
 html.hbw-workspace .hbw-home .hbw-viewer__next {
@@ -815,7 +789,7 @@ html.hbw-workspace .hbw-home .hbw-viewer__next {
   padding: 0;
   border: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 2px;
   background: #f4f4f2;
   cursor: pointer;
 }
@@ -835,7 +809,7 @@ html.hbw-workspace .hbw-home .hbw-viewer__next {
 }
 
 .hbw-viewer__next-clip {
-  clip-path: inset(0 calc((1 - var(--end)) * 100%) 0 0 round 8px 0 0 8px);
+  clip-path: inset(0 calc((1 - var(--end)) * 100%) 0 0 round 2px 0 0 2px);
 }
 
 .hbw-viewer__next img {
@@ -1296,7 +1270,7 @@ html.hbw-workspace .hbw-home .hbw-studio__portrait img {
   height: auto;
   aspect-ratio: 819 / 1024;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 2px;
   background: #f4f4f2;
 }
 
@@ -1596,7 +1570,12 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar {
   padding: 0;
   border: 0;
   background: transparent;
-  bottom: clamp(var(--hbw-space-3) + 8px, 4.5vh, var(--hbw-space-4) + 16px);
+  position: absolute;
+  bottom: calc(var(--hbw-work-h, 360px) + 14px);
+  /* The field is shorter than the window by the work band and the stack.
+     Pull the toolbar back down by that much so `bottom` is still measured
+     from the window, and the lift on the field can carry it away. */
+  margin-bottom: calc(-1 * (var(--hbw-work-h, 0px) + var(--hbw-poster-stack, 0px)));
 }
 
 /* The four pills of the main row. */
@@ -1749,18 +1728,50 @@ html.hbw-workspace .hbw-home .hbw-poster-reset:active {
   transform: scale(0.97);
 }
 
-@media screen and (min-width: 768px) {
-  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon,
-  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon {
-    width: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap) + 8px);
-    padding: 0;
-  }
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon,
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon {
+  position: relative;
+  justify-content: center;
+  width: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap) + 8px);
+  padding: 0;
+}
 
-  /* The tool's name, on hover: a small pill of the same kind. */
-  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon span,
-  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon span {
+html.hbw-workspace .hbw-home .hbw-poster-bg__swatch {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(29, 29, 29, 0.18);
+  pointer-events: none;
+}
+
+/* The name is not an inline word. Hover tooltips only where a pointer can hover. */
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon > span:not(.hbw-poster-bg__swatch),
+html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon > span:not(.hbw-poster-bg__swatch) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (hover: hover) and (min-width: 768px) {
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon > span:not(.hbw-poster-bg__swatch),
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon > span:not(.hbw-poster-bg__swatch) {
     bottom: calc(100% + 10px);
+    left: 50%;
+    z-index: 9;
+    width: auto;
+    height: auto;
+    margin: 0;
     padding: 6px 8px;
+    overflow: visible;
+    clip: auto;
+    transform: translateX(-50%);
     border: 0;
     border-radius: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
     background: var(--hbw-pill-on);
@@ -1768,7 +1779,17 @@ html.hbw-workspace .hbw-home .hbw-poster-reset:active {
     color: var(--hbw-ink);
     font-size: 0.75rem;
     line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity var(--hbw-answer);
+  }
+
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon:hover > span:not(.hbw-poster-bg__swatch),
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-icon:focus-visible > span:not(.hbw-poster-bg__swatch),
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon:hover > span:not(.hbw-poster-bg__swatch),
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray.is-shapes .hbw-poster-tool.is-icon:focus-visible > span:not(.hbw-poster-bg__swatch) {
+    opacity: 1;
   }
 }
 
@@ -1822,44 +1843,6 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar textarea:focus-visible {
 /* The invitation sits on the same left edge as the row, in the line's voice. */
 html.hbw-workspace .hbw-home .hbw-poster-note {
   color: rgba(29, 29, 29, 0.46);
-}
-
-/* --- After the line: the practice, then back to the Poster ------------------- */
-
-.hbw-scroll__practice {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--hbw-space-3) var(--hbw-space-2);
-  padding: clamp(6rem, 20vh, 12rem) var(--hbw-space-4) 0;
-  pointer-events: auto;
-}
-
-html.hbw-workspace .hbw-home .hbw-scroll__statement {
-  grid-column: 1 / span 8;
-  margin: 0;
-  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-  color: var(--hbw-ink);
-}
-
-.hbw-scroll__body {
-  grid-column: 1 / span 6;
-  margin: 0;
-  max-width: 34em;
-  line-height: var(--hbw-lh-body);
-  color: var(--hbw-ink);
-}
-
-.hbw-scroll__links {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: var(--hbw-space-4);
-  margin: var(--hbw-space-3) 0 0;
-}
-
-.hbw-scroll__tail {
-  height: 40vh;
 }
 
 /* --- Inside a project: the work fills the frame, edge to edge ------------------ */
@@ -2110,7 +2093,7 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 14px 14px 0 0;
+    border-radius: 4px 4px 0 0;
   }
 
   .hbw-viewer__idea {
@@ -2138,7 +2121,7 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
     width: 100%;
     height: auto;
     margin: var(--hbw-space-4) 0 0;
-    border-radius: 8px;
+    border-radius: 2px;
   }
 
   html.hbw-workspace .hbw-home .hbw-viewer__next {
@@ -2226,9 +2209,18 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
 
   html.hbw-workspace .hbw-home .hbw-poster-toolbar {
     gap: var(--hbw-pill-gap);
-    width: calc(100% - 2 * var(--hbw-space-2));
+    width: calc(100% - 2 * var(--hbw-space-3));
     max-width: none;
-    bottom: calc(var(--hbw-space-2) + env(safe-area-inset-bottom, 0px) + var(--hbw-vv-inset, 0px));
+    bottom: calc(var(--hbw-work-h, 360px) + 12px + env(safe-area-inset-bottom, 0px) + var(--hbw-vv-inset, 0px));
+    grid-template-areas:
+      "tools tools"
+      "email send"
+      "status status"
+      "review review"
+      "tray tray"
+      "context context"
+      "palette palette"
+      "work work";
   }
 
   html.hbw-workspace .hbw-home .hbw-poster-title,
@@ -2250,23 +2242,18 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
   }
 
   html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool {
-    min-height: 0;
-    flex: 1 1 0;
+    flex: 0 0 auto;
+    width: 44px;
+    min-width: 44px;
+    height: var(--hbw-pill-h);
+    min-height: var(--hbw-pill-h);
   }
 
-  .hbw-scroll__practice {
-    padding-left: var(--hbw-space-3);
-    padding-right: var(--hbw-space-3);
-  }
-
-  html.hbw-workspace .hbw-home .hbw-scroll__statement {
-    grid-column: 1 / -1;
-    font-size: 1.375rem;
-    line-height: 1.18;
-  }
-
-  .hbw-scroll__body {
-    grid-column: 1 / -1;
+  html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary {
+    width: auto;
+    justify-self: start;
+    padding-block: 0;
+    min-height: var(--hbw-pill-h);
   }
 
   .hbw-sheet-head {
@@ -2330,7 +2317,10 @@ html.hbw-workspace .hbw-home .hbw-scroll__statement {
   /* The Poster's invitation wraps on a phone rather than being cut off. */
   .hbw-window .hbw-poster-note {
     white-space: normal;
-    max-width: calc(100% - 2 * var(--hbw-space-4));
+    box-sizing: border-box;
+    width: calc(100% - 2 * var(--hbw-space-3));
+    max-width: none;
+    padding-left: 0;
   }
 }
 
@@ -2602,10 +2592,9 @@ html.hbw-workspace .hbw-home .hbw-line__index {
   transition: color var(--hbw-t-answer) var(--hbw-arrive);
 }
 
-/* .hbw-scroll is pointer-events: none. This opts back in, but only once the
-   line is in: at rest the head is opacity 0, and an invisible hit target over
-   the poster would swallow clicks meant for the poster itself. */
-html.hbw-workspace .hbw-home .hbw-window[data-hbw-work="in"] .hbw-line__index {
+/* .hbw-scroll is pointer-events: none. The index opts back in so it stays
+   clickable; the line is on screen from the start. */
+html.hbw-workspace .hbw-home .hbw-line__index {
   pointer-events: auto;
 }
 
