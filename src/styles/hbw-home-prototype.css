@@ -1087,7 +1087,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 
 .hbw-poster-field {
   position: absolute;
-  inset: 0 0 calc(var(--hbw-work-h, 0px) + var(--hbw-poster-stack, 0px)) 0;
+  inset: 0 0 var(--hbw-work-h, 0px) 0;
   margin: 0;
   background: var(--hbw-field, #f4f5f3);
   overflow: visible;
@@ -1117,10 +1117,18 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   bottom: calc(var(--hbw-task-bottom, 14px) + var(--hbw-task-h, 2.75rem) + 10px);
   z-index: 2;
   margin: 0;
-  padding: 0 0 0 calc(1px + var(--hbw-space-3));
+  /* The note sits on the canvas now, so it takes the same frosted pill as the
+     toolbar rows. Without it the line is grey on whatever colour was chosen. */
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hbw-pill-h);
+  padding: 0 var(--hbw-pill-x);
   border: 0;
-  background: none;
-  color: rgba(51, 51, 51, 0.42);
+  border-radius: var(--hbw-pill-r);
+  background: var(--hbw-pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: rgba(51, 51, 51, 0.62);
   font-family: var(--hbw-font);
   font-size: var(--hbw-sm);
   font-weight: 400;

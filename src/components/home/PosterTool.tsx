@@ -216,13 +216,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
-    const noteEl = noteRef.current;
-    const barEl = wrap.querySelector<HTMLElement>(".hbw-poster-toolbar");
-    if (noteEl && barEl) {
-      const gap = window.matchMedia("(max-width: 767px)").matches ? 12 : 14;
-      const stack = Math.round(barEl.getBoundingClientRect().height + gap + noteEl.getBoundingClientRect().height + 10);
-      wrap.style.setProperty("--hbw-poster-stack", `${stack}px`);
-    }
     const w = wrap.clientWidth;
     const h = wrap.clientHeight;
     const keyboard =
@@ -252,7 +245,9 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       // where it rests, not a slide, and taking it out puts the note 246px to
       // the right.
       const slide = new DOMMatrixReadOnly(getComputedStyle(bar).transform === "none" ? undefined : getComputedStyle(bar).transform).m42;
-      note.style.left = `${Math.max(0, br.left - fr.left)}px`;
+      const narrow = window.matchMedia("(max-width: 767px)").matches;
+      const left = narrow ? br.left - fr.left : (fr.width - note.offsetWidth) / 2;
+      note.style.left = `${Math.max(0, left)}px`;
       note.style.bottom = "auto";
       note.style.top = `${Math.max(0, br.top - slide - fr.top - note.offsetHeight - 10)}px`;
     }
@@ -1518,7 +1513,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       ) : null}
       {showNote ? (
         <p ref={noteRef} className="hbw-poster-note">
-          What are you trying to solve? Make it a poster and send it to HBW.
+          Send me a poster. I’ll reply.
         </p>
       ) : null}
       {editing && viewedEdit ? (

@@ -392,7 +392,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
   flex-direction: column;
   justify-content: flex-end;
   height: var(--stage-h, 100vh);
-  padding-bottom: clamp(12px, 3vh, 32px);
   box-sizing: border-box;
   pointer-events: none;
 }
@@ -412,7 +411,11 @@ html.hbw-workspace .hbw-home .hbw-line-away {
 .hbw-line {
   --rise: 1;
   --pad: var(--hbw-space-4);
-  padding: 0 var(--pad);
+  /* White from the head to the bottom edge. The gap that used to sit on the
+     stage is padding here, so it is painted with the line and no cream shows
+     under the cards. The top of this box is the head, where the canvas ends. */
+  padding: 0 var(--pad) clamp(12px, 3vh, 32px);
+  background: #ffffff;
 }
 
 .hbw-line__head {
@@ -1572,10 +1575,9 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar {
   background: transparent;
   position: absolute;
   bottom: calc(var(--hbw-work-h, 360px) + 14px);
-  /* The field is shorter than the window by the work band and the stack.
-     Pull the toolbar back down by that much so `bottom` is still measured
-     from the window, and the lift on the field can carry it away. */
-  margin-bottom: calc(-1 * (var(--hbw-work-h, 0px) + var(--hbw-poster-stack, 0px)));
+  /* The field stops at the work. Pull the toolbar back down by that band so
+     `bottom` is still measured from the window. */
+  margin-bottom: calc(-1 * var(--hbw-work-h, 0px));
 }
 
 /* The four pills of the main row. */
@@ -1640,7 +1642,10 @@ html.hbw-workspace .hbw-home .hbw-poster-input {
 }
 
 html.hbw-workspace .hbw-home .hbw-poster-input::placeholder {
-  color: rgba(29, 29, 29, 0.46);
+  /* The toolbar floats on the canvas, so this sits on whatever colour was
+     chosen. At 0.46 it measured 2.5:1 on the red and blue grounds — and 2.9:1
+     even on the default. 0.75 clears 4.5:1 on all of them. */
+  color: rgba(29, 29, 29, 0.75);
 }
 
 html.hbw-workspace .hbw-home .hbw-poster-input:focus {
@@ -1840,9 +1845,22 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar textarea:focus-visible {
   box-shadow: 0 0 0 2px rgba(29, 29, 29, 0.28);
 }
 
-/* The invitation sits on the same left edge as the row, in the line's voice. */
+/* The invitation is a pill of its own, sized to the line, so it stays readable
+   on any poster colour. */
 html.hbw-workspace .hbw-home .hbw-poster-note {
-  color: rgba(29, 29, 29, 0.46);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100% - 2 * var(--hbw-space-3));
+  min-height: var(--hbw-pill-h);
+  padding: 0 var(--hbw-pill-x);
+  border-radius: var(--hbw-pill-r);
+  background: var(--hbw-pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: rgba(29, 29, 29, 0.82);
+  white-space: nowrap;
 }
 
 /* --- Inside a project: the work fills the frame, edge to edge ------------------ */
@@ -2314,13 +2332,11 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
 }
 
 @media screen and (max-width: 767px) {
-  /* The Poster's invitation wraps on a phone rather than being cut off. */
+  /* The invitation hugs its line and shares the work's left edge. */
   .hbw-window .hbw-poster-note {
-    white-space: normal;
     box-sizing: border-box;
-    width: calc(100% - 2 * var(--hbw-space-3));
-    max-width: none;
-    padding-left: 0;
+    width: max-content;
+    max-width: calc(100% - 2 * var(--hbw-space-3));
   }
 }
 
