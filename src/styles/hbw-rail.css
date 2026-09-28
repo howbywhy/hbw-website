@@ -8,10 +8,10 @@
 
 html.hbw-workspace {
   --hbw-field: #ffffff;
-  --hbw-window: #faf8f3;
-  --hbw-page: #faf8f3;
+  --hbw-window: #ffffff;
+  --hbw-page: #ffffff;
   /* The paper, by the name the index asks for it by. */
-  --hbw-ground: #faf8f3;
+  --hbw-ground: #ffffff;
   --hbw-sheet-top: clamp(56px, 9vh, 96px);
   --hbw-muted: rgba(29, 29, 29, 0.46);
   --hbw-hair: rgba(29, 29, 29, 0.12);
@@ -43,13 +43,13 @@ html.hbw-workspace {
 /* --- The frame: white, edge to edge, no border -------------------------------- */
 
 html.hbw-workspace .hbw-home {
-  background: #faf8f3;
+  background: #ffffff;
 }
 
 html.hbw-workspace .hbw-home .hbw-window {
   margin: 0;
   border-radius: 0;
-  background: #faf8f3;
+  background: #ffffff;
 }
 
 /* --- Pills: the only chrome. Frosted, so the Poster and the work tint them ------ */
@@ -1083,7 +1083,7 @@ html.hbw-workspace .hbw-home .hbw-viewer--studio {
 
 /* The field the Studio reads on: the Poster's own page, quieted behind it. */
 html.hbw-workspace .hbw-home .hbw-detail--studio .hbw-detail__scrim {
-  background: rgba(250, 248, 243, 0.92);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 /* --- Studio: one page in the viewer, read top to bottom ------------------------
@@ -1876,7 +1876,7 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
 .hbw-project-view.is-assembling,
 .hbw-project-view.is-active,
 .hbw-project-view.is-handoff-in {
-  background: #faf8f3;
+  background: #ffffff;
 }
 
 @media screen and (min-width: 768px) {
@@ -1911,7 +1911,7 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
 .hbw-projects {
   inset: auto 0 0 0;
   top: var(--hbw-sheet-top);
-  background: #faf8f3;
+  background: #ffffff;
   border-top: 1px solid var(--hbw-hair);
   transform: translateY(calc(100% + 1px));
   transition:
@@ -2361,7 +2361,7 @@ html.hbw-workspace .hbw-home .hbw-detail--index {
 }
 
 html.hbw-workspace .hbw-home .hbw-detail--index .hbw-detail__scrim {
-  background: rgba(250, 248, 243, 0.92);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 html.hbw-workspace .hbw-home .hbw-index {
