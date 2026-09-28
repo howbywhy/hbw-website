@@ -69,7 +69,7 @@ html.hbw-workspace {
   --hbw-t-handoff: var(--hbw-motion-continuity);
   --hbw-t-identity: var(--hbw-motion-continuity);
   --hbw-t-gallery: var(--hbw-motion-ui);
-  --hbw-field: #faf8f3;
+  --hbw-field: #ffffff;
   --hbw-vv-inset: 0px;
   /* Composed first-visit hold. Source: HBW_INTRO_MS in motion.ts. */
   --hbw-t-intro: 2280ms;
@@ -931,7 +931,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   padding: 0;
   margin: 0;
   border: 0;
-  background: var(--hbw-field, #f4f5f3);
+  background: var(--hbw-field, #ffffff);
   opacity: 0.4;
   overflow: hidden;
   cursor: pointer;
@@ -1089,7 +1089,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   position: absolute;
   inset: 0 0 var(--hbw-work-h, 0px) 0;
   margin: 0;
-  background: var(--hbw-field, #f4f5f3);
+  background: var(--hbw-field, #ffffff);
   overflow: visible;
   z-index: 1;
   user-select: none;
@@ -1434,7 +1434,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   padding: 0;
   border: 0;
   resize: none;
-  background: var(--hbw-field, #f4f5f3);
+  background: var(--hbw-field, #ffffff);
   outline: none;
   font-weight: 400;
   letter-spacing: 0;
