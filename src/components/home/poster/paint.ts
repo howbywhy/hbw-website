@@ -252,14 +252,14 @@ function sprayPath(
   width: number,
   id: string
 ) {
-  const radius = Math.max(6, width * 6);
+  const radius = Math.max(5, width * 5);
   const step = 2.5;
   const perStep = 5;
   const seed = seedFrom(id);
   let n = 0;
   ctx.save();
   ctx.fillStyle = color;
-  ctx.globalAlpha = 0.3;
+  ctx.globalAlpha = 0.34;
   for (let i = 1; i < pts.length; i++) {
     const a = pts[i - 1];
     const b = pts[i];
@@ -271,8 +271,9 @@ function sprayPath(
       const cy = a.y + (b.y - a.y) * t;
       for (let k = 0; k < perStep; k++) {
         const ang = noise(seed + n++ * 0x9e3779b1) * Math.PI * 2;
-        // sqrt keeps the dabs even across the disc instead of clumping centrally
-        const rad = Math.sqrt(noise(seed + n++ * 0x85ebca6b)) * radius;
+        // sqrt would spread the dabs evenly across the disc. A can does not do
+        // that — it lays a solid core with a soft edge — so bias inward.
+        const rad = Math.pow(noise(seed + n++ * 0x85ebca6b), 0.7) * radius;
         ctx.beginPath();
         ctx.arc(cx + Math.cos(ang) * rad, cy + Math.sin(ang) * rad, 0.9, 0, Math.PI * 2);
         ctx.fill();

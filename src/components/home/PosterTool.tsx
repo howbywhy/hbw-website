@@ -1,11 +1,10 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useRef, useState } from "react";
 import {
   ArrowUUpLeft,
   IconContext,
   Pencil,
-  SprayBottle,
   TextT,
   Trash,
   PaperPlaneTilt,
@@ -95,12 +94,46 @@ type Props = {
 };
 
 /** Memoised: the shell re-renders as the work line reports what's in view; the canvas must not. */
+/**
+ * An aerosol can. Phosphor ships SprayBottle, which is a trigger bottle — the
+ * thing you clean a worktop with. Drawn in Phosphor's own terms (256 box, 16
+ * stroke) and sized from its context so it sits with the others.
+ */
+function SprayCan() {
+  const size = useContext(IconContext)?.size ?? 18;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={12}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="82" y="100" width="84" height="124" rx="16" />
+      <rect x="106" y="60" width="36" height="40" rx="8" />
+      <path d="M82 136h84" />
+      <circle cx="194" cy="74" r="6" fill="currentColor" stroke="none" />
+      <circle cx="220" cy="48" r="6" fill="currentColor" stroke="none" />
+      <circle cx="192" cy="28" r="6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export const PosterTool = memo(function PosterTool({ dormant = false, hidden = false }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const editRef = useRef<HTMLTextAreaElement>(null);
   const objectsRef = useRef<PosterObj[]>([]);
   const draftRef = useRef<PosterObj | null>(null);
+  /** A can keeps laying paint while it is held still. Pointer events only fire
+   *  on movement, so a held can would deposit nothing without this. */
+  const dwellRef = useRef<{ frame: number; at: Pt | null; laid: number }>({ frame: 0, at: null, laid: 0 });
   const dragRef = useRef<{
     ids: string[];
     last: Pt;
@@ -688,6 +721,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
         texture: spray ? "spray" : "line",
       };
       draftRef.current = stroke;
+      if (spray) startDwell(p);
       try {
         event.currentTarget.setPointerCapture(event.pointerId);
       } catch {
@@ -877,6 +911,11 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     }
     const draft = draftRef.current;
     if (draft.kind === "stroke") {
+      if (draft.texture === "spray") {
+        const spot = dwellRef.current.at;
+        if (!spot || Math.hypot(p.x - spot.x, p.y - spot.y) > 2) dwellRef.current.laid = 0;
+        dwellRef.current.at = p;
+      }
       draft.points = relPoints(
         draft.points.map((pt) => ({ x: pt.nx * f.w, y: pt.ny * f.h })).concat([p]),
         f
@@ -900,7 +939,39 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     redraw();
   }
 
+  function stopDwell() {
+    if (dwellRef.current.frame) cancelAnimationFrame(dwellRef.current.frame);
+    dwellRef.current = { frame: 0, at: null, laid: 0 };
+  }
+
+  function startDwell(at: Pt) {
+    stopDwell();
+    dwellRef.current.at = at;
+    const tick = () => {
+      const draft = draftRef.current;
+      const spot = dwellRef.current.at;
+      if (!draft || draft.kind !== "stroke" || draft.texture !== "spray" || !spot) {
+        stopDwell();
+        return;
+      }
+      // Paint saturates. Past that the spot takes no more, so stop growing the
+      // point list rather than repainting an ever-heavier stroke every frame.
+      if (dwellRef.current.laid < 70) {
+        const f = field();
+        draft.points = relPoints(
+          draft.points.map((pt) => ({ x: pt.nx * f.w, y: pt.ny * f.h })).concat([spot]),
+          f
+        );
+        dwellRef.current.laid++;
+        redraw();
+      }
+      dwellRef.current.frame = requestAnimationFrame(tick);
+    };
+    dwellRef.current.frame = requestAnimationFrame(tick);
+  }
+
   function onPointerUp(event: React.PointerEvent<HTMLCanvasElement>) {
+    stopDwell();
     const p = pos(event);
     const f = field();
     if (draftRef.current) {
@@ -912,7 +983,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
           if (!i) return 0;
           return n + Math.hypot(pt.x - pts[i - 1].x, pt.y - pts[i - 1].y);
         }, 0);
-        keep = len > 8;
+        keep = len > 8 || (draft.texture === "spray" && draft.points.length > 6);
         if (keep) {
           objectsRef.current = objectsRef.current.concat(draft);
           commitSelection([draft.id]);
@@ -1529,7 +1600,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               disabled={frozen || sending}
               onClick={chooseSpray}
             >
-              <SprayBottle />
+              <SprayCan />
               <span>Spray</span>
             </button>
             <button
