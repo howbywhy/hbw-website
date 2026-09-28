@@ -42,6 +42,9 @@ export type StrokeObject = {
   originalPoints?: RelPt[];
   color: string;
   width: number;
+  /** How the path is laid down. Absent means a solid line, so every stroke
+   *  saved before the spray can existed still reads as one. */
+  texture?: "line" | "spray";
 };
 
 export type BoxShapeObject = {

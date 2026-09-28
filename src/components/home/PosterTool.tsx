@@ -2,19 +2,13 @@
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
-  ArrowUpRight,
   ArrowUUpLeft,
-  Circle,
   IconContext,
-  LineSegment,
   Pencil,
-  Rectangle,
-  Star,
+  SprayBottle,
   TextT,
   Trash,
   PaperPlaneTilt,
-  Triangle,
-  UploadSimple,
 } from "@phosphor-icons/react";
 import {
   canvasToSendDataUrl,
@@ -80,7 +74,7 @@ import {
   workspace,
 } from "@/components/home/workspace";
 
-type Making = "rest" | "write" | "draw" | "upload";
+type Making = "rest" | "spray" | "write" | "draw";
 type PlaceKind = "image" | "line" | "arrow" | BoxShapeKind | null;
 type Tray = "none" | "draw" | "shape" | "poster";
 
@@ -104,7 +98,6 @@ type Props = {
 export const PosterTool = memo(function PosterTool({ dormant = false, hidden = false }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
   const editRef = useRef<HTMLTextAreaElement>(null);
   const objectsRef = useRef<PosterObj[]>([]);
   const draftRef = useRef<PosterObj | null>(null);
@@ -132,7 +125,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   const [dropping, setDropping] = useState(false);
   // Opens with the pencil already in hand. "rest" armed nothing, so the first
   // thing a visitor did on a poster was work out which button to press.
-  const [making, setMaking] = useState<Making>("draw");
+  const [making, setMaking] = useState<Making>("spray");
   const [placeKind, setPlaceKind] = useState<PlaceKind>(null);
   const [ghost, setGhost] = useState<{ x: number; y: number } | null>(null);
   const [color, setColor] = useState("#e23b2e");
@@ -265,7 +258,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       if (workspace.poster.frozen) setEmailStatus("Sent. We’ll be in touch.");
       // Pencil in hand, same as a fresh poster. A sent poster is read-only, so
       // arming a tool there would only light a button that cannot be used.
-      setMaking(workspace.poster.frozen ? "rest" : "draw");
+      setMaking(workspace.poster.frozen ? "rest" : "spray");
       setPlaceKind(null);
       setHasWork(objectsRef.current.length > 0 || workspace.poster.frozen || Boolean(workspace.poster.legacyPixelObjects?.length));
       setHasContent(hasComposition() || Boolean(workspace.poster.legacyPixelObjects?.length));
@@ -471,9 +464,13 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   function startWriteAt(p: Pt) {
     snapshot();
     const f = field();
-    const size = Math.max(28, Math.min(120, f.h * 0.14));
-    const w = Math.min(f.w * 0.55, Math.max(200, size * 3.4));
-    const h = Math.max(size * 1.25, 48);
+    // Sized off the WIDTH, not the height. Height alone made the phone's type
+    // bigger than the desktop's, because the phone's field is the taller of the
+    // two, and a box of size * 3.4 gave every block about three characters a
+    // line. This holds ~11 characters at either width.
+    const size = Math.max(20, Math.min(64, f.w * 0.045));
+    const w = Math.min(f.w * 0.8, Math.max(220, size * 11));
+    const h = Math.max(size * 1.35, 44);
     const obj: TextObject = {
       id: uid(),
       kind: "text",
@@ -487,7 +484,14 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       font: "Visual",
       align: "left",
     };
-    writeBox(obj, { x: p.x - 12, y: p.y - size * 0.45, w, h }, f, size);
+    // The toolbar floats over the lower canvas, so a block placed near it would
+    // be typed straight underneath. Keep it inside the field and above the bar.
+    const bar = wrapRef.current?.querySelector<HTMLElement>(".hbw-poster-toolbar");
+    const wrapTop = wrapRef.current?.getBoundingClientRect().top ?? 0;
+    const floor = bar ? Math.max(0, bar.getBoundingClientRect().top - wrapTop - 8) : f.h;
+    const x = Math.max(0, Math.min(p.x - 12, f.w - w));
+    const y = Math.max(0, Math.min(p.y - size * 0.45, Math.max(0, floor - h)));
+    writeBox(obj, { x, y, w, h }, f, size);
     objectsRef.current = objectsRef.current.concat(obj);
     startEdit(obj);
     redraw();
@@ -507,7 +511,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     if (!source) return;
     pendingImageRef.current = source;
     setPlaceKind("image");
-    setMaking("upload");
+    setMaking("rest");
     setTray("none");
     commitSelection([]);
     setReposition(false);
@@ -561,7 +565,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function hoverCursor(p: Pt, pointerType: string) {
     if (making === "write") return "text";
-    if (making === "draw" || making === "upload") return "crosshair";
+    if (making === "draw" || making === "spray" || placeKind === "image") return "crosshair";
     const f = field();
     const slop = handleSlop(pointerType);
     const liveIds = selectedIdsRef.current;
@@ -643,7 +647,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   function onPointerDown(event: React.PointerEvent<HTMLCanvasElement>) {
     if (frozen || dormant || sending) return;
-    if (making === "draw" && !placeKind) event.preventDefault();
+    if ((making === "draw" || making === "spray") && !placeKind) event.preventDefault();
     const p = pos(event);
     lastPtrRef.current = p;
     const f = field();
@@ -670,14 +674,18 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
       return;
     }
 
-    if (making === "draw" && !placeKind) {
+    if ((making === "draw" || making === "spray") && !placeKind) {
       snapshot();
+      const spray = making === "spray";
       const stroke: StrokeObject = {
         id: uid(),
         kind: "stroke",
         points: relPoints([p], f),
         color,
-        width: 1.8,
+        // For a spray this is the radius divisor, not a line weight: paint()
+        // scatters dabs over max(6, width * 6) px.
+        width: spray ? 2.4 : 1.8,
+        texture: spray ? "spray" : "line",
       };
       draftRef.current = stroke;
       try {
@@ -1106,7 +1114,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     setFrozen(false);
     setColor("#e23b2e");
     setBackground(FIELD_COLOR);
-    setMaking("draw");
+    setMaking("spray");
     setPlaceKind(null);
     commitSelection([]);
     setEditingId(null);
@@ -1235,20 +1243,19 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     setGhost(null);
   }
 
-  function chooseDraw() {
+  /** Spray and Pencil are the same gesture with a different texture, so they
+   *  share one path and one ink tray. */
+  function chooseMark(kind: "spray" | "draw") {
     if (frozen || sendingRef.current) return;
     if (editingIdRef.current) commitEdit();
-    if (making === "draw" && tray === "shape") {
-      setPlaceKind(null);
-      setTray("draw");
-      setGhost(null);
-      return;
-    }
-    if (making === "draw" && !placeKind) {
+    // Spray is already selected on arrival, with no tray open. A first press
+    // there should reveal the ink, not switch the tool off; the press after
+    // that puts it down.
+    if (making === kind && tray === "draw") {
       toRest();
       return;
     }
-    setMaking("draw");
+    setMaking(kind);
     setPlaceKind(null);
     setTray("draw");
     setPaletteOpen(false);
@@ -1257,37 +1264,16 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     setGhost(null);
   }
 
-  function chooseUpload() {
-    if (frozen || sendingRef.current) return;
-    if (editingIdRef.current) commitEdit();
-    setPlaceKind(null);
-    setTray("none");
-    setMaking("rest");
-    setPaletteOpen(false);
-    setReposition(false);
-    commitSelection([]);
-    setGhost(null);
-    fileRef.current?.click();
+  function chooseSpray() {
+    chooseMark("spray");
   }
 
-  function armDrawPlace(kind: "line" | "arrow") {
-    setPlaceKind(kind);
-    setMaking("draw");
-    setTray("draw");
-    commitSelection([]);
-    setReposition(false);
-    setGhost(null);
+  function chooseDraw() {
+    chooseMark("draw");
   }
 
-  function openShapeTray() {
-    if (frozen || sendingRef.current) return;
-    setMaking("draw");
-    setPlaceKind(null);
-    setTray("shape");
-    commitSelection([]);
-    setReposition(false);
-    setGhost(null);
-  }
+
+
 
   function armShape(shape: BoxShapeKind) {
     setPlaceKind(shape);
@@ -1368,16 +1354,8 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
 
   const editing = objectsRef.current.find((o): o is TextObject => o.kind === "text" && o.id === editingId);
   const current = selected();
-  const selectedStroke = current?.kind === "stroke" ? current : null;
-  const selectedText = current?.kind === "text" ? current : null;
-  const selectedImage = current?.kind === "image" ? current : null;
-  const selectedBox = current && isBoxShape(current) ? current : null;
-  const selectedLine =
-    current?.kind === "shape" && (current.shape === "line" || current.shape === "arrow") ? current : null;
   // Parked. The conditions are unchanged; drop the `false &&` to show the invitation again.
   const showNote = false && !hasContent && !editingId && !frozen && !sending && !dormant && !hidden;
-  const multiSelected = selectedIds.length > 1;
-  const showContext = selectedIds.length > 0 && !editingId && !frozen && making === "rest" && tray !== "poster";
   const fieldKind = making === "rest" ? "idle" : making;
   const liveField = field();
   const gifLayers = objectsRef.current.filter(
@@ -1413,26 +1391,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     );
   }
 
-  function objectActs(opts?: { gap?: boolean }) {
-    return (
-      <>
-        {opts?.gap === false ? null : <span className="hbw-poster-gap" aria-hidden="true" />}
-        <button type="button" className="hbw-poster-tool" onClick={() => bring("back")}>
-          Back
-        </button>
-        <button type="button" className="hbw-poster-tool" onClick={() => bring("front")}>
-          Front
-        </button>
-        <button type="button" className="hbw-poster-tool" onClick={duplicate}>
-          Duplicate
-        </button>
-        <button type="button" className="hbw-poster-tool" aria-label="Delete" onClick={deleteSelected}>
-          <Trash />
-          <span>Delete</span>
-        </button>
-      </>
-    );
-  }
 
   function cycleWeight(value: number, steps: number[]) {
     const i = steps.findIndex((n) => value <= n);
@@ -1450,19 +1408,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
         dropping ? " is-drop" : ""
       }`}
       data-hbw-family={making}
-      data-hbw-context={
-        multiSelected
-          ? "group"
-          : selectedText
-            ? "text"
-            : selectedStroke
-              ? "stroke"
-              : selectedImage
-                ? "image"
-                : selectedBox || selectedLine
-                  ? "shape"
-                  : "none"
-      }
       // Dormant means something is drawn over the Poster — the Studio, the
       // index, a project — so it is neither readable nor reachable. It only
       // started covering the project case when the shell learned to report it.
@@ -1560,19 +1505,6 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
         />
       ) : null}
       <input
-        ref={fileRef}
-        type="file"
-        accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml,image/gif,.gif"
-        hidden
-        aria-hidden="true"
-        tabIndex={-1}
-        onChange={(event) => {
-          const file = event.currentTarget.files?.[0];
-          if (file) void addImageFile(file);
-          event.currentTarget.value = "";
-        }}
-      />
-      <input
         ref={colorRef}
         type="color"
         className="hbw-poster-color-native"
@@ -1589,50 +1521,41 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
           <div className="hbw-poster-toolbar__primary">
             <button
               type="button"
+              className={`hbw-poster-tool is-icon${making === "spray" ? " is-current" : ""}`}
+              aria-label="Spray"
+              title="Spray"
+              aria-pressed={making === "spray"}
+              aria-expanded={tray === "draw"}
+              disabled={frozen || sending}
+              onClick={chooseSpray}
+            >
+              <SprayBottle />
+              <span>Spray</span>
+            </button>
+            <button
+              type="button"
+              className={`hbw-poster-tool is-icon${making === "draw" ? " is-current" : ""}`}
+              aria-label="Pencil"
+              title="Pencil"
+              aria-pressed={making === "draw"}
+              aria-expanded={tray === "draw"}
+              disabled={frozen || sending}
+              onClick={chooseDraw}
+            >
+              <Pencil />
+              <span>Pencil</span>
+            </button>
+            <button
+              type="button"
               className={`hbw-poster-tool is-icon${making === "write" && !editingId ? " is-current" : ""}`}
-              aria-label="Write"
-              title="Write"
+              aria-label="Type"
+              title="Type"
               aria-pressed={making === "write" && !editingId}
               disabled={frozen || sending}
               onClick={chooseWrite}
             >
               <TextT />
-              <span>Write</span>
-            </button>
-            <button
-              type="button"
-              className={`hbw-poster-tool is-icon${making === "draw" ? " is-current" : ""}`}
-              aria-label="Draw"
-              title="Draw"
-              aria-pressed={making === "draw"}
-              aria-expanded={tray === "draw" || tray === "shape"}
-              disabled={frozen || sending}
-              onClick={chooseDraw}
-            >
-              <Pencil />
-              <span>Draw</span>
-            </button>
-            <button
-              type="button"
-              className={`hbw-poster-tool is-icon${making === "upload" ? " is-current" : ""}`}
-              aria-label="Upload"
-              title="Upload"
-              aria-pressed={making === "upload"}
-              disabled={frozen || sending}
-              onClick={chooseUpload}
-            >
-              <UploadSimple />
-              <span>Upload</span>
-            </button>
-            <button
-              type="button"
-              className={`hbw-poster-tool is-icon hbw-poster-bg${tray === "poster" ? " is-current" : ""}`}
-              aria-label="Background colour"
-              aria-pressed={tray === "poster"}
-              disabled={frozen || sending}
-              onClick={choosePoster}
-            >
-              <span className="hbw-poster-bg__swatch" style={{ background }} aria-hidden="true" />
+              <span>Type</span>
             </button>
           </div>
           <input
@@ -1679,239 +1602,7 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
             </p>
           ) : null}
           {tray === "draw" && !frozen ? (
-            <div className="hbw-poster-toolbar__tray" data-stage="draw">
-              <button type="button" className="hbw-poster-tool" aria-label="Shape" onClick={openShapeTray}>
-                <Rectangle />
-                <span>Shape</span>
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool${placeKind === "line" ? " is-current" : ""}`}
-                aria-label="Line"
-                onClick={() => armDrawPlace("line")}
-              >
-                <LineSegment />
-                <span>Line</span>
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool${placeKind === "arrow" ? " is-current" : ""}`}
-                aria-label="Arrow"
-                onClick={() => armDrawPlace("arrow")}
-              >
-                <ArrowUpRight />
-                <span>Arrow</span>
-              </button>
-              {colourRow(color)}
-            </div>
-          ) : null}
-          {tray === "shape" && !frozen ? (
-            <div className="hbw-poster-toolbar__tray is-shapes" data-stage="shape">
-              <button
-                type="button"
-                className={`hbw-poster-tool is-icon${placeKind === "rect" ? " is-current" : ""}`}
-                aria-label="Rectangle"
-                title="Rectangle"
-                onClick={() => armShape("rect")}
-              >
-                <Rectangle />
-                <span>Rectangle</span>
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool is-icon${placeKind === "ellipse" ? " is-current" : ""}`}
-                aria-label="Circle"
-                title="Circle"
-                onClick={() => armShape("ellipse")}
-              >
-                <Circle />
-                <span>Circle</span>
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool is-icon${placeKind === "triangle" ? " is-current" : ""}`}
-                aria-label="Triangle"
-                title="Triangle"
-                onClick={() => armShape("triangle")}
-              >
-                <Triangle />
-                <span>Triangle</span>
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool is-icon${placeKind === "star" ? " is-current" : ""}`}
-                aria-label="Star"
-                title="Star"
-                onClick={() => armShape("star")}
-              >
-                <Star />
-                <span>Star</span>
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool is-icon${placeKind === "blob" ? " is-current" : ""}`}
-                aria-label="Blob"
-                title="Blob"
-                onClick={() => armShape("blob")}
-              >
-                <svg viewBox="0 0 18 18" aria-hidden="true">
-                  <path
-                    d="M9.6 2.2c2.8-.3 5.6 1.8 5.8 4.6.2 2.2-1 3.4-1.6 5.1-.7 2-3.2 3.6-5.4 3.2C5.8 14.7 3 13.2 2.4 10.6 1.8 8.2 3.4 5.6 5.6 4.2 7 3.3 8.2 2.3 9.6 2.2z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                </svg>
-                <span>Blob</span>
-              </button>
-              {colourRow(color)}
-            </div>
-          ) : null}
-          {tray === "poster" && !frozen ? (
-            <div className="hbw-poster-toolbar__context" data-stage="poster">
-              <span className="hbw-poster-type__label">Background</span>
-              {colourRow(background)}
-            </div>
-          ) : null}
-          {showContext && multiSelected ? (
-            <div className="hbw-poster-toolbar__context" data-stage="group">
-              {objectActs({ gap: false })}
-            </div>
-          ) : null}
-          {showContext && !multiSelected && selectedText ? (
-            <div className="hbw-poster-toolbar__context" data-stage="text">
-              <button
-                type="button"
-                className="hbw-poster-tool"
-                onPointerDown={(event) => {
-                  event.preventDefault();
-                  startEdit(selectedText);
-                }}
-              >
-                Edit
-              </button>
-              {colourRow(selectedText.color)}
-              {objectActs()}
-            </div>
-          ) : null}
-          {showContext && !multiSelected && selectedBox ? (
-            <div className="hbw-poster-toolbar__context" data-stage="shape">
-              <button
-                type="button"
-                className={`hbw-poster-tool${shapePaint === "fill" ? " is-current" : ""}`}
-                aria-pressed={selectedBox.fill}
-                onClick={() => {
-                  const hide = shapePaint === "fill" && selectedBox.fill && selectedBox.outline;
-                  snapshot();
-                  objectsRef.current = objectsRef.current.map((o) =>
-                    o.id === selectedBox.id && isBoxShape(o)
-                      ? { ...o, fill: hide ? false : true, outline: hide ? true : o.outline || !o.fill }
-                      : o
-                  );
-                  setShapePaint("fill");
-                  remember();
-                  redraw();
-                }}
-              >
-                Fill
-              </button>
-              <button
-                type="button"
-                className={`hbw-poster-tool${shapePaint === "outline" ? " is-current" : ""}`}
-                aria-pressed={selectedBox.outline}
-                onClick={() => {
-                  const hide = shapePaint === "outline" && selectedBox.outline && selectedBox.fill;
-                  snapshot();
-                  objectsRef.current = objectsRef.current.map((o) =>
-                    o.id === selectedBox.id && isBoxShape(o)
-                      ? { ...o, outline: hide ? false : true, fill: hide ? true : o.fill || !o.outline }
-                      : o
-                  );
-                  setShapePaint("outline");
-                  remember();
-                  redraw();
-                }}
-              >
-                Outline
-              </button>
-              {selectedBox.outline ? (
-                <button
-                  type="button"
-                  className="hbw-poster-tool"
-                  onClick={() => {
-                    snapshot();
-                    const next = cycleWeight(selectedBox.weight, [1, 3, 6]);
-                    objectsRef.current = objectsRef.current.map((o) =>
-                      o.id === selectedBox.id && isBoxShape(o) ? { ...o, weight: next } : o
-                    );
-                    remember();
-                    redraw();
-                  }}
-                >
-                  {selectedBox.weight <= 1 ? "Thin" : selectedBox.weight <= 3 ? "Mid" : "Thick"}
-                </button>
-              ) : null}
-              {colourRow(shapePaint === "outline" ? selectedBox.stroke || selectedBox.color : selectedBox.color)}
-              {objectActs()}
-            </div>
-          ) : null}
-          {showContext && !multiSelected && selectedImage ? (
-            <div className="hbw-poster-toolbar__context" data-stage="image">
-              {objectActs({ gap: false })}
-            </div>
-          ) : null}
-          {showContext && !multiSelected && (selectedStroke || selectedLine) ? (
-            <div className="hbw-poster-toolbar__context" data-stage="stroke">
-              <button
-                type="button"
-                className="hbw-poster-tool"
-                onClick={() => {
-                  const currentLine = selectedLine;
-                  const currentStroke = selectedStroke;
-                  snapshot();
-                  if (currentStroke) {
-                    const next = cycleWeight(currentStroke.width, [1.8, 4.5, 8]);
-                    objectsRef.current = objectsRef.current.map((o) =>
-                      o.id === currentStroke.id && o.kind === "stroke" ? { ...o, width: next } : o
-                    );
-                  } else if (currentLine) {
-                    const next = cycleWeight(currentLine.weight, [1.2, 3, 6]);
-                    objectsRef.current = objectsRef.current.map((o) =>
-                      o.id === currentLine.id && o.kind === "shape" && (o.shape === "line" || o.shape === "arrow")
-                        ? { ...o, weight: next }
-                        : o
-                    );
-                  }
-                  remember();
-                  redraw();
-                }}
-              >
-                {(selectedStroke ? selectedStroke.width : selectedLine?.weight || 2) <= 2
-                  ? "Thin"
-                  : (selectedStroke ? selectedStroke.width : selectedLine?.weight || 2) <= 5
-                    ? "Mid"
-                    : "Thick"}
-              </button>
-              {colourRow((selectedStroke || selectedLine)!.color)}
-              {selectedLine?.shape === "arrow" ? (
-                <button
-                  type="button"
-                  className="hbw-poster-tool"
-                  onClick={() => {
-                    snapshot();
-                    objectsRef.current = objectsRef.current.map((o) => {
-                      if (o.id !== selectedLine.id || o.kind !== "shape" || o.shape !== "arrow") return o;
-                      return { ...o, nx1: o.nx2, ny1: o.ny2, nx2: o.nx1, ny2: o.ny1 };
-                    });
-                    remember();
-                    redraw();
-                  }}
-                >
-                  Reverse
-                </button>
-              ) : null}
-              {objectActs()}
-            </div>
+            <div className="hbw-poster-toolbar__tray" data-stage="draw">{colourRow(color)}</div>
           ) : null}
           {hasWork ? (
             <div className="hbw-poster-toolbar__work">
