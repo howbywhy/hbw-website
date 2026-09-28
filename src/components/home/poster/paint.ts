@@ -222,6 +222,66 @@ function drawSideMarks(ctx: CanvasRenderingContext2D, box: { x: number; y: numbe
   ctx.restore();
 }
 
+/** A stable number from a string, so a stroke's scatter is the same on every
+ *  repaint. The canvas redraws constantly; seeding from Math.random would make
+ *  the spray crawl. */
+function seedFrom(id: string) {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) {
+    h ^= id.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+/** xorshift32, deterministic for a given step. */
+function noise(n: number) {
+  let x = (n | 0) || 1;
+  x ^= x << 13;
+  x ^= x >>> 17;
+  x ^= x << 5;
+  return (x >>> 0) / 4294967296;
+}
+
+/** Dabs scattered along the path, dense in the middle and thinning outward,
+ *  the way a can sprays. Stepped by distance so speed does not change density. */
+function sprayPath(
+  ctx: CanvasRenderingContext2D,
+  pts: { x: number; y: number }[],
+  color: string,
+  width: number,
+  id: string
+) {
+  const radius = Math.max(6, width * 6);
+  const step = 2.5;
+  const perStep = 5;
+  const seed = seedFrom(id);
+  let n = 0;
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.globalAlpha = 0.3;
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1];
+    const b = pts[i];
+    const span = Math.hypot(b.x - a.x, b.y - a.y);
+    const steps = Math.max(1, Math.round(span / step));
+    for (let s = 0; s < steps; s++) {
+      const t = s / steps;
+      const cx = a.x + (b.x - a.x) * t;
+      const cy = a.y + (b.y - a.y) * t;
+      for (let k = 0; k < perStep; k++) {
+        const ang = noise(seed + n++ * 0x9e3779b1) * Math.PI * 2;
+        // sqrt keeps the dabs even across the disc instead of clumping centrally
+        const rad = Math.sqrt(noise(seed + n++ * 0x85ebca6b)) * radius;
+        ctx.beginPath();
+        ctx.arc(cx + Math.cos(ang) * rad, cy + Math.sin(ang) * rad, 0.9, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+  ctx.restore();
+}
+
 export function paint(
   ctx: CanvasRenderingContext2D,
   objects: PosterObj[],
@@ -251,11 +311,15 @@ export function paint(
     if (opts?.skipId && obj.id === opts.skipId) continue;
     if (obj.kind === "stroke") {
       const pts = viewStroke(obj, field).points;
+      if (pts.length < 2) continue;
+      if (obj.texture === "spray") {
+        sprayPath(ctx, pts, obj.color, obj.width, obj.id);
+        continue;
+      }
       ctx.strokeStyle = obj.color;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.lineWidth = obj.width;
-      if (pts.length < 2) continue;
       ctx.beginPath();
       ctx.moveTo(pts[0].x, pts[0].y);
       for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
