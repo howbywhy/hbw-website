@@ -1374,7 +1374,8 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   const selectedBox = current && isBoxShape(current) ? current : null;
   const selectedLine =
     current?.kind === "shape" && (current.shape === "line" || current.shape === "arrow") ? current : null;
-  const showNote = !hasContent && !editingId && !frozen && !sending && !dormant && !hidden;
+  // Parked. The conditions are unchanged; drop the `false &&` to show the invitation again.
+  const showNote = false && !hasContent && !editingId && !frozen && !sending && !dormant && !hidden;
   const multiSelected = selectedIds.length > 1;
   const showContext = selectedIds.length > 0 && !editingId && !frozen && making === "rest" && tray !== "poster";
   const fieldKind = making === "rest" ? "idle" : making;
