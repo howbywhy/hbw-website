@@ -144,11 +144,12 @@ test("every superseded default paper migrates; a chosen colour stays", () => {
   // Assert the literals too, not only the constant: a test written entirely in
   // terms of FIELD_COLOR passes even if the paper changes again and nobody
   // adds the colour it left behind to LEGACY_FIELD_COLORS.
-  assert.deepEqual([...LEGACY_FIELD_COLORS], ["#F4F5F3", "#FFFFFF"]);
+  assert.deepEqual([...LEGACY_FIELD_COLORS], ["#F4F5F3", "#FAF8F3"]);
   for (const stale of LEGACY_FIELD_COLORS) {
     assert.equal(migratePoster({ schema: 3, objects: [], background: stale }).background, FIELD_COLOR);
   }
-  assert.equal(migratePoster({ schema: 3, objects: [], background: "#ffffff" }).background, FIELD_COLOR);
+  // White is the paper now, so a chosen white is kept rather than migrated.
+  assert.equal(migratePoster({ schema: 3, objects: [], background: "#ffffff" }).background, "#ffffff");
   assert.equal(migratePoster({ schema: 3, objects: [], background: "#fcfa9b" }).background, "#fcfa9b");
 });
 

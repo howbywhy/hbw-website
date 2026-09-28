@@ -158,17 +158,21 @@ export type PosterState = {
   background: string;
 };
 
-export const FIELD_COLOR = "#FAF8F3";
+export const FIELD_COLOR = "#FFFFFF";
 /**
  * Defaults this paper has had before. A saved poster still sitting on one of
  * them never chose a colour — it just kept whatever the studio shipped — so it
- * moves to the current paper rather than stranding one visitor on old white.
+ * moves to the current paper rather than stranding one visitor on old paper.
  *
- * #FFFFFF is also in PALETTE, so in theory someone picked it on purpose. At the
- * time it was the default, which makes "chose white" and "chose nothing"
- * identical states; picking a colour again is one tap.
+ * The paper is white again, so the projects below it can be white with no seam
+ * across the page. #FAF8F3 joins the list: it was the default and is not in
+ * PALETTE, so nobody ever chose it on purpose.
+ *
+ * #FFFFFF leaves the list, because it is the current paper. It is in PALETTE
+ * too, which makes "chose white" and "chose nothing" identical states — they
+ * render the same, and picking a colour is one tap either way.
  */
-export const LEGACY_FIELD_COLORS = ["#F4F5F3", "#FFFFFF"] as const;
+export const LEGACY_FIELD_COLORS = ["#F4F5F3", "#FAF8F3"] as const;
 
 export const PALETTE = [
   "#e23b2e",

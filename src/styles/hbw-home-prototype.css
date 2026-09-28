@@ -4,8 +4,8 @@ html.hbw-workspace {
   /* The ground. hbw-rail.css defines these on the same selector and wins by
      load order; they agree here so a change in that order cannot put the site
      back on white. */
-  --hbw-page: #faf8f3;
-  --hbw-window: #faf8f3;
+  --hbw-page: #ffffff;
+  --hbw-window: #ffffff;
   --hbw-info: #fcfa9b;
   --hbw-manifesto: #e3ddd4;
   --hbw-x-practice: calc(var(--hbw-x-projects) - 2rem);
@@ -69,7 +69,7 @@ html.hbw-workspace {
   --hbw-t-handoff: var(--hbw-motion-continuity);
   --hbw-t-identity: var(--hbw-motion-continuity);
   --hbw-t-gallery: var(--hbw-motion-ui);
-  --hbw-field: #faf8f3;
+  --hbw-field: #ffffff;
   --hbw-vv-inset: 0px;
   /* Composed first-visit hold. Source: HBW_INTRO_MS in motion.ts. */
   --hbw-t-intro: 2280ms;
@@ -88,11 +88,11 @@ html.hbw-home-prototype,
 html.hbw-home-prototype body {
   height: 100%;
   overflow: hidden;
-  background: var(--hbw-page, #faf8f3);
+  background: var(--hbw-page, #ffffff);
   /* The literal repeat is the fallback for a browser that drops the custom
      property. It has to be the ground, or the page behind everything stays
      white while the shell on top of it is warm. */
-  background-color: #faf8f3;
+  background-color: #ffffff;
   color: #333;
   font-family: var(--hbw-font);
   font-weight: 400;
@@ -145,7 +145,7 @@ html.hbw-workspace .hbw-sheet-layer :where(*):not(img, video, canvas, svg, path)
   flex-direction: column;
   overflow: hidden;
   overflow-x: hidden;
-  background: #faf8f3;
+  background: #ffffff;
   color: #333;
   font-family: var(--hbw-font);
   font-size: var(--hbw-lg);
@@ -931,7 +931,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   padding: 0;
   margin: 0;
   border: 0;
-  background: var(--hbw-field, #f4f5f3);
+  background: var(--hbw-field, #ffffff);
   opacity: 0.4;
   overflow: hidden;
   cursor: pointer;
@@ -1087,9 +1087,9 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
 
 .hbw-poster-field {
   position: absolute;
-  inset: 0 0 calc(var(--hbw-work-h, 0px) + var(--hbw-poster-stack, 0px)) 0;
+  inset: 0 0 var(--hbw-work-h, 0px) 0;
   margin: 0;
-  background: var(--hbw-field, #f4f5f3);
+  background: var(--hbw-field, #ffffff);
   overflow: visible;
   z-index: 1;
   user-select: none;
@@ -1117,10 +1117,18 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   bottom: calc(var(--hbw-task-bottom, 14px) + var(--hbw-task-h, 2.75rem) + 10px);
   z-index: 2;
   margin: 0;
-  padding: 0 0 0 calc(1px + var(--hbw-space-3));
+  /* The note sits on the canvas now, so it takes the same frosted pill as the
+     toolbar rows. Without it the line is grey on whatever colour was chosen. */
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hbw-pill-h);
+  padding: 0 var(--hbw-pill-x);
   border: 0;
-  background: none;
-  color: rgba(51, 51, 51, 0.42);
+  border-radius: var(--hbw-pill-r);
+  background: var(--hbw-pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: rgba(51, 51, 51, 0.62);
   font-family: var(--hbw-font);
   font-size: var(--hbw-sm);
   font-weight: 400;
@@ -1426,7 +1434,7 @@ html.hbw-entered:not(.hbw-intro) .hbw-home.is-view .hbw-home-strip__mark.is-asse
   padding: 0;
   border: 0;
   resize: none;
-  background: var(--hbw-field, #f4f5f3);
+  background: var(--hbw-field, #ffffff);
   outline: none;
   font-weight: 400;
   letter-spacing: 0;
@@ -3712,7 +3720,7 @@ html.hbw-workspace .hbw-sheet .hbw-sheet__step {
     min-height: 0;
     max-height: none;
     overflow: visible;
-    background: #faf8f3;
+    background: #ffffff;
     z-index: 70;
     padding: max(var(--hbw-space-2), env(safe-area-inset-top, 0px))
       max(var(--hbw-edge), env(safe-area-inset-right, 0px)) var(--hbw-space-2)
