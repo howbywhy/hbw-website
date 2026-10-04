@@ -159,3 +159,7 @@ export function infoHintForIndex(experience: ProjectExperience, index: number): 
   const last = experience.infoSections[experience.infoSections.length - 1];
   return last?.id ?? "idea";
 }
+
+/** How far a project view has come up. Lived in ProjectView until that renderer
+ *  went; the shell and the motion session still speak in these terms. */
+export type ViewPhase = "idle" | "rising" | "assembling" | "active" | "exiting" | "handoff-in" | "handoff-out";

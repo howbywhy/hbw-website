@@ -26,7 +26,10 @@ function writeScroll(y: number) {
 
 function workFromUrl() {
   if (typeof window === "undefined") return null;
-  const id = new URLSearchParams(window.location.search).get("work");
+  // /projects/<slug> is the project's address. ?work= was the old one and is
+  // still read, so links already out in the world keep working.
+  const onPath = window.location.pathname.match(/^\/projects\/([^/]+)\/?$/);
+  const id = onPath ? onPath[1] : new URLSearchParams(window.location.search).get("work");
   return id && WORK.some((p) => p.id === id) ? id : null;
 }
 
@@ -383,16 +386,16 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
     });
   }, [active, preview]);
 
-  // The detail lives in the address (?work=slug), so it can be shared and Back closes it.
+  // The detail lives in the address, so it can be shared and Back closes it.
   const openDetail = useCallback((slug: string, origin: DOMRect | null, push = true) => {
     setPreview(null);
     setClosing(false);
     setOpen({ slug, origin });
     if (push) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("work", slug);
-      // Always "/": a project opened from /index still belongs to the home path.
-      window.history.pushState({ hbw: "work", slug }, "", "/" + url.search);
+      // /projects/<slug> is the canonical, indexed address for a project, and
+      // the one the sitemap lists. Opening from the line should land on it
+      // rather than on a query string the crawler folds into "/".
+      window.history.pushState({ hbw: "work", slug }, "", `/projects/${slug}`);
     }
   }, []);
 
@@ -403,10 +406,12 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
       closingSignal.current?.();
     }
     setClosing(true);
+    // Closing always returns to the home path, whether the project was opened
+    // from the line or typed straight into the address bar.
     const url = new URL(window.location.href);
-    if (url.searchParams.has("work")) {
-      url.searchParams.delete("work");
-      window.history.pushState({ hbw: "home" }, "", url.pathname + (url.searchParams.toString() ? `?${url.searchParams}` : ""));
+    const onProject = /^\/projects\/[^/]+\/?$/.test(url.pathname);
+    if (onProject || url.searchParams.has("work")) {
+      window.history.pushState({ hbw: "home" }, "", "/");
     }
   }, []);
 
@@ -520,7 +525,7 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
                     >
                       <a
                         className="hbw-card__hit"
-                        href={`/?work=${project.id}`}
+                        href={`/projects/${project.id}`}
                         // Only keyboard focus brings a card forward; a click opens it where it is.
                         onFocus={(event) => {
                           if (event.currentTarget.matches(":focus-visible")) glideTo(frontOf(i));
@@ -595,9 +600,8 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
           }}
           onSwitch={(slug) => {
             setOpen({ slug, origin: null });
-            const url = new URL(window.location.href);
-            url.searchParams.set("work", slug);
-            window.history.replaceState({ hbw: "work", slug }, "", url.pathname + url.search);
+            // Next project, same rule: the address is the project's own.
+            window.history.replaceState({ hbw: "work", slug }, "", `/projects/${slug}`);
             glideTo(frontOf(WORK.findIndex((p) => p.id === slug)));
           }}
           onPoster={() => {

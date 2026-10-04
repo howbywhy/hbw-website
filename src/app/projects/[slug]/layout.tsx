@@ -1,5 +1,4 @@
 import { HbwShell } from "@/components/home/HbwShell";
-import { cmsBackedProject, resolveProjectExperience } from "@/lib/project-source";
 import { loadIndex } from "@/sanity/load-index";
 
 export const dynamic = "force-static";
@@ -11,12 +10,10 @@ export default async function ProjectSlugLayout({
   children: React.ReactNode;
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const published = cmsBackedProject(slug) ? await resolveProjectExperience(slug) : null;
+  await params;
   const index = await loadIndex();
-  return (
-    <HbwShell published={published} index={index}>
-      {children}
-    </HbwShell>
-  );
+  // No `published`: the shell opens this project in the workspace viewer, read
+  // from the path, which is the same experience /?work= has always given. The
+  // route stays so the canonical URL, its metadata and its structured data do.
+  return <HbwShell index={index}>{children}</HbwShell>;
 }
