@@ -22,7 +22,7 @@ import {
   type BrowseVisual,
   type DestinationVisual,
 } from "@/components/home/projects/enter-bridge";
-import { ProjectView, type ViewPhase } from "@/components/home/projects/ProjectView";
+import type { ViewPhase } from "@/components/home/projects/types";
 import { useCmsPreviewExperience } from "@/components/home/CmsPreviewContext";
 import {
   phaseAfterRouteBoundary,
@@ -1558,39 +1558,6 @@ export function HbwShell({
             />
           ) : null}
           {children}
-          {leaving && leavingExp ? (
-            <ProjectView
-              key={`out-${leaving.id}`}
-              experience={leavingExp}
-              phase="handoff-out"
-              index={leaving.index}
-              onIndex={() => {}}
-            />
-          ) : null}
-          {showView && experience ? (
-            <ProjectView
-              key={experience.slug}
-              experience={experience}
-              phase={phase}
-              index={viewIndex}
-              inspecting={inspecting}
-              entrance={entranceRef.current}
-              onIndex={onViewIndex}
-              restoreX={parkedX}
-              fullFrame={fullFrame}
-              fill
-              onCommitNext={commitNext}
-              onGeometryReady={(rect) => {
-                if (!window.__hbwEnterTiming?.geometryReady) {
-                  markEnterTiming({ mounted: performance.now(), geometryReady: performance.now() });
-                }
-                geometryWait.current?.(rect);
-              }}
-              onLeaveInspect={() => {
-                if (panel === "info") closePanel();
-              }}
-            />
-          ) : null}
           {enterBridge ? (
             <EnterBridge
               visual={enterBridge.visual}

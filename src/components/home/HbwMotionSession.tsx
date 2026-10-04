@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useMemo, useRef, type ReactNode } from "react";
-import type { ViewPhase } from "@/components/home/projects/ProjectView";
+import type { ViewPhase } from "@/components/home/projects/types";
 import { viewSlugFromPath } from "@/lib/workspace-routes";
 import type { FilterDim, ProjectsMode, SortId, WindowMode } from "@/components/home/workspace";
 
