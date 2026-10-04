@@ -573,101 +573,82 @@ export const SCK_EXPERIENCE: ProjectExperience = {
   context: SCK_COPY.context,
   authorship: authorshipFromCopy(SCK_COPY),
   movements: [
-    mv("sk01", "portrait", jpg("/projects/sck/1.jpg", 1080, 1350, "contain", []), "idea", {
+    mv("sk01", "portrait", jpg("/projects/sck/1.jpg", 1296, 1620, "contain", []), "idea", {
       scale: "major",
+      pace: "pause",
+      alt: "Two people seated on terrazzo steps beside a large framed painting, a glass wall opening to planting behind them, with STUDIO CARSON KELLY set across the frame.",
+    }),
+    mv("sk02", "portrait", jpg("/projects/sck/2.jpg", 1296, 1620, "contain", []), "idea", {
+      scale: "standard",
       pace: "normal",
-      alt: "Two people in a sunlit studio beside a large figurative painting in a red frame.",
+      alt: "The practice description ranged along the top of a pale sage field, with STUDIO CARSON KELLY set large across the foot.",
     }),
-    mv("sk02", "landscape", jpg("/projects/sck/2.jpg", 1920, 1080, "contain", []), "idea", {
+    mv("sk03", "landscape", jpg("/projects/sck/3.jpg", 2880, 1620, "contain", []), "idea", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Two posters side by side: a project sheet listing size, type, location and credits, beside a bedroom photograph captioned S.C.K and Little James.",
+    }),
+    mv("sk04", "portrait", jpg("/projects/sck/4.jpg", 1296, 1620, "contain", []), "idea", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A corrugated steel roof edge against eucalypts, quartered by fine crosshair rules with S.C.K at the centre.",
+    }),
+    mv("sk05", "portrait", jpg("/projects/sck/5.jpg", 1296, 1620, "contain", []), "idea", {
       scale: "detail",
-      alt: "S.C.K in charcoal type with inward crosshair lines on a pale ground.",
+      pace: "normal",
+      alt: "The logotype in four lockups — one line, two lines, three lines and the S.C.K monogram — set out on spacing guides.",
     }),
-    mv("sk03", "portrait", jpg("/projects/sck/3.jpg", 1080, 1350, "contain", []), "idea", {
-      scale: "standard",
-      alt: "Practice description along the top and STUDIO CARSON KELLY along the bottom on pale green-grey.",
-    }),
-    mv("sk04", "film", film("/projects/sck/web/4.mp4", 2000, 2500, "/projects/sck/web/4.jpg"), "idea", {
-      scale: "standard",
-      span: "narrow",
-      alt: "Horizontal dash clusters forming shifting blocky letterforms on a cream grid.",
-    }),
-    mv("sk05", "portrait", jpg("/projects/sck/5.jpg", 1080, 1350, "contain", []), "idea", {
-      scale: "standard",
-      alt: "S.C.K and a crosshair over an interior looking out to a timber deck and forest.",
-    }),
-    mv("sk06", "film", film("/projects/sck/web/6.mp4", 1000, 1250, "/projects/sck/web/6.jpg"), "shift", {
-      scale: "standard",
-      span: "narrow",
-      alt: "White corrugated house and timber deck with a lounge chair against dense forest.",
-    }),
-    mv("sk07", "portrait", jpg("/projects/sck/7.jpg", 1080, 1350, "contain", []), "shift", {
+    mv("sk06", "portrait", jpg("/projects/sck/6.jpg", 1296, 1620, "contain", []), "shift", {
       scale: "detail",
-      alt: "Four STUDIO CARSON KELLY lockups with dotted guidelines and beige spacing blocks.",
+      pace: "tight",
+      alt: "A spherical ribbed pendant above dried grasses, labelled STILL_Pendant, by_SOZOU_Studio, OBJKT_022.",
     }),
-    mv("sk08", "portrait", jpg("/projects/sck/8.jpg", 1080, 1350, "contain", []), "shift", {
+    mv("sk07", "landscape", jpg("/projects/sck/7.jpg", 2880, 1620, "contain", []), "shift", {
       scale: "standard",
-      alt: "Cast cubic speaker with a deep conical horn on a solid pedestal.",
+      pace: "normal",
+      alt: "Two posters side by side: a specification sheet for a ninety square metre Bondi Junction residence, beside a bed lit through a glass block wall.",
     }),
-    mv("sk09", "film", film("/projects/sck/web/9.mp4", 2000, 2500, "/projects/sck/web/9.jpg"), "shift", {
-      scale: "standard",
-      span: "narrow",
-      alt: "White S.C.K type on charcoal above a cream band, with faint vertical layout guides.",
-    }),
-    mv("sk10", "portrait", jpg("/projects/sck/10.jpg", 1080, 1350, "contain", []), "shift", {
-      scale: "standard",
-      alt: "S.C.K and a crosshair over corrugated metal cladding and gum trees.",
-    }),
-    mv("sk11", "portrait", jpg("/projects/sck/11.jpg", 1080, 1350, "contain", []), "system", {
-      scale: "standard",
-      alt: "Translucent amber glass coffee table with three curved legs and a notched top.",
-    }),
-    mv("sk12", "portrait", jpg("/projects/sck/12.jpg", 1080, 1350, "contain", []), "system", {
+    mv("sk08", "portrait", jpg("/projects/sck/8.jpg", 1296, 1620, "contain", []), "shift", {
       scale: "detail",
-      alt: "STUDIO, CARSON, and KELLY stacked and repeating in black sans-serif on white.",
+      pace: "tight",
+      alt: "A cast speaker with a conical horn on a plinth, labelled Cast_Speaker, by_Tom_Fereday, OBJKT_149.",
     }),
-    mv("sk13", "portrait", jpg("/projects/sck/13.jpg", 1080, 1350, "contain", []), "system", {
-      scale: "standard",
+    mv("sk09", "landscape", jpg("/projects/sck/9.jpg", 2159, 1620, "contain", []), "shift", {
+      scale: "major",
       pace: "pause",
-      alt: "Ribbed spherical pendant on a floor-to-ceiling pole in a beige room with dried grass.",
+      alt: "A living room opening onto a deck and eucalypt bush, the STUDIO CARSON KELLY wordmark and practice details set over it.",
     }),
-    mv("sk14", "portrait", png("/projects/sck/14.png", 1704, 2250), "system", {
-      scale: "standard",
-      alt: "Nine cells of dashed-line numerals on a pale lime ground.",
+    mv("sk10", "portrait", jpg("/projects/sck/10.jpg", 1296, 1620, "contain", []), "system", {
+      scale: "detail",
+      pace: "tight",
+      alt: "A glass and resin coffee table on a pale floor, labelled Coffee_Table, by_Clive_Lonstein, OBJKT_009.",
     }),
-    mv("sk15", "film", film("/projects/sck/web/15.mp4", 2000, 2500, "/projects/sck/web/15.jpg"), "system", {
+    mv("sk11", "film", film("/projects/sck/web/11.mp4", 1600, 960, "/projects/sck/web/11.jpg"), "system", {
       scale: "standard",
+      pace: "normal",
       span: "narrow",
-      alt: "Lit petal-form pendant with dark bead fasteners against a dark wall.",
+      alt: "Three phone screens running a Studio Carson Kelly podcast player and episode list.",
     }),
-    mv("sk16", "film", film("/projects/sck/web/16.mp4", 1000, 1250, "/projects/sck/web/16.jpg"), "outcome", {
+    mv("sk12", "landscape", jpg("/projects/sck/12.jpg", 2159, 1620, "contain", []), "system", {
       scale: "standard",
+      pace: "normal",
+      alt: "A travertine brick corner with a pitcher plant, chrome lamp and corduroy sofa, S.C.K and the practice description set alongside.",
+    }),
+    mv("sk13", "film", film("/projects/sck/web/13.mp4", 1600, 960, "/projects/sck/web/13.jpg"), "outcome", {
+      scale: "standard",
+      pace: "normal",
       span: "narrow",
-      alt: "Horizontal bands of forest, deck, and cladding photographs interleaved with labelled beige slots.",
+      alt: "Three phone screens of Studio Carson Kelly stories — a bedroom, a kitchen and a written note on the Little James house.",
     }),
-    mv("sk18", "film", film("/projects/sck/web/18.mp4", 2000, 2500, "/projects/sck/web/18.jpg"), "outcome", {
-      scale: "standard",
-      span: "narrow",
-      alt: "Faint paneled-wall schematic of staggered rectangles with dimension numbers.",
+    mv("sk14", "portrait", jpg("/projects/sck/14.jpg", 1296, 1620, "contain", []), "outcome", {
+      scale: "detail",
+      pace: "tight",
+      alt: "Nine pale sage cards in a grid, each carrying STUDIO CARSON KELLY and a reference number.",
     }),
-    mv("sk19", "film", film("/projects/sck/web/19.mp4", 1000, 1250, "/projects/sck/web/19.jpg"), "outcome", {
-      scale: "standard",
-      span: "narrow",
-      alt: "Timber kitchen looking through glass to a deck and forest, overlaid with dashed diagonal shapes.",
-    }),
-    mv("sk20", "portrait", png("/projects/sck/20.png", 1704, 2250), "outcome", {
-      scale: "standard",
-      alt: "Nine-cell grid of dotted abstract forms on a pale beige ground.",
-    }),
-    mv("sk22", "film", film("/projects/sck/web/22.mp4", 1080, 1440, "/projects/sck/web/22.jpg"), "outcome", {
-      scale: "standard",
-      span: "narrow",
-      alt: "Dark interface assembling horizontal strata of photographs and dashed graphic bands.",
-    }),
-    mv("sk23", "film", film("/projects/sck/web/23.mp4", 1000, 1250, "/projects/sck/web/23.jpg"), "outcome", {
-      scale: "standard",
-      span: "narrow",
+    mv("sk15", "film", film("/projects/sck/web/15.mp4", 1600, 912, "/projects/sck/web/15.jpg"), "outcome", {
+      scale: "major",
       pace: "pause",
-      alt: "Dog on a timber deck facing forest, with STUDIO CARSON KELLY over a dashed grid.",
+      alt: "The Studio Carson Kelly website, street footage running beneath a Work, Studio and Resources menu.",
     }),
   ],
 };

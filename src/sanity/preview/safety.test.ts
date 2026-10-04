@@ -6,7 +6,7 @@ import { PROJECT_EXPERIENCES, SCK_EXPERIENCE } from "../../components/home/proje
 const SANITY_HOST = /cdn\.sanity\.io|sanity\.cdn/;
 
 test("shipped SCK sequence stays on local public assets", () => {
-  assert.equal(SCK_EXPERIENCE.movements.length, 21);
+  assert.equal(SCK_EXPERIENCE.movements.length, 15);
   for (const movement of SCK_EXPERIENCE.movements) {
     assert.doesNotMatch(movement.media.src, SANITY_HOST);
     if (movement.media.mp4) assert.doesNotMatch(movement.media.mp4, SANITY_HOST);

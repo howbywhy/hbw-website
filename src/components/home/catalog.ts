@@ -63,6 +63,8 @@ export type ProjectRecord = {
   height: number;
   crop: string;
   layout: BrowseLayout;
+  /** Movement id to use as the card, when the first landscape frame is not the strongest. */
+  keyArtId?: string;
   /** 12-column Visual span from the Projects axis. Index ignores this. */
   visualSpan?: 3 | 4 | 5 | 6 | 7 | 8 | 9;
   /** 1-based column start. Index ignores this. */
@@ -110,10 +112,11 @@ export const PROJECTS: ProjectRecord[] = [
     year: "2026",
     src: "/projects/sck/1.jpg",
     srcSet: srcSetFor("/projects/sck/1.jpg", [], 1080)!,
-    width: 1080,
-    height: 1350,
+    width: 1296,
+    height: 1620,
     crop: "center 32%",
     layout: "portrait",
+    keyArtId: "sk09",
     visualSpan: 5,
     visualStart: 8,
     sectors: ["Architecture", "Interior Design"],
