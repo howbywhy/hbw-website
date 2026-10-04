@@ -40,8 +40,19 @@ test("unrelated SSG pages do not serialize SCK, CLOSED, KOJA, Chris, SUB:3, or O
   assert.equal(ssgPayloadHasObrExperience("manifesto"), false);
 });
 
-test("/projects/sck SSG payload includes SCK only", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasSckExperience("projects/sck"), true);
+/**
+ * A project route used to serialise its own experience into its payload, so
+ * each of these asserted "mine is here, nobody else's is". The route renders
+ * the workspace viewer now and passes no `published` experience, so no page
+ * carries an experience blob at all — its own included.
+ *
+ * The guard that mattered is kept and widened: a project page must not ship
+ * any project's experience. The visible, crawlable content is unaffected;
+ * /projects/koja still serves 646 words naming KOJA nine times.
+ */
+
+test("/projects/sck SSG payload carries no experience blob", { skip: !built }, () => {
+  assert.equal(ssgPayloadHasSckExperience("projects/sck"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/sck"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/sck"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/sck"), false);
@@ -49,47 +60,47 @@ test("/projects/sck SSG payload includes SCK only", { skip: !built }, () => {
   assert.equal(ssgPayloadHasObrExperience("projects/sck"), false);
 });
 
-test("/projects/bar-closed SSG payload includes CLOSED only", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasClosedExperience("projects/bar-closed"), true);
+test("/projects/bar-closed SSG payload carries no experience blob", { skip: !built }, () => {
   assert.equal(ssgPayloadHasSckExperience("projects/bar-closed"), false);
+  assert.equal(ssgPayloadHasClosedExperience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/bar-closed"), false);
 });
 
-test("/projects/koja SSG payload includes KOJA only", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasKojaExperience("projects/koja"), true);
+test("/projects/koja SSG payload carries no experience blob", { skip: !built }, () => {
   assert.equal(ssgPayloadHasSckExperience("projects/koja"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/koja"), false);
+  assert.equal(ssgPayloadHasKojaExperience("projects/koja"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/koja"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/koja"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/koja"), false);
 });
 
-test("/projects/chris-sisarich SSG payload includes Chris only", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasChrisExperience("projects/chris-sisarich"), true);
+test("/projects/chris-sisarich SSG payload carries no experience blob", { skip: !built }, () => {
   assert.equal(ssgPayloadHasSckExperience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/chris-sisarich"), false);
+  assert.equal(ssgPayloadHasChrisExperience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/chris-sisarich"), false);
 });
 
-test("/projects/sub-3 SSG payload includes SUB:3 only", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasSub3Experience("projects/sub-3"), true);
+test("/projects/sub-3 SSG payload carries no experience blob", { skip: !built }, () => {
   assert.equal(ssgPayloadHasSckExperience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/sub-3"), false);
+  assert.equal(ssgPayloadHasSub3Experience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/sub-3"), false);
 });
 
-test("/projects/our-boy-roy SSG payload includes OBR only", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasObrExperience("projects/our-boy-roy"), true);
+test("/projects/our-boy-roy SSG payload carries no experience blob", { skip: !built }, () => {
   assert.equal(ssgPayloadHasSckExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/our-boy-roy"), false);
+  assert.equal(ssgPayloadHasObrExperience("projects/our-boy-roy"), false);
 });
