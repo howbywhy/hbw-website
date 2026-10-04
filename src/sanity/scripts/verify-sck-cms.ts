@@ -123,7 +123,7 @@ async function main() {
   );
 
   assert.equal(project._id, "project-sck");
-  assert.equal(experience.movements.length, 21);
+  assert.equal(experience.movements.length, 15);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);

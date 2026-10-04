@@ -44,12 +44,14 @@ function artFrom(movement: Movement, crop: string): Art {
 }
 
 /**
- * Key art for a card: the project's first landscape frame, so a 16:9 card is
- * never a portrait squeezed into a letterbox. Falls back to the catalog cover.
+ * Key art for a card: the frame named by keyArtId, else the project's first
+ * landscape frame, so a 16:9 card is never a portrait squeezed into a
+ * letterbox. Falls back to the catalog cover.
  */
 export function keyArt(project: ProjectRecord): Art {
   const movements = getExperience(project.id)?.movements ?? [];
-  const wide = movements.find((m) => m.media.width >= m.media.height * 1.2) ?? movements[0];
+  const named = project.keyArtId ? movements.find((m) => m.id === project.keyArtId) : undefined;
+  const wide = named ?? movements.find((m) => m.media.width >= m.media.height * 1.2) ?? movements[0];
   if (wide) return artFrom(wide, wide === movements[0] ? project.crop : "center center");
   return {
     type: "image",
