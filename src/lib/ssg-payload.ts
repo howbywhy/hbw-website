@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 /** First SCK film — present only when the full case-study experience is serialized. */
-export const SCK_MOVEMENT_PAYLOAD_MARKER = "/projects/sck/web/11.mp4";
+export const SCK_MOVEMENT_PAYLOAD_MARKER = "/projects/sck/web/10.mp4";
 export const SCK_MOVEMENT_ID_MARKER = "sk14";
 
 /** CLOSED film alt — present in local and Sanity case-study payloads, not catalog thumbs. */

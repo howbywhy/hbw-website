@@ -4,7 +4,7 @@
  * Does not touch the public site.
  */
 import { createReadStream } from "node:fs";
-import { basename, extname } from "node:path";
+import { extname } from "node:path";
 import { getCliClient } from "sanity/cli";
 import { portableBlocks } from "./portable-blocks";
 import { SCK_COPY, SCK_DOCUMENT_ID, SCK_IDENTITY, SCK_MOVEMENTS } from "./sck-content";
@@ -28,8 +28,18 @@ async function existingAsset(filename: string, kind: "image" | "file") {
   return client.fetch(`*[_type == $type && originalFilename == $filename][0]._id`, { type, filename });
 }
 
+/**
+ * Asset name from the repo path, not the basename. The sequence numbers restart
+ * per folder, so a bare basename collides: a new still and an older one can both
+ * be "1.jpg", and web/11.jpg collides with the still 11.jpg. Reusing on that
+ * match would silently keep the superseded picture.
+ */
+function assetName(path: string) {
+  return path.replace(/^public\/projects\//, "").replace(/\//g, "-");
+}
+
 async function upload(path: string, kind: "image" | "file") {
-  const filename = basename(path);
+  const filename = assetName(path);
   const found = await existingAsset(filename, kind);
   if (found) {
     console.log(`reuse ${kind} ${filename}`);
@@ -47,11 +57,17 @@ async function upload(path: string, kind: "image" | "file") {
 }
 
 async function main() {
-  const others = await client.fetch<string[]>(
-    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"])].slug.current`
+  // Confirm this is the dataset we think it is before writing. Index-only
+  // entries are added through the Studio and are expected here; what matters is
+  // that the six case studies are present, since this script replaces one of them.
+  const caseStudies = ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"];
+  const present = await client.fetch<string[]>(
+    `*[_type == "project" && slug.current in $caseStudies].slug.current`,
+    { caseStudies }
   );
-  if (others.length) {
-    throw new Error(`Refusing to seed: dataset already has other projects (${others.join(", ")})`);
+  const missing = caseStudies.filter((slug) => !present.includes(slug));
+  if (missing.length) {
+    throw new Error(`Refusing to seed: not the expected dataset, missing ${missing.join(", ")}`);
   }
 
   const assets = new Map<string, string>();

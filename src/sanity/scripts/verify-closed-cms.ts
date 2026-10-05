@@ -196,7 +196,7 @@ async function main() {
   assert.equal(project._id, CLOSED_DOCUMENT_ID);
   assert.equal(result.record.id, "closed");
   assert.equal(experience.slug, "closed");
-  assert.equal(experience.movements.length, 22);
+  assert.equal(experience.movements.length, 18);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);

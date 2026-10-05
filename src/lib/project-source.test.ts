@@ -189,7 +189,7 @@ test("SCK + local flag uses shipped experience and does not fetch", async () => 
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SCK_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 15);
+  assert.equal(resolved.experience?.movements.length, 16);
   assert.equal(loaded, false);
 });
 
@@ -206,7 +206,7 @@ test("SCK + sanity flag + healthy CMS uses published experience", async () => {
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience, cmsSck);
   assert.equal(resolved.experience?.slug, "sck");
-  assert.equal(resolved.experience?.movements.length, 15);
+  assert.equal(resolved.experience?.movements.length, 16);
   assert.ok(resolved.experience?.context);
   assert.deepEqual(resolved.experience?.authorship?.roles, [
     "Brand DNA",
@@ -224,7 +224,7 @@ test("SCK + sanity flag + missing document falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SCK_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 15);
+  assert.equal(resolved.experience?.movements.length, 16);
 });
 
 test("SCK + sanity flag + fetch exception falls back to local", async () => {
@@ -261,7 +261,7 @@ test("CLOSED + local flag uses shipped experience and does not fetch", async () 
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, CLOSED_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "bar-closed");
-  assert.equal(resolved.experience?.movements.length, 22);
+  assert.equal(resolved.experience?.movements.length, 18);
   assert.equal(loaded, false);
 });
 
@@ -277,7 +277,7 @@ test("CLOSED + sanity flag + healthy CMS uses published experience", async () =>
   assert.equal(requested, "closed");
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience?.slug, "bar-closed");
-  assert.equal(resolved.experience?.movements.length, 22);
+  assert.equal(resolved.experience?.movements.length, 18);
   assert.equal(resolved.experience?.context, "CMS closed context.");
   assert.equal(
     resolved.experience?.authorship?.workingContext,
@@ -302,7 +302,7 @@ test("CLOSED + sanity flag + missing document falls back to local", async () => 
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, CLOSED_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 22);
+  assert.equal(resolved.experience?.movements.length, 18);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 

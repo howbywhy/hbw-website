@@ -17,6 +17,25 @@ export function basename(path: string | undefined) {
   return path?.split("/").pop() ?? "";
 }
 
+/**
+ * How a local media path may appear as a Sanity asset's originalFilename.
+ * Newer seeds name an asset after its repo path (sck/web/11.mp4 ->
+ * sck-web-11.mp4) because bare basenames collide across folders and between
+ * sequence revisions; earlier seeds used the basename. Either spelling is
+ * correct, so identity drift is only reported when neither matches.
+ */
+export function assetIdentities(path: string | undefined): string[] {
+  if (!path) return [""];
+  const rel = path.replace(/^public\//, "").replace(/^\//, "").replace(/^projects\//, "");
+  return [rel.replace(/\//g, "-"), basename(path)];
+}
+
+function identityDrift(field: string, localPath: string | undefined, cmsName: string) {
+  const candidates = assetIdentities(localPath);
+  if (candidates.includes(cmsName)) return null;
+  return { expected: candidates[0], actual: cmsName, field };
+}
+
 export function assetName(value: unknown) {
   if (!value || typeof value !== "object") return "";
   const asset = "asset" in value ? (value as { asset?: { originalFilename?: string } }).asset : undefined;
@@ -24,7 +43,7 @@ export function assetName(value: unknown) {
 }
 
 function mediaIdentity(movement: Movement) {
-  return basename(movement.media.type === "video" ? movement.media.mp4 || movement.media.src : movement.media.src);
+  return movement.media.type === "video" ? movement.media.mp4 || movement.media.src : movement.media.src;
 }
 
 export function compareMovementParity(
@@ -44,13 +63,6 @@ export function compareMovementParity(
       ["id", left.id, right.id],
       ["order", index, index],
       ["media.type", left.media.type, right.media.type],
-      [
-        "media.identity",
-        mediaIdentity(left),
-        assetName(left.media.type === "video" ? source.video : source.still),
-      ],
-      ["media.posterIdentity", basename(left.media.poster), left.media.type === "video" ? assetName(source.poster) : ""],
-      ["media.webmIdentity", basename(left.media.webm), left.media.webm ? assetName(source.webm) : ""],
       ["media.width", left.media.width, right.media.width],
       ["media.height", left.media.height, right.media.height],
       ["media.fit", left.media.fit, right.media.fit],
@@ -71,6 +83,16 @@ export function compareMovementParity(
     for (const [field, exp, act] of fields) {
       if (exp !== act) mismatches.push({ id: left.id, field, expected: exp, actual: act });
     }
+    const identities: Array<[string, string | undefined, string]> = [
+      ["media.identity", mediaIdentity(left), assetName(left.media.type === "video" ? source.video : source.still)],
+      ["media.posterIdentity", left.media.poster, left.media.type === "video" ? assetName(source.poster) : ""],
+      ["media.webmIdentity", left.media.webm, left.media.webm ? assetName(source.webm) : ""],
+    ];
+    for (const [field, localPath, cmsName] of identities) {
+      if (!localPath && !cmsName) continue;
+      const drift = identityDrift(field, localPath, cmsName);
+      if (drift) mismatches.push({ id: left.id, ...drift });
+    }
     if (!right.media.src.includes("cdn.sanity.io")) {
       mismatches.push({ id: left.id, field: "media.src.host", expected: "cdn.sanity.io", actual: right.media.src });
     }
@@ -89,10 +111,10 @@ export function previewIdentityDrift(
   catalogSrc: string,
   sanityPreview: unknown
 ): VerifyMismatch | null {
-  const expected = basename(catalogSrc);
   const actual = assetName(sanityPreview);
-  if (expected === actual) return null;
-  return { id: "record", field: "preview.identity", expected, actual };
+  const candidates = assetIdentities(catalogSrc);
+  if (candidates.includes(actual)) return null;
+  return { id: "record", field: "preview.identity", expected: candidates[0], actual };
 }
 
 /** Browse chrome stays in catalog.ts. Sanity preview size/filename may differ. */

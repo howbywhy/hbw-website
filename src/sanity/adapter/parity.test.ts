@@ -57,7 +57,7 @@ test("SCK parity against shipped experience", () => {
     TEST_MEDIA
   );
   assert.equal(experience.slug, "sck");
-  assert.equal(experience.movements.length, 15);
+  assert.equal(experience.movements.length, 16);
   assert.deepEqual(
     experience.infoSections.map((section) => section.id),
     ["idea", "shift", "system"]
