@@ -350,10 +350,6 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
       scale: "standard",
       alt: "CLOSED business cards on a plate of roasted potatoes.",
     }),
-    mv("c07", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-07.jpg", 864, 1080, "contain", []), "idea", {
-      scale: "standard",
-      alt: "Tomato print card in a clear pouch with an orange zip, reading CURATED FOOD MADE IN NEWCASTLE.",
-    }),
     mv("c08", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-08.jpg", 864, 1080, "contain", []), "shift", {
       scale: "detail",
       alt: "Hand holding a CLOSED wine glass over a scalloped CLOSED coaster.",
@@ -366,10 +362,6 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
       scale: "standard",
       alt: "CLOSED menu card over a scallop shell on river stones.",
     }),
-    mv("c11", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-011.jpg", 1920, 1080, "contain", []), "shift", {
-      scale: "standard",
-      alt: "Two plates of tomato toast, one under jagged black stripes and one under a faint CLOSED sheet.",
-    }),
     mv("c12", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-012.jpg", 864, 1080, "contain", []), "shift", {
       scale: "standard",
       alt: "Orange CLOSED lockup over a grainy vegetable still, reading Local, Friendly, & Consistent.",
@@ -377,10 +369,6 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
     mv("c13", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-013.jpg", 1920, 1080, "contain", []), "system", {
       scale: "standard",
       alt: "Orange-and-brown halftone of tomatoes on the vine.",
-    }),
-    mv("c14", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-014.jpg", 1920, 1080, "contain", []), "system", {
-      scale: "standard",
-      alt: "Technical drawing of a wall-mounted TOILETS sign with dimensions.",
     }),
     mv("c15", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-015.jpg", 864, 1080, "contain", []), "system", {
       scale: "standard",
@@ -397,10 +385,6 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
     mv("c18", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-019.jpg", 1920, 1080, "contain", []), "outcome", {
       scale: "standard",
       alt: "Street billboard under a railway bridge with torn CLOSED panels of flowers, address, food, and tomatoes.",
-    }),
-    mv("c19", "portrait", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-020.jpg", 864, 1080, "contain", []), "outcome", {
-      scale: "standard",
-      alt: "Dining table with CLOSED ware and wine against a green booth and patterned wallpaper.",
     }),
     mv(
       "c20",
@@ -618,34 +602,40 @@ export const SCK_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "A living room opening onto a deck and eucalypt bush, the STUDIO CARSON KELLY wordmark and practice details set over it.",
     }),
-    mv("sk10", "portrait", jpg("/projects/sck/10.jpg", 1296, 1620, "contain", []), "system", {
+    mv("sk10", "film", film("/projects/sck/web/10.mp4", 1000, 1250, "/projects/sck/web/10.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      span: "narrow",
+      alt: "The Ulladulla House in white corrugated steel, its deck and a chair open to eucalypt forest, captioned S.C.K and Ulladulla House.",
+    }),
+    mv("sk11", "portrait", jpg("/projects/sck/11.jpg", 1296, 1620, "contain", []), "system", {
       scale: "detail",
       pace: "tight",
       alt: "A glass and resin coffee table on a pale floor, labelled Coffee_Table, by_Clive_Lonstein, OBJKT_009.",
     }),
-    mv("sk11", "film", film("/projects/sck/web/11.mp4", 1600, 960, "/projects/sck/web/11.jpg"), "system", {
+    mv("sk12", "film", film("/projects/sck/web/12.mp4", 1600, 960, "/projects/sck/web/12.jpg"), "system", {
       scale: "standard",
       pace: "normal",
       span: "narrow",
       alt: "Three phone screens running a Studio Carson Kelly podcast player and episode list.",
     }),
-    mv("sk12", "landscape", jpg("/projects/sck/12.jpg", 2159, 1620, "contain", []), "system", {
+    mv("sk13", "landscape", jpg("/projects/sck/13.jpg", 2159, 1620, "contain", []), "system", {
       scale: "standard",
       pace: "normal",
       alt: "A travertine brick corner with a pitcher plant, chrome lamp and corduroy sofa, S.C.K and the practice description set alongside.",
     }),
-    mv("sk13", "film", film("/projects/sck/web/13.mp4", 1600, 960, "/projects/sck/web/13.jpg"), "outcome", {
+    mv("sk14", "film", film("/projects/sck/web/14.mp4", 1600, 960, "/projects/sck/web/14.jpg"), "outcome", {
       scale: "standard",
       pace: "normal",
       span: "narrow",
       alt: "Three phone screens of Studio Carson Kelly stories — a bedroom, a kitchen and a written note on the Little James house.",
     }),
-    mv("sk14", "portrait", jpg("/projects/sck/14.jpg", 1296, 1620, "contain", []), "outcome", {
+    mv("sk15", "portrait", jpg("/projects/sck/15.jpg", 1296, 1620, "contain", []), "outcome", {
       scale: "detail",
       pace: "tight",
       alt: "Nine pale sage cards in a grid, each carrying STUDIO CARSON KELLY and a reference number.",
     }),
-    mv("sk15", "film", film("/projects/sck/web/15.mp4", 1600, 912, "/projects/sck/web/15.jpg"), "outcome", {
+    mv("sk16", "film", film("/projects/sck/web/16.mp4", 1600, 912, "/projects/sck/web/16.jpg"), "outcome", {
       scale: "major",
       pace: "pause",
       alt: "The Studio Carson Kelly website, street footage running beneath a Work, Studio and Resources menu.",
