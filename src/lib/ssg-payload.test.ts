@@ -51,8 +51,11 @@ test("unrelated SSG pages do not serialize SCK, CLOSED, KOJA, Chris, SUB:3, or O
  * /projects/koja still serves 646 words naming KOJA nine times.
  */
 
-test("/projects/sck SSG payload carries no experience blob", { skip: !built }, () => {
-  assert.equal(ssgPayloadHasSckExperience("projects/sck"), false);
+test("/projects/sck SSG payload carries its own case study and no other", { skip: !built }, () => {
+  // The page serves this project from the CMS, so its sequence has to be in
+  // the payload. What must not be there is the rest of the line: carrying all
+  // six put every sequence into every page, /studio included.
+  assert.equal(ssgPayloadHasSckExperience("projects/sck"), true);
   assert.equal(ssgPayloadHasClosedExperience("projects/sck"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/sck"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/sck"), false);
@@ -60,47 +63,62 @@ test("/projects/sck SSG payload carries no experience blob", { skip: !built }, (
   assert.equal(ssgPayloadHasObrExperience("projects/sck"), false);
 });
 
-test("/projects/bar-closed SSG payload carries no experience blob", { skip: !built }, () => {
+test("/projects/bar-closed SSG payload carries its own case study and no other", { skip: !built }, () => {
+  // The page serves this project from the CMS, so its sequence has to be in
+  // the payload. What must not be there is the rest of the line: carrying all
+  // six put every sequence into every page, /studio included.
+  assert.equal(ssgPayloadHasClosedExperience("projects/bar-closed"), true);
   assert.equal(ssgPayloadHasSckExperience("projects/bar-closed"), false);
-  assert.equal(ssgPayloadHasClosedExperience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/bar-closed"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/bar-closed"), false);
 });
 
-test("/projects/koja SSG payload carries no experience blob", { skip: !built }, () => {
+test("/projects/koja SSG payload carries its own case study and no other", { skip: !built }, () => {
+  // The page serves this project from the CMS, so its sequence has to be in
+  // the payload. What must not be there is the rest of the line: carrying all
+  // six put every sequence into every page, /studio included.
+  assert.equal(ssgPayloadHasKojaExperience("projects/koja"), true);
   assert.equal(ssgPayloadHasSckExperience("projects/koja"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/koja"), false);
-  assert.equal(ssgPayloadHasKojaExperience("projects/koja"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/koja"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/koja"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/koja"), false);
 });
 
-test("/projects/chris-sisarich SSG payload carries no experience blob", { skip: !built }, () => {
+test("/projects/chris-sisarich SSG payload carries its own case study and no other", { skip: !built }, () => {
+  // The page serves this project from the CMS, so its sequence has to be in
+  // the payload. What must not be there is the rest of the line: carrying all
+  // six put every sequence into every page, /studio included.
+  assert.equal(ssgPayloadHasChrisExperience("projects/chris-sisarich"), true);
   assert.equal(ssgPayloadHasSckExperience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/chris-sisarich"), false);
-  assert.equal(ssgPayloadHasChrisExperience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/chris-sisarich"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/chris-sisarich"), false);
 });
 
-test("/projects/sub-3 SSG payload carries no experience blob", { skip: !built }, () => {
+test("/projects/sub-3 SSG payload carries its own case study and no other", { skip: !built }, () => {
+  // The page serves this project from the CMS, so its sequence has to be in
+  // the payload. What must not be there is the rest of the line: carrying all
+  // six put every sequence into every page, /studio included.
+  assert.equal(ssgPayloadHasSub3Experience("projects/sub-3"), true);
   assert.equal(ssgPayloadHasSckExperience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/sub-3"), false);
-  assert.equal(ssgPayloadHasSub3Experience("projects/sub-3"), false);
   assert.equal(ssgPayloadHasObrExperience("projects/sub-3"), false);
 });
 
-test("/projects/our-boy-roy SSG payload carries no experience blob", { skip: !built }, () => {
+test("/projects/our-boy-roy SSG payload carries its own case study and no other", { skip: !built }, () => {
+  // The page serves this project from the CMS, so its sequence has to be in
+  // the payload. What must not be there is the rest of the line: carrying all
+  // six put every sequence into every page, /studio included.
+  assert.equal(ssgPayloadHasObrExperience("projects/our-boy-roy"), true);
   assert.equal(ssgPayloadHasSckExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasClosedExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasKojaExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasChrisExperience("projects/our-boy-roy"), false);
   assert.equal(ssgPayloadHasSub3Experience("projects/our-boy-roy"), false);
-  assert.equal(ssgPayloadHasObrExperience("projects/our-boy-roy"), false);
 });

@@ -19,7 +19,9 @@ import {
   type ProjectRecord,
   type Sector,
 } from "@/components/home/catalog";
+import { keyArt } from "@/components/home/work-data";
 import { catalogIdForSlug } from "@/lib/cms-source";
+import { resolveProjectExperience } from "@/lib/project-source";
 import { queryRows } from "@/sanity/cms-fetch";
 import { sanityApiVersion } from "@/sanity/env";
 
@@ -154,10 +156,27 @@ function order(records: ProjectRecord[], rank: Map<string, number>) {
   );
 }
 
+/**
+ * The card each project shows, worked out here rather than in the browser.
+ *
+ * Drawing a card needs one frame out of a case study. Handing the client every
+ * case study so it could pick six frames put all six sequences into the payload
+ * of every page, including ones that show no work. This resolves them once and
+ * carries only the answer.
+ */
+async function withCardArt(records: ProjectRecord[]): Promise<ProjectRecord[]> {
+  return Promise.all(
+    records.map(async (record) => {
+      const { experience } = await resolveProjectExperience(record.id);
+      return experience ? { ...record, cardArt: keyArt(record, experience) } : record;
+    })
+  );
+}
+
 export async function loadCatalog(): Promise<ProjectRecord[]> {
   const shipped = liveProjects();
   const rows = await queryRows<CmsRow>(QUERY, sanityApiVersion);
-  if (!rows?.length) return shipped;
+  if (!rows?.length) return withCardArt(shipped);
 
   const base = new Map(shipped.map((project) => [project.id, project]));
   const rank = new Map<string, number>();
@@ -172,5 +191,5 @@ export async function loadCatalog(): Promise<ProjectRecord[]> {
 
   // A CMS that answered but produced nothing usable is an outage by another
   // name, and the line should not go quiet because a field was mistyped.
-  return merged.length ? order(merged, rank) : shipped;
+  return withCardArt(merged.length ? order(merged, rank) : shipped);
 }

@@ -3,6 +3,7 @@ import {
   projectCollaborators,
   projectDisciplines,
   projectSectors,
+  type Art,
   type ProjectRecord,
 } from "@/components/home/catalog";
 import { getExperience } from "@/components/home/projects/experiences";
@@ -17,16 +18,7 @@ import {
 
 export const WORK = liveProjects();
 
-export type Art = {
-  type: "image" | "video";
-  src: string;
-  srcSet?: string;
-  video?: string;
-  webm?: string;
-  width: number;
-  height: number;
-  crop: string;
-};
+export type { Art };
 
 function artFrom(movement: Movement, crop: string): Art {
   const media = movement.media;
@@ -50,6 +42,10 @@ function artFrom(movement: Movement, crop: string): Art {
  * letterbox. Falls back to the catalog cover.
  */
 export function keyArt(project: ProjectRecord, experience?: ProjectExperience | null): Art {
+  // Given a case study, work it out from that. Otherwise take the art the
+  // server already resolved onto the record, and only fall back to the shipped
+  // sequence when there is neither.
+  if (!experience && project.cardArt) return project.cardArt;
   const movements = (experience ?? getExperience(project.id))?.movements ?? [];
   const named = project.keyArtId ? movements.find((m) => m.id === project.keyArtId) : undefined;
   const wide = named ?? movements.find((m) => m.media.width >= m.media.height * 1.2) ?? movements[0];

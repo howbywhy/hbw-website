@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
 
-const title = "HBW — Clarity for brands at a turning point";
-const description =
-  "HBW (How by Why) is an independent brand and design practice led by Mark Blackler, based in the Blue Mountains and working with founders across Sydney and Australia. Brand strategy, identity and design.";
+const title = SITE_TITLE;
+const description = SITE_DESCRIPTION;
 
 export const metadata: Metadata = {
   title,
