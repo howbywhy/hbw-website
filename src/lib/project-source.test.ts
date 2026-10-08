@@ -328,7 +328,7 @@ test("CLOSED + sanity flag + adapter failure falls back to local", async () => {
   assert.equal(resolved.experience, CLOSED_EXPERIENCE);
 });
 
-test("KOJA + missing flag uses shipped experience", async () => {
+test("KOJA + missing flag reads the CMS", async () => {
   const previous = process.env.HBW_KOJA_SOURCE;
   delete process.env.HBW_KOJA_SOURCE;
   let loaded = false;
@@ -339,11 +339,19 @@ test("KOJA + missing flag uses shipped experience", async () => {
         return cmsKoja;
       },
     });
-    assert.equal(sourceFlagFromEnv("HBW_KOJA_SOURCE", {}), "local");
-    assert.equal(resolved.source, "local");
-    assert.equal(resolved.experience, KOJA_EXPERIENCE);
-    assert.equal(resolved.experience?.movements.length, 8);
-    assert.equal(loaded, false);
+    // Nothing sets these variables in production, so the project's own default
+    // decides, and that default is the CMS.
+    assert.equal(resolved.source, "sanity");
+    assert.equal(loaded, true);
+
+    // "local" still pins it back to the sequence the site ships with.
+    const pinned = await resolveProjectExperience("koja", {
+      sourceFlag: "local",
+      loadPublishedExperience: async () => cmsKoja,
+    });
+    assert.equal(pinned.source, "local");
+    assert.equal(pinned.experience, KOJA_EXPERIENCE);
+    assert.equal(pinned.experience?.movements.length, 8);
   } finally {
     if (previous === undefined) delete process.env.HBW_KOJA_SOURCE;
     else process.env.HBW_KOJA_SOURCE = previous;
@@ -451,7 +459,7 @@ test("OBR local o04 keeps published shift infoHint", () => {
   assert.equal(o04?.infoHint, "shift");
 });
 
-test("Chris + missing flag uses shipped experience", async () => {
+test("Chris + missing flag reads the CMS", async () => {
   const previous = process.env.HBW_CHRIS_SOURCE;
   delete process.env.HBW_CHRIS_SOURCE;
   let loaded = false;
@@ -462,11 +470,19 @@ test("Chris + missing flag uses shipped experience", async () => {
         return cmsChris;
       },
     });
-    assert.equal(sourceFlagFromEnv("HBW_CHRIS_SOURCE", {}), "local");
-    assert.equal(resolved.source, "local");
-    assert.equal(resolved.experience, SISARICH_EXPERIENCE);
-    assert.equal(resolved.experience?.movements.length, 8);
-    assert.equal(loaded, false);
+    // Nothing sets these variables in production, so the project's own default
+    // decides, and that default is the CMS.
+    assert.equal(resolved.source, "sanity");
+    assert.equal(loaded, true);
+
+    // "local" still pins it back to the sequence the site ships with.
+    const pinned = await resolveProjectExperience("chris-sisarich", {
+      sourceFlag: "local",
+      loadPublishedExperience: async () => cmsChris,
+    });
+    assert.equal(pinned.source, "local");
+    assert.equal(pinned.experience, SISARICH_EXPERIENCE);
+    assert.equal(pinned.experience?.movements.length, 8);
   } finally {
     if (previous === undefined) delete process.env.HBW_CHRIS_SOURCE;
     else process.env.HBW_CHRIS_SOURCE = previous;
@@ -550,7 +566,7 @@ test("Chris + sanity flag + adapter failure falls back to local", async () => {
   assert.equal(resolved.experience, SISARICH_EXPERIENCE);
 });
 
-test("SUB:3 + missing flag uses shipped experience", async () => {
+test("SUB:3 + missing flag reads the CMS", async () => {
   const previous = process.env.HBW_SUB3_SOURCE;
   delete process.env.HBW_SUB3_SOURCE;
   let loaded = false;
@@ -561,11 +577,19 @@ test("SUB:3 + missing flag uses shipped experience", async () => {
         return cmsSub3;
       },
     });
-    assert.equal(sourceFlagFromEnv("HBW_SUB3_SOURCE", {}), "local");
-    assert.equal(resolved.source, "local");
-    assert.equal(resolved.experience, SUB3_EXPERIENCE);
-    assert.equal(resolved.experience?.movements.length, 19);
-    assert.equal(loaded, false);
+    // Nothing sets these variables in production, so the project's own default
+    // decides, and that default is the CMS.
+    assert.equal(resolved.source, "sanity");
+    assert.equal(loaded, true);
+
+    // "local" still pins it back to the sequence the site ships with.
+    const pinned = await resolveProjectExperience("sub-3", {
+      sourceFlag: "local",
+      loadPublishedExperience: async () => cmsSub3,
+    });
+    assert.equal(pinned.source, "local");
+    assert.equal(pinned.experience, SUB3_EXPERIENCE);
+    assert.equal(pinned.experience?.movements.length, 19);
   } finally {
     if (previous === undefined) delete process.env.HBW_SUB3_SOURCE;
     else process.env.HBW_SUB3_SOURCE = previous;
@@ -655,7 +679,7 @@ test("SUB:3 + sanity flag + adapter failure falls back to local", async () => {
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
 });
 
-test("OBR + missing flag uses shipped experience", async () => {
+test("OBR + missing flag reads the CMS", async () => {
   const previous = process.env.HBW_OBR_SOURCE;
   delete process.env.HBW_OBR_SOURCE;
   let loaded = false;
@@ -666,11 +690,19 @@ test("OBR + missing flag uses shipped experience", async () => {
         return cmsObr;
       },
     });
-    assert.equal(sourceFlagFromEnv("HBW_OBR_SOURCE", {}), "local");
-    assert.equal(resolved.source, "local");
-    assert.equal(resolved.experience, OBR_EXPERIENCE);
-    assert.equal(resolved.experience?.movements.length, 7);
-    assert.equal(loaded, false);
+    // Nothing sets these variables in production, so the project's own default
+    // decides, and that default is the CMS.
+    assert.equal(resolved.source, "sanity");
+    assert.equal(loaded, true);
+
+    // "local" still pins it back to the sequence the site ships with.
+    const pinned = await resolveProjectExperience("our-boy-roy", {
+      sourceFlag: "local",
+      loadPublishedExperience: async () => cmsObr,
+    });
+    assert.equal(pinned.source, "local");
+    assert.equal(pinned.experience, OBR_EXPERIENCE);
+    assert.equal(pinned.experience?.movements.length, 7);
   } finally {
     if (previous === undefined) delete process.env.HBW_OBR_SOURCE;
     else process.env.HBW_OBR_SOURCE = previous;

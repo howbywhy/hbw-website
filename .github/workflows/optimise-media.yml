@@ -1,0 +1,55 @@
+#
+# Re-encode a video uploaded to the CMS.
+#
+# Sanity's image CDN already handles stills — it resizes and re-encodes them on
+# request. Files come back as the exact bytes that went in, so a video dropped
+# into the Studio ships at whatever size and frame rate it was exported at.
+# This runs ffmpeg over it and points the documents at the result.
+#
+# Fired by a webhook on the Sanity project: on create of sanity.fileAsset,
+# POSTing to repository_dispatch with {"event_type":"sanity-asset",
+# "client_payload":{"assetId":"<_id>"}}.
+#
+name: Optimise media
+
+on:
+  repository_dispatch:
+    types: [sanity-asset]
+  workflow_dispatch:
+    inputs:
+      assetId:
+        description: "Sanity asset _id, e.g. file-abc123...-mp4"
+        required: true
+        type: string
+
+concurrency:
+  # One at a time per asset: a webhook that fires twice should not race itself.
+  group: optimise-media-${{ github.event.client_payload.assetId || inputs.assetId }}
+  cancel-in-progress: false
+
+jobs:
+  optimise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -version | head -1
+
+      - run: npm ci
+
+      - name: Re-encode and repoint
+        env:
+          SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+          SANITY_PROJECT_ID: aagd1kcy
+          SANITY_DATASET: production
+        run: node scripts/optimise-asset.mjs "${{ github.event.client_payload.assetId || inputs.assetId }}"

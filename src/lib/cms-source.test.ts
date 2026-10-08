@@ -48,11 +48,18 @@ test("registry document IDs stay aligned with the seed/content constants", () =>
   assert.equal(cmsProjectByCmsSlug("our-boy-roy")?.documentId, OBR_DOCUMENT_ID);
 });
 
-test("source flags stay independent and default to local", () => {
+test("source flags stay independent, and an env var overrides both ways", () => {
   for (const project of CMS_BACKED_PROJECTS) {
-    assert.equal(sourceFlagFromEnv(project.envKey, {}), "local");
-    assert.equal(sourceFlagFromEnv(project.envKey, { [project.envKey]: "nope" }), "local");
+    // Unset, or set to something meaningless, falls through to the project.
+    assert.equal(sourceFlagForProject(project, {}), project.defaultSource, project.routeSlug);
+    assert.equal(
+      sourceFlagForProject(project, { [project.envKey]: "nope" }),
+      project.defaultSource,
+      project.routeSlug
+    );
+    // Either direction can be pinned without a deploy.
     assert.equal(sourceFlagForProject(project, { [project.envKey]: "sanity" }), "sanity");
+    assert.equal(sourceFlagForProject(project, { [project.envKey]: "local" }), "local");
   }
 
   const mixed = {
@@ -67,4 +74,22 @@ test("source flags stay independent and default to local", () => {
   assert.equal(sourceFlagForProject(CMS_BACKED_PROJECTS[1], mixed), "sanity");
   assert.equal(sourceFlagForProject(CMS_BACKED_PROJECTS[2], mixed), "local");
   assert.equal(sourceFlagForProject(CMS_BACKED_PROJECTS[5], mixed), "local");
+});
+
+/**
+ * What the site serves with nothing set is the whole point of the migration,
+ * so it is pinned rather than left to whatever the table happens to say.
+ */
+test("every project reads from the CMS", () => {
+  const defaults = Object.fromEntries(
+    CMS_BACKED_PROJECTS.map((project) => [project.routeSlug, sourceFlagForProject(project, {})])
+  );
+  assert.deepEqual(defaults, {
+    sck: "sanity",
+    "bar-closed": "sanity",
+    koja: "sanity",
+    "chris-sisarich": "sanity",
+    "sub-3": "sanity",
+    "our-boy-roy": "sanity",
+  });
 });

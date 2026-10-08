@@ -55,7 +55,10 @@ async function existingAsset(filename: string, kind: "image" | "file") {
  * the still 2.jpg. Reusing on that match would silently keep the wrong picture.
  */
 function assetName(path: string) {
-  return path.replace(/^public\/projects\//, "").replace(/\//g, "-");
+  // Mirrors assetIdentities in cms-verify-lib: strip public/ and projects/,
+  // then flatten. Not every movement lives under projects/ — some are in
+  // global/ — so stripping the pair separately keeps both in step.
+  return path.replace(/^public\//, "").replace(/^projects\//, "").replace(/\//g, "-");
 }
 
 async function upload(path: string, kind: "image" | "file") {

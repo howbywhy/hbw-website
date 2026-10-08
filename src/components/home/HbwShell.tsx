@@ -6,7 +6,18 @@ import { flushSync } from "react-dom";
 import { SiteNav } from "@/components/home/SiteNav";
 import { WorkScroll, type WorkInView, type WorkScrollHandle } from "@/components/home/WorkScroll";
 import { PosterTool } from "@/components/home/PosterTool";
-import { PROJECTS, matchesFilter, projectById, sortProjects } from "@/components/home/catalog";
+import {
+  matchesFilter,
+  projectById,
+  sortProjects,
+  type ProjectRecord,
+} from "@/components/home/catalog";
+import { CatalogProvider, resolveCatalog } from "@/components/home/CatalogContext";
+import {
+  ExperienceProvider,
+  resolveExperience,
+  type ExperienceMap,
+} from "@/components/home/ExperienceContext";
 import { useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
@@ -29,7 +40,6 @@ import {
   useHbwMotionSession,
   type MotionSession,
 } from "@/components/home/HbwMotionSession";
-import { getExperience } from "@/components/home/projects/experiences";
 import type { ProjectExperience } from "@/components/home/projects/types";
 import type { ResolvedProjectExperience } from "@/lib/project-source";
 import { nextProject } from "@/components/home/sequence";
@@ -154,12 +164,19 @@ export function HbwShell({
   children,
   published = null,
   index = [],
+  catalog = null,
+  experiences = null,
 }: {
   children: React.ReactNode;
   published?: ResolvedProjectExperience | null;
   /** The record of work, read from the CMS by the server layout above. */
   index?: IndexEntry[];
+  /** The work line itself, read from the CMS by the server layout above. */
+  catalog?: ProjectRecord[] | null;
+  /** Each case study, resolved by the server layout above. */
+  experiences?: ExperienceMap | null;
 }) {
+  const line = resolveCatalog(catalog);
   const pathname = usePathname() || "/";
   const router = useRouter();
   const slug = viewSlugFromPath(pathname);
@@ -211,7 +228,7 @@ export function HbwShell({
   const [filterDim, setFilterDim] = useState<FilterDim>(resumed?.browse?.filterDim ?? "all");
   const [filterValue, setFilterValue] = useState(resumed?.browse?.filterValue ?? "");
   const [sort, setSort] = useState<SortId>(resumed?.browse?.sort ?? "edited");
-  const [activeId, setActiveId] = useState(resumed?.activeId ?? (slug || PROJECTS[0].id));
+  const [activeId, setActiveId] = useState(resumed?.activeId ?? (slug || line[0].id));
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [infoAnchor, setInfoAnchor] = useState<InfoSectionId>("idea");
   const [viewIndex, setViewIndex] = useState(resumed?.viewIndex ?? 0);
@@ -303,7 +320,7 @@ export function HbwShell({
         : null
       : publishedResolved?.experience?.slug === viewSlug
         ? publishedResolved.experience
-        : getExperience(viewSlug)
+        : resolveExperience(experiences, viewSlug)
     : null;
 
   function clearMotionTimers() {
@@ -917,7 +934,7 @@ export function HbwShell({
     heldVisual.current = null;
     setEnterBridge(null);
     setSwap({ from, to: "view", phase: "preparing" });
-    const href = PROJECTS.find((p) => p.id === id)?.href || `/projects/${id}`;
+    const href = line.find((p) => p.id === id)?.href || `/projects/${id}`;
     const destStill = destinationStill(id);
     const destReady = new Promise<DestinationVisual | null>((resolve) => {
       geometryWait.current = (dest) => {
@@ -1121,7 +1138,7 @@ export function HbwShell({
         setPhase("active");
       });
       motionLock.current = false;
-      router.replace(PROJECTS.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
+      router.replace(line.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
       return;
     }
     flushSync(() => {
@@ -1149,7 +1166,7 @@ export function HbwShell({
       cinematic: false,
       startedAt: Date.now(),
     });
-    router.replace(PROJECTS.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
+    router.replace(line.find((p) => p.id === nextSlug)?.href || `/projects/${nextSlug}`);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setPhase("assembling"));
     });
@@ -1294,7 +1311,7 @@ export function HbwShell({
       // Arrow keys walked the grid. Nothing walks now.
       return;
       const list = sortProjects(
-        PROJECTS.filter((p) => matchesFilter(p, filterDim, filterValue)),
+        line.filter((p) => matchesFilter(p, filterDim, filterValue)),
         sort
       );
       if (!list.length) return;
@@ -1339,7 +1356,7 @@ export function HbwShell({
       ? previewHeld.current
       : publishedResolved?.experience?.slug === leaving.id
         ? publishedResolved.experience
-        : getExperience(leaving.id)
+        : resolveExperience(experiences, leaving.id)
     : null;
   const chromeLocked =
     Boolean(leavingExp) &&
@@ -1370,7 +1387,7 @@ export function HbwShell({
             : null;
   const namedProject =
     identitySuffix && identitySuffix !== "Projects"
-      ? PROJECTS.find((project) => project.name === identitySuffix) ?? null
+      ? line.find((project) => project.name === identitySuffix) ?? null
       : null;
   const projectIdea =
     namedProject && (navFace === "view" || windowMode === "view" || Boolean(!assembled && peek.open))
@@ -1403,7 +1420,7 @@ export function HbwShell({
       ? nextProject(chromeExperience.slug)
       : null;
 
-  return (
+  const tree = (
     <WorkspaceContext.Provider
       value={{
         windowMode,
@@ -1599,5 +1616,11 @@ export function HbwShell({
         />
       </div>
     </WorkspaceContext.Provider>
+  );
+
+  return (
+    <CatalogProvider catalog={catalog}>
+      <ExperienceProvider experiences={experiences}>{tree}</ExperienceProvider>
+    </CatalogProvider>
   );
 }

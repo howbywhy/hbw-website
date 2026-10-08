@@ -6,6 +6,7 @@ import {
   type ProjectRecord,
 } from "@/components/home/catalog";
 import { getExperience } from "@/components/home/projects/experiences";
+import type { ProjectExperience } from "@/components/home/projects/types";
 import {
   infoSectionHasCopy,
   isVideoMedia,
@@ -48,8 +49,8 @@ function artFrom(movement: Movement, crop: string): Art {
  * landscape frame, so a 16:9 card is never a portrait squeezed into a
  * letterbox. Falls back to the catalog cover.
  */
-export function keyArt(project: ProjectRecord): Art {
-  const movements = getExperience(project.id)?.movements ?? [];
+export function keyArt(project: ProjectRecord, experience?: ProjectExperience | null): Art {
+  const movements = (experience ?? getExperience(project.id))?.movements ?? [];
   const named = project.keyArtId ? movements.find((m) => m.id === project.keyArtId) : undefined;
   const wide = named ?? movements.find((m) => m.media.width >= m.media.height * 1.2) ?? movements[0];
   if (wide) return artFrom(wide, wide === movements[0] ? project.crop : "center center");
@@ -75,8 +76,8 @@ export type Frame = {
   alt?: string;
 };
 
-export function frames(project: ProjectRecord): Frame[] {
-  return (getExperience(project.id)?.movements ?? []).map((m, index) => ({
+export function frames(project: ProjectRecord, experience?: ProjectExperience | null): Frame[] {
+  return ((experience ?? getExperience(project.id))?.movements ?? []).map((m, index) => ({
     index,
     src: isVideoMedia(m.media) ? m.media.poster || m.media.src : m.media.src,
     srcSet: isVideoMedia(m.media) ? undefined : m.media.srcSet,
@@ -105,12 +106,12 @@ export type Detail = {
 
 const HEADING: Record<string, string> = { idea: "Idea", shift: "Shift", system: "System", outcome: "Outcome" };
 
-export function detail(project: ProjectRecord): Detail {
-  const experience = getExperience(project.id);
+export function detail(project: ProjectRecord, resolved?: ProjectExperience | null): Detail {
+  const experience = resolved ?? getExperience(project.id);
   const context = experience?.context;
   return {
     project,
-    art: keyArt(project),
+    art: keyArt(project, experience),
     context: !context ? [] : typeof context === "string" ? stringToRichText(context) : context,
     chapters: (experience?.infoSections ?? []).filter(infoSectionHasCopy).map((section) => ({
       id: section.id,
@@ -123,6 +124,6 @@ export function detail(project: ProjectRecord): Detail {
     collaborators: projectCollaborators(project).map((c) => c.name),
     credits: project.credits ?? [],
     features: project.features ?? [],
-    frames: frames(project),
+    frames: frames(project, experience),
   };
 }

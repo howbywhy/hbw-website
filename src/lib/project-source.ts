@@ -2,7 +2,7 @@ import { getExperience } from "@/components/home/projects/experiences";
 import type { ProjectExperience } from "@/components/home/projects/types";
 import {
   cmsBackedProject,
-  sourceFlagFromEnv,
+  sourceFlagForProject,
   type ProjectSource,
 } from "@/lib/cms-source";
 
@@ -50,7 +50,10 @@ export async function resolveProjectExperience(
     return { experience: local, source: "local" };
   }
 
-  const flag = deps.sourceFlag ?? sourceFlagFromEnv(cms.envKey);
+  // Through sourceFlagForProject, so the project's own default applies. Reading
+  // the variable alone answered "local" for everything, because nothing sets
+  // those variables in production.
+  const flag = deps.sourceFlag ?? sourceFlagForProject(cms);
   if (flag !== "sanity") {
     return { experience: local, source: "local" };
   }
