@@ -4,7 +4,8 @@ import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } f
 import { RichTextBody } from "@/components/home/projects/RichText";
 import { HBW_EASE, HBW_T, reduceMotion } from "@/components/home/motion";
 import { PillThumb } from "@/components/home/pill-motion";
-import { WORK, detail, keyArt } from "@/components/home/work-data";
+import { detail, keyArt } from "@/components/home/work-data";
+import { useCatalog } from "@/components/home/CatalogContext";
 
 type Props = {
   slug: string;
@@ -38,6 +39,7 @@ function towards(panel: HTMLElement, rect: DOMRect) {
 const stacked = () => typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
 
 export function WorkDetail({ slug, origin, closing, closingAway = false, onClose, onClosed, onSwitch, onPoster }: Props) {
+  const WORK = useCatalog();
   const project = WORK.find((p) => p.id === slug) ?? WORK[0];
   const d = detail(project);
   const total = d.frames.length;

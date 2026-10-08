@@ -10,27 +10,14 @@
  * Logotypes are fetched and stripped to one colour here, at build time, so the
  * browser is never asked to parse an SVG from a third party.
  */
-import { get as httpsGet } from "node:https";
 import { liveProjects } from "@/components/home/catalog";
 import { catalogIdForSlug } from "@/lib/cms-source";
 import { normaliseLogotype } from "@/lib/logotype";
 import type { IndexEntry } from "@/components/home/index-entry";
-import { sanityApiVersion, sanityDataset, sanityProjectId } from "@/sanity/env";
+import { CMS_DATASET, CMS_PROJECT_ID, getText } from "@/sanity/cms-fetch";
+import { sanityApiVersion } from "@/sanity/env";
 
-/**
- * The studio's own project and dataset, as sanity.cli.ts already hardcodes
- * them. Neither is a secret: both sit in the public query URL, and the dataset
- * is world-readable.
- *
- * env.ts answers "placeholder" when NEXT_PUBLIC_SANITY_PROJECT_ID is unset,
- * which is right for a fork but wrong here. The production build does not
- * have that variable, so every deploy quietly fell back to the six projects
- * in catalog.ts while the CMS held fourteen — a silent, plausible-looking
- * wrong answer, which is the worst kind. The index reads the real dataset
- * whether or not the environment is configured.
- */
-const PROJECT_ID = sanityProjectId === "placeholder" ? "aagd1kcy" : sanityProjectId;
-const DATASET = sanityDataset || "production";
+
 
 type CmsRow = {
   slug?: string | null;
@@ -48,40 +35,6 @@ const QUERY = `*[_type == "project" && defined(title) && defined(year)]|order(ye
   "slug": slug.current, title, year, proposition, sectors, disciplines, listing, logotypeScale,
   "logo": logotype.asset->{url, extension}
 }`;
-
-/**
- * Fetches over plain node:https rather than fetch().
- *
- * Next patches global fetch and Vercel restores its data cache between builds,
- * so a cached read can answer a build from before the CMS changed — eight new
- * archive entries were published and the next deploy still rendered six.
- * Marking the fetch no-store fixes the staleness but makes every page that
- * renders the shell dynamic, and this site is statically generated.
- *
- * An unpatched request is neither cached nor dynamic: fresh every build,
- * static every page.
- */
-function getText(url: string, timeoutMs = 20000): Promise<string | null> {
-  return new Promise((resolve) => {
-    const request = httpsGet(url, (response) => {
-      const status = response.statusCode ?? 0;
-      if (status < 200 || status >= 300) {
-        response.resume();
-        resolve(null);
-        return;
-      }
-      let body = "";
-      response.setEncoding("utf8");
-      response.on("data", (chunk) => (body += chunk));
-      response.on("end", () => resolve(body));
-    });
-    request.on("error", () => resolve(null));
-    request.setTimeout(timeoutMs, () => {
-      request.destroy();
-      resolve(null);
-    });
-  });
-}
 
 /** A list reads better with two or three labels than with seven. */
 function trim(values: string[] | null | undefined, most: number) {
@@ -118,8 +71,8 @@ export type { IndexEntry };
 
 export async function loadIndex(): Promise<IndexEntry[]> {
   const url =
-    `https://${PROJECT_ID}.api.sanity.io/v${sanityApiVersion}/data/query/` +
-    `${DATASET}?query=${encodeURIComponent(QUERY)}`;
+    `https://${CMS_PROJECT_ID}.api.sanity.io/v${sanityApiVersion}/data/query/` +
+    `${CMS_DATASET}?query=${encodeURIComponent(QUERY)}`;
   const body = await getText(url);
   if (!body) return fromCatalog();
   let rows: CmsRow[] = [];

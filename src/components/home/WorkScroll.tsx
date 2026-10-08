@@ -3,7 +3,9 @@
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState, type CSSProperties } from "react";
 import { preloadProject } from "@/components/home/preload";
 import { WorkDetail } from "@/components/home/WorkDetail";
-import { WORK, keyArt } from "@/components/home/work-data";
+import { keyArt } from "@/components/home/work-data";
+import { useCatalog } from "@/components/home/CatalogContext";
+import type { ProjectRecord } from "@/components/home/catalog";
 
 const SCROLL_KEY = "hbw.work.scroll.v1";
 const HOVER_INTENT_MS = 320;
@@ -24,13 +26,13 @@ function writeScroll(y: number) {
   }
 }
 
-function workFromUrl() {
+function workFromUrl(work: ProjectRecord[]) {
   if (typeof window === "undefined") return null;
   // /projects/<slug> is the project's address. ?work= was the old one and is
   // still read, so links already out in the world keep working.
   const onPath = window.location.pathname.match(/^\/projects\/([^/]+)\/?$/);
   const id = onPath ? onPath[1] : new URLSearchParams(window.location.search).get("work");
-  return id && WORK.some((p) => p.id === id) ? id : null;
+  return id && work.some((p) => p.id === id) ? id : null;
 }
 
 export type WorkScrollHandle = {
@@ -91,6 +93,7 @@ type Geometry = { rise: number; travel: number; step: number };
  * over everything. Nothing ever navigates away from the Poster.
  */
 export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onHoverIdea, onIndex, onDetailClosing, onDetailClosed, onDetailState }, ref) {
+  const WORK = useCatalog();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLElement>(null);
@@ -416,13 +419,13 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
   }, []);
 
   useEffect(() => {
-    const deep = workFromUrl();
+    const deep = workFromUrl(WORK);
     if (deep) {
       glideTo(frontOf(WORK.findIndex((p) => p.id === deep)));
       openDetail(deep, null, false);
     }
     function onPop() {
-      const slug = workFromUrl();
+      const slug = workFromUrl(WORK);
       if (slug) openDetail(slug, null, false);
       else if (openRef.current) setClosing(true);
     }

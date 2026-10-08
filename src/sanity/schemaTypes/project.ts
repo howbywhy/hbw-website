@@ -260,7 +260,7 @@ export const project = defineType({
       title: "Preview",
       type: "image",
       group: "presentation",
-      description: "Stored portfolio still. Browse Visual / Index currently read catalog.ts, not this field.",
+      description: "The still Browse Visual and the index fall back to when no card frame is set.",
       options: { hotspot: true },
       hidden: featuredOnly,
     }),
@@ -270,9 +270,84 @@ export const project = defineType({
       type: "number",
       group: "presentation",
       description:
-        "Manual editorial order for the work line. Not derived from year. Index entries are ordered by year instead.",
+        "Order within a year on the work line. The rail leads on year, newest first; this only separates projects that share one. Index entries are ordered by year alone.",
       hidden: featuredOnly,
       validation: (rule) => rule.integer().min(1).custom(requiredWhenFeatured("Portfolio order")),
+    }),
+    defineField({
+      name: "cardMovementKey",
+      title: "Card frame",
+      type: "string",
+      group: "presentation",
+      description:
+        "Which frame from the sequence is the card on the home rail, by its key (sk09, s306). " +
+        "Leave empty and the first landscape frame is used, which is usually right.",
+      hidden: featuredOnly,
+    }),
+    defineField({
+      name: "cardCrop",
+      title: "Card crop",
+      type: "string",
+      group: "presentation",
+      description:
+        "Where the card holds the picture when it has to crop, as a CSS object-position: " +
+        "\"center center\", \"center 32%\". Empty means centred.",
+      hidden: featuredOnly,
+    }),
+    defineField({
+      name: "visualSpan",
+      title: "Visual span",
+      type: "number",
+      group: "presentation",
+      description: "How many of the twelve columns this project takes on Browse Visual.",
+      hidden: featuredOnly,
+      validation: (rule) => rule.integer().min(3).max(9),
+    }),
+    defineField({
+      name: "visualStart",
+      title: "Visual start column",
+      type: "number",
+      group: "presentation",
+      description: "Which column it starts in on Browse Visual, counting from 1.",
+      hidden: featuredOnly,
+      validation: (rule) => rule.integer().min(1).max(9),
+    }),
+    defineField({
+      name: "visualBefore",
+      title: "Visual space before",
+      type: "number",
+      group: "presentation",
+      description: "Extra space above the cell on Browse Visual, in the existing space steps.",
+      hidden: featuredOnly,
+      validation: (rule) => rule.integer().min(3).max(5),
+    }),
+    defineField({
+      name: "credits",
+      title: "Credits",
+      type: "array",
+      of: [{ type: "string" }],
+      group: "projectInfo",
+      description:
+        "People who made the work, as they should read: \"Matt Cherubino\", \"Teel Studios\". " +
+        "Display only \u2014 this is not a filter.",
+      options: { layout: "tags" },
+    }),
+    defineField({
+      name: "features",
+      title: "Press and awards",
+      type: "array",
+      group: "projectInfo",
+      description: "Where the work was published or recognised. Display only \u2014 not a filter.",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "name", title: "Name", type: "string", validation: (rule) => rule.required() },
+            { name: "url", title: "Link", type: "url" },
+          ],
+          preview: { select: { title: "name", subtitle: "url" } },
+        },
+      ],
     }),
     defineField({
       name: "contributionNotes",

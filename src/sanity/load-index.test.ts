@@ -65,7 +65,9 @@ test("the index does not depend on the environment being configured", async () =
   // answered "placeholder" and every deploy silently served the six catalog
   // projects while the CMS held fourteen. The loader now resolves the real
   // project the same way sanity.cli.ts does.
-  const source = await readFile(new URL("./load-index.ts", import.meta.url), "utf8");
+  // The fallback now lives in cms-fetch, which both the index and the catalog
+  // read through, so the guarantee is checked where it is stated.
+  const source = await readFile(new URL("./cms-fetch.ts", import.meta.url), "utf8");
   assert.match(source, /aagd1kcy/, "the public project id must be the fallback");
   assert.doesNotMatch(
     source,
