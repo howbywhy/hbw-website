@@ -2,13 +2,13 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { CmsPreviewProvider } from "@/components/home/CmsPreviewContext";
 import { HbwMotionSessionProvider } from "@/components/home/HbwMotionSession";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import "@/styles/document.css";
 import "@/styles/hbw-home-prototype.css";
 import "@/styles/hbw-rail.css";
 
-const title = "HBW — Clarity for brands at a turning point";
-const description =
-  "HBW (How by Why) is an independent brand and design practice led by Mark Blackler, based in the Blue Mountains and working with founders across Sydney and Australia. Brand strategy, identity and design.";
+const title = SITE_TITLE;
+const description = SITE_DESCRIPTION;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hbw.works"),

@@ -1519,7 +1519,11 @@ export function HbwShell({
           />
         </header>
 
-        <div className="hbw-window">
+        {/* The primary content landmark. A crawler and a screen reader both
+            need to know where the chrome stops and the work starts; without
+            one, the first thing either meets is the toolbar. role rather than
+            <main> so no layout or stylesheet selector moves. */}
+        <div className="hbw-window" role="main">
           <PosterTool dormant={!makeActive || panel === "studio" || indexOpen || workCovering} />
           <WorkScroll
             ref={workScrollRef}

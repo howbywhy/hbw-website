@@ -9,7 +9,7 @@
  * Nothing is invented. No founding date, no social profiles, no counts, no
  * awards — those go in only when there is a URL to back them.
  */
-import { liveProjects, type ProjectRecord } from "@/components/home/catalog";
+import { liveProjects, projectDescription, type ProjectRecord } from "@/components/home/catalog";
 import { CONTACT_EMAIL, CONTACT_PHONE_E164, STUDIO_COUNTRY, STUDIO_LOCALITY } from "@/lib/contact";
 
 const SITE_ORIGIN = "https://www.hbw.works";
@@ -163,6 +163,11 @@ export function projectNode(project: ProjectRecord): Node {
     "@id": `${url}#work`,
     name: `${project.name} — ${project.idea}`,
     headline: project.idea,
+    // The same authored sentence the page's meta description carries. Google
+    // writes a sitelink's snippet from the page rather than from the meta tag,
+    // and the first text on a project page is the toolbar, so without this it
+    // had nothing to quote but the chrome.
+    description: projectDescription(project),
     url,
     dateCreated: project.year,
     creator: { "@id": ORG_ID },
@@ -171,7 +176,12 @@ export function projectNode(project: ProjectRecord): Node {
     ...(disciplines.length || sectors.length
       ? { keywords: [...disciplines, ...sectors].join(", ") }
       : {}),
-    ...(project.src ? { image: `${SITE_ORIGIN}${project.src}` } : {}),
+    // A card image may be a path the site ships or an absolute CMS URL, now
+    // that the line is read from Sanity. Prefixing the origin onto an absolute
+    // URL would emit a broken one.
+    ...(project.src
+      ? { image: /^https?:\/\//.test(project.src) ? project.src : `${SITE_ORIGIN}${project.src}` }
+      : {}),
   };
 }
 

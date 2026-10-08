@@ -2,6 +2,23 @@ import { catalogIdForSlug } from "@/lib/cms-source";
 
 export { catalogIdForSlug };
 
+/**
+ * The one frame a card shows. Resolved on the server and carried on the record
+ * so the rail does not need a whole case study per project just to draw six
+ * cards — that put every sequence into every page's payload, including pages
+ * that show no work at all.
+ */
+export type Art = {
+  type: "image" | "video";
+  src: string;
+  srcSet?: string;
+  video?: string;
+  webm?: string;
+  width: number;
+  height: number;
+  crop: string;
+};
+
 export type BrowseLayout = "portrait" | "contained" | "landscape" | "wide";
 
 export const DISCIPLINES = [
@@ -63,6 +80,8 @@ export type ProjectRecord = {
   height: number;
   crop: string;
   layout: BrowseLayout;
+  /** Resolved card art, when the server worked it out. */
+  cardArt?: Art;
   /** Movement id to use as the card, when the first landscape frame is not the strongest. */
   keyArtId?: string;
   /** 12-column Visual span from the Projects axis. Index ignores this. */

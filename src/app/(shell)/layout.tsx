@@ -1,16 +1,13 @@
 import { HbwShell } from "@/components/home/HbwShell";
 import { loadCatalog } from "@/sanity/load-catalog";
-import { loadExperiences } from "@/sanity/load-experiences";
 import { loadIndex } from "@/sanity/load-index";
 
 export default async function ShellLayout({ children }: { children: React.ReactNode }) {
-  const [index, catalog, experiences] = await Promise.all([
-    loadIndex(),
-    loadCatalog(),
-    loadExperiences(),
-  ]);
+  // No case studies: nothing under this layout opens one, and the cards draw
+  // from the art loadCatalog already resolved.
+  const [index, catalog] = await Promise.all([loadIndex(), loadCatalog()]);
   return (
-    <HbwShell index={index} catalog={catalog} experiences={experiences}>
+    <HbwShell index={index} catalog={catalog}>
       {children}
     </HbwShell>
   );
