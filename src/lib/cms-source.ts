@@ -25,6 +25,12 @@ export type CmsBackedProject = {
   previewSlug: string;
   previewPath: string;
   aliases: readonly CmsProjectAlias[];
+  /**
+   * Where this project reads from when nothing in the environment says
+   * otherwise. The CMS is the record; "local" is for a project whose shipped
+   * sequence and published document have drifted apart, until they agree again.
+   */
+  defaultSource: ProjectSource;
 };
 
 export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
@@ -37,6 +43,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/sck",
     previewSlug: "sck",
     previewPath: "/preview/sck",
+    defaultSource: "sanity",
     aliases: [],
   },
   {
@@ -48,6 +55,10 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/bar-closed",
     previewSlug: "closed",
     previewPath: "/preview/closed",
+    // The published document still carries the four frames removed from the
+    // shipped sequence in October 2026. Reads stay local until it is reseeded,
+    // or the CMS would put them back on the page.
+    defaultSource: "local",
     aliases: [{ source: "/projects/closed", destination: "/projects/bar-closed" }],
   },
   {
@@ -59,6 +70,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/koja",
     previewSlug: "koja",
     previewPath: "/preview/koja",
+    defaultSource: "sanity",
     aliases: [],
   },
   {
@@ -70,6 +82,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/chris-sisarich",
     previewSlug: "chris-sisarich",
     previewPath: "/preview/chris-sisarich",
+    defaultSource: "sanity",
     aliases: [],
   },
   {
@@ -81,6 +94,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/sub-3",
     previewSlug: "sub-3",
     previewPath: "/preview/sub-3",
+    defaultSource: "sanity",
     aliases: [],
   },
   {
@@ -92,6 +106,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/our-boy-roy",
     previewSlug: "our-boy-roy",
     previewPath: "/preview/our-boy-roy",
+    defaultSource: "sanity",
     aliases: [],
   },
 ];
@@ -123,16 +138,26 @@ export function catalogIdForSlug(slug: string) {
   return cmsProjectByCmsSlug(slug)?.routeSlug ?? slug;
 }
 
+/**
+ * An environment variable is an override, not the setting. It is read the same
+ * way in both directions so a project can be pinned either to the CMS or back
+ * to the shipped sequence without a deploy; anything else falls through to the
+ * project's own default.
+ */
 export function sourceFlagFromEnv(
   envKey: CmsSourceEnvKey,
-  env: Record<string, string | undefined> = process.env
+  env: Record<string, string | undefined> = process.env,
+  fallback: ProjectSource = "local"
 ): ProjectSource {
-  return env[envKey] === "sanity" ? "sanity" : "local";
+  const value = env[envKey];
+  if (value === "sanity") return "sanity";
+  if (value === "local") return "local";
+  return fallback;
 }
 
 export function sourceFlagForProject(
   project: CmsBackedProject,
   env: Record<string, string | undefined> = process.env
 ): ProjectSource {
-  return sourceFlagFromEnv(project.envKey, env);
+  return sourceFlagFromEnv(project.envKey, env, project.defaultSource);
 }
