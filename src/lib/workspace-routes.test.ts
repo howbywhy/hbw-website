@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { catalogIdForSlug, PROJECT_SLUGS, projectById } from "../components/home/catalog";
+import { catalogIdForSlug, liveProjects, PROJECT_SLUGS, projectById } from "../components/home/catalog";
 import { nextProject } from "../components/home/sequence";
 import { isIndexPathname, previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "./workspace-routes";
 
@@ -63,11 +63,16 @@ test("CLOSED CMS slug aliases the public catalog id", () => {
 });
 
 test("retired Nido is absent from public progression; OBR cycles to SCK", () => {
-  assert.deepEqual(PROJECT_SLUGS, ["sck", "bar-closed", "koja", "sub-3", "chris-sisarich", "our-boy-roy"]);
-  assert.equal(nextProject("sck")?.id, "bar-closed");
+  // Newest year first; within a year, catalog order.
+  assert.deepEqual(PROJECT_SLUGS, ["sck", "sub-3", "bar-closed", "koja", "chris-sisarich", "our-boy-roy"]);
+  assert.deepEqual(
+    liveProjects().map((project) => project.year),
+    [...liveProjects().map((project) => project.year)].sort((a, b) => Number(b) - Number(a))
+  );
+  assert.equal(nextProject("sck")?.id, "sub-3");
+  assert.equal(nextProject("sub-3")?.id, "bar-closed");
   assert.equal(nextProject("bar-closed")?.id, "koja");
-  assert.equal(nextProject("koja")?.id, "sub-3");
-  assert.equal(nextProject("sub-3")?.id, "chris-sisarich");
+  assert.equal(nextProject("koja")?.id, "chris-sisarich");
   assert.equal(nextProject("chris-sisarich")?.id, "our-boy-roy");
   assert.equal(nextProject("our-boy-roy")?.id, "sck");
   assert.equal(nextProject("bistro-nido"), null);

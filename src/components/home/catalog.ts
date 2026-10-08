@@ -238,12 +238,19 @@ export const PROJECTS: ProjectRecord[] = [
 ];
 
 /**
+ * The live sequence: newest year first, and within a year the order this file
+ * lists them in. Sorting here rather than relying on the array's own order
+ * means a record added in the wrong place still lands in the right year, and
+ * the rail, the routes and next/previous all stay in step.
+ *
  * Drops Coming Soon records from routes and sequence.
  * Intentionally unreached. Retained for a future Coming Soon record.
  * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
  */
 export function liveProjects() {
-  return PROJECTS.filter((project) => project.status !== "coming");
+  return PROJECTS.filter((project) => project.status !== "coming").sort(
+    (a, b) => Number(b.year) - Number(a.year)
+  );
 }
 
 /** Live slugs only. Coming Soon filter is intentionally unreached — see liveProjects. */
