@@ -6,6 +6,7 @@ import { HBW_EASE, HBW_T, reduceMotion } from "@/components/home/motion";
 import { PillThumb } from "@/components/home/pill-motion";
 import { detail, keyArt } from "@/components/home/work-data";
 import { useCatalog } from "@/components/home/CatalogContext";
+import { useExperiences } from "@/components/home/ExperienceContext";
 
 type Props = {
   slug: string;
@@ -40,8 +41,9 @@ const stacked = () => typeof window !== "undefined" && window.matchMedia("(max-w
 
 export function WorkDetail({ slug, origin, closing, closingAway = false, onClose, onClosed, onSwitch, onPoster }: Props) {
   const WORK = useCatalog();
+  const experiences = useExperiences();
   const project = WORK.find((p) => p.id === slug) ?? WORK[0];
-  const d = detail(project);
+  const d = detail(project, experiences?.[project.id]);
   const total = d.frames.length;
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
@@ -397,7 +399,7 @@ export function WorkDetail({ slug, origin, closing, closingAway = false, onClose
     return { id: c.id, heading: c.heading, body: repeats ? rest : c.body };
   });
   const next = WORK[(WORK.findIndex((p) => p.id === slug) + 1) % WORK.length];
-  const nextArt = keyArt(next);
+  const nextArt = keyArt(next, experiences?.[next.id]);
 
   return (
     <div ref={rootRef} className="hbw-detail" role="dialog" aria-modal="true" aria-label={project.name} tabIndex={-1}>

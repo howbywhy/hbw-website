@@ -5,6 +5,7 @@ import { preloadProject } from "@/components/home/preload";
 import { WorkDetail } from "@/components/home/WorkDetail";
 import { keyArt } from "@/components/home/work-data";
 import { useCatalog } from "@/components/home/CatalogContext";
+import { useExperiences } from "@/components/home/ExperienceContext";
 import type { ProjectRecord } from "@/components/home/catalog";
 
 const SCROLL_KEY = "hbw.work.scroll.v1";
@@ -94,6 +95,7 @@ type Geometry = { rise: number; travel: number; step: number };
  */
 export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScroll({ visible, onInView, onHoverIdea, onIndex, onDetailClosing, onDetailClosed, onDetailState }, ref) {
   const WORK = useCatalog();
+  const experiences = useExperiences();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLElement>(null);
@@ -513,7 +515,7 @@ export const WorkScroll = forwardRef<WorkScrollHandle, Props>(function WorkScrol
               </header>
               <ol ref={cardsRef} className="hbw-line__cards">
                 {WORK.map((project, i) => {
-                  const art = keyArt(project);
+                  const art = keyArt(project, experiences?.[project.id]);
                   const isPreview = preview === project.id;
                   return (
                     <li

@@ -7,6 +7,7 @@ import { movementPace, movementSpan, type Movement } from "../../components/home
 export type VerifyMismatch = { id: string; field: string; expected: unknown; actual: unknown };
 
 export type SanityMovementAssets = {
+  _key?: string;
   still?: { asset?: { originalFilename?: string } };
   poster?: { asset?: { originalFilename?: string } };
   video?: { asset?: { originalFilename?: string } };

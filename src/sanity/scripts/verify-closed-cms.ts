@@ -33,6 +33,12 @@ import {
 } from "./cms-verify-lib";
 import { fetchPublishedProjectBySlug, sckMediaConfig } from "./fetch-sck";
 
+// The sections the 18-frame sequence is meant to read in: idea to c06,
+// shift to c12, system to c17, outcome to the end. Stated here rather than
+// taken from the experience, so moving a boundary by accident is caught.
+// CLOSED has no Outcome section — only idea, shift and system — so the last
+// run carries to the end. Stated here rather than read from the experience,
+// so moving a boundary by accident is caught.
 const EXPECTED_HINTS = [
   "idea",
   "idea",
@@ -40,14 +46,10 @@ const EXPECTED_HINTS = [
   "idea",
   "idea",
   "idea",
-  "idea",
   "shift",
   "shift",
   "shift",
   "shift",
-  "shift",
-  "system",
-  "system",
   "system",
   "system",
   "system",
@@ -121,8 +123,12 @@ async function main() {
 
   const byId = Object.fromEntries(experience.movements.map((movement) => [movement.id, movement]));
   const raw = project.movements as SanityMovementAssets[];
-  const film01 = assetName(raw[0]?.video);
-  const film021 = assetName(raw[19]?.video);
+  // By key, not by position: c20 sat at index 19 in the 22-frame sequence and
+  // at 15 in the 18-frame one, so an index silently reads the wrong movement
+  // or none at all the moment the sequence is edited.
+  const rawByKey = Object.fromEntries(raw.map((movement) => [movement._key ?? "", movement]));
+  const film01 = assetName(rawByKey.c01?.video);
+  const film021 = assetName(rawByKey.c20?.video);
   const grammarGaps: VerifyMismatch[] = [];
   if (byId.c03?.scale !== "major") {
     grammarGaps.push({ id: "c03", field: "scale", expected: "major", actual: byId.c03?.scale });

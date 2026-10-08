@@ -55,10 +55,7 @@ export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
     publicPath: "/projects/bar-closed",
     previewSlug: "closed",
     previewPath: "/preview/closed",
-    // The published document still carries the four frames removed from the
-    // shipped sequence in October 2026. Reads stay local until it is reseeded,
-    // or the CMS would put them back on the page.
-    defaultSource: "local",
+    defaultSource: "sanity",
     aliases: [{ source: "/projects/closed", destination: "/projects/bar-closed" }],
   },
   {

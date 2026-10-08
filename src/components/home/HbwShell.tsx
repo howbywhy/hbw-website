@@ -13,6 +13,11 @@ import {
   type ProjectRecord,
 } from "@/components/home/catalog";
 import { CatalogProvider, resolveCatalog } from "@/components/home/CatalogContext";
+import {
+  ExperienceProvider,
+  resolveExperience,
+  type ExperienceMap,
+} from "@/components/home/ExperienceContext";
 import { useNavPeek, type PeekProject } from "@/components/home/ProjectsNavPreview";
 import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
@@ -35,7 +40,6 @@ import {
   useHbwMotionSession,
   type MotionSession,
 } from "@/components/home/HbwMotionSession";
-import { getExperience } from "@/components/home/projects/experiences";
 import type { ProjectExperience } from "@/components/home/projects/types";
 import type { ResolvedProjectExperience } from "@/lib/project-source";
 import { nextProject } from "@/components/home/sequence";
@@ -161,6 +165,7 @@ export function HbwShell({
   published = null,
   index = [],
   catalog = null,
+  experiences = null,
 }: {
   children: React.ReactNode;
   published?: ResolvedProjectExperience | null;
@@ -168,6 +173,8 @@ export function HbwShell({
   index?: IndexEntry[];
   /** The work line itself, read from the CMS by the server layout above. */
   catalog?: ProjectRecord[] | null;
+  /** Each case study, resolved by the server layout above. */
+  experiences?: ExperienceMap | null;
 }) {
   const line = resolveCatalog(catalog);
   const pathname = usePathname() || "/";
@@ -313,7 +320,7 @@ export function HbwShell({
         : null
       : publishedResolved?.experience?.slug === viewSlug
         ? publishedResolved.experience
-        : getExperience(viewSlug)
+        : resolveExperience(experiences, viewSlug)
     : null;
 
   function clearMotionTimers() {
@@ -1349,7 +1356,7 @@ export function HbwShell({
       ? previewHeld.current
       : publishedResolved?.experience?.slug === leaving.id
         ? publishedResolved.experience
-        : getExperience(leaving.id)
+        : resolveExperience(experiences, leaving.id)
     : null;
   const chromeLocked =
     Boolean(leavingExp) &&
@@ -1611,5 +1618,9 @@ export function HbwShell({
     </WorkspaceContext.Provider>
   );
 
-  return <CatalogProvider catalog={catalog}>{tree}</CatalogProvider>;
+  return (
+    <CatalogProvider catalog={catalog}>
+      <ExperienceProvider experiences={experiences}>{tree}</ExperienceProvider>
+    </CatalogProvider>
+  );
 }

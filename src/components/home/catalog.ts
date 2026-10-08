@@ -172,7 +172,7 @@ export const PROJECTS: ProjectRecord[] = [
     visualStart: 9,
     homeSelected: true,
     sectors: ["Food", "FMCG"],
-    disciplines: ["Brand Strategy", "Visual Identity", "Packaging", "Print"],
+    disciplines: ["Brand Strategy", "Visual Identity", "Packaging", "Print", "Digital Design"],
     credits: ["Mark Blackler"],
   },
   {

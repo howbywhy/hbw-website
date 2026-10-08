@@ -393,7 +393,7 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
       scale: "standard",
       alt: "Two guests toasting at a small table in front of a red-and-black mural.",
     }),
-    mv("c18", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-019.jpg", 1920, 1080, "contain", []), "outcome", {
+    mv("c18", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-019.jpg", 1920, 1080, "contain", []), "system", {
       scale: "standard",
       alt: "Street billboard under a railway bridge with torn CLOSED panels of flowers, address, food, and tomatoes.",
     }),
@@ -408,18 +408,18 @@ export const CLOSED_EXPERIENCE: ProjectExperience = {
         "contain",
         "/projects/bar-closed/web/HBWxCLOSED-Portfolio-021.webm"
       ),
-      "outcome",
+      "system",
       {
         scale: "standard",
         pace: "normal",
         alt: "Three CLOSED_BAR Instagram stories: a branded wine glass, white eyes, and a cocktail collage.",
       }
     ),
-    mv("c21", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-022.jpg", 1920, 1080, "contain", []), "outcome", {
+    mv("c21", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-022.jpg", 1920, 1080, "contain", []), "system", {
       scale: "standard",
       alt: "Guest smiling over CLOSED plates and wine in a green booth.",
     }),
-    mv("c22", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-023.jpg", 1920, 1080, "contain", []), "outcome", {
+    mv("c22", "landscape", jpg("/projects/bar-closed/HBWxCLOSED-Portfolio-023.jpg", 1920, 1080, "contain", []), "system", {
       scale: "standard",
       pace: "pause",
       alt: "Wheat-pasted Saturday posters and a central eyes sheet on a plywood hoarding.",

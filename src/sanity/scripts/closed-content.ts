@@ -15,7 +15,7 @@ export const CLOSED_IDENTITY = {
     "Visual Identity",
     "Signage & Wayfinding",
     "Website",
-    "Print", "Digital Design",
+    "Print",
   ],
   portfolioOrder: 4,
   editorialPurpose: "Idea / Experience",

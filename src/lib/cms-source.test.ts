@@ -80,13 +80,13 @@ test("source flags stay independent, and an env var overrides both ways", () => 
  * What the site serves with nothing set is the whole point of the migration,
  * so it is pinned rather than left to whatever the table happens to say.
  */
-test("the CMS is the source, except where the two are known to disagree", () => {
+test("every project reads from the CMS", () => {
   const defaults = Object.fromEntries(
     CMS_BACKED_PROJECTS.map((project) => [project.routeSlug, sourceFlagForProject(project, {})])
   );
   assert.deepEqual(defaults, {
     sck: "sanity",
-    "bar-closed": "local",
+    "bar-closed": "sanity",
     koja: "sanity",
     "chris-sisarich": "sanity",
     "sub-3": "sanity",
