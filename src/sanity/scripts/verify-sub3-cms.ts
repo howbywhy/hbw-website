@@ -3,7 +3,7 @@
  * Networked validation only. Not part of npm test.
  *
  * Protects: document id, 12 movements, order/ids/kind/scale/relation/resolved pace,
- * media role identity, contain films, pairs s304/s306/s310, working context,
+ * media role identity, contain films, no pairs, working context,
  * idea/shift/system, no Outcome, no Brand DNA, critical Info fields, Sanity CDN host.
  * Surfaces catalog preview filename vs Sanity preview as editorial drift.
  */
@@ -26,6 +26,13 @@ const EXPECTED_HINTS = [
   "idea",
   "idea",
   "idea",
+  "idea",
+  "idea",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
   "shift",
   "shift",
   "system",
@@ -145,7 +152,7 @@ async function main() {
   assert.equal(project._id, SUB3_DOCUMENT_ID);
   assert.equal(result.record.id, "sub-3");
   assert.equal(experience.slug, "sub-3");
-  assert.equal(experience.movements.length, 12);
+  assert.equal(experience.movements.length, 19);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.equal(experience.authorship?.workingContext, SUB3_COPY.workingContext);
@@ -157,9 +164,15 @@ async function main() {
   );
   assert.deepEqual(
     experience.movements.filter((movement) => movement.relation === "pair").map((movement) => movement.id),
-    ["s304", "s306", "s310"]
+    []
   );
-  assert.equal(experience.movements[11]?.infoHint, "system");
+  // The section boundaries, rather than one index: idea runs to s305, shift to
+  // s312, system to the end.
+  assert.equal(experience.movements[4]?.infoHint, "idea");
+  assert.equal(experience.movements[5]?.infoHint, "shift");
+  assert.equal(experience.movements[11]?.infoHint, "shift");
+  assert.equal(experience.movements[12]?.infoHint, "system");
+  assert.equal(experience.movements[18]?.infoHint, "system");
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);
 }
 

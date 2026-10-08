@@ -156,91 +156,102 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
   context: SUB3_COPY.context,
   authorship: authorshipFromCopy(SUB3_COPY),
   movements: [
-    mv("s301", "portrait", jpg("/projects/sub-3/68db9133176e7f02015d4f37_TCCWEB-SUB326.jpg", 1200, 1500), "idea", {
-      scale: "standard",
-      alt: "Runner in a black SUB:3 shirt checking a watch on a weathered concrete path.",
-    }),
-    mv(
-      "s302",
-      "film",
-      film(
-        "/projects/sub-3/web/SUB3-Type-Stretch-Texture.mp4",
-        1440,
-        874,
-        "/projects/sub-3/web/SUB3-Type-Stretch-Texture.jpg",
-        "contain",
-        "/projects/sub-3/web/SUB3-Type-Stretch-Texture.webm"
-      ),
-      "idea",
-      { scale: "detail", alt: "Angular SUB:3 lettering stretching and compressing on black." }
-    ),
-    mv("s303", "portrait", jpg("/projects/sub-3/68db91322535abe236944c80_TCCWEB-SUB320.jpg", 1200, 1500), "idea", {
+    mv("s301", "portrait", jpg("/projects/sub-3/1.jpg", 1600, 2000, "contain", []), "idea", {
       scale: "major",
       pace: "pause",
-      alt: "Glowing POST-RUN pouch held against a grainy magenta field.",
+      alt: "A runner in a black SUB:3 tee on a worn road, checking the watch on their wrist.",
     }),
-    mv("s304", "landscape", jpg("/projects/sub-3/68db91587ee646ac94cfb67c_TCCWEBR2-SUB34.jpg", 2472, 1500), "shift", {
-      scale: "detail",
-      pace: "normal",
-      relation: "pair",
-      alt: "RUN lettering stretched and compressed in dark grey on white, some inverted.",
-    }),
-    mv("s307", "portrait", jpg("/projects/sub-3/68db91580180acf841f7384e_TCCWEBR2-SUB36.jpg", 1200, 1500), "shift", {
-      scale: "detail",
-      alt: "02:59:99 SUB:3 (RUNNERS CLUB) lockup with a JOIN THE SRC button, stacked twice.",
-    }),
-    mv("s305", "landscape", jpg("/projects/sub-3/68db9158900d1a9e6ac94934_TCCWEBR2-SUB33.jpg", 2472, 1500), "system", {
-      scale: "standard",
-      pace: "pause",
-      alt: "City list from Sydney to London beside a sunset runner card.",
-    }),
-    mv("s306", "portrait", jpg("/projects/sub-3/68db91351d50093ee5b0a02f_TCCWEB-SUB330.jpg", 1200, 1500), "system", {
+    mv("s302", "film", film("/projects/sub-3/web/2.mp4", 1600, 970, "/projects/sub-3/web/2.jpg"), "idea", {
       scale: "standard",
       pace: "normal",
-      relation: "pair",
-      alt: "PRE-RUN pouch on asphalt among a tattooed leg, gloved hand, and running shoe.",
+      alt: "SUB:3 ® RUNNING resolving in white type on black.",
     }),
-    mv("s309", "portrait", jpg("/projects/sub-3/68db91315cea177d71b89b3a_TCCWEB-SUB315.jpg", 1200, 1500), "system", {
+    mv("s303", "portrait", jpg("/projects/sub-3/3.jpg", 1080, 1350, "contain", []), "idea", {
       scale: "standard",
-      alt: "PRE-RUN pouch smeared by vertical motion on white.",
+      pace: "normal",
+      alt: "A PRE-RUN pouch reading 00:00:00 SUB:3, lit against a pink and white gradient.",
     }),
-    mv("s308", "landscape", jpg("/projects/sub-3/68db912f0180acf841f72984_TCCWEB-SUB35.jpg", 2472, 1500), "system", {
+    mv("s304", "film", film("/projects/sub-3/web/4.mp4", 1200, 1500, "/projects/sub-3/web/4.jpg"), "idea", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A timecode counting across the frame at 01:33:14, over SUB:3 ® RUN TECH.",
+    }),
+    mv("s305", "portrait", jpg("/projects/sub-3/5.jpg", 1080, 1350, "contain", []), "idea", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A POST-RUN pouch reading 02:59:59 SUB:3, lit against a pink and white gradient.",
+    }),
+    mv("s306", "landscape", jpg("/projects/sub-3/6.jpg", 1800, 1202, "contain", []), "shift", {
       scale: "major",
       pace: "pause",
-      alt: "Person standing still while motion-blurred runners streak past, crossed by a red type line.",
+      alt: "A runner crossing a causeway at dusk, water and sky washed magenta.",
     }),
-    mv(
-      "s310",
-      "film",
-      film(
-        "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.mp4",
-        1152,
-        1440,
-        "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.jpg",
-        "contain",
-        "/projects/sub-3/web/SUB3-SKUBAR-Type-Count.webm"
-      ),
-      "outcome",
-      { scale: "detail", pace: "normal", relation: "pair", alt: "Geometric elapsed-time numerals counting on a pale field." }
-    ),
-    mv(
-      "s311",
-      "film",
-      film(
-        "/projects/sub-3/web/SUB3-PackGIF.mp4",
-        1440,
-        874,
-        "/projects/sub-3/web/SUB3-PackGIF.jpg",
-        "contain",
-        "/projects/sub-3/web/SUB3-PackGIF.webm"
-      ),
-      "outcome",
-      { scale: "detail", alt: "POST-RUN pouch dieline turning through front, back, and gusset panels." }
-    ),
-    mv("s312", "portrait", jpg("/projects/sub-3/69d625ecd5d798ae10301e45_SUB3-BG-1080x1350px.jpg", 1080, 1350), "outcome", {
+    mv("s307", "film", film("/projects/sub-3/web/7.mp4", 1600, 900, "/projects/sub-3/web/7.jpg"), "shift", {
+      scale: "detail",
+      pace: "normal",
+      alt: "The typeface stepping through its alphabet in white on black.",
+    }),
+    mv("s308", "portrait", jpg("/projects/sub-3/8.jpg", 1202, 1800, "contain", []), "shift", {
       scale: "standard",
+      pace: "normal",
+      alt: "A hand holding the POST-RUN pouch up against a pink and violet sky.",
+    }),
+    mv("s309", "portrait", jpg("/projects/sub-3/9.jpg", 1080, 1350, "contain", []), "shift", {
+      scale: "detail",
+      pace: "tight",
+      alt: "High-contrast black and white: a hand gripping the pouch against a flaring sun.",
+    }),
+    mv("s310", "landscape", jpg("/projects/sub-3/10.jpg", 2000, 1126, "contain", []), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Two specification cards — PRE-RUN. RITUAL. SIMPLIFIED. and POST-RUN. RECOVER. REPEAT. — listing sodium, caffeine, whey isolate and electrolytes.",
+    }),
+    mv("s311", "film", film("/projects/sub-3/web/11.mp4", 1080, 1920, "/projects/sub-3/web/11.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      span: "narrow",
+      alt: "NIGHT RUN — a runner alone on a floodlit track after dark.",
+    }),
+    mv("s312", "landscape", jpg("/projects/sub-3/12.jpg", 1920, 1080, "contain", []), "shift", {
+      scale: "detail",
+      pace: "normal",
+      alt: "RUN set four times across a cream field, the word stretching and reversing.",
+    }),
+    mv("s313", "portrait", png("/projects/sub-3/13.png", 1080, 1440), "system", {
+      scale: "detail",
+      pace: "tight",
+      alt: "A dense grid of SUB:3 lock-ups repeating across the frame.",
+    }),
+    mv("s314", "landscape", jpg("/projects/sub-3/14.jpg", 1800, 1202, "contain", []), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Two hands passing a glowing pouch between them under blue and violet light.",
+    }),
+    mv("s315", "film", film("/projects/sub-3/web/15.mp4", 1080, 1920, "/projects/sub-3/web/15.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      span: "narrow",
+      alt: "BENDING TIME & repeating down the frame, the type tearing and reforming.",
+    }),
+    mv("s316", "landscape", jpg("/projects/sub-3/16.jpg", 1800, 1202, "contain", []), "system", {
+      scale: "major",
       pace: "pause",
-      alt: "Grainy dark radial spiral from a central void.",
+      alt: "A runner's legs mid-stride on an open road, the landscape cool and blue behind.",
+    }),
+    mv("s317", "portrait", jpg("/projects/sub-3/17.jpg", 1600, 2000, "contain", []), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A PRE-RUN pouch suspended in darkness, catching a hard flare of light.",
+    }),
+    mv("s318", "landscape", jpg("/projects/sub-3/18.jpg", 1920, 1080, "contain", []), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "(SRC) : SYDNEY, CHICAGO, NEW YORK, LONDON ranged beside a small monochrome horizon.",
+    }),
+    mv("s319", "portrait", png("/projects/sub-3/19.png", 1080, 1440), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "Heavy black-and-white grain over a figure, with SUB:3 ® RUNNING across the frame.",
     }),
   ],
 };

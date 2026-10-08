@@ -436,12 +436,13 @@ test("Chris local s05 keeps published pair and explicit normal pace", () => {
   assert.equal(movementPace(s05!), "normal");
 });
 
-test("SUB:3 local pairs keep published explicit normal pace", () => {
-  for (const id of ["s304", "s306", "s310"] as const) {
-    const movement = SUB3_EXPERIENCE.movements.find((item) => item.id === id);
-    assert.equal(movement?.relation, "pair", id);
-    assert.equal(movement?.pace, "normal", id);
-    assert.equal(movementPace(movement!), "normal", id);
+// The 2026 sequence publishes no pairs, so this no longer names ids. The bug it
+// guards is unchanged: a movement whose pace is only derived can come back
+// "tight" from relation, overriding what was published.
+test("SUB:3 local movements keep their published pace", () => {
+  for (const movement of SUB3_EXPERIENCE.movements) {
+    assert.ok(movement.pace, movement.id);
+    assert.equal(movementPace(movement), movement.pace, movement.id);
   }
 });
 
@@ -563,7 +564,7 @@ test("SUB:3 + missing flag uses shipped experience", async () => {
     assert.equal(sourceFlagFromEnv("HBW_SUB3_SOURCE", {}), "local");
     assert.equal(resolved.source, "local");
     assert.equal(resolved.experience, SUB3_EXPERIENCE);
-    assert.equal(resolved.experience?.movements.length, 12);
+    assert.equal(resolved.experience?.movements.length, 19);
     assert.equal(loaded, false);
   } finally {
     if (previous === undefined) delete process.env.HBW_SUB3_SOURCE;
@@ -583,7 +584,7 @@ test("SUB:3 + local flag uses shipped experience and does not fetch", async () =
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "sub-3");
-  assert.equal(resolved.experience?.movements.length, 12);
+  assert.equal(resolved.experience?.movements.length, 19);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
@@ -600,7 +601,7 @@ test("SUB:3 + sanity flag + healthy CMS uses published experience", async () => 
   assert.equal(requested, "sub-3");
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience?.slug, "sub-3");
-  assert.equal(resolved.experience?.movements.length, 12);
+  assert.equal(resolved.experience?.movements.length, 19);
   assert.equal(resolved.experience?.context, SUB3_COPY.context);
   assert.deepEqual(resolved.experience?.authorship?.roles, SUB3_COPY.roles);
   assert.equal(resolved.experience?.authorship?.workingContext, SUB3_COPY.workingContext);
@@ -615,7 +616,7 @@ test("SUB:3 + sanity flag + healthy CMS uses published experience", async () => 
   );
   assert.deepEqual(
     resolved.experience?.movements.filter((movement) => movement.relation === "pair").map((movement) => movement.id),
-    ["s304", "s306", "s310"]
+    []
   );
 });
 
@@ -628,7 +629,7 @@ test("SUB:3 + sanity flag + missing document falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 12);
+  assert.equal(resolved.experience?.movements.length, 19);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
