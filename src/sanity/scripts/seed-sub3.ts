@@ -4,7 +4,7 @@
  * Seeds project-sub3. Public /projects/sub-3 stays local unless HBW_SUB3_SOURCE=sanity.
  */
 import { createReadStream } from "node:fs";
-import { basename, extname } from "node:path";
+import { extname } from "node:path";
 import { getCliClient } from "sanity/cli";
 import { SUB3_COPY, SUB3_DOCUMENT_ID, SUB3_IDENTITY, SUB3_MOVEMENTS } from "./sub3-content";
 
@@ -48,8 +48,18 @@ async function existingAsset(filename: string, kind: "image" | "file") {
   return client.fetch(`*[_type == $type && originalFilename == $filename][0]._id`, { type, filename });
 }
 
+/**
+ * Asset name from the repo path, not the basename. Sequence numbers restart per
+ * project and per folder, so a bare basename collides: sub-3/1.jpg would match
+ * an asset another project already uploaded as 1.jpg, and web/2.jpg would match
+ * the still 2.jpg. Reusing on that match would silently keep the wrong picture.
+ */
+function assetName(path: string) {
+  return path.replace(/^public\/projects\//, "").replace(/\//g, "-");
+}
+
 async function upload(path: string, kind: "image" | "file") {
-  const filename = basename(path);
+  const filename = assetName(path);
   const found = await existingAsset(filename, kind);
   if (found) {
     console.log(`reuse ${kind} ${filename}`);
@@ -62,11 +72,17 @@ async function upload(path: string, kind: "image" | "file") {
 }
 
 async function main() {
-  const others = await client.fetch<string[]>(
-    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"])].slug.current`
+  // Confirm this is the dataset we think it is before writing. Index-only
+  // entries are added through the Studio and are expected here; what matters is
+  // that the six case studies are present, since this script replaces one of them.
+  const caseStudies = ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"];
+  const present = await client.fetch<string[]>(
+    `*[_type == "project" && slug.current in $caseStudies].slug.current`,
+    { caseStudies }
   );
-  if (others.length) {
-    throw new Error(`Refusing to seed: dataset already has other projects (${others.join(", ")})`);
+  const missing = caseStudies.filter((slug) => !present.includes(slug));
+  if (missing.length) {
+    throw new Error(`Refusing to seed: not the expected dataset, missing ${missing.join(", ")}`);
   }
 
   const assets = new Map<string, string>();
@@ -92,6 +108,9 @@ async function main() {
       relation: movement.relation,
     };
     if (movement.infoHint) row.infoHint = movement.infoHint;
+    if (movement.narrow) {
+      row.presentationOverride = { _type: "presentationOverride", frameWidth: "narrow" };
+    }
     if (movement.mediaType === "still" && movement.still) {
       row.still = imageRef(await assetId(movement.still, "image"));
     }

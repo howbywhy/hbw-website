@@ -18,8 +18,8 @@ export const CHRIS_EXPERIENCE_MARKER = "Homepage with the name over scattered ph
 export const CHRIS_LOCAL_FILM_MARKER = "/projects/chris-sisarich/web/HBWCSHOME-Website.mp4";
 
 /** SUB:3 film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
-export const SUB3_EXPERIENCE_MARKER = "Angular SUB:3 lettering stretching and compressing on black.";
-export const SUB3_LOCAL_FILM_MARKER = "/projects/sub-3/web/SUB3-Type-Stretch-Texture.mp4";
+export const SUB3_EXPERIENCE_MARKER = "A PRE-RUN pouch suspended in darkness, catching a hard flare of light.";
+export const SUB3_LOCAL_FILM_MARKER = "/projects/sub-3/web/2.mp4";
 
 /** OBR film alt — present in local and Sanity case-study payloads, not catalog thumbs. */
 export const OBR_EXPERIENCE_MARKER = "Line-drawn figure in checkered pants holding a bottle as the ground colour shifts.";

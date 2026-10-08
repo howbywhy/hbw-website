@@ -98,7 +98,7 @@ test("SUB:3 parity against shipped experience", () => {
     TEST_MEDIA
   );
   assert.equal(experience.slug, "sub-3");
-  assert.equal(experience.movements.length, 12);
+  assert.equal(experience.movements.length, 19);
   const mismatches = compareMovements(SUB3_EXPERIENCE.movements, experience.movements);
   assert.deepEqual(mismatches, [], `SUB:3 movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
 });
