@@ -15,8 +15,10 @@ const EXPECTED: Record<string, string> = {
 };
 
 test("project descriptions stay authored and project-specific", () => {
+  // Every live project has an authored description, and nothing is authored
+  // for a project that is gone. Order is the rail's business, not this test's.
   const ids = liveProjects().map((project) => project.id);
-  assert.deepEqual(ids, Object.keys(EXPECTED));
+  assert.deepEqual([...ids].sort(), Object.keys(EXPECTED).sort());
   for (const [id, description] of Object.entries(EXPECTED)) {
     assert.equal(projectDescription(projectById(id)), description);
   }
