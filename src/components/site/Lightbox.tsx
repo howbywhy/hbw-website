@@ -13,6 +13,7 @@
  */
 import { useCallback, useEffect, useRef } from "react";
 import type { Movement } from "@/components/home/projects/types";
+import { countOf, refOf } from "@/components/site/numbering";
 
 export type Shot = { src: string; video?: string; webm?: string; alt?: string };
 
@@ -101,7 +102,7 @@ export function Lightbox({
       <div className="hbw-lamp__bar">
         <span>{name}</span>
         <span className="hbw-lamp__count">
-          {String(at + 1).padStart(2, "0")} / {String(shots.length).padStart(2, "0")}
+          {refOf(name, at)} · {countOf(at, shots.length)}
         </span>
         <button type="button" onClick={onClose}>
           Close

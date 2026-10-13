@@ -43,6 +43,8 @@
    */
   /* How far down the fixed chrome reaches. A sheet opens from here. */
   --chrome: 44px;
+  /* The line of space kept under every picture for its reference. */
+  --ref-h: 17px;
 
   --settle: 620ms;
   --answer: 160ms;
@@ -291,20 +293,36 @@ a.hbw-row {
   margin-bottom: clamp(36px, 8vh, 88px);
 }
 
+/*
+ * A cell is the picture and a line under it. The line's space is always there,
+ * whether or not it is showing — reserved, so hovering reveals a reference
+ * rather than shoving every row below it down the page.
+ */
 .hbw-cell {
   position: relative;
-  aspect-ratio: 1;
   background: var(--paper);
-  overflow: hidden;
   display: block;
 }
 
-.hbw-cell img,
+
+/*
+ * The picture is square and in the flow; the film sits exactly over it. One
+ * rule each — two rules for the same element, one absolute and one not, is
+ * what collapsed every cell and overlapped the rows.
+ */
+.hbw-cell img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
 .hbw-cell video {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
   display: block;
 }
@@ -318,22 +336,18 @@ a.hbw-row {
   opacity: 1;
 }
 
-/* The caption only exists when you are on the cell: a contact sheet should
-   read as a field of images, not as a field of captions. */
-.hbw-cell__tag {
-  position: absolute;
-  left: 5px;
-  bottom: 5px;
-  padding: 4px 7px;
-  border-radius: var(--r);
-  background: var(--chip-on);
-  color: var(--ink);
+/* The reference, under the picture. Only while you are on it: a contact sheet
+   should read as a field of images, not as a field of labels. */
+.hbw-cell__ref {
+  display: block;
+  height: var(--ref-h);
+  line-height: var(--ref-h);
   opacity: 0;
   transition: opacity var(--answer) var(--ease);
 }
 
-.hbw-cell:hover .hbw-cell__tag,
-.hbw-cell:focus-visible .hbw-cell__tag {
+.hbw-cell:hover .hbw-cell__ref,
+.hbw-cell:focus-visible .hbw-cell__ref {
   opacity: 1;
 }
 
@@ -520,15 +534,7 @@ a.hbw-row {
   opacity: 1;
 }
 
-.hbw-col__frame figcaption {
-  margin-top: 5px;
-  opacity: 0;
-  transition: opacity var(--answer) var(--ease);
-}
 
-.hbw-col__frame:hover figcaption {
-  opacity: 1;
-}
 
 /* ---- Information, behind one toggle, under the nav ---- */
 
@@ -822,20 +828,16 @@ a.hbw-row {
   cursor: pointer;
 }
 
-.hbw-col__no {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  padding: 3px 7px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: var(--meta);
+.hbw-col__ref {
+  display: block;
+  height: var(--ref-h);
+  line-height: var(--ref-h);
   opacity: 0;
   transition: opacity var(--answer) var(--ease);
   pointer-events: none;
 }
 
-.hbw-col__frame--open:hover .hbw-col__no {
+.hbw-col__frame--open:hover .hbw-col__ref {
   opacity: 1;
 }
 
