@@ -1,0 +1,316 @@
+/*
+ * The front door's own styles. One type size, one ink, no fills.
+ *
+ * Everything here is scoped under .hbw-canvas so the rest of the site — the
+ * case studies, the Studio, the Poster — keeps the styles it already had.
+ */
+
+.hbw-canvas {
+  --ink: #1d1d1d;
+  --paper: #ffffff;
+  --grey: rgba(29, 29, 29, 0.42);
+  --t: clamp(1rem, 0.78rem + 0.42vw, 1.125rem);
+  --edge: clamp(16px, 2.4vw, 34px);
+
+  position: fixed;
+  inset: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--t);
+  line-height: 1.24;
+  letter-spacing: 0;
+  overflow: hidden;
+}
+
+.hbw-canvas button,
+.hbw-canvas a {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.hbw-canvas button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* The paper. It fills the window and takes every pointer gesture. */
+.hbw-reveal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.hbw-canvas__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: var(--edge);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hbw-canvas__mark,
+.hbw-canvas__nav {
+  /* The chrome sits over the paper, so it needs its own ground to stay read. */
+  background: var(--paper);
+  box-shadow: 0 0 0 7px var(--paper);
+  pointer-events: auto;
+  margin: 0;
+}
+
+.hbw-canvas__nav {
+  display: flex;
+  gap: 1.1rem;
+}
+
+.hbw-canvas__nav a,
+.hbw-canvas__nav button {
+  text-decoration: none;
+  color: var(--grey);
+  transition: color 160ms ease;
+}
+
+.hbw-canvas__nav a:hover,
+.hbw-canvas__nav button:hover,
+.hbw-canvas__nav a:focus-visible,
+.hbw-canvas__nav button:focus-visible {
+  color: var(--ink);
+}
+
+/* The one line, and the readout that replaces it. Both sit on the same seat. */
+.hbw-canvas__say,
+.hbw-canvas__read {
+  position: absolute;
+  left: var(--edge);
+  bottom: calc(var(--edge) + 2.1rem);
+  margin: 0;
+  max-width: min(32rem, calc(100vw - var(--edge) * 2));
+  background: var(--paper);
+  box-shadow: 0 0 0 7px var(--paper);
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 320ms ease;
+}
+
+.hbw-canvas__grey,
+.hbw-grey {
+  color: var(--grey);
+}
+
+.hbw-canvas__say.is-gone {
+  opacity: 0;
+}
+
+.hbw-canvas__read {
+  opacity: 0;
+}
+
+.hbw-canvas__read.is-on {
+  opacity: 1;
+}
+
+.hbw-canvas__bar {
+  position: absolute;
+  left: var(--edge);
+  bottom: var(--edge);
+  display: flex;
+  gap: 1.1rem;
+  background: var(--paper);
+  box-shadow: 0 0 0 7px var(--paper);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+  z-index: 2;
+}
+
+.hbw-canvas__bar.is-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hbw-canvas__bar button {
+  color: var(--grey);
+  transition: color 160ms ease;
+}
+
+.hbw-canvas__bar button:hover,
+.hbw-canvas__bar button:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-canvas__bar .hbw-canvas__send {
+  color: var(--ink);
+}
+
+/* Present for a crawler and for a keyboard, off-screen for a pointer. */
+.hbw-canvas__plain {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.hbw-canvas__plain a:focus {
+  position: fixed;
+  top: var(--edge);
+  left: var(--edge);
+  width: auto;
+  height: auto;
+  clip-path: none;
+  background: var(--paper);
+  z-index: 10;
+}
+
+/* Sheets: Work and Contact, over the paper. */
+.hbw-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hbw-sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.86);
+  border: 0;
+  cursor: pointer;
+}
+
+.hbw-sheet__panel {
+  position: relative;
+  width: min(44rem, calc(100vw - var(--edge, 24px) * 2));
+  margin-top: clamp(68px, 14vh, 140px);
+  max-height: 78vh;
+  overflow: auto;
+  background: #fff;
+  padding: clamp(20px, 3vw, 34px);
+  box-shadow: 0 1px 0 rgba(29, 29, 29, 0.12), 0 24px 60px rgba(29, 29, 29, 0.09);
+}
+
+.hbw-sheet__panel:focus {
+  outline: none;
+}
+
+.hbw-sheet__shut {
+  position: absolute;
+  top: clamp(20px, 3vw, 34px);
+  right: clamp(20px, 3vw, 34px);
+  color: rgba(29, 29, 29, 0.42);
+}
+
+.hbw-sheet__title {
+  margin: 0 0 1.6rem;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.hbw-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hbw-list a {
+  display: grid;
+  grid-template-columns: 7rem 1fr auto;
+  gap: 1rem;
+  padding: 0.62rem 0;
+  border-top: 1px solid rgba(29, 29, 29, 0.1);
+  text-decoration: none;
+}
+
+.hbw-list a:hover .hbw-list__idea,
+.hbw-list a:focus-visible .hbw-list__idea {
+  color: #1d1d1d;
+}
+
+.hbw-list__idea,
+.hbw-list__year {
+  color: rgba(29, 29, 29, 0.42);
+  transition: color 160ms ease;
+}
+
+.hbw-reach {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.6rem;
+}
+
+.hbw-reach h3 {
+  margin: 0 0 0.4rem;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.hbw-reach p {
+  margin: 0 0 0.6rem;
+}
+
+.hbw-reach__lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.hbw-reach__foot {
+  margin: 1.6rem 0 0;
+}
+
+/* The Poster, full window, over everything. */
+.hbw-canvas__poster {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  background: #fff;
+}
+
+.hbw-canvas__shut {
+  position: absolute;
+  top: var(--edge, 24px);
+  right: var(--edge, 24px);
+  z-index: 9;
+  background: #fff;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: rgba(29, 29, 29, 0.42);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .hbw-canvas__bar {
+    gap: 0.9rem;
+  }
+  .hbw-list a {
+    grid-template-columns: 1fr auto;
+  }
+  .hbw-list__idea {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-canvas__say,
+  .hbw-canvas__read,
+  .hbw-canvas__bar {
+    transition: none;
+  }
+}
