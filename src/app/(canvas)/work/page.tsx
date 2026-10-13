@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { loadGallery } from "@/sanity/load-gallery";
-import { Gallery } from "@/components/canvas/Gallery";
-import { CanvasNav } from "@/components/canvas/CanvasNav";
+import { Bar } from "@/components/site/Bar";
+import { Catalogue } from "@/components/site/Catalogue";
 import { StructuredData } from "@/components/StructuredData";
 import { workListNode } from "@/lib/structured-data";
-import "@/styles/hbw-canvas.css";
+import "@/styles/hbw-index.css";
 
 const title = "Work — How by Why";
 const description =
-  "Brand work for companies at a turning point: identity, strategy, packaging and motion across architecture, hospitality, food and sport.";
+  "Brand work for companies at a turning point: strategy, naming, identity, packaging and motion across architecture, hospitality, food and sport.";
 
 export const metadata: Metadata = {
   title,
@@ -17,14 +17,24 @@ export const metadata: Metadata = {
   openGraph: { title, description, type: "website", url: "/work" },
 };
 
+/** The catalogue: every case study as a contact sheet of its own frames. */
 export default async function WorkPage() {
   const projects = await loadGallery();
   return (
-    <main className="hbw-page">
+    <main className="hbw-site">
       <StructuredData nodes={[workListNode()]} />
-      <CanvasNav here="work" />
-      <h1 className="hbw-page__title">Work</h1>
-      <Gallery projects={projects} />
+      <Bar here="work" />
+      <div className="hbw-wrap">
+        <h1 className="hbw-m" style={{ margin: "clamp(28px,7vh,70px) 0 clamp(20px,4vh,40px)", color: "var(--ink)" }}>
+          Work
+        </h1>
+        <Catalogue projects={projects} />
+        <nav className="hbw-foot hbw-m" aria-label="More">
+          <a href="/">Index</a>
+          <a href="/studio">Studio</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
     </main>
   );
 }

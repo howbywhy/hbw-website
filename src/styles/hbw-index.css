@@ -1,0 +1,330 @@
+/*
+ * How by Why — the index.
+ *
+ * A practice stated as a catalogue. Everything is numbered, dated and
+ * labelled; the interest comes from structure and density rather than from
+ * motion or ornament. Two faces only: one for reading, one — monospaced — for
+ * everything the catalogue says about itself. Hairlines do the dividing. No
+ * fills, no shadows, no radius, no animation beyond a colour change.
+ *
+ * Scoped under .hbw-site so the case studies, which still run on the old
+ * shell, keep the styles they were built with.
+ */
+
+.hbw-site {
+  --paper: #ffffff;
+  --ink: #111111;
+  --mute: rgba(17, 17, 17, 0.46);
+  --rule: rgba(17, 17, 17, 0.15);
+  --hot: #1b32d8;
+
+  /* Reading, and the catalogue's own voice. */
+  --read: clamp(0.95rem, 0.88rem + 0.3vw, 1.0625rem);
+  --meta: 0.6875rem;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --gut: clamp(14px, 2.2vw, 28px);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--read);
+  line-height: 1.32;
+  letter-spacing: 0;
+  min-height: 100vh;
+  padding-bottom: clamp(60px, 14vh, 160px);
+}
+
+.hbw-site a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hbw-site button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Every label, number, year and count in the place. */
+.hbw-m {
+  font-family: var(--mono);
+  font-size: var(--meta);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* ---- The frame ---- */
+
+.hbw-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gut);
+  align-items: baseline;
+  padding: 11px var(--gut);
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.hbw-bar__nav {
+  display: flex;
+  gap: 1.1rem;
+  justify-content: flex-end;
+}
+
+.hbw-bar__nav a,
+.hbw-bar__nav button {
+  transition: color 140ms linear;
+}
+
+.hbw-bar__nav a:hover,
+.hbw-bar__nav button:hover,
+.hbw-bar__nav a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* ---- Page furniture ---- */
+
+.hbw-wrap {
+  padding: 0 var(--gut);
+}
+
+.hbw-say {
+  max-width: 30rem;
+  margin: clamp(46px, 13vh, 150px) 0 clamp(40px, 10vh, 110px);
+}
+
+.hbw-say h1 {
+  margin: 0 0 0.85rem;
+  font-size: inherit;
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+.hbw-say p {
+  margin: 0 0 0.6rem;
+  color: var(--mute);
+}
+
+.hbw-say p.is-ink {
+  color: var(--ink);
+}
+
+/* A labelled band, the way a catalogue heads a section. */
+.hbw-band {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--gut);
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--ink);
+}
+
+/* ---- The index table ---- */
+
+.hbw-rows {
+  list-style: none;
+  margin: 0 0 clamp(40px, 9vh, 96px);
+  padding: 0;
+}
+
+.hbw-rows > li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.hbw-row {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(7rem, 1.1fr) minmax(0, 1.5fr) minmax(0, 1fr) 3.4rem;
+  gap: var(--gut);
+  align-items: baseline;
+  padding: 9px 0;
+  transition: color 140ms linear;
+}
+
+.hbw-row__no,
+.hbw-row__work,
+.hbw-row__year {
+  font-family: var(--mono);
+  font-size: var(--meta);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.hbw-row__year {
+  text-align: right;
+}
+
+.hbw-row__idea {
+  color: var(--mute);
+}
+
+/* Only a row that opens something behaves like it does. */
+a.hbw-row:hover,
+a.hbw-row:focus-visible {
+  color: var(--hot);
+}
+
+a.hbw-row:hover .hbw-row__idea,
+a.hbw-row:hover .hbw-row__no,
+a.hbw-row:hover .hbw-row__work,
+a.hbw-row:hover .hbw-row__year,
+a.hbw-row:focus-visible .hbw-row__idea {
+  color: var(--hot);
+}
+
+.hbw-row--flat {
+  cursor: default;
+}
+
+/* ---- The catalogue: a dense contact sheet ---- */
+
+.hbw-sheet {
+  display: grid;
+  /* auto-fit, not auto-fill: auto-fill keeps the empty tracks at the end of
+     the last row and they show as grey cells with nothing in them. */
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: clamp(36px, 8vh, 88px);
+}
+
+.hbw-cell {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--paper);
+  overflow: hidden;
+  display: block;
+}
+
+.hbw-cell img,
+.hbw-cell video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hbw-cell video {
+  opacity: 0;
+  transition: opacity 180ms linear;
+}
+
+.hbw-cell:hover video {
+  opacity: 1;
+}
+
+/* The caption only exists when you are on the cell: a contact sheet should
+   read as a field of images, not as a field of captions. */
+.hbw-cell__tag {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 4px 6px;
+  background: var(--paper);
+  opacity: 0;
+  transition: opacity 140ms linear;
+}
+
+.hbw-cell:hover .hbw-cell__tag,
+.hbw-cell:focus-visible .hbw-cell__tag {
+  opacity: 1;
+}
+
+/* ---- Reading ---- */
+
+.hbw-read {
+  max-width: 32rem;
+}
+
+.hbw-read p {
+  margin: 0 0 0.7rem;
+}
+
+.hbw-read p.is-mute {
+  color: var(--mute);
+}
+
+.hbw-read a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.hbw-read a:hover {
+  color: var(--hot);
+}
+
+.hbw-steps {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gut);
+}
+
+.hbw-steps li {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+  padding-top: 7px;
+  border-top: 1px solid var(--rule);
+}
+
+.hbw-steps p {
+  margin: 0;
+  color: var(--mute);
+}
+
+.hbw-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: clamp(44px, 11vh, 120px);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+
+.hbw-foot a:hover,
+.hbw-foot button:hover {
+  color: var(--hot);
+}
+
+@media (max-width: 760px) {
+  .hbw-bar {
+    grid-template-columns: 1fr auto;
+  }
+  .hbw-bar__what {
+    display: none;
+  }
+  .hbw-row {
+    grid-template-columns: 2.1rem 1fr 3.2rem;
+  }
+  .hbw-row__idea,
+  .hbw-row__work {
+    display: none;
+  }
+  .hbw-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hbw-sheet {
+    grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-site * {
+    transition: none !important;
+  }
+}

@@ -2,77 +2,81 @@ import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, founderNode, studioNode } from "@/lib/structured-data";
 import { STUDIO_COPY } from "@/components/home/studio-copy";
-import { CONTACT_EMAIL, STUDIO_PLACE } from "@/lib/contact";
-import { CanvasNav } from "@/components/canvas/CanvasNav";
-import "@/styles/hbw-canvas.css";
+import { STUDIO_PLACE } from "@/lib/contact";
+import { Bar } from "@/components/site/Bar";
+import "@/styles/hbw-index.css";
 
-const title = "Studio — HBW";
-const description = STUDIO_COPY.opening;
+const title = "Studio — How by Why";
+const description =
+  "How by Why is an independent brand and design practice led by Mark Blackler, working with founders and leadership teams at moments of change.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/studio" },
   openGraph: { title, description, type: "website", url: "/studio" },
-  twitter: { card: "summary_large_image", title, description },
 };
 
-/**
- * Studio, in the same register as everything else: one column, one type size,
- * no fills. It is the page someone reads rather than plays with, so it has no
- * curtain and no canvas — just the copy the practice already had.
- */
 export default function StudioPage() {
   return (
-    <main className="hbw-page">
+    <main className="hbw-site">
       <StructuredData
         nodes={[
           studioNode(),
           founderNode(),
           breadcrumbNode([
-            { name: "HBW", path: "/" },
+            { name: "How by Why", path: "/" },
             { name: "Studio", path: "/studio" },
           ]),
         ]}
       />
-      <CanvasNav here="studio" />
+      <Bar here="studio" />
 
-      <h1 className="hbw-page__title">Studio</h1>
+      <div className="hbw-wrap">
+        <section className="hbw-say">
+          <h1>{STUDIO_COPY.statement[0]}</h1>
+          <p className="is-ink">{STUDIO_COPY.statement[1]}</p>
+          <p>{STUDIO_COPY.brief}</p>
+        </section>
 
-      <div className="hbw-read">
-        {STUDIO_COPY.statement.map((line) => (
-          <p key={line} className="hbw-read__lead">
-            {line}
+        <div className="hbw-band">
+          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+            How the work goes
           </p>
-        ))}
-        <p>{STUDIO_COPY.brief}</p>
-      </div>
-
-      <section className="hbw-steps" aria-label="How the work goes">
-        <h2 className="hbw-steps__title">{STUDIO_COPY.howIntro}</h2>
-        <p className="hbw-read__grey hbw-steps__note">{STUDIO_COPY.howTools}</p>
-        <ol>
+          <p className="hbw-m" style={{ margin: 0 }}>
+            Four stages
+          </p>
+        </div>
+        <ol className="hbw-steps">
           {STUDIO_COPY.steps.map((step) => (
             <li key={step.id}>
-              <span className="hbw-steps__no">{step.id}</span>
-              <span className="hbw-steps__name">{step.title}</span>
-              <span className="hbw-steps__copy">{step.copy}</span>
+              <span className="hbw-m">{step.id}</span>
+              <span>{step.title}</span>
+              <p>{step.copy}</p>
             </li>
           ))}
         </ol>
-      </section>
 
-      <section className="hbw-read hbw-read--end" aria-label="Contact">
-        <p>{STUDIO_COPY.philosophy[0]}</p>
-        <p className="hbw-read__grey">{STUDIO_COPY.philosophy[1]}</p>
-        <p className="hbw-read__meta">
-          {STUDIO_COPY.disciplines}
-          <span>{STUDIO_PLACE}</span>
-        </p>
-        <p>
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-        </p>
-      </section>
+        <div className="hbw-band" style={{ marginTop: "clamp(40px,9vh,96px)" }}>
+          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+            Position
+          </p>
+          <p className="hbw-m" style={{ margin: 0 }}>
+            {STUDIO_COPY.disciplineList.join(" · ")}
+          </p>
+        </div>
+        <div className="hbw-read" style={{ marginTop: "1.1rem" }}>
+          <p>{STUDIO_COPY.philosophy[0]}</p>
+          <p className="is-mute">{STUDIO_COPY.philosophy[1]}</p>
+          <p className="is-mute">{STUDIO_PLACE}</p>
+        </div>
+
+        <nav className="hbw-foot hbw-m" aria-label="More">
+          <a href="/">Index</a>
+          <a href="/work">Work</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
     </main>
   );
 }

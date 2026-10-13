@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: origin, lastModified, changeFrequency: "monthly", priority: 1 },
     { url: `${origin}/work`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${origin}/studio`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${origin}/contact`, lastModified, changeFrequency: "yearly", priority: 0.6 },
     ...liveProjects().map((project) => ({
       url: `${origin}${project.href}`,
       lastModified,
