@@ -21,6 +21,8 @@ type Props = {
   onHome: () => void;
   onWork: () => void;
   onStudio: () => void;
+  /** Opens the Contact sheet. Copying the address is one of the things it offers. */
+  onContact: () => void;
   /** The nav's ✕ while the Studio is open: always closes, wherever you are in it. */
   onStudioClose: () => void;
   onClose: () => void;
@@ -49,6 +51,7 @@ export function SiteNav({
   onHome,
   onWork,
   onStudio,
+  onContact,
   onStudioClose,
   onClose,
   register,
@@ -148,13 +151,10 @@ export function SiteNav({
               type="button"
               ref={contactRef}
               className="hbw-pill-group__item hbw-site-nav__contact"
-              aria-label={copied ? `${CONTACT_EMAIL} copied` : `Copy ${CONTACT_EMAIL}`}
-              title={CONTACT_EMAIL}
-              onClick={copyEmail}
+              aria-haspopup="dialog"
+              onClick={onContact}
             >
-              <span key={copied ? "copied" : "contact"} className="hbw-fluid__text">
-                {copied ? `Copied ${CONTACT_EMAIL}` : "Contact"}
-              </span>
+              <span className="hbw-fluid__text">Contact</span>
             </button>
           </nav>
         )}

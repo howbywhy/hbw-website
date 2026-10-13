@@ -32,6 +32,7 @@ import { NavRegister } from "@/components/home/NavRegister";
 import { WorkspacePanel } from "@/components/home/WorkspacePanel";
 import { StudioDetail } from "@/components/home/StudioDetail";
 import { IndexDetail } from "@/components/home/IndexDetail";
+import { ContactDetail } from "@/components/home/ContactDetail";
 import { indexSpan, type IndexEntry } from "@/components/home/index-entry";
 import { MotionDebug } from "@/components/home/MotionDebug";
 import { EnterBridge } from "@/components/home/projects/EnterBridge";
@@ -205,6 +206,11 @@ export function HbwShell({
     pathname === "/manifesto" ? "manifesto" : "studio"
   );
   const [panelLeaving, setPanelLeaving] = useState(false);
+  /**
+   * The Poster is no longer the front door, so it opens on request. Contact
+   * sets this; it clears when the Poster is left.
+   */
+  const [posterOpen, setPosterOpen] = useState(false);
   /** A project opened from the index returns to the index, not to the line. */
   const cameFromIndex = useRef(false);
   /** That return is a resumption, not an arrival: it does not rise again. */
@@ -1496,6 +1502,7 @@ export function HbwShell({
             }}
             hoverIdea={navFace === "home" && !panel ? hoverIdea : null}
             heading={pageHeading}
+            onContact={() => openPanel("contact")}
             onStudio={() => {
               if (studioClose || manifestoSheet) dismissStudioFamily();
               else openPanel("studio");
@@ -1533,7 +1540,7 @@ export function HbwShell({
             one, the first thing either meets is the toolbar. role rather than
             <main> so no layout or stylesheet selector moves. */}
         <div className="hbw-window" role="main">
-          {POSTER_ON_HOME ? (
+          {POSTER_ON_HOME || posterOpen ? (
             <PosterTool dormant={!makeActive || panel === "studio" || indexOpen || workCovering} />
           ) : (
             <HomeStatement />
@@ -1568,6 +1575,16 @@ export function HbwShell({
               leaving={panelLeaving}
               onClose={closePanel}
               onPoster={toPoster}
+            />
+          ) : null}
+          {panel === "contact" ? (
+            <ContactDetail
+              leaving={panelLeaving}
+              onClose={closePanel}
+              onPoster={() => {
+                closePanel();
+                setPosterOpen(true);
+              }}
             />
           ) : null}
           {indexOpen ? (
