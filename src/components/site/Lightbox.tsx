@@ -9,9 +9,8 @@
  * composition looking for it.
  *
  * The set is laid out as pages on a rail rather than one picture swapped in
- * place. Stepping moves the whole rail, and the work either side stays in
- * view, set back — so the sequence reads as a sequence while you are inside
- * it, and a step reads as a move along it rather than a cut.
+ * place. The work either side stays in view, set back, so you can see where
+ * you are in the sequence. Stepping puts you on the next page directly.
  *
  * In colour. The listings are grey so six jobs read as one body of work, but
  * in here there is only one job and the work is the whole subject.
@@ -67,7 +66,7 @@ export function Lightbox({
    */
   useEffect(() => {
     const here = rail.current?.querySelector<HTMLElement>('[data-here="true"]');
-    here?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    here?.scrollIntoView({ inline: "center", block: "nearest" });
   }, [at]);
 
   const step = useCallback(

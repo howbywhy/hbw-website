@@ -120,10 +120,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__line {
 html.hbw-workspace .hbw-home .hbw-pill {
   padding: 0 var(--hbw-pill-x);
   cursor: pointer;
-  transition:
-    background-color var(--hbw-answer),
-    color var(--hbw-answer),
-    transform var(--hbw-answer);
 }
 
 /* One family: every pill is the same frosted field and the same type. The mark is
@@ -154,11 +150,6 @@ html.hbw-workspace .hbw-home .hbw-pill-group {
   background: var(--hbw-pill-on);
   opacity: 0;
   pointer-events: none;
-  transition:
-    transform var(--hbw-t-move) var(--hbw-arrive),
-    width var(--hbw-t-move) var(--hbw-arrive),
-    height var(--hbw-t-move) var(--hbw-arrive),
-    opacity 240ms var(--hbw-arrive);
 }
 
 /* Every control inside a group behaves the same, including Info and the frame count. */
@@ -181,10 +172,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
   font: inherit;
   letter-spacing: inherit;
   cursor: pointer;
-  transition:
-    background-color var(--hbw-answer),
-    color var(--hbw-answer),
-    transform var(--hbw-answer);
 }
 
 /* Groups with a thumb only change colour; the thumb carries the "you are here". */
@@ -231,24 +218,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__contact {
 }
 
 /* Groups arrive when the context changes (home → project), the mark stays put. */
-.hbw-pill-group {
-  animation: hbw-pill-in var(--hbw-t-move) var(--hbw-arrive) both;
-}
-
-.hbw-pills > .hbw-pill-group:nth-child(2) {
-  animation-delay: 60ms;
-}
-
-@keyframes hbw-pill-in {
-  from {
-    opacity: 0;
-    transform: translateX(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
 /* The re-authored line: the practice at rest, each project's idea as it comes forward. */
 .hbw-site-nav__line-wrap {
@@ -257,9 +226,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__contact {
   min-width: 0;
   margin: 0 0 0 auto;
   pointer-events: none;
-  transition:
-    opacity var(--hbw-t-move) var(--hbw-arrive),
-    transform var(--hbw-t-move) var(--hbw-arrive);
 }
 
 html.hbw-viewing .hbw-site-nav__line-wrap {
@@ -273,23 +239,10 @@ html.hbw-workspace .hbw-home .hbw-site-nav__line {
   overflow: hidden;
   box-sizing: border-box;
   justify-content: flex-end;
-  transition: width var(--hbw-t-arrive) var(--hbw-arrive);
 }
 
 .hbw-fluid__text {
   display: inline-block;
-  animation: hbw-line-in var(--hbw-t-arrive) var(--hbw-arrive) both;
-}
-
-@keyframes hbw-line-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .hbw-site-nav__h1 {
@@ -334,19 +287,7 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
 
 /* --- The environment: the Poster recedes as the work rises, returns when it leaves --- */
 
-/* One transition in, one out. A filter that changed every scroll frame was the main cost. */
-.hbw-window .hbw-poster-field {
-  transition:
-    filter var(--hbw-t-settle) var(--hbw-arrive),
-    opacity var(--hbw-t-settle) var(--hbw-arrive);
-}
-
-.hbw-window .hbw-poster-toolbar,
-.hbw-window .hbw-poster-note {
-  transition:
-    opacity var(--hbw-t-move) var(--hbw-arrive),
-    transform var(--hbw-t-move) var(--hbw-arrive);
-}
+/* A filter that changed every scroll frame was the main cost. */
 
 .hbw-scroll {
   position: absolute;
@@ -360,9 +301,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
   visibility: hidden;
   opacity: 0;
   /* It fades out, then hides; it shows, then fades in — never a blink. */
-  transition:
-    opacity var(--hbw-t-move) var(--hbw-arrive),
-    visibility 0s linear var(--hbw-t-move);
 }
 
 .hbw-scroll::-webkit-scrollbar {
@@ -372,9 +310,6 @@ html.hbw-workspace .hbw-home .hbw-site-nav__register .hbw-nav-sub__meta {
 .hbw-scroll.is-on {
   visibility: visible;
   opacity: 1;
-  transition:
-    opacity var(--hbw-t-arrive) var(--hbw-arrive),
-    visibility 0s;
 }
 
 /* --- The line: cards rise, arrange into a row, then travel ------------------- */
@@ -453,7 +388,6 @@ html.hbw-workspace .hbw-home .hbw-line__dashes button::after {
   height: 2px;
   border-radius: 1px;
   background: rgba(29, 29, 29, 0.16);
-  transition: background-color var(--hbw-t-move) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-line__dashes button:hover::after {
@@ -462,7 +396,6 @@ html.hbw-workspace .hbw-home .hbw-line__dashes button:hover::after {
 
 html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on {
   width: 34px;
-  transition: width var(--hbw-t-move) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on::after {
@@ -475,7 +408,6 @@ html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on::after {
   margin: 0;
   padding: 0;
   list-style: none;
-  will-change: transform;
 }
 
 /*
@@ -503,10 +435,6 @@ html.hbw-workspace .hbw-home .hbw-card__hit {
   color: var(--hbw-ink);
   text-decoration: none;
   transform-origin: 50% 100%;
-  transition:
-    transform var(--hbw-t-arrive) var(--hbw-arrive),
-    opacity var(--hbw-t-arrive) var(--hbw-arrive),
-    filter var(--hbw-t-arrive) var(--hbw-arrive);
 }
 
 .hbw-card__media img,
@@ -517,7 +445,6 @@ html.hbw-workspace .hbw-home .hbw-card__hit {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.2s var(--hbw-arrive);
 }
 
 @media (hover: hover) {
@@ -590,9 +517,6 @@ html.hbw-workspace .hbw-home .hbw-card.is-last .hbw-card__hit {
   color: #ffffff;
   opacity: 0;
   transform: translateY(8px);
-  transition:
-    opacity var(--hbw-t-move) var(--hbw-arrive),
-    transform var(--hbw-t-move) var(--hbw-arrive);
   pointer-events: none;
 }
 
@@ -688,7 +612,6 @@ html.hbw-workspace .hbw-home .hbw-viewer__count {
   justify-content: center;
   cursor: default;
   font-variant-numeric: tabular-nums;
-  transition: opacity var(--hbw-t-move) var(--hbw-arrive), transform var(--hbw-t-move) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-viewer__count.is-away {
@@ -736,9 +659,6 @@ html.hbw-workspace .hbw-home .hbw-viewer__close {
   /* No scroll-snap: frames are nearly viewer-wide, so snapping pulled every eased step back. */
   scrollbar-width: none;
   cursor: grab;
-  transition:
-    opacity var(--hbw-t-arrive) var(--hbw-arrive),
-    transform var(--hbw-t-arrive) var(--hbw-arrive);
 }
 
 .hbw-viewer__gallery::-webkit-scrollbar {
@@ -828,7 +748,6 @@ html.hbw-workspace .hbw-home .hbw-viewer__next-label {
 
 .hbw-viewer__count-text {
   display: inline-block;
-  animation: hbw-line-in var(--hbw-t-move) var(--hbw-arrive) both;
 }
 
 .hbw-viewer__next img {
@@ -837,7 +756,6 @@ html.hbw-workspace .hbw-home .hbw-viewer__next-label {
   height: 100%;
   object-fit: cover;
   /* Short, so the settle follows the scroll rather than trailing it. */
-  transition: transform 280ms var(--hbw-arrive);
   -webkit-user-drag: none;
   user-select: none;
 }
@@ -878,9 +796,6 @@ html.hbw-workspace .hbw-home .hbw-viewer__next-label {
   opacity: 0;
   transform: translateY(16px);
   pointer-events: none;
-  transition:
-    opacity var(--hbw-t-arrive) var(--hbw-arrive),
-    transform var(--hbw-t-arrive) var(--hbw-arrive);
 }
 
 .hbw-viewer.is-info .hbw-viewer__gallery {
@@ -1051,15 +966,10 @@ html.hbw-workspace .hbw-home .hbw-viewer__link {
   text-decoration-color: transparent;
   text-underline-offset: 0.25em;
   cursor: pointer;
-  transition: text-decoration-color var(--hbw-answer), color var(--hbw-answer);
 }
 
 html.hbw-workspace .hbw-home .hbw-viewer__link:hover {
   text-decoration-color: currentColor;
-}
-
-html.hbw-workspace .hbw-home .hbw-viewer__link span {
-  transition: transform var(--hbw-answer);
 }
 
 html.hbw-workspace .hbw-home .hbw-viewer__link:hover span {
@@ -1156,9 +1066,6 @@ html.hbw-workspace .hbw-home .hbw-studio__index-item {
   line-height: var(--L);
   color: var(--hbw-muted);
   cursor: pointer;
-  transition:
-    color var(--hbw-answer),
-    transform var(--hbw-t-move) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-studio__index-item::before {
@@ -1172,9 +1079,6 @@ html.hbw-workspace .hbw-home .hbw-studio__index-item::before {
   opacity: 0;
   transform: scaleX(0);
   transform-origin: 0 50%;
-  transition:
-    opacity var(--hbw-t-move) var(--hbw-arrive),
-    transform var(--hbw-t-move) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-studio__index-item:hover,
@@ -1198,7 +1102,9 @@ html.hbw-workspace .hbw-home .hbw-studio__sections {
   column-gap: var(--interval);
 }
 
-/* Every section opens on a hairline; each settles in once as it arrives. */
+/* Every section opens on a hairline. They are all here on arrival: each used
+   to settle in as you reached it, which is the sequencing the site no longer
+   does. */
 html.hbw-workspace .hbw-home .hbw-studio__section {
   grid-column: 1 / -1;
   display: grid;
@@ -1206,11 +1112,6 @@ html.hbw-workspace .hbw-home .hbw-studio__section {
   align-items: start;
   padding: calc(var(--L) * 0.5) 0 calc(var(--L) * 2.5);
   border-top: 1px solid var(--hbw-hair);
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--hbw-t-settle) var(--hbw-arrive),
-    transform var(--hbw-t-settle) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-studio__section.is-in {
@@ -1378,20 +1279,17 @@ html.hbw-workspace .hbw-home .hbw-studio__actions .hbw-viewer__link:hover {
    light from grey to ink as you scroll (--k), then it lifts away and the next
    rises in. A quiet counter and a line of progress (--p) keep your place. */
 html.hbw-workspace .hbw-home .hbw-studio__section.hbw-reader {
-  height: calc(var(--thoughts) * var(--span) * 100cqh + 100cqh);
+  height: auto;
   padding: 0;
 }
 
 html.hbw-workspace .hbw-home .hbw-reader__stage {
-  --k: 0;
-  --p: 0;
+  --k: 1;
+  --p: 1;
   grid-column: 1 / -1;
-  /* Sticky offsets count from inside the page's top inset, so 0 lands on it. */
-  position: sticky;
-  top: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  height: 100cqh;
+  grid-template-rows: auto auto auto;
+  height: auto;
   padding: calc(var(--L) * 0.5) 0 var(--viewer-x);
   box-sizing: border-box;
 }
@@ -1401,9 +1299,6 @@ html.hbw-workspace .hbw-home .hbw-reader__thoughts {
 }
 
 html.hbw-workspace .hbw-home .hbw-reader__thought {
-  position: absolute;
-  top: 50%;
-  left: 0;
   width: 80%;
   max-width: 21em;
   margin: 0;
@@ -1411,36 +1306,11 @@ html.hbw-workspace .hbw-home .hbw-reader__thought {
   line-height: 1.16;
   letter-spacing: -0.024em;
   text-wrap: balance;
-  opacity: 0;
-  transform: translateY(calc(-50% + 56px));
-  transition:
-    opacity var(--hbw-t-arrive) var(--hbw-arrive),
-    transform var(--hbw-t-settle) var(--hbw-arrive);
-  pointer-events: none;
-}
-
-html.hbw-workspace .hbw-home .hbw-reader__thought.is-now {
-  opacity: 1;
-  transform: translateY(-50%);
-}
-
-html.hbw-workspace .hbw-home .hbw-reader__thought.is-read {
-  opacity: 0;
-  transform: translateY(calc(-50% - 56px));
+  margin-bottom: calc(var(--L) * 0.75);
 }
 
 html.hbw-workspace .hbw-home .hbw-reader__word {
   color: var(--hbw-ink);
-  opacity: 0.16;
-  transition: opacity 220ms linear;
-}
-
-html.hbw-workspace .hbw-home .hbw-reader__thought.is-now .hbw-reader__word {
-  opacity: clamp(0.16, calc(var(--k) * (var(--n) + 1) - var(--w)), 1);
-}
-
-html.hbw-workspace .hbw-home .hbw-reader__thought.is-read .hbw-reader__word {
-  opacity: 1;
 }
 
 html.hbw-workspace .hbw-home .hbw-reader__meta {
@@ -1474,27 +1344,6 @@ html.hbw-workspace .hbw-home .hbw-reader__plain {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.hbw-workspace .hbw-home .hbw-studio__section {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  html.hbw-workspace .hbw-home .hbw-reader__thought,
-  html.hbw-workspace .hbw-home .hbw-reader__thought.is-now,
-  html.hbw-workspace .hbw-home .hbw-reader__thought.is-read {
-    transition: none;
-    transform: translateY(-50%);
-  }
-
-  html.hbw-workspace .hbw-home .hbw-reader__word,
-  html.hbw-workspace .hbw-home .hbw-reader__thought.is-now .hbw-reader__word {
-    opacity: 1;
-    transition: none;
-  }
 }
 
 @media screen and (max-width: 767px) {
@@ -1577,7 +1426,6 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar {
   margin-bottom: calc(-1 * var(--hbw-work-h, 0px));
 }
 
-
 html.hbw-workspace .hbw-home .hbw-poster-input,
 html.hbw-workspace .hbw-home .hbw-poster-send-open,
 html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary,
@@ -1596,22 +1444,16 @@ html.hbw-workspace .hbw-home .hbw-poster-send-status {
   opacity: 1;
 }
 
-
 html.hbw-workspace .hbw-home .hbw-poster-send-open {
   height: var(--hbw-pill-h);
   padding: 0 var(--hbw-pill-x);
   color: rgba(29, 29, 29, 0.52);
-  transition:
-    background-color var(--hbw-answer),
-    color var(--hbw-answer),
-    transform var(--hbw-answer);
 }
 
 html.hbw-workspace .hbw-home .hbw-poster-send-open {
   gap: 0.45em;
   color: var(--hbw-ink);
 }
-
 
 html.hbw-workspace .hbw-home .hbw-poster-send-open:hover,
 html.hbw-workspace .hbw-home .hbw-poster-send-open.is-current {
@@ -1631,7 +1473,6 @@ html.hbw-workspace .hbw-home .hbw-poster-input {
   max-width: 11rem;
   padding: 0 var(--hbw-pill-x);
   color: var(--hbw-ink);
-  transition: background-color var(--hbw-answer);
 }
 
 html.hbw-workspace .hbw-home .hbw-poster-input::placeholder {
@@ -1653,7 +1494,6 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar__work {
   gap: 0;
   padding: var(--hbw-pill-gap);
 }
-
 
 html.hbw-workspace .hbw-home .hbw-poster-toolbar__tray,
 html.hbw-workspace .hbw-home .hbw-poster-toolbar__work,
@@ -1695,10 +1535,6 @@ html.hbw-workspace .hbw-home .hbw-poster-reset {
   color: rgba(29, 29, 29, 0.52);
   font-size: var(--hbw-pill-font);
   line-height: 1;
-  transition:
-    background-color var(--hbw-answer),
-    color var(--hbw-answer),
-    transform var(--hbw-answer);
 }
 
 html.hbw-workspace .hbw-home .hbw-poster-tool:hover:not(:disabled),
@@ -1716,7 +1552,6 @@ html.hbw-workspace .hbw-home .hbw-poster-reset.is-ask {
   color: #e23b2e;
 }
 
-
 html.hbw-workspace .hbw-home .hbw-poster-send-open:active,
 html.hbw-workspace .hbw-home .hbw-poster-tool:active,
 html.hbw-workspace .hbw-home .hbw-poster-reset:active {
@@ -1728,9 +1563,6 @@ html.hbw-workspace .hbw-home .hbw-poster-toolbar__primary .hbw-poster-tool.is-ic
   justify-content: center;
   width: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap) + 8px);
   padding: 0;
-}
-
-@media (hover: hover) and (min-width: 768px) {
 }
 
 html.hbw-workspace .hbw-home .hbw-poster-send-status {
@@ -1804,9 +1636,6 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
   background: #ffffff;
 }
 
-@media screen and (min-width: 768px) {
-}
-
 /* --- Sheet: the Projects layer rises over the Poster ----------------------- */
 
 .hbw-projects {
@@ -1815,9 +1644,6 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
   background: #ffffff;
   border-top: 1px solid var(--hbw-hair);
   transform: translateY(calc(100% + 1px));
-  transition:
-    transform var(--hbw-t-continuity) var(--hbw-ease),
-    opacity var(--hbw-t-spatial) var(--hbw-ease);
 }
 
 .hbw-projects.is-open{
@@ -1889,9 +1715,6 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
   width: 100%;
   margin-left: 0;
   padding: 0 var(--hbw-space-3) var(--hbw-space-5);
-}
-
-@media screen and (min-width: 1200px) {
 }
 
 /* --- Phone ------------------------------------------------------------ */
@@ -1985,7 +1808,6 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
   .hbw-viewer__idea {
     display: none;
   }
-
 
   /* On a phone the frames stack: full width, each at its own proportion, scrolled down. */
   .hbw-viewer__gallery {
@@ -2164,41 +1986,6 @@ html.hbw-workspace .hbw-home .hbw-poster-note {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hbw-viewer__next-clip {
-    clip-path: none;
-    opacity: clamp(0.35, var(--end), 1);
-  }
-
-  .hbw-viewer__next img,
-  .hbw-viewer__frame:nth-last-child(2) {
-    transform: none;
-  }
-
-  .hbw-viewer__count-text {
-    animation: none;
-  }
-
-  /* No staggered rise: the cards are simply there once the line is up, and absent at rest. */
-  .hbw-card {
-    --t: clamp(0, calc((var(--rise) - 0.5) * 1000), 1);
-  }
-
-  .hbw-pill-group,
-  .hbw-fluid__text {
-    animation: none;
-  }
-
-  .hbw-thumb,
-  html.hbw-workspace .hbw-home .hbw-site-nav__line {
-    transition: none;
-  }
-
-  .hbw-projects {
-    transition-duration: 0ms;
-  }
-}
-
 @media screen and (max-width: 767px) {
   /* The invitation hugs its line and shares the work's left edge. */
   .hbw-window .hbw-poster-note {
@@ -2269,11 +2056,7 @@ html.hbw-workspace .hbw-home .hbw-index__mark {
   height: 22vh;
   margin-top: 32vh;
   color: var(--ink-mark);
-  opacity: 0;
   transform: scale(0.985);
-  transition:
-    opacity var(--hbw-t-arrive) var(--hbw-arrive),
-    transform var(--hbw-t-arrive) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-index__mark.is-on {
@@ -2336,7 +2119,6 @@ html.hbw-workspace .hbw-home .hbw-index__row {
   color: inherit;
   font: inherit;
   text-align: left;
-  transition: opacity var(--hbw-t-answer) var(--hbw-arrive);
 }
 
 /* Only a row that opens something invites a click. The rest are a record. */
@@ -2347,9 +2129,6 @@ html.hbw-workspace .hbw-home button.hbw-index__row {
 html.hbw-workspace .hbw-home .hbw-index__go {
   margin-left: 0.4em;
   color: var(--hbw-faint);
-  transition:
-    color var(--hbw-t-answer) var(--hbw-arrive),
-    transform var(--hbw-t-answer) var(--hbw-arrive);
   display: inline-block;
 }
 
@@ -2473,7 +2252,6 @@ html.hbw-workspace .hbw-home .hbw-line__index {
   font: inherit;
   cursor: pointer;
   white-space: nowrap;
-  transition: color var(--hbw-t-answer) var(--hbw-arrive);
 }
 
 /* .hbw-scroll is pointer-events: none. The index opts back in so it stays
@@ -2488,7 +2266,6 @@ html.hbw-workspace .hbw-home .hbw-line__index:hover {
 
 html.hbw-workspace .hbw-home .hbw-line__index span {
   display: inline-block;
-  transition: transform var(--hbw-t-answer) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-line__index:hover span {
@@ -2511,7 +2288,6 @@ html.hbw-workspace .hbw-home .hbw-studio__press-link {
   border-top: 1px solid var(--hbw-hair);
   color: inherit;
   text-decoration: none;
-  transition: border-color var(--hbw-t-answer) var(--hbw-arrive);
 }
 
 html.hbw-workspace .hbw-home .hbw-studio__press li:last-child .hbw-studio__press-link {
@@ -2540,89 +2316,18 @@ html.hbw-workspace .hbw-home .hbw-studio__elsewhere {
 
 /* --- Arrival: the page settles in beats, instead of all at once -------------- */
 
-/*
- * The ground and the poster are already there in the server HTML, so there is
- * never a blank screen to wait through. What arrives is the chrome, in the
- * order it means something: the name, then what the studio does, then where you
- * can go, then the invitation to make something.
- *
- * Opacity only. The toolbar and the note already carry their own transforms —
- * the note measures the toolbar's transform to position itself — and animating
- * those a second time is how a thing ends up landing in the wrong place.
- *
- * Gated on an attribute, which the boot script in layout.tsx sets before first
- * paint and drops once the sequence is done. Without the gate this would replay
- * mid-session: the site nav group is keyed, so closing a project remounts it,
- * and the pills would fade in again for no reason.
- *
- * An attribute rather than a class because IdentityNav and pill-motion both
- * watch <html> with attributeFilter: ["class"]. Dropping a class at the end of
- * the sequence woke both observers, pill-motion re-placed the pills, and the
- * nav dipped to 0.56 and faded back in — a flicker at the exact moment the
- * page was supposed to have settled. They ignore every other attribute.
- */
-
-@keyframes hbw-arriving {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 html[data-hbw-arriving] .hbw-pill--mark,
 html[data-hbw-arriving] .hbw-site-nav__line-wrap,
 html[data-hbw-arriving] .hbw-poster-note,
 html[data-hbw-arriving] .hbw-poster-toolbar {
   opacity: 0;
-  animation: hbw-arriving var(--hbw-motion-continuity) var(--hbw-ease) forwards;
 }
 
 /* The name first. It is the one thing that has to land before anything else. */
-html[data-hbw-arriving] .hbw-pill--mark {
-  animation-delay: 0ms;
-}
 
 /* What the studio does. */
-html[data-hbw-arriving] .hbw-site-nav__line-wrap {
-  animation-delay: var(--hbw-motion-ui);
-}
 
 /*
- * Where you can go. The pill group already owns hbw-pill-in, so this schedules
- * that animation rather than adding a second one. Animating over it looked
- * right until the gate dropped, at which point hbw-pill-in started from the
- * beginning, 1.5s late, and the nav visibly dipped and faded back in.
- */
-html[data-hbw-arriving] .hbw-pills .hbw-pill-group {
-  animation-delay: calc(2 * var(--hbw-motion-ui));
-}
 
 /* The invitation, and then the means to accept it. */
-html[data-hbw-arriving] .hbw-poster-note {
-  animation-delay: calc(3 * var(--hbw-motion-ui));
-}
 
-html[data-hbw-arriving] .hbw-poster-toolbar {
-  animation-delay: calc((3 * var(--hbw-motion-ui)) + var(--hbw-motion-micro));
-}
-
-/*
- * The boot script does not add the class when reduced motion is set, so this
- * should never apply. It is here because a stylesheet that can hide the whole
- * of the site's chrome should not depend on a script to stop it.
- */
-@media (prefers-reduced-motion: reduce) {
-  html[data-hbw-arriving] .hbw-pill--mark,
-  html[data-hbw-arriving] .hbw-site-nav__line-wrap,
-  html[data-hbw-arriving] .hbw-poster-note,
-  html[data-hbw-arriving] .hbw-poster-toolbar {
-    opacity: 1;
-    animation: none;
-  }
-
-  html[data-hbw-arriving] .hbw-pills .hbw-pill-group {
-    animation-delay: 0ms;
-  }
-}

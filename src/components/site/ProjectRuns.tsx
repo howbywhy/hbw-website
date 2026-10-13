@@ -29,7 +29,6 @@ import React, {
 import { createPortal } from "react-dom";
 import type { Movement } from "@/components/home/projects/types";
 import { Lightbox, shotsOf, type Shot } from "@/components/site/Lightbox";
-import { EASE, SETTLE, STAGGER, STAGGER_CAP } from "@/components/site/motion";
 import { Sheet } from "@/components/site/Sheet";
 import { InfoBody } from "@/components/site/InfoBody";
 
@@ -64,17 +63,6 @@ type Run = {
   info: ReactNode;
   frames: Frame[];
 };
-
-/**
- * Let an animation clear itself once it has played.
- *
- * Every one of these ends where the element already belongs, so the fill is
- * only needed while it runs. Left in place it keeps a transform on the element
- * for good, and the next measurement reads that instead of the layout.
- */
-function settle(animation: Animation) {
-  animation.finished.then(() => animation.cancel()).catch(() => {});
-}
 
 function framesOf(movements: Movement[]): Frame[] {
   const out: Frame[] = [];
@@ -191,7 +179,6 @@ export function ProjectRuns({
   const [view, setView] = useState<"scatter" | "grid">("scatter");
   const [open, setOpen] = useState<{ run: number; at: number } | null>(null);
   const [from, setFrom] = useState(0);
-  const [ready, setReady] = useState(false);
   const [more, setMore] = useState<Run[]>([]);
   const pulling = useRef(false);
 
@@ -204,7 +191,6 @@ export function ProjectRuns({
   useLayoutEffect(() => {
     const asked = Number(new URLSearchParams(window.location.search).get("f"));
     if (Number.isInteger(asked) && asked > 0 && asked <= first.frames.length) setFrom(asked - 1);
-    setReady(true);
   }, [first.frames.length]);
 
   const runs: Run[] = useMemo(() => {
@@ -274,101 +260,11 @@ export function ProjectRuns({
     return () => window.removeEventListener("scroll", watch);
   }, [after, more.length]);
 
-  /** The arrangement moves rather than cuts. */
+  /**
+   * The stage. A plain container now: the arrangement is whatever the layout
+   * says it is, arrived at directly. Nothing measures it and nothing moves it.
+   */
   const stage = useRef<HTMLDivElement>(null);
-  const was = useRef(new Map<string, DOMRect>());
-
-  useLayoutEffect(() => {
-    if (!ready) return;
-    const host = stage.current;
-    if (!host) return;
-    const frames = Array.from(host.querySelectorAll<HTMLElement>("[data-frame]"));
-
-    /*
-     * Settle anything still animating before measuring.
-     *
-     * These animations fill both ways, so a finished one leaves its transform
-     * on the element — and getBoundingClientRect reports the transformed box.
-     * Measuring that gives a delta from a place the frame is not, and the next
-     * pass animates it away from somewhere it never was, which is the jump.
-     * Finishing and clearing puts every frame at its real layout position
-     * first, so what is measured is the layout and nothing else.
-     */
-    for (const frame of frames) {
-      for (const animation of frame.getAnimations()) {
-        animation.finish();
-        animation.cancel();
-      }
-    }
-
-    const now = new Map<string, DOMRect>();
-    for (const frame of frames) now.set(frame.dataset.frame!, frame.getBoundingClientRect());
-
-    const firstPass = was.current.size === 0;
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const turning = document.documentElement.hasAttribute("data-hbw-turning");
-
-    if (firstPass && turning && !still) {
-      document.documentElement.removeAttribute("data-hbw-turning");
-      frames.forEach((frame, i) => {
-        settle(
-          frame.animate(
-            [
-              { opacity: 0, transform: "translateY(14px) scale(0.985)" },
-              { opacity: 1, transform: "none" },
-            ],
-            { duration: SETTLE, delay: Math.min(i * STAGGER, STAGGER_CAP), easing: EASE, fill: "both" }
-          )
-        );
-      });
-      was.current = now;
-      return;
-    }
-    if (firstPass && turning) document.documentElement.removeAttribute("data-hbw-turning");
-
-    if (!firstPass && !still) {
-      // Where a run has just been fetched, its frames are new to the page.
-      // They have no previous position to move from, so they arrive instead —
-      // same duration, same curve, same stagger as everything else.
-      let arriving = 0;
-      frames.forEach((frame, i) => {
-        const before = was.current.get(frame.dataset.frame!);
-        const after2 = now.get(frame.dataset.frame!);
-        if (!after2 || !after2.width) return;
-        if (!before) {
-          settle(
-            frame.animate(
-              [
-                { opacity: 0, transform: "translateY(18px) scale(0.985)" },
-                { opacity: 1, transform: "none" },
-              ],
-              {
-                duration: SETTLE,
-                delay: Math.min(arriving++ * STAGGER, STAGGER_CAP),
-                easing: EASE,
-                fill: "both",
-              }
-            )
-          );
-          return;
-        }
-        const dx = before.left - after2.left;
-        const dy = before.top - after2.top;
-        const ds = before.width / after2.width;
-        if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(ds - 1) < 0.01) return;
-        settle(
-          frame.animate(
-            [
-              { transform: `translate(${dx}px, ${dy}px) scale(${ds})`, opacity: 0.55 },
-              { transform: "none", opacity: 1 },
-            ],
-            { duration: SETTLE, delay: Math.min(i * STAGGER, STAGGER_CAP), easing: EASE, fill: "both" }
-          )
-        );
-      });
-    }
-    was.current = now;
-  }, [runs, view, ready]);
 
   /**
    * Which project the chrome is talking about.
@@ -425,7 +321,6 @@ export function ProjectRuns({
               // Only the project that was navigated to: a name has to be
               // unique on the page, and the runs fetched below it were never
               // on the page you came from.
-              style={index === 0 ? { viewTransitionName: `p-${run.slug}` } : undefined}
             >
               {/* The act number, the way a title page numbers one. */}
               <p className="hbw-run__no" aria-hidden="true">

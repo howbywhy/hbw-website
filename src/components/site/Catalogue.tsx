@@ -69,7 +69,6 @@ export function Catalogue({
               className="hbw-cell hbw-cell--mark"
               href={`/projects/${project.slug}`}
               aria-label={`${project.name} — ${project.idea}`}
-              style={{ viewTransitionName: `p-${project.slug}` }}
             >
               <span className="hbw-cell__mark">{marks[project.slug] ?? project.name}</span>
             </a>

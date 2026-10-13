@@ -33,21 +33,9 @@
 
   --gut: clamp(10px, 1.1vw, 16px);
 
-  /*
-   * Motion. These are the same numbers as src/components/site/motion.ts, which
-   * is what the FLIP uses — two engines, one set of values, so a frame moving
-   * and a colour changing belong to the same hand.
-   *
-   *   settle  something changing place
-   *   answer  something answering you
-   */
   /* How far down the fixed chrome reaches. A sheet opens from here. */
   --chrome: 44px;
   /* The chrome's own tint, under its blur. */
-
-  --settle: 620ms;
-  --answer: 160ms;
-  --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
 
   background: var(--paper);
   color: var(--ink);
@@ -83,35 +71,6 @@
   font-size: var(--meta);
   letter-spacing: var(--track);
   color: var(--mute);
-}
-
-/*
- * Moving between pages is a move, not a cut.
- *
- * Clicking a project was the one unsequenced moment left on the site: a hard
- * navigation, a white flash, and the work you had been looking at gone before
- * the next thing arrived. The browser will cross-fade one document into the
- * next if asked, on the site's own timing, and fall back to a plain navigation
- * where it cannot — so this costs nothing where it is unsupported.
- *
- * Declared at the top level, as the at-rule requires: it cannot sit inside a
- * media query, so reduced motion is honoured on the animation instead.
- */
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: var(--answer);
-  animation-timing-function: var(--ease);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-  }
 }
 
 /*
@@ -219,7 +178,6 @@
 
 .hbw-bar__nav a {
   color: var(--mute);
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-bar__nav a:hover,
@@ -295,7 +253,6 @@
   gap: var(--gut);
   align-items: baseline;
   padding: 9px 0;
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-row__work,
@@ -376,7 +333,6 @@ a.hbw-row {
   display: block;
 }
 
-
 /*
  * The picture is square and in the flow; the film sits exactly over it. One
  * rule each — two rules for the same element, one absolute and one not, is
@@ -407,7 +363,6 @@ a.hbw-row {
 
 .hbw-cell video {
   opacity: 0;
-  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-cell:hover video {
@@ -493,19 +448,6 @@ a.hbw-row {
   }
   .hbw-sheet {
     grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hbw-site * {
-    transition: none !important;
-  }
-  .hbw-studio-sheet,
-  .hbw-studio-sheet__panel,
-  .hbw-lamp,
-  .hbw-lamp__page img,
-  .hbw-lamp__page video {
-    animation: none;
   }
 }
 
@@ -605,14 +547,11 @@ a.hbw-row {
 
 .hbw-col__shot video {
   opacity: 0;
-  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-col__frame:hover .hbw-col__shot video {
   opacity: 1;
 }
-
-
 
 /* ---- Information, behind one toggle, under the nav ---- */
 
@@ -747,7 +686,6 @@ a.hbw-row {
   gap: 0.8rem;
   padding-top: 6px;
   opacity: 0;
-  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-col__frame--link:hover .hbw-col__says,
@@ -798,7 +736,6 @@ a.hbw-row {
 .hbw-cell img,
 .hbw-cell video {
   filter: grayscale(1);
-  transition: filter var(--answer) var(--ease);
 }
 
 .hbw-tile:hover .hbw-tile__shot img,
@@ -822,7 +759,6 @@ a.hbw-row {
   text-align: center;
   background: var(--paper);
   cursor: pointer;
-  transition: opacity var(--settle) var(--ease);
 }
 
 .hbw-intro.is-going {
@@ -836,25 +772,12 @@ a.hbw-row {
   font-size: clamp(2.6rem, 9vw, 7rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  animation: hbw-intro-in 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .hbw-intro__line {
   margin: 0;
   font-size: var(--nav);
   color: var(--mute);
-  animation: hbw-intro-in 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 180ms both;
-}
-
-@keyframes hbw-intro-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.4em);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 @media (max-width: 1100px) {
@@ -876,13 +799,6 @@ a.hbw-row {
   .hbw-ledger td:nth-child(4),
   .hbw-ledger th:nth-child(4) {
     display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hbw-intro__mark,
-  .hbw-intro__line {
-    animation: none;
   }
 }
 
@@ -923,10 +839,6 @@ a.hbw-row {
   pointer-events: none;
 }
 
-.hbw-rail__views {
-  transition: opacity var(--answer) var(--ease);
-}
-
 .hbw-lamp {
   position: fixed;
   inset: 0;
@@ -940,7 +852,6 @@ a.hbw-row {
   --over: rgba(17, 17, 17, 0.78);
   backdrop-filter: blur(48px) saturate(0.85);
   padding-top: var(--chrome);
-  animation: hbw-ground var(--answer) var(--ease) both;
   display: grid;
   /* minmax(0,...) and not 1fr: a 1fr row takes its minimum from the content,
      which for an image is its intrinsic height. */
@@ -1022,8 +933,6 @@ a.hbw-row {
   height: 100%;
   padding-inline-start: calc((100vw - var(--page)) / 2);
   transform: translate3d(calc(var(--at) * -1 * (var(--page) + var(--pgap))), 0, 0);
-  transition: transform var(--settle) var(--ease);
-  will-change: transform;
 }
 
 .hbw-lamp__page {
@@ -1034,7 +943,6 @@ a.hbw-row {
   justify-content: center;
   /* Set back, so the page you are on is plainly the one you are on. */
   opacity: 0.38;
-  transition: opacity var(--settle) var(--ease);
 }
 
 .hbw-lamp__page[data-here="true"] {
@@ -1058,12 +966,6 @@ a.hbw-row {
   max-height: 78%;
   object-fit: contain;
   filter: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hbw-lamp__pages {
-    transition: none;
-  }
 }
 
 /* Half the screen each. The arrow only shows when a pointer is on that side. */
@@ -1090,7 +992,6 @@ a.hbw-row {
 
 .hbw-lamp__step span {
   opacity: 0;
-  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-lamp__step:hover span,
@@ -1125,7 +1026,6 @@ a.hbw-row {
   /* Grey and set back, so the strip never competes with the picture above it. */
   opacity: 0.4;
   filter: grayscale(1);
-  transition: opacity var(--answer) var(--ease), filter var(--answer) var(--ease);
 }
 
 .hbw-lamp__thumb img {
@@ -1209,7 +1109,6 @@ a.hbw-row {
   color: var(--ink);
   font-size: var(--meta);
   opacity: 0;
-  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-tile:hover .hbw-tile__no {
@@ -1350,7 +1249,6 @@ a.hbw-row {
   width: auto;
   object-fit: cover;
   filter: grayscale(1);
-  transition: filter var(--answer) var(--ease);
 }
 
 .hbw-reel__shot video {
@@ -1358,7 +1256,6 @@ a.hbw-row {
   inset: 0;
   width: 100%;
   opacity: 0;
-  transition: opacity var(--answer) var(--ease), filter var(--answer) var(--ease);
 }
 
 .hbw-reel__shot:hover img,
@@ -1389,16 +1286,6 @@ a.hbw-row {
   position: fixed;
   inset: 0;
   z-index: 35;
-  animation: hbw-ground var(--answer) var(--ease) both;
-}
-
-@keyframes hbw-ground {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* Just the click target. */
@@ -1439,27 +1326,6 @@ a.hbw-row {
   padding: 0 var(--gut) clamp(18px, 4vh, 40px);
   /* Unrolls downward, so it reads as coming from under the nav rather than
      fading in on top of the page. */
-  animation: hbw-unroll var(--settle) var(--ease) both;
-}
-
-@keyframes hbw-arrive {
-  from {
-    opacity: 0;
-    transform: scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes hbw-unroll {
-  from {
-    clip-path: inset(0 0 100% 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
 }
 
 .hbw-studio-sheet__panel:focus {
@@ -1543,7 +1409,6 @@ a.hbw-row {
 .hbw-bar__info {
   color: var(--mute);
   text-align: right;
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-bar__info:hover {
@@ -1577,7 +1442,6 @@ a.hbw-row {
 
 .hbw-col__view button {
   color: var(--mute);
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-col__view button:hover,
@@ -1644,15 +1508,6 @@ a.hbw-row {
   }
 }
 
-/*
- * Held back before first paint when the page is opening on a chosen frame.
- * The collage takes it off as soon as it has turned, and the inline script
- * takes it off anyway after a beat if the collage never runs.
- */
-html[data-hbw-turning] .hbw-col__frame {
-  opacity: 0;
-}
-
 /* ---- The controls row ---- */
 
 /*
@@ -1681,7 +1536,6 @@ html[data-hbw-turning] .hbw-col__frame {
 .hbw-rail button {
   pointer-events: auto;
   color: var(--mute);
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-rail button:hover,
@@ -1840,7 +1694,6 @@ html[data-hbw-turning] .hbw-col__frame {
 .hbw-end__field button {
   flex: 0 0 auto;
   color: var(--mute);
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-end__field button:hover,
@@ -1873,7 +1726,6 @@ html[data-hbw-turning] .hbw-col__frame {
 
 .hbw-end__to a {
   color: var(--mute);
-  transition: color var(--answer) var(--ease);
 }
 
 .hbw-end__to a:hover {
@@ -1946,22 +1798,6 @@ html[data-hbw-turning] .hbw-col__frame {
   filter: none;
 }
 
-/*
- * The box grows rather than cross-fading. A matched pair is carried between
- * the two documents by name; these are the two halves of that move, on the
- * site's own timing.
- */
-::view-transition-group(*) {
-  animation-duration: var(--settle);
-  animation-timing-function: var(--ease);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*) {
-    animation: none;
-  }
-}
-
 /* ---- The gallery's own cursors ---- */
 
 /*
@@ -1994,7 +1830,6 @@ html[data-hbw-turning] .hbw-col__frame {
   display: none;
 }
 
-
 /* ---- Arriving at a project ---- */
 
 /*
@@ -2006,37 +1841,8 @@ html[data-hbw-turning] .hbw-col__frame {
  * as every other move — so arriving somewhere new is something you see happen
  * rather than something you notice afterwards.
  */
-.hbw-run__mark h1,
-.hbw-run__mark h2 {
-  opacity: 0.34;
-  transform: translateY(10px) scale(0.985);
-  transition: opacity var(--settle) var(--ease), transform var(--settle) var(--ease);
-}
-
-.hbw-run.is-here .hbw-run__mark h1,
-.hbw-run.is-here .hbw-run__mark h2 {
-  opacity: 1;
-  transform: none;
-}
-
 /* The line under a run brightens with it, so the name and its project agree. */
 .hbw-run__says {
-  opacity: 0.4;
-  transition: opacity var(--settle) var(--ease);
-}
-
-.hbw-run.is-here .hbw-run__says {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hbw-run__mark h1,
-  .hbw-run__mark h2,
-  .hbw-run__says {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 /* ---- The door into the next project ---- */
@@ -2068,7 +1874,6 @@ html[data-hbw-turning] .hbw-col__frame {
 .hbw-next__says {
   color: inherit;
   opacity: 0.6;
-  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-next:hover .hbw-next__says {

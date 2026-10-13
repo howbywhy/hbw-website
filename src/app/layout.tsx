@@ -57,50 +57,11 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         {/*
-          Arrival. Runs before first paint so the chrome starts hidden rather
-          than flashing in and then fading. The class is dropped once the
-          sequence has played, so nothing replays later in the session.
-
-          It only ever hides things, so every failure mode is the site as it
-          was: no class on reduced motion, no class if the script throws, and
-          no class if scripting is off.
-
-          1500ms covers the sequence in hbw-rail.css — the last beat starts at
-          3 × ui + micro and runs for continuity, which is 1380ms.
+          Nothing is hidden before first paint any more. The two scripts that
+          used to sit here held the chrome and the frames back so an entrance
+          and a turn could play over them; with no entrance and no turn, the
+          page simply paints what it is.
         */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              '(function(){try{' +
-              'if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;' +
-              'var r=document.documentElement;r.setAttribute("data-hbw-arriving","");' +
-              'setTimeout(function(){r.removeAttribute("data-hbw-arriving")},1500);' +
-              '}catch(e){}})()',
-          }}
-        />
-        {/*
-          Turning. A project reached with ?f= opens on the frame that was
-          clicked, which the static HTML cannot know — so without this the
-          page paints its own order, then JavaScript rotates it, and the
-          visitor watches the arrangement change its mind. This hides the
-          frames before first paint; the collage reveals them once it has
-          turned, settled into place.
-
-          Same failure modes as above: it only ever hides, nothing happens
-          under reduced motion or with scripting off, and a timeout puts the
-          frames back if the collage never gets the chance to.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              '(function(){try{' +
-              'if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;' +
-              'if(!/[?&]f=\\d/.test(location.search))return;' +
-              'var r=document.documentElement;r.setAttribute("data-hbw-turning","");' +
-              'setTimeout(function(){r.removeAttribute("data-hbw-turning")},1200);' +
-              '}catch(e){}})()',
-          }}
-        />
       </head>
       <body className="body" suppressHydrationWarning>
         <CmsPreviewProvider>
