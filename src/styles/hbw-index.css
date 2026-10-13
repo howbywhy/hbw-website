@@ -156,9 +156,16 @@
   gap: var(--gut);
   align-items: baseline;
   padding: 14px var(--gut);
-  /* Solid. A gradient let the work show through half of it, and two stacked
-     rows over a fading edge read as a mistake rather than as chrome. */
-  background: var(--paper);
+  /*
+   * No ground, the same blur as everything else that sits over the page.
+   *
+   * It was solid, which left one opaque band across the top while the rest of
+   * the site was blurred behind a sheet — the only thing on screen that was
+   * not of a piece. A blur keeps it legible over work passing underneath
+   * without ever being a block of colour.
+   */
+  background: none;
+  backdrop-filter: blur(14px) saturate(0.9);
   pointer-events: none;
 }
 
@@ -1554,7 +1561,8 @@ html[data-hbw-turning] .hbw-col__frame {
   display: flex;
   gap: 1.1rem;
   padding: 0 var(--gut) 10px;
-  background: var(--paper);
+  background: none;
+  backdrop-filter: blur(14px) saturate(0.9);
   font-size: var(--nav);
   pointer-events: none;
 }
