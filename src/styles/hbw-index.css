@@ -86,6 +86,24 @@
   color: var(--mute);
 }
 
+/*
+ * Anything that opens over the site.
+ *
+ * The page stays visible behind it, blurred rather than replaced — so opening
+ * the Studio, a project's information or the gallery never feels like leaving
+ * where you were. One rule, so the three cannot drift apart.
+ *
+ * The blur goes on the container, never on a button inside it: `.hbw-site
+ * button` is a class plus an element and outranks a bare class, which cleared
+ * the background and took the blur with it. Unprefixed only, too — with both,
+ * the minifier emitted just the -webkit- form, which current Chrome does not
+ * support, and the blur silently did nothing.
+ */
+.hbw-over {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px) saturate(0.9);
+}
+
 /* A section label, in the bar's voice. No box: the rule under it does the
    dividing, and a chip here made every heading look like a button. */
 .hbw-chip {
@@ -850,11 +868,11 @@ a.hbw-row {
   position: fixed;
   inset: 0;
   z-index: 40;
+  animation: hbw-ground var(--answer) var(--ease) both;
   display: grid;
   /* minmax(0,...) and not 1fr: a 1fr row takes its minimum from the content,
      which for an image is its intrinsic height. */
   grid-template-rows: auto minmax(0, 1fr) auto;
-  background: var(--paper);
 }
 
 .hbw-lamp:focus {
@@ -863,6 +881,7 @@ a.hbw-row {
 
 /* One thin line of chrome, and the rest is the picture. */
 .hbw-lamp__bar {
+  background: var(--paper);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: var(--gut);
@@ -950,6 +969,7 @@ a.hbw-row {
 
 /* The rail: the whole set, small, scrolling with the picture. */
 .hbw-lamp__rail {
+  background: var(--paper);
   display: flex;
   gap: 4px;
   overflow-x: auto;
@@ -1224,10 +1244,6 @@ a.hbw-row {
   position: fixed;
   inset: 0;
   z-index: 35;
-  background: rgba(255, 255, 255, 0.5);
-  /* Unprefixed only. With both, the minifier emitted just the -webkit- form,
-     which current Chrome does not support, and the blur silently did nothing. */
-  backdrop-filter: blur(20px) saturate(0.9);
   animation: hbw-ground var(--answer) var(--ease) both;
 }
 

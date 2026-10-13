@@ -92,7 +92,7 @@ export function Lightbox({
 
   return (
     <div
-      className="hbw-lamp"
+      className="hbw-lamp hbw-over"
       role="dialog"
       aria-modal="true"
       aria-label={`${name}, image ${at + 1} of ${shots.length}`}

@@ -45,7 +45,7 @@ export function StudioSheet({ onClose }: { onClose: () => void }) {
   }, [key]);
 
   return (
-    <div className="hbw-studio-sheet" role="dialog" aria-modal="true" aria-label="Studio">
+    <div className="hbw-studio-sheet hbw-over" role="dialog" aria-modal="true" aria-label="Studio">
       <button type="button" className="hbw-studio-sheet__scrim" aria-label="Close" tabIndex={-1} onClick={onClose} />
       <article className="hbw-studio-sheet__panel" ref={panel} tabIndex={-1}>
         <div className="hbw-studio-sheet__top">
