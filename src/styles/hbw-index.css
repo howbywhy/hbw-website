@@ -148,7 +148,9 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 6;
+  /* Above the sheets. A sheet opens under the nav, so the nav has to stay on
+     top of it — visible, and still the way out. */
+  z-index: 36;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: var(--gut);
@@ -351,11 +353,17 @@ a.hbw-row {
  * rule each — two rules for the same element, one absolute and one not, is
  * what collapsed every cell and overlapped the rows.
  */
+/*
+ * Square cells, whole pictures. The sheet is a grid and wants a regular cell,
+ * but nothing may be cut to fit one — so the picture is contained inside it
+ * rather than cropped to it, and the paper shows around a frame that is not
+ * square.
+ */
 .hbw-cell img {
   display: block;
   width: 100%;
   aspect-ratio: 1;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hbw-cell video {
@@ -364,7 +372,7 @@ a.hbw-row {
   left: 0;
   width: 100%;
   aspect-ratio: 1;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -541,10 +549,13 @@ a.hbw-row {
   display: block;
   position: relative;
   width: 100%;
-  /* The composition's ratio. The grid overrides it with the real one. */
-  aspect-ratio: var(--ar-fit);
-  /* No frame may take the whole screen, whatever its proportions. */
-  max-height: 66vh;
+  /*
+   * The picture's own proportions, always. It used to be clamped into a
+   * usable range for the sake of the composition, and cover then cut the
+   * difference off — a tall frame lost its top and bottom. Nothing on this
+   * site is cropped now; a frame that is very tall is simply very tall.
+   */
+  aspect-ratio: var(--ar);
   overflow: hidden;
   background: rgba(17, 17, 17, 0.05);
 }
@@ -862,10 +873,22 @@ a.hbw-row {
   cursor: pointer;
 }
 
+/*
+ * The gallery sits under the site's own chrome, not over it.
+ *
+ * It was on top, so opening a picture took the nav with it and Studio and
+ * Information became unreachable until you closed it. The order is now: the
+ * gallery, then anything the nav opens over it, then the nav itself — so
+ * wherever you are, the way out and the way elsewhere are both still there.
+ *
+ * Its own row of chrome starts below the site's, which is what the padding is
+ * for: two fixed rows that would otherwise print over each other.
+ */
 .hbw-lamp {
   position: fixed;
   inset: 0;
-  z-index: 40;
+  z-index: 30;
+  padding-top: var(--chrome);
   animation: hbw-ground var(--answer) var(--ease) both;
   display: grid;
   /* minmax(0,...) and not 1fr: a 1fr row takes its minimum from the content,
@@ -878,8 +901,12 @@ a.hbw-row {
 }
 
 /* One thin line of chrome, and the rest is the picture. */
+/*
+ * No ground of its own. The gallery already sits on a blurred wash of the page
+ * — giving its bar and its strip a solid fill painted black boxes across the
+ * top and bottom of it and undid the one thing the blur was for.
+ */
 .hbw-lamp__bar {
-  background: var(--paper);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: var(--gut);
@@ -971,7 +998,6 @@ a.hbw-row {
  * falls back to flush-start the moment the strip is wider than the screen.
  */
 .hbw-lamp__rail {
-  background: var(--paper);
   display: flex;
   justify-content: safe center;
   gap: 4px;
@@ -1284,8 +1310,14 @@ a.hbw-row {
   right: 0;
   max-height: calc(100vh - var(--chrome));
   overflow: auto;
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
+  /*
+   * Always paper, never the page's own ground. On a dark project it was
+   * inheriting black, which made a wall of small text on black — the hardest
+   * thing on the site to read, and the one place that is nothing but reading.
+   */
+  background: #ffffff;
+  color: #333333;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.15);
   font-size: var(--nav);
   padding: 0 var(--gut) clamp(18px, 4vh, 40px);
   /* Unrolls downward, so it reads as coming from under the nav rather than
@@ -1347,8 +1379,23 @@ a.hbw-row {
   max-width: 34rem;
 }
 
-.hbw-studio-sheet__body .is-mute {
-  color: var(--mute);
+.hbw-studio-sheet__panel .is-mute,
+.hbw-studio-sheet__panel .hbw-m,
+.hbw-studio-sheet__panel dt {
+  color: rgba(51, 51, 51, 0.5);
+}
+
+.hbw-studio-sheet__panel .hbw-info__facts dd,
+.hbw-studio-sheet__panel p {
+  color: #333333;
+}
+
+.hbw-studio-sheet__top button {
+  color: rgba(51, 51, 51, 0.5);
+}
+
+.hbw-studio-sheet__top button:hover {
+  color: #333333;
 }
 
 .hbw-studio-sheet__lead {
@@ -1429,12 +1476,41 @@ a.hbw-row {
  * inline styles on each frame, so this has to out-specify them — which is what
  * the attribute selector buys without resorting to !important.
  */
-/* Tight: small margins, small gaps. A contact sheet is about seeing the work
-   next to itself, and air between frames is what stops that happening. */
+/*
+ * Grid is a justified wall, not a column grid.
+ *
+ * With equal columns and true proportions, a landscape frame came out a third
+ * the height of a portrait one beside it and the rows read as rubble. Rows of
+ * a fixed height instead, each frame as wide as its own proportions make it:
+ * everything in a row is the same height, a very wide frame simply takes the
+ * row, and nothing is cropped to achieve either.
+ */
 .hbw-col.is-grid {
-  grid-auto-flow: row;
+  --row: clamp(170px, 26vh, 330px);
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   padding-top: clamp(150px, 24vh, 280px);
+}
+
+.hbw-col.is-grid .hbw-col__frame {
+  height: var(--row);
+  width: auto;
+  max-width: 100%;
+}
+
+.hbw-col.is-grid .hbw-col__shot {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+
+.hbw-col.is-grid .hbw-col__shot img,
+.hbw-col.is-grid .hbw-col__shot video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .hbw-col.is-grid .hbw-col__frame {
@@ -1442,19 +1518,15 @@ a.hbw-row {
   margin-top: 0;
 }
 
-/*
- * The grid crops nothing. Each frame is given its own true proportions, so
- * cover has nothing to cut off and every picture is the shape it actually is.
- * The columns stay equal; the rows do not, which is the point.
- */
-.hbw-col.is-grid .hbw-col__shot {
-  aspect-ratio: var(--ar);
-  max-height: none;
+/* Undo the scatter's placement; the flex rules above do the rest. */
+.hbw-col.is-grid .hbw-col__frame {
+  grid-column: auto;
+  margin-top: 0;
 }
 
 @media (max-width: 760px) {
-  .hbw-col.is-grid .hbw-col__frame {
-    grid-column: 1 / -1;
+  .hbw-col.is-grid {
+    --row: clamp(130px, 22vh, 220px);
   }
 }
 
@@ -1478,7 +1550,7 @@ html[data-hbw-turning] .hbw-col__frame {
   top: 38px;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 36;
   display: flex;
   gap: 1.1rem;
   padding: 0 var(--gut) 10px;

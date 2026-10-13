@@ -45,11 +45,6 @@ const RHYTHM = [
   { col: 3, span: 5, pull: 40 },
 ] as const;
 
-function usable(ratio: number) {
-  if (!Number.isFinite(ratio) || ratio <= 0) return 4 / 3;
-  return Math.min(1.9, Math.max(0.72, ratio));
-}
-
 type Frame = {
   id: string;
   src: string;
@@ -115,7 +110,7 @@ function Shot({ frame, i, onOpen }: { frame: Frame; i: number; onOpen: (i: numbe
       onPointerEnter={() => film.current?.play().catch(() => {})}
       onPointerLeave={() => film.current?.pause()}
     >
-      <span className="hbw-col__shot" style={{ "--ar-fit": String(usable(own)) } as React.CSSProperties}>
+      <span className="hbw-col__shot">
         <img src={frame.src} alt="" loading={i < 2 ? "eager" : "lazy"} decoding="async" />
         {frame.video ? (
           <video ref={film} preload="none" poster={frame.src} muted loop playsInline>
