@@ -1,20 +1,16 @@
 /**
- * The frame every page sits in.
+ * The bar, worn the way the studio has always worn it.
  *
- * Three columns of small type and a hairline: who, what, where to. The
- * catalogue states itself in the chrome rather than in a hero, which is what
- * lets every page open straight onto content.
+ * Three chips: where you can go on the left, the name in the middle, the
+ * positioning on the right. That arrangement is lifted straight off the live
+ * site — it is the one piece of furniture people already recognise as HBW,
+ * and the rebuild had replaced it with a row of monospace labels that could
+ * have belonged to anyone.
  */
 export function Bar({ here }: { here?: "index" | "work" | "studio" | "contact" }) {
   return (
     <header className="hbw-bar">
-      <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
-        {here === "index" ? "How by Why" : <a href="/">How by Why</a>}
-      </p>
-      <p className="hbw-m hbw-bar__what" style={{ margin: 0 }}>
-        Brand &amp; design practice — Blue Mountains, AU
-      </p>
-      <nav className="hbw-m hbw-bar__nav" aria-label="Site">
+      <nav className="hbw-bar__nav" aria-label="Site">
         <a href="/" aria-current={here === "index" ? "page" : undefined}>
           Index
         </a>
@@ -28,6 +24,12 @@ export function Bar({ here }: { here?: "index" | "work" | "studio" | "contact" }
           Contact
         </a>
       </nav>
+      <p className="hbw-bar__mark">
+        <span className="hbw-chip">How by Why</span>
+      </p>
+      <p className="hbw-bar__what">
+        <span className="hbw-chip">Clarity for brands at a turning point.</span>
+      </p>
     </header>
   );
 }

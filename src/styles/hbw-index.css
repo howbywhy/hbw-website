@@ -1,35 +1,72 @@
 /*
- * How by Why — the index.
+ * The display face.
  *
- * A practice stated as a catalogue. Everything is numbered, dated and
- * labelled; the interest comes from structure and density rather than from
- * motion or ornament. Two faces only: one for reading, one — monospaced — for
- * everything the catalogue says about itself. Hairlines do the dividing. No
- * fills, no shadows, no radius, no animation beyond a colour change.
+ * Named for the slot, not the typeface, so licensing a face — or changing
+ * one's mind about which — is swapping a file rather than editing the site.
  *
- * Scoped under .hbw-site so the case studies, which still run on the old
- * shell, keep the styles they were built with.
+ * The file itself is deliberately not in the repo. The one in hand is a 205TF
+ * trial of Louize Display, whose own embedded licence says it is "supplied to
+ * you solely for testing purposes", may not be used "for commercial work" and
+ * may not be copied or shared. Committing it would share it and deploying it
+ * would do both, so the rule ships and the file does not: locally the display
+ * face resolves, and anywhere else the stack falls through to Geist and the
+ * page is simply set in one face.
+ *
+ * swap: drop the licensed cut in at public/fonts/HBW-Display.woff2 and remove
+ * the two lines in .gitignore.
+ */
+@font-face {
+  font-family: "HBW Display";
+  src: url("/fonts/HBW-Display.woff2") format("woff2"),
+       url("/fonts/HBW-Display.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  /* The page renders in Geist straight away and upgrades when the face lands,
+     rather than holding the headline back for a font that may not be there. */
+  font-display: swap;
+}
+
+/*
+ * How by Why.
+ *
+ * The structure here is the catalogue — index, contact sheet, collage — but
+ * the identity is the studio's own, taken off the live site rather than
+ * invented: Geist at fifteen pixels with a little tracking, ink at #333 on
+ * white, and the warm off-white chip at a two-pixel radius that the nav, the
+ * card tags and the labels have always been set in.
+ *
+ * The monospace catalogue voice is gone. It was borrowed from the references
+ * and it was never HBW — the practice already had a way of labelling things,
+ * and it is a chip, not a typewriter.
+ *
+ * Scoped under .hbw-site so the one page still on the old shell is untouched.
  */
 
 .hbw-site {
   --paper: #ffffff;
-  --ink: #111111;
-  --mute: rgba(17, 17, 17, 0.46);
-  --rule: rgba(17, 17, 17, 0.15);
-  --hot: #1b32d8;
+  --ink: #333333;
+  --mute: rgba(51, 51, 51, 0.5);
+  --rule: rgba(51, 51, 51, 0.13);
+  /* The studio's chip. Warm, barely there, and the reason the UI reads quiet. */
+  --chip: #f0f0eca8;
+  --chip-on: #e7e7e1;
+  --r: 2px;
 
-  /* Reading, and the catalogue's own voice. */
-  --read: clamp(0.95rem, 0.88rem + 0.3vw, 1.0625rem);
-  --meta: 0.6875rem;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  /* Two faces: Geist runs the site, the display face takes the headlines. */
+  --display: "HBW Display", Geist, Georgia, serif;
+
+  --read: 0.9375rem;
+  --meta: 0.8125rem;
+  --track: 0.02em;
 
   --gut: clamp(14px, 2.2vw, 28px);
 
   background: var(--paper);
   color: var(--ink);
+  font-family: Geist, sans-serif;
   font-size: var(--read);
-  line-height: 1.32;
-  letter-spacing: 0;
+  line-height: 1.2;
+  letter-spacing: var(--track);
   min-height: 100vh;
   padding-bottom: clamp(60px, 14vh, 160px);
 }
@@ -41,6 +78,7 @@
 
 .hbw-site button {
   font: inherit;
+  letter-spacing: inherit;
   color: inherit;
   background: none;
   border: 0;
@@ -48,45 +86,69 @@
   cursor: pointer;
 }
 
-/* Every label, number, year and count in the place. */
+/* Every label, number, year and count. One face, one size, grey. */
 .hbw-m {
-  font-family: var(--mono);
   font-size: var(--meta);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: var(--track);
   color: var(--mute);
 }
 
-/* ---- The frame ---- */
+/* A label that sits in the studio's chip rather than floating as bare type. */
+.hbw-chip {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: var(--r);
+  background: var(--chip);
+  color: var(--ink);
+  font-size: var(--meta);
+  letter-spacing: var(--track);
+}
 
 .hbw-bar {
   position: sticky;
   top: 0;
   z-index: 5;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: var(--gut);
-  align-items: baseline;
-  padding: 11px var(--gut);
+  align-items: start;
+  padding: 10px var(--gut);
   background: var(--paper);
-  border-bottom: 1px solid var(--rule);
 }
 
+/* Chip groups: one rounded field, the items inside it sharing the ground. */
 .hbw-bar__nav {
   display: flex;
-  gap: 1.1rem;
-  justify-content: flex-end;
+  justify-self: start;
+  border-radius: var(--r);
+  background: var(--chip);
+  overflow: hidden;
 }
 
-.hbw-bar__nav a,
-.hbw-bar__nav button {
-  transition: color 140ms linear;
+.hbw-bar__nav a {
+  padding: 6px 10px;
+  color: var(--mute);
+  transition: background 140ms linear, color 140ms linear;
 }
 
-.hbw-bar__nav a:hover,
-.hbw-bar__nav button:hover,
-.hbw-bar__nav a[aria-current="page"] {
+.hbw-bar__nav a:hover {
   color: var(--ink);
+}
+
+.hbw-bar__nav a[aria-current="page"] {
+  background: var(--chip-on);
+  color: var(--ink);
+}
+
+.hbw-bar__mark {
+  margin: 0;
+  justify-self: center;
+}
+
+.hbw-bar__what {
+  margin: 0;
+  justify-self: end;
+  text-align: right;
 }
 
 /* ---- Page furniture ---- */
@@ -101,9 +163,13 @@
 }
 
 .hbw-say h1 {
-  margin: 0 0 0.85rem;
-  font-size: inherit;
-  font-weight: 400;
+  margin: 0 0 0.9rem;
+  font-family: var(--display);
+  font-weight: 500;
+  /* Set up, because a display face at reading size is just a reading face. */
+  font-size: clamp(1.6rem, 1.05rem + 1.9vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
 
@@ -120,10 +186,10 @@
 .hbw-band {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: var(--gut);
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--ink);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
 }
 
 /* ---- The index table ---- */
@@ -150,15 +216,19 @@
 .hbw-row__no,
 .hbw-row__work,
 .hbw-row__year {
-  font-family: var(--mono);
   font-size: var(--meta);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: var(--track);
   color: var(--mute);
 }
 
 .hbw-row__year {
   text-align: right;
+}
+
+.hbw-row__name {
+  font-family: var(--display);
+  font-size: 1.0625rem;
+  letter-spacing: -0.005em;
 }
 
 .hbw-row__idea {
@@ -168,15 +238,22 @@
 /* Only a row that opens something behaves like it does. */
 a.hbw-row:hover,
 a.hbw-row:focus-visible {
-  color: var(--hot);
+  color: var(--ink);
+  background: var(--chip);
 }
 
 a.hbw-row:hover .hbw-row__idea,
-a.hbw-row:hover .hbw-row__no,
-a.hbw-row:hover .hbw-row__work,
-a.hbw-row:hover .hbw-row__year,
 a.hbw-row:focus-visible .hbw-row__idea {
-  color: var(--hot);
+  color: var(--ink);
+}
+
+/* The chip bleeds to the gutter, so a hovered row reads as one field. */
+a.hbw-row {
+  border-radius: var(--r);
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-left: -8px;
+  margin-right: -8px;
 }
 
 .hbw-row--flat {
@@ -227,11 +304,12 @@ a.hbw-row:focus-visible .hbw-row__idea {
    read as a field of images, not as a field of captions. */
 .hbw-cell__tag {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 4px 6px;
-  background: var(--paper);
+  left: 5px;
+  bottom: 5px;
+  padding: 4px 7px;
+  border-radius: var(--r);
+  background: var(--chip-on);
+  color: var(--ink);
   opacity: 0;
   transition: opacity 140ms linear;
 }
@@ -262,7 +340,7 @@ a.hbw-row:focus-visible .hbw-row__idea {
 }
 
 .hbw-read a:hover {
-  color: var(--hot);
+  color: var(--ink);
 }
 
 .hbw-steps {
@@ -298,7 +376,7 @@ a.hbw-row:focus-visible .hbw-row__idea {
 
 .hbw-foot a:hover,
 .hbw-foot button:hover {
-  color: var(--hot);
+  color: var(--ink);
 }
 
 @media (max-width: 760px) {
@@ -340,6 +418,8 @@ a.hbw-row:focus-visible .hbw-row__idea {
   grid-template-columns: repeat(12, 1fr);
   gap: var(--gut);
   align-items: start;
+  /* Pulled up over the title, which sits above it. */
+  margin-top: clamp(-180px, -9vw, -40px);
   /* Dense, or the collage is not a collage. Auto-placement never moves
      backwards, so a frame starting at column 4 after one at column 9 drops to
      a whole new row and the page becomes a column of pictures with holes. */
@@ -347,30 +427,30 @@ a.hbw-row:focus-visible .hbw-row__idea {
   margin: clamp(28px, 7vh, 72px) 0 clamp(44px, 10vh, 110px);
 }
 
-/* The name sits in the field. The frames after it carry a higher z-index,
-   so the first of them crosses the type the way the reference does. */
+/* The title, under everything the grid then lays over it. */
 .hbw-col__name {
-  grid-column: 2 / span 10;
-  grid-row: 2;
+  position: relative;
   z-index: 1;
   text-align: center;
-  margin-bottom: clamp(-10px, -2vh, -40px);
+  padding-top: clamp(20px, 6vh, 64px);
 }
 
 .hbw-col__name h1 {
   margin: 0;
+  font-family: var(--display);
   font-size: clamp(3.2rem, 13vw, 11rem);
   font-weight: 500;
-  line-height: 0.88;
-  letter-spacing: -0.02em;
+  line-height: 0.86;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
 .hbw-col__idea {
-  grid-column: 1 / span 6;
-  grid-row: 1;
+  position: absolute;
+  top: clamp(20px, 6vh, 64px);
+  left: 0;
   margin: 0;
-  z-index: 1;
+  text-align: left;
 }
 
 .hbw-col__frame {
@@ -383,7 +463,7 @@ a.hbw-row:focus-visible .hbw-row__idea {
   position: relative;
   width: 100%;
   /* No frame may take the whole screen, whatever its proportions. */
-  max-height: 76vh;
+  max-height: 66vh;
   overflow: hidden;
   background: rgba(17, 17, 17, 0.05);
 }
@@ -420,7 +500,7 @@ a.hbw-row:focus-visible .hbw-row__idea {
 /* ---- Information, behind one toggle ---- */
 
 .hbw-info {
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -436,7 +516,7 @@ a.hbw-row:focus-visible .hbw-row__idea {
 }
 
 .hbw-info > summary:hover {
-  color: var(--hot);
+  color: var(--ink);
 }
 
 .hbw-info .hbw-info__shut,
@@ -503,8 +583,14 @@ a.hbw-row:focus-visible .hbw-row__idea {
     margin-top: 0 !important;
   }
   .hbw-col__name {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
+    padding-top: 18px;
+  }
+  .hbw-col__idea {
+    position: static;
+    margin-bottom: 6px;
+  }
+  .hbw-col {
+    margin-top: 10px;
   }
   .hbw-info__body {
     grid-template-columns: 1fr;

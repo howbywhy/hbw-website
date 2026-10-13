@@ -93,20 +93,23 @@ export function ProjectCollage({
   idea: string;
 }) {
   return (
-    <div className="hbw-col">
+    <>
       {/*
-        The name sits in the field, not above it: the frames after it carry a
-        higher z-index and cross the type. The line cannot live under the name
-        for the same reason — a frame lands on it — so it sits out at the top
-        left where nothing is ever pulled over it.
+        The name is NOT a grid item. It was, with an explicit row, and dense
+        auto-placement put a full-height frame in the same row and pushed the
+        title under it — the one thing the layout exists to prevent. It sits
+        above the grid now and the grid is pulled up over it, so the first
+        frames cross the type by construction rather than by luck.
       */}
-      <p className="hbw-m hbw-col__idea">{idea}</p>
       <header className="hbw-col__name">
+        <p className="hbw-m hbw-col__idea">{idea}</p>
         <h1>{name}</h1>
       </header>
-      {movements.map((movement, i) => (
-        <Frame key={movement.id} movement={movement} i={i} name={name} />
-      ))}
-    </div>
+      <div className="hbw-col">
+        {movements.map((movement, i) => (
+          <Frame key={movement.id} movement={movement} i={i} name={name} />
+        ))}
+      </div>
+    </>
   );
 }

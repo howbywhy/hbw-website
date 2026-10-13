@@ -25,7 +25,7 @@ export default async function WorkPage() {
       <StructuredData nodes={[workListNode()]} />
       <Bar here="work" />
       <div className="hbw-wrap">
-        <h1 className="hbw-m" style={{ margin: "clamp(28px,7vh,70px) 0 clamp(20px,4vh,40px)", color: "var(--ink)" }}>
+        <h1 className="hbw-chip" style={{ margin: "clamp(28px,7vh,70px) 0 clamp(20px,4vh,40px)", fontWeight: 400 }}>
           Work
         </h1>
         <Catalogue projects={projects} />

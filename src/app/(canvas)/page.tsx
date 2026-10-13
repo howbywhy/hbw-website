@@ -51,7 +51,7 @@ export default async function IndexPage() {
         </section>
 
         <div className="hbw-band">
-          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+          <p className="hbw-chip" style={{ margin: 0 }}>
             Index
           </p>
           <p className="hbw-m" style={{ margin: 0 }}>

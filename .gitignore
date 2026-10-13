@@ -15,3 +15,9 @@ schema.json
 .cursor
 reference/downloaded
 reference/video-originals
+
+# A trial typeface, licensed for testing only: it must never be committed or
+# deployed. The @font-face rule that points at it ships; the file does not, so
+# a build without a licensed copy simply falls back to Geist.
+public/fonts/HBW-Display.otf
+public/fonts/HBW-Display.woff2

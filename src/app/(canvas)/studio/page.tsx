@@ -40,7 +40,7 @@ export default function StudioPage() {
         </section>
 
         <div className="hbw-band">
-          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+          <p className="hbw-chip" style={{ margin: 0 }}>
             How the work goes
           </p>
           <p className="hbw-m" style={{ margin: 0 }}>
@@ -58,7 +58,7 @@ export default function StudioPage() {
         </ol>
 
         <div className="hbw-band" style={{ marginTop: "clamp(40px,9vh,96px)" }}>
-          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+          <p className="hbw-chip" style={{ margin: 0 }}>
             Position
           </p>
           <p className="hbw-m" style={{ margin: 0 }}>

@@ -31,7 +31,7 @@ export default function ContactPage() {
         </section>
 
         <div className="hbw-band">
-          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+          <p className="hbw-chip" style={{ margin: 0 }}>
             Write
           </p>
           <p className="hbw-m" style={{ margin: 0 }}>
@@ -49,7 +49,7 @@ export default function ContactPage() {
         </div>
 
         <div className="hbw-band">
-          <p className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+          <p className="hbw-chip" style={{ margin: 0 }}>
             Draw
           </p>
           <p className="hbw-m" style={{ margin: 0 }}>

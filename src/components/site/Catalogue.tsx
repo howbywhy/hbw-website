@@ -44,7 +44,7 @@ export function Catalogue({ projects }: { projects: GalleryProject[] }) {
       {projects.map((project) => (
         <section key={project.slug} aria-labelledby={`p-${project.slug}`}>
           <div className="hbw-band">
-            <h2 id={`p-${project.slug}`} className="hbw-m" style={{ margin: 0, color: "var(--ink)" }}>
+            <h2 id={`p-${project.slug}`} className="hbw-chip" style={{ margin: 0 }}>
               <a href={`/projects/${project.slug}`}>{project.name}</a>
             </h2>
             <p className="hbw-m" style={{ margin: 0 }}>
