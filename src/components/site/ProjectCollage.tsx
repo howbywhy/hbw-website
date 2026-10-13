@@ -18,7 +18,7 @@
  * until it runs. The old case studies autoplayed theirs and pulled twenty
  * megabytes a page.
  */
-import React, { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Movement } from "@/components/home/projects/types";
 import { Lightbox, shotsOf } from "@/components/site/Lightbox";
 
@@ -122,7 +122,7 @@ export function ProjectCollage({
   /** The project's own logotype, rendered on the server. */
   mark?: ReactNode;
 }) {
-  const shots = shotsOf(movements);
+
   const [open, setOpen] = useState<number | null>(null);
 
   /**
@@ -159,14 +159,28 @@ export function ProjectCollage({
   }, []);
 
   /**
-   * Arriving from a tile on the front page, which says which frame was
-   * clicked. Read after mount so the prerendered HTML and the first client
-   * render agree — a query string cannot change a statically built page.
+   * Arriving from a picture on the front page: that picture leads.
+   *
+   * The sequence rotates rather than the page jumping to a position in it, so
+   * the frame you clicked takes the first slot of the composition and
+   * everything else follows from there. The same project is a different page
+   * depending on the way in, which is the point — it adapts to where you came
+   * from instead of always opening at its own beginning.
+   *
+   * Read after mount: a query string cannot change a statically built page, so
+   * the server and the first client render have to agree on the plain order.
    */
+  const [from, setFrom] = useState(0);
+
   useEffect(() => {
     const asked = Number(new URLSearchParams(window.location.search).get("f"));
-    if (Number.isInteger(asked) && asked > 0 && asked <= shots.length) setOpen(asked - 1);
-  }, [shots.length]);
+    if (Number.isInteger(asked) && asked > 0 && asked <= movements.length) setFrom(asked - 1);
+  }, [movements.length]);
+
+  const order = useMemo(
+    () => (from ? movements.slice(from).concat(movements.slice(0, from)) : movements),
+    [movements, from]
+  );
 
   return (
     <>
@@ -201,7 +215,7 @@ export function ProjectCollage({
           <h1>{mark ?? name}</h1>
         </header>
         <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`}>
-          {movements.map((movement, i) => (
+          {order.map((movement, i) => (
             <Frame key={movement.id} movement={movement} i={i} name={name} onOpen={setOpen} />
           ))}
         </div>
@@ -209,7 +223,7 @@ export function ProjectCollage({
 
       {open !== null ? (
         <Lightbox
-          shots={shots}
+          shots={shotsOf(order)}
           at={open}
           onAt={setOpen}
           onClose={() => setOpen(null)}

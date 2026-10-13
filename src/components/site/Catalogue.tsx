@@ -19,7 +19,8 @@ function Cell({ project, frame, i }: { project: GalleryProject; frame: GalleryPr
   return (
     <a
       className="hbw-cell"
-      href={`/projects/${project.slug}`}
+      // Which frame this is, so the project opens on it rather than at its top.
+      href={`/projects/${project.slug}?f=${i + 1}`}
       aria-label={`${project.name} — ${project.idea}`}
       onPointerEnter={() => film.current?.play().catch(() => {})}
       onPointerLeave={() => film.current?.pause()}
