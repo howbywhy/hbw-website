@@ -7,6 +7,8 @@ import { SiteNav } from "@/components/home/SiteNav";
 import { WorkScroll, type WorkInView, type WorkScrollHandle } from "@/components/home/WorkScroll";
 import { PosterTool } from "@/components/home/PosterTool";
 import { HomeStatement } from "@/components/home/HomeStatement";
+import { HomeGrid } from "@/components/home/HomeGrid";
+import type { GridTile } from "@/sanity/load-grid";
 import {
   matchesFilter,
   projectById,
@@ -176,6 +178,7 @@ export function HbwShell({
   index = [],
   catalog = null,
   experiences = null,
+  grid = null,
 }: {
   children: React.ReactNode;
   published?: ResolvedProjectExperience | null;
@@ -185,6 +188,8 @@ export function HbwShell({
   catalog?: ProjectRecord[] | null;
   /** Each case study, resolved by the server layout above. */
   experiences?: ExperienceMap | null;
+  /** Stills from across the line, for the grid. */
+  grid?: GridTile[] | null;
 }) {
   const line = resolveCatalog(catalog);
   const pathname = usePathname() || "/";
@@ -1542,6 +1547,8 @@ export function HbwShell({
         <div className="hbw-window" role="main">
           {POSTER_ON_HOME || posterOpen ? (
             <PosterTool dormant={!makeActive || panel === "studio" || indexOpen || workCovering} />
+          ) : grid?.length ? (
+            <HomeGrid tiles={grid} />
           ) : (
             <HomeStatement />
           )}
