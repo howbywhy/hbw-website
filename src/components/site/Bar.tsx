@@ -11,7 +11,8 @@
  * the real page answers without JavaScript and for a crawler.
  */
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { StudioSheet } from "@/components/site/StudioSheet";
+import { Sheet } from "@/components/site/Sheet";
+import { StudioBody } from "@/components/site/StudioBody";
 
 export function Bar({
   here,
@@ -77,7 +78,13 @@ export function Bar({
       {/* The row the runs fill: Information and the two views. */}
       {info ? <div className="hbw-rail" /> : null}
 
-      {studio ? <StudioSheet onClose={close} /> : null}
+      {/* The same shell as a project's information: one way of opening, one
+          way of closing, one set of behaviours. */}
+      {studio ? (
+        <Sheet label="Studio" onClose={close}>
+          <StudioBody />
+        </Sheet>
+      ) : null}
     </>
   );
 }

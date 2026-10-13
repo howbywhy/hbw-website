@@ -354,16 +354,16 @@ a.hbw-row {
  * what collapsed every cell and overlapped the rows.
  */
 /*
- * Square cells, whole pictures. The sheet is a grid and wants a regular cell,
- * but nothing may be cut to fit one — so the picture is contained inside it
- * rather than cropped to it, and the paper shows around a frame that is not
- * square.
+ * Square cells, filled. This is the one place cropping is right: the sheet is
+ * a field of work seen at a glance, and a regular cell is worth more there
+ * than a whole picture. Nothing is cropped anywhere a picture is the subject —
+ * the collage, the grid and the gallery all show the frame entire.
  */
 .hbw-cell img {
   display: block;
   width: 100%;
   aspect-ratio: 1;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .hbw-cell video {
@@ -372,7 +372,7 @@ a.hbw-row {
   left: 0;
   width: 100%;
   aspect-ratio: 1;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 
@@ -1311,13 +1311,14 @@ a.hbw-row {
   max-height: calc(100vh - var(--chrome));
   overflow: auto;
   /*
-   * Always paper, never the page's own ground. On a dark project it was
-   * inheriting black, which made a wall of small text on black — the hardest
-   * thing on the site to read, and the one place that is nothing but reading.
+   * No ground of its own: it sits on the blur, like everything else that opens
+   * over the site. Its ink comes from the page it opened on, so it is dark
+   * type over a light blur on the catalogue and light type over a dark blur on
+   * a project — one rule, adapting rather than two sets of colours.
    */
-  background: #ffffff;
-  color: #333333;
-  border-bottom: 1px solid rgba(51, 51, 51, 0.15);
+  background: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
   font-size: var(--nav);
   padding: 0 var(--gut) clamp(18px, 4vh, 40px);
   /* Unrolls downward, so it reads as coming from under the nav rather than
@@ -1381,21 +1382,18 @@ a.hbw-row {
 
 .hbw-studio-sheet__panel .is-mute,
 .hbw-studio-sheet__panel .hbw-m,
-.hbw-studio-sheet__panel dt {
-  color: rgba(51, 51, 51, 0.5);
+.hbw-studio-sheet__panel dt,
+.hbw-studio-sheet__top button {
+  color: var(--mute);
 }
 
 .hbw-studio-sheet__panel .hbw-info__facts dd,
 .hbw-studio-sheet__panel p {
-  color: #333333;
-}
-
-.hbw-studio-sheet__top button {
-  color: rgba(51, 51, 51, 0.5);
+  color: var(--ink);
 }
 
 .hbw-studio-sheet__top button:hover {
-  color: #333333;
+  color: var(--ink);
 }
 
 .hbw-studio-sheet__lead {
@@ -1477,40 +1475,36 @@ a.hbw-row {
  * the attribute selector buys without resorting to !important.
  */
 /*
- * Grid is a justified wall, not a column grid.
+ * Grid is justified rows.
  *
- * With equal columns and true proportions, a landscape frame came out a third
- * the height of a portrait one beside it and the rows read as rubble. Rows of
- * a fixed height instead, each frame as wide as its own proportions make it:
- * everything in a row is the same height, a very wide frame simply takes the
- * row, and nothing is cropped to achieve either.
+ * Each row fills the width exactly and everything in it shares a height, and
+ * both fall out of one declaration: a frame grows in proportion to its own
+ * aspect ratio, so widths end up proportional to shape and the heights have no
+ * choice but to match. No measuring, no cropping, no row of rubble.
  */
 .hbw-col.is-grid {
-  --row: clamp(170px, 26vh, 330px);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  display: block;
   padding-top: clamp(150px, 24vh, 280px);
 }
 
+.hbw-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
 .hbw-col.is-grid .hbw-col__frame {
-  height: var(--row);
-  width: auto;
-  max-width: 100%;
+  /* grow shrink basis — three values. It was written with four, which is not
+     valid shorthand, so the whole declaration was dropped and the rows never
+     filled their width. Grow by shape, with a zero basis, so the ratio is the
+     only thing deciding each frame's share of the row. */
+  flex: var(--ar) 1 0;
+  min-width: 0;
 }
 
 .hbw-col.is-grid .hbw-col__shot {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-}
-
-.hbw-col.is-grid .hbw-col__shot img,
-.hbw-col.is-grid .hbw-col__shot video {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
 }
 
 .hbw-col.is-grid .hbw-col__frame {
@@ -1525,8 +1519,12 @@ a.hbw-row {
 }
 
 @media (max-width: 760px) {
-  .hbw-col.is-grid {
-    --row: clamp(130px, 22vh, 220px);
+  /* Two to a row on a phone; three would be thumbnails. */
+  .hbw-row {
+    flex-wrap: wrap;
+  }
+  .hbw-col.is-grid .hbw-col__frame {
+    flex: var(--ar) 1 40%;
   }
 }
 

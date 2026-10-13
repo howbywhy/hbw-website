@@ -65,6 +65,17 @@ type Run = {
   frames: Frame[];
 };
 
+/**
+ * Let an animation clear itself once it has played.
+ *
+ * Every one of these ends where the element already belongs, so the fill is
+ * only needed while it runs. Left in place it keeps a transform on the element
+ * for good, and the next measurement reads that instead of the layout.
+ */
+function settle(animation: Animation) {
+  animation.finished.then(() => animation.cancel()).catch(() => {});
+}
+
 function framesOf(movements: Movement[]): Frame[] {
   const out: Frame[] = [];
   for (const movement of movements) {
@@ -82,6 +93,37 @@ function framesOf(movements: Movement[]): Frame[] {
     });
   }
   return out;
+}
+
+/**
+ * How a grid row is composed.
+ *
+ * A row is three portraits, or two portraits and one landscape. A landscape is
+ * roughly two portraits wide at the same height, so one of them is all a row
+ * can carry without the pictures becoming postage stamps.
+ *
+ * The sequence's order is kept — a case study is in the order it is in — so
+ * this fills rows as the frames come and breaks early when a second landscape
+ * would land in the same row. The last row takes whatever is left, which is
+ * what "adjust for the amount we have" has to mean when the material does not
+ * divide into threes.
+ */
+function rowsOf(frames: Frame[]): Frame[][] {
+  const rows: Frame[][] = [];
+  let row: Frame[] = [];
+  let wide = 0;
+  for (const frame of frames) {
+    const landscape = frame.width / Math.max(1, frame.height) >= 1;
+    if (row.length === 3 || (landscape && wide >= 1)) {
+      rows.push(row);
+      row = [];
+      wide = 0;
+    }
+    row.push(frame);
+    if (landscape) wide++;
+  }
+  if (row.length) rows.push(row);
+  return rows;
 }
 
 function shotsFrom(frames: Frame[]): Shot[] {
@@ -193,8 +235,11 @@ export function ProjectRuns({
     if (!next) return;
     const watch = () => {
       if (pulling.current) return;
+      // Three screens out, not one. Appending a project pushes the footer
+      // down, and a footer that moves while someone is reading next to it is
+      // the jump they feel — so the work arrives long before they get there.
       const left = document.body.scrollHeight - (window.scrollY + window.innerHeight);
-      if (left > window.innerHeight * 1.2) return;
+      if (left > window.innerHeight * 3) return;
       pulling.current = true;
       fetch(`/api/sequence/${next}`)
         .then((r) => (r.ok ? r.json() : null))
@@ -235,6 +280,24 @@ export function ProjectRuns({
     const host = stage.current;
     if (!host) return;
     const frames = Array.from(host.querySelectorAll<HTMLElement>("[data-frame]"));
+
+    /*
+     * Settle anything still animating before measuring.
+     *
+     * These animations fill both ways, so a finished one leaves its transform
+     * on the element — and getBoundingClientRect reports the transformed box.
+     * Measuring that gives a delta from a place the frame is not, and the next
+     * pass animates it away from somewhere it never was, which is the jump.
+     * Finishing and clearing puts every frame at its real layout position
+     * first, so what is measured is the layout and nothing else.
+     */
+    for (const frame of frames) {
+      for (const animation of frame.getAnimations()) {
+        animation.finish();
+        animation.cancel();
+      }
+    }
+
     const now = new Map<string, DOMRect>();
     for (const frame of frames) now.set(frame.dataset.frame!, frame.getBoundingClientRect());
 
@@ -245,12 +308,14 @@ export function ProjectRuns({
     if (firstPass && turning && !still) {
       document.documentElement.removeAttribute("data-hbw-turning");
       frames.forEach((frame, i) => {
-        frame.animate(
-          [
-            { opacity: 0, transform: "translateY(14px) scale(0.985)" },
-            { opacity: 1, transform: "none" },
-          ],
-          { duration: SETTLE, delay: Math.min(i * STAGGER, STAGGER_CAP), easing: EASE, fill: "both" }
+        settle(
+          frame.animate(
+            [
+              { opacity: 0, transform: "translateY(14px) scale(0.985)" },
+              { opacity: 1, transform: "none" },
+            ],
+            { duration: SETTLE, delay: Math.min(i * STAGGER, STAGGER_CAP), easing: EASE, fill: "both" }
+          )
         );
       });
       was.current = now;
@@ -268,17 +333,19 @@ export function ProjectRuns({
         const after2 = now.get(frame.dataset.frame!);
         if (!after2 || !after2.width) return;
         if (!before) {
-          frame.animate(
-            [
-              { opacity: 0, transform: "translateY(18px) scale(0.985)" },
-              { opacity: 1, transform: "none" },
-            ],
-            {
-              duration: SETTLE,
-              delay: Math.min(arriving++ * STAGGER, STAGGER_CAP),
-              easing: EASE,
-              fill: "both",
-            }
+          settle(
+            frame.animate(
+              [
+                { opacity: 0, transform: "translateY(18px) scale(0.985)" },
+                { opacity: 1, transform: "none" },
+              ],
+              {
+                duration: SETTLE,
+                delay: Math.min(arriving++ * STAGGER, STAGGER_CAP),
+                easing: EASE,
+                fill: "both",
+              }
+            )
           );
           return;
         }
@@ -286,12 +353,14 @@ export function ProjectRuns({
         const dy = before.top - after2.top;
         const ds = before.width / after2.width;
         if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(ds - 1) < 0.01) return;
-        frame.animate(
-          [
-            { transform: `translate(${dx}px, ${dy}px) scale(${ds})`, opacity: 0.55 },
-            { transform: "none", opacity: 1 },
-          ],
-          { duration: SETTLE, delay: Math.min(i * STAGGER, STAGGER_CAP), easing: EASE, fill: "both" }
+        settle(
+          frame.animate(
+            [
+              { transform: `translate(${dx}px, ${dy}px) scale(${ds})`, opacity: 0.55 },
+              { transform: "none", opacity: 1 },
+            ],
+            { duration: SETTLE, delay: Math.min(i * STAGGER, STAGGER_CAP), easing: EASE, fill: "both" }
+          )
         );
       });
     }
@@ -356,11 +425,28 @@ export function ProjectRuns({
             >
               {index === 0 ? <h1>{run.mark}</h1> : <h2>{run.mark}</h2>}
             </header>
-            <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`}>
-              {run.frames.map((frame, i) => (
-                <Shot key={frame.id} frame={frame} i={i} onOpen={(at) => setOpen({ run: index, at })} />
-              ))}
-            </div>
+            {view === "grid" ? (
+              <div className="hbw-col is-grid">
+                {rowsOf(run.frames).map((row, r) => (
+                  <div className="hbw-row" key={`${run.slug}-row-${r}`}>
+                    {row.map((frame) => (
+                      <Shot
+                        key={frame.id}
+                        frame={frame}
+                        i={run.frames.indexOf(frame)}
+                        onOpen={(at) => setOpen({ run: index, at })}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="hbw-col">
+                {run.frames.map((frame, i) => (
+                  <Shot key={frame.id} frame={frame} i={i} onOpen={(at) => setOpen({ run: index, at })} />
+                ))}
+              </div>
+            )}
             {index > 0 ? (
               <p className="hbw-run__says hbw-m">
                 <a href={`/projects/${run.slug}`}>
