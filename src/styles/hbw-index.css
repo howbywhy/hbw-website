@@ -513,6 +513,10 @@ a.hbw-row {
   grid-template-columns: repeat(12, 1fr);
   gap: var(--gut);
   align-items: start;
+  /* Rows take their own height rather than stretching to fill the grid. With
+     dense packing and mixed spans this was leaving a screen and a half of
+     nothing at the foot of a run — read as a jump, not as space. */
+  align-content: start;
   /* No clearance of its own: a run's mark provides it, and the home page
      sets its own. Left in, it stacked on top of the pull and the first frames
      landed below the fold. */
@@ -1652,11 +1656,13 @@ html[data-hbw-turning] .hbw-col__frame {
    cross the type rather than queueing below a title screen. */
 .hbw-run .hbw-col {
   margin-top: -46vh;
-  padding-bottom: clamp(60px, 14vh, 150px);
+  padding-bottom: clamp(40px, 8vh, 90px);
 }
 
+/* One consistent interval between a project and the next, so the rhythm of
+   arriving at one is the same every time. */
 .hbw-run__says {
-  margin: 0 0 clamp(40px, 9vh, 110px);
+  margin: 0 0 clamp(28px, 6vh, 64px);
 }
 
 .hbw-run__says a:hover {
@@ -1891,4 +1897,49 @@ html[data-hbw-turning] .hbw-col__frame {
 /* With the pointer saying it, the arrows in the corners are noise. */
 .hbw-lamp__step span {
   display: none;
+}
+
+
+/* ---- Arriving at a project ---- */
+
+/*
+ * A project announces itself.
+ *
+ * Scrolling from one into the next had no beat to it: the work of one ended,
+ * a stretch of nothing followed, and the next mark was simply there. The mark
+ * now comes up as its project takes the screen — the same duration and curve
+ * as every other move — so arriving somewhere new is something you see happen
+ * rather than something you notice afterwards.
+ */
+.hbw-run__mark h1,
+.hbw-run__mark h2 {
+  opacity: 0.34;
+  transform: translateY(10px) scale(0.985);
+  transition: opacity var(--settle) var(--ease), transform var(--settle) var(--ease);
+}
+
+.hbw-run.is-here .hbw-run__mark h1,
+.hbw-run.is-here .hbw-run__mark h2 {
+  opacity: 1;
+  transform: none;
+}
+
+/* The line under a run brightens with it, so the name and its project agree. */
+.hbw-run__says {
+  opacity: 0.4;
+  transition: opacity var(--settle) var(--ease);
+}
+
+.hbw-run.is-here .hbw-run__says {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-run__mark h1,
+  .hbw-run__mark h2,
+  .hbw-run__says {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

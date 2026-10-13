@@ -408,7 +408,7 @@ export function ProjectRuns({
       <div ref={stage}>
         {runs.map((run, index) => (
           <section
-            className="hbw-run"
+            className={`hbw-run${here === index ? " is-here" : ""}`}
             key={`${run.slug}-${index}`}
             aria-label={run.name}
             ref={(el) => {
