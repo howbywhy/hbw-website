@@ -11,5 +11,8 @@
  */
 export const SITE_TITLE = "HBW — Clarity for brands at a turning point";
 
+/** The positioning on its own, for the places that set it as a heading. */
+export const SITE_TAGLINE = "Clarity for brands at a turning point.";
+
 export const SITE_DESCRIPTION =
   "HBW (How by Why) is an independent brand and design practice led by Mark Blackler, in the Blue Mountains, working with founders across Sydney and Australia.";

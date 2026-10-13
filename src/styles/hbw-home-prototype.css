@@ -86,8 +86,6 @@ html.hbw-workspace,
 html.hbw-workspace body,
 html.hbw-home-prototype,
 html.hbw-home-prototype body {
-  height: 100%;
-  overflow: hidden;
   background: var(--hbw-page, #ffffff);
   /* The literal repeat is the fallback for a browser that drops the custom
      property. It has to be the ground, or the page behind everything stays
@@ -103,6 +101,21 @@ html.hbw-home-prototype body {
 html.hbw-workspace body,
 html.hbw-home-prototype body {
   font-size: var(--hbw-lg);
+}
+
+/*
+ * The viewport lock belongs to the shell, not to the site.
+ *
+ * It used to sit on html.hbw-workspace, which the root layout puts on every
+ * page — so pages that are ordinary documents could not scroll at all. The
+ * shell is one fixed window and genuinely needs it; /work, /studio and the
+ * front door are pages and need the opposite. HbwShell adds this class while
+ * it is mounted and takes it off when it is not.
+ */
+html.hbw-locked,
+html.hbw-locked body {
+  height: 100%;
+  overflow: hidden;
 }
 
 html.hbw-workspace .hbw-home,

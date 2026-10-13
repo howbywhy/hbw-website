@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { loadGallery } from "@/sanity/load-gallery";
 import { Gallery } from "@/components/canvas/Gallery";
-import { CanvasChrome } from "@/components/canvas/CanvasChrome";
+import { CanvasNav } from "@/components/canvas/CanvasNav";
 import { StructuredData } from "@/components/StructuredData";
 import { workListNode } from "@/lib/structured-data";
 import "@/styles/hbw-canvas.css";
@@ -22,7 +22,7 @@ export default async function WorkPage() {
   return (
     <main className="hbw-page">
       <StructuredData nodes={[workListNode()]} />
-      <CanvasChrome here="work" />
+      <CanvasNav here="work" />
       <h1 className="hbw-page__title">Work</h1>
       <Gallery projects={projects} />
     </main>

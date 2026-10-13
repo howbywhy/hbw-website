@@ -3,7 +3,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
 import { loadCatalog } from "@/sanity/load-catalog";
-import { loadWall } from "@/sanity/load-wall";
 import { liveProjects } from "@/components/home/catalog";
 import { CanvasShell } from "@/components/canvas/CanvasShell";
 import "@/styles/hbw-canvas.css";
@@ -38,14 +37,14 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // The wall needs a pool of stills — a slug and a URL each, not a sequence —
-  // so no case study is loaded here. The catalog is read for the plain list.
-  const [catalog, tiles] = await Promise.all([loadCatalog(), loadWall()]);
+  // No case studies and no wall of stills: the page is a lockup and six marks,
+  // so the catalog is all it needs.
+  const catalog = await loadCatalog();
   const projects = catalog.length ? catalog : liveProjects();
   return (
     <>
       <StructuredData nodes={[studioNode(), founderNode(), websiteNode(), workListNode()]} />
-      <CanvasShell tiles={tiles} projects={projects} />
+      <CanvasShell projects={projects} />
     </>
   );
 }

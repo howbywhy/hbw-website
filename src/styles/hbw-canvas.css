@@ -479,3 +479,325 @@
     transition: none;
   }
 }
+
+/* ---- The curtain ---- */
+
+.hbw-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  touch-action: none;
+  cursor: crosshair;
+  transition: opacity 520ms ease;
+}
+
+.hbw-curtain.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hbw-curtain canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hbw-curtain__says {
+  position: absolute;
+  left: clamp(16px, 2.4vw, 34px);
+  bottom: clamp(16px, 2.4vw, 34px);
+  max-width: 26rem;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+/* Once a hand is on it the words step back and let the wipe be the subject. */
+.hbw-curtain.is-touched .hbw-curtain__says {
+  opacity: 0;
+}
+
+.hbw-curtain__mark {
+  margin: 0 0 0.3rem;
+  font-weight: 500;
+}
+
+.hbw-curtain__line {
+  margin: 0;
+  color: #1d1d1d;
+}
+
+.hbw-curtain__grey {
+  color: rgba(29, 29, 29, 0.42);
+}
+
+/* ---- Chrome shared by every page ---- */
+
+.hbw-top {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: var(--edge) 0;
+  background: #fff;
+}
+
+.hbw-top__mark {
+  margin: 0;
+  font-weight: 500;
+}
+
+.hbw-top__nav {
+  display: flex;
+  gap: 1.1rem;
+}
+
+.hbw-top a,
+.hbw-top button {
+  color: inherit;
+  text-decoration: none;
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.hbw-top__nav a,
+.hbw-top__nav button {
+  color: rgba(29, 29, 29, 0.42);
+  transition: color 160ms ease;
+}
+
+.hbw-top__nav a:hover,
+.hbw-top__nav button:hover,
+.hbw-top__nav a[aria-current="page"] {
+  color: #1d1d1d;
+}
+
+/* ---- The lockup ---- */
+
+.hbw-lock {
+  /* About forty characters: read in one go rather than scanned. */
+  max-width: 34rem;
+  margin: clamp(42px, 13vh, 150px) 0 clamp(48px, 12vh, 130px);
+}
+
+.hbw-lock__mark {
+  margin: 0 0 1.1rem;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.hbw-lock__line {
+  margin: 0 0 0.55rem;
+}
+
+.hbw-lock__line--grey {
+  color: var(--grey);
+}
+
+.hbw-lock__meta {
+  margin-top: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--grey);
+}
+
+/* ---- The work blocks ---- */
+
+.hbw-blocks__title,
+.hbw-steps__title {
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(29, 29, 29, 0.12);
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.hbw-blocks__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.hbw-block {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.hbw-block__art {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  padding: clamp(22px, 4vw, 54px);
+  background: rgba(29, 29, 29, 0.045);
+  overflow: hidden;
+  transition: background 200ms ease;
+}
+
+.hbw-block:hover .hbw-block__art,
+.hbw-block:focus-visible .hbw-block__art {
+  background: rgba(29, 29, 29, 0.09);
+}
+
+.hbw-block__art img {
+  /* Both axes, or object-fit has nothing to fit inside and a tall logotype
+     stretches its own block taller than the rest of the row. */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hbw-block__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+.hbw-block__idea {
+  color: #1d1d1d;
+}
+
+.hbw-block__tag {
+  color: var(--grey);
+  font-size: 0.82em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hbw-foot {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: clamp(44px, 10vh, 110px);
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(29, 29, 29, 0.12);
+}
+
+.hbw-foot a,
+.hbw-foot button {
+  color: var(--grey);
+  text-decoration: none;
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.hbw-foot a:hover,
+.hbw-foot button:hover {
+  color: #1d1d1d;
+}
+
+/* ---- Studio ---- */
+
+.hbw-read {
+  max-width: 34rem;
+}
+
+.hbw-read p {
+  margin: 0 0 0.75rem;
+}
+
+.hbw-read__lead {
+  color: #1d1d1d;
+}
+
+.hbw-read__grey {
+  color: var(--grey);
+}
+
+.hbw-read__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--grey);
+  margin-top: 1.2rem;
+}
+
+.hbw-read--end {
+  margin-top: clamp(40px, 9vh, 96px);
+}
+
+.hbw-read a {
+  color: inherit;
+}
+
+.hbw-steps {
+  margin-top: clamp(44px, 10vh, 110px);
+}
+
+.hbw-steps__note {
+  max-width: 34rem;
+  margin: 0 0 1.4rem;
+}
+
+.hbw-steps ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+
+.hbw-steps li {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(29, 29, 29, 0.12);
+}
+
+.hbw-steps__no {
+  color: var(--grey);
+}
+
+.hbw-steps__copy {
+  color: var(--grey);
+}
+
+@media (max-width: 860px) {
+  .hbw-blocks__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hbw-steps ol {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .hbw-blocks__grid {
+    grid-template-columns: 1fr;
+  }
+  .hbw-steps ol {
+    grid-template-columns: 1fr;
+  }
+  .hbw-block__foot {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-curtain,
+  .hbw-curtain__says,
+  .hbw-block__art {
+    transition: none;
+  }
+}

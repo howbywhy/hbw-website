@@ -181,6 +181,18 @@ export function HbwShell({
   const router = useRouter();
   const slug = viewSlugFromPath(pathname);
   const motion = useHbwMotionSession();
+  /**
+   * The shell is one fixed window, so the document behind it must not scroll.
+   * That lock used to live on html.hbw-workspace, which is on every page —
+   * including the ones that are ordinary scrolling documents. It belongs here,
+   * to the thing that actually needs it, for exactly as long as it is mounted.
+   */
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    root.classList.add("hbw-locked");
+    return () => root.classList.remove("hbw-locked");
+  }, []);
+
   const [resumed] = useState<MotionSession | null>(() => motion?.read() ?? null);
   const cmsPreview = useCmsPreviewExperience();
   const publishedHeld = useRef<ResolvedProjectExperience | null>(null);
