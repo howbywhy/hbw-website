@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_TAGLINE } from "@/lib/site-meta";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
+import { loadTiles } from "@/sanity/load-gallery";
 import { loadIndex } from "@/sanity/load-index";
 import { STUDIO_COPY } from "@/components/home/studio-copy";
 import { Bar } from "@/components/site/Bar";
-import { WorkList } from "@/components/site/WorkList";
+import { Intro } from "@/components/site/Intro";
+import { WorkGrid } from "@/components/site/WorkGrid";
+import { Ledger } from "@/components/site/Ledger";
 import "@/styles/hbw-index.css";
 
 const title = SITE_TITLE;
@@ -26,29 +29,26 @@ export const metadata: Metadata = {
 };
 
 /**
- * The index.
+ * The front page: a beat for the name, the work full bleed, then the ledger.
  *
- * The front page is the record: what the practice is, in three lines, then
- * every project it has done, numbered and dated. No hero, no carousel, no
- * autoplaying film — the live site pulled 26MB of video to say less than this
- * says in text.
+ * Three things in the order someone needs them — who this is, what it has
+ * done, and the whole record underneath for anyone who wants it.
  */
-export default async function IndexPage() {
-  const entries = await loadIndex();
-
+export default async function HomePage() {
+  const [tiles, entries] = await Promise.all([loadTiles(), loadIndex()]);
   return (
-    <main className="hbw-site">
+    <main className="hbw-site hbw-site--home">
       <StructuredData nodes={[studioNode(), founderNode(), websiteNode(), workListNode()]} />
+      <Intro mark="How by Why" line={SITE_TAGLINE} />
       <Bar />
 
-      <div className="hbw-wrap">
-        <section className="hbw-say">
-          <h1>How by Why is an independent brand and design practice led by Mark Blackler.</h1>
-          <p className="is-ink">{STUDIO_COPY.partners}</p>
-          <p>{STUDIO_COPY.glimpse}</p>
-        </section>
+      <WorkGrid tiles={tiles} />
 
-        <WorkList entries={entries} />
+      <div className="hbw-wrap">
+        <h1 className="hbw-stat">{SITE_TAGLINE}</h1>
+        <p className="hbw-stat__sub">{STUDIO_COPY.partners}</p>
+
+        <Ledger entries={entries} />
 
         <nav className="hbw-foot hbw-m" aria-label="More">
           <a href="/work">All work</a>

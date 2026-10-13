@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { loadGallery } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
 import { Catalogue } from "@/components/site/Catalogue";
+import { WorkList } from "@/components/site/WorkList";
+import { loadIndex } from "@/sanity/load-index";
 import { StructuredData } from "@/components/StructuredData";
 import { workListNode } from "@/lib/structured-data";
 import "@/styles/hbw-index.css";
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
 
 /** The catalogue: every case study as a contact sheet of its own frames. */
 export default async function WorkPage() {
-  const projects = await loadGallery();
+  const [projects, entries] = await Promise.all([loadGallery(), loadIndex()]);
   return (
     <main className="hbw-site">
       <StructuredData nodes={[workListNode()]} />
@@ -29,6 +31,7 @@ export default async function WorkPage() {
           Work
         </h1>
         <Catalogue projects={projects} />
+        <WorkList entries={entries} />
         <nav className="hbw-foot hbw-m" aria-label="More">
           <a href="/">Index</a>
           <a href="/studio">Studio</a>

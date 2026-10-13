@@ -72,3 +72,45 @@ export async function loadGallery(): Promise<GalleryProject[]> {
   );
   return built.filter((entry): entry is GalleryProject => entry !== null);
 }
+
+export type Tile = {
+  slug: string;
+  name: string;
+  idea: string;
+  kind: string;
+  src: string;
+  width: number;
+  height: number;
+  video?: string;
+  webm?: string;
+};
+
+/**
+ * One frame per project, for the front page.
+ *
+ * Deliberately not loadGallery. The grid draws six pictures and loadGallery
+ * carries fifty-four, all of which would be serialised into the page — which
+ * is exactly what the repo's own payload guard exists to catch, and did.
+ * A page ships what it draws.
+ */
+export async function loadTiles(): Promise<Tile[]> {
+  const gallery = await loadGallery();
+  const picked: (Tile | null)[] = gallery.map((project, i) => {
+    // The opener for most, something from deeper in for the rest, so six
+    // tiles are not six variations on a hero shot.
+    const frame = project.frames[i % 3 === 1 ? Math.min(2, project.frames.length - 1) : 0];
+    if (!frame) return null;
+    return {
+      slug: project.slug,
+      name: project.name,
+      idea: project.idea,
+      kind: project.disciplines[0] ?? "Brand",
+      src: frame.src,
+      width: frame.width,
+      height: frame.height,
+      video: frame.video,
+      webm: frame.webm,
+    };
+  });
+  return picked.filter((tile): tile is Tile => tile !== null);
+}

@@ -101,7 +101,6 @@
    dividing, and a chip here made every heading look like a button. */
 .hbw-chip {
   display: inline-block;
-  font-family: var(--display);
   font-size: var(--nav);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -133,12 +132,15 @@
   pointer-events: auto;
 }
 
-/* All three set the same: display face, caps, tracked, one size. */
+/*
+ * All three set the same: caps, tracked, one size — but in Geist. The display
+ * face is for headings only; in the chrome it was doing decoration, and a
+ * typeface that appears everywhere stops meaning anything where it counts.
+ */
 .hbw-bar__nav,
 .hbw-bar__mark,
 .hbw-bar__what {
   margin: 0;
-  font-family: var(--display);
   font-size: var(--nav);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -245,9 +247,7 @@
 }
 
 .hbw-row__name {
-  font-family: var(--display);
-  font-size: 1.0625rem;
-  letter-spacing: -0.005em;
+  font-size: var(--read);
 }
 
 .hbw-row__idea {
@@ -644,4 +644,332 @@ a.hbw-row {
   .hbw-col__frame figcaption {
     opacity: 1;
   }
+}
+
+/* ---- The front page's collage ---- */
+
+/* The positioning holds behind the work. Set wider than a project's name,
+   because it is a sentence rather than a word. */
+.hbw-col__name--home h1 {
+  max-width: 16ch;
+  margin: 0 auto;
+  font-size: clamp(2.4rem, 7.2vw, 6.4rem);
+  line-height: 0.96;
+}
+
+/* A frame on the front page is a door, so it says what it opens. */
+.hbw-col__frame--link {
+  display: block;
+  color: inherit;
+}
+
+.hbw-col__says {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding-top: 6px;
+  opacity: 0;
+  transition: opacity 150ms linear;
+}
+
+.hbw-col__frame--link:hover .hbw-col__says,
+.hbw-col__frame--link:focus-visible .hbw-col__says {
+  opacity: 1;
+}
+
+.hbw-col__who {
+  font-size: var(--meta);
+}
+
+@media (max-width: 760px) {
+  /* Nothing hovers on a phone, so the names are simply there. */
+  .hbw-col__says {
+    opacity: 1;
+  }
+  .hbw-col__name--home h1 {
+    max-width: none;
+  }
+}
+
+/*
+ * The front page's line is two lines of a sentence, not one short word, so it
+ * needs more clearance than a project name before the work starts. It should
+ * be readable on arrival and covered as you scroll — the covering is the
+ * gesture, but it cannot be the first impression.
+ */
+.hbw-col__stage--home .hbw-col {
+  padding-top: clamp(280px, 44vh, 520px);
+}
+
+@media (max-width: 760px) {
+  .hbw-col__stage--home .hbw-col {
+    padding-top: 18px;
+  }
+}
+
+/* ---- Black and white until it earns colour ---- */
+
+/*
+ * The listings are grey. The work is very colourful and a page of it side by
+ * side shouts over itself; grey holds six jobs as one body of work. Colour
+ * comes back on the thing being looked at, and on a case study, where the
+ * work is the subject rather than one of six.
+ */
+.hbw-tile__shot img,
+.hbw-tile__shot video,
+.hbw-cell img,
+.hbw-cell video {
+  filter: grayscale(1);
+  transition: filter 220ms linear;
+}
+
+.hbw-tile:hover .hbw-tile__shot img,
+.hbw-tile:focus-visible .hbw-tile__shot img,
+.hbw-tile:hover .hbw-tile__shot video,
+.hbw-cell:hover img,
+.hbw-cell:focus-visible img,
+.hbw-cell:hover video {
+  filter: none;
+}
+
+/* ---- The grid ---- */
+
+.hbw-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Dense, so a two-column tile that will not fit does not leave a hole it
+     never fills — the gaps should be chosen, not stranded. */
+  grid-auto-flow: row dense;
+  gap: clamp(14px, 1.7vw, 26px) clamp(10px, 1.2vw, 18px);
+  align-items: start;
+  padding: clamp(20px, 4vh, 48px) var(--gut) clamp(34px, 7vh, 80px);
+}
+
+.hbw-tile {
+  display: block;
+  color: inherit;
+  min-width: 0;
+}
+
+.hbw-tile[data-span="2"] {
+  grid-column: span 2;
+}
+
+.hbw-tile__shot {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background: rgba(51, 51, 51, 0.06);
+}
+
+.hbw-tile__shot img,
+.hbw-tile__shot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hbw-tile__shot video {
+  opacity: 0;
+  transition: opacity 200ms linear, filter 220ms linear;
+}
+
+.hbw-tile:hover .hbw-tile__shot video {
+  opacity: 1;
+}
+
+/* Name left, what it was right — the whole caption, under the frame. */
+.hbw-tile__says {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+  /* Both halves must be allowed to shrink. A flex child will not go below its
+     content width by default, so a long discipline name pushed the caption —
+     and the whole page — wider than the screen. */
+  flex-wrap: wrap;
+  padding-top: 6px;
+  font-size: var(--nav);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.hbw-tile__kind {
+  color: var(--mute);
+  min-width: 0;
+}
+
+.hbw-tile__says > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* ---- The statement under the work ---- */
+
+.hbw-stat {
+  max-width: 18ch;
+  margin: clamp(28px, 6vh, 70px) 0 0.7rem;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2rem, 1.2rem + 3.2vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+}
+
+.hbw-stat__sub {
+  max-width: 34rem;
+  margin: 0 0 clamp(34px, 8vh, 90px);
+  color: var(--mute);
+}
+
+/* ---- The ledger ---- */
+
+.hbw-ledger table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--meta);
+}
+
+.hbw-ledger th,
+.hbw-ledger td {
+  text-align: left;
+  font-weight: 400;
+  padding: 7px 0.8rem 7px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+
+.hbw-ledger thead th {
+  font-size: var(--nav);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mute);
+  border-bottom-color: var(--ink);
+}
+
+.hbw-ledger__no {
+  width: 2.4rem;
+  color: var(--mute);
+}
+
+.hbw-ledger tbody th {
+  width: 22%;
+}
+
+.hbw-ledger td {
+  color: var(--mute);
+}
+
+.hbw-ledger tbody tr.is-open th a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hbw-ledger__state {
+  text-align: right !important;
+  padding-right: 0 !important;
+  white-space: nowrap;
+}
+
+.hbw-ledger tr.is-open .hbw-ledger__state {
+  color: var(--ink);
+}
+
+/* ---- The way in ---- */
+
+.hbw-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-content: center;
+  gap: 0.6rem;
+  text-align: center;
+  background: var(--paper);
+  cursor: pointer;
+  transition: opacity 620ms ease;
+}
+
+.hbw-intro.is-going {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hbw-intro__mark {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 9vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  animation: hbw-intro-in 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hbw-intro__line {
+  margin: 0;
+  font-size: var(--nav);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+  animation: hbw-intro-in 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 180ms both;
+}
+
+@keyframes hbw-intro-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hbw-tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .hbw-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Two columns is too few to carry a two-column tile as an accent. */
+  .hbw-tile[data-span="2"] {
+    grid-column: auto;
+  }
+  .hbw-ledger td:nth-child(3),
+  .hbw-ledger th:nth-child(3),
+  .hbw-ledger td:nth-child(4),
+  .hbw-ledger th:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-intro__mark,
+  .hbw-intro__line {
+    animation: none;
+  }
+}
+
+/*
+ * A table has a minimum width of its own and will push the page wider rather
+ * than shrink — which is how the whole site got a horizontal scrollbar on a
+ * phone. It scrolls inside itself instead.
+ */
+.hbw-ledger {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.hbw-ledger table {
+  min-width: 30rem;
 }

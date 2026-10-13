@@ -1,5 +1,10 @@
 @font-face {
   font-family: "Geist";
+  /* Pinned. Only Regular is in the repo, and an unweighted @font-face matches
+     any weight asked for — so a font-weight:500 anywhere would have been drawn
+     as a smeared faux-bold rather than refused. With this, 500 falls back to
+     the real 400 until a real Medium is added beside it. */
+  font-weight: 400;
   src: url("/fonts/Geist.woff2") format("woff2"),
     url("/fonts/671a30d745cd22c8cc5c570e_Geist-Regular.woff2") format("woff2"),
     url("/fonts/671a30d6ef2a1073319beaeb_Geist-Regular.otf") format("opentype");
