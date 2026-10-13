@@ -44,8 +44,6 @@
   /* How far down the fixed chrome reaches. A sheet opens from here. */
   --chrome: 44px;
   /* The chrome's own tint, under its blur. */
-  /* Carried on the letterforms so the chrome needs no ground of its own. */
-  --halo: 0 0 7px rgba(255, 255, 255, 0.92), 0 0 2px rgba(255, 255, 255, 0.92);
 
   --settle: 620ms;
   --answer: 160ms;
@@ -195,12 +193,15 @@
  * face is for headings only; in the chrome it was doing decoration, and a
  * typeface that appears everywhere stops meaning anything where it counts.
  */
-.hbw-bar__nav,
-.hbw-bar__mark,
-.hbw-bar__what,
-.hbw-rail {
-  text-shadow: var(--halo);
-}
+/*
+ * No shadow of any kind, anywhere.
+ *
+ * The chrome had a halo so it could stay legible with nothing behind it, and a
+ * halo is a shadow: soft edges on type that is otherwise exact. The site has
+ * none now — no glow, no drop, no soft box. The chrome is plain type on the
+ * page, which is the cleanest thing it can be and the thing it has to earn by
+ * where it sits rather than by what is painted under it.
+ */
 
 .hbw-bar__nav,
 .hbw-bar__mark,
@@ -1850,7 +1851,6 @@ html[data-hbw-turning] .hbw-col__frame {
   --chip: rgba(244, 244, 244, 0.08);
   --chip-on: rgba(244, 244, 244, 0.14);
   --over: rgba(17, 17, 17, 0.55);
-  --halo: 0 0 7px rgba(17, 17, 17, 0.95), 0 0 2px rgba(17, 17, 17, 0.95);
   color: var(--ink);
   background: var(--paper);
 }

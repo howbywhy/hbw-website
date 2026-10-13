@@ -54,15 +54,16 @@ export default async function ProjectPage({ params }: Props) {
   const experiences = await loadExperiences([slug]);
   const experience = experiences[slug] ?? null;
 
-  // The one that follows, wrapping round, as a door at the end of this page.
-  const line = liveProjects();
-  const at = line.findIndex((project) => project.id === slug);
-  const following = line[(at + 1) % line.length];
+  // The projects that follow this one, wrapped round so the scroll never runs
+  // out of work. Five is plenty: nobody reaches the end of six case studies.
+  const line = liveProjects().map((project) => project.id);
+  const at = line.indexOf(slug);
+  const after = [...line.slice(at + 1), ...line.slice(0, at)].slice(0, 5);
 
   // Its number in the body of work, counted from the oldest so a project's
   // number never changes when a newer one is added.
-  const byAge = [...line].sort((a, b) => Number(a.year) - Number(b.year));
-  const number = byAge.findIndex((project) => project.id === slug) + 1;
+  const byAge = [...liveProjects()].sort((a, b) => Number(a.year) - Number(b.year));
+  const numbers = Object.fromEntries(byAge.map((project, i) => [project.id, i + 1]));
 
   return (
     <main className="hbw-site hbw-site--project hbw-site--dark">
@@ -92,20 +93,12 @@ export default async function ProjectPage({ params }: Props) {
           idea={record.idea}
           year={record.year}
           mark={<Logotype slug={slug} name={record.name} />}
-          number={number}
+          numbers={numbers}
           info={<InfoBody data={infoOf(record, experience)} />}
           movements={experience?.movements ?? []}
-          next={
-            following && following.id !== slug
-              ? {
-                  slug: following.id,
-                  name: following.name,
-                  idea: following.idea,
-                  year: following.year,
-                  mark: <Logotype slug={following.id} name={following.name} />,
-                }
-              : null
-          }
+          // Everything after this one, wrapped round, so the scroll never
+          // runs out of work.
+          after={after}
         />
       </div>
 

@@ -1,18 +1,21 @@
 "use client";
 
 /**
- * One project, and the way into the next.
+ * A project, and then the next one, and the next.
  *
- * It used to run on into the project after it, fetching as you scrolled. That
- * put two marks on one page fighting over which was stuck, made the chrome
- * follow a moving target, and meant a visitor never chose anything — they
- * simply ended up somewhere. A case study is one project now, and the next one
- * is a door at the end of it.
+ * A case study is not a page that ends — it runs into the one after it, so a
+ * visitor who keeps scrolling keeps seeing work instead of hitting a footer
+ * and having to decide something. Each project's mark holds in the middle of
+ * the screen while that project passes, and is pushed out by the mark of the
+ * project arriving behind it.
  *
- * That door is the next project's mark on black, carrying the same name the
- * next page carries, so clicking it grows into that project exactly as
- * clicking it from the catalogue does. One motion for entering a project,
- * wherever you enter it from.
+ * The next project is fetched only when someone scrolls far enough to need
+ * it. Stitching them on the server would put every sequence into every
+ * project's payload, which the repo's own guard forbids and which is what
+ * made a case study twenty megabytes before.
+ *
+ * The gallery belongs to one project. Opening a frame opens that project's
+ * sequence and nothing else, however many are on the page by then.
  */
 import React, {
   useCallback,
@@ -168,27 +171,29 @@ export function ProjectRuns({
   idea,
   year,
   mark,
-  number,
   info,
+  numbers,
   movements,
-  next,
+  after,
 }: {
   slug: string;
   name: string;
   idea: string;
   year: string;
   mark: ReactNode;
-  /** Its place in the body of work, shown above the mark. */
-  number: number;
   info: ReactNode;
+  /** Each project's place in the body of work, by slug. */
+  numbers: Record<string, number>;
   movements: Movement[];
-  /** The one that follows, as a door at the end of this one. */
-  next: { slug: string; name: string; idea: string; year: string; mark: ReactNode } | null;
+  /** The projects that follow this one, in order. */
+  after: string[];
 }) {
   const [view, setView] = useState<"scatter" | "grid">("scatter");
   const [open, setOpen] = useState<{ run: number; at: number } | null>(null);
   const [from, setFrom] = useState(0);
   const [ready, setReady] = useState(false);
+  const [more, setMore] = useState<Run[]>([]);
+  const pulling = useRef(false);
 
   const first: Run = useMemo(
     () => ({ slug, name, idea, year, mark, info, frames: framesOf(movements) }),
@@ -202,13 +207,12 @@ export function ProjectRuns({
     setReady(true);
   }, [first.frames.length]);
 
-  const run: Run = useMemo(
-    () =>
-      from
-        ? { ...first, frames: first.frames.slice(from).concat(first.frames.slice(0, from)) }
-        : first,
-    [first, from]
-  );
+  const runs: Run[] = useMemo(() => {
+    const turned = from
+      ? { ...first, frames: first.frames.slice(from).concat(first.frames.slice(0, from)) }
+      : first;
+    return [turned, ...more];
+  }, [first, from, more]);
 
   useEffect(() => {
     try {
@@ -228,6 +232,47 @@ export function ProjectRuns({
     }
   }, []);
 
+  /** Reach the end of what is loaded, and the next project is already coming. */
+  useEffect(() => {
+    const next = after[more.length];
+    if (!next) return;
+    const watch = () => {
+      if (pulling.current) return;
+      // Three screens out, not one. Appending a project pushes the footer
+      // down, and a footer that moves while someone is reading next to it is
+      // the jump they feel — so the work arrives long before they get there.
+      const left = document.body.scrollHeight - (window.scrollY + window.innerHeight);
+      if (left > window.innerHeight * 3) return;
+      pulling.current = true;
+      fetch(`/api/sequence/${next}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((run) => {
+          if (!run) return;
+          setMore((was) => [
+            ...was,
+            {
+              slug: run.slug,
+              name: run.name,
+              idea: run.idea,
+              year: run.year,
+              mark: run.mark ? (
+                <span className="hbw-mark" role="img" aria-label={run.name} dangerouslySetInnerHTML={{ __html: run.mark }} />
+              ) : (
+                run.name
+              ),
+              info: <InfoBody data={run.info} />,
+              frames: run.frames as Frame[],
+            },
+          ]);
+        })
+        .finally(() => {
+          pulling.current = false;
+        });
+    };
+    window.addEventListener("scroll", watch, { passive: true });
+    watch();
+    return () => window.removeEventListener("scroll", watch);
+  }, [after, more.length]);
 
   /** The arrangement moves rather than cuts. */
   const stage = useRef<HTMLDivElement>(null);
@@ -323,69 +368,101 @@ export function ProjectRuns({
       });
     }
     was.current = now;
-  }, [run, view, ready]);
+  }, [runs, view, ready]);
 
+  /**
+   * Which project the chrome is talking about.
+   *
+   * The nav said SCK while a visitor was three projects deep, because the
+   * label was the page's own and the page no longer holds one project. It
+   * follows whichever run is crossing the middle of the screen.
+   */
+  const [here, setHere] = useState(0);
+  const sections = useRef<(HTMLElement | null)[]>([]);
 
-  const shown = open !== null ? run : null;
+  useEffect(() => {
+    const watch = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const i = sections.current.findIndex((el) => el === entry.target);
+          if (i >= 0) setHere(i);
+        }
+      },
+      // A band across the middle: the run crossing it is the one you are in.
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    for (const el of sections.current) if (el) watch.observe(el);
+    return () => watch.disconnect();
+  }, [runs.length]);
+
+  const shown = open ? runs[open.run] : null;
+  const current = runs[here] ?? runs[0];
 
   return (
     <>
       <Chrome
-        label={`${run.name} — ${run.idea}, ${run.year}`}
+        label={`${current.name} — ${current.idea}, ${current.year}`}
         view={view}
         onPick={pick}
-        info={run.info}
+        info={current.info}
       />
 
       <div ref={stage}>
-        <section className="hbw-run is-here" aria-label={run.name}>
-          {/* The mark the catalogue grew into, holding the middle of the screen. */}
-          <header className="hbw-run__mark" style={{ viewTransitionName: `p-${run.slug}` }}>
-            {/* The act number, the way a title page numbers one. */}
-            <p className="hbw-run__no" aria-hidden="true">
-              ( {number} )
-            </p>
-            <h1>{run.mark}</h1>
-          </header>
-
-          {view === "grid" ? (
-            <div className="hbw-col is-grid">
-              {rowsOf(run.frames).map((row, r) => (
-                <div className="hbw-row" key={`row-${r}`}>
-                  {row.map((frame) => (
-                    <Shot
-                      key={frame.id}
-                      frame={frame}
-                      i={run.frames.indexOf(frame)}
-                      onOpen={(at) => setOpen({ run: 0, at })}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="hbw-col">
-              {run.frames.map((frame, i) => (
-                <Shot key={frame.id} frame={frame} i={i} onOpen={(at) => setOpen({ run: 0, at })} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/*
-          The way into the next one. The same black box the catalogue opens a
-          project with, carrying the same name the next page carries — so it
-          grows into that project rather than cutting to it.
-        */}
-        {next ? (
-          <a className="hbw-next" href={`/projects/${next.slug}`} style={{ viewTransitionName: `p-${next.slug}` }}>
-            <span className="hbw-next__says hbw-m">Next</span>
-            <span className="hbw-next__mark">{next.mark}</span>
-            <span className="hbw-next__says hbw-m">
-              {next.name} — {next.idea}, {next.year}
-            </span>
-          </a>
-        ) : null}
+        {runs.map((run, index) => (
+          <section
+            className={`hbw-run${here === index ? " is-here" : ""}`}
+            key={`${run.slug}-${index}`}
+            aria-label={run.name}
+            ref={(el) => {
+              sections.current[index] = el;
+            }}
+          >
+            {/* Held in the middle of the screen, and pushed out by the next. */}
+            <header
+              className="hbw-run__mark"
+              // Only the project that was navigated to: a name has to be
+              // unique on the page, and the runs fetched below it were never
+              // on the page you came from.
+              style={index === 0 ? { viewTransitionName: `p-${run.slug}` } : undefined}
+            >
+              {/* The act number, the way a title page numbers one. */}
+              <p className="hbw-run__no" aria-hidden="true">
+                ( {numbers[run.slug] ?? index + 1} )
+              </p>
+              {index === 0 ? <h1>{run.mark}</h1> : <h2>{run.mark}</h2>}
+            </header>
+            {view === "grid" ? (
+              <div className="hbw-col is-grid">
+                {rowsOf(run.frames).map((row, r) => (
+                  <div className="hbw-row" key={`${run.slug}-row-${r}`}>
+                    {row.map((frame) => (
+                      <Shot
+                        key={frame.id}
+                        frame={frame}
+                        i={run.frames.indexOf(frame)}
+                        onOpen={(at) => setOpen({ run: index, at })}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="hbw-col">
+                {run.frames.map((frame, i) => (
+                  <Shot key={frame.id} frame={frame} i={i} onOpen={(at) => setOpen({ run: index, at })} />
+                ))}
+              </div>
+            )}
+            {index > 0 ? (
+              <p className="hbw-run__says hbw-m">
+                <a href={`/projects/${run.slug}`}>
+                  {run.name} — {run.idea}, {run.year}
+                </a>
+              </p>
+            ) : null}
+          </section>
+        ))}
       </div>
 
       {open && shown ? (
