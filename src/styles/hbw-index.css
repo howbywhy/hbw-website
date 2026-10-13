@@ -1376,3 +1376,120 @@ a.hbw-row {
 html[data-hbw-turning] .hbw-col__frame {
   opacity: 0;
 }
+
+/* ---- The controls row ---- */
+
+/*
+ * Under the nav, fixed with it, and starting at the same gutter as both the
+ * nav items above and the work below — one left edge down the whole page.
+ */
+.hbw-rail {
+  position: fixed;
+  top: 38px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  gap: 1.1rem;
+  padding: 0 var(--gut) 8px;
+  background: linear-gradient(var(--paper) 72%, transparent);
+  font-size: var(--nav);
+  pointer-events: none;
+}
+
+.hbw-rail button {
+  pointer-events: auto;
+  color: var(--mute);
+  transition: color var(--answer) var(--ease);
+}
+
+.hbw-rail button:hover,
+.hbw-rail button[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.hbw-rail__views {
+  display: flex;
+  gap: 1.1rem;
+}
+
+/* The work clears the two fixed rows. */
+.hbw-site--project .hbw-wrap {
+  padding-top: 18px;
+}
+
+/* ---- One project running into the next ---- */
+
+.hbw-run {
+  position: relative;
+}
+
+/*
+ * The mark holds in the middle of the screen while its own project passes,
+ * and is pushed out by the mark of the project arriving behind it. Sticky with
+ * no height of its own, so the work lays over it rather than starting below.
+ */
+.hbw-run__mark {
+  position: sticky;
+  top: 50vh;
+  z-index: 0;
+  height: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hbw-run__mark h1,
+.hbw-run__mark h2 {
+  margin: 0;
+  transform: translateY(-50%);
+  font-size: clamp(2.8rem, 10vw, 8rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.hbw-run__mark .hbw-mark {
+  display: block;
+  width: min(52vw, 760px);
+  color: var(--ink);
+}
+
+.hbw-run__mark .hbw-mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Each run's work clears the mark it opens on. */
+.hbw-run .hbw-col {
+  padding-top: clamp(190px, 30vh, 330px);
+  padding-bottom: clamp(60px, 14vh, 150px);
+}
+
+.hbw-run__says {
+  margin: 0 0 clamp(40px, 9vh, 110px);
+}
+
+.hbw-run__says a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .hbw-run__mark {
+    position: static;
+    height: auto;
+    padding-top: 10px;
+  }
+  .hbw-run__mark h1,
+  .hbw-run__mark h2 {
+    transform: none;
+  }
+  .hbw-run__mark .hbw-mark {
+    width: min(72vw, 420px);
+  }
+  .hbw-run .hbw-col {
+    padding-top: 16px;
+  }
+}

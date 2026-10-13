@@ -72,16 +72,19 @@ export function Bar({
           <a href="/">How by Why</a>
         </p>
         <div className="hbw-bar__what">
-          {info ? (
-            <button type="button" className="hbw-bar__info" onClick={() => setOpen(true)} aria-haspopup="dialog">
-              {info.label}
-              <span aria-hidden="true"> ↓</span>
-            </button>
-          ) : (
-            says ?? <p style={{ margin: 0 }}>Clarity for brands at a turning point.</p>
-          )}
+          {info ? <p style={{ margin: 0 }}>{info.label}</p> : says ?? <p style={{ margin: 0 }}>Clarity for brands at a turning point.</p>}
         </div>
       </header>
+
+      {/* The controls: one row, under the nav, starting at the same gutter. */}
+      {info ? (
+        <div className="hbw-rail">
+          <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog">
+            Information
+          </button>
+          {/* The collage portals Scatter/Grid in here. */}
+        </div>
+      ) : null}
 
       {studio ? <StudioSheet onClose={close} /> : null}
       {open && info ? (

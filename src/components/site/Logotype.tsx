@@ -27,11 +27,18 @@ function inked(svg: string) {
     .trim();
 }
 
-export function Logotype({ slug, name }: { slug: string; name: string }) {
-  let svg: string;
+/** The same mark as a string, for the route that hands a project onward. */
+export function inkedLogotype(slug: string): string | null {
   try {
-    svg = inked(readFileSync(path.join(DIR, `${slug}.svg`), "utf8"));
+    return inked(readFileSync(path.join(DIR, `${slug}.svg`), "utf8"));
   } catch {
+    return null;
+  }
+}
+
+export function Logotype({ slug, name }: { slug: string; name: string }) {
+  const svg = inkedLogotype(slug);
+  if (!svg) {
     // No mark for this project: its name is a perfectly good heading.
     return <span className="hbw-mark__text">{name}</span>;
   }

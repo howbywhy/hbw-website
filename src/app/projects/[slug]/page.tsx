@@ -5,7 +5,7 @@ import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, projectNode, studioNode } from "@/lib/structured-data";
 import { loadExperiences } from "@/sanity/load-experiences";
 import { Bar } from "@/components/site/Bar";
-import { ProjectCollage } from "@/components/site/ProjectCollage";
+import { ProjectRuns } from "@/components/site/ProjectRuns";
 import { Logotype } from "@/components/site/Logotype";
 import { ProjectInfo } from "@/components/site/ProjectInfo";
 import "@/styles/hbw-index.css";
@@ -52,9 +52,11 @@ export default async function ProjectPage({ params }: Props) {
   const experiences = await loadExperiences([slug]);
   const experience = experiences[slug] ?? null;
 
-  const line = liveProjects();
-  const at = line.findIndex((project) => project.id === slug);
-  const next = line[(at + 1) % line.length];
+  // The projects that follow this one, wrapped round so the scroll never runs
+  // out of work. Five is plenty: nobody reaches the end of six case studies.
+  const line = liveProjects().map((project) => project.id);
+  const at = line.indexOf(slug);
+  const after = [...line.slice(at + 1), ...line.slice(0, at)].slice(0, 5);
 
   return (
     <main className="hbw-site hbw-site--project">
@@ -82,20 +84,22 @@ export default async function ProjectPage({ params }: Props) {
       />
 
       <div className="hbw-wrap">
-        <ProjectCollage
-          movements={experience?.movements ?? []}
+<ProjectRuns
+          slug={slug}
           name={record.name}
+          idea={record.idea}
+          year={record.year}
           mark={<Logotype slug={slug} name={record.name} />}
+          movements={experience?.movements ?? []}
+          // Everything after this one, wrapped round, so the scroll never
+          // runs out of work.
+          after={after}
         />
 
         <nav className="hbw-foot hbw-m" aria-label="More">
-          <a href="/work">All work</a>
-          <a href="/">Index</a>
-          {next && next.id !== slug ? (
-            <a href={`/projects/${next.id}`} style={{ marginLeft: "auto" }}>
-              Next — {next.name}
-            </a>
-          ) : null}
+          <a href="/">All work</a>
+          <a href="/studio">Studio</a>
+          <a href="/contact">Contact</a>
         </nav>
       </div>
     </main>

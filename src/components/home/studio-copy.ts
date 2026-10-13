@@ -75,6 +75,17 @@ export const MANIFESTO_COPY = {
   ],
   body: [
     ["Strong brands don’t begin with design.", "They begin with clarity."],
+    /*
+     * Craft, as belief rather than as position.
+     *
+     * The position stays "clarity for brands at a turning point" — it names
+     * when to call, which is what a position is for. Making things beautifully
+     * and intentionally is how the work gets done, not when it is needed, and
+     * every studio worth admiring claims it. It belongs here, under the
+     * position, where it is a conviction instead of a sales line.
+     */
+    ["Concept comes first.", "An idea you can say out loud is an idea that can be built on."],
+    ["Then it is made beautifully, and on purpose.", "Nothing here is arbitrary."],
     ["What do you stand for?", "Why does it matter?", "What should people feel?"],
     ["When that’s clear, everything that follows becomes intentional."],
     ["There is no gap between what you say and what people experience."],
