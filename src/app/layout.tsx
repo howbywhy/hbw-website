@@ -48,7 +48,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="hbw-workspace hbw-entered" suppressHydrationWarning>
       <head>
-        <link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/*
+          Medium first: the site is set in it, so it is the one face that holds
+          up first paint. Regular follows for the pages still on the old shell.
+          The subset Geist.woff2 this used to preload is no longer referenced by
+          any @font-face — it was forty kilobytes fetched for nothing.
+        */}
+        <link rel="preload" href="/fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         {/*
           Arrival. Runs before first paint so the chrome starts hidden rather
           than flashing in and then fading. The class is dropped once the

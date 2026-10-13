@@ -1,14 +1,28 @@
+/*
+ * Geist, Regular and Medium, as a matched pair.
+ *
+ * Both are the official cuts from the geist package (SIL OFL, licence kept
+ * beside them at /fonts/Geist-LICENSE.txt), and they are shipped together on
+ * purpose. The Regular this site had been using was an older subset — 815
+ * glyphs against 975, and vertical metrics of 920/-220/100 against 1005/-295/0
+ * — so pairing it with a current Medium would have moved every line box on the
+ * page the moment a weight changed. Measured before swapping, not after.
+ *
+ * Each face declares its own weight, so a weight that is not here falls back
+ * to one that is rather than being synthesised into a smeared faux-bold.
+ */
 @font-face {
   font-family: "Geist";
-  /* Pinned. Only Regular is in the repo, and an unweighted @font-face matches
-     any weight asked for — so a font-weight:500 anywhere would have been drawn
-     as a smeared faux-bold rather than refused. With this, 500 falls back to
-     the real 400 until a real Medium is added beside it. */
+  src: url("/fonts/Geist-Regular.woff2") format("woff2");
   font-weight: 400;
-  src: url("/fonts/Geist.woff2") format("woff2"),
-    url("/fonts/671a30d745cd22c8cc5c570e_Geist-Regular.woff2") format("woff2"),
-    url("/fonts/671a30d6ef2a1073319beaeb_Geist-Regular.otf") format("opentype");
-  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Medium.woff2") format("woff2");
+  font-weight: 500;
   font-style: normal;
   font-display: block;
 }

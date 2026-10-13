@@ -67,6 +67,9 @@
   background: var(--paper);
   color: var(--ink);
   font-family: Geist, sans-serif;
+  /* Medium, not Regular. The site is set in it throughout; the real cut is
+     declared at 500 in document.css, so this is a weight and not a synthesis. */
+  font-weight: 500;
   font-size: var(--read);
   line-height: 1.2;
   letter-spacing: var(--track);
