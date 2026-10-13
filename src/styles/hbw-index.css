@@ -85,6 +85,35 @@
 }
 
 /*
+ * Moving between pages is a move, not a cut.
+ *
+ * Clicking a project was the one unsequenced moment left on the site: a hard
+ * navigation, a white flash, and the work you had been looking at gone before
+ * the next thing arrived. The browser will cross-fade one document into the
+ * next if asked, on the site's own timing, and fall back to a plain navigation
+ * where it cannot — so this costs nothing where it is unsupported.
+ *
+ * Declared at the top level, as the at-rule requires: it cannot sit inside a
+ * media query, so reduced motion is honoured on the animation instead.
+ */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--answer);
+  animation-timing-function: var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/*
  * Anything that opens over the site.
  *
  * The page stays visible behind it, blurred rather than replaced — so opening
@@ -435,7 +464,10 @@ a.hbw-row {
     transition: none !important;
   }
   .hbw-studio-sheet,
-  .hbw-studio-sheet__panel {
+  .hbw-studio-sheet__panel,
+  .hbw-lamp,
+  .hbw-lamp__field img,
+  .hbw-lamp__field video {
     animation: none;
   }
 }
@@ -889,6 +921,7 @@ a.hbw-row {
 /* In colour: there is only one job in here, and the work is the subject. */
 .hbw-lamp__field img,
 .hbw-lamp__field video {
+  animation: hbw-arrive var(--settle) var(--ease) both;
   display: block;
   width: auto;
   height: auto;
@@ -1254,6 +1287,17 @@ a.hbw-row {
   /* Unrolls downward, so it reads as coming from under the nav rather than
      fading in on top of the page. */
   animation: hbw-unroll var(--settle) var(--ease) both;
+}
+
+@keyframes hbw-arrive {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes hbw-unroll {

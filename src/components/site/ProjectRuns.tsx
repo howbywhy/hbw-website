@@ -264,10 +264,29 @@ export function ProjectRuns({
     if (firstPass && turning) document.documentElement.removeAttribute("data-hbw-turning");
 
     if (!firstPass && !still) {
+      // Where a run has just been fetched, its frames are new to the page.
+      // They have no previous position to move from, so they arrive instead —
+      // same duration, same curve, same stagger as everything else.
+      let arriving = 0;
       frames.forEach((frame, i) => {
         const before = was.current.get(frame.dataset.frame!);
         const after2 = now.get(frame.dataset.frame!);
-        if (!before || !after2 || !after2.width) return;
+        if (!after2 || !after2.width) return;
+        if (!before) {
+          frame.animate(
+            [
+              { opacity: 0, transform: "translateY(18px) scale(0.985)" },
+              { opacity: 1, transform: "none" },
+            ],
+            {
+              duration: SETTLE,
+              delay: Math.min(arriving++ * STAGGER, STAGGER_CAP),
+              easing: EASE,
+              fill: "both",
+            }
+          );
+          return;
+        }
         const dx = before.left - after2.left;
         const dy = before.top - after2.top;
         const ds = before.width / after2.width;
