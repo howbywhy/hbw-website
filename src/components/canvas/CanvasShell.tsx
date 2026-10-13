@@ -26,7 +26,6 @@ import { workspace } from "@/components/home/workspace";
 import type { ProjectRecord } from "@/components/home/catalog";
 import type { WallTile } from "@/sanity/load-wall";
 import { RevealField, type RevealHandle } from "@/components/canvas/RevealField";
-import { WorkIndex } from "@/components/canvas/WorkIndex";
 import { ReachSheet } from "@/components/canvas/ReachSheet";
 
 type Over = { name: string; idea: string; year: string } | null;
@@ -38,10 +37,31 @@ export function CanvasShell({ tiles, projects }: { tiles: WallTile[]; projects: 
   /** Something is on the page — by a visitor's hand or the page's own. */
   const [marks, setMarks] = useState(false);
   const [over, setOver] = useState<Over>(null);
-  const [sheet, setSheet] = useState<"work" | "reach" | null>(null);
+  const [sheet, setSheet] = useState<"reach" | null>(null);
   const [poster, setPoster] = useState(false);
 
   const onTouch = useCallback(() => setTouched(true), []);
+
+  /**
+   * Contact is a sheet, not a page, so other pages reach it by hash. Arriving
+   * on /#contact opens it; closing it puts the address back so a reload or a
+   * back button does not reopen what was just shut.
+   */
+  useEffect(() => {
+    const open = () => {
+      if (window.location.hash === "#contact") setSheet("reach");
+    };
+    open();
+    window.addEventListener("hashchange", open);
+    return () => window.removeEventListener("hashchange", open);
+  }, []);
+
+  const shut = useCallback(() => {
+    setSheet(null);
+    if (window.location.hash === "#contact") {
+      history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
   const onMarks = useCallback(() => setMarks(true), []);
 
   /**
@@ -103,9 +123,7 @@ export function CanvasShell({ tiles, projects }: { tiles: WallTile[]; projects: 
       <header className="hbw-canvas__top">
         <p className="hbw-canvas__mark">How by Why</p>
         <nav className="hbw-canvas__nav" aria-label="Site">
-          <button type="button" onClick={() => setSheet("work")} aria-haspopup="dialog">
-            Work
-          </button>
+          <a href="/work">Work</a>
           <a href="/studio">Studio</a>
           <button type="button" onClick={() => setSheet("reach")} aria-haspopup="dialog">
             Contact
@@ -151,14 +169,11 @@ export function CanvasShell({ tiles, projects }: { tiles: WallTile[]; projects: 
         </ul>
       </nav>
 
-      {sheet === "work" ? (
-        <WorkIndex projects={projects} onClose={() => setSheet(null)} />
-      ) : null}
       {sheet === "reach" ? (
         <ReachSheet
-          onClose={() => setSheet(null)}
+          onClose={shut}
           onPoster={() => {
-            setSheet(null);
+            shut();
             intoPoster();
           }}
         />

@@ -13,6 +13,19 @@ const nextConfig: NextConfig = {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
       /**
+       * The work index moved to /work, which lays every project out as a grid
+       * rather than a browse surface. Two indexes of the same six projects
+       * compete with each other in search, so the old address points at the
+       * new one.
+       *
+       * Not permanent, deliberately. /projects is already indexed, and a 308
+       * is cached by browsers and hard to take back. Make it permanent once
+       * /work has settled and is the address that should carry the ranking.
+       *
+       * Exact match only: /projects/<slug> is a case study and is untouched.
+       */
+      { source: "/projects", destination: "/work", permanent: false },
+      /**
        * The CMS, on an address that is easy to remember and type.
        *
        * This points at the deployed Studio rather than embedding one: Sanity 6
