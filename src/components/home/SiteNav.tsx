@@ -56,7 +56,11 @@ export function SiteNav({
   heading,
 }: Props) {
   const inProject = face === "view" && Boolean(projectName);
-  const line = inProject && projectIdea ? projectIdea : face === "home" && hoverIdea ? hoverIdea : TAGLINE;
+  // On home the statement below says the positioning, so the nav does not
+  // repeat it: the slot stays empty until a card is hovered, and is then a
+  // readout of that project. Every other face has no statement on the page,
+  // so there the line still carries it.
+  const line = inProject && projectIdea ? projectIdea : face === "home" ? hoverIdea ?? "" : TAGLINE;
   const [copied, setCopied] = useState(false);
   const copiedTimer = useRef(0);
 

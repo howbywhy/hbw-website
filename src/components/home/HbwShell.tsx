@@ -6,6 +6,7 @@ import { flushSync } from "react-dom";
 import { SiteNav } from "@/components/home/SiteNav";
 import { WorkScroll, type WorkInView, type WorkScrollHandle } from "@/components/home/WorkScroll";
 import { PosterTool } from "@/components/home/PosterTool";
+import { HomeStatement } from "@/components/home/HomeStatement";
 import {
   matchesFilter,
   projectById,
@@ -13,6 +14,14 @@ import {
   type ProjectRecord,
 } from "@/components/home/catalog";
 import { CatalogProvider, resolveCatalog } from "@/components/home/CatalogContext";
+
+/**
+ * Prototype, October 2026. The Poster took the top 577px of the home page —
+ * 64% of a 900px viewport — to hold a blank canvas, and the work got 323.
+ * With it off, the work has the page. The tool itself is untouched and still
+ * mounted everywhere else; this only decides whether it opens on home.
+ */
+const POSTER_ON_HOME = false;
 import {
   ExperienceProvider,
   resolveExperience,
@@ -1524,7 +1533,11 @@ export function HbwShell({
             one, the first thing either meets is the toolbar. role rather than
             <main> so no layout or stylesheet selector moves. */}
         <div className="hbw-window" role="main">
-          <PosterTool dormant={!makeActive || panel === "studio" || indexOpen || workCovering} />
+          {POSTER_ON_HOME ? (
+            <PosterTool dormant={!makeActive || panel === "studio" || indexOpen || workCovering} />
+          ) : (
+            <HomeStatement />
+          )}
           <WorkScroll
             ref={workScrollRef}
             visible={makeActive && !swap && panel !== "studio" && !indexOpen}

@@ -496,7 +496,7 @@ html.hbw-workspace .hbw-home .hbw-line__dashes button.is-on::after {
  */
 .hbw-card {
   --t: clamp(0, calc(var(--rise) * 1.9 - var(--i) * 0.15), 1);
-  flex: 0 0 var(--card-w, clamp(18rem, 33vw, 36rem));
+  flex: 0 0 var(--card-w, clamp(18rem, 46vw, 52rem));
   pointer-events: auto;
   opacity: clamp(0, calc(var(--t) * 1.6), 1);
   transform:
@@ -1105,11 +1105,16 @@ html.hbw-workspace .hbw-home .hbw-detail--studio {
 }
 
 html.hbw-workspace .hbw-home .hbw-studio {
-  --t: clamp(0.875rem, 0.45rem + 0.55vw, 1.0625rem);
-  --L: calc(var(--t) * 1.5);
-  --t-caption: max(0.75rem, calc(var(--t) * 0.8));
-  --t-lead: calc(var(--t) * 1.333);
-  --t-display: calc(var(--t) * 2.37);
+  /* Reskin: seven sizes down to two. The page already knew the idea — its
+     opening statement is one size that turns from ink to grey halfway through,
+     and the hierarchy reads perfectly well from the colour. So the label, the
+     caption and the body all sit at the reading size now, and only the
+     statement is larger. What used to be a size difference is a colour one. */
+  --t: clamp(1.0625rem, 0.7rem + 0.6vw, 1.1875rem);
+  --L: calc(var(--t) * 1.3);
+  --t-caption: var(--t);
+  --t-lead: var(--t);
+  --t-display: calc(var(--t) * 1.6);
   --interval: var(--hbw-space-4);
   position: absolute;
   inset: 0;
@@ -2640,3 +2645,55 @@ html[data-hbw-arriving] .hbw-poster-toolbar {
     animation-delay: 0ms;
   }
 }
+
+/* --- What you land on ---------------------------------------------------- *
+ * The statement sits where the Poster canvas did. It does not move: the line's
+ * --rise has been pinned at 1 since the scroll became horizontal, so hanging
+ * an opacity on it would have been CSS that looks like motion and is not. The
+ * movement on this page is the work travelling sideways under fixed words.
+ * The sizes are the studio page's two registers, because this is the same
+ * voice saying the same thing.
+ */
+html.hbw-workspace .hbw-home .hbw-statement {
+  --t: clamp(1.0625rem, 0.7rem + 0.6vw, 1.1875rem);
+  display: grid;
+  align-content: start;
+  gap: clamp(28px, 6vh, 64px);
+  padding: clamp(72px, 14vh, 150px) var(--hbw-space-4) clamp(32px, 7vh, 80px);
+}
+
+html.hbw-workspace .hbw-home .hbw-statement__line {
+  margin: 0;
+  max-width: 24ch;
+  font-size: calc(var(--t) * 1.6);
+  line-height: 1.16;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+html.hbw-workspace .hbw-home .hbw-statement__grey {
+  color: var(--hbw-muted);
+}
+
+html.hbw-workspace .hbw-home .hbw-statement__when {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  max-width: 58ch;
+  font-size: var(--t);
+  line-height: 1.3;
+  color: var(--hbw-muted);
+}
+
+@media (max-width: 760px) {
+  html.hbw-workspace .hbw-home .hbw-statement {
+    padding-top: clamp(40px, 9vh, 80px);
+    gap: 24px;
+  }
+  html.hbw-workspace .hbw-home .hbw-statement__when {
+    display: none;
+  }
+}
+
