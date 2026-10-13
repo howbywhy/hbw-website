@@ -1,19 +1,17 @@
 /**
- * The bar, worn the way the studio has always worn it.
+ * The bar.
  *
- * Three chips: where you can go on the left, the name in the middle, the
- * positioning on the right. That arrangement is lifted straight off the live
- * site — it is the one piece of furniture people already recognise as HBW,
- * and the rebuild had replaced it with a row of monospace labels that could
- * have belonged to anyone.
+ * Three things, set as plain type: where you can go, the name, the
+ * positioning. No chips — the boxes had come from the old site and they made
+ * the nav read as software. Set in the display face, in caps, tracked out, at
+ * the same size as the line opposite, so the three sit as one row of writing.
+ *
+ * Index is gone. The name is the way home, which is what a wordmark is for.
  */
-export function Bar({ here }: { here?: "index" | "work" | "studio" | "contact" }) {
+export function Bar({ here }: { here?: "work" | "studio" | "contact" }) {
   return (
     <header className="hbw-bar">
       <nav className="hbw-bar__nav" aria-label="Site">
-        <a href="/" aria-current={here === "index" ? "page" : undefined}>
-          Index
-        </a>
         <a href="/work" aria-current={here === "work" ? "page" : undefined}>
           Work
         </a>
@@ -25,11 +23,9 @@ export function Bar({ here }: { here?: "index" | "work" | "studio" | "contact" }
         </a>
       </nav>
       <p className="hbw-bar__mark">
-        <span className="hbw-chip">How by Why</span>
+        <a href="/">How by Why</a>
       </p>
-      <p className="hbw-bar__what">
-        <span className="hbw-chip">Clarity for brands at a turning point.</span>
-      </p>
+      <p className="hbw-bar__what">Clarity for brands at a turning point.</p>
     </header>
   );
 }

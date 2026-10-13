@@ -3,10 +3,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
 import { loadIndex } from "@/sanity/load-index";
-import { indexSpan } from "@/components/home/index-entry";
 import { STUDIO_COPY } from "@/components/home/studio-copy";
 import { Bar } from "@/components/site/Bar";
-import { IndexRows } from "@/components/site/IndexRows";
+import { WorkList } from "@/components/site/WorkList";
 import "@/styles/hbw-index.css";
 
 const title = SITE_TITLE;
@@ -36,12 +35,11 @@ export const metadata: Metadata = {
  */
 export default async function IndexPage() {
   const entries = await loadIndex();
-  const span = indexSpan(entries);
 
   return (
     <main className="hbw-site">
       <StructuredData nodes={[studioNode(), founderNode(), websiteNode(), workListNode()]} />
-      <Bar here="index" />
+      <Bar />
 
       <div className="hbw-wrap">
         <section className="hbw-say">
@@ -50,19 +48,10 @@ export default async function IndexPage() {
           <p>{STUDIO_COPY.glimpse}</p>
         </section>
 
-        <div className="hbw-band">
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            Index
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {span.count} projects · {span.from}—{span.to}
-          </p>
-        </div>
-
-        <IndexRows entries={entries} />
+        <WorkList entries={entries} />
 
         <nav className="hbw-foot hbw-m" aria-label="More">
-          <a href="/work">Work</a>
+          <a href="/work">All work</a>
           <a href="/studio">Studio</a>
           <a href="/contact">Contact</a>
         </nav>

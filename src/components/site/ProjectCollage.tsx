@@ -101,14 +101,22 @@ export function ProjectCollage({
         above the grid now and the grid is pulled up over it, so the first
         frames cross the type by construction rather than by luck.
       */}
-      <header className="hbw-col__name">
-        <p className="hbw-m hbw-col__idea">{idea}</p>
-        <h1>{name}</h1>
-      </header>
-      <div className="hbw-col">
-        {movements.map((movement, i) => (
-          <Frame key={movement.id} movement={movement} i={i} name={name} />
-        ))}
+      <div className="hbw-col__stage">
+        {/*
+          The title holds while the work moves over it. Sticky rather than
+          fixed, so it is the collage that governs how long it stays — it
+          arrives with the first frame and leaves with the last, instead of
+          sitting under the Information panel at the end of the page.
+        */}
+        <header className="hbw-col__name">
+          <p className="hbw-m hbw-col__idea">{idea}</p>
+          <h1>{name}</h1>
+        </header>
+        <div className="hbw-col">
+          {movements.map((movement, i) => (
+            <Frame key={movement.id} movement={movement} i={i} name={name} />
+          ))}
+        </div>
       </div>
     </>
   );

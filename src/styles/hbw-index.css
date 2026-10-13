@@ -55,6 +55,9 @@
   /* Two faces: Geist runs the site, the display face takes the headlines. */
   --display: "HBW Display", Geist, Georgia, serif;
 
+  /* The bar and the section labels: one size for everything set in caps. */
+  --nav: 0.8125rem;
+
   --read: 0.9375rem;
   --meta: 0.8125rem;
   --track: 0.02em;
@@ -68,6 +71,7 @@
   line-height: 1.2;
   letter-spacing: var(--track);
   min-height: 100vh;
+  padding-top: 52px;
   padding-bottom: clamp(60px, 14vh, 160px);
 }
 
@@ -93,62 +97,78 @@
   color: var(--mute);
 }
 
-/* A label that sits in the studio's chip rather than floating as bare type. */
+/* A section label, in the bar's voice. No box: the rule under it does the
+   dividing, and a chip here made every heading look like a button. */
 .hbw-chip {
   display: inline-block;
-  padding: 5px 8px;
-  border-radius: var(--r);
-  background: var(--chip);
+  font-family: var(--display);
+  font-size: var(--nav);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink);
-  font-size: var(--meta);
-  letter-spacing: var(--track);
 }
 
+/*
+ * Fixed, not sticky: the bar is the one thing on the page that never moves,
+ * and the work passes behind it.
+ */
 .hbw-bar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 5;
+  left: 0;
+  right: 0;
+  z-index: 6;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: var(--gut);
-  align-items: start;
-  padding: 10px var(--gut);
-  background: var(--paper);
+  align-items: baseline;
+  padding: 14px var(--gut);
+  /* Enough ground to stay legible over a frame passing under it. */
+  background: linear-gradient(var(--paper) 62%, transparent);
+  pointer-events: none;
 }
 
-/* Chip groups: one rounded field, the items inside it sharing the ground. */
+.hbw-bar a,
+.hbw-bar p {
+  pointer-events: auto;
+}
+
+/* All three set the same: display face, caps, tracked, one size. */
+.hbw-bar__nav,
+.hbw-bar__mark,
+.hbw-bar__what {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--nav);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
 .hbw-bar__nav {
   display: flex;
+  gap: 1.6rem;
   justify-self: start;
-  border-radius: var(--r);
-  background: var(--chip);
-  overflow: hidden;
 }
 
 .hbw-bar__nav a {
-  padding: 6px 10px;
   color: var(--mute);
-  transition: background 140ms linear, color 140ms linear;
+  transition: color 140ms linear;
 }
 
-.hbw-bar__nav a:hover {
-  color: var(--ink);
-}
-
+.hbw-bar__nav a:hover,
 .hbw-bar__nav a[aria-current="page"] {
-  background: var(--chip-on);
   color: var(--ink);
 }
 
 .hbw-bar__mark {
-  margin: 0;
   justify-self: center;
 }
 
 .hbw-bar__what {
-  margin: 0;
   justify-self: end;
   text-align: right;
+  color: var(--mute);
 }
 
 /* ---- Page furniture ---- */
@@ -206,14 +226,13 @@
 
 .hbw-row {
   display: grid;
-  grid-template-columns: 2.6rem minmax(7rem, 1.1fr) minmax(0, 1.5fr) minmax(0, 1fr) 3.4rem;
+  grid-template-columns: minmax(7rem, 1.1fr) minmax(0, 1.5fr) minmax(0, 1fr) 3.4rem;
   gap: var(--gut);
   align-items: baseline;
   padding: 9px 0;
   transition: color 140ms linear;
 }
 
-.hbw-row__no,
 .hbw-row__work,
 .hbw-row__year {
   font-size: var(--meta);
@@ -256,8 +275,15 @@ a.hbw-row {
   margin-right: -8px;
 }
 
-.hbw-row--flat {
+/* Work done but not yet written up. Quieter, never invisible: it is real
+   work, it just has nowhere to go yet. */
+.hbw-row--soon {
   cursor: default;
+  color: var(--mute);
+}
+
+.hbw-rows--soon .hbw-row__name {
+  color: var(--mute);
 }
 
 /* ---- The catalogue: a dense contact sheet ---- */
@@ -387,7 +413,7 @@ a.hbw-row {
     display: none;
   }
   .hbw-row {
-    grid-template-columns: 2.1rem 1fr 3.2rem;
+    grid-template-columns: 1fr 3.2rem;
   }
   .hbw-row__idea,
   .hbw-row__work {
@@ -414,12 +440,15 @@ a.hbw-row {
 }
 
 .hbw-col {
+  position: relative;
+  /* Over the title, always. */
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--gut);
   align-items: start;
-  /* Pulled up over the title, which sits above it. */
-  margin-top: clamp(-180px, -9vw, -40px);
+  /* Clear of the title on arrival, then it scrolls up through it. */
+  padding-top: clamp(190px, 30vh, 330px);
   /* Dense, or the collage is not a collage. Auto-placement never moves
      backwards, so a frame starting at column 4 after one at column 9 drops to
      a whole new row and the page becomes a column of pictures with holes. */
@@ -427,12 +456,22 @@ a.hbw-row {
   margin: clamp(28px, 7vh, 72px) 0 clamp(44px, 10vh, 110px);
 }
 
-/* The title, under everything the grid then lays over it. */
-.hbw-col__name {
+/*
+ * The stage holds both, so the title's stickiness ends where the work does.
+ */
+.hbw-col__stage {
   position: relative;
-  z-index: 1;
+}
+
+/* The title holds; the frames pass over it. */
+.hbw-col__name {
+  position: sticky;
+  top: clamp(72px, 13vh, 132px);
+  z-index: 0;
   text-align: center;
-  padding-top: clamp(20px, 6vh, 64px);
+  /* Out of the flow's height, so the grid starts level with it rather than
+     below it — the first frames have to be able to cross the type. */
+  height: 0;
 }
 
 .hbw-col__name h1 {
@@ -447,7 +486,7 @@ a.hbw-row {
 
 .hbw-col__idea {
   position: absolute;
-  top: clamp(20px, 6vh, 64px);
+  top: -1.6rem;
   left: 0;
   margin: 0;
   text-align: left;
@@ -582,15 +621,19 @@ a.hbw-row {
     grid-column: 1 / -1 !important;
     margin-top: 0 !important;
   }
+  /* No sticky title on a phone: it would sit behind every frame at once. */
   .hbw-col__name {
-    padding-top: 18px;
+    position: static;
+    height: auto;
+    padding-top: 6px;
   }
   .hbw-col__idea {
     position: static;
     margin-bottom: 6px;
+    text-align: center;
   }
   .hbw-col {
-    margin-top: 10px;
+    padding-top: 14px;
   }
   .hbw-info__body {
     grid-template-columns: 1fr;
