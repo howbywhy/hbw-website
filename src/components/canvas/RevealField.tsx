@@ -22,9 +22,18 @@
  * calls per dab however many specks are in it.
  *
  * The mask is drawn entirely by us, so it can be read back: that is what makes
- * "has this spot been uncovered" answerable on click. The wall holds proxied
- * images, same-origin by way of /api/tile, so the view can be read back too
- * and handed to the Poster as a picture.
+ * "has this spot been uncovered" answerable on click.
+ *
+ * Film. Paper coming off a moving image is the whole difference between a
+ * portfolio and a window, so cells that hold a film play. A film is only
+ * fetched once its own part of the page has been uncovered — they are
+ * megabytes, and nobody should pay for one they never saw. Only those cells
+ * repaint, and only while the tab is watched.
+ *
+ * That costs the page its readability: a frame drawn from Sanity's file CDN
+ * taints the canvas, and the Poster needs a picture it can read. So the
+ * snapshot is not the view. It is composed on demand from the stills alone —
+ * every film has a poster frame — into a canvas that has never seen a video.
  */
 import { useCallback, useEffect, useImperativeHandle, useRef, type RefObject } from "react";
 import type { WallTile } from "@/sanity/load-wall";
@@ -76,7 +85,17 @@ export function RevealField({
   const patch = useRef<HTMLCanvasElement | null>(null);
   const cells = useRef<Cell[]>([]);
   const images = useRef(new Map<string, HTMLImageElement>());
+  const films = useRef(new Map<string, HTMLVideoElement>());
+  /** Cells whose paper has come off, and which hold a film: the ones that play. */
+  const playing = useRef(new Set<Cell>());
+  const ticking = useRef(0);
   const marked = useRef(false);
+  /**
+   * Which tiles land in which cells. A wall is far smaller than the pool —
+   * eight cells against forty-odd frames — so without this a visitor would
+   * only ever meet the first eight. It changes on every clear.
+   */
+  const seed = useRef(Math.floor(Math.random() * 1e9));
   const drawing = useRef(false);
   const moved = useRef(0);
   const last = useRef<{ x: number; y: number } | null>(null);
@@ -148,6 +167,18 @@ export function RevealField({
 
       const pad = r + 14;
       compose(x - pad, y - pad, pad * 2, pad * 2);
+      // Anything this mark has opened onto starts playing.
+      for (const cell of cells.current) {
+        if (
+          cell.tile.video &&
+          x + pad > cell.x &&
+          x - pad < cell.x + cell.w &&
+          y + pad > cell.y &&
+          y - pad < cell.y + cell.h
+        ) {
+          wake(cell);
+        }
+      }
     },
     [compose]
   );
@@ -188,11 +219,17 @@ export function RevealField({
     const rows = Math.max(2, Math.round(H / CELL));
     const cw = W / cols;
     const ch = H / rows;
+    // A different hand of frames each time, dealt from the whole pool.
+    const deck = tiles
+      .map((tile, i) => ({ tile, at: Math.sin((i + 1) * 12.9898 + seed.current) * 43758.5453 }))
+      .sort((a, b) => (a.at % 1) - (b.at % 1))
+      .map((entry) => entry.tile);
+
     const out: Cell[] = [];
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         out.push({
-          tile: tiles[(r * cols + c) % tiles.length],
+          tile: deck[(r * cols + c) % deck.length],
           x: c * cw,
           y: r * ch,
           w: cw,
@@ -200,6 +237,8 @@ export function RevealField({
         });
       }
     }
+    // New cell objects: the old live set points at boxes that no longer exist.
+    playing.current.clear();
     cells.current = out;
 
     const g = wall.current!.getContext("2d");
@@ -211,20 +250,105 @@ export function RevealField({
     viewRef.current!.getContext("2d")?.clearRect(0, 0, W, H);
   }, [tiles]);
 
-  /** One picture, cropped to fill its cell. */
-  function paintCell(g: CanvasRenderingContext2D, cell: Cell) {
-    const img = images.current.get(cell.tile.src);
-    if (!img?.complete || !img.naturalWidth) return;
-    const scale = Math.max(cell.w / img.naturalWidth, cell.h / img.naturalHeight);
-    const dw = img.naturalWidth * scale;
-    const dh = img.naturalHeight * scale;
+  /**
+   * One cell, cropped to fill. A film draws its current frame once it has one;
+   * until then it draws its poster, so a cell is never empty while loading.
+   */
+  function paintCell(g: CanvasRenderingContext2D, cell: Cell, stillsOnly = false) {
+    const film = stillsOnly ? null : films.current.get(cell.tile.src);
+    const source: HTMLVideoElement | HTMLImageElement | null =
+      film && film.readyState >= 2 ? film : images.current.get(cell.tile.src) ?? null;
+    const sw = source instanceof HTMLVideoElement ? source.videoWidth : source?.naturalWidth ?? 0;
+    const sh = source instanceof HTMLVideoElement ? source.videoHeight : source?.naturalHeight ?? 0;
+    if (!source || !sw || !sh) return;
+    const scale = Math.max(cell.w / sw, cell.h / sh);
+    const dw = sw * scale;
+    const dh = sh * scale;
     g.save();
     g.beginPath();
     g.rect(cell.x, cell.y, cell.w, cell.h);
     g.clip();
-    g.drawImage(img, cell.x + (cell.w - dw) / 2, cell.y + (cell.h - dh) / 2, dw, dh);
+    g.drawImage(source, cell.x + (cell.w - dw) / 2, cell.y + (cell.h - dh) / 2, dw, dh);
     g.restore();
   }
+
+  /**
+   * Start a film, because the paper over it has just come off.
+   *
+   * Nothing is fetched before this. A muted, inline, looping video is allowed
+   * to autoplay everywhere that matters; where it is refused, the cell keeps
+   * showing the poster frame, which is a still of the same film.
+   */
+  function wake(cell: Cell) {
+    if (!cell.tile.video || playing.current.has(cell)) return;
+    playing.current.add(cell);
+    let film = films.current.get(cell.tile.src);
+    if (!film) {
+      film = document.createElement("video");
+      film.muted = true;
+      film.loop = true;
+      film.playsInline = true;
+      film.preload = "auto";
+      if (cell.tile.webm) {
+        const webm = document.createElement("source");
+        webm.src = cell.tile.webm;
+        webm.type = "video/webm";
+        film.appendChild(webm);
+      }
+      const mp4 = document.createElement("source");
+      mp4.src = cell.tile.video;
+      mp4.type = "video/mp4";
+      film.appendChild(mp4);
+      // Kept in the document, out of sight. A detached media element is not
+      // guaranteed to decode, and a film that never decodes draws nothing.
+      film.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px";
+      document.body.appendChild(film);
+      films.current.set(cell.tile.src, film);
+      film.load();
+    }
+    film.play().catch(() => {
+      /* refused: the poster frame stays, which is a still of this same film */
+    });
+  }
+
+  /**
+   * Repaint the cells that are both uncovered and moving.
+   *
+   * Thirty a second, not sixty: this is a film under paper, not a game, and
+   * halving the composites halves what it costs on a laptop. Nothing runs
+   * while the tab is away, and nothing runs when no film has been uncovered.
+   */
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+    let stop = false;
+    let last = 0;
+    const tick = (now: number) => {
+      if (stop) return;
+      ticking.current = requestAnimationFrame(tick);
+      if (now - last < 33 || document.hidden || !playing.current.size) return;
+      last = now;
+      const g = wall.current?.getContext("2d");
+      if (!g) return;
+      for (const cell of playing.current) {
+        const film = films.current.get(cell.tile.src);
+        if (!film || film.readyState < 2 || film.paused) continue;
+        paintCell(g, cell);
+        compose(cell.x, cell.y, cell.w, cell.h);
+      }
+    };
+    ticking.current = requestAnimationFrame(tick);
+    const held = films.current;
+    return () => {
+      stop = true;
+      cancelAnimationFrame(ticking.current);
+      for (const film of held.values()) {
+        film.pause();
+        film.remove();
+      }
+      held.clear();
+    };
+  }, [compose]);
 
   useImperativeHandle(handle, () => ({
     demo() {
@@ -258,23 +382,37 @@ export function RevealField({
       m.fillStyle = "#fff";
       m.fillRect(0, 0, size.current.w, size.current.h);
       compose(0, 0, size.current.w, size.current.h);
+      for (const cell of cells.current) wake(cell);
       marked.current = true;
       onMarks();
     },
     clear() {
-      const m = mask.current?.getContext("2d");
-      if (!m) return;
-      m.clearRect(0, 0, size.current.w, size.current.h);
-      viewRef.current?.getContext("2d")?.clearRect(0, 0, size.current.w, size.current.h);
+      for (const film of films.current.values()) film.pause();
+      playing.current.clear();
       marked.current = false;
+      // A new hand, so the next marks find work the last ones did not.
+      seed.current = Math.floor(Math.random() * 1e9);
+      build();
     },
     snapshot() {
-      if (!marked.current) return null;
+      if (!marked.current || !mask.current) return null;
+      const { w, h } = size.current;
+      // Not the view: that canvas has had film drawn into it and cannot be
+      // read. This is the same marks over the same work, composed fresh from
+      // the stills, which came through /api/tile and are same-origin.
+      const clean = document.createElement("canvas");
+      clean.width = w;
+      clean.height = h;
+      const g = clean.getContext("2d");
+      if (!g) return null;
+      for (const cell of cells.current) paintCell(g, cell, true);
+      g.globalCompositeOperation = "destination-in";
+      g.drawImage(mask.current, 0, 0);
+      g.globalCompositeOperation = "source-over";
       try {
-        // Readable because every picture came through /api/tile, same-origin.
-        return viewRef.current?.toDataURL("image/png") ?? null;
+        return clean.toDataURL("image/png");
       } catch {
-        // Something tainted it after all: better no picture than a thrown page.
+        // Tainted after all: better no picture than a thrown page.
         return null;
       }
     },
