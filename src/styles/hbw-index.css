@@ -1995,3 +1995,62 @@ html[data-hbw-turning] .hbw-col__frame {
     width: min(68vw, 360px);
   }
 }
+
+/* ---- A project's title page ---- */
+
+/*
+ * The act number, above the mark.
+ *
+ * A body of work has an order and a project has a place in it; saying so in
+ * parentheses, centred, is how a title page has always done it. Counted from
+ * the oldest, so a number is a fact about a project rather than about when you
+ * happen to be looking.
+ */
+.hbw-run__no {
+  margin: 0 0 clamp(14px, 3vh, 34px);
+  font-size: clamp(1.1rem, 0.8rem + 1vw, 1.7rem);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+/* ---- Information, as a page of columns ---- */
+
+/*
+ * Set as a title page sets its notes: narrow columns of small type, justified,
+ * broken across the width rather than run as one long measure. It reads as a
+ * document about the work instead of a panel attached to it, and it puts far
+ * more of the writing on one screen.
+ */
+.hbw-studio-sheet__panel .hbw-info__body {
+  display: block;
+  columns: 4 15rem;
+  column-gap: clamp(18px, 2.4vw, 40px);
+  padding-top: 4px;
+}
+
+.hbw-studio-sheet__panel .hbw-info__part,
+.hbw-studio-sheet__panel .hbw-info__facts {
+  break-inside: avoid-column;
+  max-width: none;
+  margin: 0 0 1.1rem;
+}
+
+.hbw-studio-sheet__panel .hbw-info__part p,
+.hbw-studio-sheet__panel .hbw-info__facts dd {
+  /* Justified with hyphens, the way the reference sets its columns: an even
+     measure is what makes a narrow column read as a block rather than a list. */
+  text-align: justify;
+  hyphens: auto;
+  max-width: none;
+  margin: 0 0 0.5rem;
+}
+
+.hbw-studio-sheet__panel .hbw-info__part h2 {
+  margin: 0 0 0.3rem;
+}
+
+@media (max-width: 760px) {
+  .hbw-studio-sheet__panel .hbw-info__body {
+    columns: 1;
+  }
+}

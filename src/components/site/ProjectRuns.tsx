@@ -168,6 +168,7 @@ export function ProjectRuns({
   idea,
   year,
   mark,
+  number,
   info,
   movements,
   next,
@@ -177,6 +178,8 @@ export function ProjectRuns({
   idea: string;
   year: string;
   mark: ReactNode;
+  /** Its place in the body of work, shown above the mark. */
+  number: number;
   info: ReactNode;
   movements: Movement[];
   /** The one that follows, as a door at the end of this one. */
@@ -338,6 +341,10 @@ export function ProjectRuns({
         <section className="hbw-run is-here" aria-label={run.name}>
           {/* The mark the catalogue grew into, holding the middle of the screen. */}
           <header className="hbw-run__mark" style={{ viewTransitionName: `p-${run.slug}` }}>
+            {/* The act number, the way a title page numbers one. */}
+            <p className="hbw-run__no" aria-hidden="true">
+              ( {number} )
+            </p>
             <h1>{run.mark}</h1>
           </header>
 

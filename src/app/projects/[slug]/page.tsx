@@ -59,6 +59,11 @@ export default async function ProjectPage({ params }: Props) {
   const at = line.findIndex((project) => project.id === slug);
   const following = line[(at + 1) % line.length];
 
+  // Its number in the body of work, counted from the oldest so a project's
+  // number never changes when a newer one is added.
+  const byAge = [...line].sort((a, b) => Number(a.year) - Number(b.year));
+  const number = byAge.findIndex((project) => project.id === slug) + 1;
+
   return (
     <main className="hbw-site hbw-site--project hbw-site--dark">
       <StructuredData
@@ -87,6 +92,7 @@ export default async function ProjectPage({ params }: Props) {
           idea={record.idea}
           year={record.year}
           mark={<Logotype slug={slug} name={record.name} />}
+          number={number}
           info={<InfoBody data={infoOf(record, experience)} />}
           movements={experience?.movements ?? []}
           next={
