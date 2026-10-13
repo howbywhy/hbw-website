@@ -33,6 +33,18 @@
 
   --gut: clamp(10px, 1.1vw, 16px);
 
+  /*
+   * Motion. These are the same numbers as src/components/site/motion.ts, which
+   * is what the FLIP uses — two engines, one set of values, so a frame moving
+   * and a colour changing belong to the same hand.
+   *
+   *   settle  something changing place
+   *   answer  something answering you
+   */
+  --settle: 620ms;
+  --answer: 160ms;
+  --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
+
   background: var(--paper);
   color: var(--ink);
   font-family: Geist, sans-serif;
@@ -127,7 +139,7 @@
 
 .hbw-bar__nav a {
   color: var(--mute);
-  transition: color 140ms linear;
+  transition: color var(--answer) var(--ease);
 }
 
 .hbw-bar__nav a:hover,
@@ -203,7 +215,7 @@
   gap: var(--gut);
   align-items: baseline;
   padding: 9px 0;
-  transition: color 140ms linear;
+  transition: color var(--answer) var(--ease);
 }
 
 .hbw-row__work,
@@ -290,7 +302,7 @@ a.hbw-row {
 
 .hbw-cell video {
   opacity: 0;
-  transition: opacity 180ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-cell:hover video {
@@ -308,7 +320,7 @@ a.hbw-row {
   background: var(--chip-on);
   color: var(--ink);
   opacity: 0;
-  transition: opacity 140ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-cell:hover .hbw-cell__tag,
@@ -486,7 +498,7 @@ a.hbw-row {
 
 .hbw-col__shot video {
   opacity: 0;
-  transition: opacity 200ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-col__frame:hover .hbw-col__shot video {
@@ -496,7 +508,7 @@ a.hbw-row {
 .hbw-col__frame figcaption {
   margin-top: 5px;
   opacity: 0;
-  transition: opacity 140ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-col__frame:hover figcaption {
@@ -636,7 +648,7 @@ a.hbw-row {
   gap: 0.8rem;
   padding-top: 6px;
   opacity: 0;
-  transition: opacity 150ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-col__frame--link:hover .hbw-col__says,
@@ -687,7 +699,7 @@ a.hbw-row {
 .hbw-cell img,
 .hbw-cell video {
   filter: grayscale(1);
-  transition: filter 220ms linear;
+  transition: filter var(--answer) var(--ease);
 }
 
 .hbw-tile:hover .hbw-tile__shot img,
@@ -711,7 +723,7 @@ a.hbw-row {
   text-align: center;
   background: var(--paper);
   cursor: pointer;
-  transition: opacity 620ms ease;
+  transition: opacity var(--settle) var(--ease);
 }
 
 .hbw-intro.is-going {
@@ -804,7 +816,7 @@ a.hbw-row {
   color: var(--ink);
   font-size: var(--meta);
   opacity: 0;
-  transition: opacity 140ms linear;
+  transition: opacity var(--answer) var(--ease);
   pointer-events: none;
 }
 
@@ -906,7 +918,7 @@ a.hbw-row {
 
 .hbw-lamp__step span {
   opacity: 0;
-  transition: opacity 140ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-lamp__step:hover span,
@@ -935,7 +947,7 @@ a.hbw-row {
   /* Grey and set back, so the strip never competes with the picture above it. */
   opacity: 0.4;
   filter: grayscale(1);
-  transition: opacity 160ms linear, filter 160ms linear;
+  transition: opacity var(--answer) var(--ease), filter var(--answer) var(--ease);
 }
 
 .hbw-lamp__thumb img {
@@ -1010,7 +1022,7 @@ a.hbw-row {
   color: var(--ink);
   font-size: var(--meta);
   opacity: 0;
-  transition: opacity 140ms linear;
+  transition: opacity var(--answer) var(--ease);
 }
 
 .hbw-tile:hover .hbw-tile__no {
@@ -1151,7 +1163,7 @@ a.hbw-row {
   width: auto;
   object-fit: cover;
   filter: grayscale(1);
-  transition: filter 220ms linear;
+  transition: filter var(--answer) var(--ease);
 }
 
 .hbw-reel__shot video {
@@ -1159,7 +1171,7 @@ a.hbw-row {
   inset: 0;
   width: 100%;
   opacity: 0;
-  transition: opacity 200ms linear, filter 220ms linear;
+  transition: opacity var(--answer) var(--ease), filter var(--answer) var(--ease);
 }
 
 .hbw-reel__shot:hover img,
@@ -1280,7 +1292,7 @@ a.hbw-row {
 .hbw-bar__info {
   color: var(--mute);
   text-align: right;
-  transition: color 140ms linear;
+  transition: color var(--answer) var(--ease);
 }
 
 .hbw-bar__info:hover {
@@ -1314,7 +1326,7 @@ a.hbw-row {
 
 .hbw-col__view button {
   color: var(--mute);
-  transition: color 140ms linear;
+  transition: color var(--answer) var(--ease);
 }
 
 .hbw-col__view button:hover,

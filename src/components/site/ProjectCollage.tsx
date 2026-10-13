@@ -18,9 +18,18 @@
  * until it runs. The old case studies autoplayed theirs and pulled twenty
  * megabytes a page.
  */
-import React, { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import type { Movement } from "@/components/home/projects/types";
 import { Lightbox, shotsOf } from "@/components/site/Lightbox";
+import { EASE, SETTLE, STAGGER, STAGGER_CAP } from "@/components/site/motion";
 
 /**
  * column start, how many columns wide, and how far it is pulled up.
@@ -78,6 +87,9 @@ function Frame({
   return (
     <figure
       className="hbw-col__frame hbw-col__frame--open"
+      // Stable across arrangements, so a frame can be followed from where it
+      // was to where it goes.
+      data-frame={movement.id}
       onClick={() => onOpen(i)}
       // Custom properties, not finished declarations. An inline grid-column
       // beats any stylesheet rule that is not !important, so the grid view
@@ -182,6 +194,61 @@ export function ProjectCollage({
     [movements, from]
   );
 
+  /**
+   * The arrangement moves rather than cuts.
+   *
+   * Whenever the order or the view changes, every frame is carried from where
+   * it was to where it now is — measured, not guessed: the browser does the
+   * layout and this animates the difference. Each frame starts a little after
+   * the one before it, so the set reads as a sequence resettling rather than
+   * a page swapping.
+   *
+   * The duration and curve come from motion.ts, which is the same pair the
+   * stylesheet uses, so a frame moving and a colour changing are one hand.
+   *
+   * It is a no-op on first paint, because there is no previous arrangement to
+   * come from, and it does nothing at all under reduced motion.
+   */
+  const stage = useRef<HTMLDivElement>(null);
+  const was = useRef(new Map<string, DOMRect>());
+
+  useLayoutEffect(() => {
+    const host = stage.current;
+    if (!host) return;
+    const frames = Array.from(host.querySelectorAll<HTMLElement>("[data-frame]"));
+    const now = new Map<string, DOMRect>();
+    for (const frame of frames) now.set(frame.dataset.frame!, frame.getBoundingClientRect());
+
+    const first = was.current.size === 0;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!first && !still) {
+      frames.forEach((frame, i) => {
+        const before = was.current.get(frame.dataset.frame!);
+        const after = now.get(frame.dataset.frame!);
+        if (!before || !after || !after.width) return;
+        const dx = before.left - after.left;
+        const dy = before.top - after.top;
+        const ds = before.width / after.width;
+        // Anything that has not actually moved is left alone, or the whole
+        // field animates every time one thing changes.
+        if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(ds - 1) < 0.01) return;
+        frame.animate(
+          [
+            { transform: `translate(${dx}px, ${dy}px) scale(${ds})`, opacity: 0.55 },
+            { transform: "none", opacity: 1 },
+          ],
+          {
+            duration: SETTLE,
+            delay: Math.min(i * STAGGER, STAGGER_CAP),
+            easing: EASE,
+            fill: "both",
+          }
+        );
+      });
+    }
+    was.current = now;
+  }, [order, view]);
+
   return (
     <>
       {/*
@@ -214,7 +281,7 @@ export function ProjectCollage({
         <header className="hbw-col__name">
           <h1>{mark ?? name}</h1>
         </header>
-        <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`}>
+        <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`} ref={stage}>
           {order.map((movement, i) => (
             <Frame key={movement.id} movement={movement} i={i} name={name} onOpen={setOpen} />
           ))}
