@@ -44,7 +44,8 @@
   /* How far down the fixed chrome reaches. A sheet opens from here. */
   --chrome: 44px;
   /* The chrome's own tint, under its blur. */
-  --veil: rgba(255, 255, 255, 0.66);
+  /* Carried on the letterforms so the chrome needs no ground of its own. */
+  --halo: 0 0 7px rgba(255, 255, 255, 0.92), 0 0 2px rgba(255, 255, 255, 0.92);
 
   --settle: 620ms;
   --answer: 160ms;
@@ -167,13 +168,16 @@
    * without ever being a block of colour.
    */
   /*
-   * A tint under the blur. Blur alone keeps shape out of the way but not
-   * contrast — over a pale frame the nav was grey on grey. This is the page's
-   * own ground at two thirds, so it reads on anything without ever becoming
-   * the solid band it used to be.
+   * Nothing behind it at all.
+   *
+   * A tint was a band, and the blur was a band too — backdrop-filter paints a
+   * rectangle and its edge is as visible as any fill. Both are gone, and the
+   * type carries its own legibility instead: a shadow in the page's own ground
+   * colour, which sits on the letterforms rather than across the window. On a
+   * light page it is a white halo, on a dark one a dark one, and on plain
+   * paper it is invisible.
    */
-  background: var(--veil);
-  backdrop-filter: blur(14px) saturate(0.9);
+  background: none;
   pointer-events: none;
 }
 
@@ -191,6 +195,13 @@
  * face is for headings only; in the chrome it was doing decoration, and a
  * typeface that appears everywhere stops meaning anything where it counts.
  */
+.hbw-bar__nav,
+.hbw-bar__mark,
+.hbw-bar__what,
+.hbw-rail {
+  text-shadow: var(--halo);
+}
+
 .hbw-bar__nav,
 .hbw-bar__mark,
 .hbw-bar__what {
@@ -1576,8 +1587,7 @@ html[data-hbw-turning] .hbw-col__frame {
   justify-content: flex-end;
   gap: 1.1rem;
   padding: 0 var(--gut) 10px;
-  background: var(--veil);
-  backdrop-filter: blur(14px) saturate(0.9);
+  background: none;
   font-size: var(--nav);
   pointer-events: none;
 }
@@ -1840,7 +1850,7 @@ html[data-hbw-turning] .hbw-col__frame {
   --chip: rgba(244, 244, 244, 0.08);
   --chip-on: rgba(244, 244, 244, 0.14);
   --over: rgba(17, 17, 17, 0.55);
-  --veil: rgba(17, 17, 17, 0.66);
+  --halo: 0 0 7px rgba(17, 17, 17, 0.95), 0 0 2px rgba(17, 17, 17, 0.95);
   color: var(--ink);
   background: var(--paper);
 }
@@ -1941,5 +1951,47 @@ html[data-hbw-turning] .hbw-col__frame {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ---- The door into the next project ---- */
+
+.hbw-next {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  margin: clamp(40px, 9vh, 110px) 0 clamp(30px, 7vh, 80px);
+  padding: clamp(40px, 9vh, 110px) var(--gut);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.hbw-next__mark {
+  display: block;
+  width: min(42vw, 560px);
+  color: var(--paper);
+}
+
+.hbw-next__mark .hbw-mark,
+.hbw-next__mark .hbw-mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: inherit;
+}
+
+.hbw-next__says {
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity var(--answer) var(--ease);
+}
+
+.hbw-next:hover .hbw-next__says {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .hbw-next__mark {
+    width: min(68vw, 360px);
   }
 }

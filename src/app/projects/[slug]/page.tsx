@@ -54,11 +54,10 @@ export default async function ProjectPage({ params }: Props) {
   const experiences = await loadExperiences([slug]);
   const experience = experiences[slug] ?? null;
 
-  // The projects that follow this one, wrapped round so the scroll never runs
-  // out of work. Five is plenty: nobody reaches the end of six case studies.
-  const line = liveProjects().map((project) => project.id);
-  const at = line.indexOf(slug);
-  const after = [...line.slice(at + 1), ...line.slice(0, at)].slice(0, 5);
+  // The one that follows, wrapping round, as a door at the end of this page.
+  const line = liveProjects();
+  const at = line.findIndex((project) => project.id === slug);
+  const following = line[(at + 1) % line.length];
 
   return (
     <main className="hbw-site hbw-site--project hbw-site--dark">
@@ -90,9 +89,17 @@ export default async function ProjectPage({ params }: Props) {
           mark={<Logotype slug={slug} name={record.name} />}
           info={<InfoBody data={infoOf(record, experience)} />}
           movements={experience?.movements ?? []}
-          // Everything after this one, wrapped round, so the scroll never
-          // runs out of work.
-          after={after}
+          next={
+            following && following.id !== slug
+              ? {
+                  slug: following.id,
+                  name: following.name,
+                  idea: following.idea,
+                  year: following.year,
+                  mark: <Logotype slug={following.id} name={following.name} />,
+                }
+              : null
+          }
         />
       </div>
 
