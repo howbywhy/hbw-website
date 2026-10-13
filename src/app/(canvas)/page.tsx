@@ -32,7 +32,11 @@ export default async function HomePage() {
       <StructuredData nodes={[studioNode(), founderNode(), websiteNode(), workListNode()]} />
       {/* The heading lives in the bar: the page is the work, so a title
           above it would only name what is already there. */}
-      <Bar says={<h1 className="hbw-bar__h1">How by Why — clarity for brands at a turning point.</h1>} />
+      {/*
+        The positioning only. The wordmark is already in the middle of the same
+        row, and printing it twice in one line of chrome read as a mistake.
+      */}
+      <Bar says={<h1 className="hbw-bar__h1">Clarity for brands at a turning point.</h1>} />
       <div className="hbw-wrap">
         <Catalogue projects={projects} />
       </div>

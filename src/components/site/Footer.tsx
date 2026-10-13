@@ -43,6 +43,7 @@ export function Footer() {
   return (
     <footer className="hbw-end">
       <div className="hbw-end__who">
+        {/* The footer is a long way from the nav, so it says the whole thing. */}
         <p>How by Why — clarity for brands at a turning point.</p>
         <p className="is-mute">{STUDIO_PLACE}</p>
       </div>
