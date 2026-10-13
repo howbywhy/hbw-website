@@ -989,13 +989,11 @@ a.hbw-row {
 }
 
 .hbw-lamp__step.is-back {
-  left: 0;
-  justify-content: flex-start;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%23111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
 }
 
 .hbw-lamp__step.is-on {
-  right: 0;
-  justify-content: flex-end;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%23111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
 }
 
 .hbw-lamp__step span {
@@ -1883,11 +1881,11 @@ html[data-hbw-turning] .hbw-col__frame {
 }
 
 .hbw-site--dark .hbw-lamp__step.is-back {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%2523f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%23f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
 }
 
 .hbw-site--dark .hbw-lamp__step.is-on {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%2523f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%23f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
 }
 
 /* With the pointer saying it, the arrows in the corners are noise. */
