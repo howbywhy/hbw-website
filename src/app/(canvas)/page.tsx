@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import { loadSheets } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
+import { Footer } from "@/components/site/Footer";
 import { Catalogue } from "@/components/site/Catalogue";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
@@ -34,11 +35,9 @@ export default async function HomePage() {
       <Bar says={<h1 className="hbw-bar__h1">How by Why — clarity for brands at a turning point.</h1>} />
       <div className="hbw-wrap">
         <Catalogue projects={projects} />
-        <nav className="hbw-foot hbw-m" aria-label="More">
-          <a href="/studio">Studio</a>
-          <a href="/contact">Contact</a>
-        </nav>
       </div>
+
+      <Footer />
     </main>
   );
 }

@@ -459,8 +459,9 @@ a.hbw-row {
   grid-template-columns: repeat(12, 1fr);
   gap: var(--gut);
   align-items: start;
-  /* Clear of the title on arrival, then it scrolls up through it. */
-  padding-top: clamp(190px, 30vh, 330px);
+  /* No clearance of its own: a run's mark provides it, and the home page
+     sets its own. Left in, it stacked on top of the pull and the first frames
+     landed below the fold. */
   /* Dense, or the collage is not a collage. Auto-placement never moves
      backwards, so a frame starting at column 4 after one at column 9 drops to
      a whole new row and the page becomes a column of pictures with holes. */
@@ -497,7 +498,11 @@ a.hbw-row {
 
 .hbw-col__frame {
   position: relative;
-  margin-bottom: 0;
+  /* A <figure> carries a browser default of 1em 40px. Unset, it was insetting
+     every frame forty pixels on each side — invisible in a wide column and
+     glaring on a phone, where the work sat forty pixels off every other left
+     edge on the page. */
+  margin: 0;
   /* The rhythm, read from the custom properties each frame carries. */
   grid-column: var(--col) / span var(--span);
   margin-top: calc(var(--pull) * -1);
@@ -1244,16 +1249,26 @@ a.hbw-row {
   cursor: pointer;
 }
 
+/*
+ * Housed in the nav rather than opened over the page.
+ *
+ * It was a full page of panel with a title row of its own, which read as
+ * somewhere you had gone rather than something the nav had opened. It is a
+ * drawer now: it starts at the chrome's own edge, it is only as tall as what
+ * is in it, it sets everything at the nav's size, and it carries the same
+ * hairline the chrome does. Nothing about it announces a new section.
+ */
 .hbw-studio-sheet__panel {
   position: absolute;
-  /* Under the chrome, edge to edge with it. */
   top: var(--chrome);
   left: 0;
   right: 0;
   max-height: calc(100vh - var(--chrome));
   overflow: auto;
   background: var(--paper);
-  padding: 0 var(--gut) clamp(28px, 7vh, 72px);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--nav);
+  padding: 0 var(--gut) clamp(18px, 4vh, 40px);
   /* Unrolls downward, so it reads as coming from under the nav rather than
      fading in on top of the page. */
   animation: hbw-unroll var(--settle) var(--ease) both;
@@ -1272,12 +1287,17 @@ a.hbw-row {
   outline: none;
 }
 
+/* No title bar: the row above it already says which project this is. Just the
+   way out, sitting where a nav item would. */
 .hbw-studio-sheet__top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: baseline;
-  padding: 10px 0 8px;
-  border-bottom: 1px solid var(--rule);
+  padding: 0 0 10px;
+}
+
+.hbw-studio-sheet__top p {
+  display: none;
 }
 
 .hbw-studio-sheet__top p {
@@ -1289,7 +1309,7 @@ a.hbw-row {
 }
 
 .hbw-studio-sheet__body {
-  padding-top: 1.1rem;
+  padding-top: 0;
 }
 
 .hbw-studio-sheet__body p {
@@ -1303,8 +1323,8 @@ a.hbw-row {
 
 .hbw-studio-sheet__lead {
   margin: 0 0 0.8rem;
-  max-width: 24ch;
-  font-size: clamp(1.4rem, 1rem + 1.4vw, 2.1rem);
+  max-width: 34ch;
+  font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.02em;
@@ -1510,7 +1530,7 @@ html[data-hbw-turning] .hbw-col__frame {
 /* The work is pulled up over the lower half of the mark, so the first frames
    cross the type rather than queueing below a title screen. */
 .hbw-run .hbw-col {
-  margin-top: -42vh;
+  margin-top: -46vh;
   padding-bottom: clamp(60px, 14vh, 150px);
 }
 
@@ -1533,5 +1553,117 @@ html[data-hbw-turning] .hbw-col__frame {
   }
   .hbw-run .hbw-col {
     margin-top: 16px;
+  }
+}
+
+/* ---- The footer ---- */
+
+.hbw-end {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--gut);
+  align-items: start;
+  margin-top: clamp(50px, 12vh, 130px);
+  padding: 14px var(--gut) clamp(30px, 7vh, 70px);
+  border-top: 1px solid var(--rule);
+}
+
+.hbw-end p {
+  margin: 0 0 0.3rem;
+}
+
+.hbw-end .is-mute {
+  color: var(--mute);
+}
+
+.hbw-end label {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* The field is a rule and a word, like everything else here. */
+.hbw-end__field {
+  display: flex;
+  gap: 0.8rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 5px;
+  max-width: 24rem;
+}
+
+.hbw-end__field input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.hbw-end__field input::placeholder {
+  color: var(--mute);
+}
+
+.hbw-end__field input:focus {
+  outline: none;
+}
+
+.hbw-end__field:focus-within {
+  border-bottom-color: var(--ink);
+}
+
+.hbw-end__field button {
+  flex: 0 0 auto;
+  color: var(--mute);
+  transition: color var(--answer) var(--ease);
+}
+
+.hbw-end__field button:hover,
+.hbw-end__field button:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-end__said {
+  margin-top: 0.4rem;
+  color: var(--ink);
+}
+
+/* Present for a bot, gone for everyone else. */
+.hbw-end__trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hbw-end__to {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  justify-self: end;
+  text-align: right;
+}
+
+.hbw-end__to a {
+  color: var(--mute);
+  transition: color var(--answer) var(--ease);
+}
+
+.hbw-end__to a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .hbw-end {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .hbw-end__to {
+    justify-self: start;
+    text-align: left;
   }
 }

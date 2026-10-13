@@ -4,6 +4,7 @@ import { breadcrumbNode, founderNode, studioNode } from "@/lib/structured-data";
 import { STUDIO_COPY } from "@/components/home/studio-copy";
 import { STUDIO_PLACE } from "@/lib/contact";
 import { Bar } from "@/components/site/Bar";
+import { Footer } from "@/components/site/Footer";
 import "@/styles/hbw-index.css";
 
 const title = "Studio — How by Why";
@@ -70,13 +71,9 @@ export default function StudioPage() {
           <p className="is-mute">{STUDIO_COPY.philosophy[1]}</p>
           <p className="is-mute">{STUDIO_PLACE}</p>
         </div>
-
-        <nav className="hbw-foot hbw-m" aria-label="More">
-          <a href="/">Index</a>
-          <a href="/work">Work</a>
-          <a href="/contact">Contact</a>
-        </nav>
       </div>
+
+      <Footer />
     </main>
   );
 }

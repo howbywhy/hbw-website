@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_E164, STUDIO_PLACE } from "@/lib/contact";
 import { Bar } from "@/components/site/Bar";
+import { Footer } from "@/components/site/Footer";
 import { PosterLink } from "@/components/site/PosterLink";
 import "@/styles/hbw-index.css";
 
@@ -63,13 +64,9 @@ export default function ContactPage() {
           </p>
           <PosterLink />
         </div>
-
-        <nav className="hbw-foot hbw-m" aria-label="More">
-          <a href="/">Index</a>
-          <a href="/work">Work</a>
-          <a href="/studio">Studio</a>
-        </nav>
       </div>
+
+      <Footer />
     </main>
   );
 }

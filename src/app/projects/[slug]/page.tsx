@@ -5,6 +5,7 @@ import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, projectNode, studioNode } from "@/lib/structured-data";
 import { loadExperiences } from "@/sanity/load-experiences";
 import { Bar } from "@/components/site/Bar";
+import { Footer } from "@/components/site/Footer";
 import { ProjectRuns } from "@/components/site/ProjectRuns";
 import { Logotype } from "@/components/site/Logotype";
 import { InfoBody } from "@/components/site/InfoBody";
@@ -93,13 +94,9 @@ export default async function ProjectPage({ params }: Props) {
           // runs out of work.
           after={after}
         />
-
-        <nav className="hbw-foot hbw-m" aria-label="More">
-          <a href="/">All work</a>
-          <a href="/studio">Studio</a>
-          <a href="/contact">Contact</a>
-        </nav>
       </div>
+
+      <Footer />
     </main>
   );
 }
