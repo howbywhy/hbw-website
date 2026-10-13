@@ -1367,3 +1367,12 @@ a.hbw-row {
     grid-column: 1 / -1;
   }
 }
+
+/*
+ * Held back before first paint when the page is opening on a chosen frame.
+ * The collage takes it off as soon as it has turned, and the inline script
+ * takes it off anyway after a beat if the collage never runs.
+ */
+html[data-hbw-turning] .hbw-col__frame {
+  opacity: 0;
+}

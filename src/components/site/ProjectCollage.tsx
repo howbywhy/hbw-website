@@ -183,10 +183,14 @@ export function ProjectCollage({
    * the server and the first client render have to agree on the plain order.
    */
   const [from, setFrom] = useState(0);
+  const [ready, setReady] = useState(false);
 
-  useEffect(() => {
+  // A layout effect, not an effect: it resolves before the browser paints, so
+  // on a client navigation the plain order is never shown at all.
+  useLayoutEffect(() => {
     const asked = Number(new URLSearchParams(window.location.search).get("f"));
     if (Number.isInteger(asked) && asked > 0 && asked <= movements.length) setFrom(asked - 1);
+    setReady(true);
   }, [movements.length]);
 
   const order = useMemo(
@@ -213,6 +217,9 @@ export function ProjectCollage({
   const was = useRef(new Map<string, DOMRect>());
 
   useLayoutEffect(() => {
+    // Nothing moves until the order is settled, or the first pass would
+    // record the unrotated arrangement and animate away from it.
+    if (!ready) return;
     const host = stage.current;
     if (!host) return;
     const frames = Array.from(host.querySelectorAll<HTMLElement>("[data-frame]"));
@@ -221,6 +228,34 @@ export function ProjectCollage({
 
     const first = was.current.size === 0;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const turning = document.documentElement.hasAttribute("data-hbw-turning");
+
+    if (first && turning && !still) {
+      /*
+       * Arriving already turned. The frames were held back before paint, so
+       * nothing has been seen yet — they arrive in place, in order, rather
+       * than appearing and then rearranging.
+       */
+      document.documentElement.removeAttribute("data-hbw-turning");
+      frames.forEach((frame, i) => {
+        frame.animate(
+          [
+            { opacity: 0, transform: "translateY(14px) scale(0.985)" },
+            { opacity: 1, transform: "none" },
+          ],
+          {
+            duration: SETTLE,
+            delay: Math.min(i * STAGGER, STAGGER_CAP),
+            easing: EASE,
+            fill: "both",
+          }
+        );
+      });
+      was.current = now;
+      return;
+    }
+    if (first && turning) document.documentElement.removeAttribute("data-hbw-turning");
+
     if (!first && !still) {
       frames.forEach((frame, i) => {
         const before = was.current.get(frame.dataset.frame!);
@@ -247,7 +282,7 @@ export function ProjectCollage({
       });
     }
     was.current = now;
-  }, [order, view]);
+  }, [order, view, ready]);
 
   return (
     <>

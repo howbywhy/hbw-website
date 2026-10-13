@@ -78,6 +78,29 @@ export default function RootLayout({
               '}catch(e){}})()',
           }}
         />
+        {/*
+          Turning. A project reached with ?f= opens on the frame that was
+          clicked, which the static HTML cannot know — so without this the
+          page paints its own order, then JavaScript rotates it, and the
+          visitor watches the arrangement change its mind. This hides the
+          frames before first paint; the collage reveals them once it has
+          turned, settled into place.
+
+          Same failure modes as above: it only ever hides, nothing happens
+          under reduced motion or with scripting off, and a timeout puts the
+          frames back if the collage never gets the chance to.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{' +
+              'if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;' +
+              'if(!/[?&]f=\\d/.test(location.search))return;' +
+              'var r=document.documentElement;r.setAttribute("data-hbw-turning","");' +
+              'setTimeout(function(){r.removeAttribute("data-hbw-turning")},1200);' +
+              '}catch(e){}})()',
+          }}
+        />
       </head>
       <body className="body" suppressHydrationWarning>
         <CmsPreviewProvider>
