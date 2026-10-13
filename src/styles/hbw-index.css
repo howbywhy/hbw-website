@@ -31,7 +31,7 @@
   --meta: 0.8125rem;
   --track: 0.02em;
 
-  --gut: clamp(14px, 2.2vw, 28px);
+  --gut: clamp(10px, 1.1vw, 16px);
 
   background: var(--paper);
   color: var(--ink);
@@ -97,8 +97,12 @@
   pointer-events: none;
 }
 
+/* Everything interactive in the bar, not just the links. The button that
+   opens a page's information was being missed, so clicks went through it to
+   whatever was underneath. */
 .hbw-bar a,
-.hbw-bar p {
+.hbw-bar p,
+.hbw-bar button {
   pointer-events: auto;
 }
 
@@ -450,23 +454,20 @@ a.hbw-row {
   text-wrap: balance;
 }
 
-.hbw-col__idea {
-  position: absolute;
-  top: -1.6rem;
-  left: 0;
-  margin: 0;
-  text-align: left;
-}
-
 .hbw-col__frame {
   position: relative;
   margin-bottom: 0;
+  /* The rhythm, read from the custom properties each frame carries. */
+  grid-column: var(--col) / span var(--span);
+  margin-top: calc(var(--pull) * -1);
 }
 
 .hbw-col__shot {
   display: block;
   position: relative;
   width: 100%;
+  /* The composition's ratio. The grid overrides it with the real one. */
+  aspect-ratio: var(--ar-fit);
   /* No frame may take the whole screen, whatever its proportions. */
   max-height: 66vh;
   overflow: hidden;
@@ -502,10 +503,9 @@ a.hbw-row {
   opacity: 1;
 }
 
-/* ---- Information, behind one toggle ---- */
+/* ---- Information, behind one toggle, under the nav ---- */
 
 .hbw-info {
-  border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -584,8 +584,8 @@ a.hbw-row {
   /* A collage needs room. On a phone the frames simply stack, at their own
      proportions, and nothing is pulled over anything else. */
   .hbw-col__frame {
-    grid-column: 1 / -1 !important;
-    margin-top: 0 !important;
+    grid-column: 1 / -1;
+    margin-top: 0;
   }
   /* No sticky title on a phone: it would sit behind every frame at once. */
   .hbw-col__name {
@@ -697,149 +697,6 @@ a.hbw-row {
 .hbw-cell:focus-visible img,
 .hbw-cell:hover video {
   filter: none;
-}
-
-/* ---- The grid ---- */
-
-.hbw-tiles {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Dense, so a two-column tile that will not fit does not leave a hole it
-     never fills — the gaps should be chosen, not stranded. */
-  grid-auto-flow: row dense;
-  gap: clamp(14px, 1.7vw, 26px) clamp(10px, 1.2vw, 18px);
-  align-items: start;
-  padding: clamp(20px, 4vh, 48px) var(--gut) clamp(34px, 7vh, 80px);
-}
-
-.hbw-tile {
-  display: block;
-  color: inherit;
-  min-width: 0;
-}
-
-.hbw-tile[data-span="2"] {
-  grid-column: span 2;
-}
-
-.hbw-tile__shot {
-  position: relative;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  background: rgba(51, 51, 51, 0.06);
-}
-
-.hbw-tile__shot img,
-.hbw-tile__shot video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hbw-tile__shot video {
-  opacity: 0;
-  transition: opacity 200ms linear, filter 220ms linear;
-}
-
-.hbw-tile:hover .hbw-tile__shot video {
-  opacity: 1;
-}
-
-/* Name left, what it was right — the whole caption, under the frame. */
-.hbw-tile__says {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.8rem;
-  /* Both halves must be allowed to shrink. A flex child will not go below its
-     content width by default, so a long discipline name pushed the caption —
-     and the whole page — wider than the screen. */
-  flex-wrap: wrap;
-  padding-top: 6px;
-  font-size: var(--nav);
-  line-height: 1.25;
-}
-
-.hbw-tile__kind {
-  color: var(--mute);
-  min-width: 0;
-}
-
-.hbw-tile__says > span {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-/* ---- The statement under the work ---- */
-
-.hbw-stat {
-  max-width: 18ch;
-  margin: clamp(28px, 6vh, 70px) 0 0.7rem;
-  font-weight: 500;
-  font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3.8rem);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-}
-
-.hbw-stat__sub {
-  max-width: 34rem;
-  margin: 0 0 clamp(34px, 8vh, 90px);
-  color: var(--mute);
-}
-
-/* ---- The ledger ---- */
-
-.hbw-ledger table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--meta);
-}
-
-.hbw-ledger th,
-.hbw-ledger td {
-  text-align: left;
-  font-weight: 400;
-  padding: 7px 0.8rem 7px 0;
-  border-bottom: 1px solid var(--rule);
-  vertical-align: baseline;
-}
-
-.hbw-ledger thead th {
-  font-size: var(--nav);
-  color: var(--mute);
-  border-bottom-color: var(--ink);
-}
-
-.hbw-ledger__no {
-  width: 2.4rem;
-  color: var(--mute);
-}
-
-.hbw-ledger tbody th {
-  width: 22%;
-}
-
-.hbw-ledger td {
-  color: var(--mute);
-}
-
-.hbw-ledger tbody tr.is-open th a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.hbw-ledger__state {
-  text-align: right !important;
-  padding-right: 0 !important;
-  white-space: nowrap;
-}
-
-.hbw-ledger tr.is-open .hbw-ledger__state {
-  color: var(--ink);
 }
 
 /* ---- The way in ---- */
@@ -961,8 +818,7 @@ a.hbw-row {
   z-index: 40;
   display: grid;
   /* minmax(0,...) and not 1fr: a 1fr row takes its minimum from the content,
-     which for an image is its intrinsic height — so the row grew to the
-     picture's full size and the picture overflowed the screen. */
+     which for an image is its intrinsic height. */
   grid-template-rows: auto minmax(0, 1fr) auto;
   background: var(--paper);
 }
@@ -971,13 +827,13 @@ a.hbw-row {
   outline: none;
 }
 
-.hbw-lamp__bar,
-.hbw-lamp__foot {
+/* One thin line of chrome, and the rest is the picture. */
+.hbw-lamp__bar {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: var(--gut);
-  align-items: center;
-  padding: 12px var(--gut);
+  align-items: baseline;
+  padding: 14px var(--gut);
   font-size: var(--nav);
 }
 
@@ -985,35 +841,30 @@ a.hbw-row {
   justify-self: end;
 }
 
+.hbw-lamp__bar button:hover {
+  color: var(--mute);
+}
+
 .hbw-lamp__count {
   color: var(--mute);
-}
-
-.hbw-lamp__foot button:last-child {
-  justify-self: end;
-}
-
-.hbw-lamp__bar button:hover,
-.hbw-lamp__foot button:hover {
-  color: var(--mute);
+  font-variant-numeric: tabular-nums;
 }
 
 .hbw-lamp__field {
+  position: relative;
   /*
    * Flex, not grid. As a grid the picture sat in an implicit row sized to its
    * own content — 1620px for a portrait frame — so its max-height:100%
    * resolved against that row rather than against the screen, and the picture
-   * ran off the bottom of the page. Measured: the field was 805px tall and the
-   * image inside it 1620px.
-   *
-   * A flex container has a definite height to resolve against.
+   * ran off the bottom of the page. A flex container has a definite height to
+   * resolve against.
    */
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 0;
   overflow: hidden;
-  padding: 0 var(--gut);
+  padding: 0 var(--gut) clamp(18px, 4vh, 44px);
 }
 
 /* In colour: there is only one job in here, and the work is the subject. */
@@ -1028,11 +879,90 @@ a.hbw-row {
   filter: none;
 }
 
-.hbw-lamp__says {
-  margin: 0;
-  max-width: 40rem;
-  text-align: center;
-  color: var(--mute);
+/* Half the screen each. The arrow only shows when a pointer is on that side. */
+.hbw-lamp__step {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 44%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gut);
+  font-size: var(--nav);
+  color: var(--ink);
+}
+
+.hbw-lamp__step.is-back {
+  left: 0;
+  justify-content: flex-start;
+  cursor: w-resize;
+}
+
+.hbw-lamp__step.is-on {
+  right: 0;
+  justify-content: flex-end;
+  cursor: e-resize;
+}
+
+.hbw-lamp__step span {
+  opacity: 0;
+  transition: opacity 140ms linear;
+}
+
+.hbw-lamp__step:hover span,
+.hbw-lamp__step:focus-visible span {
+  opacity: 1;
+}
+
+/* The rail: the whole set, small, scrolling with the picture. */
+.hbw-lamp__rail {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 10px var(--gut) 14px;
+}
+
+.hbw-lamp__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.hbw-lamp__thumb {
+  flex: 0 0 auto;
+  width: 54px;
+  height: 40px;
+  overflow: hidden;
+  /* Grey and set back, so the strip never competes with the picture above it. */
+  opacity: 0.4;
+  filter: grayscale(1);
+  transition: opacity 160ms linear, filter 160ms linear;
+}
+
+.hbw-lamp__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hbw-lamp__thumb:hover {
+  opacity: 0.8;
+}
+
+.hbw-lamp__thumb[data-here="true"] {
+  opacity: 1;
+  filter: none;
+}
+
+@media (max-width: 760px) {
+  /* No hover on a phone, so the arrows simply show. */
+  .hbw-lamp__step span {
+    opacity: 1;
+  }
+  .hbw-lamp__thumb {
+    width: 44px;
+    height: 33px;
+  }
 }
 
 /* ---- The grid becomes a carousel when it will not fit ---- */
@@ -1112,5 +1042,316 @@ a.hbw-row {
 @media (max-width: 760px) {
   .hbw-col__name h1 .hbw-mark {
     width: min(72vw, 420px);
+  }
+}
+
+/* ---- The field: the claim, drawn ---- */
+
+.hbw-field {
+  position: relative;
+  height: clamp(220px, 38vh, 420px);
+  margin: 0;
+  /* It sits under the fixed bar, so it starts below it. */
+  padding: 0;
+}
+
+.hbw-field canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The heading the canvas is drawing. Present for a crawler and a screen
+   reader, never shown — the picture above says it. */
+.hbw-field__said {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- The reel ---- */
+
+.hbw-reel {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: clamp(300px, 62vh, 640px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  /* The whole width of the window, no gutter: the reel runs off both edges. */
+  margin: clamp(10px, 3vh, 36px) 0 clamp(18px, 4vh, 48px);
+}
+
+.hbw-reel::-webkit-scrollbar {
+  display: none;
+}
+
+.hbw-reel__job {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/*
+ * The mark holds at the left edge while its own project passes, then the next
+ * project's mark arrives and pushes it out. Sticky inside a horizontal
+ * scroller does this on its own — no scroll handler, no measuring.
+ */
+.hbw-reel__mark {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  width: clamp(180px, 20vw, 320px);
+  height: 100%;
+  padding: 0 var(--gut);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.hbw-reel__mark .hbw-mark {
+  display: block;
+  width: 100%;
+  color: var(--ink);
+}
+
+.hbw-reel__mark .hbw-mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hbw-reel__says {
+  font-size: var(--meta);
+  color: var(--mute);
+}
+
+/* No box, no fill: the picture is the whole tile. */
+.hbw-reel__shot {
+  position: relative;
+  flex: 0 0 auto;
+  height: 100%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.hbw-reel__shot img,
+.hbw-reel__shot video {
+  display: block;
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 220ms linear;
+}
+
+.hbw-reel__shot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 200ms linear, filter 220ms linear;
+}
+
+.hbw-reel__shot:hover img,
+.hbw-reel__shot:hover video {
+  filter: none;
+}
+
+.hbw-reel__shot:hover video {
+  opacity: 1;
+}
+
+/* ---- The studio sheet ---- */
+
+/*
+ * The blur lives on the sheet, not on the button inside it.
+ *
+ * It was on .hbw-studio-sheet__scrim, which is a <button>, and `.hbw-site button`
+ * — a class plus an element — outranks a bare class, so the scrim's own
+ * background was being cleared and the blur went with it. The container has no
+ * such competition, and blurring there is more correct anyway: everything
+ * behind the sheet is blurred, and the panel sits on top of it, sharp.
+ */
+.hbw-studio-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.55);
+  /* Unprefixed only. With both, the minifier emitted just the -webkit- form,
+     which current Chrome does not support — so the blur silently did nothing.
+     Every browser that matters has shipped the standard property for years. */
+  backdrop-filter: blur(18px) saturate(0.9);
+}
+
+/* Just the click target now. */
+.hbw-studio-sheet__scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hbw-studio-sheet__panel {
+  position: relative;
+  width: min(52rem, calc(100vw - var(--gut) * 2));
+  margin: clamp(56px, 12vh, 140px) 0;
+  max-height: 76vh;
+  overflow: auto;
+  background: var(--paper);
+  padding: clamp(18px, 2.6vw, 32px);
+  box-shadow: 0 1px 0 rgba(51, 51, 51, 0.1), 0 30px 80px rgba(51, 51, 51, 0.12);
+}
+
+.hbw-studio-sheet__panel:focus {
+  outline: none;
+}
+
+.hbw-studio-sheet__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hbw-studio-sheet__top p {
+  margin: 0;
+}
+
+.hbw-studio-sheet__top button:hover {
+  color: var(--mute);
+}
+
+.hbw-studio-sheet__body {
+  padding-top: 1.1rem;
+}
+
+.hbw-studio-sheet__body p {
+  margin: 0 0 0.7rem;
+  max-width: 34rem;
+}
+
+.hbw-studio-sheet__body .is-mute {
+  color: var(--mute);
+}
+
+.hbw-studio-sheet__lead {
+  margin: 0 0 0.8rem;
+  max-width: 24ch;
+  font-size: clamp(1.4rem, 1rem + 1.4vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.hbw-studio-sheet__foot {
+  margin-top: 1.4rem;
+}
+
+.hbw-studio-sheet__foot a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .hbw-reel {
+    height: clamp(240px, 46vh, 400px);
+  }
+  .hbw-reel__mark {
+    width: clamp(130px, 44vw, 200px);
+  }
+}
+
+/* The bar's right slot, when it opens the page's information. */
+.hbw-bar__info {
+  color: var(--mute);
+  text-align: right;
+  transition: color 140ms linear;
+}
+
+.hbw-bar__info:hover {
+  color: var(--ink);
+}
+
+/* The information's own layout, inside a sheet. */
+.hbw-studio-sheet__body .hbw-info__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--gut);
+}
+
+@media (max-width: 760px) {
+  .hbw-studio-sheet__body .hbw-info__body {
+    grid-template-columns: 1fr;
+  }
+  .hbw-studio-sheet__body .hbw-info__part {
+    grid-column: 1;
+  }
+}
+
+/* ---- Two ways to look at a project ---- */
+
+.hbw-col__view {
+  display: flex;
+  gap: 1rem;
+  padding-top: 10px;
+  font-size: var(--nav);
+}
+
+.hbw-col__view button {
+  color: var(--mute);
+  transition: color 140ms linear;
+}
+
+.hbw-col__view button:hover,
+.hbw-col__view button[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+/*
+ * Grid: everything the same size, in order. The rhythm's spans and pulls are
+ * inline styles on each frame, so this has to out-specify them — which is what
+ * the attribute selector buys without resorting to !important.
+ */
+/* Tight: small margins, small gaps. A contact sheet is about seeing the work
+   next to itself, and air between frames is what stops that happening. */
+.hbw-col.is-grid {
+  grid-auto-flow: row;
+  gap: 6px;
+  padding-top: clamp(150px, 24vh, 280px);
+}
+
+.hbw-col.is-grid .hbw-col__frame {
+  grid-column: span 4;
+  margin-top: 0;
+}
+
+/*
+ * The grid crops nothing. Each frame is given its own true proportions, so
+ * cover has nothing to cut off and every picture is the shape it actually is.
+ * The columns stay equal; the rows do not, which is the point.
+ */
+.hbw-col.is-grid .hbw-col__shot {
+  aspect-ratio: var(--ar);
+  max-height: none;
+}
+
+@media (max-width: 760px) {
+  .hbw-col.is-grid .hbw-col__frame {
+    grid-column: 1 / -1;
   }
 }

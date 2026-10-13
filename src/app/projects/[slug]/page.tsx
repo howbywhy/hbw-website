@@ -75,22 +75,18 @@ export default async function ProjectPage({ params }: Props) {
         work, not after they have finished scrolling it.
       */}
       <Bar
-        says={
-          <h1 className="hbw-bar__h1">
-            {record.name} — {record.idea}, {record.year}
-          </h1>
-        }
+        info={{
+          label: `${record.name} — ${record.idea}, ${record.year}`,
+          body: <ProjectInfo record={record} experience={experience} />,
+        }}
       />
 
       <div className="hbw-wrap">
         <ProjectCollage
           movements={experience?.movements ?? []}
           name={record.name}
-          idea={record.idea}
           mark={<Logotype slug={slug} name={record.name} />}
         />
-
-        <ProjectInfo record={record} experience={experience} />
 
         <nav className="hbw-foot hbw-m" aria-label="More">
           <a href="/work">All work</a>

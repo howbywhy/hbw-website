@@ -1,41 +1,94 @@
-import type { ReactNode } from "react";
+"use client";
 
 /**
- * The bar.
+ * The bar, and the studio sheet it opens.
  *
- * Three things, set as plain type: where you can go, the name, and the right
- * slot. On most pages that slot is the positioning; on a project it is that
- * project's own information, which is where a case study's facts belong —
- * in the chrome, always visible, rather than in a panel at the foot of a page
- * nobody scrolls to twice.
+ * Three things set as plain type: where you can go, the name, and a right slot
+ * that a page can fill with its own heading.
+ *
+ * Studio is a sheet rather than a page, so the link opens it in place and sets
+ * #studio — linkable, and the back button closes it. The href stays /studio so
+ * the real page answers without JavaScript and for a crawler.
  */
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { StudioSheet } from "@/components/site/StudioSheet";
+import { Sheet } from "@/components/site/Sheet";
+
 export function Bar({
   here,
   says,
+  info,
 }: {
   here?: "work" | "studio" | "contact";
-  /** Replaces the positioning on the right. */
   says?: ReactNode;
+  /**
+   * A page's own information. The right slot becomes the button that opens
+   * it, so it rides in the fixed bar and stays reachable however far down the
+   * page you are — a panel at the foot of a long collage is a panel nobody
+   * meets twice.
+   */
+  info?: { label: string; body: ReactNode };
 }) {
+  const [studio, setStudio] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const look = () => setStudio(window.location.hash === "#studio");
+    look();
+    window.addEventListener("hashchange", look);
+    return () => window.removeEventListener("hashchange", look);
+  }, []);
+
+  const close = useCallback(() => {
+    setStudio(false);
+    if (window.location.hash === "#studio") history.back();
+  }, []);
+
   return (
-    <header className="hbw-bar">
-      <nav className="hbw-bar__nav" aria-label="Site">
-        <a href="/work" aria-current={here === "work" ? "page" : undefined}>
-          Work
-        </a>
-        <a href="/studio" aria-current={here === "studio" ? "page" : undefined}>
-          Studio
-        </a>
-        <a href="/contact" aria-current={here === "contact" ? "page" : undefined}>
-          Contact
-        </a>
-      </nav>
-      <p className="hbw-bar__mark">
-        <a href="/">How by Why</a>
-      </p>
-      <div className="hbw-bar__what">
-        {says ?? <p style={{ margin: 0 }}>Clarity for brands at a turning point.</p>}
-      </div>
-    </header>
+    <>
+      <header className="hbw-bar">
+        <nav className="hbw-bar__nav" aria-label="Site">
+          <a href="/" aria-current={here === "work" ? "page" : undefined}>
+            Work
+          </a>
+          <a
+            href="/studio"
+            aria-current={here === "studio" ? "page" : undefined}
+            onClick={(event) => {
+              // A modified click is the visitor asking for the page itself.
+              if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+              event.preventDefault();
+              history.pushState(null, "", "#studio");
+              setStudio(true);
+            }}
+          >
+            Studio
+          </a>
+          <a href="/contact" aria-current={here === "contact" ? "page" : undefined}>
+            Contact
+          </a>
+        </nav>
+        <p className="hbw-bar__mark">
+          <a href="/">How by Why</a>
+        </p>
+        <div className="hbw-bar__what">
+          {info ? (
+            <button type="button" className="hbw-bar__info" onClick={() => setOpen(true)} aria-haspopup="dialog">
+              {info.label}
+              <span aria-hidden="true"> ↓</span>
+            </button>
+          ) : (
+            says ?? <p style={{ margin: 0 }}>Clarity for brands at a turning point.</p>
+          )}
+        </div>
+      </header>
+
+      {studio ? <StudioSheet onClose={close} /> : null}
+      {open && info ? (
+        <Sheet label={info.label} onClose={() => setOpen(false)}>
+          {info.body}
+        </Sheet>
+      ) : null}
+    </>
   );
 }

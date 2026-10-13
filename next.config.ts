@@ -13,10 +13,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
       /**
-       * The work index moved to /work, which lays every project out as a grid
-       * rather than a browse surface. Two indexes of the same six projects
-       * compete with each other in search, so the old address points at the
-       * new one.
+       * The work index is the front page. Two indexes of the same six
+       * projects compete with each other in search, so the old addresses
+       * point at the one that carries them.
        *
        * Not permanent, deliberately. /projects is already indexed, and a 308
        * is cached by browsers and hard to take back. Make it permanent once
@@ -24,7 +23,13 @@ const nextConfig: NextConfig = {
        *
        * Exact match only: /projects/<slug> is a case study and is untouched.
        */
-      { source: "/projects", destination: "/work", permanent: false },
+      { source: "/projects", destination: "/", permanent: false },
+      /**
+       * /work was the catalogue and is now the front page. Same reasoning as
+       * above: temporary, because the address has been live and a 308 is
+       * cached and hard to take back.
+       */
+      { source: "/work", destination: "/", permanent: false },
       /**
        * The CMS, on an address that is easy to remember and type.
        *

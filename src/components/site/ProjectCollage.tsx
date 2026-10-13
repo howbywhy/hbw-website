@@ -18,7 +18,7 @@
  * until it runs. The old case studies autoplayed theirs and pulled twenty
  * megabytes a page.
  */
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import React, { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import type { Movement } from "@/components/home/projects/types";
 import { Lightbox, shotsOf } from "@/components/site/Lightbox";
 
@@ -27,6 +27,9 @@ import { Lightbox, shotsOf } from "@/components/site/Lightbox";
  * Widths alternate so no two neighbours match; the pulls are what make frames
  * overlap rather than queue.
  */
+/** Where the chosen view is kept. */
+const VIEW_KEY = "hbw.project.view";
+
 const RHYTHM = [
   { col: 1, span: 5, pull: 0 },
   { col: 7, span: 6, pull: 90 },
@@ -66,22 +69,34 @@ function Frame({
   const media = movement.media;
   const still = media.type === "video" ? media.poster ?? media.src : media.src;
   const video = media.type === "video" ? media.mp4 ?? media.videoSrc ?? media.src : undefined;
-  const ratio = usable(media.width && media.height ? media.width / media.height : 4 / 3);
+  // Two ratios. The scatter needs frames inside a usable range or one tall
+  // panel takes a whole screen and the composition is over; the grid wants the
+  // work at whatever shape it actually is, uncropped.
+  const own = media.width && media.height ? media.width / media.height : 4 / 3;
+  const ratio = usable(own);
 
   return (
     <figure
       className="hbw-col__frame hbw-col__frame--open"
       onClick={() => onOpen(i)}
-      style={{
-        gridColumn: `${place.col} / span ${place.span}`,
-        marginTop: `-${place.pull}px`,
-        // Later frames sit over earlier ones, so a pull reads as depth.
-        zIndex: i + 2,
-      }}
+      // Custom properties, not finished declarations. An inline grid-column
+      // beats any stylesheet rule that is not !important, so the grid view
+      // could not override it — the same trap the tiles hit. CSS consumes
+      // these, and CSS can therefore ignore them.
+      style={
+        {
+          "--col": place.col,
+          "--span": place.span,
+          "--pull": `${place.pull}px`,
+          "--ar": String(own),
+          // Later frames sit over earlier ones, so a pull reads as depth.
+          zIndex: i + 2,
+        } as React.CSSProperties
+      }
       onPointerEnter={() => film.current?.play().catch(() => {})}
       onPointerLeave={() => film.current?.pause()}
     >
-      <span className="hbw-col__shot" style={{ aspectRatio: String(ratio) }}>
+      <span className="hbw-col__shot" style={{ "--ar-fit": String(ratio) } as React.CSSProperties}>
         <img src={still} alt={media.alt ?? ""} loading={i < 2 ? "eager" : "lazy"} decoding="async" />
         {video ? (
           <video ref={film} preload="none" poster={still} muted loop playsInline aria-label={`${name}, film`}>
@@ -100,17 +115,48 @@ function Frame({
 export function ProjectCollage({
   movements,
   name,
-  idea,
   mark,
 }: {
   movements: Movement[];
   name: string;
-  idea: string;
   /** The project's own logotype, rendered on the server. */
   mark?: ReactNode;
 }) {
   const shots = shotsOf(movements);
   const [open, setOpen] = useState<number | null>(null);
+
+  /**
+   * Two ways to look at a project, and the choice sticks.
+   *
+   * Scatter is the composition — sizes and depths, the shape of the job.
+   * Grid is the contact sheet — everything the same size, in order, for
+   * someone comparing rather than browsing. Neither is right for everyone, so
+   * it is a choice, and a choice that has to be made again on every project
+   * is not a choice, it is a chore.
+   *
+   * Read after mount: the prerendered HTML cannot know what this visitor
+   * picked last time, and rendering a different view on the server than the
+   * client would be a hydration mismatch.
+   */
+  const [view, setView] = useState<"scatter" | "grid">("scatter");
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(VIEW_KEY);
+      if (saved === "grid" || saved === "scatter") setView(saved);
+    } catch {
+      /* private window: scatter is a fine answer */
+    }
+  }, []);
+
+  const pick = useCallback((next: "scatter" | "grid") => {
+    setView(next);
+    try {
+      window.localStorage.setItem(VIEW_KEY, next);
+    } catch {
+      /* nothing to do: the choice just does not outlive the visit */
+    }
+  }, []);
 
   /**
    * Arriving from a tile on the front page, which says which frame was
@@ -131,6 +177,19 @@ export function ProjectCollage({
         above the grid now and the grid is pulled up over it, so the first
         frames cross the type by construction rather than by luck.
       */}
+      <div className="hbw-col__view">
+        {(["scatter", "grid"] as const).map((one) => (
+          <button
+            key={one}
+            type="button"
+            aria-pressed={view === one}
+            onClick={() => pick(one)}
+          >
+            {one === "scatter" ? "Scatter" : "Grid"}
+          </button>
+        ))}
+      </div>
+
       <div className="hbw-col__stage">
         {/*
           The title holds while the work moves over it. Sticky rather than
@@ -139,10 +198,9 @@ export function ProjectCollage({
           sitting under the Information panel at the end of the page.
         */}
         <header className="hbw-col__name">
-          <p className="hbw-m hbw-col__idea">{idea}</p>
           <h1>{mark ?? name}</h1>
         </header>
-        <div className="hbw-col">
+        <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`}>
           {movements.map((movement, i) => (
             <Frame key={movement.id} movement={movement} i={i} name={name} onOpen={setOpen} />
           ))}

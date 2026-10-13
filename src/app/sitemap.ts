@@ -9,13 +9,12 @@ const lastModified = new Date();
 /**
  * /manifesto is deliberately absent: it serves the same body as /studio and
  * now canonicalises to it. Listing it would ask search engines to index a page
- * that points elsewhere. /projects is absent for the same reason: it now
- * redirects to /work.
+ * that points elsewhere. /projects and /work are absent for the same reason:
+ * both now redirect to the front page, which carries the work.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: origin, lastModified, changeFrequency: "monthly", priority: 1 },
-    { url: `${origin}/work`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${origin}/studio`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${origin}/contact`, lastModified, changeFrequency: "yearly", priority: 0.6 },
     ...liveProjects().map((project) => ({

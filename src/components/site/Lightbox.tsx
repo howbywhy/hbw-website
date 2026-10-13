@@ -48,7 +48,18 @@ export function Lightbox({
 }) {
   const panel = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
+  const rail = useRef<HTMLDivElement>(null);
   const shot = shots[at];
+
+  /**
+   * The rail follows the picture. Centring the current thumb means the set
+   * always reads as continuing in both directions, rather than the strip
+   * sitting still while the picture changes behind it.
+   */
+  useEffect(() => {
+    const here = rail.current?.querySelector<HTMLElement>('[data-here="true"]');
+    here?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  }, [at]);
 
   const step = useCallback(
     (by: number) => onAt((at + by + shots.length) % shots.length),
@@ -97,24 +108,44 @@ export function Lightbox({
         </button>
       </div>
 
-      {/* The frame itself. Clicking the ground around it closes, which is what
-          everyone tries first. */}
+      {/*
+        The picture, and nothing under it. The description was the frame's alt
+        text printed out: it is written for someone who cannot see the picture,
+        and setting it under the picture says it twice to everyone else. It
+        stays on the image, where it is read by the people it is for.
+      */}
       <div className="hbw-lamp__field" onClick={(e) => e.target === e.currentTarget && onClose()}>
         {shot.video ? (
           <video key={shot.src} src={shot.video} poster={shot.src} autoPlay muted loop playsInline />
         ) : (
           <img key={shot.src} src={shot.src} alt={shot.alt ?? ""} />
         )}
+
+        {/* The halves of the screen walk the set. The arrows are a hint; the
+            whole side is the target, which is what people reach for. */}
+        <button type="button" className="hbw-lamp__step is-back" onClick={() => step(-1)} aria-label="Previous image">
+          <span aria-hidden="true">←</span>
+        </button>
+        <button type="button" className="hbw-lamp__step is-on" onClick={() => step(1)} aria-label="Next image">
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
 
-      <div className="hbw-lamp__foot">
-        <button type="button" onClick={() => step(-1)} aria-label="Previous">
-          ← Prev
-        </button>
-        {shot.alt ? <p className="hbw-lamp__says">{shot.alt}</p> : <span />}
-        <button type="button" onClick={() => step(1)} aria-label="Next">
-          Next →
-        </button>
+      {/* The whole set, small, moving with you. */}
+      <div className="hbw-lamp__rail" ref={rail}>
+        {shots.map((one, i) => (
+          <button
+            key={one.src + i}
+            type="button"
+            data-here={i === at}
+            className="hbw-lamp__thumb"
+            onClick={() => onAt(i)}
+            aria-label={`Image ${i + 1}`}
+            aria-current={i === at ? "true" : undefined}
+          >
+            <img src={one.src} alt="" loading="lazy" decoding="async" />
+          </button>
+        ))}
       </div>
     </div>
   );

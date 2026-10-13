@@ -1,11 +1,12 @@
 /**
- * Everything the project says about itself, behind one toggle.
+ * Everything the project says about itself.
  *
- * A <details> element on purpose. It opens without JavaScript, it is in the
- * markup whether or not anyone opens it — so the writing is indexed and
- * searchable, which is the whole reason the copy exists — and a keyboard and
- * a screen reader both already know what it is. A bespoke dropdown would have
- * cost all three.
+ * The body of a sheet now, opened from the fixed bar, so it is reachable from
+ * anywhere on a long page rather than waiting at the bottom of one.
+ *
+ * It is rendered on the server and handed down as markup, so the writing is in
+ * the page for a crawler whether or not anyone opens the sheet — which is the
+ * whole reason the copy exists.
  */
 import type { ProjectExperience } from "@/components/home/projects/types";
 import { richTextPlainCopy } from "@/components/home/projects/types";
@@ -27,13 +28,7 @@ export function ProjectInfo({
   const authorship = experience?.authorship;
 
   return (
-    <details className="hbw-info">
-      <summary className="hbw-m">
-        <span className="hbw-info__open">Information</span>
-        <span className="hbw-info__shut">Close</span>
-      </summary>
-
-      <div className="hbw-info__body">
+    <div className="hbw-info__body">
         <dl className="hbw-info__facts">
           <div>
             <dt className="hbw-m">Year</dt>
@@ -91,7 +86,6 @@ export function ProjectInfo({
             ))}
           </section>
         ) : null}
-      </div>
-    </details>
+    </div>
   );
 }
