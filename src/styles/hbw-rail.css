@@ -24,20 +24,29 @@ html.hbw-workspace {
   --hbw-t-move: 420ms;
   --hbw-t-arrive: 600ms;
   --hbw-t-settle: 900ms;
-  /* The pill system, on an 8pt rhythm: 32 tall, 8 radius, 12 inset, 4 between. */
-  --hbw-pill-h: 32px;
-  --hbw-pill-r: 2px;
+  /* The pill system, on an 8pt rhythm: 40 tall, square, 12 inset, 4 between.
+     Reskin: the fill is gone. A filled, rounded pill is the one thing on this
+     page that reads as product UI rather than as a drawing, so at rest a
+     control is now just its words, and only the live one takes a wash. The
+     height carries the larger type and keeps the hit area. */
+  --hbw-pill-h: 40px;
+  --hbw-pill-r: 0px;
   --hbw-pill-x: 12px;
   --hbw-pill-gap: 4px;
-  --hbw-pill-bg: rgba(240, 240, 236, 0.66);
-  --hbw-pill-on: #ffffff;
-  --hbw-pill-font: 0.9375rem;
+  --hbw-pill-bg: transparent;
+  --hbw-pill-on: rgba(29, 29, 29, 0.06);
+  --hbw-pill-font: 1.1875rem;
   /* Tags: labels that sit on the work. The size of a group's inner item — 24 tall,
      4 radius — set in from the corner by 8, so every label on an image lines up. */
   --hbw-tag-h: calc(var(--hbw-pill-h) - 2 * var(--hbw-pill-gap));
-  --hbw-tag-r: calc(var(--hbw-pill-r) - var(--hbw-pill-gap));
+  /* Was derived from the pill radius, which now computes to -4px. Stated. */
+  --hbw-tag-r: 0px;
   --hbw-tag-inset: 8px;
-  --hbw-card-r: 2px;
+  /* A label on a picture is not chrome on paper. It sits over photography we
+     do not control, so it keeps a solid backing: taking the fill off the pill
+     system made SUB:3 disappear into its own black card. */
+  --hbw-tag-bg: #ffffff;
+  --hbw-card-r: 0px;
 }
 
 /* --- The frame: white, edge to edge, no border -------------------------------- */
@@ -541,13 +550,14 @@ html.hbw-workspace .hbw-home .hbw-viewer__next-label {
   height: var(--hbw-tag-h);
   padding: 0 calc(var(--hbw-pill-x) - var(--hbw-pill-gap));
   border-radius: var(--hbw-tag-r);
+  background: var(--hbw-tag-bg);
   font-size: 0.8125rem;
   pointer-events: none;
   cursor: inherit;
 }
 
 html.hbw-workspace .hbw-home .hbw-card.is-active .hbw-card__label {
-  background: var(--hbw-pill-on);
+  background: var(--hbw-tag-bg);
 }
 
 /* A hovered or focused card stays full; the rest of the line steps back.

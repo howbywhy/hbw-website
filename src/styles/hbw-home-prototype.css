@@ -46,12 +46,17 @@ html.hbw-workspace {
   --hbw-inspector-w: var(--hbw-context-w);
   --hbw-studio-w: calc(var(--hbw-x-edge) - var(--hbw-x-studio));
   --hbw-radius: 0px;
-  --hbw-lg: 0.9375rem;
+  /* Reskin, October 2026. One register, set larger and led tighter.
+     The reference sets its whole site at 20.3px on 22.3 — a single size, one
+     weight, no tracking — and reads calmer than this did at 15px across two
+     sizes, because the air comes from leading and margin rather than from
+     small type. Nothing here changes behaviour; it is all in the tokens. */
+  --hbw-lg: 1.1875rem;
   --hbw-sm: var(--hbw-lg);
   --hbw-ui: var(--hbw-lg);
-  --hbw-ui-track: 0.02em;
-  --hbw-lh-ui: 1.2;
-  --hbw-lh-body: 1.45;
+  --hbw-ui-track: 0;
+  --hbw-lh-ui: 1.1;
+  --hbw-lh-body: 1.24;
   --hbw-tool: 1.9rem;
   --hbw-task-h: 2.75rem;
   --hbw-task-bottom: var(--hbw-space-3);
@@ -2277,7 +2282,7 @@ html.hbw-workspace .hbw-inspector .hbw-sheet__pill {
   margin: var(--hbw-space-3) 0 0;
   padding: 0.15rem 0.7rem;
   border: 1px solid currentColor;
-  border-radius: 999px;
+  border-radius: 0;
   background: transparent;
   font-family: var(--hbw-font);
   font-size: var(--hbw-lg);
