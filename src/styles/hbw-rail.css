@@ -2896,83 +2896,50 @@ html.hbw-workspace .hbw-home .hbw-reach__foot {
   }
 }
 
-/* --- The grid: a wall of apertures -------------------------------------- *
- * Square cells, a few of them larger, each a window onto a different frame
- * cropped to a different part of it. The cell is the link, so the wall is the
- * navigation and not a picture of it.
+/* --- The grid is the page ----------------------------------------------- *
+ * A canvas field of dots filling the window. The drawing is in HomeGrid; this
+ * only gives it a box and keeps the real links reachable without showing them.
+ *
+ * The work line is hidden on this way in: the same six projects as a field of
+ * dots and again as a rail of cards is two galleries, which is what made the
+ * first attempt read as clutter and would not fit a tall window.
  */
+html.hbw-workspace .hbw-home:has(.hbw-grid) .hbw-line {
+  display: none;
+}
+
 html.hbw-workspace .hbw-home .hbw-grid {
-  --cell: clamp(34px, 4.4vw, 68px);
-  display: grid;
-  grid-template-columns: repeat(auto-fill, var(--cell));
-  grid-auto-rows: var(--cell);
-  grid-auto-flow: dense;
-  gap: 2px;
-  justify-content: center;
-  align-content: start;
-  /* Clear the nav. The grid is painted from the top of the window, so without
-     this the first row sits behind Work / Studio / Contact and eats it. */
-  padding: calc(var(--hbw-pill-h) + 2 * var(--hbw-space-3) + clamp(10px, 2vh, 28px))
-    var(--hbw-space-4) 0;
-  overflow: hidden;
-}
-
-html.hbw-workspace .hbw-home .hbw-grid__cell {
-  position: relative;
-  grid-column: span var(--span);
-  grid-row: span var(--span);
-  display: block;
-  background-color: var(--hbw-hair);
-  background-size: cover;
-  background-repeat: no-repeat;
-  /* Dots at rest. The bigger cells are already open, so they stay square. */
-  border-radius: 50%;
-  filter: grayscale(1) contrast(1.05);
-  opacity: 0.62;
-  transition:
-    border-radius var(--hbw-t-move) var(--hbw-arrive),
-    filter var(--hbw-t-move) var(--hbw-arrive),
-    opacity var(--hbw-t-move) var(--hbw-arrive),
-    transform var(--hbw-t-move) var(--hbw-arrive);
-}
-
-html.hbw-workspace .hbw-home .hbw-grid__cell[style*="--span: 2"],
-html.hbw-workspace .hbw-home .hbw-grid__cell[style*="--span: 3"] {
-  border-radius: 0;
-  opacity: 0.82;
-}
-
-html.hbw-workspace .hbw-home .hbw-grid__cell:hover,
-html.hbw-workspace .hbw-home .hbw-grid__cell:focus-visible {
-  z-index: 2;
-  border-radius: 0;
-  filter: none;
-  opacity: 1;
-  transform: scale(1.9);
-}
-
-/* The name only exists for a reader and a crawler until you are on the cell. */
-html.hbw-workspace .hbw-home .hbw-grid__name {
   position: absolute;
-  inset: auto auto 100% 0;
-  margin-bottom: 6px;
-  padding: 0 6px;
+  inset: calc(var(--hbw-pill-h) + 2 * var(--hbw-space-3)) 0 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+html.hbw-workspace .hbw-home .hbw-grid canvas {
+  display: block;
+}
+
+/* Off-screen, not hidden: a crawler and a keyboard still get the whole line. */
+html.hbw-workspace .hbw-home .hbw-grid__links {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+html.hbw-workspace .hbw-home .hbw-grid__links a:focus-visible {
+  position: fixed;
+  top: var(--hbw-space-3);
+  left: var(--hbw-space-3);
+  z-index: 20;
+  width: auto;
+  height: auto;
+  padding: 0 var(--hbw-pill-x);
+  clip-path: none;
   background: var(--hbw-tag-bg);
   color: var(--hbw-ink);
-  font-size: 0.75rem;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--hbw-answer);
-}
-
-html.hbw-workspace .hbw-home .hbw-grid__cell:hover .hbw-grid__name,
-html.hbw-workspace .hbw-home .hbw-grid__cell:focus-visible .hbw-grid__name {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.hbw-workspace .hbw-home .hbw-grid__cell { transition: none; }
-  html.hbw-workspace .hbw-home .hbw-grid__cell:hover,
-  html.hbw-workspace .hbw-home .hbw-grid__cell:focus-visible { transform: none; }
 }
