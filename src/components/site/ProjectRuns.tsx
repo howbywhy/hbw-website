@@ -32,7 +32,6 @@ import { Lightbox, shotsOf, type Shot } from "@/components/site/Lightbox";
 import { EASE, SETTLE, STAGGER, STAGGER_CAP } from "@/components/site/motion";
 import { Sheet } from "@/components/site/Sheet";
 import { InfoBody } from "@/components/site/InfoBody";
-import { refOf } from "@/components/site/numbering";
 
 const VIEW_KEY = "hbw.project.view";
 
@@ -94,17 +93,7 @@ function shotsFrom(frames: Frame[]): Shot[] {
   return frames.map((frame) => ({ src: frame.src, video: frame.video, webm: frame.webm }));
 }
 
-function Shot({
-  frame,
-  i,
-  name,
-  onOpen,
-}: {
-  frame: Frame;
-  i: number;
-  name: string;
-  onOpen: (i: number) => void;
-}) {
+function Shot({ frame, i, onOpen }: { frame: Frame; i: number; onOpen: (i: number) => void }) {
   const film = useRef<HTMLVideoElement>(null);
   const place = RHYTHM[i % RHYTHM.length];
   const own = frame.width && frame.height ? frame.width / frame.height : 4 / 3;
@@ -135,7 +124,6 @@ function Shot({
           </video>
         ) : null}
       </span>
-      <figcaption className="hbw-col__ref hbw-m">{refOf(name, i)}</figcaption>
     </figure>
   );
 }
@@ -350,13 +338,7 @@ export function ProjectRuns({
             </header>
             <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`}>
               {run.frames.map((frame, i) => (
-                <Shot
-                  key={frame.id}
-                  frame={frame}
-                  i={i}
-                  name={run.name}
-                  onOpen={(at) => setOpen({ run: index, at })}
-                />
+                <Shot key={frame.id} frame={frame} i={i} onOpen={(at) => setOpen({ run: index, at })} />
               ))}
             </div>
             {index > 0 ? (

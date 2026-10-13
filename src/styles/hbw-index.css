@@ -43,8 +43,6 @@
    */
   /* How far down the fixed chrome reaches. A sheet opens from here. */
   --chrome: 44px;
-  /* The line of space kept under every picture for its reference. */
-  --ref-h: 17px;
 
   --settle: 620ms;
   --answer: 160ms;
@@ -311,11 +309,7 @@ a.hbw-row {
   margin-bottom: clamp(36px, 8vh, 88px);
 }
 
-/*
- * A cell is the picture and a line under it. The line's space is always there,
- * whether or not it is showing — reserved, so hovering reveals a reference
- * rather than shoving every row below it down the page.
- */
+/* A cell is the picture, and nothing else. */
 .hbw-cell {
   position: relative;
   background: var(--paper);
@@ -351,21 +345,6 @@ a.hbw-row {
 }
 
 .hbw-cell:hover video {
-  opacity: 1;
-}
-
-/* The reference, under the picture. Only while you are on it: a contact sheet
-   should read as a field of images, not as a field of labels. */
-.hbw-cell__ref {
-  display: block;
-  height: var(--ref-h);
-  line-height: var(--ref-h);
-  opacity: 0;
-  transition: opacity var(--answer) var(--ease);
-}
-
-.hbw-cell:hover .hbw-cell__ref,
-.hbw-cell:focus-visible .hbw-cell__ref {
   opacity: 1;
 }
 
@@ -849,19 +828,6 @@ a.hbw-row {
 
 .hbw-col__frame--open {
   cursor: pointer;
-}
-
-.hbw-col__ref {
-  display: block;
-  height: var(--ref-h);
-  line-height: var(--ref-h);
-  opacity: 0;
-  transition: opacity var(--answer) var(--ease);
-  pointer-events: none;
-}
-
-.hbw-col__frame--open:hover .hbw-col__ref {
-  opacity: 1;
 }
 
 .hbw-lamp {

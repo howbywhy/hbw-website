@@ -13,7 +13,6 @@
  */
 import { useRef } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
-import { refOf } from "@/components/site/numbering";
 
 function Cell({ project, frame, i }: { project: GalleryProject; frame: GalleryProject["frames"][number]; i: number }) {
   const film = useRef<HTMLVideoElement>(null);
@@ -33,9 +32,6 @@ function Cell({ project, frame, i }: { project: GalleryProject; frame: GalleryPr
           <source src={frame.video} type="video/mp4" />
         </video>
       ) : null}
-      {/* Under the picture, not over it: laid over, a reference has to fight
-          the image for contrast and the image always loses. */}
-      <span className="hbw-cell__ref hbw-m">{refOf(project.name, i)}</span>
     </a>
   );
 }
