@@ -1,14 +1,22 @@
+import type { ReactNode } from "react";
+
 /**
  * The bar.
  *
- * Three things, set as plain type: where you can go, the name, the
- * positioning. No chips — the boxes had come from the old site and they made
- * the nav read as software. Set in the display face, in caps, tracked out, at
- * the same size as the line opposite, so the three sit as one row of writing.
- *
- * Index is gone. The name is the way home, which is what a wordmark is for.
+ * Three things, set as plain type: where you can go, the name, and the right
+ * slot. On most pages that slot is the positioning; on a project it is that
+ * project's own information, which is where a case study's facts belong —
+ * in the chrome, always visible, rather than in a panel at the foot of a page
+ * nobody scrolls to twice.
  */
-export function Bar({ here }: { here?: "work" | "studio" | "contact" }) {
+export function Bar({
+  here,
+  says,
+}: {
+  here?: "work" | "studio" | "contact";
+  /** Replaces the positioning on the right. */
+  says?: ReactNode;
+}) {
   return (
     <header className="hbw-bar">
       <nav className="hbw-bar__nav" aria-label="Site">
@@ -25,7 +33,9 @@ export function Bar({ here }: { here?: "work" | "studio" | "contact" }) {
       <p className="hbw-bar__mark">
         <a href="/">How by Why</a>
       </p>
-      <p className="hbw-bar__what">Clarity for brands at a turning point.</p>
+      <div className="hbw-bar__what">
+        {says ?? <p style={{ margin: 0 }}>Clarity for brands at a turning point.</p>}
+      </div>
     </header>
   );
 }

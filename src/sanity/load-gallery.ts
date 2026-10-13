@@ -83,6 +83,8 @@ export type Tile = {
   height: number;
   video?: string;
   webm?: string;
+  /** Which frame of the project this is, so a click can continue into it. */
+  at: number;
 };
 
 /**
@@ -98,7 +100,8 @@ export async function loadTiles(): Promise<Tile[]> {
   const picked: (Tile | null)[] = gallery.map((project, i) => {
     // The opener for most, something from deeper in for the rest, so six
     // tiles are not six variations on a hero shot.
-    const frame = project.frames[i % 3 === 1 ? Math.min(2, project.frames.length - 1) : 0];
+    const at = i % 3 === 1 ? Math.min(2, project.frames.length - 1) : 0;
+    const frame = project.frames[at];
     if (!frame) return null;
     return {
       slug: project.slug,
@@ -110,6 +113,7 @@ export async function loadTiles(): Promise<Tile[]> {
       height: frame.height,
       video: frame.video,
       webm: frame.webm,
+      at,
     };
   });
   return picked.filter((tile): tile is Tile => tile !== null);

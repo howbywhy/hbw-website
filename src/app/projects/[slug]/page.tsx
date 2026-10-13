@@ -6,6 +6,7 @@ import { breadcrumbNode, projectNode, studioNode } from "@/lib/structured-data";
 import { loadExperiences } from "@/sanity/load-experiences";
 import { Bar } from "@/components/site/Bar";
 import { ProjectCollage } from "@/components/site/ProjectCollage";
+import { Logotype } from "@/components/site/Logotype";
 import { ProjectInfo } from "@/components/site/ProjectInfo";
 import "@/styles/hbw-index.css";
 
@@ -68,13 +69,25 @@ export default async function ProjectPage({ params }: Props) {
           ]),
         ]}
       />
-      <Bar />
+      {/*
+        The project's facts sit in the bar rather than in a panel at the foot
+        of the page: they are what someone wants while they are looking at the
+        work, not after they have finished scrolling it.
+      */}
+      <Bar
+        says={
+          <h1 className="hbw-bar__h1">
+            {record.name} — {record.idea}, {record.year}
+          </h1>
+        }
+      />
 
       <div className="hbw-wrap">
         <ProjectCollage
           movements={experience?.movements ?? []}
           name={record.name}
           idea={record.idea}
+          mark={<Logotype slug={slug} name={record.name} />}
         />
 
         <ProjectInfo record={record} experience={experience} />

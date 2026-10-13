@@ -41,7 +41,10 @@ function Tile({ tile, i }: { tile: TileData; i: number }) {
       // The width is a data attribute, not an inline style: inline styles and
       // media queries fight, and at two columns the override was losing.
       data-span={span}
-      href={`/projects/${tile.slug}`}
+      // ?f= is which frame this tile showed, one-based. The project page
+      // opens its gallery there, so clicking a picture continues into that
+      // picture rather than dropping you at the top of a case study.
+      href={`/projects/${tile.slug}?f=${tile.at + 1}`}
       onPointerEnter={() => film.current?.play().catch(() => {})}
       onPointerLeave={() => film.current?.pause()}
     >
@@ -54,6 +57,7 @@ function Tile({ tile, i }: { tile: TileData; i: number }) {
           </video>
         ) : null}
       </span>
+      <span className="hbw-tile__no">{String(tile.at + 1).padStart(2, "0")}</span>
       <span className="hbw-tile__says">
         <span>{tile.name} — {tile.idea}</span>
         <span className="hbw-tile__kind">{tile.kind}</span>

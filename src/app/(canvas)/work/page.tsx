@@ -23,11 +23,10 @@ export default async function WorkPage() {
   return (
     <main className="hbw-site">
       <StructuredData nodes={[workListNode()]} />
-      <Bar here="work" />
+      {/* The page's heading lives in the bar: "Work" was being said twice,
+          once in the nav and again as a title under it. */}
+      <Bar here="work" says={<h1 className="hbw-bar__h1">Selected work, 2022—2026</h1>} />
       <div className="hbw-wrap">
-        <h1 className="hbw-chip" style={{ margin: "clamp(28px,7vh,70px) 0 clamp(20px,4vh,40px)", fontWeight: 400 }}>
-          Work
-        </h1>
         <Catalogue projects={projects} />
         <nav className="hbw-foot hbw-m" aria-label="More">
           <a href="/">Index</a>

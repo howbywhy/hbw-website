@@ -18,8 +18,9 @@
  * until it runs. The old case studies autoplayed theirs and pulled twenty
  * megabytes a page.
  */
-import { useRef } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Movement } from "@/components/home/projects/types";
+import { Lightbox, shotsOf } from "@/components/site/Lightbox";
 
 /**
  * column start, how many columns wide, and how far it is pulled up.
@@ -49,7 +50,17 @@ function usable(ratio: number) {
   return Math.min(1.9, Math.max(0.72, ratio));
 }
 
-function Frame({ movement, i, name }: { movement: Movement; i: number; name: string }) {
+function Frame({
+  movement,
+  i,
+  name,
+  onOpen,
+}: {
+  movement: Movement;
+  i: number;
+  name: string;
+  onOpen: (i: number) => void;
+}) {
   const film = useRef<HTMLVideoElement>(null);
   const place = RHYTHM[i % RHYTHM.length];
   const media = movement.media;
@@ -59,7 +70,8 @@ function Frame({ movement, i, name }: { movement: Movement; i: number; name: str
 
   return (
     <figure
-      className="hbw-col__frame"
+      className="hbw-col__frame hbw-col__frame--open"
+      onClick={() => onOpen(i)}
       style={{
         gridColumn: `${place.col} / span ${place.span}`,
         marginTop: `-${place.pull}px`,
@@ -78,7 +90,9 @@ function Frame({ movement, i, name }: { movement: Movement; i: number; name: str
           </video>
         ) : null}
       </span>
-      {media.alt ? <figcaption className="hbw-m">{media.alt}</figcaption> : null}
+      {/* The number, on hover. It says the sequence has an order and that this
+          frame has a place in it — and that there is more than you can see. */}
+      <figcaption className="hbw-col__no">{String(i + 1).padStart(2, "0")}</figcaption>
     </figure>
   );
 }
@@ -87,11 +101,27 @@ export function ProjectCollage({
   movements,
   name,
   idea,
+  mark,
 }: {
   movements: Movement[];
   name: string;
   idea: string;
+  /** The project's own logotype, rendered on the server. */
+  mark?: ReactNode;
 }) {
+  const shots = shotsOf(movements);
+  const [open, setOpen] = useState<number | null>(null);
+
+  /**
+   * Arriving from a tile on the front page, which says which frame was
+   * clicked. Read after mount so the prerendered HTML and the first client
+   * render agree — a query string cannot change a statically built page.
+   */
+  useEffect(() => {
+    const asked = Number(new URLSearchParams(window.location.search).get("f"));
+    if (Number.isInteger(asked) && asked > 0 && asked <= shots.length) setOpen(asked - 1);
+  }, [shots.length]);
+
   return (
     <>
       {/*
@@ -110,14 +140,24 @@ export function ProjectCollage({
         */}
         <header className="hbw-col__name">
           <p className="hbw-m hbw-col__idea">{idea}</p>
-          <h1>{name}</h1>
+          <h1>{mark ?? name}</h1>
         </header>
         <div className="hbw-col">
           {movements.map((movement, i) => (
-            <Frame key={movement.id} movement={movement} i={i} name={name} />
+            <Frame key={movement.id} movement={movement} i={i} name={name} onOpen={setOpen} />
           ))}
         </div>
       </div>
+
+      {open !== null ? (
+        <Lightbox
+          shots={shots}
+          at={open}
+          onAt={setOpen}
+          onClose={() => setOpen(null)}
+          name={name}
+        />
+      ) : null}
     </>
   );
 }
