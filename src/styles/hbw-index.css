@@ -324,19 +324,21 @@ a.hbw-row {
 
 /* ---- The catalogue: a dense contact sheet ---- */
 
-/* Full width: the sheets run to both edges, and only the labels are inset. */
+/*
+ * Full width, and no lines between.
+ *
+ * The 1px gaps showed the ground through as grey hairlines and the border drew
+ * a box round the whole sheet — a grid of boxes rather than a run of work. The
+ * pictures touch now; a sheet reads as one strip, which is what it is.
+ */
 .hbw-sheet {
   margin-left: calc(var(--gut) * -1);
   margin-right: calc(var(--gut) * -1);
-  border-left: 0;
-  border-right: 0;
   display: grid;
   /* auto-fit, not auto-fill: auto-fill keeps the empty tracks at the end of
      the last row and they show as grey cells with nothing in them. */
   grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
+  gap: 0;
   margin-bottom: clamp(36px, 8vh, 88px);
 }
 
