@@ -12,6 +12,7 @@
  * made the old site pull twenty-six megabytes.
  */
 import { useRef } from "react";
+import type { ReactNode } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
 
 function Cell({ project, frame, i }: { project: GalleryProject; frame: GalleryProject["frames"][number]; i: number }) {
@@ -36,7 +37,14 @@ function Cell({ project, frame, i }: { project: GalleryProject; frame: GalleryPr
   );
 }
 
-export function Catalogue({ projects }: { projects: GalleryProject[] }) {
+export function Catalogue({
+  projects,
+  marks,
+}: {
+  projects: GalleryProject[];
+  /** Each project's logotype, rendered on the server. */
+  marks: Record<string, ReactNode>;
+}) {
   return (
     <>
       {projects.map((project) => (
@@ -50,6 +58,21 @@ export function Catalogue({ projects }: { projects: GalleryProject[] }) {
             </p>
           </div>
           <div className="hbw-sheet">
+            {/*
+              The project's mark opens its own sheet, on black. It is also the
+              thing that grows into the project page: the browser matches this
+              box to the one on the other side by name and carries it across,
+              so clicking a project is one continuous move rather than two
+              pages.
+            */}
+            <a
+              className="hbw-cell hbw-cell--mark"
+              href={`/projects/${project.slug}`}
+              aria-label={`${project.name} — ${project.idea}`}
+              style={{ viewTransitionName: `p-${project.slug}` }}
+            >
+              <span className="hbw-cell__mark">{marks[project.slug] ?? project.name}</span>
+            </a>
             {project.frames.map((frame, i) => (
               <Cell key={`${project.slug}-${i}`} project={project} frame={frame} i={i} />
             ))}

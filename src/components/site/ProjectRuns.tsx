@@ -352,7 +352,13 @@ export function ProjectRuns({
             }}
           >
             {/* Held in the middle of the screen, and pushed out by the next. */}
-            <header className="hbw-run__mark">
+            <header
+              className="hbw-run__mark"
+              // Only the project that was navigated to: a name has to be
+              // unique on the page, and the runs fetched below it were never
+              // on the page you came from.
+              style={index === 0 ? { viewTransitionName: `p-${run.slug}` } : undefined}
+            >
               {index === 0 ? <h1>{run.mark}</h1> : <h2>{run.mark}</h2>}
             </header>
             <div className={`hbw-col${view === "grid" ? " is-grid" : ""}`}>

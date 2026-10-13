@@ -127,7 +127,7 @@
  * support, and the blur silently did nothing.
  */
 .hbw-over {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--over, rgba(255, 255, 255, 0.5));
   backdrop-filter: blur(20px) saturate(0.9);
 }
 
@@ -947,13 +947,11 @@ a.hbw-row {
 .hbw-lamp__step.is-back {
   left: 0;
   justify-content: flex-start;
-  cursor: w-resize;
 }
 
 .hbw-lamp__step.is-on {
   right: 0;
   justify-content: flex-end;
-  cursor: e-resize;
 }
 
 .hbw-lamp__step span {
@@ -967,9 +965,15 @@ a.hbw-row {
 }
 
 /* The rail: the whole set, small, scrolling with the picture. */
+/*
+ * Centred — but safely. Plain `center` on an overflowing flex row pushes the
+ * first items past the scroll origin and they cannot be reached; `safe center`
+ * falls back to flush-start the moment the strip is wider than the screen.
+ */
 .hbw-lamp__rail {
   background: var(--paper);
   display: flex;
+  justify-content: safe center;
   gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
@@ -1692,4 +1696,107 @@ html[data-hbw-turning] .hbw-col__frame {
     justify-self: start;
     text-align: left;
   }
+}
+
+/* ---- The mark that opens a project, and grows into it ---- */
+
+.hbw-cell--mark {
+  background: var(--ink);
+  display: grid;
+  place-items: center;
+  padding: 10%;
+}
+
+.hbw-cell__mark {
+  display: block;
+  width: 100%;
+  /* Knocked out of the black. */
+  color: var(--paper);
+}
+
+.hbw-cell__mark .hbw-mark,
+.hbw-cell__mark .hbw-mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: inherit;
+}
+
+.hbw-cell__mark .hbw-mark__text {
+  font-size: var(--nav);
+  text-align: center;
+}
+
+/*
+ * A project is dark.
+ *
+ * The mark that opened it was a black box in the catalogue; it grows into the
+ * page, so the page is the inside of that box. Every token flips rather than
+ * every rule being rewritten — the chrome, the sheets and the hairlines all
+ * read from these, so they come with it.
+ */
+.hbw-site--dark {
+  --paper: #111111;
+  --ink: #f4f4f4;
+  --mute: rgba(244, 244, 244, 0.5);
+  --rule: rgba(244, 244, 244, 0.16);
+  --chip: rgba(244, 244, 244, 0.08);
+  --chip-on: rgba(244, 244, 244, 0.14);
+  --over: rgba(17, 17, 17, 0.55);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* The work is not greyed on a project: it is the subject here. */
+.hbw-site--dark .hbw-col__shot img,
+.hbw-site--dark .hbw-col__shot video {
+  filter: none;
+}
+
+/*
+ * The box grows rather than cross-fading. A matched pair is carried between
+ * the two documents by name; these are the two halves of that move, on the
+ * site's own timing.
+ */
+::view-transition-group(*) {
+  animation-duration: var(--settle);
+  animation-timing-function: var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation: none;
+  }
+}
+
+/* ---- The gallery's own cursors ---- */
+
+/*
+ * Walking the set is the only thing either half of the gallery does, so the
+ * pointer says which way it will go. Drawn here rather than loaded: a cursor
+ * is one of the few places a data URI is the right answer, because it has to
+ * be there the instant the pointer crosses the edge.
+ *
+ * The hotspot is the middle of the 34px glyph. A light pair follows, for the
+ * gallery opened over a dark project, where ink would disappear.
+ */
+.hbw-lamp__step.is-back {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%2523111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
+}
+
+.hbw-lamp__step.is-on {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%2523111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
+}
+
+.hbw-site--dark .hbw-lamp__step.is-back {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%2523f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
+}
+
+.hbw-site--dark .hbw-lamp__step.is-on {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%2523f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
+}
+
+/* With the pointer saying it, the arrows in the corners are noise. */
+.hbw-lamp__step span {
+  display: none;
 }

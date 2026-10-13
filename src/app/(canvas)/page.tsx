@@ -4,6 +4,7 @@ import { loadSheets } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
 import { Catalogue } from "@/components/site/Catalogue";
+import { Logotype } from "@/components/site/Logotype";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
 import "@/styles/hbw-index.css";
@@ -38,7 +39,15 @@ export default async function HomePage() {
       */}
       <Bar says={<h1 className="hbw-bar__h1">Clarity for brands at a turning point.</h1>} />
       <div className="hbw-wrap">
-        <Catalogue projects={projects} />
+        <Catalogue
+          projects={projects}
+          marks={Object.fromEntries(
+            projects.map((project) => [
+              project.slug,
+              <Logotype key={project.slug} slug={project.slug} name={project.name} />,
+            ])
+          )}
+        />
       </div>
 
       <Footer />

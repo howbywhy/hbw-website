@@ -61,7 +61,7 @@ export default async function ProjectPage({ params }: Props) {
   const after = [...line.slice(at + 1), ...line.slice(0, at)].slice(0, 5);
 
   return (
-    <main className="hbw-site hbw-site--project">
+    <main className="hbw-site hbw-site--project hbw-site--dark">
       <StructuredData
         nodes={[
           studioNode(),
