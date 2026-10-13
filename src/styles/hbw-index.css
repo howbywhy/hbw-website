@@ -503,8 +503,8 @@ a.hbw-row {
   .hbw-studio-sheet,
   .hbw-studio-sheet__panel,
   .hbw-lamp,
-  .hbw-lamp__field img,
-  .hbw-lamp__field video {
+  .hbw-lamp__page img,
+  .hbw-lamp__page video {
     animation: none;
   }
 }
@@ -917,10 +917,28 @@ a.hbw-row {
  * Its own row of chrome starts below the site's, which is what the padding is
  * for: two fixed rows that would otherwise print over each other.
  */
+/* The two views, while the gallery is over them: present, but not asking. */
+.hbw-rail__views[data-hush] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hbw-rail__views {
+  transition: opacity var(--answer) var(--ease);
+}
+
 .hbw-lamp {
   position: fixed;
   inset: 0;
   z-index: 30;
+  /*
+   * Deeper than the other surfaces. The page stays behind — you never leave
+   * the project — but in here the work is being read closely, and a page you
+   * can still make out is a second picture arguing with the first. Blurred
+   * this far it is weather, not content.
+   */
+  --over: rgba(17, 17, 17, 0.78);
+  backdrop-filter: blur(48px) saturate(0.85);
   padding-top: var(--chrome);
   animation: hbw-ground var(--answer) var(--ease) both;
   display: grid;
@@ -948,8 +966,19 @@ a.hbw-row {
   font-size: var(--nav);
 }
 
-.hbw-lamp__bar button {
+.hbw-lamp__bar > button {
   justify-self: end;
+}
+
+/* The step, said in words. */
+.hbw-lamp__walk {
+  display: flex;
+  gap: clamp(10px, 1.4vw, 18px);
+  color: var(--mute);
+}
+
+.hbw-lamp__walk button:hover {
+  color: var(--ink);
 }
 
 .hbw-lamp__bar button:hover {
@@ -972,28 +1001,75 @@ a.hbw-row {
    */
   display: flex;
   align-items: center;
-  justify-content: center;
   min-height: 0;
   overflow: hidden;
-  padding: 0 var(--gut) clamp(18px, 4vh, 44px);
+  padding: 0 0 clamp(18px, 4vh, 44px);
 }
 
-/* In colour: there is only one job in here, and the work is the subject. */
-.hbw-lamp__field img,
-.hbw-lamp__field video {
-  animation: hbw-arrive var(--settle) var(--ease) both;
+/*
+ * The rail of pages.
+ *
+ * A page is a fixed share of the screen, so one step is always the same
+ * distance and the move reads as a move. The lead-in centres the first page;
+ * after that the rail is simply drawn back by whole pages.
+ */
+.hbw-lamp__pages {
+  --page: 52vw;
+  --pgap: 3.4vw;
+  display: flex;
+  align-items: center;
+  gap: var(--pgap);
+  height: 100%;
+  padding-inline-start: calc((100vw - var(--page)) / 2);
+  transform: translate3d(calc(var(--at) * -1 * (var(--page) + var(--pgap))), 0, 0);
+  transition: transform var(--settle) var(--ease);
+  will-change: transform;
+}
+
+.hbw-lamp__page {
+  flex: 0 0 var(--page);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Set back, so the page you are on is plainly the one you are on. */
+  opacity: 0.38;
+  transition: opacity var(--settle) var(--ease);
+}
+
+.hbw-lamp__page[data-here="true"] {
+  opacity: 1;
+}
+
+/*
+ * In colour: there is only one job in here, and the work is the subject.
+ *
+ * Held off the full height of its page on purpose. A picture sized to the
+ * screen is a screen with a picture in it; the same picture set inside an
+ * even margin is a plate, and reads as something looked at rather than
+ * something displayed.
+ */
+.hbw-lamp__page img,
+.hbw-lamp__page video {
   display: block;
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 100%;
+  max-height: 78%;
   object-fit: contain;
   filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp__pages {
+    transition: none;
+  }
 }
 
 /* Half the screen each. The arrow only shows when a pointer is on that side. */
 .hbw-lamp__step {
   position: absolute;
+  z-index: 1;
   top: 0;
   bottom: 0;
   width: 44%;
@@ -1072,6 +1148,15 @@ a.hbw-row {
   /* No hover on a phone, so the arrows simply show. */
   .hbw-lamp__step span {
     opacity: 1;
+  }
+  /* A page is nearly the whole screen here, with the next one just showing. */
+  .hbw-lamp__pages {
+    --page: 80vw;
+    --pgap: 5vw;
+  }
+  .hbw-lamp__page img,
+  .hbw-lamp__page video {
+    max-height: 86%;
   }
   .hbw-lamp__thumb {
     width: 44px;

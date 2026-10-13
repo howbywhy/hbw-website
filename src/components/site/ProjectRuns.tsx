@@ -406,6 +406,7 @@ export function ProjectRuns({
         view={view}
         onPick={pick}
         info={current.info}
+        hushed={Boolean(open)}
       />
 
       <div ref={stage}>
@@ -492,11 +493,18 @@ function Chrome({
   view,
   onPick,
   info,
+  hushed = false,
 }: {
   label: string;
   view: "scatter" | "grid";
   onPick: (next: "scatter" | "grid") => void;
   info: ReactNode;
+  /**
+   * The gallery is open over the page. Scatter and Grid arrange the collage
+   * underneath it, so in here they are two controls that answer nothing —
+   * they step back and leave the row to Information, which still applies.
+   */
+  hushed?: boolean;
 }) {
   const [rail, setRail] = useState<HTMLElement | null>(null);
   const [says, setSays] = useState<HTMLElement | null>(null);
@@ -515,7 +523,7 @@ function Chrome({
               <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog">
                 Information
               </button>
-              <span className="hbw-rail__views">
+              <span className="hbw-rail__views" data-hush={hushed || undefined} inert={hushed || undefined}>
                 {(["scatter", "grid"] as const).map((one) => (
                   <button key={one} type="button" aria-pressed={view === one} onClick={() => onPick(one)}>
                     {one === "scatter" ? "Scatter" : "Grid"}

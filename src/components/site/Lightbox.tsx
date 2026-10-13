@@ -8,6 +8,11 @@
  * set — so a visitor who wants to see everything does not have to scroll a
  * composition looking for it.
  *
+ * The set is laid out as pages on a rail rather than one picture swapped in
+ * place. Stepping moves the whole rail, and the work either side stays in
+ * view, set back — so the sequence reads as a sequence while you are inside
+ * it, and a step reads as a move along it rather than a cut.
+ *
  * In colour. The listings are grey so six jobs read as one body of work, but
  * in here there is only one job and the work is the whole subject.
  */
@@ -16,6 +21,9 @@ import type { Movement } from "@/components/home/projects/types";
 import { countOf, refOf } from "@/components/site/numbering";
 
 export type Shot = { src: string; video?: string; webm?: string; alt?: string };
+
+/** How far either side of the picture is worth loading: the next step, and the one after. */
+const NEAR = 2;
 
 export function shotsOf(movements: Movement[]): Shot[] {
   const out: Shot[] = [];
@@ -53,7 +61,7 @@ export function Lightbox({
   const shot = shots[at];
 
   /**
-   * The rail follows the picture. Centring the current thumb means the set
+   * The strip follows the picture. Centring the current thumb means the set
    * always reads as continuing in both directions, rather than the strip
    * sitting still while the picture changes behind it.
    */
@@ -100,7 +108,20 @@ export function Lightbox({
       tabIndex={-1}
     >
       <div className="hbw-lamp__bar">
-        <span>{name}</span>
+        {/*
+          The step, said in words as well as drawn under the pointer. The
+          project's name is not repeated here: the bar above already carries
+          it, and saying it twice is the double navigation that makes two
+          fixed rows read as a fault rather than a hierarchy.
+        */}
+        <span className="hbw-lamp__walk" aria-hidden="true">
+          <button type="button" onClick={() => step(-1)} tabIndex={-1}>
+            Prev
+          </button>
+          <button type="button" onClick={() => step(1)} tabIndex={-1}>
+            Next
+          </button>
+        </span>
         <span className="hbw-lamp__count">
           {refOf(name, at)} · {countOf(at, shots.length)}
         </span>
@@ -115,12 +136,33 @@ export function Lightbox({
         and setting it under the picture says it twice to everyone else. It
         stays on the image, where it is read by the people it is for.
       */}
-      <div className="hbw-lamp__field" onClick={(e) => e.target === e.currentTarget && onClose()}>
-        {shot.video ? (
-          <video key={shot.src} src={shot.video} poster={shot.src} autoPlay muted loop playsInline />
-        ) : (
-          <img key={shot.src} src={shot.src} alt={shot.alt ?? ""} />
-        )}
+      <div className="hbw-lamp__field">
+        {/*
+          One rail carrying every frame as a page, moved by whole pages. The
+          offset is set here rather than in the stylesheet because only this
+          knows where in the set you are; the width of a page and the gap
+          between pages are the stylesheet's, so the sum stays one rule.
+        */}
+        <div className="hbw-lamp__pages" style={{ "--at": at } as React.CSSProperties}>
+          {shots.map((one, i) => {
+            const near = Math.abs(i - at) <= NEAR;
+            return (
+              <div className="hbw-lamp__page" key={one.src + i} data-here={i === at} aria-hidden={i === at ? undefined : true}>
+                {/* Film plays on the page you are on; elsewhere it is its own still. */}
+                {one.video && i === at ? (
+                  <video src={one.video} poster={one.src} autoPlay muted loop playsInline />
+                ) : near ? (
+                  <img
+                    src={one.src}
+                    alt={i === at ? one.alt ?? "" : ""}
+                    loading={i === at ? undefined : "lazy"}
+                    decoding="async"
+                  />
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
 
         {/* The halves of the screen walk the set. The arrows are a hint; the
             whole side is the target, which is what people reach for. */}
