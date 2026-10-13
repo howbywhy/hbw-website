@@ -328,3 +328,191 @@ a.hbw-row:focus-visible .hbw-row__idea {
     transition: none !important;
   }
 }
+
+/* ---- A case study: the collage ---- */
+
+.hbw-site--project {
+  overflow-x: clip;
+}
+
+.hbw-col {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gut);
+  align-items: start;
+  /* Dense, or the collage is not a collage. Auto-placement never moves
+     backwards, so a frame starting at column 4 after one at column 9 drops to
+     a whole new row and the page becomes a column of pictures with holes. */
+  grid-auto-flow: row dense;
+  margin: clamp(28px, 7vh, 72px) 0 clamp(44px, 10vh, 110px);
+}
+
+/* The name sits in the field. The frames after it carry a higher z-index,
+   so the first of them crosses the type the way the reference does. */
+.hbw-col__name {
+  grid-column: 2 / span 10;
+  grid-row: 2;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: clamp(-10px, -2vh, -40px);
+}
+
+.hbw-col__name h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 13vw, 11rem);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.hbw-col__idea {
+  grid-column: 1 / span 6;
+  grid-row: 1;
+  margin: 0;
+  z-index: 1;
+}
+
+.hbw-col__frame {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.hbw-col__shot {
+  display: block;
+  position: relative;
+  width: 100%;
+  /* No frame may take the whole screen, whatever its proportions. */
+  max-height: 76vh;
+  overflow: hidden;
+  background: rgba(17, 17, 17, 0.05);
+}
+
+.hbw-col__shot img,
+.hbw-col__shot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hbw-col__shot video {
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+
+.hbw-col__frame:hover .hbw-col__shot video {
+  opacity: 1;
+}
+
+.hbw-col__frame figcaption {
+  margin-top: 5px;
+  opacity: 0;
+  transition: opacity 140ms linear;
+}
+
+.hbw-col__frame:hover figcaption {
+  opacity: 1;
+}
+
+/* ---- Information, behind one toggle ---- */
+
+.hbw-info {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+
+.hbw-info > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 9px 0;
+  color: var(--ink);
+}
+
+.hbw-info > summary::-webkit-details-marker {
+  display: none;
+}
+
+.hbw-info > summary:hover {
+  color: var(--hot);
+}
+
+.hbw-info .hbw-info__shut,
+.hbw-info[open] .hbw-info__open {
+  display: none;
+}
+
+.hbw-info[open] .hbw-info__shut {
+  display: inline;
+}
+
+.hbw-info__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--gut);
+  padding: 10px 0 clamp(26px, 5vh, 56px);
+}
+
+.hbw-info__facts {
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+}
+
+.hbw-info__facts dt {
+  margin-bottom: 2px;
+}
+
+.hbw-info__facts dd {
+  margin: 0;
+}
+
+.hbw-info__part {
+  grid-column: 2;
+  max-width: 32rem;
+  margin-bottom: 1.3rem;
+}
+
+.hbw-info__part h2 {
+  margin: 0 0 0.35rem;
+  font-size: var(--meta);
+  font-weight: 400;
+}
+
+.hbw-info__part p {
+  margin: 0 0 0.6rem;
+}
+
+.hbw-info__part a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .hbw-col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  /* A collage needs room. On a phone the frames simply stack, at their own
+     proportions, and nothing is pulled over anything else. */
+  .hbw-col__frame {
+    grid-column: 1 / -1 !important;
+    margin-top: 0 !important;
+  }
+  .hbw-col__name {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+  .hbw-info__body {
+    grid-template-columns: 1fr;
+  }
+  .hbw-info__part {
+    grid-column: 1;
+  }
+  .hbw-col__frame figcaption {
+    opacity: 1;
+  }
+}
