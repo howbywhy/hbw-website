@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { liveProjects, PROJECT_SLUGS } from "@/components/home/catalog";
 import { resolveProjectExperience } from "@/lib/project-source";
 import { inkedLogotype } from "@/components/site/Logotype";
+import { infoOf } from "@/components/site/project-info";
 
 /**
  * One project's frames, for the page already reading another one.
@@ -33,6 +34,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ slug: stri
       idea: record.idea,
       year: record.year,
       mark: inkedLogotype(slug),
+      // The same shape the project's own page builds, so the two cannot drift.
+      info: infoOf(record, experience),
       frames: experience.movements.map((movement) => {
         const media = movement.media;
         const film = media.type === "video";

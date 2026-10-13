@@ -30,6 +30,8 @@ import { createPortal } from "react-dom";
 import type { Movement } from "@/components/home/projects/types";
 import { Lightbox, shotsOf, type Shot } from "@/components/site/Lightbox";
 import { EASE, SETTLE, STAGGER, STAGGER_CAP } from "@/components/site/motion";
+import { Sheet } from "@/components/site/Sheet";
+import { InfoBody } from "@/components/site/InfoBody";
 
 const VIEW_KEY = "hbw.project.view";
 
@@ -64,6 +66,7 @@ type Run = {
   year: string;
   /** The first run's mark is rendered on the server; later ones arrive as SVG. */
   mark: ReactNode;
+  info: ReactNode;
   frames: Frame[];
 };
 
@@ -132,6 +135,7 @@ export function ProjectRuns({
   idea,
   year,
   mark,
+  info,
   movements,
   after,
 }: {
@@ -140,6 +144,7 @@ export function ProjectRuns({
   idea: string;
   year: string;
   mark: ReactNode;
+  info: ReactNode;
   movements: Movement[];
   /** The projects that follow this one, in order. */
   after: string[];
@@ -152,8 +157,8 @@ export function ProjectRuns({
   const pulling = useRef(false);
 
   const first: Run = useMemo(
-    () => ({ slug, name, idea, year, mark, frames: framesOf(movements) }),
-    [slug, name, idea, year, mark, movements]
+    () => ({ slug, name, idea, year, mark, info, frames: framesOf(movements) }),
+    [slug, name, idea, year, mark, info, movements]
   );
 
   /** The frame that was clicked leads; read before paint so it is never seen turning. */
@@ -213,6 +218,7 @@ export function ProjectRuns({
               ) : (
                 run.name
               ),
+              info: <InfoBody data={run.info} />,
               frames: run.frames as Frame[],
             },
           ]);
@@ -279,15 +285,54 @@ export function ProjectRuns({
     was.current = now;
   }, [runs, view, ready]);
 
+  /**
+   * Which project the chrome is talking about.
+   *
+   * The nav said SCK while a visitor was three projects deep, because the
+   * label was the page's own and the page no longer holds one project. It
+   * follows whichever run is crossing the middle of the screen.
+   */
+  const [here, setHere] = useState(0);
+  const sections = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    const watch = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const i = sections.current.findIndex((el) => el === entry.target);
+          if (i >= 0) setHere(i);
+        }
+      },
+      // A band across the middle: the run crossing it is the one you are in.
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    for (const el of sections.current) if (el) watch.observe(el);
+    return () => watch.disconnect();
+  }, [runs.length]);
+
   const shown = open ? runs[open.run] : null;
+  const current = runs[here] ?? runs[0];
 
   return (
     <>
-      <ViewPick view={view} onPick={pick} />
+      <Chrome
+        label={`${current.name} — ${current.idea}, ${current.year}`}
+        view={view}
+        onPick={pick}
+        info={current.info}
+      />
 
       <div ref={stage}>
         {runs.map((run, index) => (
-          <section className="hbw-run" key={`${run.slug}-${index}`} aria-label={run.name}>
+          <section
+            className="hbw-run"
+            key={`${run.slug}-${index}`}
+            aria-label={run.name}
+            ref={(el) => {
+              sections.current[index] = el;
+            }}
+          >
             {/* Held in the middle of the screen, and pushed out by the next. */}
             <header className="hbw-run__mark">
               {index === 0 ? <h1>{run.mark}</h1> : <h2>{run.mark}</h2>}
@@ -327,27 +372,59 @@ export function ProjectRuns({
   );
 }
 
-/** Portalled into the controls row, beside Information. */
-function ViewPick({
+/**
+ * Everything the chrome says about where you are.
+ *
+ * Portalled into the bar and the controls row, because those are fixed and
+ * this is the thing that has to keep up with the scroll. The label, the way
+ * into the information, and the two views all come from here, so they can
+ * never disagree about which project you are in.
+ */
+function Chrome({
+  label,
   view,
   onPick,
+  info,
 }: {
+  label: string;
   view: "scatter" | "grid";
   onPick: (next: "scatter" | "grid") => void;
+  info: ReactNode;
 }) {
-  const [slot, setSlot] = useState<HTMLElement | null>(null);
+  const [rail, setRail] = useState<HTMLElement | null>(null);
+  const [says, setSays] = useState<HTMLElement | null>(null);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
-    setSlot(document.querySelector<HTMLElement>(".hbw-rail"));
+    setRail(document.querySelector<HTMLElement>(".hbw-rail"));
+    setSays(document.querySelector<HTMLElement>(".hbw-bar__what"));
   }, []);
-  if (!slot) return null;
-  return createPortal(
-    <span className="hbw-rail__views">
-      {(["scatter", "grid"] as const).map((one) => (
-        <button key={one} type="button" aria-pressed={view === one} onClick={() => onPick(one)}>
-          {one === "scatter" ? "Scatter" : "Grid"}
-        </button>
-      ))}
-    </span>,
-    slot
+
+  return (
+    <>
+      {rail
+        ? createPortal(
+            <>
+              <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog">
+                Information
+              </button>
+              <span className="hbw-rail__views">
+                {(["scatter", "grid"] as const).map((one) => (
+                  <button key={one} type="button" aria-pressed={view === one} onClick={() => onPick(one)}>
+                    {one === "scatter" ? "Scatter" : "Grid"}
+                  </button>
+                ))}
+              </span>
+            </>,
+            rail
+          )
+        : null}
+      {says ? createPortal(<p style={{ margin: 0 }}>{label}</p>, says) : null}
+      {open ? (
+        <Sheet label={label} onClose={() => setOpen(false)}>
+          {info}
+        </Sheet>
+      ) : null}
+    </>
   );
 }

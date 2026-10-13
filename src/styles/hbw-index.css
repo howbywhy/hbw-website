@@ -41,6 +41,9 @@
    *   settle  something changing place
    *   answer  something answering you
    */
+  /* How far down the fixed chrome reaches. A sheet opens from here. */
+  --chrome: 44px;
+
   --settle: 620ms;
   --answer: 160ms;
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
@@ -104,8 +107,9 @@
   gap: var(--gut);
   align-items: baseline;
   padding: 14px var(--gut);
-  /* Enough ground to stay legible over a frame passing under it. */
-  background: linear-gradient(var(--paper) 62%, transparent);
+  /* Solid. A gradient let the work show through half of it, and two stacked
+     rows over a fading edge read as a mistake rather than as chrome. */
+  background: var(--paper);
   pointer-events: none;
 }
 
@@ -271,7 +275,12 @@ a.hbw-row {
 
 /* ---- The catalogue: a dense contact sheet ---- */
 
+/* Full width: the sheets run to both edges, and only the labels are inset. */
 .hbw-sheet {
+  margin-left: calc(var(--gut) * -1);
+  margin-right: calc(var(--gut) * -1);
+  border-left: 0;
+  border-right: 0;
   display: grid;
   /* auto-fit, not auto-fill: auto-fill keeps the empty tracks at the end of
      the last row and they show as grey cells with nothing in them. */
@@ -414,12 +423,18 @@ a.hbw-row {
   .hbw-site * {
     transition: none !important;
   }
+  .hbw-studio-sheet,
+  .hbw-studio-sheet__panel {
+    animation: none;
+  }
 }
 
 /* ---- A case study: the collage ---- */
 
 .hbw-site--project {
   overflow-x: clip;
+  /* A project has the controls row under the nav as well. */
+  --chrome: 70px;
 }
 
 .hbw-col {
@@ -1186,29 +1201,39 @@ a.hbw-row {
 /* ---- The studio sheet ---- */
 
 /*
- * The blur lives on the sheet, not on the button inside it.
+ * A sheet comes down from under the nav.
  *
- * It was on .hbw-studio-sheet__scrim, which is a <button>, and `.hbw-site button`
- * — a class plus an element — outranks a bare class, so the scrim's own
- * background was being cleared and the blur went with it. The container has no
- * such competition, and blurring there is more correct anyway: everything
- * behind the sheet is blurred, and the panel sits on top of it, sharp.
+ * It was a card floating in the middle of the screen, which made it a thing
+ * the site had put on top of itself. Anchored to the chrome instead, it reads
+ * as the nav opening — the page you were on is still there behind it, blurred
+ * rather than replaced, and the panel unrolls downward from the edge it
+ * belongs to.
+ *
+ * The blur sits on the container, not on the scrim: the scrim is a <button>,
+ * and `.hbw-site button` — a class plus an element — outranks a bare class, so
+ * the scrim's own background was being cleared and the blur went with it.
  */
 .hbw-studio-sheet {
   position: fixed;
   inset: 0;
   z-index: 35;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.5);
   /* Unprefixed only. With both, the minifier emitted just the -webkit- form,
-     which current Chrome does not support — so the blur silently did nothing.
-     Every browser that matters has shipped the standard property for years. */
-  backdrop-filter: blur(18px) saturate(0.9);
+     which current Chrome does not support, and the blur silently did nothing. */
+  backdrop-filter: blur(20px) saturate(0.9);
+  animation: hbw-ground var(--answer) var(--ease) both;
 }
 
-/* Just the click target now. */
+@keyframes hbw-ground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Just the click target. */
 .hbw-studio-sheet__scrim {
   position: absolute;
   inset: 0;
@@ -1218,14 +1243,27 @@ a.hbw-row {
 }
 
 .hbw-studio-sheet__panel {
-  position: relative;
-  width: min(52rem, calc(100vw - var(--gut) * 2));
-  margin: clamp(56px, 12vh, 140px) 0;
-  max-height: 76vh;
+  position: absolute;
+  /* Under the chrome, edge to edge with it. */
+  top: var(--chrome);
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - var(--chrome));
   overflow: auto;
   background: var(--paper);
-  padding: clamp(18px, 2.6vw, 32px);
-  box-shadow: 0 1px 0 rgba(51, 51, 51, 0.1), 0 30px 80px rgba(51, 51, 51, 0.12);
+  padding: 0 var(--gut) clamp(28px, 7vh, 72px);
+  /* Unrolls downward, so it reads as coming from under the nav rather than
+     fading in on top of the page. */
+  animation: hbw-unroll var(--settle) var(--ease) both;
+}
+
+@keyframes hbw-unroll {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 .hbw-studio-sheet__panel:focus {
@@ -1236,7 +1274,7 @@ a.hbw-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-bottom: 8px;
+  padding: 10px 0 8px;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -1391,8 +1429,8 @@ html[data-hbw-turning] .hbw-col__frame {
   z-index: 5;
   display: flex;
   gap: 1.1rem;
-  padding: 0 var(--gut) 8px;
-  background: linear-gradient(var(--paper) 72%, transparent);
+  padding: 0 var(--gut) 10px;
+  background: var(--paper);
   font-size: var(--nav);
   pointer-events: none;
 }
@@ -1425,16 +1463,22 @@ html[data-hbw-turning] .hbw-col__frame {
 }
 
 /*
- * The mark holds in the middle of the screen while its own project passes,
- * and is pushed out by the mark of the project arriving behind it. Sticky with
- * no height of its own, so the work lays over it rather than starting below.
+ * The mark holds in the middle of the screen while its own project passes, and
+ * is pushed out by the mark of the project behind it.
+ *
+ * It needs real height in the flow to do that. With none, two marks were
+ * simply stuck at the same offset at the same time and sat on top of each
+ * other — KOJA printed across Chris Sisarich. A full screen of height, stuck
+ * at the top, is what makes the next one collide with this one and push it
+ * out, and it centres the mark for free.
  */
 .hbw-run__mark {
   position: sticky;
-  top: 50vh;
+  top: 0;
   z-index: 0;
-  height: 0;
+  height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
   pointer-events: none;
 }
@@ -1442,7 +1486,6 @@ html[data-hbw-turning] .hbw-col__frame {
 .hbw-run__mark h1,
 .hbw-run__mark h2 {
   margin: 0;
-  transform: translateY(-50%);
   font-size: clamp(2.8rem, 10vw, 8rem);
   font-weight: 500;
   line-height: 0.9;
@@ -1462,9 +1505,10 @@ html[data-hbw-turning] .hbw-col__frame {
   height: auto;
 }
 
-/* Each run's work clears the mark it opens on. */
+/* The work is pulled up over the lower half of the mark, so the first frames
+   cross the type rather than queueing below a title screen. */
 .hbw-run .hbw-col {
-  padding-top: clamp(190px, 30vh, 330px);
+  margin-top: -42vh;
   padding-bottom: clamp(60px, 14vh, 150px);
 }
 
@@ -1482,14 +1526,10 @@ html[data-hbw-turning] .hbw-col__frame {
     height: auto;
     padding-top: 10px;
   }
-  .hbw-run__mark h1,
-  .hbw-run__mark h2 {
-    transform: none;
-  }
   .hbw-run__mark .hbw-mark {
     width: min(72vw, 420px);
   }
   .hbw-run .hbw-col {
-    padding-top: 16px;
+    margin-top: 16px;
   }
 }

@@ -7,7 +7,8 @@ import { loadExperiences } from "@/sanity/load-experiences";
 import { Bar } from "@/components/site/Bar";
 import { ProjectRuns } from "@/components/site/ProjectRuns";
 import { Logotype } from "@/components/site/Logotype";
-import { ProjectInfo } from "@/components/site/ProjectInfo";
+import { InfoBody } from "@/components/site/InfoBody";
+import { infoOf } from "@/components/site/project-info";
 import "@/styles/hbw-index.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -72,16 +73,12 @@ export default async function ProjectPage({ params }: Props) {
         ]}
       />
       {/*
-        The project's facts sit in the bar rather than in a panel at the foot
-        of the page: they are what someone wants while they are looking at the
-        work, not after they have finished scrolling it.
+        The bar is given an empty right slot and an empty controls row; the
+        runs fill both, because they are the ones that know which project is
+        on screen. The page cannot: it holds six of them by the time you are
+        a few screens down.
       */}
-      <Bar
-        info={{
-          label: `${record.name} — ${record.idea}, ${record.year}`,
-          body: <ProjectInfo record={record} experience={experience} />,
-        }}
-      />
+      <Bar info={{ label: "", body: null }} />
 
       <div className="hbw-wrap">
 <ProjectRuns
@@ -90,6 +87,7 @@ export default async function ProjectPage({ params }: Props) {
           idea={record.idea}
           year={record.year}
           mark={<Logotype slug={slug} name={record.name} />}
+          info={<InfoBody data={infoOf(record, experience)} />}
           movements={experience?.movements ?? []}
           // Everything after this one, wrapped round, so the scroll never
           // runs out of work.

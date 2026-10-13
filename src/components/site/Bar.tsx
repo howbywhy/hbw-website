@@ -12,7 +12,6 @@
  */
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { StudioSheet } from "@/components/site/StudioSheet";
-import { Sheet } from "@/components/site/Sheet";
 
 export function Bar({
   here,
@@ -30,7 +29,6 @@ export function Bar({
   info?: { label: string; body: ReactNode };
 }) {
   const [studio, setStudio] = useState(false);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const look = () => setStudio(window.location.hash === "#studio");
@@ -76,22 +74,10 @@ export function Bar({
         </div>
       </header>
 
-      {/* The controls: one row, under the nav, starting at the same gutter. */}
-      {info ? (
-        <div className="hbw-rail">
-          <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog">
-            Information
-          </button>
-          {/* The collage portals Scatter/Grid in here. */}
-        </div>
-      ) : null}
+      {/* The row the runs fill: Information and the two views. */}
+      {info ? <div className="hbw-rail" /> : null}
 
       {studio ? <StudioSheet onClose={close} /> : null}
-      {open && info ? (
-        <Sheet label={info.label} onClose={() => setOpen(false)}>
-          {info.body}
-        </Sheet>
-      ) : null}
     </>
   );
 }
