@@ -9135,3 +9135,19 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transform: none;
   }
 }
+
+
+/* =====================================================================
+   No hand-over plate in the grid.
+
+   It was taken out once already — the buttons at the foot are the way to
+   the next project and a sheet of this project's work is no place for a
+   picture of the next one — and it came back when the reading rules were
+   cleared out. Worse than untidy: the plate is how the gallery decides a
+   project is ending, and in a grid that fits its frame the plate is always
+   fully in view, so every project read as ending the moment it opened and
+   the whole sheet softened to a blur.
+   ===================================================================== */
+.hbw-lamp .hbw-lamp__field[data-view="grid"] .hbw-lamp__page--next {
+  display: none;
+}

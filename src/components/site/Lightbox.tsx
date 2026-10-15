@@ -261,12 +261,28 @@ export function Lightbox({
        * all of it and a project read as ending the moment it opened — the
        * whole set softened and dimmed on the first frame.
        */
-      const down = runsDown(host);
-      const shown = down
-        ? Math.min(box.bottom, window.innerHeight) - Math.max(box.top, 0)
-        : Math.min(box.right, window.innerWidth) - Math.max(box.left, 0);
-      const across = down ? box.height : box.width;
-      lamp.dataset.ending = shown > across * 0.5 ? "true" : "false";
+      /*
+       * How much of the plate is on screen, both ways at once.
+       *
+       * This picked an axis first and measured along it, which only works
+       * while the band is the only thing the gallery can be. With the plate
+       * hidden in the grid, or sitting off to the right of a band that the
+       * code had decided runs downwards, it measured the axis the plate was
+       * NOT off the edge of — so a project read as ending two frames in,
+       * and every picture in it softened to a blur.
+       *
+       * Area is the honest question: the plate is in view when more than
+       * half of it is on screen, whichever way the work is laid out. A
+       * plate with no box at all — the grid hides it — is not in view.
+       */
+      const room = box.width * box.height;
+      if (room <= 0) {
+        lamp.dataset.ending = "false";
+        return;
+      }
+      const across = Math.max(0, Math.min(box.right, window.innerWidth) - Math.max(box.left, 0));
+      const down = Math.max(0, Math.min(box.bottom, window.innerHeight) - Math.max(box.top, 0));
+      lamp.dataset.ending = across * down > room * 0.5 ? "true" : "false";
     };
     const watch = () => {
       if (!waiting) waiting = requestAnimationFrame(read);
