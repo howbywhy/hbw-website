@@ -23,7 +23,7 @@
 import { useStillness } from "@/components/site/still";
 import { useView } from "@/components/site/view";
 import { useHeld } from "@/components/site/held";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { countOf } from "@/components/site/numbering";
 import type { Shot } from "@/components/site/shots";
 
@@ -383,7 +383,9 @@ export function Lightbox({
    * every frame is on screen whatever the project happens to hold.
    */
   const field = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  /* Before paint, so the arrangement is final by the time the move below
+     measures where each frame ended up. */
+  useLayoutEffect(() => {
     const box = field.current;
     if (!box || view !== "grid") return;
     const fit = () => {
@@ -413,6 +415,97 @@ export function Lightbox({
     watch.observe(box);
     return () => watch.disconnect();
   }, [view, shots.length]);
+
+  /*
+   * Changing view is a move, not a cut.
+   *
+   * The band and the grid are two arrangements of the same pictures, and
+   * swapping one for the other in a single frame reads as the set being
+   * replaced rather than rearranged — you lose track of which picture was
+   * which. Each frame is measured where it was, put back there, and then
+   * released: they travel from the row they were in to the sheet they are
+   * going to, and back again when you ask for the row.
+   *
+   * Where each one was is taken at the moment the switch is pressed, before
+   * React has had a chance to change anything.
+   */
+  const places = useRef<Map<string, DOMRect>>(new Map());
+  const held = useRef(false);
+
+  const move = useCallback(
+    (next: "band" | "grid") => {
+      if (next === view) return;
+      const box = pages.current;
+      if (box && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const was = new Map<string, DOMRect>();
+        box.querySelectorAll<HTMLElement>(".hbw-lamp__page").forEach((one, i) => {
+          const where = one.getBoundingClientRect();
+          /*
+           * Only the ones you could see.
+           *
+           * The band is scrolled, so most of a long project is three
+           * thousand pixels off the left of the screen — put back there and
+           * released, they spend the whole move flying in and the sheet sits
+           * empty while they do. A picture that was not on screen has no
+           * journey to show: it is simply already in its place when the
+           * sheet arrives, and the ones you were looking at travel.
+           */
+          if (where.right < 0 || where.left > window.innerWidth) return;
+          if (where.bottom < 0 || where.top > window.innerHeight) return;
+          was.set(one.dataset.frame ?? String(i), where);
+        });
+        places.current = was;
+        held.current = true;
+      }
+      setView(next);
+    },
+    [view, setView],
+  );
+
+  useLayoutEffect(() => {
+    if (!held.current) return;
+    held.current = false;
+    const was = places.current;
+    places.current = new Map();
+    const box = pages.current;
+    if (!box || !was.size) return;
+    const frames = Array.from(box.querySelectorAll<HTMLElement>(".hbw-lamp__page"));
+    const moving: HTMLElement[] = [];
+    for (const one of frames) {
+      const before = was.get(one.dataset.frame ?? "");
+      if (!before) continue;
+      const after = one.getBoundingClientRect();
+      if (!after.width || !before.width) continue;
+      const dx = before.left - after.left;
+      const dy = before.top - after.top;
+      const sx = before.width / after.width;
+      const sy = before.height / after.height;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) continue;
+      one.style.transformOrigin = "top left";
+      one.style.transition = "none";
+      one.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+      moving.push(one);
+    }
+    if (!moving.length) return;
+    /* Two frames: one to be put back where it was, one to let go. */
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        for (const one of moving) {
+          one.style.transition = "transform var(--in) var(--ease)";
+          one.style.transform = "";
+        }
+      });
+    });
+    const clear = () => {
+      for (const one of moving) {
+        one.style.transition = "";
+        one.style.transformOrigin = "";
+        one.style.transform = "";
+      }
+    };
+    const done = window.setTimeout(clear, 900);
+    return () => window.clearTimeout(done);
+  }, [view]);
 
   const rowLeft = useRef<HTMLSpanElement>(null);
   const rowWays = useRef<HTMLSpanElement>(null);
@@ -672,10 +765,10 @@ export function Lightbox({
         {/* The count moved across to balance the switch: one thing at each
             end of the row, with the project's name holding the middle. */}
         <span className="hbw-lamp__ways hbw-lamp__view" ref={rowWays} role="group" aria-label="How the work is laid out">
-          <button type="button" aria-pressed={view === "band"} onClick={() => setView("band")}>
+          <button type="button" aria-pressed={view === "band"} onClick={() => move("band")}>
             Gallery
           </button>
-          <button type="button" aria-pressed={view === "grid"} onClick={() => setView("grid")}>
+          <button type="button" aria-pressed={view === "grid"} onClick={() => move("grid")}>
             Grid
           </button>
           {/*
@@ -747,6 +840,9 @@ export function Lightbox({
               <div
                 className="hbw-lamp__page"
                 key={one.id ?? one.src + i}
+                /* The same picture, under the same name, in either view —
+                   which is what lets the move follow it across. */
+                data-frame={i}
                 data-here={i === at}
                 aria-hidden={i === at ? undefined : true}
                 /* The page is the shape of its picture, known before it loads,

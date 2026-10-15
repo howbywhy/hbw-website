@@ -8928,7 +8928,9 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 }
 
 .hbw-lamp__feet {
-  padding-top: var(--pill-gap);
+  /* No air of its own above: the row gap is the gap, so the writing sits
+     the same two pixels off the foot that everything else sits off. */
+  padding-top: 0;
   padding-bottom: var(--edge);
 }
 
@@ -9009,4 +9011,65 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   height: 100%;
   object-fit: contain;
   object-position: center;
+}
+
+
+/* =====================================================================
+   The writing makes room; the gallery gives it.
+
+   It opened over the work, which kept the work still but meant the bottom
+   of the set was behind the reading. The gallery gives up the room instead:
+   the field is what is left of the window once the writing has taken its
+   share, so the pictures get smaller and the whole set stays in frame —
+   which is only possible now that the grid works out its own arrangement
+   from the room it has.
+
+   A fixed share, not the content's height, so the move is the same every
+   time and the reading scrolls inside it when a project has more to say.
+   ===================================================================== */
+/*
+ * Said in both forms, because an older rule gives the flexible row to the
+ * writing and the gallery a row sized to its content — the other way round
+ * from what this needs, and written as a list that includes the reading
+ * state, so it outranks a bare class. The gallery takes what is left.
+ */
+.hbw-lamp,
+.hbw-lamp[data-reading="true"] {
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+
+.hbw-lamp .hbw-lamp__info,
+.hbw-lamp[data-reading="true"] .hbw-lamp__info {
+  position: static;
+  grid-row: 3;
+  grid-column: 1 / -1;
+  height: 0;
+  max-height: none;
+  bottom: auto;
+  overflow: hidden;
+  transition:
+    height var(--out) var(--ease),
+    opacity var(--out) var(--ease),
+    visibility 0s linear var(--out);
+}
+
+.hbw-lamp[data-reading="true"] .hbw-lamp__info {
+  height: clamp(180px, 30vh, 320px);
+  overflow-y: auto;
+  visibility: visible;
+  transition:
+    height var(--in) var(--ease),
+    opacity var(--in) var(--ease),
+    visibility 0s linear 0s;
+}
+
+.hbw-lamp__feet {
+  grid-row: 4;
+}
+
+/* The field is simply the row it is given. */
+.hbw-lamp .hbw-lamp__field {
+  grid-row: 2;
+  height: auto;
+  min-height: 0;
 }
