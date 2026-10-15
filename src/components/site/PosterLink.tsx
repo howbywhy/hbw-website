@@ -50,7 +50,35 @@ export function PosterLink() {
   const win = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
 
-  const shut = useCallback(() => setOpen(false), []);
+  /**
+   * It leaves the way it came.
+   *
+   * Shutting it used to take the whole thing away between one frame and the
+   * next, which on a site where every other surface opens and closes as a
+   * sequence read as a fault rather than a dismissal. The window is marked
+   * as going, its three plates stand down in the reverse of the order they
+   * arrived, and only then does it come off the sheet. The timing is read
+   * from the same token the move itself is drawn with, so the two cannot
+   * drift apart.
+   */
+  const [going, setGoing] = useState(false);
+  const leaving = useRef(0);
+
+  const shut = useCallback(() => {
+    if (leaving.current) return;
+    const out = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--out")
+    );
+    const ms = Number.isFinite(out) && out > 0 ? out * (out < 20 ? 1000 : 1) : 240;
+    setGoing(true);
+    leaving.current = window.setTimeout(() => {
+      leaving.current = 0;
+      setGoing(false);
+      setOpen(false);
+    }, ms + 120);
+  }, []);
+
+  useEffect(() => () => window.clearTimeout(leaving.current), []);
 
   useEffect(() => {
     if (!open) return;
@@ -73,11 +101,30 @@ export function PosterLink() {
      * to be measured rather than looked at.
      */
     (opener.current?.closest<HTMLElement>(".hbw-site") ?? document.body).append(layer);
+    /*
+     * Where the nav actually ends, not where the tokens say it does.
+     *
+     * The window has to start under the nav here, and the obvious way to
+     * write that is `--chrome`, the sum of the bar's parts. It overshot by
+     * twenty-eight pixels, which put the tool that much further from the
+     * chrome than everything else on the site sits from it. The bar is
+     * fixed to the top, so its own height is the distance — measured, as
+     * every other offset here is, rather than added up.
+     */
+    const place = () => {
+      const bar = document.querySelector<HTMLElement>(".hbw-bar");
+      if (bar) layer.style.setProperty("--win-top", `${bar.offsetTop + bar.offsetHeight}px`);
+    };
+    place();
+    // The nav is not the same height at every width, and the tool stays open
+    // across a turn of the phone.
+    window.addEventListener("resize", place);
     const had = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     setOnOwnLayer(true);
     setHost(layer);
     return () => {
+      window.removeEventListener("resize", place);
       document.body.style.overflow = had;
       layer.remove();
       setHost(null);
@@ -121,7 +168,7 @@ export function PosterLink() {
         document.dispatchEvent(new CustomEvent("hbw:shut-palette"));
         return;
       }
-      setOpen(false);
+      shut();
     };
     window.addEventListener("keydown", key, true);
     document.addEventListener("hbw:shut-poster", shut);
@@ -143,8 +190,16 @@ export function PosterLink() {
     if (!open || !host) return;
     const node = win.current;
     if (!node) return;
-    const first = reachable(node)[0];
-    (first ?? node).focus({ preventScroll: true });
+    /*
+     * The window takes focus, not the first thing in it.
+     *
+     * Landing on the first control armed the way out the moment the tool
+     * opened — a ring round "Close poster" before a mark had been made, and
+     * the first key you pressed could shut what you had just asked for. The
+     * dialog itself is focusable for exactly this; Tab from here goes to the
+     * first control, which is where it was going anyway.
+     */
+    node.focus({ preventScroll: true });
     const tab = (event: KeyboardEvent) => {
       if (event.key !== "Tab") return;
       const stops = reachable(node);
@@ -198,12 +253,14 @@ export function PosterLink() {
               aria-label="Poster"
               tabIndex={-1}
               data-layer={onOwnLayer ? "own" : undefined}
+              data-going={going ? "true" : undefined}
               onClick={(event) => event.stopPropagation()}
             >
               <div className="hbw-win__top">
                 <p className="hbw-m">Poster</p>
-                <button type="button" onClick={() => setOpen(false)}>
-                  Close
+                {/* Not a second "Close" two pixels under the nav's own. */}
+                <button type="button" onClick={shut}>
+                  Close poster
                 </button>
               </div>
               <div className="hbw-win__body">

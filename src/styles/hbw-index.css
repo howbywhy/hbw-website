@@ -10314,3 +10314,367 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.92em;
 }
+
+
+/* =====================================================================
+   The poster, in the site's own system.
+
+   It was built before the system was, and it still looked it: a centred
+   window with a hairline round it, floating over the studio with air on
+   every side, a white canvas framed in a second hairline, and a bar of
+   controls in which the tool you were holding went solid black and the
+   address you were sending to sat in a bordered box. Nothing else here is
+   drawn that way. This site is plates of the same field, two pixels apart,
+   and the one that is chosen is told apart by its ink.
+
+   So the window stops being a window. It sits two pixels inside the sheet
+   like everything else, in three plates — what it is, what you are drawing
+   on, and what you are drawing with — and those three come in and go out in
+   order, as the studio's own blocks do. The one thing that stays white is
+   the canvas, because that is not chrome, it is the paper.
+   ===================================================================== */
+.hbw-win {
+  position: absolute;
+  inset: var(--edge);
+  top: var(--edge);
+  left: var(--edge);
+  width: auto;
+  height: auto;
+  transform: none;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--edge);
+  /*
+   * The window keeps a ground of its own, as the studio sheet does.
+   *
+   * Transparent, the two pixels between its plates were not two pixels of
+   * paper but two pixels of whatever the studio happened to be showing, and
+   * the top bar — which is a field, and so translucent — had the portrait
+   * behind it smeared across one end. The plates sit on paper here exactly
+   * as the studio's modules sit on the sheet.
+   */
+  background: var(--paper);
+  outline: 0;
+}
+
+/* The tool's own row: what it is, and the way out of it. Its words differ
+   from the nav's two pixels above — "Close poster", not a second "Close" —
+   because two identical exits stacked on each other is a guess, not a
+   choice. */
+.hbw-win__top {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--edge);
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  font-size: var(--nav);
+  color: var(--mute);
+}
+
+.hbw-win__top p {
+  margin: 0;
+  color: var(--ink);
+}
+
+.hbw-win__top button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--nav);
+  color: var(--mute);
+  cursor: pointer;
+  transition: color var(--quick) var(--ease);
+}
+
+.hbw-win__top button:hover,
+.hbw-win__top button:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-win__top button:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.hbw-win__body {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* The paper. No frame of its own: the two pixels around it are the frame,
+   here as everywhere. */
+.hbw-win .hbw-poster-field {
+  margin: 0;
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--paper);
+}
+
+/*
+ * The instrument: one plate, the same plate, held off the paper's edges by
+ * the same two pixels.
+ *
+ * It stays over the canvas rather than under it, because the tool is built
+ * that way — the note it shows and the floor a block of type may be typed
+ * down to are both measured from where this bar rests. What changes is that
+ * it stops being a lid ruled off the top of the drawing and becomes a plate
+ * lying on it, like every other control here.
+ */
+.hbw-win .hbw-poster-toolbar {
+  left: var(--edge);
+  right: var(--edge);
+  bottom: var(--edge);
+  gap: var(--edge);
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-top: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  font-size: var(--nav);
+}
+
+.hbw-win .hbw-poster-toolbar__primary,
+.hbw-win .hbw-poster-toolbar__work,
+.hbw-win .hbw-poster-toolbar__send,
+.hbw-win .hbw-poster-toolbar__tray {
+  gap: var(--edge);
+}
+
+/* Every control sits on the bar rather than in a box of its own, and the
+   one in your hand is seated and inked rather than reversed out. Black on
+   a pale bar is not a state, it is a hole — the same thing the studio's
+   open block was doing, answered the same way. */
+.hbw-win .hbw-poster-tool,
+.hbw-win .hbw-poster-reset,
+.hbw-win .hbw-poster-send-open {
+  height: var(--pill-h);
+  min-width: var(--pill-h);
+  padding: 0 var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: transparent;
+  color: var(--mute);
+  font-size: var(--nav);
+}
+
+.hbw-win .hbw-poster-tool:hover,
+.hbw-win .hbw-poster-reset:hover,
+.hbw-win .hbw-poster-send-open:hover,
+.hbw-win .hbw-poster-tool:focus-visible,
+.hbw-win .hbw-poster-reset:focus-visible,
+.hbw-win .hbw-poster-send-open:focus-visible {
+  background: var(--chip);
+  color: var(--ink);
+}
+
+.hbw-win .hbw-poster-tool.is-current,
+.hbw-win .hbw-poster-tool[aria-pressed="true"] {
+  background: var(--chip-on);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.hbw-win .hbw-poster-reset.is-ask {
+  background: var(--chip-on);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+/* The address, and the one control on the bar you must not press by
+   accident. Both wear the field; neither wears a border. */
+.hbw-win .hbw-poster-toolbar .hbw-poster-input {
+  /* A control among controls. Left to take the room the bar had going
+     spare it ran half the width of the window, which made the address the
+     largest thing on an instrument whose subject is the drawing. */
+  width: clamp(140px, 16vw, 240px);
+  flex: 0 0 auto;
+  height: var(--pill-h);
+  padding: 0 var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--chip);
+  color: var(--ink);
+  font-size: var(--nav);
+  transition:
+    background-color var(--quick) var(--ease),
+    color var(--quick) var(--ease);
+}
+
+.hbw-win .hbw-poster-toolbar .hbw-poster-input::placeholder {
+  color: var(--mute);
+}
+
+.hbw-win .hbw-poster-toolbar .hbw-poster-input:focus {
+  outline: none;
+  background: var(--chip-on);
+  border-color: transparent;
+}
+
+/* The stop you are on is seated, not cut out of the bar. White on a pale
+   plate is a hole; the dot inside it is still what carries the size. */
+.hbw-win .hbw-poster-step.is-current {
+  background: var(--chip-on);
+  border-color: transparent;
+}
+
+.hbw-win .hbw-poster-send-open {
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.hbw-win .hbw-poster-send-open:hover {
+  background: var(--chip-on);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+/* =====================================================================
+   And it opens and shuts as a sequence, like everything else.
+
+   It used to be there, then not there. The three plates arrive in the
+   order you read them — what it is, what you draw on, what you draw with —
+   and leave in the reverse, at the leaving's own pace, so shutting it is
+   the same move run backwards rather than a cut.
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-win__top {
+    animation: hbw-arrive var(--in) var(--ease) backwards;
+  }
+
+  .hbw-win .hbw-poster-field {
+    animation: hbw-arrive var(--in) var(--ease) 60ms backwards;
+  }
+
+  /* Opacity only: it is inside the paper, so it already travels with it —
+     a rise of its own would be the same move counted twice. */
+  .hbw-win .hbw-poster-toolbar {
+    animation: hbw-lift var(--in) var(--ease) 120ms backwards;
+  }
+}
+
+.hbw-win[data-going="true"] .hbw-win__top,
+.hbw-win[data-going="true"] .hbw-poster-field {
+  opacity: 0;
+  transform: translateY(calc(var(--rise, 8px) * 0.8));
+  transition:
+    opacity var(--out) var(--ease),
+    transform var(--out) var(--ease);
+}
+
+.hbw-win[data-going="true"] .hbw-poster-toolbar {
+  opacity: 0;
+  transition: opacity var(--out) var(--ease);
+}
+
+.hbw-win[data-going="true"] .hbw-poster-toolbar {
+  transition-delay: 0ms;
+}
+
+.hbw-win[data-going="true"] .hbw-poster-field {
+  transition-delay: 40ms;
+}
+
+.hbw-win[data-going="true"] .hbw-win__top {
+  transition-delay: 80ms;
+}
+
+@media (max-width: 760px) {
+  .hbw-win .hbw-poster-toolbar .hbw-poster-input {
+    width: 100%;
+  }
+}
+
+/* =====================================================================
+   The bar's groups are told apart by space, not by lines.
+
+   It divided its parts with hairlines — one down the side of the tools,
+   one before the address, one across the top of the second row, one either
+   side of the scale and the ink. That is how the window used to be drawn,
+   and it is the same ruled vocabulary the studio's sections lost when they
+   became blocks. Two pixels is the division here.
+
+   The address and Send also travel together to the far end: both were
+   pushing off the free space between them, which left the address marooned
+   in the middle of the bar with nothing either side of it.
+   ===================================================================== */
+.hbw-win .hbw-poster-toolbar__primary,
+.hbw-win .hbw-poster-toolbar__send,
+.hbw-win .hbw-poster-toolbar__tray,
+.hbw-win .hbw-poster-steps,
+.hbw-win .hbw-poster-ink {
+  border: 0;
+}
+
+.hbw-win .hbw-poster-toolbar__send {
+  margin-left: 0;
+}
+
+.hbw-win .hbw-poster-toolbar__tray {
+  padding-top: var(--edge);
+  margin-top: 0;
+}
+
+/* The scale and the ink keep their distance from the tools the same way. */
+.hbw-win .hbw-poster-steps,
+.hbw-win .hbw-poster-ink {
+  padding-left: var(--pill-x);
+}
+
+/* =====================================================================
+   On its own layer, it starts under the chrome.
+
+   In the studio it fills the sheet, and the sheet already begins below the
+   nav. On /contact there is no sheet, so the layer is the window — and two
+   pixels from the top of the screen put its own row, the one that names it
+   and holds the way out of it, directly underneath the nav, which sits
+   above every layer here. It begins where the sheet would have.
+   ===================================================================== */
+.hbw-win[data-layer="own"] {
+  top: calc(var(--win-top, 0px) + var(--edge));
+}
+
+/* The ink panel is a plate too, seated rather than cut out of the drawing,
+   and its foot is divided by the two pixels the panel already has between
+   its rows rather than by a line drawn across it. */
+.hbw-win .hbw-poster-palette {
+  gap: var(--edge);
+  background: var(--chip-on);
+  border: 0;
+  border-radius: var(--pill-r);
+}
+
+.hbw-win .hbw-poster-palette__grid {
+  gap: var(--edge);
+}
+
+.hbw-win .hbw-poster-palette__foot {
+  gap: var(--edge);
+  padding-top: var(--edge);
+  border-top: 0;
+}
+
+/* The hex box wears the field like every other place you type here. */
+.hbw-win .hbw-poster-hex input {
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--chip);
+  color: var(--ink);
+}
+
+.hbw-win .hbw-poster-hex input:focus {
+  outline: none;
+  background: var(--chip-on);
+}
