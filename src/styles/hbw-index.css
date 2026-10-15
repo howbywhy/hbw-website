@@ -10043,3 +10043,70 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transform: none;
   }
 }
+
+
+/* =====================================================================
+   The open block's modules fill it, so the room it takes is the reading.
+
+   Growing the block to fill left the modules at the top of it and a hand's
+   width of nothing underneath — which reads as a gap of two hundred pixels
+   between a block and the next, on a page whose every other distance is
+   two. The modules take the height the block has.
+   ===================================================================== */
+@media (min-width: 761px) {
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+    align-items: stretch;
+  }
+}
+
+/* The phone: the picture is the width of the sheet, and the block's name
+   sits the same two pixels off its reading that it does on a wide screen. */
+@media (max-width: 760px) {
+  .hbw-studio-sheet__panel .hbw-studio__portrait {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hbw-studio-sheet__panel .hbw-part {
+    gap: var(--edge);
+  }
+
+  .hbw-studio-sheet__panel .hbw-part__say {
+    margin-top: 0;
+  }
+}
+
+
+/* The block's name carries no air of its own — the block's own two pixels
+   are the distance, here as everywhere. */
+.hbw-studio-doc .hbw-part__name {
+  margin: 0;
+}
+
+/* And the open block's rows share its height, so the modules reach its
+   foot instead of sitting at the top of a tall empty field. */
+@media (min-width: 761px) {
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+    grid-auto-rows: minmax(0, 1fr);
+    align-content: stretch;
+  }
+}
+
+
+/* The block is a grid of two rows — its name, and everything else. The
+   reading was given flex: 1 to fill, which a grid child does not answer, so
+   it kept its content's height and the block grew empty underneath it. */
+@media (min-width: 761px) {
+  .hbw-studio-doc .hbw-part[data-open="true"] {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+}
+
+
+/* The section was set to hang its parts from the top, which is right for a
+   document and wrong for a block whose reading is supposed to fill it. */
+@media (min-width: 761px) {
+  .hbw-studio-doc .hbw-part[data-open="true"] {
+    align-items: stretch;
+  }
+}
