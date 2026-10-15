@@ -105,6 +105,45 @@ export function StudioBody({ start }: { start?: string }) {
    * does not need to. The last part whose top has passed the line under the
    * chrome is the one being read.
    */
+  /*
+   * Scrolling moves from one block to the next.
+   *
+   * The blocks fit the screen between them, so there is no page left to
+   * scroll — the wheel advances the reading instead: down opens the next
+   * block and closes this one, up goes back. A block with more to say than
+   * fits keeps its own scroll first, and only hands the wheel on once its
+   * reading has run out, so nothing is skipped past unread. At either end
+   * the gesture is left alone, so a reader can still get out of the sheet.
+   */
+  useEffect(() => {
+    const host = said.current;
+    if (!host) return;
+    let carry = 0;
+    let cooling = 0;
+    const onWheel = (event: WheelEvent) => {
+      const open = host.querySelector<HTMLElement>('.hbw-part[data-open="true"] .hbw-part__say');
+      if (open) {
+        const down = event.deltaY > 0;
+        const left = down
+          ? open.scrollTop + open.clientHeight < open.scrollHeight - 1
+          : open.scrollTop > 1;
+        if (left) return;
+      }
+      const at = PARTS.findIndex((part) => part.id === here);
+      const next = at + (event.deltaY > 0 ? 1 : -1);
+      if (next < 0 || next >= PARTS.length) return;
+      event.preventDefault();
+      if (Date.now() < cooling) return;
+      carry += event.deltaY;
+      if (Math.abs(carry) < 48) return;
+      carry = 0;
+      cooling = Date.now() + 420;
+      setHere(PARTS[next].id);
+    };
+    host.addEventListener("wheel", onWheel, { passive: false });
+    return () => host.removeEventListener("wheel", onWheel);
+  }, [here]);
+
   useEffect(() => {
     const host = said.current;
     if (!host) return;
@@ -118,8 +157,15 @@ export function StudioBody({ start }: { start?: string }) {
         const box = part.getBoundingClientRect();
         if (box.top <= line + 1 && box.bottom > line) now = part.dataset.part ?? null;
       }
-      const named = PARTS.find((part) => part.id === now);
-      if (named) setHere((was) => (was === named.id ? was : named.id));
+      /*
+       * The scroll no longer names the part.
+       *
+       * It did when the studio was a document and you scrolled past its
+       * sections. The blocks fit the screen now and the wheel moves between
+       * them, so a second thing setting the same state from where the parts
+       * happen to sit would fight the first and the reading would jump.
+       */
+      void now;
       /*
        * The chrome stops naming the part.
        *
@@ -360,14 +406,17 @@ export function StudioBody({ start }: { start?: string }) {
           decoding="async"
         />
         <Footer />
-        {/*
-          The studio's name, at the end of the studio.
-
-          It appears when the last block opens — you have read the whole
-          thing, and what is left to say is who said it.
-        */}
-        <p className="hbw-studio__end">How by Why</p>
       </aside>
+
+      {/*
+        The studio's name, across the foot of the whole sheet.
+
+        It arrives when the last block opens — you have read the thing, and
+        what is left to say is who said it. Set large enough that it runs
+        past the right edge, because a name at this size is a mark, not a
+        line of text to be fitted.
+      */}
+      <p className="hbw-studio__end" aria-hidden="true">How by Why</p>
     </div>
   );
 }

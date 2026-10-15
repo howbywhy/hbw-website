@@ -9419,6 +9419,11 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-studio-doc .hbw-studio__said {
   margin-left: 0;
   margin-bottom: var(--edge);
+  /* The column that holds the blocks keeps the same two pixels between them
+     that they keep inside themselves — it was holding fifty-five, which is
+     where the ruled look survived after the rules came out. */
+  gap: var(--edge);
+  row-gap: var(--edge);
 }
 
 
@@ -9513,6 +9518,17 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   display: grid;
   gap: var(--edge);
   align-content: start;
+  /*
+   * No rule between the blocks, and no air of their own.
+   *
+   * A line above each section and twenty-four pixels either side of it was
+   * how a document separates its parts — but these are not parts of a
+   * document any more, they are five objects two pixels apart, and an
+   * object does not need a line drawn to say where it ends. The ruled gaps
+   * were also the one spacing left on the sheet that was not two.
+   */
+  border-top: 0;
+  padding-block: 0;
 }
 
 .hbw-studio-doc .hbw-part__name {
@@ -9615,19 +9631,89 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   object-position: center;
 }
 
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-doc .hbw-studio__end {
+    transition: none;
+  }
+}
+
+
+/* =====================================================================
+   The blocks start at the left edge, and nothing is drawn between them.
+
+   The names were in the margin and the reading was indented past them —
+   an index for a document, which this is not any more: every block says
+   its own name on its own front. The margin goes and the reading takes the
+   room.
+
+   The fifty-five pixels between the blocks were not a rule or a padding
+   but the column spreading its rows down the height it had. Packed to the
+   top, the only distance left between two blocks is the two pixels this
+   site keeps everywhere.
+   ===================================================================== */
+.hbw-studio-doc .hbw-studio__index {
+  display: none;
+}
+
+.hbw-studio-doc .hbw-studio__said {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}
+
+.hbw-studio-doc .hbw-part {
+  grid-column: 1 / -1;
+}
+
+
+/* =====================================================================
+   The name across the foot of the sheet.
+
+   When the last block opens the reading is done, and what is left to say is
+   who said it. The picture and the foot give up the height; the name takes
+   the full width of the sheet and is set large enough to run past the right
+   edge, because at this size it is a mark rather than a line of text to be
+   fitted into a measure.
+   ===================================================================== */
+.hbw-studio-doc {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.hbw-studio-doc .hbw-studio__said,
+.hbw-studio-doc .hbw-studio__aside {
+  grid-row: 1;
+}
+
 .hbw-studio-doc .hbw-studio__end {
+  /*
+   * The band is as tall as the name needs and the name is wider than the
+   * sheet, so the last letter runs off the right edge. Its width was being
+   * held to the thirty-four rem measure every paragraph in here keeps,
+   * which is right for reading and wrong for a mark.
+   */
+  --end-h: clamp(150px, 31vh, 300px);
+  grid-column: 1 / -1;
+  grid-row: 2;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: center;
+  width: auto;
+  max-width: none;
   height: 0;
   margin: 0;
   padding-inline: var(--pill-x);
   border-radius: var(--pill-r);
-  background: var(--pill-on);
+  /* The site's own field, not white: white on a pale ground is not a
+     container, it is a gap. */
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
   color: var(--ink);
-  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  /* Just over the band's height, so the whole letter fits top to bottom and
+     the only thing cut is the end of the name. */
+  font-size: calc(var(--end-h) * 1.02);
   line-height: 1;
+  letter-spacing: -0.02em;
   white-space: nowrap;
   overflow: hidden;
   opacity: 0;
@@ -9637,8 +9723,9 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 }
 
 .hbw-studio-doc:has(.hbw-part:last-of-type[data-open="true"]) .hbw-studio__end {
-  height: clamp(56px, 9vh, 96px);
+  height: var(--end-h);
   opacity: 1;
+  margin-top: var(--edge);
   transition:
     height var(--in) var(--ease),
     opacity var(--in) var(--ease);
