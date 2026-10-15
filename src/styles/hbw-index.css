@@ -10143,3 +10143,174 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   background: var(--pill-bg);
   color: var(--ink);
 }
+
+
+/* =====================================================================
+   A module is as tall as what is in it.
+
+   Stretching them to fill the block filled the room but made four short
+   things into four tall ones, each with a field of nothing under its last
+   line. The board was built to give each piece the room it needs; a module
+   that needs three lines takes three lines, and the room left over is the
+   block's, not the module's.
+   ===================================================================== */
+@media (min-width: 761px) {
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+    align-items: start;
+    align-content: start;
+    grid-auto-rows: min-content;
+  }
+}
+
+
+/* =====================================================================
+   The system, written down in its own terms.
+
+   The page that documents this site is built out of the same parts it is
+   documenting: the field, the corner, the two pixels. If it ever stops
+   looking like the site, the site has moved and this has not.
+   ===================================================================== */
+.hbw-sys {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--edge);
+  padding: var(--edge);
+  max-width: 100%;
+  color: var(--ink);
+  font-size: var(--t-small, 0.82rem);
+}
+
+.hbw-sys__head,
+.hbw-sys__part {
+  box-sizing: border-box;
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
+  padding: clamp(14px, 1.6vw, 24px);
+}
+
+.hbw-sys__name {
+  margin: 0 0 0.4em;
+  font-size: var(--t-mid, 1rem);
+  font-weight: 600;
+}
+
+.hbw-sys__says,
+.hbw-sys__label {
+  margin: 0;
+  color: var(--mute);
+  max-width: 60ch;
+}
+
+.hbw-sys__title {
+  margin: 0 0 0.8em;
+  font-size: var(--nav, 0.82rem);
+  font-weight: 600;
+}
+
+.hbw-sys__tokens,
+.hbw-sys__rules {
+  display: grid;
+  gap: var(--edge);
+  margin: 0;
+}
+
+.hbw-sys__tokens {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.hbw-sys__token,
+.hbw-sys__rule {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
+  min-width: 0;
+}
+
+.hbw-sys__token dt,
+.hbw-sys__rule dt {
+  margin: 0;
+  color: var(--mute);
+}
+
+.hbw-sys__token dd,
+.hbw-sys__rule dd {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.hbw-sys__rule dt {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.hbw-sys__rule dd {
+  display: block;
+  color: var(--mute);
+  max-width: 72ch;
+}
+
+.hbw-sys__swatch {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--pill-r);
+  outline: 1px solid var(--rule, rgba(51, 51, 51, 0.14));
+  outline-offset: -1px;
+}
+
+.hbw-sys__shelf {
+  display: grid;
+  gap: var(--edge);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.hbw-sys__case {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+}
+
+.hbw-sys__row {
+  display: flex;
+  gap: var(--pill-gap);
+}
+
+.hbw-sys__pill {
+  display: inline-flex;
+  align-items: center;
+  height: var(--pill-h);
+  padding-inline: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: var(--mute);
+  white-space: nowrap;
+}
+
+.hbw-sys__pill.is-on {
+  color: var(--ink);
+}
+
+.hbw-sys__module {
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
+  padding: clamp(14px, 1.6vw, 24px);
+}
+
+.hbw-sys__module p {
+  margin: 0;
+  color: var(--mute);
+  max-width: 48ch;
+}
+
+.hbw-sys code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+}

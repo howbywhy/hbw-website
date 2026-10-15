@@ -328,18 +328,21 @@ export function StudioBody({ start }: { start?: string }) {
           <div className="hbw-part__col">
             <h2 className="hbw-part__lead">{STUDIO_COPY.howIntro}</h2>
           </div>
-          {/* Two stages a column, so the four read as two pairs rather than a
-              list running down one side of a three-column page. */}
-          {[0, 2].map((from) => (
-            <div className="hbw-part__col" key={from}>
+          {/*
+            One stage, one module.
+            
+            They were set two to a column, which made two tall objects out of
+            four short ones — and the board is built to give each thing the
+            room it actually needs. Four modules read as four steps.
+          */}
+          {STUDIO_COPY.steps.map((step) => (
+            <div className="hbw-part__col" key={step.id}>
               <ol className="hbw-part__steps">
-                {STUDIO_COPY.steps.slice(from, from + 2).map((step) => (
-                  <li key={step.id}>
-                    <span className="hbw-m">{step.id}</span>
-                    <span className="hbw-ink">{step.title}</span>
-                    <p>{step.copy}</p>
-                  </li>
-                ))}
+                <li>
+                  <span className="hbw-m">{step.id}</span>
+                  <span className="hbw-ink">{step.title}</span>
+                  <p>{step.copy}</p>
+                </li>
               </ol>
             </div>
           ))}
