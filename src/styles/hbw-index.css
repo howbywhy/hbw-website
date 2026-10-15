@@ -9204,14 +9204,22 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    columns make, so the whole site has one way of showing you something.
    ===================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col {
+  /*
+   * Once, on opening — not again every time you scroll past a section.
+   *
+   * These were keyed to whichever section was current, which changes as the
+   * page moves, so the modules re-arrived under the reader's eye on the way
+   * down. The sheet opens; the modules come in; after that they stay put and
+   * the scroll does the work.
+   */
+  .hbw-studio-doc .hbw-part .hbw-part__col {
     animation: hbw-arrive var(--in) var(--ease) backwards;
   }
 
-  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(1) { animation-delay: 40ms; }
-  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(2) { animation-delay: 120ms; }
-  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(3) { animation-delay: 200ms; }
-  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(n + 4) { animation-delay: 280ms; }
+  .hbw-studio-doc .hbw-part .hbw-part__col:nth-child(1) { animation-delay: 40ms; }
+  .hbw-studio-doc .hbw-part .hbw-part__col:nth-child(2) { animation-delay: 120ms; }
+  .hbw-studio-doc .hbw-part .hbw-part__col:nth-child(3) { animation-delay: 200ms; }
+  .hbw-studio-doc .hbw-part .hbw-part__col:nth-child(n + 4) { animation-delay: 280ms; }
 }
 
 
@@ -9246,15 +9254,8 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     gap: var(--edge);
   }
 
-  /* A section with two things to say gives each of them half, rather than
-     two thirds and a hole. */
-  .hbw-studio-doc .hbw-studio__said .hbw-part__say:has(.hbw-part__col:nth-child(2):last-child) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .hbw-studio-doc .hbw-studio__said .hbw-part__say:has(.hbw-part__col:only-child) {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  /* Superseded by the board below: the row is six tracks whatever the
+     section holds, and each module says how many of them it takes. */
 }
 
 
@@ -9326,4 +9327,325 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-case__index {
   padding-inline: 0;
   padding-bottom: var(--edge);
+}
+
+
+/* =====================================================================
+   The heading slot goes; the columns take the room.
+
+   Each section was laid out as a narrow column for its name, a gutter, and
+   the prose — but in the sheet the name is in the index on the left, so
+   that first track held nothing and took two hundred and forty pixels with
+   it. Three columns of reading were a hundred and eighty wide apiece next
+   to an empty quarter of the page.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.hbw-studio-doc .hbw-part__say {
+  grid-column: 1 / -1;
+}
+
+
+/* =====================================================================
+   The measure belongs to a column, not to the row of them.
+
+   Thirty-four rems is a good width for one column of prose, and it was set
+   on the row — so three columns standing together shared it and each came
+   out a hundred and eighty wide. Lifted where they stand together, the row
+   takes the room the heading slot gave back and each column lands near
+   two hundred and eighty, which is the measure the cap was protecting in
+   the first place.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .hbw-studio-doc .hbw-studio__said .hbw-part__say {
+    max-width: none;
+  }
+}
+
+
+/* =====================================================================
+   The studio as a board of modules, not a row of equal columns.
+
+   Three columns of identical width is still a document with rules drawn on
+   it: every piece of information given the same room whether it is a
+   sentence or a list of six things. A board gives each piece the room it
+   actually needs — a statement takes a narrow tall module, a list takes a
+   short wide one, a paragraph takes what is left — and packs them, so the
+   shape of the page is made by the content rather than imposed on it.
+
+   Six tracks, so a module can take a third, a half or two thirds of the
+   row; dense, so a short module fills the hole a tall one leaves beside
+   it; and each one is the height of what it holds, never stretched to
+   match its neighbour.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .hbw-studio-doc .hbw-studio__said .hbw-part__say {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-flow: dense;
+    align-items: start;
+  }
+
+  /* A paragraph wants a measure; two tracks of six is about sixty
+     characters at this size, which is the one the cap was protecting. */
+  .hbw-studio-doc .hbw-part__col {
+    grid-column: span 2;
+  }
+
+  /* A statement on its own is a held note, not a paragraph: it takes less
+     room and sits taller, the way the bio does on the board that prompted
+     this. */
+  .hbw-studio-doc .hbw-part__col:has(.hbw-part__lead):not(:has(p)) {
+    grid-column: span 2;
+  }
+
+  /* A list of facts is read across, so it takes the width to be read
+     across — the widest module on the board, like a client list. */
+  .hbw-studio-doc .hbw-part__col:has(.hbw-facts) {
+    grid-column: span 4;
+  }
+
+  /* A section with one thing to say says it across the board. */
+  .hbw-studio-doc .hbw-part__say:has(.hbw-part__col:only-child) .hbw-part__col {
+    grid-column: span 6;
+  }
+}
+
+
+/* The inner column pulled itself a gutter to the left, which was right when
+   the document was padded by a gutter and is five pixels off the canvas now
+   that it is padded by two. */
+.hbw-studio-doc .hbw-studio__said {
+  margin-left: 0;
+  margin-bottom: var(--edge);
+}
+
+
+/* =====================================================================
+   The right-hand column is modules too.
+
+   The portrait and the foot beside it were the last things on this sheet
+   still sitting loose on the page while everything to their left had become
+   objects. The picture is a module and so is what it says underneath.
+   ===================================================================== */
+.hbw-studio-doc .hbw-studio__aside {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+}
+
+.hbw-studio-doc .hbw-studio__portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--pill-r);
+  margin: 0;
+}
+
+.hbw-studio-doc .hbw-studio__aside .hbw-foot,
+.hbw-studio-doc .hbw-studio__aside > footer {
+  box-sizing: border-box;
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  padding: clamp(14px, 1.6vw, 24px);
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-studio-doc .hbw-studio__aside > * {
+    animation: hbw-arrive var(--in) var(--ease) backwards;
+  }
+
+  .hbw-studio-doc .hbw-studio__aside > *:nth-child(1) { animation-delay: 100ms; }
+  .hbw-studio-doc .hbw-studio__aside > *:nth-child(n + 2) { animation-delay: 180ms; }
+}
+
+
+/* =====================================================================
+   The blocks stack up as you scroll.
+
+   A section used to scroll away and the index in the margin lit up to say
+   which one you were in — a marker reporting on a movement you could not
+   see. The sections hold instead: each one sticks when it reaches the top
+   and the next comes up under it, so where you are in the studio is told by
+   the stack itself rather than by a word changing colour somewhere else.
+
+   The mark in the margin stands down accordingly.
+   ===================================================================== */
+/*
+ * Not stuck, for now.
+ *
+ * Sticking every section at the top stacks them, but a section here is not
+ * a panel — it is two or three modules with the work showing between them.
+ * Stacked, the one behind reads straight through those gaps and two
+ * sections' sentences interleave. Making them solid enough to stack means
+ * giving each block an opaque ground, which is the one thing this site does
+ * not do. Left scrolling until that is decided.
+ */
+
+.hbw-studio-doc .hbw-studio__index a[aria-current]::before {
+  content: none;
+}
+
+.hbw-studio-doc .hbw-studio__index a[aria-current] {
+  color: inherit;
+}
+
+
+/* =====================================================================
+   Five blocks that open and close, the way the project information does.
+
+   The studio was a document you scrolled past; now it is five things, one
+   of them open. Each block says its own name whether it is open or not, so
+   a closed one is still a way in; the one you are at takes the height it
+   needs and the rest sit shut above and below it, which means the whole
+   studio is always on one screen and where you are is told by what is open
+   rather than by a word changing colour in the margin.
+
+   The same move the writing makes over a project: a fixed share rather than
+   the content's own height, so opening is the same length every time and
+   the reading scrolls inside when a part has more to say.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+}
+
+.hbw-studio-doc .hbw-part__name {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: var(--mute);
+  font: inherit;
+  font-size: var(--nav);
+  text-align: left;
+  cursor: pointer;
+}
+
+.hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__name {
+  background: var(--pill-on);
+  color: var(--ink);
+}
+
+.hbw-studio-doc .hbw-part__name:hover,
+.hbw-studio-doc .hbw-part__name:focus-visible {
+  color: var(--ink);
+}
+
+/* Shut: no height, nothing to catch, and the move is the site's. */
+.hbw-studio-doc .hbw-part:not([data-open="true"]) .hbw-part__say {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    height var(--out) var(--ease),
+    opacity var(--out) var(--ease);
+}
+
+.hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+  height: clamp(220px, 42vh, 460px);
+  overflow-y: auto;
+  opacity: 1;
+  transition:
+    height var(--in) var(--ease),
+    opacity var(--in) var(--ease);
+}
+
+/* The columns come in after the block has made room, as they do elsewhere. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-studio-doc .hbw-part:not([data-open="true"]) .hbw-part__col {
+    animation: none;
+  }
+
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col:nth-child(1) { animation-delay: calc(var(--in) + 20ms); }
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col:nth-child(2) { animation-delay: calc(var(--in) + 100ms); }
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col:nth-child(3) { animation-delay: calc(var(--in) + 180ms); }
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col:nth-child(n + 4) { animation-delay: calc(var(--in) + 260ms); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-doc .hbw-part__say {
+    transition: none;
+  }
+}
+
+
+/* =====================================================================
+   The last block keeps no half-screen under it any more.
+
+   It was given room so that scrolling could carry Contact up to the
+   reading line and the index would light for it. The blocks open on being
+   asked now, so there is nothing to scroll to and the padding was simply
+   seven hundred pixels of nothing under a shut block.
+   ===================================================================== */
+.hbw-studio-doc .hbw-studio__said .hbw-part:last-of-type {
+  padding-bottom: 0;
+  min-height: 0;
+}
+
+/* =====================================================================
+   The right-hand side holds the height, and says the name at the end.
+
+   The portrait stays the full height of the sheet while the blocks open
+   and close beside it, so the studio always has a face in it. When the
+   last block opens — the reading is done — the studio's own name arrives
+   under it, large, in the same container everything else here wears.
+   ===================================================================== */
+.hbw-studio-doc .hbw-studio__aside {
+  height: 100%;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+}
+
+.hbw-studio-doc .hbw-studio__portrait {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hbw-studio-doc .hbw-studio__end {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  margin: 0;
+  padding-inline: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-on);
+  color: var(--ink);
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    height var(--out) var(--ease),
+    opacity var(--out) var(--ease);
+}
+
+.hbw-studio-doc:has(.hbw-part:last-of-type[data-open="true"]) .hbw-studio__end {
+  height: clamp(56px, 9vh, 96px);
+  opacity: 1;
+  transition:
+    height var(--in) var(--ease),
+    opacity var(--in) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-doc .hbw-studio__end {
+    transition: none;
+  }
 }

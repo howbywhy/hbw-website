@@ -199,7 +199,16 @@ export function StudioBody({ start }: { start?: string }) {
             </a>
           ))}
         </nav>
-      <section className="hbw-part" data-part="practice" data-here={here === "practice"}>
+      <section className="hbw-part" data-part="practice" data-here={here === "practice"} data-open={here === "practice"}>
+        {/* The block says its own name, so a closed one is still a way in. */}
+        <button
+          type="button"
+          className="hbw-part__name"
+          aria-expanded={here === "practice"}
+          onClick={() => setHere("practice")}
+        >
+          Practice
+        </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
             {/* One statement in two tones: the tension, then who answers it. */}
@@ -222,7 +231,16 @@ export function StudioBody({ start }: { start?: string }) {
         </div>
       </section>
 
-      <section className="hbw-part" data-part="approach" data-here={here === "approach"}>
+      <section className="hbw-part" data-part="approach" data-here={here === "approach"} data-open={here === "approach"}>
+        {/* The block says its own name, so a closed one is still a way in. */}
+        <button
+          type="button"
+          className="hbw-part__name"
+          aria-expanded={here === "approach"}
+          onClick={() => setHere("approach")}
+        >
+          Approach
+        </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
             <h2 className="hbw-part__lead">{STUDIO_COPY.philosophy[0]}</h2>
@@ -236,7 +254,16 @@ export function StudioBody({ start }: { start?: string }) {
         </div>
       </section>
 
-      <section className="hbw-part" data-part="process" data-here={here === "process"}>
+      <section className="hbw-part" data-part="process" data-here={here === "process"} data-open={here === "process"}>
+        {/* The block says its own name, so a closed one is still a way in. */}
+        <button
+          type="button"
+          className="hbw-part__name"
+          aria-expanded={here === "process"}
+          onClick={() => setHere("process")}
+        >
+          Process
+        </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
             <h2 className="hbw-part__lead">{STUDIO_COPY.howIntro}</h2>
@@ -259,7 +286,16 @@ export function StudioBody({ start }: { start?: string }) {
         </div>
       </section>
 
-      <section className="hbw-part" data-part="manifesto" data-here={here === "manifesto"}>
+      <section className="hbw-part" data-part="manifesto" data-here={here === "manifesto"} data-open={here === "manifesto"}>
+        {/* The block says its own name, so a closed one is still a way in. */}
+        <button
+          type="button"
+          className="hbw-part__name"
+          aria-expanded={here === "manifesto"}
+          onClick={() => setHere("manifesto")}
+        >
+          Manifesto
+        </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
             <h2 className="hbw-part__lead">{MANIFESTO_COPY.opening.join(" ")}</h2>
@@ -277,7 +313,16 @@ export function StudioBody({ start }: { start?: string }) {
         </div>
       </section>
 
-      <section className="hbw-part" data-part="contact" data-here={here === "contact"}>
+      <section className="hbw-part" data-part="contact" data-here={here === "contact"} data-open={here === "contact"}>
+        {/* The block says its own name, so a closed one is still a way in. */}
+        <button
+          type="button"
+          className="hbw-part__name"
+          aria-expanded={here === "contact"}
+          onClick={() => setHere("contact")}
+        >
+          Contact
+        </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
             <h2 className="hbw-part__lead">{STUDIO_COPY.contactLine}</h2>
@@ -315,6 +360,13 @@ export function StudioBody({ start }: { start?: string }) {
           decoding="async"
         />
         <Footer />
+        {/*
+          The studio's name, at the end of the studio.
+
+          It appears when the last block opens — you have read the whole
+          thing, and what is left to say is who said it.
+        */}
+        <p className="hbw-studio__end">How by Why</p>
       </aside>
     </div>
   );
