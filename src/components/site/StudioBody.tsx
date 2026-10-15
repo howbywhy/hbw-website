@@ -120,6 +120,7 @@ export function StudioBody({ start }: { start?: string }) {
     if (!host) return;
     let carry = 0;
     let cooling = 0;
+    let last = 0;
     const onWheel = (event: WheelEvent) => {
       const open = host.querySelector<HTMLElement>('.hbw-part[data-open="true"] .hbw-part__say');
       if (open) {
@@ -134,10 +135,23 @@ export function StudioBody({ start }: { start?: string }) {
       if (next < 0 || next >= PARTS.length) return;
       event.preventDefault();
       if (Date.now() < cooling) return;
+      /*
+       * One gesture, one block, then a pause.
+       *
+       * A trackpad throws a long tail of events for a single flick, so a
+       * low threshold and a short cooldown ran the whole studio past in
+       * about a second. The tail is discarded — a gap of a sixth of a
+       * second ends the gesture — and after a block opens the wheel is
+       * ignored for long enough that the block has opened and its columns
+       * have come in before the next push is heard.
+       */
+      const now = Date.now();
+      if (now - last > 160) carry = 0;
+      last = now;
       carry += event.deltaY;
-      if (Math.abs(carry) < 48) return;
+      if (Math.abs(carry) < 140) return;
       carry = 0;
-      cooling = Date.now() + 420;
+      cooling = now + 1100;
       setHere(PARTS[next].id);
     };
     host.addEventListener("wheel", onWheel, { passive: false });

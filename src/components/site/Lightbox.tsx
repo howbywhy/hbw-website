@@ -375,6 +375,30 @@ export function Lightbox({
   const stillness = useStillness();
 
   /*
+   * Asking for less movement stops the films that have already started.
+   *
+   * autoPlay only decides whether a film begins; turning it off does not
+   * stop one that is already running. The answer arrives in an effect, a
+   * beat after the first paint, so on a quick connection a film could be
+   * playing before this reader's preference was even known — and then
+   * nothing ever paused it.
+   */
+  useEffect(() => {
+    if (!stillness) return;
+    const room = panel.current;
+    if (!room) return;
+    const hush = () => {
+      for (const film of room.querySelectorAll("video")) {
+        if (!film.paused) film.pause();
+      }
+    };
+    hush();
+    /* A film whose data arrives later starts itself; it is stopped too. */
+    room.addEventListener("play", hush, true);
+    return () => room.removeEventListener("play", hush, true);
+  }, [stillness]);
+
+  /*
    * How much of this row is already spoken for, told to the bar.
    *
    * The bar's line runs the width of the page on every other page. Here the

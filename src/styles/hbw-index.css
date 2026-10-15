@@ -9736,3 +9736,38 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transition: none;
   }
 }
+
+
+/* =====================================================================
+   The studio meets the nav, and the blocks you have not read wait at the
+   foot of it.
+
+   The sheet hung off a --chrome offset written for a taller bar and the
+   document added seven pixels of its own, so the first block sat
+   thirty-three pixels under the nav while every other row on this site
+   sits two under the one above it.
+
+   And the blocks are arranged the way the reading runs: the one you are in
+   at the top, and the ones still to come waiting at the foot of the sheet.
+   Scrolling brings the next one up out of that stack, which is the move —
+   the page does not jump, the next thing rises into the room the last one
+   leaves.
+   ===================================================================== */
+.hbw-studio-sheet__panel {
+  top: calc(var(--bar-bottom, 30px) + var(--pill-h) + var(--pill-gap) * 2);
+}
+
+.hbw-studio-doc {
+  padding-top: var(--edge);
+}
+
+.hbw-studio-doc .hbw-studio__said {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Everything after the open block waits at the foot. */
+.hbw-studio-doc .hbw-part[data-open="true"] ~ .hbw-part:first-of-type,
+.hbw-studio-doc .hbw-part[data-open="true"] + .hbw-part {
+  margin-top: auto;
+}
