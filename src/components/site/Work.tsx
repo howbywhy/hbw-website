@@ -911,11 +911,24 @@ export function Work({
              * solid ground spans both panels and lifts once the work has
              * actually arrived.
              */
-            // The set leaves; show() holds the room and lifts it once the
-            // work it brings has arrived.
-            hold();
+            /*
+             * In order: the work leaves, then the room is held, then the
+             * next project arrives.
+             *
+             * The room used to be held in the same breath as the leaving,
+             * which meant the leaving happened underneath it — you pressed
+             * Next and the set was simply gone. Nothing about that reads as
+             * a sequence, because the only part you can see is the end of
+             * it. The panel keeps its ground while the pictures go, so there
+             * is nothing to hide for that quarter of a second; the sheet is
+             * only needed for the instant the old panel is thrown away and
+             * the new one is built.
+             */
             lamp.dataset.going = "true";
-            window.setTimeout(() => void show(to.slug, 0), out);
+            window.setTimeout(() => {
+              hold();
+              void show(to.slug, 0);
+            }, out);
           }}
           prev={beside(open.slug, -1)}
           onPrev={() => {

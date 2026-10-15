@@ -5393,7 +5393,17 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
      it came out of. Said on both states because each redeclares the
      shorthand, and a property named in only one of them never travels. */
   transform: translateY(var(--rise, 8px));
+  /*
+   * Height is named here too, or closing snaps.
+   *
+   * This rule outranks the one that gives the writing its height, and it
+   * redeclares the shorthand — so on the way out the opacity faded over a
+   * quarter of a second while the height went to nothing in a single frame,
+   * and the gallery sprang back to full size under it. Every property that
+   * travels has to be named in every state that redeclares the list.
+   */
   transition:
+    height var(--out) var(--ease),
     opacity var(--out) var(--ease),
     transform var(--out) var(--ease),
     padding var(--in) var(--ease);
@@ -8682,7 +8692,12 @@ body:has(.hbw-lamp) .hbw-bar {
 .hbw-lamp:not([data-reading="true"]) .hbw-lamp__info {
   pointer-events: none;
   visibility: hidden;
+  /* Height named here as well. This is the last of three rules that each
+     redeclare the shorthand for the shut state, and the only one that was
+     actually winning — so closing took the gallery back to full size in a
+     single frame while the writing faded politely over it. */
   transition:
+    height var(--out) var(--ease),
     opacity var(--out) var(--ease),
     transform var(--out) var(--ease),
     visibility 0s linear var(--out);
@@ -9072,4 +9087,51 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   grid-row: 2;
   height: auto;
   min-height: 0;
+}
+
+
+/* =====================================================================
+   The set leaves in the order it was read, and arrives the same way.
+
+   Leaving was one fade of the whole band — nineteen pictures going at once,
+   which is an edit, not a departure. Each frame carries its place in the
+   run already (--i, set where the data is), so it can go in that order and
+   come back in that order: the eye follows the work out of the room and
+   back into it, which is what makes pressing Next feel like a move rather
+   than a cut.
+
+   Capped, so a nineteen-frame project does not take three times as long to
+   leave as a seven-frame one.
+   ===================================================================== */
+.hbw-lamp[data-going="true"] .hbw-lamp__pages {
+  opacity: 1;
+  transform: none;
+}
+
+/* Said through the field and the rail, because the rule that sets the
+   frames you are not on back to 55% carries both and a nine-tenths of a
+   second fade with it — which is the fade that was winning, so the set sat
+   there at 55% for the whole departure and then vanished with the panel. */
+.hbw-lamp[data-going="true"] .hbw-lamp__field .hbw-lamp__pages .hbw-lamp__page {
+  opacity: 0;
+  transform: translateY(calc(var(--rise, 8px) * 0.9));
+  transition:
+    opacity var(--out) var(--ease),
+    transform var(--out) var(--ease);
+  transition-delay: min(calc(var(--i, 0) * 16ms), 150ms);
+}
+
+.hbw-lamp:not([data-going="true"]) .hbw-lamp__field .hbw-lamp__pages .hbw-lamp__page {
+  animation: hbw-arrive var(--in) var(--ease) backwards;
+  animation-delay: min(calc(var(--i, 0) * 16ms), 150ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp[data-going="true"] .hbw-lamp__field .hbw-lamp__pages .hbw-lamp__page,
+  .hbw-lamp:not([data-going="true"]) .hbw-lamp__field .hbw-lamp__pages .hbw-lamp__page {
+    animation: none;
+    transition: none;
+    transition-delay: 0s;
+    transform: none;
+  }
 }
