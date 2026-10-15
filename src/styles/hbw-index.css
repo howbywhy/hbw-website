@@ -9771,3 +9771,201 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-studio-doc .hbw-part[data-open="true"] + .hbw-part {
   margin-top: auto;
 }
+
+
+/* =====================================================================
+   The sheet reaches the foot of the window, and the open block fills.
+
+   The panel stopped twenty-six pixels short of the bottom and the document
+   added nothing under itself, so the studio's name floated sixty pixels off
+   the floor while everything else on the page sits two off its neighbour.
+
+   And the block you are reading takes the room the others are not using:
+   it was a fixed share, which left a hand's width of nothing between the
+   reading and the blocks waiting below it. Grown instead — and the growing
+   is what travels, so opening is still a move rather than a jump.
+   ===================================================================== */
+.hbw-studio-sheet__panel {
+  bottom: var(--edge);
+}
+
+.hbw-studio-doc {
+  padding-bottom: var(--edge);
+}
+
+.hbw-studio-doc .hbw-part {
+  flex: 0 0 auto;
+  overflow: hidden;
+  transition: flex-grow var(--in) var(--ease);
+}
+
+.hbw-studio-doc .hbw-part[data-open="true"] {
+  flex: 1 1 0;
+}
+
+/* The reading fills the block it is in, and scrolls if it outgrows it. */
+.hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+  height: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-doc .hbw-part {
+    transition: none;
+  }
+}
+
+
+/* The panel kept thirty-six pixels under its own content, which is where
+   the studio's name was floating sixty off the floor. */
+.hbw-studio-sheet__panel {
+  padding-bottom: var(--edge);
+}
+
+
+/* The panel holds the sheet off the edges; the document inside it adds
+   nothing more, or the studio sits two pixels further in than the chrome
+   above it and the edges stop lining up. */
+.hbw-studio-sheet__panel .hbw-studio-doc {
+  padding-inline: 0;
+}
+
+
+/* =====================================================================
+   On a phone the foot keeps its own row.
+
+   It was put in the writing's row when the phone laid the gallery out as a
+   rail with the reading beside it — two things in one cell, which was fine
+   when only one of them was ever in it. The writing takes a row of its own
+   now, so the foot was sitting behind it: the three ways out of a project
+   printed underneath a paragraph.
+   ===================================================================== */
+@media (max-width: 760px) {
+  .hbw-lamp[data-reading="true"] .hbw-lamp__feet {
+    grid-row: 4;
+  }
+}
+
+
+/* =====================================================================
+   The sheet is the room between the nav and the foot of the window.
+
+   Its height was a sum — the window less a --chrome written for a taller
+   bar — so it stopped twenty-six pixels above the floor and the studio's
+   name floated there with it. Pinned top and bottom instead, it is exactly
+   the room it has, and the name sits two pixels off the glass like
+   everything else.
+   ===================================================================== */
+.hbw-studio-sheet__panel {
+  height: auto;
+  max-height: none;
+}
+
+
+/* =====================================================================
+   On a phone the studio is one column, in the order you read it.
+
+   The sheet was keeping its two columns at every width, so the blocks were
+   squeezed into a strip down the left with the picture beside them and the
+   words broken one to a line. A phone has one column: the blocks, then the
+   picture and what it says, and then the name at the end of it.
+   ===================================================================== */
+@media (max-width: 760px) {
+  .hbw-studio-doc {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    overflow-y: auto;
+  }
+
+  .hbw-studio-doc .hbw-studio__said {
+    grid-column: 1;
+    grid-row: 1;
+    overflow: visible;
+  }
+
+  .hbw-studio-doc .hbw-studio__aside {
+    grid-column: 1;
+    grid-row: 2;
+    height: auto;
+    grid-template-rows: auto auto;
+    overflow: visible;
+  }
+
+  .hbw-studio-doc .hbw-studio__portrait {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .hbw-studio-doc .hbw-studio__end {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  /* The blocks size to what is in them rather than sharing a fixed room. */
+  .hbw-studio-doc .hbw-part[data-open="true"] {
+    flex: 0 0 auto;
+  }
+
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+    height: auto;
+    overflow: visible;
+  }
+
+  .hbw-studio-doc .hbw-part[data-open="true"] ~ .hbw-part:first-of-type,
+  .hbw-studio-doc .hbw-part[data-open="true"] + .hbw-part {
+    margin-top: 0;
+  }
+}
+
+
+/* The phone's sheet is as tall as what is in it and scrolls; its rows are
+   sized by their content, not shares of a fixed height — which was cutting
+   the picture's block off at four hundred pixels and running the contact
+   details out through the bottom of the sheet. */
+@media (max-width: 760px) {
+  .hbw-studio-sheet__panel .hbw-studio-doc {
+    grid-template-rows: auto auto auto;
+    align-content: start;
+  }
+
+  .hbw-studio-sheet__panel .hbw-studio__said,
+  .hbw-studio-sheet__panel .hbw-studio__aside {
+    height: auto;
+    min-height: 0;
+  }
+
+  .hbw-studio-sheet__panel .hbw-part,
+  .hbw-studio-sheet__panel .hbw-part[data-open="true"] {
+    flex: 0 0 auto;
+  }
+}
+
+
+/* On a phone the sheet is a column that flows and scrolls: no grid rows to
+   be divided between, no heights inherited from the two-column desktop, and
+   nothing clamped to a share of a screen it does not have. */
+@media (max-width: 760px) {
+  .hbw-studio-sheet__panel .hbw-studio-doc {
+    display: block;
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .hbw-studio-sheet__panel .hbw-studio__aside {
+    display: block;
+    height: auto;
+    margin-top: var(--edge);
+  }
+
+  .hbw-studio-sheet__panel .hbw-studio__portrait {
+    width: 100%;
+    margin-bottom: var(--edge);
+  }
+
+  .hbw-studio-sheet__panel .hbw-studio__end {
+    margin-top: var(--edge);
+  }
+}

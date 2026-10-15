@@ -479,20 +479,29 @@ export function Lightbox({
       if (box && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         const was = new Map<string, DOMRect>();
         box.querySelectorAll<HTMLElement>(".hbw-lamp__page").forEach((one, i) => {
-          const where = one.getBoundingClientRect();
           /*
-           * Only the ones you could see.
+           * Every frame travels, and none of them travels far.
            *
-           * The band is scrolled, so most of a long project is three
-           * thousand pixels off the left of the screen — put back there and
-           * released, they spend the whole move flying in and the sheet sits
-           * empty while they do. A picture that was not on screen has no
-           * journey to show: it is simply already in its place when the
-           * sheet arrives, and the ones you were looking at travel.
+           * Taking only the ones on screen meant half a sheet simply
+           * appeared while the rest moved, which reads as two different
+           * things happening. Taking all of them as they were meant the
+           * frames three thousand pixels off the left of a scrolled band
+           * spent the whole move flying in, with the sheet empty behind
+           * them. So every frame moves, and a frame that was off the screen
+           * starts from just beyond the edge it was off — the journey is
+           * bounded, the sheet is full the moment it arrives, and nothing
+           * stands still while its neighbours move.
            */
-          if (where.right < 0 || where.left > window.innerWidth) return;
-          if (where.bottom < 0 || where.top > window.innerHeight) return;
-          was.set(one.dataset.frame ?? String(i), where);
+          const where = one.getBoundingClientRect();
+          const reach = window.innerWidth * 0.6;
+          const drop = window.innerHeight * 0.6;
+          const from = new DOMRect(
+            Math.min(Math.max(where.left, -reach), window.innerWidth + reach),
+            Math.min(Math.max(where.top, -drop), window.innerHeight + drop),
+            where.width,
+            where.height,
+          );
+          was.set(one.dataset.frame ?? String(i), from);
         });
         places.current = was;
         held.current = true;
