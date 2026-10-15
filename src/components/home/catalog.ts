@@ -128,7 +128,7 @@ export const PROJECTS: ProjectRecord[] = [
     href: "/projects/sck",
     name: "SCK",
     idea: "Intersecting Realities",
-    year: "2026",
+    year: "2025",
     src: "/projects/sck/1.jpg",
     srcSet: srcSetFor("/projects/sck/1.jpg", [], 1080)!,
     width: 1296,

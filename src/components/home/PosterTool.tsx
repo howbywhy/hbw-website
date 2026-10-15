@@ -53,6 +53,14 @@ import {
   BOX_SHAPES,
   FIELD_COLOR,
   PALETTE,
+  PENCIL_WEIGHTS,
+  SPRAY_DENSITIES,
+  SPRAY_RADII,
+  nearestStop,
+  readHex,
+  sprayRadius,
+  sprayWidthFor,
+  strokeTexture,
   type BoxShapeKind,
   type BoxShapeObject,
   type Field,
@@ -172,6 +180,23 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
   colorLiveRef.current = color;
   decisionLiveRef.current = decision;
   frozenLiveRef.current = frozen;
+  /*
+   * What the tool in hand is set to: an index into SPRAY_RADII, into
+   * PENCIL_WEIGHTS, and into SPRAY_DENSITIES.
+   *
+   * Each starts on the stop that is what the tool already did, so a visitor
+   * who touches none of this draws exactly what they drew before.
+   *
+   * Held for the session and not written to the store. The poster's schema is
+   * a persisted, migrated shape with tests around it, and three numbers that
+   * only decide what the next mark looks like are not worth widening it for —
+   * a reloaded poster keeps every mark it had, set as it was set.
+   */
+  const [sprayStop, setSprayStop] = useState(1);
+  const [pencilStop, setPencilStop] = useState(1);
+  const [densityStop, setDensityStop] = useState(1);
+  /** What is in the hex field while it is being typed in; see pickColor. */
+  const [hexDraft, setHexDraft] = useState(color.toUpperCase());
   const [resetAsk, setResetAsk] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -716,9 +741,11 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
         points: relPoints([p], f),
         color,
         // For a spray this is the radius divisor, not a line weight: paint()
-        // scatters dabs over max(6, width * 6) px.
-        width: spray ? 2.4 : 1.8,
+        // scatters dabs over sprayRadius(width) px. Both come off the stop the
+        // bar is set to, so the control decides the mark before it is made.
+        width: spray ? sprayWidthFor(SPRAY_RADII[sprayStop]) : PENCIL_WEIGHTS[pencilStop],
         texture: spray ? "spray" : "line",
+        ...(spray ? { alpha: SPRAY_DENSITIES[densityStop] } : null),
       };
       draftRef.current = stroke;
       if (spray) startDwell(p);
@@ -1263,6 +1290,111 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     redraw();
   }
 
+  /** The strokes currently picked up, which the size and density stops act on. */
+  function selectedStrokes() {
+    const ids = new Set(selectedIds);
+    return objectsRef.current.filter((o): o is StrokeObject => o.kind === "stroke" && ids.has(o.id));
+  }
+
+  /*
+   * Which scale the size stops are counting in.
+   *
+   * The same four buttons mean a spray radius or a pencil weight, because
+   * they are one idea — how wide the mark is — and two rows of four would
+   * make them two. What they mean comes from the tool in hand, and when
+   * nothing is in hand, from the mark that is picked up: select a sprayed
+   * stroke with no tool armed and the stops show that can's radius.
+   */
+  const marking = making === "spray" || making === "draw";
+  const held = selectedStrokes();
+  const sizeKind: "spray" | "line" =
+    making === "draw"
+      ? "line"
+      : making === "spray"
+        ? "spray"
+        : held.length && held.every((s) => strokeTexture(s) === "line")
+          ? "line"
+          : "spray";
+  const sizeSteps: readonly number[] = sizeKind === "spray" ? SPRAY_RADII : PENCIL_WEIGHTS;
+  /** A picked-up mark shows its own size; otherwise the stop the tool is set to. */
+  const sizeStop = held.length
+    ? nearestStop(strokeTexture(held[0]) === "spray" ? sprayRadius(held[0].width) : held[0].width, sizeSteps)
+    : sizeKind === "spray"
+      ? sprayStop
+      : pencilStop;
+  const heldSprays = held.filter((s) => strokeTexture(s) === "spray");
+  const showDensity = making === "spray" || Boolean(heldSprays.length);
+  const densityShown = heldSprays.length
+    ? nearestStop(heldSprays[0].alpha ?? SPRAY_DENSITIES[1], SPRAY_DENSITIES)
+    : densityStop;
+
+  /**
+   * A stop, applied to the tool and to anything picked up.
+   *
+   * Both, not one or the other. A control that only arms the next mark makes
+   * you undo and redraw to change your mind; one that only edits the
+   * selection cannot be set before you start. Doing both is what every real
+   * tool does, and it is the same button either way.
+   */
+  function applySize(stop: number) {
+    if (frozen || sendingRef.current) return;
+    if (sizeKind === "spray") setSprayStop(stop);
+    else setPencilStop(stop);
+    const ids = new Set(held.map((s) => s.id));
+    if (!ids.size) return;
+    snapshot();
+    objectsRef.current = objectsRef.current.map((o) => {
+      if (o.kind !== "stroke" || !ids.has(o.id)) return o;
+      return {
+        ...o,
+        width: strokeTexture(o) === "spray" ? sprayWidthFor(SPRAY_RADII[stop]) : PENCIL_WEIGHTS[stop],
+      };
+    });
+    remember();
+    redraw();
+  }
+
+  /*
+   * What [ and ] do, kept current for a listener registered once.
+   *
+   * The handler is mounted on an empty dependency list — a keydown listener
+   * torn down and rebuilt on every repaint of a canvas that repaints on every
+   * pointer move is not a listener — so what it does is read through here
+   * rather than captured in its closure.
+   */
+  const stepRef = useRef<(by: number) => void>(() => {});
+  stepRef.current = (by: number) => {
+    if (frozen || dormant || sending) return;
+    const next = Math.max(0, Math.min(sizeSteps.length - 1, sizeStop + by));
+    if (next !== sizeStop) applySize(next);
+  };
+
+  function applyDensity(stop: number) {
+    if (frozen || sendingRef.current) return;
+    setDensityStop(stop);
+    const ids = new Set(heldSprays.map((s) => s.id));
+    if (!ids.size) return;
+    snapshot();
+    objectsRef.current = objectsRef.current.map((o) =>
+      o.kind === "stroke" && ids.has(o.id) ? { ...o, alpha: SPRAY_DENSITIES[stop] } : o
+    );
+    remember();
+    redraw();
+  }
+
+  /**
+   * A colour chosen from a swatch or the system picker.
+   *
+   * It writes the hex field too, which typing into that field must not do —
+   * normalising "ff0000" to "#FF0000" under the caret puts the caret at the
+   * end of a word someone is halfway through. So the field sets its own draft
+   * and calls applyColor; everything else comes through here.
+   */
+  function pickColor(next: string) {
+    setHexDraft(next.toUpperCase());
+    applyColor(next);
+  }
+
   function applyColor(next: string) {
     setColor(next);
     commitPoster({ color: next });
@@ -1402,6 +1534,62 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     return () => window.removeEventListener("keydown", onKey);
   }, [dormant, frozen, making, redraw, reposition, selectedIds, sending]);
 
+  /*
+   * [ and ] step the size down and up.
+   *
+   * Its own listener rather than a branch in the one above, because it needs
+   * the stops and what is picked up in its closure and that handler's
+   * dependencies are a different set. The brackets are what every drawing
+   * tool has bound them to for thirty years, so nothing has to be learned.
+   */
+  useEffect(() => {
+    function onStep(event: KeyboardEvent) {
+      if (event.key !== "[" && event.key !== "]") return;
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest("textarea, input, [contenteditable]")) return;
+      if (editingIdRef.current) return;
+      event.preventDefault();
+      stepRef.current(event.key === "]" ? 1 : -1);
+    }
+    window.addEventListener("keydown", onStep);
+    return () => window.removeEventListener("keydown", onStep);
+  }, []);
+
+  /*
+   * The ink palette is a layer inside the tool, so it closes the way a layer
+   * closes: a press anywhere that is not it, or Escape.
+   *
+   * Escape arrives as an event rather than a key. The window around the tool
+   * takes Escape in the capture phase — it has to, or the studio sheet
+   * underneath would close along with the window — so by the time a listener
+   * here could see the key it has already been stopped. The window asks for
+   * the palette to shut instead, and keeps itself open.
+   */
+  useEffect(() => {
+    const shut = () => setPaletteOpen(false);
+    document.addEventListener("hbw:shut-palette", shut);
+    return () => document.removeEventListener("hbw:shut-palette", shut);
+  }, []);
+
+  useEffect(() => {
+    if (!paletteOpen) return;
+    const away = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest?.(".hbw-poster-palette, .hbw-poster-ink")) return;
+      setPaletteOpen(false);
+    };
+    window.addEventListener("pointerdown", away, true);
+    return () => window.removeEventListener("pointerdown", away, true);
+  }, [paletteOpen]);
+
+  /** The field shows the colour it is opened on, not the last thing typed. */
+  const colorAtOpenRef = useRef(color);
+  colorAtOpenRef.current = color;
+  useEffect(() => {
+    if (paletteOpen) setHexDraft(colorAtOpenRef.current.toUpperCase());
+  }, [paletteOpen]);
+
   useEffect(() => {
     function onPaste(event: ClipboardEvent) {
       if (frozen || dormant || sending) return;
@@ -1439,33 +1627,168 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
     resize();
   }, [resize, showNote, making, tray]);
 
-  function colourRow(active: string) {
+  /*
+   * A row of stops.
+   *
+   * The mark inside each button is drawn at the size that button means — a
+   * 4px dot for the finest and an 18px one for the widest — so the row is a
+   * picture of the scale and not four captions. The number beside it says what
+   * it is in pixels, because this is a tool and the actual figure is useful;
+   * on a phone the number goes and the picture is enough.
+   */
+  const SIZE_DOTS = [4, 8, 13, 18];
+
+  function stopRow(
+    name: string,
+    unit: string,
+    steps: readonly number[],
+    stop: number,
+    choose: (i: number) => void,
+    dot: (i: number) => { width: number; height: number; opacity?: number }
+  ) {
     return (
-      <div className="hbw-poster-chips" role="listbox" aria-label="Colour">
-        {PALETTE.map((swatch) => (
+      <div className="hbw-poster-steps" role="group" aria-label={name}>
+        <span className="hbw-poster-steps__name">{name}</span>
+        {steps.map((value, i) => (
           <button
-            key={swatch}
+            key={value}
             type="button"
-            className={`hbw-poster-chip${active.toLowerCase() === swatch ? " is-current" : ""}${
-              swatch === "#ffffff" ? " is-light" : ""
-            }`}
-            style={{ background: swatch }}
-            aria-label={swatch}
-            aria-selected={active.toLowerCase() === swatch}
-            onClick={() => applyColor(swatch)}
-          />
+            className={`hbw-poster-step${i === stop ? " is-current" : ""}`}
+            aria-pressed={i === stop}
+            aria-label={`${name} ${value}${unit}`}
+            title={`${name} ${value}${unit}`}
+            disabled={frozen || sending}
+            onClick={() => choose(i)}
+          >
+            <span className="hbw-poster-step__dot" style={dot(i)} />
+          </button>
         ))}
-        <button type="button" className="hbw-poster-chip is-custom" aria-label="More colour" onClick={() => colorRef.current?.click()}>
-          +
+        <span className="hbw-poster-steps__read" aria-hidden="true">
+          {steps[stop]}
+          {unit}
+        </span>
+      </div>
+    );
+  }
+
+  function sizeRow() {
+    return stopRow(
+      sizeKind === "spray" ? "Radius" : "Weight",
+      "",
+      sizeSteps,
+      sizeStop,
+      applySize,
+      (i) => ({ width: SIZE_DOTS[i], height: SIZE_DOTS[i] })
+    );
+  }
+
+  function densityRow() {
+    return stopRow("Density", "", SPRAY_DENSITIES, densityShown, applyDensity, (i) => ({
+      width: 14,
+      height: 14,
+      // The dot is the density: the same disc, laid on three times as thin.
+      opacity: SPRAY_DENSITIES[i] / SPRAY_DENSITIES[SPRAY_DENSITIES.length - 1],
+    }));
+  }
+
+  /*
+   * The ink: one swatch that says what colour is in hand, and opens the rest.
+   *
+   * A strip of ten fixed chips with a "+" on the end was the whole of this.
+   * The chips could not be made a size a finger can hit without the strip
+   * taking the bar, the "+" was an unstyled plus sign that opened the
+   * operating system's colour panel with no warning, and there was nowhere to
+   * type a hex — which is the one thing someone who has a colour in mind
+   * actually wants. So the strip becomes a swatch with its own hex beside it,
+   * and the ten, the field and the system picker live in a panel it opens.
+   */
+  function inkControl() {
+    return (
+      <div className="hbw-poster-ink">
+        <button
+          type="button"
+          className={`hbw-poster-tool hbw-poster-ink__open${paletteOpen ? " is-current" : ""}`}
+          aria-label={`Colour, ${color.toUpperCase()}`}
+          aria-haspopup="true"
+          aria-expanded={paletteOpen}
+          disabled={frozen || sending}
+          onClick={() => setPaletteOpen((on) => !on)}
+        >
+          <span
+            className={`hbw-poster-ink__swatch${color.toLowerCase() === "#ffffff" ? " is-light" : ""}`}
+            style={{ background: color }}
+          />
+          <span className="hbw-poster-ink__hex">{color.toUpperCase()}</span>
         </button>
       </div>
     );
   }
 
-
-  function cycleWeight(value: number, steps: number[]) {
-    const i = steps.findIndex((n) => value <= n);
-    return steps[(i + 1) % steps.length];
+  function palette() {
+    return (
+      <div className="hbw-poster-palette" role="group" aria-label="Colour">
+        <div className="hbw-poster-palette__grid">
+          {PALETTE.map((swatch) => (
+            <button
+              key={swatch}
+              type="button"
+              className={`hbw-poster-chip${color.toLowerCase() === swatch ? " is-current" : ""}${
+                swatch === "#ffffff" ? " is-light" : ""
+              }`}
+              style={{ background: swatch }}
+              aria-label={swatch}
+              aria-pressed={color.toLowerCase() === swatch}
+              onClick={() => pickColor(swatch)}
+            />
+          ))}
+        </div>
+        <div className="hbw-poster-palette__foot">
+          <label className="hbw-poster-hex">
+            <span>Hex</span>
+            <input
+              type="text"
+              inputMode="text"
+              spellCheck={false}
+              autoCapitalize="characters"
+              autoCorrect="off"
+              autoComplete="off"
+              maxLength={7}
+              /*
+               * Eight characters, declared.
+               *
+               * The panel is sized from its contents, and a text input with no
+               * `size` has an intrinsic width of about twenty characters
+               * whatever flex-basis it is given — which made the panel 247px
+               * wide with 44px swatches floating in it. This is the only thing
+               * that actually tells it how wide the field is.
+               */
+              size={8}
+              value={hexDraft}
+              aria-label="Hex colour"
+              onChange={(event) => {
+                const raw = event.target.value;
+                setHexDraft(raw);
+                const hex = readHex(raw);
+                if (hex) applyColor(hex);
+              }}
+              onKeyDown={(event) => {
+                // The window takes Escape in the capture phase, so the only key
+                // to stop here is Enter — a bare field in a toolbar that is not
+                // a form, which some browsers still treat as a submit.
+                if (event.key === "Enter") event.preventDefault();
+              }}
+            />
+          </label>
+          <button
+            type="button"
+            className="hbw-poster-tool hbw-poster-hex__more"
+            onClick={() => colorRef.current?.click()}
+          >
+            Picker
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const ghostImage = pendingImageRef.current;
@@ -1629,6 +1952,36 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               <span>Type</span>
             </button>
           </div>
+          {/*
+            Undo and Reset sit with the tools, not past the address field.
+
+            They are things you do to the drawing, so they belong at the end
+            of the drawing's own group. Behind the Send button they were on the
+            far side of the one control on the bar you must not press by
+            accident, which is the worst possible neighbour for Reset.
+          */}
+          {hasWork ? (
+            <div className="hbw-poster-toolbar__work">
+              <button
+                type="button"
+                className="hbw-poster-tool"
+                aria-label="Undo"
+                title="Undo"
+                disabled={frozen || sending || !undoRef.current.length}
+                onClick={undo}
+              >
+                <ArrowUUpLeft />
+              </button>
+              {frozen ? (
+                <button type="button" className="hbw-poster-reset" onClick={thaw}>
+                  Keep making
+                </button>
+              ) : null}
+              <button type="button" className={`hbw-poster-reset${resetAsk ? " is-ask" : ""}`} onClick={onReset}>
+                {resetAsk ? "Reset?" : "Reset"}
+              </button>
+            </div>
+          ) : null}
           <input
             className={`hbw-poster-input${emailError ? " is-invalid" : ""}`}
             type="email"
@@ -1672,30 +2025,24 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               {emailError || emailStatus}
             </p>
           ) : null}
-          {tray === "draw" && !frozen ? (
-            <div className="hbw-poster-toolbar__tray" data-stage="draw">{colourRow(color)}</div>
-          ) : null}
-          {hasWork ? (
-            <div className="hbw-poster-toolbar__work">
-              <button
-                type="button"
-                className="hbw-poster-tool"
-                aria-label="Undo"
-                disabled={frozen || sending || !undoRef.current.length}
-                onClick={undo}
-              >
-                <ArrowUUpLeft />
-              </button>
-              {frozen ? (
-                <button type="button" className="hbw-poster-reset" onClick={thaw}>
-                  Keep making
-                </button>
-              ) : null}
-              <button type="button" className={`hbw-poster-reset${resetAsk ? " is-ask" : ""}`} onClick={onReset}>
-                {resetAsk ? "Reset?" : "Reset"}
-              </button>
+          {/*
+            A second line: what the tool in hand is set to.
+
+            It used to appear only while the ink tray was open, which meant the
+            bar grew a row and the canvas lost one every time you picked up a
+            pencil. It is always there now and only its contents change —
+            size and density for a can, size for a pencil, ink for all of
+            them — so the drawing never moves under your hand and the colour
+            is always one press away rather than two.
+          */}
+          {!frozen ? (
+            <div className="hbw-poster-toolbar__tray" data-stage={marking ? "draw" : "rest"}>
+              {marking || held.length ? sizeRow() : null}
+              {showDensity ? densityRow() : null}
+              {inkControl()}
             </div>
           ) : null}
+          {paletteOpen && !frozen && !sending ? palette() : null}
         </div>
       </IconContext.Provider>
     </div>

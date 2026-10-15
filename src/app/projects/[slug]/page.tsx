@@ -4,11 +4,12 @@ import { liveProjects, PROJECT_SLUGS, projectDescription } from "@/components/ho
 import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, projectNode, studioNode } from "@/lib/structured-data";
 import { loadExperiences } from "@/sanity/load-experiences";
+import { loadSheets } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
-import { ProjectRuns } from "@/components/site/ProjectRuns";
+import { Work } from "@/components/site/Work";
 import { Logotype } from "@/components/site/Logotype";
-import { InfoBody } from "@/components/site/InfoBody";
+import { shotsOf } from "@/components/site/shots";
 import { infoOf } from "@/components/site/project-info";
 import "@/styles/hbw-index.css";
 
@@ -37,13 +38,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * A case study, in the catalogue's own language: the work as a collage, and
- * everything written about it behind one toggle.
+ * A project, which is the front page with that project's gallery already open.
  *
- * This page used to be an empty shell — it returned structured data and let
- * HbwShell paint the project from the path. That shell autoplayed every film
- * in the sequence, which is why a case study weighed twenty megabytes. It is
- * a page of its own now.
+ * It is not a second page of the work. The collage that used to live here —
+ * the scatter, the grid, the act numbers, the scroll that ran on into the next
+ * project — has gone: it showed the same pictures as the gallery, one screen
+ * earlier, and opening a project meant leaving the sheet to look at it.
+ *
+ * The address survives all the same, and it is this file that keeps it worth
+ * having: the title, the description and the structured data are the project's
+ * own, so a shared link and a crawler both arrive at the project rather than
+ * at the top of the site.
  */
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
@@ -53,52 +58,46 @@ export default async function ProjectPage({ params }: Props) {
 
   const experiences = await loadExperiences([slug]);
   const experience = experiences[slug] ?? null;
-
-  // The projects that follow this one, wrapped round so the scroll never runs
-  // out of work. Five is plenty: nobody reaches the end of six case studies.
-  const line = liveProjects().map((project) => project.id);
-  const at = line.indexOf(slug);
-  const after = [...line.slice(at + 1), ...line.slice(0, at)].slice(0, 5);
-
-  // Its number in the body of work, counted from the oldest so a project's
-  // number never changes when a newer one is added.
-  const byAge = [...liveProjects()].sort((a, b) => Number(a.year) - Number(b.year));
-  const numbers = Object.fromEntries(byAge.map((project, i) => [project.id, i + 1]));
+  const projects = await loadSheets();
+  const shots = shotsOf(experience?.movements ?? []);
 
   return (
-    <main className="hbw-site hbw-site--project hbw-site--dark">
+    <main className="hbw-site">
       <StructuredData
         nodes={[
           studioNode(),
           projectNode(record),
           breadcrumbNode([
             { name: "How by Why", path: "/" },
-            { name: "Work", path: "/work" },
             { name: record.name, path: record.href },
           ]),
         ]}
       />
-      {/*
-        The bar is given an empty right slot and an empty controls row; the
-        runs fill both, because they are the ones that know which project is
-        on screen. The page cannot: it holds six of them by the time you are
-        a few screens down.
-      */}
-      <Bar info={{ label: "", body: null }} />
+      {/* Not a heading: the gallery's own line is the page's h1, and the same
+          words twice is two headings for one page. */}
+      <Bar says={<p className="hbw-bar__h1">{record.name} — {record.idea}, {record.year}</p>} />
 
       <div className="hbw-wrap">
-<ProjectRuns
-          slug={slug}
-          name={record.name}
-          idea={record.idea}
-          year={record.year}
-          mark={<Logotype slug={slug} name={record.name} />}
-          numbers={numbers}
-          info={<InfoBody data={infoOf(record, experience)} />}
-          movements={experience?.movements ?? []}
-          // Everything after this one, wrapped round, so the scroll never
-          // runs out of work.
-          after={after}
+        <Work
+          projects={projects}
+          marks={Object.fromEntries(
+            projects.map((project) => [
+              project.slug,
+              <Logotype key={project.slug} slug={project.slug} name={project.name} />,
+            ])
+          )}
+          // This project only. The sheet behind it carries the rest, and each
+          // of those fetches its own sequence if someone opens it.
+          opening={{
+            slug,
+            // ?f= is read in the browser: this page is prerendered, so the
+            // query string does not exist when it is built.
+            at: 0,
+            name: record.name,
+            says: `${record.name} — ${record.idea}, ${record.year}`,
+            shots,
+            info: infoOf(record, experience),
+          }}
         />
       </div>
 

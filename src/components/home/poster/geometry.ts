@@ -1,6 +1,8 @@
 import {
   isBoxShape,
   isLineShape,
+  sprayRadius,
+  strokeTexture,
   type BoxShapeObject,
   type Field,
   type ImageObject,
@@ -269,7 +271,18 @@ export function marqueeHits(objects: PosterObj[], marquee: ViewedBox, field: Fie
 export function hit(obj: PosterObj, p: PtLike, field: Field): boolean {
   if (obj.kind === "stroke") {
     const pts = viewStroke(obj, field).points;
-    return pts.some((q) => Math.hypot(q.x - p.x, q.y - p.y) < Math.max(10, obj.width + 4));
+    /*
+     * A can is as wide as it sprays, not as wide as its stored width.
+     *
+     * `width` is a line weight for a pencil but a radius divisor for a can
+     * (see SPRAY_RADIUS_UNIT), so a 40px spray stores 8 and was grabbable
+     * only within twelve pixels of its centre line — you could see the paint
+     * and not pick it up. Now that the radius is something a person sets, the
+     * two units have to be told apart here.
+     */
+    const reach =
+      strokeTexture(obj) === "spray" ? Math.max(10, sprayRadius(obj.width)) : Math.max(10, obj.width + 4);
+    return pts.some((q) => Math.hypot(q.x - p.x, q.y - p.y) < reach);
   }
   if (obj.kind === "shape" && (obj.shape === "line" || obj.shape === "arrow")) {
     const line = viewLine(obj, field);

@@ -6,7 +6,7 @@ export const SCK_IDENTITY = {
   title: "SCK",
   slug: "sck",
   proposition: "Intersecting Realities",
-  year: "2026",
+  year: "2025",
   sectors: ["Architecture", "Interior Design"],
   disciplines: ["Brand Strategy", "Visual Identity", "Motion", "Digital Design"],
   portfolioOrder: 1,

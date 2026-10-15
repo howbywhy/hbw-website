@@ -6,11 +6,13 @@
  * frames in its own order, with the shape of each one, because the shape is
  * what makes the grid worth looking at.
  */
-import { liveProjects } from "@/components/home/catalog";
+import { liveProjects, projectDescription } from "@/components/home/catalog";
 import { resolveProjectExperience } from "@/lib/project-source";
 
 export type GalleryFrame = {
   src: string;
+  /** The same frame at the sizes a contact-sheet cell actually needs. */
+  srcset?: string;
   width: number;
   height: number;
   video?: string;
@@ -24,8 +26,26 @@ export type GalleryProject = {
   idea: string;
   year: string;
   disciplines: string[];
+  /** A line about the work, for the sheet. Authored copy, not a lens list. */
+  says: string;
   frames: GalleryFrame[];
 };
+
+/**
+ * The description, without the lead-in the sheet already says.
+ *
+ * Every one of them opens by naming the project and its idea — which is what
+ * the band directly above it is for, so printed whole it said the same thing
+ * twice before getting to the point. Only the opening clause is dropped, and
+ * only when it is that clause: the writing itself is the authored copy and is
+ * not touched.
+ */
+function trimmed(says: string) {
+  const stop = says.indexOf(". ");
+  if (stop < 0) return says;
+  const lead = says.slice(0, stop);
+  return lead.includes("—") ? says.slice(stop + 2) : says;
+}
 
 /** Enough to show the range of a job without reprinting the case study. */
 const PER_PROJECT = 9;
@@ -50,7 +70,28 @@ export async function loadGallery(): Promise<GalleryProject[]> {
           const still = film ? media.poster : media.src;
           if (!still) continue;
           frames.push({
-            src: sized(still, 900),
+            /*
+             * Sized for the cell, not for a page that no longer exists.
+             *
+             * These are the contact sheet's thumbnails. They are drawn at
+             * about a hundred and forty pixels and were being fetched at nine
+             * hundred — thirty-nine times the pixels, and the front page paid
+             * 1.7MB for it on arrival. The gallery's own pictures come from
+             * the sequence, not from here, so nothing full-size loses out.
+             */
+            src: sized(still, 320),
+            /*
+             * Larger renditions than a cell needs.
+             *
+             * The same frame is the peep of the next project at the end of a
+             * band, where it covers a panel the full height of the screen —
+             * so a 320 wide thumbnail was being blown up three times and
+             * arrived pixelated. Cells still pick the small ones: sizes says
+             * what each place actually draws.
+             */
+            srcset: [160, 320, 480, 720, 1080, 1440]
+              .map((w) => `${sized(still, w)} ${w}w`)
+              .join(", "),
             width: media.width || 1200,
             height: media.height || 900,
             video: film ? media.mp4 ?? media.videoSrc ?? media.src : undefined,
@@ -66,6 +107,7 @@ export async function loadGallery(): Promise<GalleryProject[]> {
           idea: project.idea,
           year: project.year,
           disciplines: [...(project.disciplines ?? [])],
+          says: trimmed(projectDescription(project)),
           frames,
         };
     })

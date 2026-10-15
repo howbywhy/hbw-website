@@ -58,7 +58,6 @@ export const PRESS = [
 export const PROFILES = [
   { name: "Instagram", url: "https://www.instagram.com/howbywhy" },
   { name: "LinkedIn", url: "https://www.linkedin.com/in/markblackler/" },
-  { name: "Behance", url: "https://www.behance.net/blacklercreates-co" },
 ];
 
 type Node = Record<string, unknown>;

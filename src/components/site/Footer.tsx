@@ -13,12 +13,20 @@
  * would have to honour, no "newsletter" that does not exist yet. And it never
  * claims to have signed someone up unless the server says it did.
  */
-import { useState } from "react";
+import { useId, useState } from "react";
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_E164, STUDIO_PLACE } from "@/lib/contact";
 
 type State = "rest" | "sending" | "done" | { error: string };
 
 export function Footer() {
+  /*
+   * A field of its own, so there can be more than one foot on a page.
+   *
+   * The front page runs as a loop of three identical turns, and the foot now
+   * sits in each of them — so a hard-coded id would have put three inputs
+   * under one name and sent every label to the first of them.
+   */
+  const field = useId();
   const [email, setEmail] = useState("");
   const [trap, setTrap] = useState("");
   const [state, setState] = useState<State>("rest");
@@ -53,10 +61,10 @@ export function Footer() {
           <p className="is-mute">Thank you — you are on the list.</p>
         ) : (
           <form onSubmit={send}>
-            <label htmlFor="hbw-loop">Stay in the loop</label>
+            <label htmlFor={field}>Stay in the loop</label>
             <div className="hbw-end__field">
               <input
-                id="hbw-loop"
+                id={field}
                 type="email"
                 required
                 autoComplete="email"

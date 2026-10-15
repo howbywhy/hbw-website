@@ -9,7 +9,17 @@ import {
   viewText,
   type Handle,
 } from "@/components/home/poster/geometry";
-import { FIELD_COLOR, HBW_FONT, isBoxShape, type Field, type PosterObj, type Pt, type TextObject } from "@/components/home/poster/types";
+import {
+  FIELD_COLOR,
+  HBW_FONT,
+  SPRAY_ALPHA,
+  isBoxShape,
+  sprayRadius,
+  type Field,
+  type PosterObj,
+  type Pt,
+  type TextObject,
+} from "@/components/home/poster/types";
 
 export function uid() {
   return Math.random().toString(36).slice(2, 9);
@@ -250,16 +260,32 @@ function sprayPath(
   pts: { x: number; y: number }[],
   color: string,
   width: number,
-  id: string
+  id: string,
+  alpha?: number
 ) {
-  const radius = Math.max(5, width * 5);
-  const step = 2.5;
-  const perStep = 5;
+  const radius = sprayRadius(width);
+  /*
+   * Three numbers that follow the radius, not three constants.
+   *
+   * Scattering five 0.9px dabs every 2.5px over a disc of radius 12 is what
+   * the can was. Hold those while the radius grows and a 40px can covers
+   * eleven times the area with the same paint — a grey mist, not a mark — and
+   * steps 2.5px along a path it could step eight along, for sixteen times the
+   * arcs per stroke on a canvas that repaints on every pointer move.
+   *
+   * So the dab grows with the radius, the dabs per step grow with it, and the
+   * distance between steps grows with it. Each is written to return exactly
+   * the old constant at radius 12, so the default can is unchanged to the
+   * pixel and these are a new capability rather than a retune.
+   */
+  const step = Math.max(2.5, radius / 5);
+  const perStep = Math.max(4, Math.round((radius * 5) / 12));
+  const dab = Math.max(0.9, radius * 0.075);
   const seed = seedFrom(id);
   let n = 0;
   ctx.save();
   ctx.fillStyle = color;
-  ctx.globalAlpha = 0.34;
+  ctx.globalAlpha = alpha ?? SPRAY_ALPHA;
   for (let i = 1; i < pts.length; i++) {
     const a = pts[i - 1];
     const b = pts[i];
@@ -275,7 +301,7 @@ function sprayPath(
         // that — it lays a solid core with a soft edge — so bias inward.
         const rad = Math.pow(noise(seed + n++ * 0x85ebca6b), 0.7) * radius;
         ctx.beginPath();
-        ctx.arc(cx + Math.cos(ang) * rad, cy + Math.sin(ang) * rad, 0.9, 0, Math.PI * 2);
+        ctx.arc(cx + Math.cos(ang) * rad, cy + Math.sin(ang) * rad, dab, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -314,7 +340,7 @@ export function paint(
       const pts = viewStroke(obj, field).points;
       if (pts.length < 2) continue;
       if (obj.texture === "spray") {
-        sprayPath(ctx, pts, obj.color, obj.width, obj.id);
+        sprayPath(ctx, pts, obj.color, obj.width, obj.id, obj.alpha);
         continue;
       }
       ctx.strokeStyle = obj.color;

@@ -23,5 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.8,
     })),
+    /*
+     * The written half of each project, at its own address.
+     *
+     * Not a duplicate of the gallery above it: that page is the pictures and
+     * carries the project's own description, this one is the writing and
+     * canonicalises to itself. It is the half a crawler can read.
+     */
+    ...liveProjects().map((project) => ({
+      url: `${origin}${project.href}/story`,
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
+    })),
   ];
 }

@@ -13,6 +13,17 @@ const nextConfig: NextConfig = {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
       /**
+       * The manifesto is in the studio, which is where it was already being
+       * read from — the page at this address rendered nothing but its own
+       * structured data and pointed its canonical at /studio anyway. One
+       * copy of it, at the address that carries the rest of the writing.
+       *
+       * Not permanent, for the same reason as the work index below: this is
+       * an editorial decision about where the words live, and a 308 is cached
+       * by browsers in a way that is painful to take back.
+       */
+      { source: "/manifesto", destination: "/studio", permanent: false },
+      /**
        * The work index is the front page. Two indexes of the same six
        * projects compete with each other in search, so the old addresses
        * point at the one that carries them.

@@ -45,6 +45,15 @@ export type StrokeObject = {
   /** How the path is laid down. Absent means a solid line, so every stroke
    *  saved before the spray can existed still reads as one. */
   texture?: "line" | "spray";
+  /**
+   * How hard the can is held down.
+   *
+   * Absent means `SPRAY_ALPHA`, which was the only density there was — so a
+   * stroke saved before this control existed lays down exactly as much paint
+   * as it always did, and the thing is a new capability rather than a
+   * migration.
+   */
+  alpha?: number;
 };
 
 export type BoxShapeObject = {
@@ -189,3 +198,81 @@ export const PALETTE = [
   "#c45a7a",
   "#7a4a2e",
 ] as const;
+
+/*
+ * How wide a mark is, and how much paint it lays down.
+ *
+ * Stops, not sliders. A slider offers a thousand radii and a reason to fiddle
+ * with all of them; four stops are a decision, they can each be a 24px target
+ * a finger can hit, they read as a row of modules rather than as a widget, and
+ * they can be stepped from the keyboard with [ and ]. The index into these
+ * arrays is the whole of the control's state.
+ *
+ * The middle stop of each is what the tool already did, so a poster made
+ * before the controls existed and a poster made after it with nothing touched
+ * are the same poster.
+ */
+
+/** Spray radius in CSS px. Stop 1 — twelve — is what the can always was. */
+export const SPRAY_RADII = [6, 12, 22, 40] as const;
+
+/** Pencil line weight in CSS px. Stop 1 — 1.8 — is what the pencil always was. */
+export const PENCIL_WEIGHTS = [1, 1.8, 3.5, 7] as const;
+
+/** Dab opacity for a spray. Stop 1 is `SPRAY_ALPHA`, the only one there was. */
+export const SPRAY_DENSITIES = [0.16, 0.34, 0.62] as const;
+
+/** What a spray with no density of its own means. */
+export const SPRAY_ALPHA = 0.34;
+
+/**
+ * A spray's radius is not its stored `width`.
+ *
+ * `StrokeObject.width` is a line weight for a pencil and a radius divisor for
+ * a can — `sprayPath` has scattered its dabs over `max(5, width * 5)` since it
+ * was written, and strokes already saved in sessionStorage are stored in that
+ * unit. Rather than migrate them, the unit stays and these two name it, so the
+ * controls can speak in pixels and nothing in the store has to change.
+ */
+export const SPRAY_RADIUS_UNIT = 5;
+
+export function sprayRadius(width: number) {
+  return Math.max(SPRAY_RADIUS_UNIT, width * SPRAY_RADIUS_UNIT);
+}
+
+export function sprayWidthFor(radius: number) {
+  return radius / SPRAY_RADIUS_UNIT;
+}
+
+/** The stop a loose value is nearest, for showing a selected mark's own size. */
+export function nearestStop(value: number, steps: readonly number[]) {
+  let best = 0;
+  for (let i = 1; i < steps.length; i++) {
+    if (Math.abs(steps[i] - value) < Math.abs(steps[best] - value)) best = i;
+  }
+  return best;
+}
+
+/** Whether a stroke is a can or a pencil. Absent texture means a pencil. */
+export function strokeTexture(obj: StrokeObject): "line" | "spray" {
+  return obj.texture === "spray" ? "spray" : "line";
+}
+
+/**
+ * A hex a person typed, or null.
+ *
+ * Three digits and a missing hash are both things people type, and both are
+ * unambiguous, so both are accepted rather than rejected on a technicality.
+ */
+export function readHex(raw: string) {
+  const body = raw.trim().replace(/^#/, "");
+  if (/^[0-9a-fA-F]{6}$/.test(body)) return `#${body.toLowerCase()}`;
+  if (/^[0-9a-fA-F]{3}$/.test(body)) {
+    return `#${body
+      .split("")
+      .map((c) => c + c)
+      .join("")
+      .toLowerCase()}`;
+  }
+  return null;
+}

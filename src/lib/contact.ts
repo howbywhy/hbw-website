@@ -21,3 +21,22 @@ export const STUDIO_PLACE = "Wentworth Falls, Blue Mountains, Australia";
 /** Its parts, for structured data. Only what STUDIO_PLACE shows may be claimed. */
 export const STUDIO_LOCALITY = "Wentworth Falls";
 export const STUDIO_COUNTRY = "AU";
+
+/**
+ * The two ways in, said once.
+ *
+ * Contact is both a page and a part of the studio overlay. Written out in
+ * each, the two drifted the moment either was edited.
+ */
+export const CONTACT_WAYS = {
+  write: {
+    name: "Write",
+    note: "A sentence about what is changing is plenty",
+  },
+  draw: {
+    name: "Draw",
+    note: "Same inbox",
+    copy:
+      "Make a poster instead. Spray it, write on it, send it over — it usually says more about the problem than a paragraph does.",
+  },
+} as const;

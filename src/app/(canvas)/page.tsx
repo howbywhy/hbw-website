@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import { loadSheets } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
-import { Footer } from "@/components/site/Footer";
-import { Catalogue } from "@/components/site/Catalogue";
+import { Work } from "@/components/site/Work";
 import { Logotype } from "@/components/site/Logotype";
 import { StructuredData } from "@/components/StructuredData";
 import { founderNode, studioNode, websiteNode, workListNode } from "@/lib/structured-data";
@@ -25,6 +24,9 @@ export const metadata: Metadata = {
  * It was /work, and everything that used to sit in front of it — a title
  * card, a field of marks, a horizontal reel — has gone. None of it was the
  * work, and all of it stood between a visitor and the work.
+ *
+ * It is the only page the work has. A project opens as a gallery over this
+ * sheet rather than as a page of its own.
  */
 export default async function HomePage() {
   const projects = await loadSheets();
@@ -39,7 +41,7 @@ export default async function HomePage() {
       */}
       <Bar says={<h1 className="hbw-bar__h1">Clarity for brands at a turning point.</h1>} />
       <div className="hbw-wrap">
-        <Catalogue
+        <Work
           projects={projects}
           marks={Object.fromEntries(
             projects.map((project) => [
@@ -49,8 +51,12 @@ export default async function HomePage() {
           )}
         />
       </div>
-
-      <Footer />
+      {/*
+        No foot on this page. It runs round — projects, white, projects — and
+        a page with no end cannot have a last thing on it. What was down here
+        is in the studio, which is where someone goes when they have finished
+        looking and want to get in touch.
+      */}
     </main>
   );
 }
