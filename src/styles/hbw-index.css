@@ -5282,11 +5282,20 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
   animation: hbw-arrive var(--in) var(--ease) both;
 }
 
-.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(1) { animation-delay: 40ms; }
-.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(2) { animation-delay: 110ms; }
-.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(3) { animation-delay: 180ms; }
-.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(4) { animation-delay: 250ms; }
-.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(n + 5) { animation-delay: 320ms; }
+/*
+ * After the room, not during it.
+ *
+ * The columns used to start forty milliseconds in, which is while the
+ * gallery is still giving up its height — two moves running over each
+ * other, so neither reads as the cause of the other. Held back by the
+ * length of that move, the order is plain: the work makes room, and then
+ * the reading arrives in it, a column at a time.
+ */
+.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(1) { animation-delay: calc(var(--in) + 20ms); }
+.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(2) { animation-delay: calc(var(--in) + 90ms); }
+.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(3) { animation-delay: calc(var(--in) + 160ms); }
+.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(4) { animation-delay: calc(var(--in) + 230ms); }
+.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(n + 5) { animation-delay: calc(var(--in) + 300ms); }
 
 /* The thumbnails stand back as the writing comes in, not before it. */
 
@@ -9150,4 +9159,57 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    ===================================================================== */
 .hbw-lamp .hbw-lamp__field[data-view="grid"] .hbw-lamp__page--next {
   display: none;
+}
+
+
+/* =====================================================================
+   The studio is built of the same modules as everything else.
+
+   It was one long document: a column of headings on the left and three
+   columns of prose beside them, set on open paper. Everywhere else on this
+   site a piece of information is an object — a field with a corner on it,
+   two pixels from the next one — and the studio was the one room that did
+   not say so, which is why it read as a page rather than as part of the
+   same system.
+
+   Each column of a section becomes a module. They sit the same two pixels
+   apart as the pictures do, wear the same field as the nav and the foot,
+   and arrive one after another rather than all at once, so opening the
+   studio is a sequence like opening anything else here.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part__say {
+  gap: var(--edge);
+}
+
+.hbw-studio-doc .hbw-part__col {
+  box-sizing: border-box;
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  padding: clamp(14px, 1.6vw, 24px);
+  min-width: 0;
+}
+
+/* The row of facts is a module too, not a list loose on the page. */
+.hbw-studio-doc .hbw-part__col .hbw-facts {
+  margin: 0;
+}
+
+/* =====================================================================
+   And they arrive in order.
+
+   One module at a time, in the order they are read, at the site's own
+   timings — the same move the gallery's frames make and the writing's
+   columns make, so the whole site has one way of showing you something.
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col {
+    animation: hbw-arrive var(--in) var(--ease) backwards;
+  }
+
+  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(1) { animation-delay: 40ms; }
+  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(2) { animation-delay: 120ms; }
+  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(3) { animation-delay: 200ms; }
+  .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(n + 4) { animation-delay: 280ms; }
 }
