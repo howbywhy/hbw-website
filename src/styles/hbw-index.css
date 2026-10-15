@@ -9213,3 +9213,117 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(3) { animation-delay: 200ms; }
   .hbw-studio-doc .hbw-part[data-here="true"] .hbw-part__col:nth-child(n + 4) { animation-delay: 280ms; }
 }
+
+
+/* =====================================================================
+   The studio keeps the site's two pixels, and its columns stand together.
+
+   The sheet was built on its own spacing — a thirty-four pixel gap between
+   the document's two halves, the same again between a section's heading
+   slot and its prose, twenty-four under every section — and its sections
+   were stacked one column wide whatever the screen. Every other room on
+   this site is two pixels, so this one is too; and on a wide screen the
+   three columns of a section sit beside each other, which is what the
+   section was written as.
+   ===================================================================== */
+.hbw-studio-doc {
+  gap: var(--edge);
+  padding-inline: var(--edge);
+}
+
+.hbw-studio-doc .hbw-part {
+  gap: var(--edge);
+  padding-bottom: var(--edge);
+}
+
+.hbw-studio-doc .hbw-studio__index {
+  gap: var(--edge);
+}
+
+@media (min-width: 1100px) {
+  .hbw-studio-doc .hbw-studio__said .hbw-part__say {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--edge);
+  }
+
+  /* A section with two things to say gives each of them half, rather than
+     two thirds and a hole. */
+  .hbw-studio-doc .hbw-studio__said .hbw-part__say:has(.hbw-part__col:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hbw-studio-doc .hbw-studio__said .hbw-part__say:has(.hbw-part__col:only-child) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* =====================================================================
+   The long reads are modules too.
+
+   A case study is the most information-heavy thing on this site — an
+   opening, a row of facts, then three sections of prose — and it was set as
+   a document: headings, paragraphs, white space between. Every other room
+   here says what it is by being an object, so these do too. The opening,
+   the facts and each section become modules on the same field, two pixels
+   apart, and they arrive in the order they are read.
+   ===================================================================== */
+.hbw-case__opening,
+.hbw-case__facts,
+.hbw-case__part,
+.hbw-case__to {
+  box-sizing: border-box;
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  padding: clamp(14px, 1.6vw, 24px);
+  margin: 0;
+  min-width: 0;
+}
+
+.hbw-case {
+  display: grid;
+  gap: var(--edge);
+}
+
+.hbw-case__mast {
+  display: grid;
+  gap: var(--edge);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-case__opening,
+  .hbw-case__facts,
+  .hbw-case__part,
+  .hbw-case__to {
+    animation: hbw-arrive var(--in) var(--ease) backwards;
+  }
+
+  .hbw-case__opening { animation-delay: 60ms; }
+  .hbw-case__facts { animation-delay: 140ms; }
+  .hbw-case__part:nth-of-type(1) { animation-delay: 220ms; }
+  .hbw-case__part:nth-of-type(2) { animation-delay: 300ms; }
+  .hbw-case__part:nth-of-type(n + 3) { animation-delay: 380ms; }
+  .hbw-case__to { animation-delay: 460ms; }
+}
+
+
+/* The long read sits on the site's edges, and its masthead keeps no air of
+   its own under it — that was fifty-four pixels between the facts and the
+   first section while everything else on the page sat two apart. */
+.hbw-case-page {
+  padding-inline: var(--edge);
+}
+
+.hbw-case__mast {
+  padding-inline: 0;
+  padding-bottom: 0;
+}
+
+/* On a phone the section index sits between the facts and the first part,
+   so its own air is part of the rhythm too. */
+.hbw-case__index {
+  padding-inline: 0;
+  padding-bottom: var(--edge);
+}
