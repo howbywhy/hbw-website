@@ -525,11 +525,24 @@ export function Lightbox({
       if (!before) continue;
       const after = one.getBoundingClientRect();
       if (!after.width || !before.width) continue;
-      const dx = before.left - after.left;
-      const dy = before.top - after.top;
+      let dx = before.left - after.left;
+      let dy = before.top - after.top;
       const sx = before.width / after.width;
       const sy = before.height / after.height;
-      if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) continue;
+      /*
+       * Everything moves, including the one that barely has to.
+       *
+       * A frame whose place in the row and its place in the sheet happen to
+       * be within a pixel of each other was skipped as having nothing to
+       * do — so eighteen of nineteen travelled and one sat still through
+       * it, which is the thing a reader notices. It is given the smallest
+       * journey the rest are making instead.
+       */
+      const still =
+        Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01;
+      if (still) {
+        dy = -8;
+      }
       one.style.transformOrigin = "top left";
       one.style.transition = "none";
       one.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
