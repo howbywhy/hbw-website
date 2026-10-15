@@ -46,9 +46,33 @@ export function Bar({
     return () => window.removeEventListener("hashchange", look);
   }, []);
 
+  /*
+   * The studio leaves the way it arrives.
+   *
+   * Closing simply unmounted it: the whole sheet, its five blocks and the
+   * picture beside them vanished between one frame and the next, which is
+   * the one move on this site that was still a cut. It is told it is going
+   * instead — the stylesheet stands its contents down in order — and only
+   * then is it taken away.
+   */
+  const [going, setGoing] = useState(false);
+  const leaving = useRef(0);
+
+  useEffect(() => () => window.clearTimeout(leaving.current), []);
+
   const close = useCallback(() => {
-    setStudio(null);
-    if (window.location.hash === "#studio" || window.location.hash === "#contact") history.back();
+    if (leaving.current) return;
+    const out = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--out"),
+    );
+    const ms = Number.isFinite(out) && out > 0 ? out * (out < 20 ? 1000 : 1) : 240;
+    setGoing(true);
+    leaving.current = window.setTimeout(() => {
+      leaving.current = 0;
+      setGoing(false);
+      setStudio(null);
+      if (window.location.hash === "#studio" || window.location.hash === "#contact") history.back();
+    }, ms + 220);
   }, []);
 
   /**
@@ -235,7 +259,7 @@ export function Bar({
       {/* The same shell as a project's information: one way of opening, one
           way of closing, one set of behaviours. */}
       {studio ? (
-        <Sheet label="Studio" onClose={close} panel="hbw-studio-sheet__panel--split" bare>
+        <Sheet label="Studio" onClose={close} panel="hbw-studio-sheet__panel--split" bare going={going}>
           <StudioBody start={studio.at} />
         </Sheet>
       ) : null}

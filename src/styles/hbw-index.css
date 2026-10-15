@@ -9969,3 +9969,77 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     margin-top: var(--edge);
   }
 }
+
+
+/* =====================================================================
+   The studio leaves in the order it arrived.
+
+   Opening it brings the modules in one after another; closing it took the
+   whole sheet away between one frame and the next — the one move on this
+   site that was still a cut rather than a sequence.
+
+   Going, the reading stands down first, a module at a time, then the
+   picture and what it says beside it, and the sheet itself last. The same
+   stagger as the arrival, at the leaving's own pace, so it reads as the
+   same move run backwards rather than a different one.
+   ===================================================================== */
+.hbw-studio-sheet[data-going="true"] .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
+.hbw-studio-sheet[data-going="true"] .hbw-part__name {
+  opacity: 0;
+  transform: translateY(calc(var(--rise, 8px) * 0.8));
+  transition:
+    opacity var(--out) var(--ease),
+    transform var(--out) var(--ease);
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name { transition-delay: 0ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name { transition-delay: 40ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name { transition-delay: 80ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name { transition-delay: 120ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { transition-delay: 160ms; }
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1) { transition-delay: 100ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2) { transition-delay: 140ms; }
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__end {
+  opacity: 0;
+  transition: opacity var(--out) var(--ease);
+  transition-delay: 0ms;
+}
+
+/* The sheet itself goes last, once what was in it has stood down. */
+.hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__panel {
+  opacity: 0;
+  transition: opacity var(--out) var(--ease);
+  transition-delay: 180ms;
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__scrim {
+  opacity: 0;
+  transition: opacity var(--out) var(--ease);
+  transition-delay: 180ms;
+}
+
+/* Nothing in a leaving sheet answers the pointer. */
+.hbw-studio-sheet[data-going="true"] {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-sheet[data-going="true"] .hbw-part__col,
+  .hbw-studio-sheet[data-going="true"] .hbw-part__name,
+  .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
+  .hbw-studio-sheet[data-going="true"] .hbw-studio__end,
+  .hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__panel,
+  .hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__scrim {
+    transition: none;
+    transition-delay: 0s;
+    transform: none;
+  }
+}

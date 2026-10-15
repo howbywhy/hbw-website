@@ -16,6 +16,7 @@ export function Sheet({
   onClose,
   panel: panelClass,
   bare = false,
+  going = false,
 }: {
   label: string;
   children: ReactNode;
@@ -26,6 +27,12 @@ export function Sheet({
    * them, which would otherwise give the same content two scrollbars.
    */
   panel?: string;
+  /**
+   * On the way out: the sheet is still mounted, but leaving. Everything in
+   * it stands down in order before it goes, which is the same sequence it
+   * arrived on, run backwards.
+   */
+  going?: boolean;
   /**
    * No row of its own for the label and the way out.
    *
@@ -66,7 +73,13 @@ export function Sheet({
   }, [key]);
 
   return (
-    <div className="hbw-studio-sheet hbw-over" role="dialog" aria-modal="true" aria-label={label}>
+    <div
+      className="hbw-studio-sheet hbw-over"
+      data-going={going ? "true" : undefined}
+      role="dialog"
+      aria-modal="true"
+      aria-label={label}
+    >
       <button type="button" className="hbw-studio-sheet__scrim" aria-label="Close" tabIndex={-1} onClick={onClose} />
       <article
         className={panelClass ? `hbw-studio-sheet__panel ${panelClass}` : "hbw-studio-sheet__panel"}
