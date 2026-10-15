@@ -10110,3 +10110,36 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     align-items: stretch;
   }
 }
+
+
+/* =====================================================================
+   A shut block is its name, and nothing else.
+
+   The block is a grid of two rows and it kept the two pixels between them
+   whether or not the second row had anything in it — so a shut block was
+   twenty-six pixels tall around a twenty-four pixel name, and the distance
+   a reader saw between two bars was four: two from the grid below the name,
+   two between the blocks. The same two pixels showed up again above the
+   first bar, where the panel already holds the sheet off the nav and the
+   document inside it was adding its own.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part:not([data-open="true"]) {
+  row-gap: 0;
+}
+
+.hbw-studio-sheet__panel .hbw-studio-doc {
+  padding-top: 0;
+}
+
+/* =====================================================================
+   The open block is told apart by its ink, not by a white field.
+
+   Every control on this site wears the same field and the chosen one is
+   lifted by the ink in it — the view switch, the foot, the nav. The block
+   that is open was going white instead, which on a pale sheet is not a
+   state, it is a hole.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__name {
+  background: var(--pill-bg);
+  color: var(--ink);
+}
