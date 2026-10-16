@@ -25,7 +25,7 @@ export default async function Image() {
         }}
       >
         <div style={{ display: "flex", fontSize: 32 }}>How by Why</div>
-        <div style={{ display: "flex", fontSize: 56, marginTop: 32 }}>Studio</div>
+        <div style={{ display: "flex", fontSize: 56, marginTop: 32 }}>Practice</div>
         <div style={{ display: "flex", fontSize: 36, marginTop: 16, opacity: 0.55 }}>{STUDIO_COPY.glimpse}</div>
       </div>
     ),

@@ -8,15 +8,15 @@ import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
 import "@/styles/hbw-index.css";
 
-const title = "Studio — How by Why";
+const title = "Practice — How by Why";
 const description =
   "How by Why is an independent brand and design practice led by Mark Blackler, working with founders and leadership teams at moments of change.";
 
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/studio" },
-  openGraph: { title, description, type: "website", url: "/studio" },
+  alternates: { canonical: "/practice" },
+  openGraph: { title, description, type: "website", url: "/practice" },
   /*
    * Said here, not left to the root layout.
    *
@@ -61,11 +61,11 @@ export default function StudioPage() {
           founderNode(),
           breadcrumbNode([
             { name: "How by Why", path: "/" },
-            { name: "Studio", path: "/studio" },
+            { name: "Practice", path: "/practice" },
           ]),
         ]}
       />
-      <Bar here="studio" />
+      <Bar here="practice" />
 
       <div className="hbw-wrap hbw-studio-page">
         <section className="hbw-say">
@@ -101,7 +101,7 @@ export default function StudioPage() {
             <dd>{sectors.join(" · ")}</dd>
           </div>
           <div>
-            <dt className="hbw-m">Contact</dt>
+            <dt className="hbw-m">Talk</dt>
             <dd>
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </dd>

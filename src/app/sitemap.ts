@@ -7,7 +7,7 @@ const origin = "https://www.hbw.works";
 const lastModified = new Date();
 
 /**
- * /manifesto is deliberately absent: it serves the same body as /studio and
+ * /manifesto is deliberately absent: it serves the same body as /practice and
  * now canonicalises to it. Listing it would ask search engines to index a page
  * that points elsewhere. /projects and /work are absent for the same reason:
  * both now redirect to the front page, which carries the work.
@@ -15,8 +15,8 @@ const lastModified = new Date();
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: origin, lastModified, changeFrequency: "monthly", priority: 1 },
-    { url: `${origin}/studio`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${origin}/contact`, lastModified, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${origin}/practice`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${origin}/talk`, lastModified, changeFrequency: "yearly", priority: 0.6 },
     ...liveProjects().map((project) => ({
       url: `${origin}${project.href}`,
       lastModified,

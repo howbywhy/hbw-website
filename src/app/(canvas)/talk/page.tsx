@@ -8,15 +8,15 @@ import { PosterLink } from "@/components/site/PosterLink";
 import { liveProjects } from "@/components/home/catalog";
 import "@/styles/hbw-index.css";
 
-const title = "Contact — How by Why";
+const title = "Talk — How by Why";
 const description =
   "Start a conversation with How by Why: email Mark Blackler, or make a poster and send it over.";
 
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/contact" },
-  openGraph: { title, description, type: "website", url: "/contact" },
+  alternates: { canonical: "/talk" },
+  openGraph: { title, description, type: "website", url: "/talk" },
   /*
    * Said here, not left to the root layout.
    *
@@ -39,7 +39,7 @@ export default function ContactPage() {
       {/* The one page whose job is the address, and it was the only one
           publishing nothing a machine could read. */}
       <StructuredData nodes={[studioNode()]} />
-      <Bar here="contact" />
+      <Bar here="talk" />
       <div className="hbw-wrap">
         <section className="hbw-say">
           <h1>Two ways in.</h1>

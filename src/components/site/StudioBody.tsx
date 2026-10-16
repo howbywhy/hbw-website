@@ -48,7 +48,7 @@ const PARTS = [
   { id: "approach", name: "Approach" },
   { id: "process", name: "Process" },
   { id: "manifesto", name: "Manifesto" },
-  { id: "contact", name: "Contact" },
+  { id: "contact", name: "Talk" },
 ] as const;
 
 const FACTS = [
@@ -543,7 +543,7 @@ export function StudioBody({ start }: { start?: string }) {
             aria-expanded={here === "contact"}
             onClick={() => setHere("contact")}
           >
-            Contact
+            Talk
           </button>
           {tool ? (
             <button type="button" className="hbw-part__exit" onClick={shutTool}>

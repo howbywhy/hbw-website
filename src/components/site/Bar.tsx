@@ -18,7 +18,7 @@ export function Bar({
   here,
   says,
 }: {
-  here?: "work" | "studio" | "contact";
+  here?: "work" | "practice" | "talk";
   /**
    * The page's line for the right-hand slot. The gallery borrows the same slot
    * while it is open, to name the project it is showing.
@@ -272,13 +272,13 @@ export function Bar({
             Home
           </a>
           <a
-            href="/studio"
-            aria-current={here === "studio" ? "page" : undefined}
+            href="/practice"
+            aria-current={here === "practice" ? "page" : undefined}
             onClick={(event) => (studio ? (event.preventDefault(), close()) : openAt(event, "#studio"))}
           >
             {/* In the studio already: the same shoulder is the way back out,
                 rather than a second word for the same place. */}
-            {studio ? "Close" : "Studio"}
+            {studio ? "Close" : "Practice"}
           </a>
           {/*
             Contact is not a third way. It is a part of the studio — the sheet
@@ -356,7 +356,7 @@ export function Bar({
       {/* The same shell as a project's information: one way of opening, one
           way of closing, one set of behaviours. */}
       {studio ? (
-        <Sheet label="Studio" onClose={close} panel="hbw-studio-sheet__panel--split" bare going={going}>
+        <Sheet label="Practice" onClose={close} panel="hbw-studio-sheet__panel--split" bare going={going}>
           <StudioBody start={studio.at} />
         </Sheet>
       ) : null}

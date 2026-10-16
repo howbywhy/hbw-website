@@ -12,6 +12,17 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
+      /*
+       * The studio is the Practice and contact is the Talk.
+       *
+       * The old addresses are the ones in the wild — in the sitemap search
+       * engines already have, in anything anyone has linked — so they keep
+       * working. Not permanent: a 308 is cached by browsers in a way that is
+       * painful to take back, and these are names, which are the kind of
+       * decision that gets revisited.
+       */
+      { source: "/studio", destination: "/practice", permanent: false },
+      { source: "/contact", destination: "/talk", permanent: false },
       /**
        * The manifesto is in the studio, which is where it was already being
        * read from — the page at this address rendered nothing but its own
@@ -22,7 +33,7 @@ const nextConfig: NextConfig = {
        * an editorial decision about where the words live, and a 308 is cached
        * by browsers in a way that is painful to take back.
        */
-      { source: "/manifesto", destination: "/studio", permanent: false },
+      { source: "/manifesto", destination: "/practice", permanent: false },
       /**
        * The work index is the front page. Two indexes of the same six
        * projects compete with each other in search, so the old addresses
