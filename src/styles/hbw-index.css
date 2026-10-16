@@ -11762,3 +11762,141 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     animation-delay: calc(var(--enter-work) + var(--enter-step) * 3);
   }
 }
+
+/* =====================================================================
+   The project's information is a board of modules, like everything else.
+
+   It was four columns of writing sharing one plate, which made the panel a
+   page rather than a board — and a page has to be given a size, so it was
+   given a clamp and a scrollbar. A project with more to say had it cut off
+   mid-sentence in a box the same size as a project with less.
+
+   Each part is its own module now, on the same field, two pixels apart, on
+   the same six tracks the studio's board uses. A module is as tall as what
+   it holds, the panel is as tall as the tallest of them, and the gallery
+   above gives up exactly that much room and no more.
+   ===================================================================== */
+.hbw-lamp__info .hbw-info__grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-auto-columns: auto;
+  gap: var(--edge);
+  align-items: start;
+  align-content: start;
+}
+
+.hbw-lamp__info .hbw-info__facts,
+.hbw-lamp__info .hbw-info__part {
+  box-sizing: border-box;
+  grid-column: span 2;
+  margin: 0;
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+
+@media (max-width: 1100px) {
+  .hbw-lamp__info .hbw-info__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .hbw-lamp__info .hbw-info__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hbw-lamp__info .hbw-info__facts,
+  .hbw-lamp__info .hbw-info__part {
+    grid-column: 1 / -1;
+  }
+}
+
+/* The panel is what the modules make it, measured, so the row can still be
+   travelled to rather than jumped to. */
+.hbw-lamp[data-reading="true"] .hbw-lamp__info {
+  height: var(--info-h, clamp(180px, 30vh, 320px));
+}
+
+/* =====================================================================
+   And in the full view, a way on from the last picture.
+
+   The forward half of the picture had nothing to do on the last frame —
+   you could press it and stay where you were, with no sign the project had
+   ended. One control instead, on the site's own field, arriving on its own
+   beat once you have had a moment with the last picture, and opening the
+   next project the way the rail's plate does.
+   ===================================================================== */
+.hbw-lamp__onward {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: calc(var(--gut) + var(--pill-h) + var(--pill-gap) * 4);
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: var(--mute);
+  font: inherit;
+  font-size: var(--nav);
+  cursor: pointer;
+  transition: color var(--quick) var(--ease);
+}
+
+.hbw-lamp__onward .hbw-ink {
+  color: var(--ink);
+}
+
+.hbw-lamp__onward:hover,
+.hbw-lamp__onward:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-lamp__onward:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp__onward {
+    animation: hbw-open var(--in) var(--ease) calc(var(--in) + var(--enter-step) * 3) backwards;
+  }
+}
+
+/* Two pixels between the modules, said at the weight the reading state
+   sets its own gap at — the board's distance is the board's distance, and
+   it does not change because the panel happens to be open. */
+.hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__grid {
+  gap: var(--edge);
+}
+
+/* =====================================================================
+   The name and the line change together.
+
+   They are two halves of one statement — the project's name and what it
+   is — and they were on different clocks: the name waits for the plates to
+   be built and comes in with the rest of the words, the line came in
+   immediately. On the home page, where both change as the work runs past
+   the chrome, that is the name and its own line arriving a third of a
+   second apart every time.
+
+   The line is a word in the chrome like the others, so it keeps the
+   others' time. Said here rather than in the rule above because the line
+   is not a .hbw-bar__said — it is the one piece of writing in the bar with
+   a class of its own, which is why it was missed.
+   ===================================================================== */
+.hbw-bar__over {
+  animation-name: hbw-open;
+  animation-delay: var(--enter-type);
+}

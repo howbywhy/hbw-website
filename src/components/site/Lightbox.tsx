@@ -158,6 +158,18 @@ export function Lightbox({
    * and the view switch cannot bring it back.
    */
   const [arriving, setArriving] = useState(true);
+  /**
+   * The writing takes the room it needs, and the work gives it up.
+   *
+   * Its height was a clamp — never less than 180, never more than 320 —
+   * with a scrollbar for anything that did not fit, so a project with more
+   * to say had it cut off mid-sentence inside a box the same size as a
+   * project with less. The modules are what they hold now, the panel is as
+   * tall as the tallest of them, and the gallery above gives up exactly
+   * that much. Measured, because a grid row cannot be transitioned to a
+   * height nobody has worked out yet.
+   */
+  const infoRoom = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const root = getComputedStyle(document.documentElement);
     const ms = (token: string, fallback: number) => {
@@ -202,6 +214,30 @@ export function Lightbox({
    * stays where it is underneath — visible through the glass until the
    * picture has passed over it.
    */
+  useEffect(() => {
+    const room = infoRoom.current;
+    if (!room) return;
+    const root = document.documentElement;
+    const read = () => {
+      const want = room.scrollHeight;
+      if (!want) return;
+      /* Never more than the room can give: the gallery has to stay a
+         gallery, so the writing stops at a little over half the screen and
+         scrolls past that. Short writing is simply short. */
+      const cap = Math.round(window.innerHeight * 0.56);
+      root.style.setProperty("--info-h", `${Math.min(want, cap)}px`);
+    };
+    read();
+    const watch = new ResizeObserver(read);
+    watch.observe(room);
+    for (const kid of room.querySelectorAll(".hbw-info__grid > *")) watch.observe(kid);
+    window.addEventListener("resize", read);
+    return () => {
+      watch.disconnect();
+      window.removeEventListener("resize", read);
+    };
+  }, [info, reading]);
+
   const openFull = useCallback(
     (i: number) => {
       window.clearTimeout(staging.current);
@@ -1168,7 +1204,11 @@ export function Lightbox({
         button now, beside Previous and Next, because that is what it does:
         the same kind of move, in the same kind of control.
       */}
-      {info ? <div className="hbw-lamp__info">{info}</div> : null}
+      {info ? (
+        <div className="hbw-lamp__info" ref={infoRoom}>
+          {info}
+        </div>
+      ) : null}
 
       {(full || closing) && shots[Math.min(at, shots.length - 1)] ? (
         <div
@@ -1204,6 +1244,21 @@ export function Lightbox({
             aria-label="Next frame"
             onClick={() => step(1)}
           />
+          {/*
+            The end of the set, and the way on from it.
+
+            On the last frame the forward half of the picture had nothing to
+            do: you could press it and stay where you were, with no sign the
+            project had ended. The rail says so by handing over to the next
+            project's plate; in here there is no rail, so it is said the only
+            way this view can say anything — one control, arriving on its own
+            beat once you have had a moment with the last picture.
+          */}
+          {next && at === shots.length - 1 ? (
+            <button type="button" className="hbw-lamp__onward" onClick={() => onNext?.()}>
+              Next <span className="hbw-ink">{next.name}</span>
+            </button>
+          ) : null}
         </div>
       ) : null}
 
