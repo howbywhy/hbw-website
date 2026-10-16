@@ -10965,3 +10965,26 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     grid-column: 5 / 7;
   }
 }
+
+/* =====================================================================
+   The line steps aside only for things that are actually there.
+
+   Inside a project the line row insets by the width of the two fields that
+   share it — the frame count at one end, the view switch at the other — so
+   the three sit a gutter apart instead of welded together. The inset was
+   written on the row itself rather than on the state that needs it, so it
+   survived the two fields being covered: open the Studio from inside a
+   project and the sheet hid the count and the switch while the line went on
+   holding their room, leaving a hundred and seven pixels of nothing at the
+   top right of the nav and sixty-five at the left.
+
+   The row says which state it is in — data-over inside a project, and
+   data-studio once a sheet is over it — so the inset belongs to the first.
+   The margin is still transitioned on the row itself, so it travels out to
+   the full width as the sheet opens and back between them as it closes,
+   which is what the row was built to do.
+   ===================================================================== */
+.hbw-bar__what:not([data-over]) {
+  margin-left: 0;
+  margin-right: 0;
+}
