@@ -5478,7 +5478,10 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 .hbw-lamp[data-reading="true"] .hbw-lamp__info {
   grid-row: 4;
   max-height: none;
-  padding: var(--pill-h) var(--gut) var(--pill-x);
+  /* The row is two pixels under the work and two off the foot of the
+     screen, like every other row. The twenty-four above the modules was
+     the top of a sheet that is no longer there. */
+  padding: 0 0 var(--edge);
 }
 
 
@@ -5747,6 +5750,21 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 .hbw-lamp[data-reading="true"] .hbw-lamp__info .hbw-info__part h2,
 .hbw-lamp[data-reading="true"] .hbw-lamp__info dt {
   font-size: var(--t-small);
+  /*
+   * Darker than the site's quiet grey, because of what is behind it.
+   *
+   * These labels are --say, which is set for text on paper. Here the paper
+   * is a module's own field over a blurred picture, so how light the ground
+   * is depends on the frame — and on some frames it is a film, so it keeps
+   * changing while you read. Measured across seven frames of three
+   * projects, --say came out between 2.95:1 and 4.67:1, under the 4.5:1
+   * small text is owed and worst where the footage is dark. This clears it
+   * everywhere with room to spare, lowest reading 4.91:1, and it is still
+   * lighter than the value beside it, which is --ink at 11.6:1. The label is
+   * small, spaced and upper case as well as grey; the grey was never doing
+   * the work on its own.
+   */
+  color: #4a4a4a;
 }
 
 .hbw-lamp[data-reading="true"] .hbw-lamp__info dd {
@@ -5876,20 +5894,15 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /* =====================================================================
-   Nothing shows through while a project hands over.
+   Nothing shows through while a project hands over — said elsewhere.
 
-   The panel keeps its ground at 74% over a blur, so the page behind is a
-   presence rather than a wall — which is right while there is work on top
-   of it, and wrong for the moment there is not. With the pictures gone the
-   homepage simply came back through the glass. Handing over, the ground
-   goes solid and the blur is dropped: the room stays the room, and the only
-   thing that changes is the work in it.
+   A white ground and no blur used to be put up here for the moment the
+   pictures were gone. Switching the filter off is what rebuilt the GPU
+   layer and flashed the page behind, so the panel's blur is now pinned on
+   the element itself and never changes, and the solid room for a hand-over
+   is the sheet on the field. Both of those outrank this rule, which did
+   nothing but read as though the blur still drops. It is gone.
    ===================================================================== */
-.hbw-lamp[data-going="true"] {
-  background: #ffffff;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
 
 /* =====================================================================
    The end of a project arrives slowly.
@@ -5974,17 +5987,14 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /*
- * The ground is solid for as long as the hand-over lasts.
+ * The ground is solid for as long as the hand-over lasts — said elsewhere.
  *
- * Said on the document rather than on the panel, because the panel does not
- * survive the move — the gallery is keyed on the project, so one is
- * discarded and another built. Both of them sit under this.
+ * This put a white ground on the document for the move, and nothing has set
+ * the class since the panel's own blur was pinned on the element: the pin
+ * outranks it, and the solid room is the sheet on the field. Two rules were
+ * left saying the blur drops during a hand-over when it does not, which is
+ * the first thing anyone would reach for debugging a flash. Both are gone.
  */
-html.hbw-handing .hbw-lamp {
-  background: #ffffff;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
 
 /* =====================================================================
    The studio's third column scrolls on its own.
@@ -8096,12 +8106,15 @@ body:has(.hbw-lamp) .hbw-bar {
 }
 
 /*
- * The writing keeps a ground of its own.
+ * The writing keeps a ground of its own — and it is the modules that keep it.
  *
- * With the gallery's fill gone, prose would be set straight onto a blurred
- * photograph — legible in the pale frames and not in the dark ones. The
- * information carries its own paper, so the reading is always readable
- * while the work around it keeps the texture.
+ * Prose set straight onto a blurred photograph is legible in the pale
+ * frames and not in the dark ones, so the information carries its own
+ * paper. It used to carry it twice: a sheet behind the row as well as the
+ * field on every module, which is a ground behind a ground. The modules
+ * are the objects here, each on the site's own field, so the row they sit
+ * in is nothing — the picture shows between them, the way it shows between
+ * the blocks of the nav.
  */
 .hbw-lamp[data-reading="true"] .hbw-lamp__info {
   /*
@@ -8124,9 +8137,9 @@ body:has(.hbw-lamp) .hbw-bar {
    * the work's colour in the glass — the texture Mark asked the blur to
    * become. Same field as the nav, so the writing is the same object.
    */
-  background: var(--pill-bg);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 /* =====================================================================
@@ -8149,8 +8162,11 @@ body:has(.hbw-lamp) .hbw-bar {
      by exactly the inset on the left. */
   width: auto;
   margin-inline: var(--gut);
-  padding-inline: var(--pill-x);
-  border-radius: var(--pill-r);
+  /* No inset and no corner. Both belonged to the sheet this row used to be;
+     holding them meant every module inside it stood seven pixels off the
+     edge the rest of the site stands two pixels off. The modules meet the
+     edge now, and the corners are theirs. */
+  padding-inline: 0;
   box-sizing: border-box;
 }
 
@@ -9008,7 +9024,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-lamp .hbw-lamp__info,
 .hbw-lamp[data-reading="true"] .hbw-lamp__info {
   margin-inline: var(--edge);
-  padding-inline: var(--pill-x);
+  padding-inline: 0;
 }
 
 
