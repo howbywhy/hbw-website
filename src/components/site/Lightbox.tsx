@@ -874,6 +874,16 @@ export function Lightbox({
           position: "absolute",
           inset: 0,
           zIndex: -1,
+          /*
+           * Placed, though it is out of flow.
+           *
+           * Left on auto it was still counted when the panel's rows were
+           * worked out, and in the grid that produced a fourth row of
+           * nothing — whose gap took two pixels off the field and moved the
+           * feet up by two every time the view changed.
+           */
+          gridRow: "1 / -1",
+          gridColumn: "1 / -1",
           background: "#ffffff",
           /*
            * Only for the hand-over between two projects.

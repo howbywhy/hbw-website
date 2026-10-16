@@ -12461,27 +12461,29 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    to the foot, two pixels off it, and the picture takes the room the
    three of them leave.
    ===================================================================== */
+/*
+ * The feet stand down in the full view after all.
+ *
+ * They were brought back so the one view had a way to the project either
+ * side and a way into the writing — and with them up it is three rows of
+ * chrome around one picture, which is a lot of furniture for a view whose
+ * whole point is the work at full size. The two rows that stay say where
+ * you are and how to leave, which is what this view needs; the ways on
+ * are a press of Close away.
+ */
 .hbw-lamp[data-full="true"] .hbw-lamp__feet {
-  opacity: 1;
-  pointer-events: auto;
   /*
-   * Stood directly above where the row lands, rather than shifted by a
-   * guess at how far that is. The row travels to the foot of the window
-   * and the feet take the place immediately above it: its own measured
-   * height, the gutter it stands on, and the two pixels between them.
+   * Out of the flow, not merely invisible. Hidden by opacity alone they
+   * kept their row at the foot of the gallery's grid, so the writing opened
+   * twenty-six pixels off the bottom of the window with a band of nothing
+   * under it, and the row that travelled landed inside it.
    */
-  position: fixed;
-  left: var(--edge);
-  right: var(--edge);
-  bottom: calc(var(--bar-h, 26px) + var(--gut) + var(--edge) * 2);
-  z-index: 5;
-  transform: none;
+  display: none;
+
 }
 
 .hbw-lamp[data-full="true"] .hbw-lamp__full {
-  padding-bottom: calc(
-    var(--gut) + var(--pill-h) * 2 + var(--pill-gap) * 4 + var(--edge)
-  );
+  padding-bottom: calc(var(--gut) + var(--pill-h) + var(--pill-gap) * 2);
 }
 
 /* =====================================================================
@@ -12518,7 +12520,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    * gives up the room instead of covering it.
    */
   bottom: calc(var(--info-h, 260px) + var(--edge));
-  padding-bottom: calc(var(--pill-h) * 2 + var(--pill-gap) * 4);
+  padding-bottom: calc(var(--pill-h) + var(--pill-gap) * 2);
 }
 
 .hbw-lamp[data-full="true"][data-reading="true"] .hbw-lamp__bar {
@@ -12530,14 +12532,25 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   );
 }
 
-.hbw-lamp[data-full="true"][data-reading="true"] .hbw-lamp__feet {
-  bottom: calc(
-    var(--bar-h, 26px) + var(--edge) * 3 + var(--info-h, 260px)
-  );
-}
+
 
 @media (prefers-reduced-motion: reduce) {
   .hbw-lamp[data-full="true"] .hbw-lamp__full {
     transition: none;
   }
+}
+
+/* =====================================================================
+   The gallery is three rows, in either view.
+
+   The grid was given a fourth — a leftover from when it had something to
+   put there — and nothing has been in it for a long time. An empty row
+   costs nothing except its gap, and that gap came out of the field: two
+   pixels, which moved the feet up by two every time the view changed. The
+   row goes; the bar, the work and the foot are all there has been.
+   ===================================================================== */
+.hbw-lamp,
+.hbw-lamp[data-reading="true"],
+.hbw-lamp:has(.hbw-lamp__field[data-view="grid"]) {
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
