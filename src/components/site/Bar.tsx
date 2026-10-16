@@ -79,25 +79,36 @@ export function Bar({
    * anyway, because a refresh that does not refresh is worse than one
    * without a sequence.
    */
+  /**
+   * The site leaves, and then does whatever it was leaving for.
+   *
+   * One piece of code for both ways of asking — the keystroke below and the
+   * mark in the chrome — so the two can never run different outros. Returns
+   * whether it took the job, because the keystroke only cancels the
+   * browser's own reload if the sequence is actually going to happen.
+   */
+  const outro = useCallback((then: () => void) => {
+    const root = document.documentElement;
+    if (root.dataset.leaving === "true") return false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+    root.dataset.leaving = "true";
+    const raw = Number.parseFloat(getComputedStyle(root).getPropertyValue("--out"));
+    const out = Number.isFinite(raw) && raw > 0 ? raw * (raw < 20 ? 1000 : 1) : 240;
+    window.setTimeout(then, out + 320);
+    return true;
+  }, []);
+
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
       const asked =
         event.key === "F5" ||
         ((event.key === "r" || event.key === "R") && (event.metaKey || event.ctrlKey));
       if (!asked || event.altKey) return;
-      const root = document.documentElement;
-      if (root.dataset.leaving === "true") return;
-      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (still) return;
-      event.preventDefault();
-      root.dataset.leaving = "true";
-      const raw = Number.parseFloat(getComputedStyle(root).getPropertyValue("--out"));
-      const out = Number.isFinite(raw) && raw > 0 ? raw * (raw < 20 ? 1000 : 1) : 240;
-      window.setTimeout(() => window.location.reload(), out + 320);
+      if (outro(() => window.location.reload())) event.preventDefault();
     };
     window.addEventListener("keydown", key);
     return () => window.removeEventListener("keydown", key);
-  }, []);
+  }, [outro]);
 
   /**
    * Shuts the studio, and will do something afterwards if asked.
@@ -134,13 +145,31 @@ export function Bar({
    */
   const home = useCallback(
     (event: { preventDefault: () => void }) => {
-      if (!studio) return;
-      event.preventDefault();
-      close(() => {
-        if (window.location.pathname !== "/") window.location.assign("/");
-      });
+      if (studio) {
+        event.preventDefault();
+        close(() => {
+          if (window.location.pathname !== "/") window.location.assign("/");
+        });
+        return;
+      }
+      /*
+       * Already home: the mark runs the site again.
+       *
+       * It is the one control in the chrome with nothing to do — a link to
+       * the page you are standing on — and it is the site's own name, which
+       * makes it the right thing to press to watch the site introduce
+       * itself. It still goes where it says it goes; it just takes the
+       * site's leaving with it on the way, and the landing sequence then
+       * runs from nothing.
+       *
+       * The toolbar's reload and the menu's cannot be caught — a page is
+       * never told about those until it is already going — so this is the
+       * way to ask for the whole sequence on purpose.
+       */
+      if (window.location.pathname !== "/") return;
+      if (outro(() => window.location.reload())) event.preventDefault();
     },
-    [close, studio]
+    [close, outro, studio]
   );
 
   /**
