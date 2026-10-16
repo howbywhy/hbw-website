@@ -11209,3 +11209,103 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transition: clip-path var(--out) var(--ease);
   }
 }
+
+/* =====================================================================
+   The order the site comes in, said once.
+
+   Until now the work was simply there — the home gallery's sheets had no
+   entrance at all and settled forty-eight milliseconds in, while the nav
+   was still arriving six hundred milliseconds later. So the site assembled
+   back to front: the thing you came for first, and the thing that tells you
+   where you are catching up over the top of it.
+
+   The chrome comes first, because it is what says where you are, and the
+   work follows once it has. Four steps, named here and used everywhere, so
+   the order is one decision rather than a delay written at each site:
+
+     --enter-nav    the row that names the place
+     --enter-line   the line under it
+     --enter-work   the work, once the chrome has arrived
+     --enter-step   the distance between each piece of the work
+
+   The same four govern a landing, a refresh and a click-through into a
+   project, because all three are the same event to a reader: the chrome
+   settles, then what it frames.
+   ===================================================================== */
+:root {
+  --enter-nav: 0ms;
+  --enter-line: 80ms;
+  --enter-work: 280ms;
+  --enter-step: 70ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --enter-nav: 0ms;
+    --enter-line: 0ms;
+    --enter-work: 0ms;
+    --enter-step: 0ms;
+  }
+}
+
+/* The chrome. */
+.hbw-bar__nav,
+.hbw-bar__mark {
+  animation-delay: var(--enter-nav);
+}
+
+.hbw-bar__what {
+  animation-delay: var(--enter-line);
+}
+
+/* The work, and the two rows that walk it, after the chrome. */
+.hbw-lamp,
+.hbw-studio-sheet {
+  animation-delay: var(--enter-work);
+}
+
+.hbw-lamp__field {
+  animation-delay: var(--enter-work);
+}
+
+.hbw-lamp__bar {
+  animation-delay: calc(var(--enter-work) + var(--enter-step));
+}
+
+.hbw-lamp__feet {
+  animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
+}
+
+/*
+ * The home gallery had no entrance of its own: one section was given an
+ * arrival and the rest of the work simply existed. The field it all sits
+ * in opens instead, as a field, so the catalogue arrives as one thing
+ * rather than a hundred and twelve.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-turn {
+    animation: hbw-open var(--in) var(--ease) var(--enter-work) backwards;
+  }
+}
+
+.hbw-turn:first-child > section:first-child {
+  animation-delay: calc(var(--enter-work) + var(--enter-step));
+}
+
+/* =====================================================================
+   The writing comes in after the room for it, here as in the studio.
+
+   The information takes its room by height — it pushes the work up rather
+   than lying over it — and the reading inside it then opens on the same
+   wipe the studio's modules use, once the room is actually there. One
+   vocabulary for "something has opened", wherever you are on the site.
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp[data-reading="true"] .hbw-lamp__info > * {
+    animation: hbw-open var(--in) var(--ease) var(--in) backwards;
+  }
+
+  .hbw-lamp:not([data-reading="true"]) .hbw-lamp__info > * {
+    animation: none;
+  }
+}
