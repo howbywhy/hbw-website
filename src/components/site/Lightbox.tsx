@@ -128,7 +128,74 @@ export function Lightbox({
    */
   const [view, setView] = useView();
   const [full, setFull] = useState(false);
-  useEffect(() => setFull(false), [view, name]);
+  /**
+   * Opening a frame from the grid is three moves, like opening a project.
+   *
+   * The set goes first — every frame taken downward, the way the catalogue
+   * is taken when you leave the home page — and only then does the gallery's
+   * row travel to the foot of the window, uncovering the picture as it goes.
+   * The row already made that journey; what it did not do was carry the
+   * picture with it, so the picture simply existed once the row had left.
+   *
+   * `parting` holds the set out of the way for as long as the picture is up.
+   * `closing` keeps the picture mounted while it is covered again, because
+   * an element that unmounts on the press cannot be seen to leave.
+   */
+  /* Asked for here because the staging below reads it. */
+  const stillness = useStillness();
+  const [parting, setParting] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const staging = useRef(0);
+  useEffect(() => () => window.clearTimeout(staging.current), []);
+  useEffect(() => {
+    setFull(false);
+    setParting(false);
+    setClosing(false);
+  }, [view, name]);
+
+  /** A duration token in milliseconds, however it happens to be written. */
+  const beat = useCallback((token: string, fallback: number) => {
+    const raw = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue(token)
+    );
+    if (!Number.isFinite(raw) || raw <= 0) return fallback;
+    return raw < 20 ? raw * 1000 : raw;
+  }, []);
+
+  const openFull = useCallback(
+    (i: number) => {
+      window.clearTimeout(staging.current);
+      if (stillness) {
+        onAt?.(i);
+        setParting(true);
+        setFull(true);
+        return;
+      }
+      setParting(true);
+      staging.current = window.setTimeout(() => {
+        onAt?.(i);
+        setFull(true);
+      }, beat("--out", 240));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [beat, onAt, stillness]
+  );
+
+  const shutFull = useCallback(() => {
+    window.clearTimeout(staging.current);
+    if (stillness) {
+      setFull(false);
+      setParting(false);
+      setClosing(false);
+      return;
+    }
+    setClosing(true);
+    setFull(false);
+    staging.current = window.setTimeout(() => {
+      setClosing(false);
+      setParting(false);
+    }, beat("--in", 460));
+  }, [beat, stillness]);
   const pages = useRef<HTMLDivElement>(null);
   /** The handover panel sits one past the last frame. */
   const handover = next ? shots.length : -1;
@@ -342,7 +409,7 @@ export function Lightbox({
       // The sheet is on top and closes itself; Escape here would shut both.
       if (event.key === "Escape") {
         if (full) {
-          setFull(false);
+          shutFull();
           return;
         }
         if (reading) {
@@ -372,7 +439,6 @@ export function Lightbox({
   }, [name]);
 
   /** Whether this reader has asked their system for less movement. */
-  const stillness = useStillness();
 
   /*
    * Asking for less movement stops the films that have already started.
@@ -858,7 +924,7 @@ export function Lightbox({
             the job; this slot is for the picture plate, which has no other.
           */}
           {full ? (
-            <button type="button" onClick={() => setFull(false)}>
+            <button type="button" onClick={shutFull}>
               Close
             </button>
           ) : null}
@@ -871,7 +937,12 @@ export function Lightbox({
         and setting it under the picture says it twice to everyone else. It
         stays on the image, where it is read by the people it is for.
       */}
-      <div className="hbw-lamp__field" data-view={view} ref={field}>
+      <div
+        className="hbw-lamp__field"
+        data-view={view}
+        data-parting={parting ? "true" : undefined}
+        ref={field}
+      >
         {/* One rail carrying every frame as a page, scrolled and snapped. */}
         <div
           className="hbw-lamp__pages"
@@ -957,9 +1028,9 @@ export function Lightbox({
                     onClick={() => {
                       // Open on this one, and stay on it: the plate shows
                       // whichever frame you are on, so stepping works in here
-                      // exactly as it does everywhere else.
-                      onAt?.(i);
-                      setFull(true);
+                      // exactly as it does everywhere else. The set leaves
+                      // first; openFull holds the order.
+                      openFull(i);
                     }}
                   >
                     {/*
@@ -1065,8 +1136,13 @@ export function Lightbox({
       */}
       {info ? <div className="hbw-lamp__info">{info}</div> : null}
 
-      {full && shots[Math.min(at, shots.length - 1)] ? (
-        <div className="hbw-lamp__full" role="group" aria-label={`Frame ${at + 1} of ${shots.length}`}>
+      {(full || closing) && shots[Math.min(at, shots.length - 1)] ? (
+        <div
+          className="hbw-lamp__full"
+          data-closing={closing ? "true" : undefined}
+          role="group"
+          aria-label={`Frame ${at + 1} of ${shots.length}`}
+        >
           {(() => {
             const one = shots[Math.min(at, shots.length - 1)];
             return one.video ? (

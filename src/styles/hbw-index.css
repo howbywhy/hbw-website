@@ -11309,3 +11309,144 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     animation: none;
   }
 }
+
+/* =====================================================================
+   Opening a project is three moves, in the order you can follow them.
+
+   It used to be one moment: the chrome moved and the new work appeared,
+   with the catalogue you were leaving replaced underneath a cover. Three
+   things happened at once and none of them read.
+
+   Now the catalogue swipes down and off; then the chrome moves to where it
+   is going; then the project arrives — along the rail from the right if you
+   are in the gallery, or down into the grid a frame at a time if you are in
+   it. Each waits for the one before it.
+   ===================================================================== */
+@keyframes hbw-in-right {
+  from {
+    transform: translateX(var(--sweep, 7vw));
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hbw-in-down {
+  from {
+    transform: translateY(calc(var(--rise, 14px) * -1.4));
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* 1. The catalogue goes down, and is taken from the top as it goes, so it
+      reads as being drawn off the bottom rather than dimmed. */
+.hbw-turn[data-leaving="true"] {
+  animation: none;
+  transform: translateY(var(--rise, 14px));
+  clip-path: inset(100% 0 0 0);
+  transition:
+    transform var(--out) var(--ease),
+    clip-path var(--out) var(--ease);
+  pointer-events: none;
+}
+
+/* 2. The chrome moves next — it already does, on --enter-nav and
+      --enter-line, which now begin from the moment the catalogue has gone.
+
+   3. Then the work. Along the rail from the right in the gallery: */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp__field[data-view="band"] .hbw-lamp__pages {
+    animation: hbw-in-right var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step)) backwards;
+  }
+
+  /*
+   * And down into the grid, a frame at a time — one, two, three, the rest.
+   *
+   * Every frame on its own delay would be a hundred and twelve delays and a
+   * queue a reader outlasts. The first three are counted in, and everything
+   * after them comes on the fourth beat, so the eye is given the rhythm and
+   * then the set.
+   */
+  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page {
+    animation: hbw-in-down var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step) * 4) backwards;
+  }
+
+  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(1) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step));
+  }
+
+  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(2) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
+  }
+
+  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(3) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 3);
+  }
+}
+
+/* =====================================================================
+   Opening a frame from the grid: the set goes, the row travels, the
+   picture is what the travel uncovers.
+
+   The row already made that journey to the foot of the window — the note
+   above it says the picture is what the move reveals — but the picture was
+   not actually tied to it: it simply existed once the row had left. Now
+   every edge in the move travels the same way, downward. The set is taken
+   from the top down, and then the picture is given back from the top down
+   at the row's own pace, so the row reads as the thing uncovering it.
+
+   Closing is the same three in reverse: the picture is covered as the row
+   comes back up, and the set returns once it has.
+   ===================================================================== */
+@keyframes hbw-reveal-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hbw-cover-up {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* 1. The set is taken, every frame of it, downward. */
+.hbw-lamp__field[data-parting="true"] .hbw-lamp__page {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--out) var(--ease);
+  pointer-events: none;
+}
+
+/* 2 and 3. The row travels on --in, and the picture is uncovered on the
+      same --in with the same easing, so the two are one move. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp[data-full="true"] .hbw-lamp__full {
+    animation: hbw-reveal-down var(--in) var(--ease) backwards;
+  }
+
+  .hbw-lamp__full[data-closing="true"] {
+    animation: hbw-cover-up var(--in) var(--ease) forwards;
+  }
+}
+
+/* Coming back, the set waits for the picture to be covered before it
+   returns, which the staging does by clearing the two in that order. */
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp__field[data-parting="true"] .hbw-lamp__page {
+    transition: none;
+  }
+}

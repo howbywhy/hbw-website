@@ -334,6 +334,55 @@ export function Work({
     window.setTimeout(lift, 80);
   }, []);
 
+  /**
+   * The catalogue goes before the project comes.
+   *
+   * Opening a project used to be one moment: the nav moved and the new work
+   * appeared, with the page you were leaving simply replaced underneath the
+   * cover. It is three now, in the order a reader can follow — the work you
+   * were looking at swipes down and off, the chrome moves to where it is
+   * going, and then the project arrives. Each waits for the one before it,
+   * so the whole thing reads as a single move rather than three at once.
+   *
+   * The wait is read from the token the leaving is drawn with, so the two
+   * cannot drift apart, and with movement stood down there is no wait at
+   * all — the stages collapse to the one event they describe.
+   */
+  /**
+   * And the catalogue comes back when there is no project over it.
+   *
+   * The leaving state is set on the way into a project and nothing cleared
+   * it, because the home loop is never unmounted — it waits underneath. So
+   * closing the project returned you to a catalogue still clipped to
+   * nothing from the last time you left it.
+   */
+  useEffect(() => {
+    if (open) return;
+    for (const one of document.querySelectorAll<HTMLElement>(".hbw-turn")) {
+      delete one.dataset.leaving;
+    }
+  }, [open]);
+
+  const leave = useCallback(
+    (slug: string, at: number) => {
+      const turn = document.querySelector<HTMLElement>(".hbw-turn");
+      if (!turn || stillness) {
+        void show(slug, at);
+        return;
+      }
+      const out = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--out")
+      );
+      const ms = Number.isFinite(out) && out > 0 ? out * (out < 20 ? 1000 : 1) : 240;
+      for (const one of document.querySelectorAll<HTMLElement>(".hbw-turn")) {
+        one.dataset.leaving = "true";
+      }
+      window.setTimeout(() => void show(slug, at), ms);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [stillness]
+  );
+
   const show = useCallback(
     async (slug: string, at: number, push = true) => {
       const place = () => {
@@ -943,7 +992,7 @@ export function Work({
             <Catalogue
               projects={projects}
               marks={marks}
-              onOpen={(slug, at) => void show(slug, at)}
+              onOpen={(slug, at) => void leave(slug, at)}
               pass={pass}
             />
             {/*
