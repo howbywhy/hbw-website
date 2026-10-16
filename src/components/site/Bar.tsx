@@ -61,6 +61,45 @@ export function Bar({
   useEffect(() => () => window.clearTimeout(leaving.current), []);
 
   /**
+   * Refresh runs the outro first.
+   *
+   * A reload cannot be held open — beforeunload is not allowed to delay a
+   * teardown for an animation, by design, and nothing written here changes
+   * that. What can be done is to take the gesture before the browser does:
+   * the keystroke is caught, the site is asked to leave, and the reload is
+   * called when it has. The page still reloads, a quarter of a second
+   * later, and the landing sequence then runs from the top.
+   *
+   * This covers the keyboard — the way a refresh is almost always asked
+   * for — and not the toolbar button or the menu, which the page is never
+   * told about until it is already going. Those still reload at once.
+   *
+   * With movement stood down there is nothing to watch, so the reload is
+   * immediate; and if anything here were to throw, the backstop reloads
+   * anyway, because a refresh that does not refresh is worse than one
+   * without a sequence.
+   */
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      const asked =
+        event.key === "F5" ||
+        ((event.key === "r" || event.key === "R") && (event.metaKey || event.ctrlKey));
+      if (!asked || event.altKey) return;
+      const root = document.documentElement;
+      if (root.dataset.leaving === "true") return;
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (still) return;
+      event.preventDefault();
+      root.dataset.leaving = "true";
+      const raw = Number.parseFloat(getComputedStyle(root).getPropertyValue("--out"));
+      const out = Number.isFinite(raw) && raw > 0 ? raw * (raw < 20 ? 1000 : 1) : 240;
+      window.setTimeout(() => window.location.reload(), out + 320);
+    };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, []);
+
+  /**
    * Shuts the studio, and will do something afterwards if asked.
    *
    * Home and the mark were plain links: with the studio open they took the

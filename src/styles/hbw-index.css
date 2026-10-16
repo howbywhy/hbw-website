@@ -11932,3 +11932,73 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   backdrop-filter: blur(14px) saturate(160%);
 }
+
+/* =====================================================================
+   The outro: the assembly, run backwards.
+
+   Asked to refresh, the site leaves before it goes — the work first,
+   because it came in last; then the words out of the plates that hold
+   them; then the mark closing back to the middle and the two outer blocks
+   back to the edges they opened from. Whatever a reader was looking at
+   stands down in the order it arrived, and the reload lands on the
+   landing sequence starting again from nothing.
+   ===================================================================== */
+@keyframes hbw-block-to-left {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 92% 0 0);
+  }
+}
+
+@keyframes hbw-block-to-right {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 92%);
+  }
+}
+
+@keyframes hbw-block-to-middle {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 50% 0 50%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The work goes first — it was the last thing in. */
+  :root[data-leaving="true"] .hbw-turn,
+  :root[data-leaving="true"] .hbw-lamp__field,
+  :root[data-leaving="true"] .hbw-studio-sheet__panel {
+    animation: hbw-shut var(--out) var(--ease) forwards;
+  }
+
+  /* Then the words, out of the plates that hold them. */
+  :root[data-leaving="true"] .hbw-bar__said,
+  :root[data-leaving="true"] .hbw-bar__over {
+    animation: hbw-shut var(--out) var(--ease) 70ms forwards;
+  }
+
+  /* Then the mark, back to the middle it opened out from. */
+  :root[data-leaving="true"] .hbw-bar__mark {
+    animation: hbw-block-to-middle var(--out) var(--ease) 140ms forwards;
+  }
+
+  /* And the two blocks, back to the edges they came in from. */
+  :root[data-leaving="true"] .hbw-bar__nav a:first-of-type {
+    animation: hbw-block-to-left var(--out) var(--ease) 200ms forwards;
+  }
+
+  :root[data-leaving="true"] .hbw-bar__nav a:last-of-type {
+    animation: hbw-block-to-right var(--out) var(--ease) 200ms forwards;
+  }
+
+  :root[data-leaving="true"] .hbw-bar__what {
+    animation: hbw-shut var(--out) var(--ease) 140ms forwards;
+  }
+}
