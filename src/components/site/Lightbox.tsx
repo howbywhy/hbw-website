@@ -440,6 +440,15 @@ export function Lightbox({
     }
   }, [at, middle]);
 
+  /**
+   * Which way the last step went, so the picture can come in from the side
+   * it is travelling from.
+   *
+   * Stepping in the full view swapped one picture for another between two
+   * frames — the one move left in here that was a cut. It is the same
+   * event as walking the rail, and the rail travels.
+   */
+  const [way, setWay] = useState(1);
   const step = useCallback(
     (by: number) => {
       // One step on from the handover is the next project itself.
@@ -447,6 +456,7 @@ export function Lightbox({
         onNext?.();
         return;
       }
+      setWay(by > 0 ? 1 : -1);
       onAt((at + by + count) % count);
     },
     [at, count, handover, onAt, onNext]
@@ -1237,10 +1247,20 @@ export function Lightbox({
         >
           {(() => {
             const one = shots[Math.min(at, shots.length - 1)];
-            return one.video ? (
-              <video src={one.video} poster={one.src} autoPlay={!stillness} muted loop playsInline />
-            ) : (
-              <img src={one.src} alt={one.alt ?? ""} />
+            /* Keyed on the frame, so each one is a new element with an
+               arrival of its own rather than a new source in the old one. */
+            return (
+              <div
+                key={at}
+                className="hbw-lamp__shot"
+                data-way={way > 0 ? "on" : "back"}
+              >
+                {one.video ? (
+                  <video src={one.video} poster={one.src} autoPlay={!stillness} muted loop playsInline />
+                ) : (
+                  <img src={one.src} alt={one.alt ?? ""} />
+                )}
+              </div>
             );
           })()}
           {/*

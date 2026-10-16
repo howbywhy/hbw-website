@@ -12403,3 +12403,83 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-lamp[data-arriving="true"] .hbw-lamp__field {
   background: var(--paper);
 }
+
+/* =====================================================================
+   Stepping in the full view travels, like everything else.
+
+   The picture was swapped between two frames — a new source in the same
+   element — which is the one move left in here that was a cut. It is the
+   same event as walking the rail, so it travels the same way: the frame
+   you asked for comes in from the side you are going, and the edge that
+   uncovers it moves with it.
+   ===================================================================== */
+@keyframes hbw-step-on {
+  from {
+    transform: translateX(var(--sweep, 7vw));
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hbw-step-back {
+  from {
+    transform: translateX(calc(var(--sweep, 7vw) * -1));
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.hbw-lamp__shot {
+  display: contents;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp__shot > img,
+  .hbw-lamp__shot > video {
+    animation: hbw-step-on var(--in) var(--ease) backwards;
+  }
+
+  .hbw-lamp__shot[data-way="back"] > img,
+  .hbw-lamp__shot[data-way="back"] > video {
+    animation-name: hbw-step-back;
+  }
+}
+
+/* =====================================================================
+   And the feet stay in the full view.
+
+   They were taken to nothing when a picture opened, which left the one
+   view with no way to the project before or after it and no way into the
+   writing — the same disappearance the count and the view switch have
+   just stopped doing. They hold their place above the row that travelled
+   to the foot, two pixels off it, and the picture takes the room the
+   three of them leave.
+   ===================================================================== */
+.hbw-lamp[data-full="true"] .hbw-lamp__feet {
+  opacity: 1;
+  pointer-events: auto;
+  /*
+   * Stood directly above where the row lands, rather than shifted by a
+   * guess at how far that is. The row travels to the foot of the window
+   * and the feet take the place immediately above it: its own measured
+   * height, the gutter it stands on, and the two pixels between them.
+   */
+  position: fixed;
+  left: var(--edge);
+  right: var(--edge);
+  bottom: calc(var(--bar-h, 26px) + var(--gut) + var(--edge) * 2);
+  z-index: 5;
+  transform: none;
+}
+
+.hbw-lamp[data-full="true"] .hbw-lamp__full {
+  padding-bottom: calc(
+    var(--gut) + var(--pill-h) * 2 + var(--pill-gap) * 4 + var(--edge)
+  );
+}
