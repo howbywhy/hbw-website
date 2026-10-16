@@ -589,7 +589,7 @@ test("SUB:3 + missing flag reads the CMS", async () => {
     });
     assert.equal(pinned.source, "local");
     assert.equal(pinned.experience, SUB3_EXPERIENCE);
-    assert.equal(pinned.experience?.movements.length, 19);
+    assert.equal(pinned.experience?.movements.length, 23);
   } finally {
     if (previous === undefined) delete process.env.HBW_SUB3_SOURCE;
     else process.env.HBW_SUB3_SOURCE = previous;
@@ -608,7 +608,7 @@ test("SUB:3 + local flag uses shipped experience and does not fetch", async () =
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "sub-3");
-  assert.equal(resolved.experience?.movements.length, 19);
+  assert.equal(resolved.experience?.movements.length, 23);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
@@ -625,7 +625,7 @@ test("SUB:3 + sanity flag + healthy CMS uses published experience", async () => 
   assert.equal(requested, "sub-3");
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience?.slug, "sub-3");
-  assert.equal(resolved.experience?.movements.length, 19);
+  assert.equal(resolved.experience?.movements.length, 23);
   assert.equal(resolved.experience?.context, SUB3_COPY.context);
   assert.deepEqual(resolved.experience?.authorship?.roles, SUB3_COPY.roles);
   assert.equal(resolved.experience?.authorship?.workingContext, SUB3_COPY.workingContext);
@@ -653,7 +653,7 @@ test("SUB:3 + sanity flag + missing document falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SUB3_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 19);
+  assert.equal(resolved.experience?.movements.length, 23);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 

@@ -12483,3 +12483,61 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     var(--gut) + var(--pill-h) * 2 + var(--pill-gap) * 4 + var(--edge)
   );
 }
+
+/* =====================================================================
+   The writing pushes the picture up in here too.
+
+   Opening the information over a full frame left the picture exactly
+   where it was and put the writing across the bottom of it — the one
+   place on the site where the reading covers the work instead of the work
+   making room. In the gallery the band gives up the height; in here the
+   plate does, by padding its foot by whatever the writing turned out to
+   need, which is the height the panel measured for itself.
+   ===================================================================== */
+.hbw-lamp[data-full="true"] .hbw-lamp__full {
+  transition: padding var(--in) var(--ease);
+}
+
+/*
+ * The gutter comes out of all three.
+ *
+ * The rows stand a gutter off the bottom of the window when nothing is
+ * open, which is right against the edge of the screen and wrong against
+ * the top of a panel: shifted up by the panel's height they kept that
+ * gutter and left eleven pixels where the board keeps two. Above the
+ * writing the distance is the board's.
+ */
+.hbw-lamp[data-full="true"][data-reading="true"] .hbw-lamp__full {
+  /*
+   * The plate ends where the writing starts.
+   *
+   * Padding alone moved the picture up but left the plate spanning the
+   * window — so its dark glass lay over the writing and the reading came
+   * out grey on grey. It is the dark that makes a picture the only lit
+   * thing on screen; over a page of type it is just a dimmer. The plate
+   * gives up the room instead of covering it.
+   */
+  bottom: calc(var(--info-h, 260px) + var(--edge));
+  padding-bottom: calc(var(--pill-h) * 2 + var(--pill-gap) * 4);
+}
+
+.hbw-lamp[data-full="true"][data-reading="true"] .hbw-lamp__bar {
+  transform: translateY(
+    calc(
+      100vh - var(--gut) - var(--pill-h) - var(--bar-bottom, 30px) -
+        var(--pill-gap) * 2 - var(--info-h, 260px) + var(--gut) - var(--edge)
+    )
+  );
+}
+
+.hbw-lamp[data-full="true"][data-reading="true"] .hbw-lamp__feet {
+  bottom: calc(
+    var(--bar-h, 26px) + var(--edge) * 3 + var(--info-h, 260px)
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp[data-full="true"] .hbw-lamp__full {
+    transition: none;
+  }
+}
