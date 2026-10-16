@@ -435,9 +435,14 @@ export function StudioBody({ start }: { start?: string }) {
             They were set two to a column, which made two tall objects out of
             four short ones — and the board is built to give each thing the
             room it actually needs. Four modules read as four steps.
+
+            They stand in two columns of two, under the two they follow from:
+            Express under Clarify, Support under Shape. Left to flow they
+            wrapped to the start of the next row, which put the third step
+            under the sentence that introduces all four and broke the pairs.
           */}
           {STUDIO_COPY.steps.map((step) => (
-            <div className="hbw-part__col" key={step.id}>
+            <div className="hbw-part__col hbw-part__col--step" key={step.id}>
               <ol className="hbw-part__steps">
                 <li>
                   <span className="hbw-m">{step.id}</span>
