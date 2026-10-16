@@ -11530,3 +11530,24 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transform: none;
   }
 }
+
+/* =====================================================================
+   The site stays behind the picture, blurred and dark.
+
+   The plate was already glass — a twenty-two pixel blur, set over the work
+   the way the studio's sheet is set over the page — but at ninety-two per
+   cent it was glass with the curtains shut. Nothing of where you were came
+   through, so opening a frame read as being taken to a different place
+   rather than as looking closely at something still in front of you.
+
+   Three quarters, and a heavier blur to go with it: the set behind resolves
+   as shapes and colour and never as detail, the picture is still the only
+   lit thing on screen, and you can see there is something to come back to.
+   Closing uncovers it from the bottom up as the row returns, so the site
+   comes back into focus underneath the row that is carrying it.
+   ===================================================================== */
+.hbw-lamp__full {
+  background: rgba(16, 16, 16, 0.74);
+  -webkit-backdrop-filter: blur(34px) saturate(0.8);
+  backdrop-filter: blur(34px) saturate(0.8);
+}
