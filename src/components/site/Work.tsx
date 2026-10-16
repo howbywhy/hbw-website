@@ -892,22 +892,24 @@ export function Work({
         moment as the thing it is meant to be covering is always one frame
         too late.
       */}
-      {open ? (
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 29,
-            background: "#ffffff",
-            opacity: crossing ? 1 : 0,
-            transition: crossing || stillness ? "none" : "opacity 200ms linear",
-            pointerEvents: "none",
-          }}
-        />
-      ) : null}
+      {/*
+        The white sheet is gone.
+
+        It was put up to hide the gallery's glass while the next project's
+        pictures arrived, because through the glass you saw the homepage
+        behind and that read as a page that had failed. But the catalogue
+        now stays where it is and travels down as the project comes over
+        it, so what is behind the glass is the thing you just left — which
+        is the same answer the picture plate gives over the grid, and the
+        reason you can see there is something to come back to.
+
+        It was also the one white frame in the site: measured across the
+        hand-over, nine tenths of the screen went blank on the fifth frame
+        and came back. Nothing covers anything with nothing any more.
+      */}
       {open ? (
         <Lightbox
+          data-crossing={crossing ? "true" : undefined}
           /*
            * Keyed on the project, so moving to the next one mounts a new
            * gallery rather than swapping the contents of the old one. The

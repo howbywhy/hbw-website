@@ -4423,16 +4423,34 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 }
 
 /* ---- Surfaces arrive ---- */
+/*
+ * One way of arriving, for everything.
+ *
+ * These two were the site's fades — one with a lift under it, one
+ * without — and between them they brought in the chrome, the gallery,
+ * the rows that walk it, a project's modules and the sheets. The modules
+ * were moved to a wipe and the rest were left behind, which gave the
+ * site two languages for the same event and no rule for which to expect.
+ *
+ * They are both the wipe now, so every delay and every stagger already
+ * written against them keeps its timing and changes its manner. Nothing
+ * on this site fades in any more; things are uncovered.
+ */
 @keyframes hbw-arrive {
   from {
-    opacity: 0;
-    transform: translateY(var(--rise));
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 
 @keyframes hbw-lift {
   from {
-    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 
@@ -4484,12 +4502,14 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 }
 
 /* ---- Leaving for the next project ---- */
+/* It leaves the way it came, and in the same manner: taken from the side
+   it is travelling towards rather than faded out of the room. */
 .hbw-lamp[data-going="true"] {
   animation: none;
-  opacity: 0;
   transform: translateX(calc(var(--rise) * -2));
+  clip-path: inset(0 100% 0 0);
   transition:
-    opacity var(--out) var(--ease),
+    clip-path var(--out) var(--ease),
     transform var(--out) var(--ease);
   pointer-events: none;
 }
@@ -11235,7 +11255,16 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 :root {
   --enter-nav: 0ms;
   --enter-line: 80ms;
-  --enter-work: 280ms;
+  /*
+   * The nav leads, always.
+   *
+   * This was a beat and a half — long enough for the chrome to have
+   * begun, not long enough for it to have arrived, so the work came in
+   * over a nav that was still moving. It is the chrome's own move plus a
+   * step now, so whatever the chrome is doing is finished before the
+   * work starts.
+   */
+  --enter-work: calc(var(--in) + var(--enter-step));
   --enter-step: 70ms;
 }
 
@@ -11344,15 +11373,23 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   }
 }
 
-/* 1. The catalogue goes down, and is taken from the top as it goes, so it
-      reads as being drawn off the bottom rather than dimmed. */
+/*
+ * 1. The catalogue goes down. It is not taken away.
+ *
+ * It was clipped from the top as it went, which on a page of a hundred
+ * and twelve pictures is not a departure but a switch being thrown: the
+ * whole catalogue gone inside a quarter of a second, with nothing to
+ * follow. The same mistake the grid was making when a frame opened.
+ *
+ * It travels instead, and stays visible while it does — the project
+ * arrives over it and covers it, which is what was going to happen
+ * anyway. What you see is the work you were looking at settling
+ * downward and the next thing coming over the top of it.
+ */
 .hbw-turn[data-leaving="true"] {
   animation: none;
-  transform: translateY(var(--rise, 14px));
-  clip-path: inset(100% 0 0 0);
-  transition:
-    transform var(--out) var(--ease),
-    clip-path var(--out) var(--ease);
+  transform: translateY(calc(var(--rise, 14px) * 2.6));
+  transition: transform var(--in) var(--ease);
   pointer-events: none;
 }
 
@@ -11424,15 +11461,10 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   }
 }
 
-/* 1. The set is taken, every frame of it, downward. */
-.hbw-lamp__field[data-parting="true"] .hbw-lamp__page {
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path var(--out) var(--ease);
-  pointer-events: none;
-}
-
-/* 2 and 3. The row travels on --in, and the picture is uncovered on the
-      same --in with the same easing, so the two are one move. */
+/* The row travels on --in, and the picture is uncovered on the same --in
+   with the same easing, so the two are one move. The set stays where it
+   is underneath and is seen through the glass until the picture has
+   passed over it. */
 @media (prefers-reduced-motion: no-preference) {
   .hbw-lamp[data-full="true"] .hbw-lamp__full {
     animation: hbw-reveal-down var(--in) var(--ease) backwards;
@@ -11443,13 +11475,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   }
 }
 
-/* Coming back, the set waits for the picture to be covered before it
-   returns, which the staging does by clearing the two in that order. */
-@media (prefers-reduced-motion: reduce) {
-  .hbw-lamp__field[data-parting="true"] .hbw-lamp__page {
-    transition: none;
-  }
-}
+
 
 /* =====================================================================
    The end of a project is a sequence too.
@@ -11569,4 +11595,37 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 
 .hbw-end__field input:focus-visible {
   outline: none;
+}
+
+/* =====================================================================
+   The two smallest things on the site were the two hardest to read.
+
+   The frame count in the row and the number on each grid frame both wore
+   --mute, which is 70% ink and reads at 3.39:1 and 4.26:1 on the field
+   they sit on — under the 4.5 that type this size needs. They are meant
+   to be quiet, and quiet is a matter of size and weight here as much as
+   of tone: at thirteen and eleven pixels they are already the smallest
+   things on screen without also being the faintest.
+
+   --say is the site's own second voice, one step down from the ink and
+   above the mute, which is what these two are: not the subject, but
+   something you are meant to be able to read.
+   ===================================================================== */
+.hbw-lamp__count,
+.hbw-lamp__no {
+  /*
+   * The ink, not the second voice.
+   *
+   * --say was the obvious step up from --mute and measured worse: the
+   * mute is 70% ink and takes some of the field it sits on, which on the
+   * pale plate lands within a point of --say anyway, and over a dark
+   * picture lands lighter. An opaque mid-grey on a plate that is itself
+   * two thirds opaque cannot be relied on, because what is behind the
+   * plate is whatever the gallery happens to be showing.
+   *
+   * The ink is the only tone here that does not depend on what is under
+   * it. These two stay the smallest things on screen, which is what makes
+   * them quiet; they no longer also have to be the faintest.
+   */
+  color: var(--ink);
 }

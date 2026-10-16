@@ -60,7 +60,15 @@ export function Bar({
 
   useEffect(() => () => window.clearTimeout(leaving.current), []);
 
-  const close = useCallback(() => {
+  /**
+   * Shuts the studio, and will do something afterwards if asked.
+   *
+   * Home and the mark were plain links: with the studio open they took the
+   * whole sheet away in the same frame the page changed, which is the one
+   * move this site does not make. They ask for the sheet to leave first and
+   * hand over what to do when it has.
+   */
+  const close = useCallback((then?: () => void) => {
     if (leaving.current) return;
     const out = Number.parseFloat(
       getComputedStyle(document.documentElement).getPropertyValue("--out"),
@@ -72,8 +80,29 @@ export function Bar({
       setGoing(false);
       setStudio(null);
       if (window.location.hash === "#studio" || window.location.hash === "#contact") history.back();
+      then?.();
     }, ms + 220);
   }, []);
+
+  /**
+   * Back to the start, as one sequence.
+   *
+   * With the studio open the sheet leaves first, the way it does for every
+   * other way out of it, and only then does the page change — and a page
+   * change is the landing sequence, so the chrome arrives and the work
+   * follows it in. Already at home there is nothing to go to: shutting the
+   * sheet is the whole of it.
+   */
+  const home = useCallback(
+    (event: { preventDefault: () => void }) => {
+      if (!studio) return;
+      event.preventDefault();
+      close(() => {
+        if (window.location.pathname !== "/") window.location.assign("/");
+      });
+    },
+    [close, studio]
+  );
 
   /**
    * The project the page is standing in, as the page scrolls.
@@ -161,14 +190,14 @@ export function Bar({
             The key is on the words, not on the link, so the field they sit in
             stays where it is and only what it says moves.
           */}
-          <a href="/" ref={markRef}>
+          <a href="/" ref={markRef} onClick={home}>
             <span key={saying} className="hbw-bar__said">
               {studio || !over ? "How by Why" : over.name}
             </span>
           </a>
         </p>
         <nav className="hbw-bar__nav" aria-label="Site">
-          <a href="/" aria-current={here === "work" ? "page" : undefined}>
+          <a href="/" aria-current={here === "work" ? "page" : undefined} onClick={home}>
             {/* Home, not Work: it is the same address either way, but from
                 inside a project "Work" reads as another section to go to
                 rather than the way back out of this one. */}

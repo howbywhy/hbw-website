@@ -143,13 +143,11 @@ export function Lightbox({
    */
   /* Asked for here because the staging below reads it. */
   const stillness = useStillness();
-  const [parting, setParting] = useState(false);
   const [closing, setClosing] = useState(false);
   const staging = useRef(0);
   useEffect(() => () => window.clearTimeout(staging.current), []);
   useEffect(() => {
     setFull(false);
-    setParting(false);
     setClosing(false);
   }, [view, name]);
 
@@ -162,39 +160,39 @@ export function Lightbox({
     return raw < 20 ? raw * 1000 : raw;
   }, []);
 
+  /**
+   * The row comes down over the set. The set does not go anywhere.
+   *
+   * It used to leave first — every frame taken downward, then the row
+   * travelling into the room they had left. Which looked like the grid
+   * being switched off: a hundred frames clipped to nothing in a quarter
+   * of a second is a flash, not a departure, and nothing was gained by it
+   * because the picture covers the grid anyway.
+   *
+   * One move instead. The row starts down the moment you press, the
+   * picture is uncovered from the top at the row's own pace, and the set
+   * stays where it is underneath — visible through the glass until the
+   * picture has passed over it.
+   */
   const openFull = useCallback(
     (i: number) => {
       window.clearTimeout(staging.current);
-      if (stillness) {
-        onAt?.(i);
-        setParting(true);
-        setFull(true);
-        return;
-      }
-      setParting(true);
-      staging.current = window.setTimeout(() => {
-        onAt?.(i);
-        setFull(true);
-      }, beat("--out", 240));
+      onAt?.(i);
+      setFull(true);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [beat, onAt, stillness]
+    [onAt]
   );
 
   const shutFull = useCallback(() => {
     window.clearTimeout(staging.current);
     if (stillness) {
       setFull(false);
-      setParting(false);
       setClosing(false);
       return;
     }
     setClosing(true);
     setFull(false);
-    staging.current = window.setTimeout(() => {
-      setClosing(false);
-      setParting(false);
-    }, beat("--in", 460));
+    staging.current = window.setTimeout(() => setClosing(false), beat("--in", 460));
   }, [beat, stillness]);
   const pages = useRef<HTMLDivElement>(null);
   /** The handover panel sits one past the last frame. */
@@ -940,7 +938,6 @@ export function Lightbox({
       <div
         className="hbw-lamp__field"
         data-view={view}
-        data-parting={parting ? "true" : undefined}
         ref={field}
       >
         {/* One rail carrying every frame as a page, scrolled and snapped. */}
