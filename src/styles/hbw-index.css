@@ -12002,3 +12002,60 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     animation: hbw-shut var(--out) var(--ease) 140ms forwards;
   }
 }
+
+/* =====================================================================
+   The gallery's own chrome stays. Only what it says changes.
+
+   Walking to the next project rebuilds the gallery, and the row went with
+   it: the count's bubble and the two view buttons disappeared and came
+   back on every step. They are chrome — they say where you are and how the
+   work is laid out — and chrome does not come and go because the work it
+   describes has. The nav above does not; neither should this.
+
+   So the row's plates no longer arrive, and the words in them do. The
+   count is keyed on its own digits, so it changes when they change; the
+   two view buttons say the same thing in every project and simply stay.
+   ===================================================================== */
+.hbw-lamp__bar {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp__count .hbw-lamp__said,
+  .hbw-lamp__mid,
+  .hbw-lamp__idea {
+    animation: hbw-open var(--in) var(--ease) var(--enter-step) backwards;
+  }
+}
+
+/* =====================================================================
+   And the studio's facts are bubbles too.
+
+   Led by, Works with and Based were three ruled rows inside one module,
+   which is the table-in-a-box the project's information has just stopped
+   being. Three bars, two pixels apart, each as tall as its own value — the
+   same answer, in the same place, on the same field.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part__col:has(.hbw-facts) {
+  padding: 0;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.hbw-studio-doc .hbw-facts {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+  margin: 0;
+}
+
+.hbw-studio-doc .hbw-facts > div {
+  box-sizing: border-box;
+  padding: var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}

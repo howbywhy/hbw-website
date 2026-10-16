@@ -925,7 +925,19 @@ export function Lightbox({
         {/* Where you are, at the near end. */}
         <span className="hbw-lamp__left" ref={rowLeft}>
           <span className="hbw-lamp__count">
-            {countOf(Math.min(at, shots.length - 1), shots.length)}
+            {/*
+              Keyed on what it says, so the plate stays and the digits are
+              what change. Walking to the next project rebuilds the gallery
+              and took the count's own bubble away with it; the bubble is
+              chrome, and chrome does not come and go because the work it
+              counts has.
+            */}
+            <span
+              key={countOf(Math.min(at, shots.length - 1), shots.length)}
+              className="hbw-lamp__said"
+            >
+              {countOf(Math.min(at, shots.length - 1), shots.length)}
+            </span>
           </span>
         </span>
         {/* The project's line, on the same row as where you are in it. */}
