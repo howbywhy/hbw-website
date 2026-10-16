@@ -248,4 +248,55 @@ export const SUB3_MOVEMENTS: Sub3SeedMovement[] = [
     relation: "single",
     infoHint: "system",
   },
+  /*
+   * The social cuts, added after the first seed.
+   *
+   * Kept here as well as in the CMS so a re-seed does not drop them: this
+   * file is what the seed writes, and the CMS is what the site reads.
+   */
+  {
+    key: "s320",
+    mediaType: "film",
+    video: "public/projects/sub-3/web/20.mp4",
+    poster: "public/projects/sub-3/web/20.jpg",
+    alt: "A countdown card: 23 DAYS TO GO above CITY2SURF and GOAL 01:40:59, the numerals stretching tall and snapping back.",
+    scale: "standard",
+    pace: "normal",
+    relation: "single",
+    infoHint: "system",
+    narrow: true,
+  },
+  {
+    key: "s321",
+    mediaType: "film",
+    video: "public/projects/sub-3/web/21.mp4",
+    poster: "public/projects/sub-3/web/21.jpg",
+    alt: "OUTPACE REALITY over a clock running up from 00:00:35 to 02:56:46 — a marathon finishing under three hours.",
+    scale: "standard",
+    pace: "normal",
+    relation: "single",
+    infoHint: "system",
+  },
+  {
+    key: "s322",
+    mediaType: "film",
+    video: "public/projects/sub-3/web/22.mp4",
+    poster: "public/projects/sub-3/web/22.jpg",
+    alt: "2 SCOOPS. 500ML COLD WATER. WITHIN 30 MIN. — the instruction assembling a line at a time, each phrase stretching as it lands.",
+    scale: "standard",
+    pace: "normal",
+    relation: "single",
+    infoHint: "system",
+  },
+  {
+    key: "s323",
+    mediaType: "film",
+    video: "public/projects/sub-3/web/23.mp4",
+    poster: "public/projects/sub-3/web/23.jpg",
+    alt: "A hand tipping a SUB:3 sachet into a flask in hard sunlight, with RITUAL, SIMPLIFIED. set tall across the frame.",
+    scale: "major",
+    pace: "pause",
+    relation: "single",
+    infoHint: "system",
+  },
 ];

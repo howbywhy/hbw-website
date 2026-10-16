@@ -253,6 +253,36 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "Heavy black-and-white grain over a figure, with SUB:3 ® RUNNING across the frame.",
     }),
+    /*
+     * The social cuts: the system running as motion rather than as layout.
+     *
+     * Four pieces made for the feed, which is where most of this identity is
+     * actually seen — the countdown card, the clock, the instruction and the
+     * ritual. They sit in the system because that is what they are evidence
+     * of: the same face, the same stretch, the same two statements of a
+     * thing, moving.
+     */
+    mv("s320", "film", film("/projects/sub-3/web/20.mp4", 1080, 1920, "/projects/sub-3/web/20.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      span: "narrow",
+      alt: "A countdown card: 23 DAYS TO GO above CITY2SURF and GOAL 01:40:59, the numerals stretching tall and snapping back.",
+    }),
+    mv("s321", "film", film("/projects/sub-3/web/21.mp4", 1080, 1080, "/projects/sub-3/web/21.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "OUTPACE REALITY over a clock running up from 00:00:35 to 02:56:46 — a marathon finishing under three hours.",
+    }),
+    mv("s322", "film", film("/projects/sub-3/web/22.mp4", 1080, 1080, "/projects/sub-3/web/22.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "2 SCOOPS. 500ML COLD WATER. WITHIN 30 MIN. — the instruction assembling a line at a time, each phrase stretching as it lands.",
+    }),
+    mv("s323", "film", film("/projects/sub-3/web/23.mp4", 1080, 1350, "/projects/sub-3/web/23.jpg"), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "A hand tipping a SUB:3 sachet into a flask in hard sunlight, with RITUAL, SIMPLIFIED. set tall across the frame.",
+    }),
   ],
 };
 
