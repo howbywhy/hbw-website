@@ -10918,3 +10918,22 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     height: 100%;
   }
 }
+
+/* =====================================================================
+   A module can say where it sits, so the room it leaves is deliberate.
+
+   The manifesto was two modules — the reduction, and the line the whole
+   thing arrives at — with the rest of the belief only on /studio. Now it is
+   one, holding all of it, and the slot the second one had stays empty
+   rather than closing up: the gap between the statement and the argument
+   is the point of the spread, not a space left over by something removed.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .hbw-studio-doc .hbw-part__col--end {
+    grid-column: 5 / 7;
+  }
+}
+
+/* Below the board's own width the row is one column and the modules stack,
+   so there is no middle to leave: placing it into a third track there only
+   invented two tracks and squeezed the statement into twenty-nine pixels. */

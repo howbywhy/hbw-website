@@ -464,14 +464,25 @@ export function StudioBody({ start }: { start?: string }) {
           <div className="hbw-part__col">
             <h2 className="hbw-part__lead">{MANIFESTO_COPY.opening.join(" ")}</h2>
           </div>
-          <div className="hbw-part__col">
+          {/*
+            The belief in full, in one module, with the room where the second
+            one stood left empty.
+
+            It used to be in two: the part about what brand is reduced to, and
+            then the one line the whole thing is for, with the rest of it only
+            on /studio. Which meant the block called Manifesto held a third of
+            a manifesto and a pointer to the rest. It is the same shaping /studio
+            gives it — the reduction, then a paragraph a thought, then the line
+            it arrives at — so the two cannot drift apart. The closing mark is
+            not repeated here: "How by Why" is already across the foot.
+          */}
+          <div className="hbw-part__col hbw-part__col--end">
             {MANIFESTO_COPY.reduced.map((line) => (
               <p key={line}>{line}</p>
             ))}
-          </div>
-          <div className="hbw-part__col">
-            {/* The belief in full is on /studio; this is the half of it that
-                says what the studio is for. */}
+            {MANIFESTO_COPY.body.map((thought) => (
+              <p key={thought.join(" ")}>{thought.join(" ")}</p>
+            ))}
             <p className="hbw-ink">{MANIFESTO_COPY.close[0]}</p>
           </div>
         </div>
