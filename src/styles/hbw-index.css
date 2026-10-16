@@ -11551,3 +11551,22 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   -webkit-backdrop-filter: blur(34px) saturate(0.8);
   backdrop-filter: blur(34px) saturate(0.8);
 }
+
+/* =====================================================================
+   The one control on the site you could focus without being told.
+
+   The address field in the foot takes focus from the keyboard — it
+   reports :focus-visible, so the browser agrees a mark is owed — and had
+   neither outline nor shadow. Its field carries a hairline underneath at
+   all times, which is the field, not a state: nothing changed when you
+   arrived on it. Every other control here is marked by the site's own
+   rule at two pixels off, and now so is this one.
+   ===================================================================== */
+.hbw-end__field:focus-within {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.hbw-end__field input:focus-visible {
+  outline: none;
+}
