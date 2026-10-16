@@ -143,6 +143,34 @@ export function Lightbox({
    */
   /* Asked for here because the staging below reads it. */
   const stillness = useStillness();
+  /**
+   * Whether this project is still arriving.
+   *
+   * The swipe in from the right belongs to a project coming into the room:
+   * opening one from the catalogue, and stepping to the next at the end of
+   * this one. It was written as "the rail, whenever the view is the band",
+   * which is also true the moment you press Gallery — so switching views
+   * threw the whole set in from the side again instead of moving the frames
+   * you were already looking at from one arrangement to the other.
+   *
+   * The gallery is keyed on the project, so a new one is a new component:
+   * this is true for its first breath and false for the rest of its life,
+   * and the view switch cannot bring it back.
+   */
+  const [arriving, setArriving] = useState(true);
+  useEffect(() => {
+    const root = getComputedStyle(document.documentElement);
+    const ms = (token: string, fallback: number) => {
+      const raw = Number.parseFloat(root.getPropertyValue(token));
+      if (!Number.isFinite(raw) || raw <= 0) return fallback;
+      return raw < 20 ? raw * 1000 : raw;
+    };
+    const id = window.setTimeout(
+      () => setArriving(false),
+      ms("--enter-work", 530) + ms("--in", 460) + 120
+    );
+    return () => window.clearTimeout(id);
+  }, []);
   const [closing, setClosing] = useState(false);
   const staging = useRef(0);
   useEffect(() => () => window.clearTimeout(staging.current), []);
@@ -753,6 +781,7 @@ export function Lightbox({
       tabIndex={-1}
       data-reading={reading ? "true" : undefined}
       data-full={full ? "true" : undefined}
+      data-arriving={arriving ? "true" : undefined}
       /*
        * The glass, pinned so nothing can switch it off.
        *
@@ -800,7 +829,15 @@ export function Lightbox({
           inset: 0,
           zIndex: -1,
           background: "#ffffff",
-          opacity: crossing ? 1 : 0,
+          /*
+           * Up while the project is arriving as well as while one is handing
+           * over to another. Without it the gallery's glass showed the
+           * catalogue through every gap in the band for as long as the
+           * pictures took, which reads as the work you just left flashing
+           * behind the work you asked for. The project stands on its own
+           * paper from its first frame and the paper goes once it has.
+           */
+          opacity: crossing || arriving ? 1 : 0,
           /*
            * Covers at once, uncovers gently.
            *

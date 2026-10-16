@@ -4502,16 +4502,29 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 }
 
 /* ---- Leaving for the next project ---- */
-/* It leaves the way it came, and in the same manner: taken from the side
-   it is travelling towards rather than faded out of the room. */
+/* =====================================================================
+   The next project is pulled in. This one is not pushed out.
+
+   Stepping to the next project took the gallery off the screen — the whole
+   panel travelling left and clipped away from its own right edge — and
+   then put a new one up. Which is leaving somewhere and arriving somewhere
+   else, when what a reader asked for was the next project, here, on the
+   rail they are already standing on.
+
+   So nothing exits. The set you are leaving holds its place and stands
+   down where it is, and the next project's rail comes in from the right
+   over the top of it — the same side it always comes from, and the only
+   move on this site that travels sideways.
+   ===================================================================== */
 .hbw-lamp[data-going="true"] {
   animation: none;
-  transform: translateX(calc(var(--rise) * -2));
-  clip-path: inset(0 100% 0 0);
-  transition:
-    clip-path var(--out) var(--ease),
-    transform var(--out) var(--ease);
+  transform: none;
   pointer-events: none;
+}
+
+.hbw-lamp[data-going="true"] .hbw-lamp__pages {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--out) var(--ease);
 }
 
 
@@ -11264,7 +11277,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    * step now, so whatever the chrome is doing is finished before the
    * work starts.
    */
-  --enter-work: calc(var(--in) + var(--enter-step));
+  --enter-work: calc(var(--enter-type) + var(--in));
   --enter-step: 70ms;
 }
 
@@ -11398,7 +11411,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 
    3. Then the work. Along the rail from the right in the gallery: */
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-lamp__field[data-view="band"] .hbw-lamp__pages {
+  .hbw-lamp[data-arriving="true"] .hbw-lamp__field[data-view="band"] .hbw-lamp__pages {
     animation: hbw-in-right var(--in) var(--ease)
       calc(var(--enter-work) + var(--enter-step)) backwards;
   }
@@ -11411,20 +11424,20 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    * after them comes on the fourth beat, so the eye is given the rhythm and
    * then the set.
    */
-  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page {
+  .hbw-lamp[data-arriving="true"] .hbw-lamp__field[data-view="grid"] .hbw-lamp__page {
     animation: hbw-in-down var(--in) var(--ease)
       calc(var(--enter-work) + var(--enter-step) * 4) backwards;
   }
 
-  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(1) {
+  .hbw-lamp[data-arriving="true"] .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(1) {
     animation-delay: calc(var(--enter-work) + var(--enter-step));
   }
 
-  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(2) {
+  .hbw-lamp[data-arriving="true"] .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(2) {
     animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
   }
 
-  .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(3) {
+  .hbw-lamp[data-arriving="true"] .hbw-lamp__field[data-view="grid"] .hbw-lamp__page:nth-child(3) {
     animation-delay: calc(var(--enter-work) + var(--enter-step) * 3);
   }
 }
@@ -11628,4 +11641,124 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    * them quiet; they no longer also have to be the faintest.
    */
   color: var(--ink);
+}
+
+/* =====================================================================
+   The site assembles: blocks, then words, then work.
+
+   The chrome arrived as three finished plates wiping down together, which
+   says "here is a nav" rather than "here is a nav being built". It comes
+   in as the thing it is now — two blocks at the outer edges of the screen
+   that open inward toward the middle, the mark opening out from the centre
+   between them, then the words in the plates once the plates are there,
+   then the work.
+
+   The blocks open rather than scale, because scaling a plate scales the
+   type inside it and the words would arrive stretched. An opening clip has
+   an edge travelling the way the block is going and leaves the type the
+   size it was set at — which is also how it arrives fully formed rather
+   than growing into place.
+   ===================================================================== */
+:root {
+  --enter-block: 0ms;
+  --enter-mark: 160ms;
+  --enter-type: 330ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --enter-block: 0ms;
+    --enter-mark: 0ms;
+    --enter-type: 0ms;
+  }
+}
+
+/* The outer blocks open inward, each from the edge it starts at. */
+@keyframes hbw-block-from-left {
+  from {
+    clip-path: inset(0 92% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hbw-block-from-right {
+  from {
+    clip-path: inset(0 0 0 92%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* And the mark opens out from the middle they are travelling towards. */
+@keyframes hbw-block-from-middle {
+  from {
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-bar__nav a:first-of-type {
+    animation: hbw-block-from-left var(--in) var(--ease) var(--enter-block) backwards;
+  }
+
+  .hbw-bar__nav a:last-of-type {
+    animation: hbw-block-from-right var(--in) var(--ease) var(--enter-block) backwards;
+  }
+
+  .hbw-bar__mark {
+    animation: hbw-block-from-middle var(--in) var(--ease) var(--enter-mark) backwards;
+  }
+
+  /* The words, once there is something for them to be in. */
+  .hbw-bar__nav a .hbw-bar__said,
+  .hbw-bar__mark .hbw-bar__said,
+  .hbw-bar__what .hbw-bar__said {
+    animation: hbw-open var(--in) var(--ease) var(--enter-type) backwards;
+  }
+
+  /* The line's own plate waits for the row above it to be built. */
+  .hbw-bar__what {
+    animation-delay: var(--enter-type);
+  }
+}
+
+/* =====================================================================
+   And then the work, a few pieces at a time.
+
+   The catalogue opened as one field, which is right when it is the only
+   thing happening and wrong at the end of an assembly: the chrome builds
+   itself piece by piece and then the whole of the work appears at once.
+
+   The first three rows are counted in behind the type and the rest come on
+   the fourth beat — the same rhythm the grid uses, for the same reason. A
+   row is a handful of pictures from one project, so what a reader sees is
+   a few images, then a few more, then the catalogue.
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-turn {
+    animation-delay: var(--enter-work);
+  }
+
+  .hbw-turn > section {
+    animation: hbw-open var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step) * 4) backwards;
+  }
+
+  .hbw-turn > section:nth-of-type(1) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step));
+  }
+
+  .hbw-turn > section:nth-of-type(2) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
+  }
+
+  .hbw-turn > section:nth-of-type(3) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 3);
+  }
 }
