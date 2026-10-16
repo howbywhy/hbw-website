@@ -40,21 +40,15 @@ export default function ContactPage() {
           publishing nothing a machine could read. */}
       <StructuredData nodes={[studioNode()]} />
       <Bar here="talk" />
-      <div className="hbw-wrap">
-        <section className="hbw-say">
-          <h1>Two ways in.</h1>
+      <div className="hbw-board">
+        <section className="hbw-board__mod hbw-board__mod--wide">
+          <h1 className="hbw-board__lead">Two ways in.</h1>
           <p>Whichever suits what you have in front of you.</p>
         </section>
 
-        <div className="hbw-band">
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            {CONTACT_WAYS.write.name}
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {CONTACT_WAYS.write.note}
-          </p>
-        </div>
-        <div className="hbw-read" style={{ margin: "1rem 0 clamp(36px,8vh,80px)" }}>
+        <section className="hbw-board__mod">
+          <h2 className="hbw-m">{CONTACT_WAYS.write.name}</h2>
+          <p className="hbw-m">{CONTACT_WAYS.write.note}</p>
           <p>
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           </p>
@@ -62,50 +56,35 @@ export default function ContactPage() {
             <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
           </p>
           <p className="is-mute">{STUDIO_PLACE}</p>
-        </div>
+        </section>
 
-        <div className="hbw-band">
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            {CONTACT_WAYS.draw.name}
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {CONTACT_WAYS.draw.note}
-          </p>
-        </div>
-        <div className="hbw-read" style={{ marginTop: "1rem" }}>
+        <section className="hbw-board__mod">
+          <h2 className="hbw-m">{CONTACT_WAYS.draw.name}</h2>
+          <p className="hbw-m">{CONTACT_WAYS.draw.note}</p>
           <p className="is-mute">{CONTACT_WAYS.draw.copy}</p>
           <PosterLink />
-        </div>
+        </section>
 
         {/*
           The work, one click away.
-          
-          Somebody who arrives here from a search for the address could reach
-          the studio and the front page but not a single project — the one
-          page on the site with no way into the work it exists to talk about.
-          Named only: this is a page about getting in touch, and a contact
-          sheet of pictures here would be the work arguing with the ask.
+
+          Somebody who arrives here from a search for the address could
+          reach the practice and the front page but not a single project —
+          the one page on the site with no way into the work it exists to
+          talk about. Named only: this is a page about getting in touch, and
+          a contact sheet of pictures here would be the work arguing with
+          the ask.
         */}
-        <div className="hbw-band">
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            The work
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {projects.length} projects
-          </p>
-        </div>
-        <ul className="hbw-jobs" style={{ marginBottom: "clamp(36px,8vh,80px)" }}>
-          {projects.map((project) => (
-            <li key={project.id}>
-              <h2>
-                <a href={project.href}>{project.name}</a>
-              </h2>
-              <p className="hbw-m">
-                {project.idea} · {project.year}
-              </p>
-            </li>
-          ))}
-        </ul>
+        {projects.map((project) => (
+          <section className="hbw-board__mod" key={project.id}>
+            <h2 className="hbw-board__name">
+              <a href={project.href}>{project.name}</a>
+            </h2>
+            <p className="hbw-m">
+              {project.idea} · {project.year}
+            </p>
+          </section>
+        ))}
       </div>
 
       <Footer />

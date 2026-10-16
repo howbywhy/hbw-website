@@ -12267,3 +12267,139 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-site:has(.hbw-board) .hbw-end {
   margin-top: var(--edge);
 }
+
+/* The credit takes the whole board, under the parts. A list of names and
+   what each of them did reads across rather than down a column two tracks
+   wide, and it is the credit at the end of the reading rather than a part
+   of the argument. */
+.hbw-lamp__info .hbw-info__part--wide {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 761px) {
+  .hbw-lamp__info .hbw-info__part--wide {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--pill-x);
+    align-items: start;
+  }
+
+  .hbw-lamp__info .hbw-info__part--wide h2 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* The board's own facts and reading, so a page can carry a list of bars
+   and a run of paragraphs without inventing its own version of either. */
+.hbw-board__facts {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+  margin: 0;
+  grid-column: span 2;
+}
+
+.hbw-board__facts > div {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: clamp(5rem, 8vw, 7rem) 1fr;
+  gap: var(--pill-x);
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+
+.hbw-board__facts dt,
+.hbw-board__facts dd {
+  margin: 0;
+}
+
+.hbw-board__facts dd {
+  color: var(--ink);
+}
+
+.hbw-board__facts.hbw-board__mod--wide {
+  grid-column: span 4;
+}
+
+.hbw-board__name {
+  margin: 0 0 var(--pill-gap);
+  font-size: var(--nav);
+  font-weight: 500;
+}
+
+.hbw-board__name a {
+  color: var(--ink);
+}
+
+.hbw-board__read {
+  display: grid;
+  gap: var(--pill-x);
+  max-width: 34rem;
+}
+
+.hbw-board__read p {
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .hbw-board__facts,
+  .hbw-board__facts.hbw-board__mod--wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .hbw-board__facts,
+  .hbw-board__facts.hbw-board__mod--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Every module on a board page comes in after the chrome, not only the
+   first three — a page has more than three. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-board__facts {
+    animation: hbw-open var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step)) backwards;
+  }
+}
+
+/* =====================================================================
+   A link on the board is still something a thumb has to hit.
+
+   The old page vocabulary padded its links out to the twenty-four pixels
+   a touch target needs, and moving the pages onto the board left that
+   behind: the address, the phone number, Make a poster and every project
+   name came out at sixteen to eighteen. The same rule, said for the board
+   — padding that grows only as far as the line box falls short, pulled
+   back by an equal margin so nothing moves.
+   ===================================================================== */
+.hbw-board a,
+.hbw-board button,
+.hbw-board__facts a {
+  display: inline-block;
+  padding-block: max(0px, calc((24px - 1lh) / 2));
+  margin-block: calc(-1 * max(0px, calc((24px - 1lh) / 2)));
+}
+
+/* The poster's own controls are measured by the tool, not by the page it
+   was opened from, so the board's padding must not reach inside it. */
+.hbw-board .hbw-win button,
+.hbw-board .hbw-tool button {
+  padding-block: 0;
+  margin-block: 0;
+}
+
+/* The paper a project stands on, carried by the thing that wipes in.
+
+   The gallery's ground is glass, so while a project arrives the catalogue
+   it was opened from showed through every gap in the band. The field takes
+   the paper for as long as it is arriving — which means the paper is
+   revealed by the same wipe as the pictures, rather than covering the
+   screen before them. */
+.hbw-lamp[data-arriving="true"] .hbw-lamp__field {
+  background: var(--paper);
+}

@@ -866,14 +866,20 @@ export function Lightbox({
           zIndex: -1,
           background: "#ffffff",
           /*
-           * Up while the project is arriving as well as while one is handing
-           * over to another. Without it the gallery's glass showed the
-           * catalogue through every gap in the band for as long as the
-           * pictures took, which reads as the work you just left flashing
-           * behind the work you asked for. The project stands on its own
-           * paper from its first frame and the paper goes once it has.
+           * Only for the hand-over between two projects.
+           *
+           * It was also raised for the whole of a project's arrival, to stop
+           * the catalogue showing through the gallery's glass — and once the
+           * work began waiting for the chrome to finish moving, that was a
+           * white sheet over the entire screen for one and a third seconds.
+           * Measured across a click from the home page, nine frames of it
+           * were a blank window.
+           *
+           * The paper a project stands on belongs to the work, not over it:
+           * it is on the field below, which is the thing that wipes in, so
+           * it arrives with the pictures instead of ahead of them.
            */
-          opacity: crossing || arriving ? 1 : 0,
+          opacity: crossing ? 1 : 0,
           /*
            * Covers at once, uncovers gently.
            *

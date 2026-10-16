@@ -231,6 +231,13 @@ export function Work({
 
   /** Which hold is current, so an older one cannot lift a newer one's ground. */
   const holding = useRef(0);
+  /**
+   * Whether a project is already up, for the cover to ask.
+   *
+   * A ref rather than the state, because the only reader is a callback that
+   * must not be rebuilt every time the project changes.
+   */
+  const showing = useRef(false);
   /*
    * Whether a project is handing over, kept HERE.
    *
@@ -357,6 +364,7 @@ export function Work({
    * nothing from the last time you left it.
    */
   useEffect(() => {
+    showing.current = Boolean(open);
     if (open) return;
     for (const one of document.querySelectorAll<HTMLElement>(".hbw-turn")) {
       delete one.dataset.leaving;
@@ -392,7 +400,18 @@ export function Work({
           window.history.pushState(null, "", where);
         }
       };
-      hold();
+      /*
+       * The cover is for a hand-over, not for an arrival.
+       *
+       * It exists because stepping from one project to the next empties the
+       * gallery for as long as the new pictures take, and the gallery's
+       * ground is glass — so you would watch the page behind through it.
+       * Coming from the catalogue there is nothing to hide: the catalogue
+       * is still there, travelling downward, and the project arrives over
+       * it. Raising a white sheet for that was a frame of blank window
+       * between the two, measured at ninety-nine per cent of the screen.
+       */
+      if (showing.current) hold();
       const got = known.current.get(slug) ?? (await learn(slug));
       if (!got) return;
       setOpen({ slug, at, ...got });
@@ -790,10 +809,36 @@ export function Work({
         /* a browser that will not have it simply restores; the retry covers it */
       }
 
+      /*
+       * The reader taking over is a fact, not an inference.
+       *
+       * Both of these stood down by comparing where the page is now with
+       * where they last put it, and giving up if it had moved more than two
+       * pixels. Which is a guess about intent made from a number: a reader
+       * easing into a trackpad scroll moves less than that between frames,
+       * and the gentler the scroll the more likely the page was to decide
+       * nobody had touched it and haul them back. Fonts resolving late made
+       * it worse — that second landing fires whenever it fires, and on a
+       * cold connection that can be seconds after the reader started
+       * reading.
+       *
+       * So the page listens for the reader instead. One touch of the wheel,
+       * a finger, a key or the scrollbar and the landing is over for good,
+       * which is the same test the inline script above already uses.
+       */
+      let taken = false;
+      const theirs = () => {
+        taken = true;
+      };
+      for (const name of ["wheel", "touchstart", "keydown", "pointerdown"]) {
+        window.addEventListener(name, theirs, { passive: true, once: true });
+      }
+
       let tries = 0;
       let mine = -1;
       const settle = () => {
-        /* The reader is in charge the moment they move. */
+        if (taken) return;
+        /* And still stand down if the page moved without us hearing it. */
         if (mine >= 0 && Math.abs(window.scrollY - mine) > 2) return;
         land();
         mine = window.scrollY;
@@ -801,6 +846,7 @@ export function Work({
       };
       settle();
       void document.fonts?.ready.then(() => {
+        if (taken) return;
         if (mine >= 0 && Math.abs(window.scrollY - mine) <= 2) land();
       });
     }

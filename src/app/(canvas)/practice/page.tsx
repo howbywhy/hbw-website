@@ -67,15 +67,29 @@ export default function StudioPage() {
       />
       <Bar here="practice" />
 
-      <div className="hbw-wrap hbw-studio-page">
-        <section className="hbw-say">
-          <h1>{STUDIO_COPY.statement[0]}</h1>
-          <p className="is-ink">{STUDIO_COPY.statement[1]}</p>
+      {/*
+        The board, not a page.
+
+        This was the old page vocabulary — a measure, bands, runs of reading
+        — which is the shape the site had before it became objects two
+        pixels apart. Every piece of it is a module now, on the same field
+        and at the same distance as the studio's blocks and a project's
+        information, so the page a stranger lands on is plainly the same
+        object as the sheet someone already here opens.
+
+        Nothing is lost in the move: the same words, the same links, the
+        same order. It is the ground under them that changed.
+      */}
+      <div className="hbw-board">
+        <section className="hbw-board__mod hbw-board__mod--wide">
+          <h1 className="hbw-board__lead">{STUDIO_COPY.statement[0]}</h1>
+          <p className="hbw-ink">{STUDIO_COPY.statement[1]}</p>
           <p>{STUDIO_COPY.brief}</p>
         </section>
 
-        {/* The facts, as a list a reader can scan and a crawler can read. */}
-        <dl className="hbw-facts">
+        {/* The facts, as a list a reader can scan and a crawler can read —
+            each one its own bar, as they are everywhere else now. */}
+        <dl className="hbw-board__facts hbw-board__mod--wide">
           <div>
             <dt className="hbw-m">Practice</dt>
             <dd>{STUDIO_COPY.line}</dd>
@@ -108,104 +122,70 @@ export default function StudioPage() {
           </div>
         </dl>
 
-        <div className="hbw-band">
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            How the work goes
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            Four stages
-          </p>
-        </div>
-        <ol className="hbw-steps">
-          {STUDIO_COPY.steps.map((step) => (
-            <li key={step.id}>
-              <span className="hbw-m">{step.id}</span>
-              <span>{step.title}</span>
-              <p>{step.copy}</p>
-            </li>
-          ))}
-        </ol>
+        {/* How the work goes: one stage to a module, as in the sheet. */}
+        {STUDIO_COPY.steps.map((step) => (
+          <section className="hbw-board__mod" key={step.id}>
+            <h2 className="hbw-m">
+              {step.id} {step.title}
+            </h2>
+            <p>{step.copy}</p>
+          </section>
+        ))}
 
         {/*
           The work, in words.
-          
-          The front page shows it; this says it — each job named, with what it
-          was about, when it was, and what was done. It is the most useful
-          thing on the page for someone looking for a practice that has worked
-          on something like theirs.
-        */}
-        <div className="hbw-band" style={{ marginTop: "clamp(40px,9vh,96px)" }}>
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            Selected work
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {projects.length} projects
-          </p>
-        </div>
-        <ul className="hbw-jobs">
-          {projects.map((project) => (
-            <li key={project.id}>
-              <h2>
-                <a href={project.href}>{project.name}</a>
-              </h2>
-              <p className="hbw-m">
-                {project.idea} · {project.year}
-                {project.sectors?.length ? ` · ${project.sectors.join(", ")}` : ""}
-              </p>
-              <p>{projectDescription(project)}</p>
-              {/*
-                The written half of the project, which had no way in.
 
-                The name above goes to the gallery — the pictures. The account
-                of the work in words lives at its own address and nothing on
-                the site pointed at it, so neither a reader nor a crawler
-                could reach it. .hbw-read, because that is the class the rule
-                that pads a small link out to a 24px target names.
-              */}
-              <p className="hbw-read" style={{ marginTop: "6px" }}>
-                <a href={`${project.href}/story`}>In depth</a>
-              </p>
-            </li>
-          ))}
-        </ul>
+          The front page shows it; this says it — each job named, with what
+          it was about, when it was, and what was done. It is the most
+          useful thing on the page for someone looking for a practice that
+          has worked on something like theirs.
+        */}
+        {projects.map((project) => (
+          <section className="hbw-board__mod" key={project.id}>
+            <h2 className="hbw-board__name">
+              <a href={project.href}>{project.name}</a>
+            </h2>
+            <p className="hbw-m">
+              {project.idea} · {project.year}
+              {project.sectors?.length ? ` · ${project.sectors.join(", ")}` : ""}
+            </p>
+            <p>{projectDescription(project)}</p>
+            {/*
+              The written half of the project, which had no way in. The name
+              above goes to the gallery — the pictures. The account of the
+              work in words lives at its own address.
+            */}
+            <p className="hbw-read">
+              <a href={`${project.href}/story`}>In depth</a>
+            </p>
+          </section>
+        ))}
 
         {/*
-          The manifesto, in full.
-          
-          The overlay carries the half of it that says what the studio is for;
-          the whole thing belongs here, on the page written to be read and to
-          be found, rather than nowhere.
+          The manifesto, in full. The sheet carries the half of it that says
+          what the studio is for; the whole thing belongs here, on the page
+          written to be read and to be found.
         */}
-        <div className="hbw-band" style={{ marginTop: "clamp(40px,9vh,96px)" }}>
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            {STUDIO_COPY.manifestoLabel}
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {MANIFESTO_COPY.opening.join(" ")}
-          </p>
-        </div>
-        <div className="hbw-read" style={{ marginTop: "1.1rem" }}>
-          {MANIFESTO_COPY.reduced.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-          {MANIFESTO_COPY.body.map((thought) => (
-            <p key={thought.join(" ")}>{thought.join(" ")}</p>
-          ))}
-          <p className="is-ink">{MANIFESTO_COPY.close.join(" ")}</p>
-        </div>
+        <section className="hbw-board__mod hbw-board__mod--all">
+          <h2 className="hbw-m">{STUDIO_COPY.manifestoLabel}</h2>
+          <p className="hbw-board__lead">{MANIFESTO_COPY.opening.join(" ")}</p>
+          <div className="hbw-board__read">
+            {MANIFESTO_COPY.reduced.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+            {MANIFESTO_COPY.body.map((thought) => (
+              <p key={thought.join(" ")}>{thought.join(" ")}</p>
+            ))}
+            <p className="hbw-ink">{MANIFESTO_COPY.close.join(" ")}</p>
+          </div>
+        </section>
 
-        <div className="hbw-band" style={{ marginTop: "clamp(40px,9vh,96px)" }}>
-          <p className="hbw-chip" style={{ margin: 0 }}>
-            Position
-          </p>
-          <p className="hbw-m" style={{ margin: 0 }}>
-            {STUDIO_COPY.disciplineList.join(" · ")}
-          </p>
-        </div>
-        <div className="hbw-read" style={{ marginTop: "1.1rem" }}>
+        <section className="hbw-board__mod hbw-board__mod--all">
+          <h2 className="hbw-m">Position</h2>
+          <p className="hbw-m">{STUDIO_COPY.disciplineList.join(" · ")}</p>
           <p>{STUDIO_COPY.philosophy[0]}</p>
           <p className="is-mute">{STUDIO_COPY.philosophy[1]}</p>
-        </div>
+        </section>
       </div>
 
       <Footer />

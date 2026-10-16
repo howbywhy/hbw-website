@@ -26,7 +26,10 @@ export function InfoBody({ data, name }: { data: InfoData; name?: string }) {
         </dl>
 
         {data.parts.map((part) => (
-          <section key={part.heading} className="hbw-info__part">
+          <section
+            key={part.heading}
+            className={`hbw-info__part${part.wide ? " hbw-info__part--wide" : ""}`}
+          >
             <h2 className="hbw-m">{part.heading}</h2>
             {part.paragraphs.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
