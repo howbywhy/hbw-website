@@ -247,7 +247,7 @@ export function PosterLink() {
         ? createPortal(
             <div
               ref={win}
-              className="hbw-win"
+              className="hbw-win hbw-tool"
               role="dialog"
               aria-modal="true"
               aria-label="Poster"

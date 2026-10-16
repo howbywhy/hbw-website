@@ -18,11 +18,30 @@
  * ways into contact are on /studio, which is the page written to be found.
  * This is the one someone reads when they are already here.
  */
-import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/site/Footer";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
 import { CONTACT_EMAIL, CONTACT_WAYS, STUDIO_PLACE } from "@/lib/contact";
-import { PosterLink } from "@/components/site/PosterLink";
+
+/**
+ * Seventeen hundred lines of editor has no business in the bundle of a sheet
+ * that is mostly five paragraphs and an address. It loads when asked for.
+ */
+const PosterTool = dynamic(
+  () => import("@/components/home/PosterTool").then((m) => m.PosterTool),
+  { ssr: false }
+);
+
+/** A duration token in milliseconds, however it happens to be written. */
+function beat(name: string, fallback: number) {
+  if (typeof window === "undefined") return fallback;
+  const raw = Number.parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue(name)
+  );
+  if (!Number.isFinite(raw) || raw <= 0) return fallback;
+  return raw < 20 ? raw * 1000 : raw;
+}
 
 const PARTS = [
   { id: "practice", name: "Practice" },
@@ -44,6 +63,46 @@ export function StudioBody({ start }: { start?: string }) {
   const [here, setHere] = useState<string>(PARTS[0].id);
   const said = useRef<HTMLDivElement>(null);
   const landed = useRef(false);
+
+  /**
+   * The poster is Contact's other state, not a window over the studio.
+   *
+   * It used to open as a layer: a portalled window with its own paper, its
+   * own way out and its own focus trap, laid over the sheet you asked it
+   * from. That is the one kind of move this site does not make — nothing
+   * here appears on top of anything, it makes room.
+   *
+   * So the block does what every block does, only further. `tool` grows it
+   * into the sheet, the reading stands down as it goes, and `armed` mounts
+   * the tool only once the room is actually there. That order is not
+   * politeness: the editor sizes its canvas from its wrapper and redraws on
+   * every resize, so mounted into a growing block it would re-size on every
+   * frame of the opening and reflow the drawing under your hand.
+   */
+  const [tool, setTool] = useState(false);
+  const [armed, setArmed] = useState(false);
+  const [going, setGoing] = useState(false);
+  const staging = useRef(0);
+
+  useEffect(() => () => window.clearTimeout(staging.current), []);
+
+  const openTool = useCallback(() => {
+    window.clearTimeout(staging.current);
+    setGoing(false);
+    setTool(true);
+    staging.current = window.setTimeout(() => setArmed(true), beat("--in", 460));
+  }, []);
+
+  /** It leaves the way it came: the tool stands down, then the block closes. */
+  const shutTool = useCallback(() => {
+    window.clearTimeout(staging.current);
+    setGoing(true);
+    staging.current = window.setTimeout(() => {
+      setArmed(false);
+      setTool(false);
+      setGoing(false);
+    }, beat("--out", 240));
+  }, []);
 
   /**
    * Where a part comes to rest, measured rather than assumed.
@@ -122,6 +181,17 @@ export function StudioBody({ start }: { start?: string }) {
     let cooling = 0;
     let last = 0;
     const onWheel = (event: WheelEvent) => {
+      /*
+       * One owner at a time.
+       *
+       * With the poster open the wheel is the tool's: a gesture over a
+       * drawing is panning it or doing nothing, never advancing to the next
+       * block. Closing it gives the wheel back to the sequence.
+       */
+      if (tool) {
+        event.preventDefault();
+        return;
+      }
       const open = host.querySelector<HTMLElement>('.hbw-part[data-open="true"] .hbw-part__say');
       if (open) {
         const down = event.deltaY > 0;
@@ -156,7 +226,7 @@ export function StudioBody({ start }: { start?: string }) {
     };
     host.addEventListener("wheel", onWheel, { passive: false });
     return () => host.removeEventListener("wheel", onWheel);
-  }, [here]);
+  }, [here, tool]);
 
   useEffect(() => {
     const host = said.current;
@@ -207,6 +277,37 @@ export function StudioBody({ start }: { start?: string }) {
   }, []);
 
   /**
+   * Escape shuts the tool before it shuts the sheet.
+   *
+   * Taken in the capture phase and stopped there, so the studio under it
+   * does not close along with the drawing. The ink panel owns the key ahead
+   * of both — one layer at a time, as everywhere else here — and a block of
+   * type being written owns it ahead of everything, because Escape is how a
+   * block of type is finished.
+   */
+  useEffect(() => {
+    if (!tool) return;
+    const key = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      const target = event.target as HTMLElement | null;
+      if (target?.closest?.(".hbw-poster-edit")) return;
+      event.stopPropagation();
+      if (document.querySelector(".hbw-poster-palette")) {
+        document.dispatchEvent(new CustomEvent("hbw:shut-palette"));
+        return;
+      }
+      shutTool();
+    };
+    window.addEventListener("keydown", key, true);
+    return () => window.removeEventListener("keydown", key, true);
+  }, [tool, shutTool]);
+
+  /** Moving to another block puts the drawing away — you have left it. */
+  useEffect(() => {
+    if (tool && here !== "contact") shutTool();
+  }, [here, tool, shutTool]);
+
+  /**
    * Opened at a part — Contact from the nav — rather than at the top.
    *
    * The parts are laid out now rather than carried by a transform, so the
@@ -222,7 +323,7 @@ export function StudioBody({ start }: { start?: string }) {
   }, [start]);
 
   return (
-    <div className="hbw-studio-doc" ref={doc}>
+    <div className="hbw-studio-doc" ref={doc} data-tool={tool ? "poster" : undefined}>
       {/*
         The writing on one side, the room it comes from on the other.
         
@@ -376,37 +477,71 @@ export function StudioBody({ start }: { start?: string }) {
         </div>
       </section>
 
-      <section className="hbw-part" data-part="contact" data-here={here === "contact"} data-open={here === "contact"}>
-        {/* The block says its own name, so a closed one is still a way in. */}
-        <button
-          type="button"
-          className="hbw-part__name"
-          aria-expanded={here === "contact"}
-          onClick={() => setHere("contact")}
-        >
-          Contact
-        </button>
+      <section
+        className="hbw-part"
+        data-part="contact"
+        data-here={here === "contact"}
+        data-open={here === "contact"}
+        data-tool={tool ? "poster" : undefined}
+        data-going={going ? "true" : undefined}
+      >
+        {/*
+          The block's own row, which names it and — once the drawing is out —
+          holds the way back to the reading. The nav two pixels above says
+          Close and means the studio; this one says what it closes.
+        */}
+        <div className="hbw-part__head">
+          {/* The block says its own name, so a closed one is still a way in. */}
+          <button
+            type="button"
+            className="hbw-part__name"
+            aria-expanded={here === "contact"}
+            onClick={() => setHere("contact")}
+          >
+            Contact
+          </button>
+          {tool ? (
+            <button type="button" className="hbw-part__exit" onClick={shutTool}>
+              Close poster
+            </button>
+          ) : null}
+        </div>
         <div className="hbw-part__say">
-          <div className="hbw-part__col">
-            <h2 className="hbw-part__lead">{STUDIO_COPY.contactLine}</h2>
-          </div>
-          <div className="hbw-part__col">
-            <p>
-              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-            </p>
-          </div>
-          <div className="hbw-part__col">
-            <p className="is-mute">{STUDIO_PLACE}</p>
-            {/*
-              The poster, back where someone can find it.
-              
-              Rewriting this sheet dropped it, and the only page left holding
-              it is one the nav no longer points at — so a tool that was built
-              to be the other way in had become unreachable from the site.
-            */}
-            <p className="is-mute">{CONTACT_WAYS.draw.copy}</p>
-            <PosterLink />
-          </div>
+          {armed ? (
+            <div
+              className="hbw-part__col hbw-part__tool hbw-tool"
+              data-going={going ? "true" : undefined}
+            >
+              <PosterTool />
+            </div>
+          ) : (
+            <>
+              <div className="hbw-part__col">
+                <h2 className="hbw-part__lead">{STUDIO_COPY.contactLine}</h2>
+              </div>
+              <div className="hbw-part__col">
+                <p>
+                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+                </p>
+              </div>
+              <div className="hbw-part__col">
+                <p className="is-mute">{STUDIO_PLACE}</p>
+                {/*
+                  The poster, back where someone can find it.
+                  
+                  Rewriting this sheet dropped it, and the only page left
+                  holding it is one the nav no longer points at — so a tool
+                  built to be the other way in had become unreachable.
+                */}
+                <p className="is-mute">{CONTACT_WAYS.draw.copy}</p>
+                <p>
+                  <button type="button" className="hbw-part__start" onClick={openTool}>
+                    Make a poster
+                  </button>
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

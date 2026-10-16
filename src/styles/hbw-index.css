@@ -4942,7 +4942,7 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /* The surface you are working on, stated. */
-.hbw-win .hbw-poster-field {
+.hbw-tool .hbw-poster-field {
   background: #ffffff;
   border: 1px solid var(--rule);
   border-radius: var(--pill-r);
@@ -4951,7 +4951,7 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /* One bar, one height, groups separated by space rather than by rows. */
-.hbw-win .hbw-poster-toolbar {
+.hbw-tool .hbw-poster-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -4961,24 +4961,24 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
   background: var(--paper);
 }
 
-.hbw-win .hbw-poster-toolbar__primary,
-.hbw-win .hbw-poster-toolbar__work,
-.hbw-win .hbw-poster-toolbar__send,
-.hbw-win .hbw-poster-toolbar__tray {
+.hbw-tool .hbw-poster-toolbar__primary,
+.hbw-tool .hbw-poster-toolbar__work,
+.hbw-tool .hbw-poster-toolbar__send,
+.hbw-tool .hbw-poster-toolbar__tray {
   display: flex;
   align-items: center;
   gap: var(--pill-gap);
 }
 
 /* The send group goes to the far end; everything else stays left. */
-.hbw-win .hbw-poster-toolbar__send {
+.hbw-tool .hbw-poster-toolbar__send {
   margin-left: auto;
 }
 
 /* Every control the same square, so the row reads as one instrument. */
-.hbw-win .hbw-poster-tool,
-.hbw-win .hbw-poster-reset,
-.hbw-win .hbw-poster-send-open {
+.hbw-tool .hbw-poster-tool,
+.hbw-tool .hbw-poster-reset,
+.hbw-tool .hbw-poster-send-open {
   box-sizing: border-box;
   height: var(--pill-h);
   min-width: var(--pill-h);
@@ -4996,38 +4996,38 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
     border-color var(--quick) var(--ease);
 }
 
-.hbw-win .hbw-poster-tool.is-icon {
+.hbw-tool .hbw-poster-tool.is-icon {
   padding: 0;
 }
 
-.hbw-win .hbw-poster-tool:hover,
-.hbw-win .hbw-poster-reset:hover,
-.hbw-win .hbw-poster-send-open:hover {
+.hbw-tool .hbw-poster-tool:hover,
+.hbw-tool .hbw-poster-reset:hover,
+.hbw-tool .hbw-poster-send-open:hover {
   background: var(--chip);
   color: var(--ink);
 }
 
 /* What you are holding, unmistakably. */
-.hbw-win .hbw-poster-tool.is-current,
-.hbw-win .hbw-poster-tool[aria-pressed="true"] {
+.hbw-tool .hbw-poster-tool.is-current,
+.hbw-tool .hbw-poster-tool[aria-pressed="true"] {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--paper);
 }
 
-.hbw-win .hbw-poster-tool:disabled {
+.hbw-tool .hbw-poster-tool:disabled {
   opacity: 0.35;
   pointer-events: none;
 }
 
 /* Colour: swatches, with the one in hand ringed rather than recoloured. */
-.hbw-win .hbw-poster-chips {
+.hbw-tool .hbw-poster-chips {
   display: flex;
   align-items: center;
   gap: var(--pill-gap);
 }
 
-.hbw-win .hbw-poster-chip {
+.hbw-tool .hbw-poster-chip {
   width: 18px;
   height: 18px;
   border-radius: var(--pill-r);
@@ -5036,19 +5036,19 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
   transition: box-shadow var(--quick) var(--ease);
 }
 
-.hbw-win .hbw-poster-chip[aria-selected="true"],
-.hbw-win .hbw-poster-chip.is-current {
+.hbw-tool .hbw-poster-chip[aria-selected="true"],
+.hbw-tool .hbw-poster-chip.is-current {
   box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--ink);
 }
 
 /* Reset asking twice is a state, so it looks like one. */
-.hbw-win .hbw-poster-reset.is-ask {
+.hbw-tool .hbw-poster-reset.is-ask {
   color: var(--ink);
   border-color: var(--rule);
 }
 
 /* Sending: the address and the action, together at the end. */
-.hbw-win .hbw-poster-toolbar__send input {
+.hbw-tool .hbw-poster-toolbar__send input {
   box-sizing: border-box;
   height: var(--pill-h);
   min-width: 0;
@@ -5061,28 +5061,28 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
   font: inherit;
 }
 
-.hbw-win .hbw-poster-toolbar__send input::placeholder {
+.hbw-tool .hbw-poster-toolbar__send input::placeholder {
   color: var(--mute);
 }
 
-.hbw-win .hbw-poster-toolbar__send input:focus {
+.hbw-tool .hbw-poster-toolbar__send input:focus {
   outline: none;
   border-color: var(--ink);
 }
 
-.hbw-win .hbw-poster-send-open {
+.hbw-tool .hbw-poster-send-open {
   border-color: var(--rule);
   color: var(--ink);
 }
 
-.hbw-win .hbw-poster-send-open:hover {
+.hbw-tool .hbw-poster-send-open:hover {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--paper);
 }
 
 /* The note sits on the canvas, not in the bar. */
-.hbw-win .hbw-poster-note {
+.hbw-tool .hbw-poster-note {
   background: var(--chip);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -5090,11 +5090,11 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 @media (max-width: 760px) {
-  .hbw-win .hbw-poster-toolbar__send {
+  .hbw-tool .hbw-poster-toolbar__send {
     margin-left: 0;
     width: 100%;
   }
-  .hbw-win .hbw-poster-toolbar__send input {
+  .hbw-tool .hbw-poster-toolbar__send input {
     width: 100%;
   }
 }
@@ -5314,7 +5314,7 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
    it. A tool puts its controls on an edge: one row, the full width of the
    window, along the bottom, with the canvas filling everything above.
    ===================================================================== */
-.hbw-win .hbw-poster-toolbar {
+.hbw-tool .hbw-poster-toolbar {
   position: static;
   inset: auto;
   transform: none;
@@ -5333,7 +5333,7 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
  * a height of its own. At 100% it filled the whole body and pushed the
  * toolbar out through the bottom of the window.
  */
-.hbw-win .hbw-poster-field {
+.hbw-tool .hbw-poster-field {
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -5348,17 +5348,17 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /* Undo and reset join the row rather than starting a new one. */
-.hbw-win .hbw-poster-toolbar__work {
+.hbw-tool .hbw-poster-toolbar__work {
   flex: 0 0 auto;
   margin-left: 0;
 }
 
-.hbw-win .hbw-poster-toolbar__tray {
+.hbw-tool .hbw-poster-toolbar__tray {
   flex: 0 0 auto;
 }
 
 /* A rule between the tools and what they are for. */
-.hbw-win .hbw-poster-toolbar__send {
+.hbw-tool .hbw-poster-toolbar__send {
   border-left: 1px solid var(--rule);
   padding-left: var(--pill-x);
 }
@@ -6417,7 +6417,7 @@ body:has(.hbw-contact-page) .hbw-bar {
    measuring it (see `floor` in PosterTool) — and the bar is opaque, so the
    drawing reads as ending where the controls begin.
    ===================================================================== */
-.hbw-win .hbw-poster-toolbar {
+.hbw-tool .hbw-poster-toolbar {
   position: absolute;
   top: auto;
   right: 0;
@@ -6441,7 +6441,7 @@ body:has(.hbw-contact-page) .hbw-bar {
  * that rule matches nothing. It kept the prototype's transparent 44px field,
  * which is what made the bar 58px tall against a 24px pill system.
  */
-.hbw-win .hbw-poster-toolbar .hbw-poster-input {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input {
   box-sizing: border-box;
   flex: 0 1 auto;
   height: var(--pill-h);
@@ -6457,11 +6457,11 @@ body:has(.hbw-contact-page) .hbw-bar {
   font: inherit;
 }
 
-.hbw-win .hbw-poster-toolbar .hbw-poster-input::placeholder {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input::placeholder {
   color: var(--mute);
 }
 
-.hbw-win .hbw-poster-toolbar .hbw-poster-input:focus {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input:focus {
   outline: none;
   border-color: var(--ink);
 }
@@ -6482,25 +6482,25 @@ body:has(.hbw-contact-page) .hbw-bar {
  * seven pixels between them are a row with inline labels and no way to wrap.
  */
 @media (max-width: 767px) {
-  .hbw-win .hbw-poster-toolbar {
+  .hbw-tool .hbw-poster-toolbar {
     --pill-h: 32px;
     flex-wrap: wrap;
     row-gap: var(--pill-gap);
   }
 
-  .hbw-win .hbw-poster-toolbar__primary {
+  .hbw-tool .hbw-poster-toolbar__primary {
     flex: 1 1 100%;
     flex-wrap: wrap;
   }
 
   /* 16px or the phone zooms the page when the field takes focus. */
-  .hbw-win .hbw-poster-toolbar .hbw-poster-input {
+  .hbw-tool .hbw-poster-toolbar .hbw-poster-input {
     flex: 1 1 100%;
     width: 100%;
     font-size: 16px;
   }
 
-  .hbw-win .hbw-poster-toolbar__send {
+  .hbw-tool .hbw-poster-toolbar__send {
     flex: 1 1 100%;
     width: 100%;
     margin-left: 0;
@@ -6508,12 +6508,12 @@ body:has(.hbw-contact-page) .hbw-bar {
     padding-left: 0;
   }
 
-  .hbw-win .hbw-poster-toolbar__send .hbw-poster-send-open {
+  .hbw-tool .hbw-poster-toolbar__send .hbw-poster-send-open {
     flex: 1 1 auto;
   }
 
-  .hbw-win .hbw-poster-toolbar__tray,
-  .hbw-win .hbw-poster-toolbar__work {
+  .hbw-tool .hbw-poster-toolbar__tray,
+  .hbw-tool .hbw-poster-toolbar__work {
     flex: 1 1 100%;
     flex-wrap: wrap;
   }
@@ -6894,7 +6894,7 @@ body:has(.hbw-case-page) .hbw-bar {
  * competes for width with the address field and Send is not a settings row,
  * so it takes a full basis and the bar is allowed to wrap to let it.
  */
-.hbw-win .hbw-poster-toolbar {
+.hbw-tool .hbw-poster-toolbar {
   flex-wrap: wrap;
   row-gap: var(--pill-gap);
 }
@@ -6902,7 +6902,7 @@ body:has(.hbw-case-page) .hbw-bar {
 /*
  * The 24px pill the window has been asking for since it was written.
  *
- * `.hbw-win .hbw-poster-tool { height: var(--pill-h) }` is declared at the top
+ * `.hbw-tool .hbw-poster-tool { height: var(--pill-h) }` is declared at the top
  * of the window's own block and it has never once applied. The prototype the
  * tool came from sets `.hbw-poster-tool { min-height: var(--hbw-task-h,
  * 2.75rem) }`, and a min-height beats a height however the selectors score —
@@ -6922,15 +6922,15 @@ body:has(.hbw-case-page) .hbw-bar {
  * settings added it is 68px and 153px. Nine and thirteen pixels for size,
  * density and ink.
  */
-.hbw-win .hbw-poster-tool,
-.hbw-win .hbw-poster-reset,
-.hbw-win .hbw-poster-send-open,
-.hbw-win .hbw-poster-toolbar__tray .hbw-poster-tool,
-.hbw-win .hbw-poster-palette .hbw-poster-tool {
+.hbw-tool .hbw-poster-tool,
+.hbw-tool .hbw-poster-reset,
+.hbw-tool .hbw-poster-send-open,
+.hbw-tool .hbw-poster-toolbar__tray .hbw-poster-tool,
+.hbw-tool .hbw-poster-palette .hbw-poster-tool {
   min-height: 0;
 }
 
-.hbw-win .hbw-poster-toolbar__tray {
+.hbw-tool .hbw-poster-toolbar__tray {
   flex: 1 1 100%;
   min-width: 0;
   gap: var(--pill-x);
@@ -6949,20 +6949,20 @@ body:has(.hbw-case-page) .hbw-bar {
  * dots are left — the radius stops and the density stops were two sets of
  * grey discs with nothing between them saying they were different scales.
  */
-.hbw-win .hbw-poster-toolbar__tray > * + * {
+.hbw-tool .hbw-poster-toolbar__tray > * + * {
   padding-left: var(--pill-x);
   border-left: 1px solid var(--rule);
 }
 
 /* The address and Send travel together to the far end, with the tools and
    what you do to them at the near one. */
-.hbw-win .hbw-poster-toolbar .hbw-poster-input {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input {
   margin-left: auto;
 }
 
 /* ---- A scale, as a row of stops ---- */
 
-.hbw-win .hbw-poster-steps {
+.hbw-tool .hbw-poster-steps {
   display: flex;
   align-items: center;
   gap: var(--pill-gap);
@@ -6970,7 +6970,7 @@ body:has(.hbw-case-page) .hbw-bar {
 }
 
 /* What the stops are of, set as every other label on the site is. */
-.hbw-win .hbw-poster-steps__name {
+.hbw-tool .hbw-poster-steps__name {
   margin-right: 4px;
   color: var(--mute);
   font-size: var(--t-small);
@@ -6980,7 +6980,7 @@ body:has(.hbw-case-page) .hbw-bar {
 
 /* The figure, in the same voice. Tabular so it does not shift the row as
    it changes from 6 to 40. */
-.hbw-win .hbw-poster-steps__read {
+.hbw-tool .hbw-poster-steps__read {
   min-width: 2ch;
   margin-left: 4px;
   color: var(--say);
@@ -6998,7 +6998,7 @@ body:has(.hbw-case-page) .hbw-bar {
  * with the tools above it and is hittable without being a toy. On a phone the
  * bar lifts --pill-h to 32 and these go up with it.
  */
-.hbw-win .hbw-poster-step {
+.hbw-tool .hbw-poster-step {
   box-sizing: border-box;
   width: var(--pill-h);
   height: var(--pill-h);
@@ -7018,51 +7018,51 @@ body:has(.hbw-case-page) .hbw-bar {
     border-color var(--quick) var(--ease);
 }
 
-.hbw-win .hbw-poster-step:hover {
+.hbw-tool .hbw-poster-step:hover {
   background: var(--chip);
 }
 
 /* The stop you are on, ringed rather than inverted: the dot inside it is the
    information, and filling the square black would hide it. */
-.hbw-win .hbw-poster-step.is-current {
+.hbw-tool .hbw-poster-step.is-current {
   border-color: var(--ink);
   background: var(--paper);
 }
 
-.hbw-win .hbw-poster-step:disabled {
+.hbw-tool .hbw-poster-step:disabled {
   opacity: 0.35;
   pointer-events: none;
 }
 
 /* The mark itself, at the size that stop means. Sized inline, because the
    size is the whole point of it. */
-.hbw-win .hbw-poster-step__dot {
+.hbw-tool .hbw-poster-step__dot {
   display: block;
   border-radius: 50%;
   background: currentColor;
   color: var(--ink);
 }
 
-.hbw-win .hbw-poster-step:not(.is-current) .hbw-poster-step__dot {
+.hbw-tool .hbw-poster-step:not(.is-current) .hbw-poster-step__dot {
   color: var(--say);
 }
 
 /* ---- The ink: a swatch that says what it is, and opens the rest ---- */
 
-.hbw-win .hbw-poster-ink {
+.hbw-tool .hbw-poster-ink {
   display: flex;
   align-items: center;
   flex: 0 0 auto;
   min-width: 0;
 }
 
-.hbw-win .hbw-poster-ink__open {
+.hbw-tool .hbw-poster-ink__open {
   gap: 5px;
   padding: 0 var(--pill-x) 0 4px;
   border-color: var(--rule);
 }
 
-.hbw-win .hbw-poster-ink__open.is-current {
+.hbw-tool .hbw-poster-ink__open.is-current {
   border-color: var(--ink);
   background: var(--paper);
   color: var(--ink);
@@ -7075,7 +7075,7 @@ body:has(.hbw-case-page) .hbw-bar {
  * reads as a swatch: white ink on white paper was a square that was not
  * there at all.
  */
-.hbw-win .hbw-poster-ink__swatch {
+.hbw-tool .hbw-poster-ink__swatch {
   box-sizing: border-box;
   width: 16px;
   height: 16px;
@@ -7084,12 +7084,12 @@ body:has(.hbw-case-page) .hbw-bar {
   border-radius: 1px;
 }
 
-.hbw-win .hbw-poster-ink__swatch.is-light {
+.hbw-tool .hbw-poster-ink__swatch.is-light {
   border-color: var(--ink);
 }
 
 /* The hex, because someone choosing a colour usually knows its number. */
-.hbw-win .hbw-poster-ink__hex {
+.hbw-tool .hbw-poster-ink__hex {
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
   letter-spacing: var(--track);
@@ -7107,7 +7107,7 @@ body:has(.hbw-case-page) .hbw-bar {
  * would have been correct at 1440 and 250px off the right edge at 393, where
  * the swatch sits two thirds of the way across a 324px row.
  */
-.hbw-win .hbw-poster-palette {
+.hbw-tool .hbw-poster-palette {
   position: absolute;
   left: var(--pill-x);
   bottom: calc(100% + var(--pill-gap));
@@ -7149,7 +7149,7 @@ body:has(.hbw-case-page) .hbw-bar {
 /* Five across and two down: a module, not a strip. The cells may grow past
    the pill to take up whatever the hex row below them makes the panel, so
    there is no dead ground beside the colour. */
-.hbw-win .hbw-poster-palette__grid {
+.hbw-tool .hbw-poster-palette__grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(var(--pill-h), 1fr));
   gap: var(--pill-gap);
@@ -7159,7 +7159,7 @@ body:has(.hbw-case-page) .hbw-bar {
    smallest and least reachable control on the site; these start at the same
    square as every other control in the window, which is also the 24px WCAG
    2.5.8 asks for. */
-.hbw-win .hbw-poster-palette .hbw-poster-chip {
+.hbw-tool .hbw-poster-palette .hbw-poster-chip {
   box-sizing: border-box;
   width: 100%;
   height: auto;
@@ -7172,16 +7172,16 @@ body:has(.hbw-case-page) .hbw-bar {
 }
 
 /* White ink needs a rule it can be seen against. */
-.hbw-win .hbw-poster-palette .hbw-poster-chip.is-light {
+.hbw-tool .hbw-poster-palette .hbw-poster-chip.is-light {
   border-color: var(--rule);
   box-shadow: inset 0 0 0 1px var(--rule);
 }
 
-.hbw-win .hbw-poster-palette .hbw-poster-chip.is-current {
+.hbw-tool .hbw-poster-palette .hbw-poster-chip.is-current {
   box-shadow: 0 0 0 1px var(--paper), 0 0 0 2px var(--ink);
 }
 
-.hbw-win .hbw-poster-palette__foot {
+.hbw-tool .hbw-poster-palette__foot {
   display: flex;
   align-items: center;
   gap: var(--pill-gap);
@@ -7191,7 +7191,7 @@ body:has(.hbw-case-page) .hbw-bar {
 }
 
 /* A number you can type. The only thing the old plus sign could not do. */
-.hbw-win .hbw-poster-hex {
+.hbw-tool .hbw-poster-hex {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -7201,13 +7201,13 @@ body:has(.hbw-case-page) .hbw-bar {
   min-width: 0;
 }
 
-.hbw-win .hbw-poster-hex > span {
+.hbw-tool .hbw-poster-hex > span {
   color: var(--mute);
   font-size: var(--t-small);
   letter-spacing: var(--track);
 }
 
-.hbw-win .hbw-poster-hex input {
+.hbw-tool .hbw-poster-hex input {
   box-sizing: border-box;
   flex: 1 1 auto;
   width: 100%;
@@ -7225,12 +7225,12 @@ body:has(.hbw-case-page) .hbw-bar {
   text-transform: uppercase;
 }
 
-.hbw-win .hbw-poster-hex input:focus {
+.hbw-tool .hbw-poster-hex input:focus {
   outline: none;
   border-color: var(--ink);
 }
 
-.hbw-win .hbw-poster-hex__more {
+.hbw-tool .hbw-poster-hex__more {
   flex: 0 0 auto;
   border-color: var(--rule);
   font-size: var(--t-small);
@@ -7248,26 +7248,26 @@ body:has(.hbw-case-page) .hbw-bar {
  * on each group still says it in words, and the row stays one row.
  */
 @media (max-width: 767px) {
-  .hbw-win .hbw-poster-steps__name,
-  .hbw-win .hbw-poster-steps__read,
-  .hbw-win .hbw-poster-ink__hex {
+  .hbw-tool .hbw-poster-steps__name,
+  .hbw-tool .hbw-poster-steps__read,
+  .hbw-tool .hbw-poster-ink__hex {
     display: none;
   }
 
-  .hbw-win .hbw-poster-toolbar__tray {
+  .hbw-tool .hbw-poster-toolbar__tray {
     gap: var(--pill-gap);
     flex-wrap: nowrap;
     justify-content: space-between;
   }
 
-  .hbw-win .hbw-poster-ink__open {
+  .hbw-tool .hbw-poster-ink__open {
     padding: 0;
     min-width: var(--pill-h);
     justify-content: center;
   }
 
   /* The address field goes full width here, so it must not also be pushed. */
-  .hbw-win .hbw-poster-toolbar .hbw-poster-input {
+  .hbw-tool .hbw-poster-toolbar .hbw-poster-input {
     margin-left: 0;
   }
 
@@ -7280,18 +7280,18 @@ body:has(.hbw-case-page) .hbw-bar {
    * the bar has, so a row each is a row of the drawing given away for nothing
    * — and the settings row below needs that room more than they do.
    */
-  .hbw-win .hbw-poster-toolbar__primary,
-  .hbw-win .hbw-poster-toolbar__work {
+  .hbw-tool .hbw-poster-toolbar__primary,
+  .hbw-tool .hbw-poster-toolbar__work {
     flex: 0 1 auto;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hbw-win .hbw-poster-palette {
+  .hbw-tool .hbw-poster-palette {
     animation: none;
   }
 
-  .hbw-win .hbw-poster-step {
+  .hbw-tool .hbw-poster-step {
     transition: none;
   }
 }
@@ -10414,7 +10414,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 
 /* The paper. No frame of its own: the two pixels around it are the frame,
    here as everywhere. */
-.hbw-win .hbw-poster-field {
+.hbw-tool .hbw-poster-field {
   margin: 0;
   border: 0;
   border-radius: var(--pill-r);
@@ -10431,7 +10431,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
  * it stops being a lid ruled off the top of the drawing and becomes a plate
  * lying on it, like every other control here.
  */
-.hbw-win .hbw-poster-toolbar {
+.hbw-tool .hbw-poster-toolbar {
   left: var(--edge);
   right: var(--edge);
   bottom: var(--edge);
@@ -10446,10 +10446,10 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   font-size: var(--nav);
 }
 
-.hbw-win .hbw-poster-toolbar__primary,
-.hbw-win .hbw-poster-toolbar__work,
-.hbw-win .hbw-poster-toolbar__send,
-.hbw-win .hbw-poster-toolbar__tray {
+.hbw-tool .hbw-poster-toolbar__primary,
+.hbw-tool .hbw-poster-toolbar__work,
+.hbw-tool .hbw-poster-toolbar__send,
+.hbw-tool .hbw-poster-toolbar__tray {
   gap: var(--edge);
 }
 
@@ -10457,9 +10457,9 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    one in your hand is seated and inked rather than reversed out. Black on
    a pale bar is not a state, it is a hole — the same thing the studio's
    open block was doing, answered the same way. */
-.hbw-win .hbw-poster-tool,
-.hbw-win .hbw-poster-reset,
-.hbw-win .hbw-poster-send-open {
+.hbw-tool .hbw-poster-tool,
+.hbw-tool .hbw-poster-reset,
+.hbw-tool .hbw-poster-send-open {
   height: var(--pill-h);
   min-width: var(--pill-h);
   padding: 0 var(--pill-x);
@@ -10470,24 +10470,24 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   font-size: var(--nav);
 }
 
-.hbw-win .hbw-poster-tool:hover,
-.hbw-win .hbw-poster-reset:hover,
-.hbw-win .hbw-poster-send-open:hover,
-.hbw-win .hbw-poster-tool:focus-visible,
-.hbw-win .hbw-poster-reset:focus-visible,
-.hbw-win .hbw-poster-send-open:focus-visible {
+.hbw-tool .hbw-poster-tool:hover,
+.hbw-tool .hbw-poster-reset:hover,
+.hbw-tool .hbw-poster-send-open:hover,
+.hbw-tool .hbw-poster-tool:focus-visible,
+.hbw-tool .hbw-poster-reset:focus-visible,
+.hbw-tool .hbw-poster-send-open:focus-visible {
   background: var(--chip);
   color: var(--ink);
 }
 
-.hbw-win .hbw-poster-tool.is-current,
-.hbw-win .hbw-poster-tool[aria-pressed="true"] {
+.hbw-tool .hbw-poster-tool.is-current,
+.hbw-tool .hbw-poster-tool[aria-pressed="true"] {
   background: var(--chip-on);
   border-color: transparent;
   color: var(--ink);
 }
 
-.hbw-win .hbw-poster-reset.is-ask {
+.hbw-tool .hbw-poster-reset.is-ask {
   background: var(--chip-on);
   border-color: transparent;
   color: var(--ink);
@@ -10495,7 +10495,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 
 /* The address, and the one control on the bar you must not press by
    accident. Both wear the field; neither wears a border. */
-.hbw-win .hbw-poster-toolbar .hbw-poster-input {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input {
   /* A control among controls. Left to take the room the bar had going
      spare it ran half the width of the window, which made the address the
      largest thing on an instrument whose subject is the drawing. */
@@ -10513,11 +10513,11 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     color var(--quick) var(--ease);
 }
 
-.hbw-win .hbw-poster-toolbar .hbw-poster-input::placeholder {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input::placeholder {
   color: var(--mute);
 }
 
-.hbw-win .hbw-poster-toolbar .hbw-poster-input:focus {
+.hbw-tool .hbw-poster-toolbar .hbw-poster-input:focus {
   outline: none;
   background: var(--chip-on);
   border-color: transparent;
@@ -10525,17 +10525,17 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 
 /* The stop you are on is seated, not cut out of the bar. White on a pale
    plate is a hole; the dot inside it is still what carries the size. */
-.hbw-win .hbw-poster-step.is-current {
+.hbw-tool .hbw-poster-step.is-current {
   background: var(--chip-on);
   border-color: transparent;
 }
 
-.hbw-win .hbw-poster-send-open {
+.hbw-tool .hbw-poster-send-open {
   border-color: transparent;
   color: var(--ink);
 }
 
-.hbw-win .hbw-poster-send-open:hover {
+.hbw-tool .hbw-poster-send-open:hover {
   background: var(--chip-on);
   border-color: transparent;
   color: var(--ink);
@@ -10554,19 +10554,19 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     animation: hbw-arrive var(--in) var(--ease) backwards;
   }
 
-  .hbw-win .hbw-poster-field {
+  .hbw-tool .hbw-poster-field {
     animation: hbw-arrive var(--in) var(--ease) 60ms backwards;
   }
 
   /* Opacity only: it is inside the paper, so it already travels with it —
      a rise of its own would be the same move counted twice. */
-  .hbw-win .hbw-poster-toolbar {
+  .hbw-tool .hbw-poster-toolbar {
     animation: hbw-lift var(--in) var(--ease) 120ms backwards;
   }
 }
 
 .hbw-win[data-going="true"] .hbw-win__top,
-.hbw-win[data-going="true"] .hbw-poster-field {
+.hbw-tool[data-going="true"] .hbw-poster-field {
   opacity: 0;
   transform: translateY(calc(var(--rise, 8px) * 0.8));
   transition:
@@ -10574,16 +10574,16 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transform var(--out) var(--ease);
 }
 
-.hbw-win[data-going="true"] .hbw-poster-toolbar {
+.hbw-tool[data-going="true"] .hbw-poster-toolbar {
   opacity: 0;
   transition: opacity var(--out) var(--ease);
 }
 
-.hbw-win[data-going="true"] .hbw-poster-toolbar {
+.hbw-tool[data-going="true"] .hbw-poster-toolbar {
   transition-delay: 0ms;
 }
 
-.hbw-win[data-going="true"] .hbw-poster-field {
+.hbw-tool[data-going="true"] .hbw-poster-field {
   transition-delay: 40ms;
 }
 
@@ -10592,7 +10592,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 }
 
 @media (max-width: 760px) {
-  .hbw-win .hbw-poster-toolbar .hbw-poster-input {
+  .hbw-tool .hbw-poster-toolbar .hbw-poster-input {
     width: 100%;
   }
 }
@@ -10610,26 +10610,26 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    pushing off the free space between them, which left the address marooned
    in the middle of the bar with nothing either side of it.
    ===================================================================== */
-.hbw-win .hbw-poster-toolbar__primary,
-.hbw-win .hbw-poster-toolbar__send,
-.hbw-win .hbw-poster-toolbar__tray,
-.hbw-win .hbw-poster-steps,
-.hbw-win .hbw-poster-ink {
+.hbw-tool .hbw-poster-toolbar__primary,
+.hbw-tool .hbw-poster-toolbar__send,
+.hbw-tool .hbw-poster-toolbar__tray,
+.hbw-tool .hbw-poster-steps,
+.hbw-tool .hbw-poster-ink {
   border: 0;
 }
 
-.hbw-win .hbw-poster-toolbar__send {
+.hbw-tool .hbw-poster-toolbar__send {
   margin-left: 0;
 }
 
-.hbw-win .hbw-poster-toolbar__tray {
+.hbw-tool .hbw-poster-toolbar__tray {
   padding-top: var(--edge);
   margin-top: 0;
 }
 
 /* The scale and the ink keep their distance from the tools the same way. */
-.hbw-win .hbw-poster-steps,
-.hbw-win .hbw-poster-ink {
+.hbw-tool .hbw-poster-steps,
+.hbw-tool .hbw-poster-ink {
   padding-left: var(--pill-x);
 }
 
@@ -10649,32 +10649,272 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 /* The ink panel is a plate too, seated rather than cut out of the drawing,
    and its foot is divided by the two pixels the panel already has between
    its rows rather than by a line drawn across it. */
-.hbw-win .hbw-poster-palette {
+.hbw-tool .hbw-poster-palette {
   gap: var(--edge);
   background: var(--chip-on);
   border: 0;
   border-radius: var(--pill-r);
 }
 
-.hbw-win .hbw-poster-palette__grid {
+.hbw-tool .hbw-poster-palette__grid {
   gap: var(--edge);
 }
 
-.hbw-win .hbw-poster-palette__foot {
+.hbw-tool .hbw-poster-palette__foot {
   gap: var(--edge);
   padding-top: var(--edge);
   border-top: 0;
 }
 
 /* The hex box wears the field like every other place you type here. */
-.hbw-win .hbw-poster-hex input {
+.hbw-tool .hbw-poster-hex input {
   border: 0;
   border-radius: var(--pill-r);
   background: var(--chip);
   color: var(--ink);
 }
 
-.hbw-win .hbw-poster-hex input:focus {
+.hbw-tool .hbw-poster-hex input:focus {
   outline: none;
   background: var(--chip-on);
+}
+
+/* =====================================================================
+   The poster is Contact's other state.
+
+   It opened as a window laid over the studio — the one move this site does
+   not make. Nothing here appears on top of anything; it makes room. So the
+   block does what every block does, only further: it grows into the sheet,
+   the picture beside it gives up its column, and the drawing arrives in the
+   room that was made. Closing runs it backwards.
+   ===================================================================== */
+
+/* The block's own row: its name, and the way back out of the drawing. */
+.hbw-studio-doc .hbw-part__head {
+  display: flex;
+  align-items: stretch;
+  gap: var(--edge);
+}
+
+.hbw-studio-doc .hbw-part__head .hbw-part__name {
+  flex: 1 1 auto;
+}
+
+.hbw-studio-doc .hbw-part__exit {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: var(--mute);
+  font: inherit;
+  font-size: var(--nav);
+  cursor: pointer;
+  transition: color var(--quick) var(--ease);
+}
+
+.hbw-studio-doc .hbw-part__exit:hover,
+.hbw-studio-doc .hbw-part__exit:focus-visible {
+  color: var(--ink);
+}
+
+/* The way in wears the field as well, and is marked by the site's own
+   focus rather than by the browser's blue ring. */
+.hbw-studio-doc .hbw-part__start {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--chip);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--nav);
+  cursor: pointer;
+  transition:
+    background-color var(--quick) var(--ease),
+    color var(--quick) var(--ease);
+}
+
+.hbw-studio-doc .hbw-part__start:hover {
+  background: var(--chip-on);
+}
+
+.hbw-studio-doc .hbw-part__start:focus-visible,
+.hbw-studio-doc .hbw-part__exit:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* The picture gives up its column, and the block takes the sheet. */
+@media (min-width: 761px) {
+  .hbw-studio-doc[data-tool="poster"] {
+    grid-template-columns: minmax(0, 1fr) 0;
+    transition: grid-template-columns var(--in) var(--ease);
+  }
+
+  .hbw-studio-doc[data-tool="poster"] .hbw-studio__aside {
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity var(--out) var(--ease);
+  }
+}
+
+/*
+ * The open block grows to whatever the sheet has left.
+ *
+ * Its reading is a clamp — never taller than it needs to be read — and a
+ * drawing is the other way round: it wants everything that is going spare.
+ * What is left is the sheet, less the four shut blocks, less this block's
+ * own row, less the two pixels between each of them.
+ */
+/*
+ * The block takes whatever the sheet has left.
+ *
+ * Written as a sum — the sheet less five rows less five gaps — it was
+ * wrong the moment the end mark was still holding the foot, and it would
+ * be wrong again the day a sixth block is added. The column it sits in is
+ * a flex column, so the block can simply be the one part of it that grows,
+ * and the browser does the arithmetic.
+ */
+.hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] {
+  flex: 1 1 auto;
+  min-height: 0;
+  /*
+   * And it stretches to the column's width.
+   *
+   * The blocks are packed to the start of their cross axis, so each one is
+   * as wide as what is in it — which for four paragraphs is the measure
+   * they want, and for one drawing is a hundred and fifty-nine pixels,
+   * because a positioned canvas has no content width to be as wide as.
+   */
+  align-self: stretch;
+}
+
+.hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say {
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/*
+ * The drawing is the block's one module, and it fills it.
+ *
+ * Both halves of that have to be said at the block's own specificity. A
+ * module here is a column of a six-track grid whose rows are min-content —
+ * which is right for four paragraphs and wrong for one drawing: it put the
+ * tool in a single track of a hundred and forty-nine pixels and gave its
+ * row no height at all, because the canvas inside it is positioned and so
+ * measures as nothing.
+ */
+.hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say {
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: minmax(0, 1fr);
+  align-content: stretch;
+  align-items: stretch;
+}
+
+.hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say .hbw-part__tool {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  background: none;
+}
+
+/*
+ * The name across the foot gives up its room too.
+ *
+ * Contact is the last block, so the studio's own mark is already lying
+ * across the bottom of the sheet when you ask for the poster — nearly three
+ * hundred pixels of it. The mark is there to end the reading; while there
+ * is a drawing open the reading is not what the sheet is doing.
+ */
+.hbw-studio-doc[data-tool="poster"] .hbw-studio__end {
+  --end-h: 0px;
+  height: 0;
+  min-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    height var(--in) var(--ease),
+    opacity var(--out) var(--ease);
+}
+
+/* In the block there is no window around it, so the drawing carries the
+   paper itself — the same plate the window's canvas wore. */
+.hbw-part__tool .hbw-poster-field {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--paper);
+}
+
+/* It arrives once the room is there, and stands down before the room goes. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-part__tool {
+    animation: hbw-arrive var(--in) var(--ease) backwards;
+  }
+}
+
+.hbw-part__tool[data-going="true"] {
+  opacity: 0;
+  transform: translateY(calc(var(--rise, 8px) * 0.8));
+  transition:
+    opacity var(--out) var(--ease),
+    transform var(--out) var(--ease);
+}
+
+/*
+ * The end mark leaves its row behind as well as its height.
+ *
+ * Collapsed to nothing it was still a row of the sheet's grid, so the two
+ * pixels above it and the two of its own margin were still being kept for
+ * it — six pixels of slack under a drawing on a sheet whose distance is
+ * two.
+ */
+.hbw-studio-doc[data-tool="poster"] {
+  row-gap: 0;
+}
+
+/* Said at the weight the rule that sets it is written at: the end mark's
+   margin comes from a :has() on the last block being open, which Contact
+   always is by the time there is a drawing to make room for. */
+.hbw-studio-doc[data-tool="poster"]:has(.hbw-part[data-tool="poster"][data-open="true"]) .hbw-studio__end {
+  margin-block: 0;
+}
+
+.hbw-studio-doc[data-tool="poster"] .hbw-studio__said {
+  margin-bottom: 0;
+}
+
+/*
+ * On a phone the sheet scrolls rather than filling the screen, so there is
+ * no room left over for the block to take — height has to be asked for. A
+ * drawing is also the one thing here that wants to be taller than it is
+ * wide, so it takes most of the screen and the bars stay above it.
+ */
+@media (max-width: 760px) {
+  .hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say {
+    height: clamp(320px, 64vh, 680px);
+    min-height: 0;
+  }
+
+  .hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say .hbw-part__tool {
+    height: 100%;
+  }
 }
