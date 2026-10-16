@@ -12150,3 +12150,120 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-studio__aside .hbw-end__to {
   gap: var(--edge);
 }
+
+/* =====================================================================
+   The board, as a page.
+
+   The standalone pages still wear the old page vocabulary — a measure, a
+   band, a run of reading — which is the shape the site had before it
+   became objects two pixels apart. This is that board, named once so the
+   pages can be moved onto it one at a time rather than each inventing its
+   own version of the same thing.
+
+   Eight tracks, like the project's information, because eight divides into
+   the halves, quarters and thirds a page of writing actually wants.
+   ===================================================================== */
+.hbw-board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: var(--edge);
+  align-content: start;
+  align-items: start;
+  padding: var(--edge);
+}
+
+.hbw-board__mod {
+  box-sizing: border-box;
+  grid-column: span 2;
+  margin: 0;
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+
+.hbw-board__mod--wide {
+  grid-column: span 4;
+}
+
+.hbw-board__mod--all {
+  grid-column: 1 / -1;
+}
+
+.hbw-board__mod > * {
+  margin: 0 0 var(--pill-x);
+}
+
+.hbw-board__mod > :last-child {
+  margin-bottom: 0;
+}
+
+.hbw-board__lead {
+  margin: 0 0 var(--pill-x);
+  font-size: var(--t-big);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+@media (max-width: 1100px) {
+  .hbw-board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .hbw-board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hbw-board__mod,
+  .hbw-board__mod--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* It arrives after the chrome, a few at a time, like everything else. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-board__mod {
+    animation: hbw-open var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step) * 3) backwards;
+  }
+
+  .hbw-board__mod:nth-of-type(1) {
+    animation-delay: var(--enter-work);
+  }
+
+  .hbw-board__mod:nth-of-type(2) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step));
+  }
+
+  .hbw-board__mod:nth-of-type(3) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
+  }
+}
+
+/* A board page holds the window, so the foot rests at the foot of it
+   rather than halfway up a screen of nothing. It matters most on a page
+   with little on it, which is exactly the page this board was built for
+   first. */
+.hbw-site:has(.hbw-board) {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* The old page vocabulary held its foot off the reading with a hundred
+     and twenty-six pixels, and the foot held itself off with another
+     hundred and eight. On a board the distance is two, like everything
+     else, and without saying so the page ran a screen and a fifth tall
+     with three short modules on it. */
+  padding-bottom: var(--edge);
+}
+
+.hbw-site:has(.hbw-board) .hbw-board {
+  flex: 1 1 auto;
+}
+
+.hbw-site:has(.hbw-board) .hbw-end {
+  margin-top: var(--edge);
+}
