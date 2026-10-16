@@ -1278,7 +1278,11 @@ export function Lightbox({
         <nav className="hbw-lamp__feet" aria-label="Projects">
           {prev ? (
             <button type="button" className="hbw-lamp__foot" onClick={() => onPrev?.()}>
-              <span className="hbw-m">Previous</span> {prev.name}
+              {/* Keyed on the name, so the plate holds and the name changes
+                  inside it, as the count does. */}
+              <span key={prev.name} className="hbw-lamp__said">
+                <span className="hbw-m">Previous</span> {prev.name}
+              </span>
             </button>
           ) : (
             <span />
@@ -1297,7 +1301,9 @@ export function Lightbox({
           )}
           {next ? (
             <button type="button" className="hbw-lamp__foot is-on" onClick={() => onNext?.()}>
-              <span className="hbw-m">Next</span> {next.name}
+              <span key={next.name} className="hbw-lamp__said">
+                <span className="hbw-m">Next</span> {next.name}
+              </span>
             </button>
           ) : (
             <span />

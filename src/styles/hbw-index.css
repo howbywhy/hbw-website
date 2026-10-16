@@ -12059,3 +12059,94 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   backdrop-filter: blur(14px) saturate(160%);
 }
+
+/* =====================================================================
+   The panel never leaves. Only the work inside it does.
+
+   The count and the view switch were given plates that no longer arrive,
+   and they still disappeared on every step to the next project — because
+   it was never their own animation hiding them. The gallery panel itself
+   was clipped on arrival, and a clip takes everything inside it: the row,
+   the count, the switch, the feet. Measured across one step, the count and
+   switch were off screen for twenty-four frames and the feet for
+   twenty-eight, all of it the panel's doing.
+
+   The panel stops arriving and the work arrives instead. The chrome holds
+   its place through the whole hand-over and the boxes adapt to what they
+   now say, which is what a reader was told would happen.
+   ===================================================================== */
+.hbw-lamp {
+  animation: none;
+}
+
+/* The feet keep their plates for the same reason, and their names change
+   inside them. */
+.hbw-lamp__feet {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp__foot .hbw-lamp__said {
+    animation: hbw-open var(--in) var(--ease) var(--enter-step) backwards;
+  }
+}
+
+/* =====================================================================
+   The foot of the page is a board as well.
+
+   Who we are, where we are, the list you can join and the ways to reach
+   us were four runs of text sharing one ground — the last page-shaped
+   thing on a site that is otherwise objects two pixels apart. Each is its
+   own bubble now, and the five ways out are five buttons rather than a
+   column of links.
+   ===================================================================== */
+.hbw-end__who > p,
+.hbw-end__loop > form,
+.hbw-end__loop > p,
+.hbw-end__to > a {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+
+.hbw-end__who,
+.hbw-end__to {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+}
+
+.hbw-end__to > a {
+  display: flex;
+  align-items: center;
+  min-height: var(--pill-h);
+  text-decoration: none;
+  color: var(--mute);
+  transition: color var(--quick) var(--ease);
+}
+
+.hbw-end__to > a:hover,
+.hbw-end__to > a:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-end__to > a:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.hbw-end__loop > form {
+  display: grid;
+  gap: var(--edge);
+}
+
+/* The studio's own copy of the foot keeps the board's distance too — it
+   had its own gutter, set back when the list was a column of links rather
+   than a column of buttons. */
+.hbw-studio__aside .hbw-end__to {
+  gap: var(--edge);
+}
