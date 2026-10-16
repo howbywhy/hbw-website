@@ -11900,3 +11900,35 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   animation-name: hbw-open;
   animation-delay: var(--enter-type);
 }
+
+/* =====================================================================
+   And each fact is its own bar.
+
+   Year, Sector, Work, With and Role were five rows inside one plate, so
+   the facts read as a table in a box while everything beside them read as
+   objects on a board. They are five bars now, two pixels apart, stacked
+   where the one plate used to be — the same distance and the same field as
+   every other module here, and each one as tall as its own value, which
+   for Work and Role is two or three lines and for Year is one.
+
+   The group keeps the column it had and gives up its plate; the plate
+   belongs to the parts.
+   ===================================================================== */
+.hbw-lamp__info .hbw-info__facts {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+  padding: 0;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.hbw-lamp__info .hbw-info__facts > div {
+  box-sizing: border-box;
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
