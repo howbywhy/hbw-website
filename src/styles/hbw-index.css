@@ -12449,6 +12449,24 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   .hbw-lamp__shot[data-way="back"] > video {
     animation-name: hbw-step-back;
   }
+
+  /*
+     And when the step is a whole project, the nav still goes first.
+
+     Walking on from the last frame hands over to the next project without
+     leaving the full view, which means this panel is built with a picture
+     already up. Its first frame holds off the length the band's pictures
+     hold off by, so the mark and the count have moved before anything
+     sweeps in — the same order as every other arrival, rather than the nav
+     and the work moving at once. `backwards` keeps the frame waiting off
+     to the right for the whole delay, so there is nothing half-arrived to
+     look at. Only the frame the panel opened on: the attribute comes off
+     once this project has arrived, by which time the step is over.
+  */
+  .hbw-lamp[data-began][data-arriving] .hbw-lamp__full .hbw-lamp__shot > img,
+  .hbw-lamp[data-began][data-arriving] .hbw-lamp__full .hbw-lamp__shot > video {
+    animation-delay: var(--enter-work);
+  }
 }
 
 /* =====================================================================

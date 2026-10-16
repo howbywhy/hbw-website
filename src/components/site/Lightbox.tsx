@@ -56,6 +56,7 @@ export function Lightbox({
   onNext,
   prev,
   onPrev,
+  began = false,
 }: {
   shots: Shot[];
   at: number;
@@ -102,6 +103,18 @@ export function Lightbox({
   prev?: { slug: string; name: string; mark: ReactNode } | null;
   onPrev?: () => void;
   /**
+   * Whether this project opens with a frame already full bleed.
+   *
+   * The gallery is keyed on the project, so walking on from the last frame
+   * threw this panel away and built another — and the new one started shut,
+   * which dropped you out of the full view and back to the grid. Pressing on
+   * at the end of a set should never put you off the screen you are on: the
+   * page says the picture was open when it handed over, and the next
+   * project's first frame arrives in it, from the right, the same way every
+   * other step in here arrives.
+   */
+  began?: boolean;
+  /**
    * What the project says about itself. It opens as the same sheet the studio
    * uses, from this bar — the gallery is where a visitor is when they want to
    * read about the work, so the way to it belongs here.
@@ -127,7 +140,7 @@ export function Lightbox({
    * it, so the set you were scanning is still there when you are done.
    */
   const [view, setView] = useView();
-  const [full, setFull] = useState(false);
+  const [full, setFull] = useState(began);
   /**
    * Opening a frame from the grid is three moves, like opening a project.
    *
@@ -186,10 +199,19 @@ export function Lightbox({
   const [closing, setClosing] = useState(false);
   const staging = useRef(0);
   useEffect(() => () => window.clearTimeout(staging.current), []);
-  useEffect(() => {
-    setFull(false);
-    setClosing(false);
-  }, [view, name]);
+  /*
+   * Switching between the rail and the grid puts a full frame away. It is
+   * done where the switch happens, not by watching the value.
+   *
+   * Watching it meant watching two things that are not switches. An effect
+   * with dependencies runs on the first render too, and the stored layout
+   * arrives one render after that — the view starts on the band because the
+   * server cannot know what this visitor prefers, then catches up — so a
+   * panel built with a picture open had it shut twice over before anyone
+   * touched anything. That is what threw you back to the grid when a
+   * project handed over at the end of a set. `move` is the only place a
+   * visitor changes the layout, so the picture is put away there.
+   */
 
   /** A duration token in milliseconds, however it happens to be written. */
   const beat = useCallback((token: string, fallback: number) => {
@@ -456,10 +478,26 @@ export function Lightbox({
         onNext?.();
         return;
       }
+      /*
+       * In the full view there is no plate to stand on.
+       *
+       * The handover is a panel on the rail, one past the last frame, and
+       * the rail is what you are looking at in the gallery. In here the
+       * plate has nowhere to be, and the picture falls back to the last
+       * frame it has when asked for an index past the end — so stepping on
+       * from the last picture showed that same picture a second time, with
+       * the count still reading eighteen of eighteen, and only the press
+       * after that reached the next project. One step past the end is the
+       * next project, which is what the plate would have said.
+       */
+      if (full && by > 0 && next && at >= shots.length - 1) {
+        onNext?.();
+        return;
+      }
       setWay(by > 0 ? 1 : -1);
       onAt((at + by + count) % count);
     },
-    [at, count, handover, onAt, onNext]
+    [at, count, full, handover, next, onAt, onNext, shots.length]
   );
 
   // The keyboard stays in here while this is up, as aria-modal promises.
@@ -644,6 +682,10 @@ export function Lightbox({
         places.current = was;
         held.current = true;
       }
+      /* A different layout is a different way of looking at the set, so the
+         one frame held over it goes away with the layout it was opened from. */
+      setFull(false);
+      setClosing(false);
       setView(next);
     },
     [view, setView],
@@ -827,6 +869,8 @@ export function Lightbox({
       tabIndex={-1}
       data-reading={reading ? "true" : undefined}
       data-full={full ? "true" : undefined}
+      /* Opened with a picture already up, so the first one waits for the nav. */
+      data-began={began ? "true" : undefined}
       data-arriving={arriving ? "true" : undefined}
       /*
        * The glass, pinned so nothing can switch it off.

@@ -27,7 +27,12 @@ import { InfoBody } from "@/components/site/InfoBody";
 
 /** A project's sequence, once it is known — from the server or from the route. */
 type Run = { name: string; says: string; shots: Shot[]; info: InfoData };
-type Open = Run & { slug: string; at: number };
+type Open = Run & {
+  slug: string;
+  at: number;
+  /** Whether the project opens with its frame already full bleed. */
+  full?: boolean;
+};
 
 export type Opening = Open;
 
@@ -392,7 +397,7 @@ export function Work({
   );
 
   const show = useCallback(
-    async (slug: string, at: number, push = true) => {
+    async (slug: string, at: number, push = true, began = false) => {
       const place = () => {
         if (!push) return;
         const where = `/projects/${slug}${at ? `?f=${at + 1}` : ""}`;
@@ -414,7 +419,7 @@ export function Work({
       if (showing.current) hold();
       const got = known.current.get(slug) ?? (await learn(slug));
       if (!got) return;
-      setOpen({ slug, at, ...got });
+      setOpen({ slug, at, ...got, full: began });
       place();
     },
     [learn, hold]
@@ -963,6 +968,7 @@ export function Work({
            * arriving animations get something to arrive.
            */
           key={open.slug}
+          began={open.full}
           shots={open.shots}
           at={open.at}
           onAt={step}
@@ -1021,6 +1027,21 @@ export function Work({
              * only needed for the instant the old panel is thrown away and
              * the new one is built.
              */
+            /*
+             * With a picture open, the hand-over is a step, not an exit.
+             *
+             * Out here the set leaves and the next one arrives in its place,
+             * which is right for a rail you can see. In the full view there
+             * is no set on screen to take away — there is one picture, and
+             * taking it away put you back on the grid of a project you had
+             * not asked to see yet. So the picture stays until the next one
+             * covers it: the same travel every other step in there makes,
+             * from the side you are going, with the nav moving first.
+             */
+            if (lamp.dataset.full === "true") {
+              void show(to.slug, 0, true, true);
+              return;
+            }
             lamp.dataset.going = "true";
             window.setTimeout(() => {
               hold();
