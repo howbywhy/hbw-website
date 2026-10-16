@@ -82,15 +82,43 @@ export function StudioBody({ start }: { start?: string }) {
   const [tool, setTool] = useState(false);
   const [armed, setArmed] = useState(false);
   const [going, setGoing] = useState(false);
+  /**
+   * Shut on its first frame, so there is something to open from.
+   *
+   * The other modules open with a keyframe, which this one could not use:
+   * mounted into the page after the block has already made its room, the
+   * animation never registered on it at all — declared, with a name and a
+   * duration, and no animation object on the element at any frame of its
+   * life. Driven from the markup instead it is a plain transition between
+   * two states the component owns, which is also the more honest account
+   * of what is happening: the tool is put there shut, and then opened.
+   */
+  const [arriving, setArriving] = useState(false);
   const staging = useRef(0);
 
   useEffect(() => () => window.clearTimeout(staging.current), []);
+
+  /* Two frames: one for the shut state to be painted, one to leave it. */
+  useEffect(() => {
+    if (!arriving) return;
+    let second = 0;
+    const first = requestAnimationFrame(() => {
+      second = requestAnimationFrame(() => setArriving(false));
+    });
+    return () => {
+      cancelAnimationFrame(first);
+      cancelAnimationFrame(second);
+    };
+  }, [arriving]);
 
   const openTool = useCallback(() => {
     window.clearTimeout(staging.current);
     setGoing(false);
     setTool(true);
-    staging.current = window.setTimeout(() => setArmed(true), beat("--in", 460));
+    staging.current = window.setTimeout(() => {
+      setArriving(true);
+      setArmed(true);
+    }, beat("--in", 460));
   }, []);
 
   /** It leaves the way it came: the tool stands down, then the block closes. */
@@ -99,6 +127,7 @@ export function StudioBody({ start }: { start?: string }) {
     setGoing(true);
     staging.current = window.setTimeout(() => {
       setArmed(false);
+      setArriving(false);
       setTool(false);
       setGoing(false);
     }, beat("--out", 240));
@@ -526,6 +555,7 @@ export function StudioBody({ start }: { start?: string }) {
           {armed ? (
             <div
               className="hbw-part__col hbw-part__tool hbw-tool"
+              data-arriving={arriving ? "true" : undefined}
               data-going={going ? "true" : undefined}
             >
               <PosterTool />

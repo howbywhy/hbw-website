@@ -10988,3 +10988,224 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   margin-left: 0;
   margin-right: 0;
 }
+
+/* =====================================================================
+   The modules open and shut. They do not fade.
+
+   Every module on this site arrived the same way: up twelve pixels and in
+   from nothing. That is a soft entrance — it says "appearing" — and the
+   site it belongs to is a board of plates two pixels apart that take room
+   from each other. A plate should open, and shut, and you should be able to
+   see the edge of it doing so.
+
+   So the arrival is a wipe from the top edge down, and the departure is the
+   same edge travelling back up: the module is revealed and covered rather
+   than faded, which is the one motion that reads as a mechanism rather than
+   a dissolve. Nothing here changes opacity any more.
+
+   Only the animation's name is restated, never the shorthand, so every
+   stagger already written — the columns coming in after their block has
+   made room, the aside following the reading, the three plates of the
+   poster in the order you read them — keeps its own timing.
+   ===================================================================== */
+@keyframes hbw-open {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hbw-shut {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* The studio's modules, the picture and the foot beside them. */
+.hbw-studio-doc .hbw-part .hbw-part__col,
+.hbw-studio-doc .hbw-studio__aside > * {
+  animation-name: hbw-open;
+}
+
+/* A project's own modules, which read as the same board. */
+.hbw-case__opening,
+.hbw-case__facts,
+.hbw-case__part,
+.hbw-case__to {
+  animation-name: hbw-open;
+}
+
+/* The poster, in the block and in the window. */
+.hbw-win__top,
+.hbw-tool .hbw-poster-field,
+.hbw-tool .hbw-poster-toolbar {
+  animation-name: hbw-open;
+}
+
+/* =====================================================================
+   And they shut the same way, from the same edge.
+   ===================================================================== */
+/*
+ * Said as an animation, not a transition.
+ *
+ * A module at rest has no clip-path at all, and there is no path between
+ * `none` and a shape — so a transition to one has nothing to interpolate
+ * and simply arrives, which is how the whole studio came to shut in a
+ * single frame. An animation names both ends itself, so it travels.
+ *
+ * The stagger is restated as animation-delay for the same reason: the
+ * delays that were written for the transition no longer drive anything.
+ */
+.hbw-studio-sheet[data-going="true"] .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
+.hbw-studio-sheet[data-going="true"] .hbw-part__name {
+  opacity: 1;
+  transform: none;
+  animation: hbw-shut var(--out) var(--ease) forwards;
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name { animation-delay: 0ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name { animation-delay: 40ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name { animation-delay: 80ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name { animation-delay: 120ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__col,
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { animation-delay: 160ms; }
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1) { animation-delay: 100ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2) { animation-delay: 140ms; }
+
+.hbw-part__tool[data-going="true"] {
+  opacity: 1;
+  transform: none;
+  animation: hbw-shut var(--out) var(--ease) forwards;
+}
+
+.hbw-win[data-going="true"] .hbw-win__top,
+.hbw-win[data-going="true"] .hbw-poster-field,
+.hbw-win[data-going="true"] .hbw-poster-toolbar {
+  opacity: 1;
+  transform: none;
+  animation: hbw-shut var(--out) var(--ease) forwards;
+}
+
+/* It shuts in the reverse of the order it opened: the instrument, the
+   paper it sat on, then the row that named it. */
+.hbw-win[data-going="true"] .hbw-poster-toolbar { animation-delay: 0ms; }
+.hbw-win[data-going="true"] .hbw-poster-field { animation-delay: 40ms; }
+.hbw-win[data-going="true"] .hbw-win__top { animation-delay: 80ms; }
+
+/* The mark across the foot is a mark, not a module: it keeps its own
+   going, because a wipe on something already running off the right edge
+   would read as the word being cut rather than the plate shutting. */
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-sheet[data-going="true"] .hbw-part__col,
+  .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
+  .hbw-studio-sheet[data-going="true"] .hbw-part__name,
+  .hbw-part__tool[data-going="true"],
+  .hbw-win[data-going="true"] .hbw-win__top,
+  .hbw-win[data-going="true"] .hbw-poster-field,
+  .hbw-win[data-going="true"] .hbw-poster-toolbar {
+    animation: none;
+    clip-path: none;
+  }
+}
+
+/* =====================================================================
+   The reading takes room and gives it back. It does not fade while it does.
+
+   The block's reading and a project's information both ran opacity next to
+   their height, so the thing you were being shown dissolved at the same
+   time as the room for it opened — two statements of one move, and the
+   softer of the two is the one the eye reads. The height is the move.
+
+   The whole transition is restated rather than the opacity removed from
+   it: a shorthand redeclared drops every property it does not name, and
+   the information's visibility is handled in that same list.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part:not([data-open="true"]) .hbw-part__say {
+  opacity: 1;
+  transition: height var(--out) var(--ease);
+}
+
+.hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__say {
+  opacity: 1;
+  transition: height var(--in) var(--ease);
+}
+
+.hbw-lamp .hbw-lamp__info,
+.hbw-lamp[data-reading="true"] .hbw-lamp__info {
+  opacity: 1;
+}
+
+.hbw-lamp .hbw-lamp__info {
+  transition:
+    height var(--out) var(--ease),
+    visibility 0s linear var(--out);
+}
+
+.hbw-lamp[data-reading="true"] .hbw-lamp__info {
+  transition:
+    height var(--in) var(--ease),
+    visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-doc .hbw-part .hbw-part__say,
+  .hbw-lamp .hbw-lamp__info {
+    transition: none;
+  }
+}
+
+/* The information's shut state is written at a weight of its own, and it
+   is the one that was still fading: opacity to nothing and a drop of a few
+   pixels, declared beside the height in the same shorthand. The height is
+   the move here as everywhere, so the other two come out of the list and
+   out of the state. */
+.hbw-lamp:not([data-reading="true"]) .hbw-lamp__info {
+  opacity: 1;
+  transform: none;
+  transition:
+    height var(--out) var(--ease),
+    visibility 0s linear var(--out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp:not([data-reading="true"]) .hbw-lamp__info {
+    transition: none;
+  }
+}
+
+/* The drawing is not one of the reading's columns and must not take their
+   stagger. As the block's only module it was matching the first column's
+   delay — another four hundred and eighty milliseconds of waiting on top
+   of the four hundred and sixty it already spends letting the block make
+   room, which is long enough that the animation never read as one. It
+   opens as soon as it is mounted, because being mounted already means the
+   room is there. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col.hbw-part__tool {
+    animation: none;
+    clip-path: inset(0 0 0 0);
+    transition: clip-path var(--in) var(--ease);
+  }
+
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col.hbw-part__tool[data-arriving="true"] {
+    clip-path: inset(0 0 100% 0);
+    transition: none;
+  }
+
+  .hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__col.hbw-part__tool[data-going="true"] {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path var(--out) var(--ease);
+  }
+}
