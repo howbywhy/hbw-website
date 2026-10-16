@@ -11450,3 +11450,83 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     transition: none;
   }
 }
+
+/* =====================================================================
+   The end of a project is a sequence too.
+
+   Reaching it, every frame in the set receded at once — a hundred and
+   twelve pictures softening together on one long curve — and the next
+   project's plate was simply already there beside them. It is the one
+   moment on the site where a thing the size of the screen changes, and it
+   was the only move left that happened all in a breath.
+
+   The set goes in order instead, from the end you arrived at and back
+   along the rail, so the recession travels the way you were travelling.
+   Then the next project comes forward, once the work it follows has gone.
+   The frames are counted back rather than each given a delay of its own:
+   the four nearest the end are the four you can see, and everything behind
+   them leaves on the same beat.
+   ===================================================================== */
+.hbw-lamp[data-ending="true"] .hbw-lamp__page:not(.hbw-lamp__page--next) {
+  transition-delay: calc(var(--enter-step) * 4);
+}
+
+.hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(2) {
+  transition-delay: 0ms;
+}
+
+.hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(3) {
+  transition-delay: var(--enter-step);
+}
+
+.hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(4) {
+  transition-delay: calc(var(--enter-step) * 2);
+}
+
+.hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(5) {
+  transition-delay: calc(var(--enter-step) * 3);
+}
+
+/*
+ * And the next project comes forward after them.
+ *
+ * It is given its own ground to arrive on rather than a wipe, because it
+ * is not a module opening — it is the next thing coming into the room the
+ * last one has left. It takes its full weight once the set behind it has
+ * receded, on the same long ease the recession uses, so the two halves are
+ * plainly one movement.
+ */
+.hbw-lamp__page--next {
+  transition:
+    opacity 900ms cubic-bezier(0.16, 0.84, 0.28, 1),
+    transform 900ms cubic-bezier(0.16, 0.84, 0.28, 1);
+}
+
+.hbw-lamp:not([data-ending="true"]) .hbw-lamp__page--next {
+  opacity: 0.55;
+  transform: translateX(var(--rise, 14px));
+}
+
+.hbw-lamp[data-ending="true"] .hbw-lamp__page--next {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: calc(var(--enter-step) * 5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp[data-ending="true"] .hbw-lamp__page:not(.hbw-lamp__page--next),
+  .hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(2),
+  .hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(3),
+  .hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(4),
+  .hbw-lamp[data-ending="true"] .hbw-lamp__page:nth-last-child(5),
+  .hbw-lamp__page--next,
+  .hbw-lamp[data-ending="true"] .hbw-lamp__page--next {
+    transition: none;
+    transition-delay: 0s;
+  }
+
+  .hbw-lamp:not([data-ending="true"]) .hbw-lamp__page--next {
+    opacity: 1;
+    transform: none;
+  }
+}
