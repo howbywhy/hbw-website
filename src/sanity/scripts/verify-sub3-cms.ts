@@ -2,7 +2,7 @@
  * Real Sanity SUB:3 → adapter → shipped local presentation.
  * Networked validation only. Not part of npm test.
  *
- * Protects: document id, 12 movements, order/ids/kind/scale/relation/resolved pace,
+ * Protects: document id, 23 movements, order/ids/kind/scale/relation/resolved pace,
  * media role identity, contain films, no pairs, working context,
  * idea/shift/system, no Outcome, no Brand DNA, critical Info fields, Sanity CDN host.
  * Surfaces catalog preview filename vs Sanity preview as editorial drift.
@@ -35,6 +35,10 @@ const EXPECTED_HINTS = [
   "shift",
   "shift",
   "shift",
+  "system",
+  "system",
+  "system",
+  "system",
   "system",
   "system",
   "system",
@@ -152,7 +156,7 @@ async function main() {
   assert.equal(project._id, SUB3_DOCUMENT_ID);
   assert.equal(result.record.id, "sub-3");
   assert.equal(experience.slug, "sub-3");
-  assert.equal(experience.movements.length, 19);
+  assert.equal(experience.movements.length, 23);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.equal(experience.authorship?.workingContext, SUB3_COPY.workingContext);
@@ -166,13 +170,21 @@ async function main() {
     experience.movements.filter((movement) => movement.relation === "pair").map((movement) => movement.id),
     []
   );
-  // The section boundaries, rather than one index: idea runs to s305, shift to
-  // s312, system to the end.
+  /*
+   * The section boundaries, rather than one index: idea runs to s305, shift
+   * to s312, system from s313 to the end at s323.
+   *
+   * That last index was 18 while the sequence ran to 22, so "the end" was
+   * being read four movements short of it — and the count above said 19
+   * against a document holding 23. Both were stale rather than wrong about
+   * the site: the published document and the shipped sequence agree, and
+   * have for a while.
+   */
   assert.equal(experience.movements[4]?.infoHint, "idea");
   assert.equal(experience.movements[5]?.infoHint, "shift");
   assert.equal(experience.movements[11]?.infoHint, "shift");
   assert.equal(experience.movements[12]?.infoHint, "system");
-  assert.equal(experience.movements[18]?.infoHint, "system");
+  assert.equal(experience.movements[22]?.infoHint, "system");
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);
 }
 
