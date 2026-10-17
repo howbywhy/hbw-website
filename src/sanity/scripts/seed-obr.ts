@@ -98,7 +98,7 @@ async function main() {
   }
 
   const previewId = await assetId(
-    "public/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg",
+    "public/projects/our-boy-roy/web/08-full-tall.jpg",
     "image"
   );
 

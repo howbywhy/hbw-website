@@ -12,7 +12,6 @@
  * made the old site pull twenty-six megabytes.
  */
 import { useRef } from "react";
-import type { ReactNode } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
 
 function Cell({
@@ -117,13 +116,11 @@ function Cell({
 
 export function Catalogue({
   projects,
-  marks,
   onOpen,
   pass = 0,
 }: {
   projects: GalleryProject[];
   /** Each project's logotype, rendered on the server. */
-  marks: Record<string, ReactNode>;
   /** Open this project's gallery over the sheet, on this frame. */
   onOpen: (slug: string, at: number) => void;
   /**
@@ -181,20 +178,16 @@ export function Catalogue({
             <p className="hbw-cat__say">{project.says}</p>
           </div>
           <div className="hbw-sheet">
-            {/* The project's mark, on black, opening the project from its first frame. */}
-            <a
-              className="hbw-cell hbw-cell--mark"
-              href={`/projects/${project.slug}`}
-              tabIndex={echo ? -1 : undefined}
-              aria-label={`${project.name} — ${project.idea}`}
-              onClick={(event) => {
-                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-                event.preventDefault();
-                onOpen(project.slug, 0);
-              }}
-            >
-              <span className="hbw-cell__mark">{marks[project.slug] ?? project.name}</span>
-            </a>
+            {/*
+              No mark at the head of the row.
+
+              Every row opened with the project's logotype reversed out of a
+              black box, which is the one thing in the strip that is not the
+              work: six black rectangles down the front page, each announcing
+              a project that the row beneath it then shows. The name is
+              already said twice over — in the chrome as you reach the row,
+              and on the line above it — so the row starts at the work.
+            */}
             {project.frames.map((frame, i) => (
               <Cell
                 key={`${project.slug}-${i}`}

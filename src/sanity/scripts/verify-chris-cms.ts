@@ -2,8 +2,8 @@
  * Real Sanity Chris Sisarich → adapter → shipped local presentation.
  * Networked validation only. Not part of npm test.
  *
- * Protects: document id, 8 movements, order/ids/kind/scale/relation/resolved pace,
- * media role identity, s02/s08 cover fit, s05 graphic, idea/shift/system, no Outcome,
+ * Protects: document id, 19 movements, order/ids/kind/scale/relation/resolved pace,
+ * media role identity, idea/shift/system, no Outcome,
  * critical Info fields, Sanity CDN host.
  * Surfaces catalog preview filename vs Sanity preview as editorial drift.
  */
@@ -22,7 +22,27 @@ import {
 } from "./cms-verify-lib";
 import { fetchPublishedProjectBySlug, sckMediaConfig } from "./fetch-sck";
 
-const EXPECTED_HINTS = ["idea", "idea", "shift", "shift", "system", "system", "system", "system"] as const;
+const EXPECTED_HINTS = [
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+] as const;
 
 function expectedMovements(): Movement[] {
   return SISARICH_EXPERIENCE.movements.map((movement, index) => ({
@@ -134,7 +154,7 @@ async function main() {
   assert.equal(project._id, CHRIS_DOCUMENT_ID);
   assert.equal(result.record.id, "chris-sisarich");
   assert.equal(experience.slug, "chris-sisarich");
-  assert.equal(experience.movements.length, 8);
+  assert.equal(experience.movements.length, 19);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.equal(experience.movements[4]?.kind, "graphic");

@@ -57,9 +57,9 @@ const cmsKoja: ProjectExperience = {
     { id: "shift", heading: KOJA_COPY.shift.heading, copy: KOJA_COPY.shift.body },
     { id: "system", heading: KOJA_COPY.system.heading, copy: KOJA_COPY.system.body },
   ],
-  movements: KOJA_EXPERIENCE.movements.map((movement) =>
-    movement.id === "k08" ? { ...movement, infoHint: "system" } : movement
-  ),
+  // No KOJA movement hints at an Outcome any more, so nothing needs remapping
+  // to a section the CMS can represent.
+  movements: KOJA_EXPERIENCE.movements,
 };
 
 const cmsChris: ProjectExperience = {
@@ -72,9 +72,9 @@ const cmsChris: ProjectExperience = {
     { id: "shift", heading: CHRIS_COPY.shift.heading, copy: CHRIS_COPY.shift.body },
     { id: "system", heading: CHRIS_COPY.system.heading, copy: CHRIS_COPY.system.body },
   ],
-  movements: SISARICH_EXPERIENCE.movements.map((movement) =>
-    movement.id === "s08" ? { ...movement, infoHint: "system" } : movement
-  ),
+  // No Chris movement hints at an Outcome any more, so nothing needs remapping
+  // to a section the CMS can represent.
+  movements: SISARICH_EXPERIENCE.movements,
 };
 
 const cmsSub3: ProjectExperience = {
@@ -104,11 +104,9 @@ const cmsObr: ProjectExperience = {
     { id: "shift", heading: OBR_COPY.shift.heading, copy: OBR_COPY.shift.body },
     { id: "system", heading: OBR_COPY.system.heading, copy: OBR_COPY.system.body },
   ],
-  movements: OBR_EXPERIENCE.movements.map((movement) => {
-    if (movement.id === "o04") return { ...movement, infoHint: "shift" as const };
-    if (movement.id === "o06" || movement.id === "o07") return { ...movement, infoHint: "system" as const };
-    return movement;
-  }),
+  // Like Chris, no OBR movement hints at an Outcome any more, so nothing
+  // needs remapping to a section the CMS can represent.
+  movements: OBR_EXPERIENCE.movements,
 };
 
 test("missing env defaults every CMS source flag to local", () => {
@@ -351,7 +349,7 @@ test("KOJA + missing flag reads the CMS", async () => {
     });
     assert.equal(pinned.source, "local");
     assert.equal(pinned.experience, KOJA_EXPERIENCE);
-    assert.equal(pinned.experience?.movements.length, 8);
+    assert.equal(pinned.experience?.movements.length, 22);
   } finally {
     if (previous === undefined) delete process.env.HBW_KOJA_SOURCE;
     else process.env.HBW_KOJA_SOURCE = previous;
@@ -370,7 +368,7 @@ test("KOJA + local flag uses shipped experience and does not fetch", async () =>
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, KOJA_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "koja");
-  assert.equal(resolved.experience?.movements.length, 8);
+  assert.equal(resolved.experience?.movements.length, 22);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
@@ -387,7 +385,7 @@ test("KOJA + sanity flag + healthy CMS uses published experience", async () => {
   assert.equal(requested, "koja");
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience?.slug, "koja");
-  assert.equal(resolved.experience?.movements.length, 8);
+  assert.equal(resolved.experience?.movements.length, 22);
   assert.equal(resolved.experience?.context, KOJA_COPY.context);
   assert.ok(resolved.experience?.authorship?.roles.includes("Brand Guidelines"));
   assert.equal(
@@ -411,7 +409,7 @@ test("KOJA + sanity flag + missing document falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, KOJA_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 8);
+  assert.equal(resolved.experience?.movements.length, 22);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
@@ -437,11 +435,14 @@ test("KOJA + sanity flag + adapter failure falls back to local", async () => {
   assert.equal(resolved.experience, KOJA_EXPERIENCE);
 });
 
-test("Chris local s05 keeps published pair and explicit normal pace", () => {
-  const s05 = SISARICH_EXPERIENCE.movements.find((movement) => movement.id === "s05");
-  assert.equal(s05?.relation, "pair");
-  assert.equal(s05?.pace, "normal");
-  assert.equal(movementPace(s05!), "normal");
+// The 2026 Chris sequence names its own pace on every movement, so this no
+// longer pins one id. The bug it guards is unchanged: a movement whose pace is
+// only derived can come back "tight" from relation, overriding what was published.
+test("Chris local movements keep their published pace", () => {
+  for (const movement of SISARICH_EXPERIENCE.movements) {
+    assert.ok(movement.pace, movement.id);
+    assert.equal(movementPace(movement), movement.pace, movement.id);
+  }
 });
 
 // The 2026 sequence publishes no pairs, so this no longer names ids. The bug it
@@ -482,7 +483,7 @@ test("Chris + missing flag reads the CMS", async () => {
     });
     assert.equal(pinned.source, "local");
     assert.equal(pinned.experience, SISARICH_EXPERIENCE);
-    assert.equal(pinned.experience?.movements.length, 8);
+    assert.equal(pinned.experience?.movements.length, 19);
   } finally {
     if (previous === undefined) delete process.env.HBW_CHRIS_SOURCE;
     else process.env.HBW_CHRIS_SOURCE = previous;
@@ -501,7 +502,7 @@ test("Chris + local flag uses shipped experience and does not fetch", async () =
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SISARICH_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "chris-sisarich");
-  assert.equal(resolved.experience?.movements.length, 8);
+  assert.equal(resolved.experience?.movements.length, 19);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
   assert.equal(loaded, false);
 });
@@ -518,17 +519,27 @@ test("Chris + sanity flag + healthy CMS uses published experience", async () => 
   assert.equal(requested, "chris-sisarich");
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience?.slug, "chris-sisarich");
-  assert.equal(resolved.experience?.movements.length, 8);
+  assert.equal(resolved.experience?.movements.length, 19);
   assert.equal(resolved.experience?.context, CHRIS_COPY.context);
   assert.deepEqual(resolved.experience?.authorship?.roles, CHRIS_COPY.roles);
   assert.equal(
     resolved.experience?.infoSections.some((section) => section.id === "outcome"),
     false
   );
-  assert.equal(resolved.experience?.movements.find((movement) => movement.id === "s02")?.media.fit, "cover");
-  assert.equal(resolved.experience?.movements.find((movement) => movement.id === "s05")?.kind, "graphic");
-  assert.equal(resolved.experience?.movements.find((movement) => movement.id === "s08")?.media.fit, "cover");
-  assert.equal(resolved.experience?.movements.find((movement) => movement.id === "s08")?.infoHint, "system");
+  // The 2026 sequence is nineteen pieces — eight films among eleven stills —
+  // every one of them contained, with no presentation override on any.
+  // override.test.ts covers the override mapping itself; this holds the round trip.
+  const kinds = resolved.experience?.movements ?? [];
+  for (const movement of kinds) {
+    assert.equal(movement.media.fit, "contain", movement.id);
+    assert.ok(["film", "portrait", "landscape"].includes(movement.kind), movement.id);
+  }
+  assert.equal(kinds.filter((movement) => movement.media.type === "video").length, 8);
+  assert.equal(kinds.filter((movement) => movement.media.type === "image").length, 11);
+  assert.deepEqual(
+    resolved.experience?.movements.map((movement) => movement.infoHint),
+    ["idea", "idea", "idea", "idea", "shift", "shift", "shift", "shift", "shift", "shift", "shift", "system", "system", "system", "system", "system", "system", "system", "system"]
+  );
 });
 
 test("Chris + sanity flag + missing document falls back to local", async () => {
@@ -540,7 +551,7 @@ test("Chris + sanity flag + missing document falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, SISARICH_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 8);
+  assert.equal(resolved.experience?.movements.length, 19);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 
@@ -702,7 +713,7 @@ test("OBR + missing flag reads the CMS", async () => {
     });
     assert.equal(pinned.source, "local");
     assert.equal(pinned.experience, OBR_EXPERIENCE);
-    assert.equal(pinned.experience?.movements.length, 7);
+    assert.equal(pinned.experience?.movements.length, 15);
   } finally {
     if (previous === undefined) delete process.env.HBW_OBR_SOURCE;
     else process.env.HBW_OBR_SOURCE = previous;
@@ -721,10 +732,15 @@ test("OBR + local flag uses shipped experience and does not fetch", async () => 
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, OBR_EXPERIENCE);
   assert.equal(resolved.experience?.slug, "our-boy-roy");
-  assert.equal(resolved.experience?.movements.length, 7);
+  assert.equal(resolved.experience?.movements.length, 15);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
-  const o02 = resolved.experience?.movements.find((movement) => movement.id === "o02");
-  assert.equal(o02?.media.srcSet, undefined);
+  // Every still in the sequence is served responsively; it used to carry one
+  // borrowed from /global with its variants switched off.
+  for (const movement of resolved.experience?.movements ?? []) {
+    if (movement.media.type !== "image") continue;
+    assert.ok(movement.media.srcSet, movement.id);
+    assert.ok(movement.media.src.startsWith("/projects/our-boy-roy/web/"), movement.id);
+  }
   assert.equal(
     resolved.experience?.movements.filter((movement) => movement.media.type === "video").every((movement) => !movement.media.webm),
     true
@@ -744,7 +760,7 @@ test("OBR + sanity flag + healthy CMS uses published experience", async () => {
   assert.equal(requested, "our-boy-roy");
   assert.equal(resolved.source, "sanity");
   assert.equal(resolved.experience?.slug, "our-boy-roy");
-  assert.equal(resolved.experience?.movements.length, 7);
+  assert.equal(resolved.experience?.movements.length, 15);
   assert.equal(resolved.experience?.context, OBR_COPY.context);
   assert.deepEqual(resolved.experience?.authorship?.roles, OBR_COPY.roles);
   assert.equal(resolved.experience?.authorship?.workingContext, OBR_COPY.workingContext);
@@ -767,7 +783,23 @@ test("OBR + sanity flag + healthy CMS uses published experience", async () => {
   );
   assert.deepEqual(
     resolved.experience?.movements.map((movement) => `${movement.id}:${movement.infoHint}`),
-    ["o01:idea", "o02:idea", "o03:shift", "o04:shift", "o05:system", "o06:system", "o07:system"]
+    [
+      "o01:idea",
+      "o02:idea",
+      "o03:idea",
+      "o04:shift",
+      "o05:shift",
+      "o06:shift",
+      "o07:shift",
+      "o08:system",
+      "o09:system",
+      "o10:system",
+      "o11:system",
+      "o12:system",
+      "o13:system",
+      "o14:system",
+      "o15:system",
+    ]
   );
 });
 
@@ -780,7 +812,7 @@ test("OBR + sanity flag + missing document falls back to local", async () => {
   });
   assert.equal(resolved.source, "local");
   assert.equal(resolved.experience, OBR_EXPERIENCE);
-  assert.equal(resolved.experience?.movements.length, 7);
+  assert.equal(resolved.experience?.movements.length, 15);
   assert.equal(resolved.experience?.infoSections.some((section) => section.id === "outcome"), false);
 });
 

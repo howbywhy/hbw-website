@@ -22,7 +22,30 @@ import {
 import { fetchPublishedProjectBySlug, sckMediaConfig } from "./fetch-sck";
 import { KOJA_COPY, KOJA_DOCUMENT_ID } from "./koja-content";
 
-const EXPECTED_HINTS = ["idea", "idea", "idea", "shift", "system", "system", "system", "system"] as const;
+const EXPECTED_HINTS = [
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "idea",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+] as const;
 
 function expectedMovements(): Movement[] {
   return KOJA_EXPERIENCE.movements.map((movement, index) => {
@@ -139,7 +162,7 @@ async function main() {
   assert.equal(project._id, KOJA_DOCUMENT_ID);
   assert.equal(result.record.id, "koja");
   assert.equal(experience.slug, "koja");
-  assert.equal(experience.movements.length, 8);
+  assert.equal(experience.movements.length, 22);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.equal(

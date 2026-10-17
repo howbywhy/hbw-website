@@ -79,7 +79,7 @@ test("Chris Sisarich parity against shipped experience", () => {
     }),
     TEST_MEDIA
   );
-  assert.equal(experience.movements.length, 8);
+  assert.equal(experience.movements.length, 19);
   const mismatches = compareMovements(SISARICH_EXPERIENCE.movements, experience.movements);
   assert.deepEqual(mismatches, [], `Chris movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
 });
@@ -117,7 +117,7 @@ test("Our Boy Roy parity against shipped experience", () => {
     TEST_MEDIA
   );
   assert.equal(experience.slug, "our-boy-roy");
-  assert.equal(experience.movements.length, 7);
+  assert.equal(experience.movements.length, 15);
   const mismatches = compareMovements(OBR_EXPERIENCE.movements, experience.movements);
   assert.deepEqual(mismatches, [], `OBR movement mismatches:\n${JSON.stringify(mismatches, null, 2)}`);
 });

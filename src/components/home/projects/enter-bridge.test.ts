@@ -133,6 +133,10 @@ test("displayed browse still matches the first movement still for every live pro
     assert.equal(row.destMatchesFirst, true, `${row.id} destination still should be the first movement`);
   }
 
+  // Four projects show a chosen hero on the catalogue rather than their own
+  // first frame. The bridge still lands on the first frame — that is the
+  // assertion above, and it holds for every project; this list only records
+  // which cards are a different picture from the one they open into.
   const catalogMismatches = rows.filter((row) => !row.catalogMatchesDest).map((row) => row.id);
-  assert.deepEqual(catalogMismatches, ["bar-closed", "chris-sisarich", "our-boy-roy"]);
+  assert.deepEqual(catalogMismatches, ["bar-closed", "koja", "chris-sisarich", "our-boy-roy"]);
 });

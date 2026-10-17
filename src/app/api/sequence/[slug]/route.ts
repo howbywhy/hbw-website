@@ -49,6 +49,26 @@ export async function GET(_: Request, { params }: { params: Promise<{ slug: stri
         };
       }),
     },
-    { headers: { "cache-control": "public, max-age=3600, s-maxage=86400" } }
+    {
+      /*
+       * Cached everywhere except the one place it cannot be corrected.
+       *
+       * This carried max-age=3600, which is an hour of the visitor's own
+       * browser holding a project's frames and never asking again. A project
+       * page is force-static, so its pictures change when a deployment lands
+       * — and anyone with the old answer in their cache kept walking into the
+       * replaced case study until they hard-refreshed. There is no way to
+       * reach into a browser and put that right.
+       *
+       * So the browser asks every time and the shared cache answers: the
+       * round trip is off the critical path — the next project is fetched
+       * while a visitor is still scrolling toward it, and the hand-over is
+       * the leaving animation's own length either way, measured unchanged at
+       * three hundred and twenty milliseconds on a three-hundred-millisecond
+       * connection. A deployment clears the shared cache, which is the only
+       * moment this answer can change.
+       */
+      headers: { "cache-control": "public, max-age=0, must-revalidate, s-maxage=31536000" },
+    }
   );
 }

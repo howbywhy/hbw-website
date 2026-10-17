@@ -12,14 +12,14 @@
  */
 import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Sheet } from "@/components/site/Sheet";
-import { IndexBody } from "@/components/site/IndexBody";
 import { StudioBody } from "@/components/site/StudioBody";
+import { useNavSettled } from "@/components/site/navSettled";
 
 export function Bar({
   here,
   says,
 }: {
-  here?: "work" | "index" | "practice" | "talk" | "conversations";
+  here?: "work" | "practice" | "talk" | "conversations";
   /**
    * The page's line for the right-hand slot. The gallery borrows the same slot
    * while it is open, to name the project it is showing.
@@ -34,28 +34,13 @@ export function Bar({
    * closes it and a link to #contact lands on it.
    */
   const [studio, setStudio] = useState<null | { at?: string }>(null);
-  /**
-   * The index, which is a sheet like the studio is a sheet.
-   *
-   * It is also a page at /projects, and the link points there, so it works
-   * without this and a shared link lands somewhere. Opened from the nav it
-   * comes over the work instead of taking you off it — the same move About
-   * makes, because it is the same kind of thing: something to consult, not
-   * somewhere else to be.
-   */
-  const [index, setIndex] = useState(false);
-  const [indexGoing, setIndexGoing] = useState(false);
-  /** The body is changing; the room is not going. */
-  const [swapping, setSwapping] = useState(false);
-  const indexLeaving = useRef(0);
 
   useEffect(() => {
     const look = () => {
       const hash = window.location.hash;
-      setIndex(hash === "#index");
       if (hash === "#studio") setStudio({});
       else if (hash === "#contact") setStudio({ at: "contact" });
-      else if (hash !== "#index") setStudio(null);
+      else setStudio(null);
     };
     look();
     window.addEventListener("hashchange", look);
@@ -75,25 +60,8 @@ export function Bar({
   const leaving = useRef(0);
 
   useEffect(() => () => window.clearTimeout(leaving.current), []);
-  useEffect(() => () => window.clearTimeout(indexLeaving.current), []);
 
 
-  /** The index leaves the way the studio does, then hands the address back. */
-  const shutIndex = useCallback((then?: () => void) => {
-    if (indexLeaving.current) return;
-    const out = Number.parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue("--out"),
-    );
-    const ms = Number.isFinite(out) && out > 0 ? out * (out < 20 ? 1000 : 1) : 300;
-    setIndexGoing(true);
-    indexLeaving.current = window.setTimeout(() => {
-      indexLeaving.current = 0;
-      setIndexGoing(false);
-      setIndex(false);
-      if (window.location.hash === "#index") history.back();
-      then?.();
-    }, ms + 220);
-  }, []);
 
 
   /**
@@ -170,63 +138,8 @@ export function Bar({
     }, ms + 220);
   }, []);
 
-  /**
-   * Its own opener, not the studio's.
-   *
-   * `openAt` pushes a hash and opens the studio, which is the whole of its
-   * job; handed "#index" it did both, so pressing Index opened About with
-   * the address saying index. One sheet at a time, and each one opened by
-   * the thing that knows which it is.
-   */
-  /**
-   * Stand the body down, then hand over — without taking the room away.
-   *
-   * `going` is what the stylesheet reads to sequence a sheet's contents
-   * out, so the swap borrows it and then clears it for the arriving body.
-   */
-  const swap = useCallback((then: () => void) => {
-    if (leaving.current) return;
-    const out = Number.parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue("--out"),
-    );
-    const ms = Number.isFinite(out) && out > 0 ? out * (out < 20 ? 1000 : 1) : 300;
-    setSwapping(true);
-    leaving.current = window.setTimeout(() => {
-      leaving.current = 0;
-      setSwapping(false);
-      setStudio(null);
-      then();
-    }, ms + 60);
-  }, []);
 
-  const openIndex = useCallback(
-    (event: React.MouseEvent) => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-      event.preventDefault();
-      const go = () => {
-        history.pushState(null, "", "#index");
-        setIndex(true);
-      };
-      /*
-       * One sheet leaves before the next arrives.
-       *
-       * Pressing Index with About open swapped one for the other in a
-       * single frame — the reading gone and a board of projects in its
-       * place, with nothing in between. Everything sequences off, then the
-       * nav moves, then the next thing sequences in; a sheet is not an
-       * exception to that because it happens to be replacing another sheet.
-       */
-      if (studio) {
-        /* The body leaves; the room stays. `close` takes the sheet away
-           with it, which is right for Close and wrong for changing what is
-           in it. */
-        swap(go);
-        return;
-      }
-      go();
-    },
-    [studio, swap]
-  );
+
 
   /**
    * Back to the start, as one sequence.
@@ -267,6 +180,34 @@ export function Bar({
   );
 
   /**
+   * Back to the work, as one sequence.
+   *
+   * The same ending wherever it is pressed: whatever is on screen leaves
+   * before the page changes, so there is never a swap. A sheet over the
+   * work shuts first and the page follows it; away from the front page the
+   * site plays its leaving and then goes; standing on the front page there
+   * is nowhere to go, so it runs the site again — the whole sequence from
+   * nothing, which is the one thing a link to the page you are on can
+   * usefully do.
+   */
+  const toWork = useCallback(
+    (event: React.MouseEvent) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+      if (studio) {
+        event.preventDefault();
+        close(() => {
+          if (window.location.pathname !== "/") window.location.assign("/");
+        });
+        return;
+      }
+      const away = window.location.pathname !== "/";
+      const then = () => (away ? window.location.assign("/") : window.location.reload());
+      if (outro(then)) event.preventDefault();
+    },
+    [close, outro, studio]
+  );
+
+  /**
    * The project the page is standing in, as the page scrolls.
    *
    * The bar is the one thing always on screen, so it is where the page says
@@ -287,19 +228,34 @@ export function Bar({
    * and after, it travels the difference, the same way the Contact pill does
    * on the poster.
    */
+  /**
+   * Whether the bar has finished arriving.
+   *
+   * --enter-type holds the words back while the row they sit in is being
+   * built, which is right on a landing and wrong forever after: the span is
+   * keyed on what it says, so a name turning over mid-session remounts and
+   * plays that four-hundred-millisecond wait again — in a bubble that is
+   * already there, with no row being built behind it. Measured, the bar then
+   * read as "still moving" for most of a second after every name change, and
+   * everything that waits for the nav waited on a word that was not doing
+   * anything yet.
+   *
+   * It is the same question the sheet asks, asked by the bar about itself:
+   * once it has stopped, it has landed, and the words stop waiting.
+   */
+  const landed = useNavSettled();
   const markRef = useRef<HTMLAnchorElement>(null);
   const markWidth = useRef(0);
   /**
-   * A sheet is up, whichever one it is.
+   * A sheet is up.
    *
-   * The mark and the line belong to the room, not to its contents. Keyed
-   * on the studio alone, going from About to the index read as leaving the
-   * sheet entirely: `studio` turned null, so the bar put the project's name
-   * back in the middle and swapped the positioning line for the project's
-   * — the two things in the nav that are supposed to be the fixed point
-   * while everything under them changes. They hold for both.
+   * The mark and the line belong to the room, not to its contents, so while
+   * a sheet is open the bar keeps saying the studio's name and the studio's
+   * line — the two things in the nav that are supposed to be the fixed point
+   * while everything under them changes. Standing in one project is the only
+   * state that names a project.
    */
-  const sheet = studio !== null || index;
+  const sheet = studio !== null;
   const saying = sheet ? "studio" : (over?.name ?? "home");
   useLayoutEffect(() => {
     const el = markRef.current;
@@ -343,7 +299,7 @@ export function Bar({
 
   return (
     <>
-      <header className="hbw-bar">
+      <header className="hbw-bar" data-landed={landed ? "true" : undefined}>
         {/* The studio grows its own mark across the sheet; this one steps
             aside rather than saying the name twice, one under the other. */}
         {/*
@@ -375,27 +331,16 @@ export function Bar({
         </p>
         <nav className="hbw-bar__nav" aria-label="Site">
           {/*
-            The index, where Home used to be.
+            Work, where Home used to be.
 
-            Home said the same thing as the mark in the middle of the same
-            row — one row of chrome with two ways to one address — and a
-            third link was one more than the row could hold, so the nav
-            wrapped onto a second line. The mark is the way home, as it
-            always was.
-
-            What was missing is the contents: the front page is the work, and
-            the only way to know what is on it is to scroll all of it. That is
-            right for meeting the work and wrong for reaching one piece of it,
-            so the nav says the thing the mark cannot.
+            It says the same thing as the mark in the middle of the same row,
+            which is the objection to it — but the mark is the studio's name
+            and reads as the studio, and the row needs a word for the thing
+            the page is actually showing. So it is named for the work and it
+            goes to the work.
           */}
-          <a
-            href="/projects"
-            aria-current={here === "index" ? "page" : undefined}
-            onClick={(event) => (index ? (event.preventDefault(), shutIndex()) : openIndex(event))}
-          >
-            {/* Open already: the same shoulder is the way back out, the way
-                About's is. */}
-            {index ? "Close" : "Index"}
+          <a href="/" aria-current={here === "work" ? "page" : undefined} onClick={toWork}>
+            Work
           </a>
           <a
             href="/practice"
@@ -404,19 +349,6 @@ export function Bar({
               if (studio) {
                 event.preventDefault();
                 close();
-                return;
-              }
-              /* The index leaves first, for the same reason. */
-              if (index) {
-                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-                event.preventDefault();
-                setSwapping(true);
-                window.setTimeout(() => {
-                  setSwapping(false);
-                  setIndex(false);
-                  history.pushState(null, "", "#studio");
-                  setStudio({});
-                }, 360);
                 return;
               }
               openAt(event, "#studio");
@@ -511,38 +443,23 @@ export function Bar({
       {/* The same shell as a project's information: one way of opening, one
           way of closing, one set of behaviours. */}
       {/*
-        One sheet, whichever is open.
+        The room, and what is in it.
         
-        About and the index were two of them, so going from one to the other
-        meant a sheet closing and a sheet opening: the room itself went, and
-        with the nav sitting above it the whole page read as changing. They
-        are two things to read in the same room. The sheet stays, the nav
-        stays, and what is under them sequences out and the next sequences
-        in — which is the same move the gallery makes between two projects.
-        
-        Keyed on which, so the body arriving is a new element with an
-        arrival of its own rather than the old one's contents swapped.
+        The sheet is the room and the body is its contents, keyed separately:
+        the body arriving is a new element with an arrival of its own rather
+        than the old one's contents swapped, and the room itself stays put
+        underneath. Keying the room as well meant it went and came back, and
+        with the nav sitting above it the whole page read as changing.
       */}
-      {studio || index ? (
+      {studio ? (
         <Sheet
-          label={index ? "Index" : "About"}
-          onClose={index ? shutIndex : close}
-          panel={index ? undefined : "hbw-studio-sheet__panel--split"}
+          label="About"
+          onClose={close}
+          panel="hbw-studio-sheet__panel--split"
           bare
-          going={index ? indexGoing : going}
-          swapping={swapping}
+          going={going}
         >
-          {/*
-            The key is on the body, not on the room.
-            
-            Put on the sheet it threw the whole thing away and built another
-            — ground, scrim, panel and all — which is a room closing and a
-            room opening however carefully the contents are sequenced. The
-            room is one element for as long as either is open; what changes
-            is what is in it, and that is what gets a new element so it has
-            an arrival of its own.
-          */}
-          {index ? <IndexBody key="index" /> : <StudioBody key="studio" start={studio?.at} />}
+          <StudioBody start={studio.at} />
         </Sheet>
       ) : null}
     </>

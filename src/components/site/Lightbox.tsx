@@ -99,7 +99,7 @@ export function Lightbox({
    * The handover at the end of the rail is the way out for someone who has
    * watched the whole set; this is the way out for everyone else. Wanting the
    * next job on frame three is not a reason to walk sixteen frames or go back
-   * to the index, and it is the same move in both directions, so the foot
+   * to the catalogue, and it is the same move in both directions, so the foot
    * carries both.
    */
   prev?: { slug: string; name: string; mark: ReactNode } | null;
@@ -177,7 +177,7 @@ export function Lightbox({
   const [arriving, setArriving] = useState(true);
   /* And it waits for the nav, the same way a sheet does and by the same
      means: the gallery is what sends the bar travelling when it opens from
-     the index, so it is the gallery that has to let the bar get there. */
+     the catalogue, so it is the gallery that has to let the bar get there. */
   const settling = !useNavSettled();
   /**
    * The writing takes the room it needs, and the work gives it up.
@@ -1032,7 +1032,7 @@ export function Lightbox({
           How the work is laid out, said where the work is.
           
           It sat in the site bar for a moment, in the slot that gets you back
-          to the index — which made the one labelled way out of a project
+          to the catalogue — which made the one labelled way out of a project
           into a pair of view options. It belongs here, beside the count,
           because it is about this set of pictures and nothing else.
         */}
@@ -1072,7 +1072,7 @@ export function Lightbox({
           The line is not said again here.
 
           It was a second element carrying the same words as the bar's own
-          line, which is why crossing between a project and the index read as
+          line, which is why crossing between a project and the catalogue read as
           a fade out and a fade in: two elements taking turns, where a visitor
           sees one line that ought to simply stay. The bar keeps it on every
           page and this row leaves it the room — see --row-left below. Only

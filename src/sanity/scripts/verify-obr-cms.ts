@@ -2,7 +2,7 @@
  * Real Sanity Our Boy Roy → adapter → shipped local presentation.
  * Networked validation only. Not part of npm test.
  *
- * Protects: document id, 7 movements, order/ids/kind/scale/relation/resolved pace,
+ * Protects: document id, 15 movements, order/ids/kind/scale/relation/resolved pace,
  * media role identity, contain films, no pairs, working context, idea/shift/system,
  * no Outcome, no Brand DNA/Strategy/Naming, critical Info fields, Sanity CDN host.
  * Surfaces catalog preview filename vs Sanity preview as editorial drift.
@@ -22,7 +22,23 @@ import {
 import { fetchPublishedProjectBySlug, sckMediaConfig } from "./fetch-sck";
 import { OBR_COPY, OBR_DOCUMENT_ID } from "./obr-content";
 
-const EXPECTED_HINTS = ["idea", "idea", "shift", "shift", "system", "system", "system"] as const;
+const EXPECTED_HINTS = [
+  "idea",
+  "idea",
+  "idea",
+  "shift",
+  "shift",
+  "shift",
+  "shift",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+  "system",
+] as const;
 
 function expectedMovements(): Movement[] {
   return OBR_EXPERIENCE.movements.map((movement, index) => ({
@@ -134,7 +150,7 @@ async function main() {
   assert.equal(project._id, OBR_DOCUMENT_ID);
   assert.equal(result.record.id, "our-boy-roy");
   assert.equal(experience.slug, "our-boy-roy");
-  assert.equal(experience.movements.length, 7);
+  assert.equal(experience.movements.length, 15);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
   assert.equal(experience.authorship?.workingContext, OBR_COPY.workingContext);

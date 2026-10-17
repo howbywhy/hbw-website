@@ -3,11 +3,37 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   agentRules: false,
+  /*
+   * A new build is a new site, and an open tab has to be told.
+   *
+   * Every project page is force-static, so its contents cannot change inside
+   * one deployment — they change when the next one lands. Until then a tab
+   * that was already open kept serving what it had: the client router holds a
+   * page it has visited for --stale-time, and no client navigation goes back
+   * to the server inside that window. Swap a project's pictures and deploy,
+   * and anyone mid-visit walks into the old case study until they refresh.
+   *
+   * Vercel gives each deployment an id, and naming it here makes the client
+   * send it with every request: when the two disagree the payload is fetched
+   * again rather than taken from the cache. Left unset off Vercel — locally a
+   * rebuild is a new build with no id to compare, so a refresh is still the
+   * way to see it.
+   */
+  ...(process.env.VERCEL_DEPLOYMENT_ID ? { deploymentId: process.env.VERCEL_DEPLOYMENT_ID } : {}),
   images: {
     unoptimized: true,
   },
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react"],
+    /*
+     * And the window itself is closed.
+     *
+     * Five minutes is the default and it is meant for pages that are
+     * expensive to fetch and cheap to be slightly wrong about. These are
+     * neither: they are prerendered files, and being wrong about one means
+     * showing work that has been replaced. Nothing is reused without asking.
+     */
+    staleTimes: { static: 0, dynamic: 0 },
   },
   async redirects() {
     return [
@@ -29,21 +55,22 @@ const nextConfig: NextConfig = {
        * structured data and pointed its canonical at /studio anyway. One
        * copy of it, at the address that carries the rest of the writing.
        *
-       * Not permanent, for the same reason as the work index below: this is
+       * Not permanent, for the same reason as the work addresses below: this is
        * an editorial decision about where the words live, and a 308 is cached
        * by browsers in a way that is painful to take back.
        */
       { source: "/manifesto", destination: "/practice", permanent: false },
       /**
-       * /projects is a page again: the index of the work.
+       * /projects is the front page.
        *
-       * It redirected here because two indexes of the same projects compete
-       * with each other in search, and the front page is the one that should
-       * carry the ranking. It still is — the index does not repeat the work,
-       * it names it — and the front page stays the canonical home of the
-       * catalogue. Someone who knows which project they want should not have
-       * to scroll the whole of it to reach one.
+       * It was a page of its own for a while, and a second list of the same
+       * projects is a second place to keep them — competing in search and,
+       * worse, making the work follow one rule inside a project and another
+       * across all of them. The work is the front page.
+       *
+       * Exact match only: /projects/<slug> is a case study and is untouched.
        */
+      { source: "/projects", destination: "/", permanent: false },
       /**
        * /work was the catalogue and is now the front page. Same reasoning as
        * above: temporary, because the address has been live and a 308 is

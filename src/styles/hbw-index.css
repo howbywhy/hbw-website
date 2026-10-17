@@ -2187,39 +2187,10 @@ html.hbw-lit .hbw-studio-sheet {
   }
 }
 
-/* ---- The mark that opens a project, and grows into it ---- */
-
-.hbw-cell--mark {
-  background: var(--ink);
-  display: grid;
-  place-items: center;
-  padding: 10%;
-}
-
-.hbw-cell__mark {
-  display: block;
-  width: 100%;
-  /* Knocked out of the black. */
-  color: var(--paper);
-}
-
-.hbw-cell__mark .hbw-mark,
-.hbw-cell__mark .hbw-mark svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  color: inherit;
-}
-
-.hbw-cell__mark .hbw-mark__text {
-  font-size: var(--nav);
-  text-align: center;
-}
-
 /*
  * A project is dark.
  *
- * The mark that opened it was a black box in the catalogue; it grows into the
+ * The row used to open on a black box carrying the mark; it grew into the
  * page, so the page is the inside of that box. Every token flips rather than
  * every rule being rewritten — the chrome, the sheets and the hairlines all
  * read from these, so they come with it.
@@ -10208,50 +10179,60 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    stagger as the arrival, at the leaving's own pace, so it reads as the
    same move run backwards rather than a different one.
    ===================================================================== */
-.hbw-studio-sheet[data-going="true"] .hbw-part__col,
+/*
+ * Every one of these carried the same hundred and eighty milliseconds, so
+ * what the note above describes as a module at a time was one flat fade
+ * wearing a sequence's clothes. Named in the order they actually go now,
+ * on --leave-step.
+ */
 .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
-.hbw-studio-sheet[data-going="true"] .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part__name {
-  opacity: 0;
-  transform: translateY(calc(var(--rise, 8px) * 0.8));
-  transition:
-    opacity var(--out) var(--ease),
-    transform var(--out) var(--ease);
-}
-
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(1) .hbw-part__name { transition-delay: 0ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(2) .hbw-part__name { transition-delay: 40ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(3) .hbw-part__name { transition-delay: 80ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(4) .hbw-part__name { transition-delay: 120ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { transition-delay: 160ms; }
-
-.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1),
-.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(1) { transition-delay: 100ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2),
-.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(n + 2) { transition-delay: 140ms; }
-
+.hbw-studio-sheet[data-going="true"] .hbw-studio__said .hbw-part,
+.hbw-studio-sheet[data-going="true"] .hbw-studio__index,
 .hbw-studio-sheet[data-going="true"] .hbw-studio__end,
-.hbw-studio-sheet[data-swapping="true"] .hbw-studio__end {
-  opacity: 0;
-  transition: opacity var(--out) var(--ease);
-  transition-delay: 0ms;
-}
-
 /* The sheet itself goes last, once what was in it has stood down. */
 .hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__panel {
   opacity: 0;
   transition: opacity var(--out) var(--ease);
-  transition-delay: 180ms;
+}
+
+/* The picture and what it says beside it go first, as they came in last. */
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(2) {
+  transition-delay: 0ms;
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1) {
+  transition-delay: var(--leave-step);
+}
+
+/* Then the reading, from the bottom up: the last module a reader was given
+   is the first one taken back. */
+.hbw-studio-sheet[data-going="true"] .hbw-studio__said .hbw-part {
+  transition-delay: calc(var(--leave-step) * 5);
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__said .hbw-part:nth-last-of-type(1) {
+  transition-delay: calc(var(--leave-step) * 2);
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__said .hbw-part:nth-last-of-type(2) {
+  transition-delay: calc(var(--leave-step) * 3);
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__said .hbw-part:nth-last-of-type(3) {
+  transition-delay: calc(var(--leave-step) * 4);
+}
+
+.hbw-studio-sheet[data-going="true"] .hbw-studio__index,
+.hbw-studio-sheet[data-going="true"] .hbw-studio__end {
+  transition-delay: calc(var(--leave-step) * 7);
+}
+
+/* And the room, with nothing left in it. Eight steps is a hundred and
+   ninety-two milliseconds; the sheet is taken out of the page at --out
+   plus two hundred and twenty, so the last edge of this has landed with
+   room to spare. */
+.hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__panel {
+  transition-delay: calc(var(--leave-step) * 8);
 }
 
 .hbw-studio-sheet[data-going="true"] .hbw-studio-sheet__scrim {
@@ -11371,32 +11352,19 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-studio-sheet[data-going="true"] .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
 .hbw-studio-sheet[data-going="true"] .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part__name {
-  opacity: 1;
-  transform: none;
-  animation: hbw-shut var(--out) var(--ease) forwards;
-}
-
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(1) .hbw-part__name { animation-delay: 0ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(2) .hbw-part__name { animation-delay: 40ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(3) .hbw-part__name { animation-delay: 80ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(4) .hbw-part__name { animation-delay: 120ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name,
-.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { animation-delay: 160ms; }
 
 .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1),
-.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(1) { animation-delay: 100ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2),
-.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(n + 2) { animation-delay: 140ms; }
 
 .hbw-part__tool[data-going="true"] {
   opacity: 1;
@@ -11561,6 +11529,15 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    */
   --enter-work: calc(var(--enter-type) + var(--in));
   --enter-step: 85ms;
+  /*
+   * And the distance between each piece on the way out.
+   *
+   * Tighter than the way in, because leaving has a budget the arrival does
+   * not: the sheet is taken out of the page --out plus 220ms after the
+   * press, so a stagger as wide as the entrance would still be running
+   * when the room it is in stops existing.
+   */
+  --leave-step: 24ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -11569,6 +11546,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
     --enter-line: 0ms;
     --enter-work: 0ms;
     --enter-step: 0ms;
+    --leave-step: 0ms;
   }
 }
 
@@ -12361,6 +12339,30 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   animation: none;
 }
 
+/*
+ * Except when the room is new, which is a different move entirely.
+ *
+ * The note above is about a hand-over: the panel is already on screen, only
+ * the work inside it changes, and clipping it takes the count, the switch
+ * and the feet away with it. Coming in from the catalogue there is no panel
+ * yet — and with nothing arriving it, the dark ground simply appeared, at
+ * full strength, before the nav had even started to move. Measured, it was
+ * there at seven hundred and thirty milliseconds and the bar did not begin
+ * travelling until seven hundred and seventy-seven.
+ *
+ * data-over tells the two apart: set, this gallery was handed over; absent,
+ * it arrived. So the room wipes in only when it is genuinely new, and the
+ * hand-over keeps its panel exactly as before.
+ *
+ * No delay of its own. The gate below holds it until the bar is quiet,
+ * which is the same clock everything else on this site waits on.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp[data-arriving="true"]:not([data-over="true"]) {
+    animation: hbw-lift var(--in) var(--ease) backwards;
+  }
+}
+
 /* The feet keep their plates for the same reason, and their names change
    inside them. */
 .hbw-lamp__feet {
@@ -12953,7 +12955,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    build, so what the work waits out is a couple of steps instead of a
    whole assembly.
    ===================================================================== */
-.hbw-lamp[data-over="true"][data-arriving="true"] {
+.hbw-lamp[data-over="true"] {
   /*
    * Nothing, because the waiting is done elsewhere now.
    *
@@ -12962,6 +12964,22 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    * is quiet, so a delay on top of that is the same wait counted twice —
    * and counted from a different moment, which is how the two drifted
    * apart in the first place. One clock.
+   *
+   * Not qualified on data-arriving, which is the whole point.
+   *
+   * It used to be, and data-arriving is true only for the gallery's first
+   * breath — so the moment the arrival finished, the flag came off, this
+   * rule stopped applying, and --enter-work went back to nine hundred and
+   * sixty milliseconds. That is a change of animation-delay on an element
+   * whose arrival had already played: the browser re-times it against the
+   * new delay, finds it inside its active window again, and plays it a
+   * second time. Measured on a hand-over with the writing open, the field
+   * arrived at one second and arrived again at two. It read as the gallery
+   * flashing after it had already settled.
+   *
+   * data-over says this gallery was handed over rather than landed on, and
+   * that stays true for as long as it exists. Held there, the delay never
+   * changes, so there is nothing to re-time.
    */
   --enter-work: 0ms;
 }
@@ -13078,207 +13096,106 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   outline-offset: 2px;
 }
 
-/* One shape for all of them.
-
-   The contact sheet keeps every frame's own proportions, because there the
-   shape of the work is the thing you are looking at. A contents page is not
-   that: set at their natural sizes the cards ran from a hundred and forty
-   pixels tall to six hundred, the rows went ragged and half the board was
-   empty. Same crop, same card, so the eye can run down the names while the
-   pictures say which is which. */
-.hbw-board__mod--work > img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  height: auto;
-  object-fit: cover;
-  margin: 0;
-  border-radius: var(--pill-r);
-  background: var(--chip);
-}
-
-/* The page's own opening takes the whole board, at every width: it is the
-   title, not one of the cards. */
-.hbw-board--index > .hbw-board__mod--wide {
-  grid-column: 1 / -1;
-}
-
-.hbw-board__name {
-  margin: 0;
-  font-size: var(--t-mid);
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--ink);
-}
-
-.hbw-board__mod--work > p {
-  margin: 0;
-}
-
-/* The board's own link padding is for a word in a sentence, not for a
-   module that happens to be a link: it would add a touch target inside a
-   target the size of a card. */
-.hbw-board a.hbw-board__mod--work {
-  padding-block: var(--pill-x);
-  margin-block: 0;
-}
-
-/* And the list arrives a few at a time, further down the row than a page
-   of three modules needs. Capped, so a long index does not take four
-   seconds to land. */
-@media (prefers-reduced-motion: no-preference) {
-  .hbw-board--index .hbw-board__mod {
-    animation-delay: calc(var(--enter-work) + var(--enter-step) * 5);
-  }
-
-  .hbw-board--index .hbw-board__mod:nth-child(1) {
-    animation-delay: var(--enter-work);
-  }
-
-  .hbw-board--index .hbw-board__mod:nth-child(2) {
-    animation-delay: calc(var(--enter-work) + var(--enter-step));
-  }
-
-  .hbw-board--index .hbw-board__mod:nth-child(3) {
-    animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
-  }
-
-  .hbw-board--index .hbw-board__mod:nth-child(4) {
-    animation-delay: calc(var(--enter-work) + var(--enter-step) * 3);
-  }
-
-  .hbw-board--index .hbw-board__mod:nth-child(5) {
-    animation-delay: calc(var(--enter-work) + var(--enter-step) * 4);
-  }
-}
-
-/* The board does not inset itself inside a sheet.
-
-   It carries two pixels of its own because on a page it is the outermost
-   thing; in a sheet the sheet is already holding it two pixels off the
-   edge, and the two added up to four. One inset, wherever the board
-   happens to be standing. */
-.hbw-studio-sheet .hbw-board {
-  padding: 0;
-}
-
 /* =====================================================================
-   A sheet waits for the nav, then arrives.
+   About arrives like everything else.
 
-   The bar sits part-way down the front page and at the top of everything
-   else, so opening a sheet from the index sends it travelling — 423 pixels
-   over about half a second — and the sheet was in place from the first
-   frame, with the nav sliding up through it afterwards. The nav leads here
-   as it does everywhere else, so the sheet is held clipped out while the
-   bar is still moving, and everything inside it is held with it: the
-   arrivals are paused rather than started early and revealed half-run.
+   The sheet had no entrance at all. Its contents were opaque thirteen
+   milliseconds after the press, under a nav still travelling for another
+   half second — the site assembling back to front in the one place the
+   nav is most obviously leading, because you pressed the nav to get here.
 
-   Then the panel comes down from the top on the site's own open, and the
-   contents run their own order inside it.
+   Two things were missing, and they are easy to mistake for one. The sheet
+   already asks the right question — useNavSettled puts data-settling on it
+   while the bar is moving — but nothing was listening, so nothing waited.
+   And there was nothing to wait for either: no piece of the sheet had an
+   arrival of its own. A gate with nothing behind it, in front of a room
+   that simply appeared.
+
+   Both below, in the vocabulary the rest of the site already speaks:
+   hbw-open, a step between each piece, the room before its contents.
    ===================================================================== */
-.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__panel,
-.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__scrim {
-  clip-path: inset(100% 0 0 0);
-}
 
-.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__panel,
-.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__panel * {
+/*
+ * The gate, connected.
+ *
+ * data-settling goes on while the bar is moving and comes off two frames
+ * after it stops — the whole bar, the name turning over included, which is
+ * the part every hand-written delay here used to miss. Until then every
+ * arrival inside is held at its first frame.
+ *
+ * Marked important because each arrival below sets `animation`, and the
+ * shorthand resets animation-play-state: any rule more specific than this
+ * one would quietly start again what this is holding still. That exact
+ * fault has been found in this file three times. This is the guard.
+ */
+.hbw-studio-sheet[data-settling="true"],
+.hbw-studio-sheet[data-settling="true"] *,
+.hbw-lamp[data-settling="true"],
+.hbw-lamp[data-settling="true"] * {
   animation-play-state: paused !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-studio-sheet:not([data-settling="true"]) .hbw-studio-sheet__panel,
-  .hbw-studio-sheet:not([data-settling="true"]) .hbw-studio-sheet__scrim {
-    animation: hbw-open var(--in) var(--ease);
+  /* The room first, on the same wipe everything else opens on. */
+  .hbw-studio-sheet__panel {
+    animation: hbw-open var(--in) var(--ease) backwards;
+  }
+
+  /* Then the contents list, which is what says how much there is. */
+  .hbw-studio-sheet .hbw-studio__index {
+    animation: hbw-open var(--in) var(--ease) var(--enter-step) backwards;
+  }
+
+  /*
+   * Then the modules, counted in.
+   *
+   * The first three on their own beat and the rest on the fourth — the
+   * rhythm the grid and the catalogue already use, for the same reason:
+   * the eye is given the pace and then the set, rather than a queue as
+   * long as the reading.
+   */
+  .hbw-studio-sheet .hbw-studio__said .hbw-part {
+    animation: hbw-open var(--in) var(--ease) calc(var(--enter-step) * 5) backwards;
+  }
+
+  .hbw-studio-sheet .hbw-studio__said .hbw-part:nth-of-type(1) {
+    animation-delay: calc(var(--enter-step) * 2);
+  }
+
+  .hbw-studio-sheet .hbw-studio__said .hbw-part:nth-of-type(2) {
+    animation-delay: calc(var(--enter-step) * 3);
+  }
+
+  .hbw-studio-sheet .hbw-studio__said .hbw-part:nth-of-type(3) {
+    animation-delay: calc(var(--enter-step) * 4);
+  }
+
+  /* And the picture and what it says beside it last, as they are first
+     out — the two halves of the sheet meeting in the middle of the move. */
+  .hbw-studio-sheet .hbw-studio__aside > * {
+    animation: hbw-open var(--in) var(--ease) calc(var(--enter-step) * 6) backwards;
+  }
+
+  .hbw-studio-sheet .hbw-studio__aside > *:nth-child(2) {
+    animation-delay: calc(var(--enter-step) * 7);
   }
 }
 
-/* The gallery waits for the nav too, by the same means as a sheet.
-
-   Opening a project from the index sends the bar travelling and changes
-   the name in it, and the work's own beat was counted from the moment the
-   gallery was built rather than from the moment the nav stopped — two
-   clocks, started at different times, drifting by however far the bar
-   happened to have to go. Nothing is timed against the nav any more; it is
-   asked. Held clipped while the bar is still moving, with everything
-   inside it paused rather than started early and revealed half-run. */
-/* No hard clip on the field. Every frame in it arrives with `backwards`,
-   so it is already holding its own opening frame while it waits — pausing
-   is enough. Clipping the whole field on top of that took the room out in
-   one step and put it back in one step, which is a blink rather than a
-   wait. */
-
-/* Held, and said so it cannot be overruled.
-
-   Every arrival here is written with the `animation` shorthand, and a
-   shorthand resets play-state to running along with everything else it
-   does — so a more specific arrival rule simply started the thing this was
-   trying to hold. Traced on a hand-over: the gate was up, the panel said
-   it was settling, and the band came in at 418ms against a nav that moved
-   until 860. This is not a style, it is a hold; it wins. */
-.hbw-lamp[data-settling="true"] .hbw-lamp__field,
-.hbw-lamp[data-settling="true"] .hbw-lamp__field *,
-.hbw-lamp[data-settling="true"] .hbw-lamp__bar,
-.hbw-lamp[data-settling="true"] .hbw-lamp__bar *,
-.hbw-lamp[data-settling="true"] .hbw-lamp__info,
-.hbw-lamp[data-settling="true"] .hbw-lamp__info * {
-  animation-play-state: paused !important;
-}
-
-/* =====================================================================
-   Handing over, the nav changes at once.
-
-   --enter-type is the beat the type waits while the nav's blocks come in
-   from the edges and build themselves — the landing. Walking from one
-   project to the next, no nav is being built: the bar is standing where it
-   was and a word inside it changes. It was waiting out that four hundred
-   milliseconds anyway, so the nav's own move ran nine hundred, and
-   everything that follows the nav waited nine hundred with it. The room
-   was empty for most of a second between one project and the next, which
-   is the blink.
-
-   Said on the bar while a hand-over is arriving: the name turns over as
-   soon as there is a new name, and what follows it follows it.
-   ===================================================================== */
-body:has(.hbw-lamp[data-over="true"][data-arriving="true"]) .hbw-bar {
-  --enter-type: 0ms;
-}
-
-/* And it changes over the shorter beat.
-
-   --in is the length of an arrival: a thing coming from somewhere into
-   place. The name and the line are not arriving on a hand-over, they are
-   being replaced where they stand, and at an --in that was the slowest
-   thing in the nav — so the work, which waits for the nav, waited five
-   hundred and sixty milliseconds for one word. The room stood empty for
-   most of a second between one project and the next. Said at an --out, the
-   nav still leads and there is far less of nothing to watch. */
-body:has(.hbw-lamp[data-over="true"][data-arriving="true"]) .hbw-bar .hbw-bar__said,
-body:has(.hbw-lamp[data-over="true"][data-arriving="true"]) .hbw-bar__over {
-  animation-duration: var(--out) !important;
-}
-
-/* The index's own modules go down when the body changes, the way the
-   writing in a gallery does — it had no departure at all, because until now
-   nothing ever replaced it in place. */
-@media (prefers-reduced-motion: no-preference) {
-  .hbw-studio-sheet[data-going="true"] .hbw-board__mod,
-  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod {
-    animation: hbw-block-down calc(var(--out) * 0.6) var(--ease) forwards;
-  }
-
-  .hbw-studio-sheet[data-going="true"] .hbw-board__mod:nth-child(2),
-  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod:nth-child(2) {
-    animation-delay: calc(var(--out) * 0.13);
-  }
-
-  .hbw-studio-sheet[data-going="true"] .hbw-board__mod:nth-child(3),
-  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod:nth-child(3) {
-    animation-delay: calc(var(--out) * 0.27);
-  }
-
-  .hbw-studio-sheet[data-going="true"] .hbw-board__mod:nth-child(n + 4),
-  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod:nth-child(n + 4) {
-    animation-delay: calc(var(--out) * 0.4);
-  }
+/*
+ * The words wait for the row only while the row is being built.
+ *
+ * --enter-type is a landing beat: the bar assembles, and the type comes in
+ * behind it. The spans are keyed on what they say, so every later name
+ * change remounts one and replays that wait — four hundred milliseconds of
+ * a word not yet turning over, inside a bubble that never moved. Nothing
+ * saw it until the nav started leading properly, and then it was a second
+ * of nothing in front of every sheet and every gallery that waits.
+ *
+ * Landed, the bar drops the beat and a word changes when it is asked to.
+ */
+.hbw-bar[data-landed="true"] .hbw-bar__nav a .hbw-bar__said,
+.hbw-bar[data-landed="true"] .hbw-bar__mark .hbw-bar__said,
+.hbw-bar[data-landed="true"] .hbw-bar__what .hbw-bar__said,
+.hbw-bar[data-landed="true"] .hbw-bar__what {
+  animation-delay: 0ms;
 }

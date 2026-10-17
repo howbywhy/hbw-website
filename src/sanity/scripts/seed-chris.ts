@@ -89,7 +89,7 @@ async function main() {
   }
 
   const previewId = await assetId(
-    "public/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg",
+    "public/projects/chris-sisarich/web/08-full-tall.jpg",
     "image"
   );
 

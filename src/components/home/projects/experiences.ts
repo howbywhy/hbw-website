@@ -292,59 +292,115 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
   context: KOJA_COPY.context,
   authorship: authorshipFromCopy(KOJA_COPY),
   movements: [
-    mv("k01", "portrait", jpg("/projects/koja/670666ebdd4b35e158f69532_HBWxKOJA-Portfolio4.jpg", 1080, 1350), "idea", {
-      scale: "standard",
-      alt: "Bright green KOJA tape sealing stacked cardboard boxes.",
-    }),
-    mv(
-      "k02",
-      "film",
-      film(
-        "/projects/koja/web/KOJA-Peanut-Fudge.mp4",
-        1080,
-        1080,
-        "/projects/koja/web/KOJA-Peanut-Fudge.jpg",
-        "contain",
-        "/projects/koja/web/KOJA-Peanut-Fudge.webm"
-      ),
-      "idea",
-      { scale: "detail", alt: "Peanut Fudge plant-protein bar on a cork coaster beside palo santo." }
-    ),
-    mv("k03", "film", film("/projects/koja/web/KOJA-Logo.mp4", 1920, 1080, "/projects/koja/web/KOJA-Logo.jpg"), "idea", {
+    mv("k01", "film", film("/projects/koja/web/01-full-wide.mp4", 1920, 1080, "/projects/koja/web/01-full-wide.jpg"), "idea", {
       scale: "major",
       pace: "pause",
-      alt: "Off-white K letter moving on a green field.",
+      alt: "The KOJA logotype assembling letter by letter, the ground changing colour behind it.",
     }),
-    mv("k04", "portrait", webp("/projects/koja/68fb10b7f3a747a3e36c24a0_KOJA_May2023_60.webp", 1344, 2016), "shift", {
+    mv("k02", "film", film("/projects/koja/web/02-full-wide.mp4", 1920, 1080, "/projects/koja/web/02-full-wide.jpg"), "idea", {
       scale: "standard",
-      alt: "Person carrying a KOJA carton across a brick patio.",
+      pace: "normal",
+      alt: "KOJA bars turning one after another on a pale grey ground.",
     }),
-    mv("k05", "film", film("/projects/koja/web/KOJA-BickieBites.mp4", 810, 1440, "/projects/koja/web/KOJA-BickieBites.jpg"), "system", {
-      scale: "standard",
-      alt: "Choc Brownie Bickie Bites pouch against a grainy brownie-textured ground.",
+    mv("k03", "film", film("/projects/koja/web/03-full-story.mp4", 1080, 1920, "/projects/koja/web/03-full-story.jpg"), "idea", {
+      scale: "detail",
+      pace: "normal",
+      alt: "KOJA repeated down the frame in green, Keep it real. written across it.",
     }),
-    mv("k06", "film", film("/projects/koja/web/KOJA-Oat-Bites.mp4", 1440, 810, "/projects/koja/web/KOJA-Oat-Bites.jpg"), "system", {
+    mv("k04", "film", film("/projects/koja/web/04-full-square.mp4", 1350, 1350, "/projects/koja/web/04-full-square.jpg"), "idea", {
       scale: "standard",
-      alt: "Orange Oat Bites carton at an angle on a black-and-white textured ground.",
+      pace: "normal",
+      alt: "Letters of the KOJA alphabet filling the frame, the ground changing colour behind them.",
     }),
-    mv(
-      "k07",
-      "film",
-      film(
-        "/projects/koja/web/KOJA-Oat-Bites-Dielines.mp4",
-        1440,
-        810,
-        "/projects/koja/web/KOJA-Oat-Bites-Dielines.jpg",
-        "contain",
-        "/projects/koja/web/KOJA-Oat-Bites-Dielines.webm"
-      ),
-      "system",
-      { scale: "detail", alt: "Raspberry Choc Chip Oat Bites carton unfolding through dieline panels." }
-    ),
-    mv("k08", "portrait", jpg("/projects/koja/692697b8f9541bb2a997169b_HBWKOJA1125-Portfolio8.jpg", 4500, 5625), "outcome", {
+    mv("k05", "portrait", jpg("/projects/koja/web/05-Website.jpg", 1350, 2488), "idea", {
       scale: "standard",
+      pace: "normal",
+      alt: "The shop page in full: Healthy Made Simple above three cartons, photography and the footer beneath.",
+    }),
+    mv("k06", "film", film("/projects/koja/web/06-full-tall.mp4", 1350, 1688, "/projects/koja/web/06-full-tall.jpg"), "idea", {
+      scale: "detail",
       pace: "pause",
-      alt: "Gluten Free, Australian Made, and Plant Based marks on green.",
+      alt: "A Plant Based leaf mark in off-white on green.",
+    }),
+    mv("k07", "portrait", jpg("/projects/koja/web/07-full-tall.jpg", 1350, 1688), "shift", {
+      scale: "major",
+      pace: "pause",
+      alt: "A person carrying a KOJA carton along a brick path past a timber screen.",
+    }),
+    mv("k08", "film", film("/projects/koja/web/08-full-tall.mp4", 1350, 1688, "/projects/koja/web/08-full-tall.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "MEET YOUR NEW LUNCHBOX HERO on yellow above a Lemon and Coconut Oat Bar.",
+    }),
+    mv("k09", "film", film("/projects/koja/web/09-full-tall.mp4", 1350, 1688, "/projects/koja/web/09-full-tall.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "The back of a KOJA Oat Bar wrapper in Lemon and Coconut, panels and oat marks on pale yellow.",
+    }),
+    mv("k10", "film", film("/projects/koja/web/10-full-wide.mp4", 1920, 1080, "/projects/koja/web/10-full-wide.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Oat Bites cartons turning over a black-and-white halftone ground.",
+    }),
+    mv("k11", "film", film("/projects/koja/web/12-full-tall.mp4", 1350, 1688, "/projects/koja/web/12-full-tall.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A KOJA Oat Bites Muesli Slice carton on orange.",
+    }),
+    mv("k12", "film", film("/projects/koja/web/13-instagram-tall.mp4", 1350, 1688, "/projects/koja/web/13-instagram-tall.jpg"), "shift", {
+      scale: "detail",
+      pace: "normal",
+      alt: "An Instagram story on a phone: MEET YOUR NEW LUNCHBOX HERO over a Muesli Slice Oat Bite on orange.",
+    }),
+    mv("k13", "portrait", jpg("/projects/koja/web/14-Website.jpg", 1350, 2064), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "The product listing page, six bars in a grid with frequently asked questions beneath.",
+    }),
+    mv("k14", "film", film("/projects/koja/web/15-full-tall.mp4", 1350, 1688, "/projects/koja/web/15-full-tall.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "40% LESS SUGAR on deep brown above a Choc Brownie Bickie Bites pouch.",
+    }),
+    mv("k15", "film", film("/projects/koja/web/16-instagram-tall.mp4", 1350, 1688, "/projects/koja/web/16-instagram-tall.jpg"), "system", {
+      scale: "detail",
+      pace: "normal",
+      alt: "An Instagram post on a phone: KOJA Oat Bites Muesli Slice, with slices scattered across orange and the pack claims beneath.",
+    }),
+    mv("k16", "film", film("/projects/koja/web/17-full-story.mp4", 1080, 1920, "/projects/koja/web/17-full-story.jpg"), "system", {
+      scale: "detail",
+      pace: "normal",
+      alt: "TAKE YOUR PICK on blue above three Bickie Bites pouches.",
+    }),
+    mv("k17", "film", film("/projects/koja/web/18-full-story.mp4", 1080, 1920, "/projects/koja/web/18-full-story.jpg"), "system", {
+      scale: "detail",
+      pace: "pause",
+      alt: "A customer talking to camera in a story, holding KOJA packs.",
+    }),
+    mv("k18", "film", film("/projects/koja/web/19-row-row.mp4", 1920, 1186, "/projects/koja/web/19-row-row.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A Bickie Bites pouch on soil beside a dietitian's note recommending KOJA to her clients.",
+    }),
+    mv("k19", "film", film("/projects/koja/web/20-full-tall.mp4", 1350, 1688, "/projects/koja/web/20-full-tall.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "STOCK UP set large in off-white on green above PB Bars.",
+    }),
+    mv("k20", "film", film("/projects/koja/web/21-row-row.mp4", 1920, 1186, "/projects/koja/web/21-row-row.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "The KOJA feed on a phone beside someone holding four packs over a table of stacked bars, captioned Now Available At Coles.",
+    }),
+    mv("k21", "film", film("/projects/koja/web/22-full-tall.mp4", 1350, 1688, "/projects/koja/web/22-full-tall.jpg"), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "A KOJA Oat Bites poster lit in a street-side digital panel.",
+    }),
+    mv("k22", "film", film("/projects/koja/web/23-full-tall.mp4", 1350, 1688, "/projects/koja/web/23-full-tall.jpg"), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "THANKS FOR THE SUPPORT on pale yellow, Keep it real. beneath and the addresses at the foot.",
     }),
   ],
 };
@@ -463,35 +519,80 @@ export const OBR_EXPERIENCE: ProjectExperience = {
   context: OBR_COPY.context,
   authorship: authorshipFromCopy(OBR_COPY),
   movements: [
-    mv("o01", "portrait", jpg("/projects/our-boy-roy/666173bcb7178cfee98b71c0_HBWxOBR-Portfolio5.jpg", 1080, 1350), "idea", {
-      scale: "standard",
-      alt: "OUR BOY ROY lettering on a lavender espresso machine, shadowed onto timber panelling.",
-    }),
-    mv("o02", "landscape", jpg("/global/681c2b687b9d95dbdf305106_HBWxOBR.jpg", 1920, 1080, "contain", []), "idea", {
+    mv("o01", "landscape", jpg("/projects/our-boy-roy/web/01-full-wide.jpg", 1920, 1080), "idea", {
       scale: "major",
       pace: "pause",
-      alt: "White brick shopfront with lilac doors, pink diamond tiling, and window lettering.",
+      alt: "A white brick shopfront with lilac doors and window lettering, seen from across the road.",
     }),
-    mv("o03", "portrait", jpg("/projects/our-boy-roy/66626aa420e92cdf8d975c8b_HBWxOBR-Portfolio3.jpg", 1080, 1350), "shift", {
+    mv("o02", "landscape", jpg("/projects/our-boy-roy/web/02-full-wide.jpg", 1920, 1080), "idea", {
       scale: "standard",
-      alt: "Cube lightbox with stacked OUR BOY ROY type hanging under a verandah.",
+      pace: "normal",
+      alt: "A lavender espresso machine on a timber counter, the name shadowed onto the wall behind it.",
     }),
-    mv("o04", "film", film("/projects/our-boy-roy/web/OBR-Colour-Change.mp4", 1440, 810, "/projects/our-boy-roy/web/OBR-Colour-Change.jpg"), "shift", {
+    mv("o03", "film", film("/projects/our-boy-roy/web/03-full-wide.mp4", 1920, 1080, "/projects/our-boy-roy/web/03-full-wide.jpg"), "idea", {
       scale: "standard",
-      alt: "Line-drawn figure in checkered pants holding a bottle as the ground colour shifts.",
+      pace: "normal",
+      alt: "A line-drawn figure in checked trousers on pale yellow, the ground colour shifting behind.",
     }),
-    mv("o05", "portrait", jpg("/projects/our-boy-roy/666173bcbf2a7a2babaeb1aa_HBWxOBR-Portfolio8.jpg", 1080, 1350), "system", {
+    mv("o04", "landscape", jpg("/projects/our-boy-roy/web/04-full-wide.jpg", 1920, 1080), "shift", {
       scale: "standard",
-      alt: "Back of a white shirt with stacked light-blue OUR BOY ROY lettering.",
+      pace: "normal",
+      alt: "The fit-out from the door: timber counter, black stools and shelves of produce.",
     }),
-    mv("o06", "portrait", jpg("/projects/our-boy-roy/666175d7d04fcd0592a30a48_OBR-Instagram-Posts19.jpg", 1080, 1350), "outcome", {
+    mv("o05", "portrait", jpg("/projects/our-boy-roy/web/05-full-tall.jpg", 1350, 1688), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Two rolls of branded tape, orange and blue, on lilac checkerboard paper.",
+    }),
+    mv("o06", "landscape", jpg("/projects/our-boy-roy/web/06-full-wide.jpg", 1920, 1080), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Three menu cards on black — Schnittty, Viva La Roy and Benny, Roy — each above its sandwich.",
+    }),
+    mv("o07", "portrait", jpg("/projects/our-boy-roy/web/07-full-tall.jpg", 1334, 2000), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A crumbed schnitzel roll on lilac-checked paper over a branded plate, a drinks menu and a smoothie beside it on white tile.",
+    }),
+    mv("o08", "portrait", jpg("/projects/our-boy-roy/web/08-full-tall.jpg", 1334, 2000), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "The back of an off-white tee with OUR BOY ROY stacked in blue, worn against a painted brick wall.",
+    }),
+    mv("o09", "landscape", jpg("/projects/our-boy-roy/web/09-full-wide.jpg", 1920, 1080), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "The room along the counter, shelves of produce down one wall.",
+    }),
+    mv("o10", "portrait", jpg("/projects/our-boy-roy/web/10-full-tall.jpg", 1350, 1688), "system", {
       scale: "detail",
-      alt: "Line-drawn chef behind a pan reading Chef Needed on pink.",
+      pace: "normal",
+      alt: "A paper carry bag and a taped box on white tile.",
     }),
-    mv("o07", "film", film("/projects/our-boy-roy/web/OBR-Mortadella.mp4", 1080, 1350, "/projects/our-boy-roy/web/OBR-Mortadella.jpg"), "outcome", {
+    mv("o11", "portrait", jpg("/projects/our-boy-roy/web/11-full-tall.jpg", 1334, 2000), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "The dining room: pink chairs and a houndstooth banquette under striped wall lights, plates set out, a tiled booth through the opening behind.",
+    }),
+    mv("o12", "landscape", jpg("/projects/our-boy-roy/web/12-full-wide.jpg", 1920, 1080), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Three posters on black: Chef Needed, MORNING repeated in orange, and the opening hours.",
+    }),
+    mv("o13", "film", film("/projects/our-boy-roy/web/13-tiktok-tall.mp4", 1350, 1688, "/projects/our-boy-roy/web/13-tiktok-tall.jpg"), "system", {
+      scale: "detail",
+      pace: "pause",
+      alt: "MORTADELLA MADNESS on a phone, a mortadella roll above a promise of a new sando each week.",
+    }),
+    mv("o14", "landscape", jpg("/projects/our-boy-roy/web/14-full-wide.jpg", 1920, 1280), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "The corner shop under a gum tree, its whole side wall painted with checks, bottles, a daisy and produce shapes.",
+    }),
+    mv("o15", "landscape", jpg("/projects/our-boy-roy/web/15-full-wide.jpg", 1920, 1280), "system", {
       scale: "standard",
       pace: "pause",
-      alt: "Mortadella slice with cartoon hands on lavender, framed by MORTADELLA MADNESS type.",
+      alt: "Three yellow takeaway cups on a steel counter against lilac, each carrying a letter of ROY held by a little drawn figure.",
     }),
   ],
 };
@@ -502,59 +603,101 @@ export const SISARICH_EXPERIENCE: ProjectExperience = {
   context: CHRIS_COPY.context,
   authorship: authorshipFromCopy(CHRIS_COPY),
   movements: [
-    mv("s01", "portrait", jpg("/projects/chris-sisarich/665d934ad04dcf11bb8bbc5b_HBWxChrisSisarich-Portfolio13.jpg", 1080, 1350), "idea", {
-      scale: "standard",
-      alt: "Framed poster on concrete with the name over a small landscape still and a vehicle on rock.",
-    }),
-    mv(
-      "s02",
-      "film",
-      film(
-        "/projects/chris-sisarich/web/HBWCSHOME-Website.mp4",
-        1440,
-        814,
-        "/projects/chris-sisarich/web/HBWCSHOME-Website.jpg",
-        "cover"
-      ),
-      "idea",
-      { scale: "standard", alt: "Homepage with the name over scattered photography thumbnails as they rearrange." }
-    ),
-    mv("s03", "portrait", jpg("/projects/chris-sisarich/6663143cb87a78fa3d4c90be_HBWxChrisSisarich-uPortfolio5.jpg", 1080, 1350), "shift", {
+    mv("s01", "portrait", jpg("/projects/chris-sisarich/web/01-full-tall.jpg", 1350, 1688), "idea", {
       scale: "major",
       pace: "pause",
-      alt: "Two faces stacked in a gap of damask fabric, one in sunglasses, one smiling.",
+      alt: "Rubble and two blocks of orange-striped stone under a pale sky, a handwritten note pinned above them and a fine blue arc drawn across.",
     }),
-    mv("s04", "landscape", jpg("/projects/chris-sisarich/665d934b1652bff63884d5f9_HBWxChrisSisarich-Portfolio18.jpg", 1920, 1080), "shift", {
-      scale: "standard",
-      alt: "Aerial performers on silks against a striped wall, with small colour car stills inset.",
-    }),
-    mv("s05", "graphic", jpg("/global/666313d5a9df92c312c71e3f_CS-Layout-DD.12.jpg", 595, 842), "system", {
+    mv("s02", "film", film("/projects/chris-sisarich/web/02-two-pair.mp4", 1920, 1194, "/projects/chris-sisarich/web/02-two-pair.jpg"), "idea", {
       scale: "standard",
       pace: "normal",
-      relation: "pair",
-      alt: "Low-angle of a person in a white tank, arm casting a shadow, under a type header.",
+      alt: "A black-and-white portrait beside a page carrying the name over a blurred braid, credits ranged along the foot.",
     }),
-    mv("s06", "film", film("/projects/chris-sisarich/web/CS-System.mp4", 1080, 1350, "/projects/chris-sisarich/web/CS-System.jpg"), "system", {
+    mv("s03", "film", film("/projects/chris-sisarich/web/03-browser-wide.mp4", 1920, 1080, "/projects/chris-sisarich/web/03-browser-wide.jpg"), "idea", {
       scale: "standard",
-      alt: "Name, blurred embrace, and agency columns assembling as a system layout.",
+      pace: "normal",
+      alt: "The site in a browser window, photography scattered across the grid over the ghosted name.",
     }),
-    mv("s07", "landscape", jpg("/projects/chris-sisarich/665d93483f1d5500f3892332_HBWxChrisSisarich-Portfolio8.jpg", 1920, 1080), "system", {
+    mv("s04", "film", film("/projects/chris-sisarich/web/04-full-tall.mp4", 1350, 1688, "/projects/chris-sisarich/web/04-full-tall.jpg"), "idea", {
+      scale: "detail",
+      pace: "pause",
+      alt: "A column of navigation dots, the active one stretching into a pill that reads Sports.",
+    }),
+    mv("s05", "film", film("/projects/chris-sisarich/web/05-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/05-full-square.jpg"), "shift", {
       scale: "standard",
-      alt: "Three-panel sequence of a runner, sharp in the centre and motion-blurred at the sides.",
+      pace: "normal",
+      alt: "A photograph of two people running through long grass enlarging over the ghosted name.",
     }),
-    mv(
-      "s08",
-      "film",
-      film(
-        "/projects/chris-sisarich/web/HBWCSIMAGES-Website.mp4",
-        1440,
-        814,
-        "/projects/chris-sisarich/web/HBWCSIMAGES-Website.jpg",
-        "cover"
-      ),
-      "outcome",
-      { scale: "standard", pace: "pause", alt: "Photography grid of cars and people as the site filters through categories." }
-    ),
+    mv("s06", "film", film("/projects/chris-sisarich/web/06-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/06-full-square.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A dense block of photography thumbnails settling over the ghosted name.",
+    }),
+    mv("s07", "film", film("/projects/chris-sisarich/web/07-iphone-tall.mp4", 1350, 1688, "/projects/chris-sisarich/web/07-iphone-tall.jpg"), "shift", {
+      scale: "detail",
+      pace: "normal",
+      alt: "The site on a phone, Directing and Index pills either side of the photographs over the name.",
+    }),
+    mv("s08", "portrait", jpg("/projects/chris-sisarich/web/08-full-tall.jpg", 1350, 1688), "shift", {
+      scale: "major",
+      pace: "pause",
+      alt: "A coach alone on a desert road beneath red cliffs, the name set white across the sky.",
+    }),
+    mv("s09", "landscape", jpg("/projects/chris-sisarich/web/09-full-wide.jpg", 1920, 1080), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A red car parked on gravel against a rammed-earth wall.",
+    }),
+    mv("s10", "film", film("/projects/chris-sisarich/web/10-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/10-full-square.jpg"), "shift", {
+      scale: "standard",
+      pace: "pause",
+      alt: "A woman in green beside a red car held over the ghosted name, with an invitation to send a postcard beneath.",
+    }),
+    mv("s11", "landscape", jpg("/projects/chris-sisarich/web/11-two-pair.jpg", 1920, 1194), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A grid of small photographs under the name, beside a blurred orange bloom over a page of handwriting.",
+    }),
+    mv("s12", "portrait", jpg("/projects/chris-sisarich/web/12-full-tall.jpg", 1350, 1688), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Two stacked spreads: a car on a mountain road above a desert horizon, the name across each.",
+    }),
+    mv("s13", "landscape", jpg("/projects/chris-sisarich/web/13-full-square.jpg", 1350, 1350), "system", {
+      scale: "detail",
+      pace: "normal",
+      alt: "A white information sheet on black with the name ghosted at its head.",
+    }),
+    mv("s14", "portrait", jpg("/projects/chris-sisarich/web/14-full-tall.jpg", 1350, 1688), "system", {
+      scale: "detail",
+      pace: "pause",
+      alt: "Two business cards on black, one blank and one carrying phone, email, website and Instagram.",
+    }),
+    mv("s15", "landscape", jpg("/projects/chris-sisarich/web/15-two-pair.jpg", 1920, 1194), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A red and white striped tower beside a pinned page of figures, arrows and the name.",
+    }),
+    mv("s16", "portrait", jpg("/projects/chris-sisarich/web/16-full-tall.jpg", 610, 2000), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "An email issue running the full column: the name over a coast road shot from above, two projects set out beneath it, and the name again at the foot.",
+    }),
+    mv("s17", "portrait", jpg("/projects/chris-sisarich/web/17-full-tall.jpg", 1350, 1688), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A framed poster on a concrete wall, the name over a small landscape still.",
+    }),
+    mv("s18", "landscape", jpg("/projects/chris-sisarich/web/18-full-wide.jpg", 1920, 1080), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A lit poster on a concrete street wall under bunting, the name along its foot.",
+    }),
+    mv("s19", "film", film("/projects/chris-sisarich/web/19-full-wide.mp4", 1920, 1080, "/projects/chris-sisarich/web/19-full-wide.jpg"), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "The archive spread edge to edge as a loose grid of small photographs on white.",
+    }),
   ],
 };
 

@@ -19,7 +19,6 @@ import type { ReactNode } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
 import { useStillness } from "@/components/site/still";
 import type { InfoData } from "@/components/site/project-info";
-import { Footer } from "@/components/site/Footer";
 import { Catalogue } from "@/components/site/Catalogue";
 import { Lightbox } from "@/components/site/Lightbox";
 import type { Shot } from "@/components/site/shots";
@@ -505,7 +504,7 @@ export function Work({
      * This bailed out and let the gallery push its own line into the chrome,
      * so the bar read differently depending on whether the work was open or
      * merely scrolled past. Told the same thing either way, the nav on a
-     * project is the nav on the index.
+     * project is the nav on the catalogue.
      */
     if (open) {
       /*
@@ -868,7 +867,7 @@ export function Work({
         
         The open project was pushed into the chrome as a line of its own,
         which is why a project page said "How by Why" with the project's name
-        underneath it in a second row — while the index, scrolled to the same
+        underneath it in a second row — while the catalogue, scrolled to the same
         project, said the project's name with its line beneath. Two ways of
         saying where you are. The bar is told the same way in both cases now,
         by the event below.
@@ -1019,7 +1018,6 @@ export function Work({
           <div className="hbw-turn" key={pass}>
             <Catalogue
               projects={projects}
-              marks={marks}
               onOpen={(slug, at) => void leave(slug, at)}
               pass={pass}
             />
@@ -1034,22 +1032,15 @@ export function Work({
               carries it.
             */}
             {/*
-              Only the first turn's foot is a foot.
-              
-              The loop prints the catalogue three times and the other two are
-              scenery — their sections already carry aria-hidden and take
-              their links out of the order. The foot was added without the
-              same treatment, so a reader using a keyboard or a screen reader
-              met the same newsletter field and the same row of ways out
-              three times on one page.
+              No foot on the front page.
+
+              The work is the page, and the foot was a second set of ways out
+              underneath it — the studio's name, its addresses and a
+              newsletter field, repeated once per turn of a loop that prints
+              the catalogue three times. The nav carries the only two moves
+              the front page needs, and everything the foot said lives in
+              About, which is one of them.
             */}
-            {pass === 0 ? (
-              <Footer />
-            ) : (
-              <div aria-hidden="true" className="hbw-turn__echo-foot">
-                <Footer />
-              </div>
-            )}
           </div>
         ))}
       </div>

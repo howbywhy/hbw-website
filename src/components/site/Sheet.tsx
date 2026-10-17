@@ -18,7 +18,6 @@ export function Sheet({
   panel: panelClass,
   bare = false,
   going = false,
-  swapping = false,
 }: {
   label: string;
   children: ReactNode;
@@ -43,15 +42,6 @@ export function Sheet({
    * chrome saying almost nothing. Where the bar can carry the way out, it
    * does, and the sheet starts at its content.
    */
-  /**
-   * The body is changing, but the room is not going.
-   *
-   * `going` stands the contents down AND takes the panel, the scrim and
-   * the sheet's own ground with them, which is right for Close and reads
-   * as closing when all that is happening is that About is becoming the
-   * index. This stands the contents down and leaves the room where it is.
-   */
-  swapping?: boolean;
   bare?: boolean;
 }) {
   const panel = useRef<HTMLElement>(null);
@@ -91,7 +81,6 @@ export function Sheet({
     <div
       className="hbw-studio-sheet hbw-over"
       data-going={going ? "true" : undefined}
-      data-swapping={swapping ? "true" : undefined}
       data-settling={settling ? "true" : undefined}
       role="dialog"
       aria-modal="true"

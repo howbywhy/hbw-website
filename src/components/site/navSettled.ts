@@ -41,7 +41,7 @@ export function useNavSettled() {
      * The bar's pieces do not all start together: the travel begins with
      * the thing that is arriving, and the name and the line change when
      * the page gets round to telling the bar which project it is over —
-     * measured on a click from the index, a dozen milliseconds after the
+     * measured on a click from the catalogue, a dozen milliseconds after the
      * gallery was built, which is after a single ask had already been
      * answered. Waiting once let the work out while the name was still
      * turning over. It waits until the bar is quiet, however many goes
