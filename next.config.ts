@@ -35,17 +35,15 @@ const nextConfig: NextConfig = {
        */
       { source: "/manifesto", destination: "/practice", permanent: false },
       /**
-       * The work index is the front page. Two indexes of the same six
-       * projects compete with each other in search, so the old addresses
-       * point at the one that carries them.
+       * /projects is a page again: the index of the work.
        *
-       * Not permanent, deliberately. /projects is already indexed, and a 308
-       * is cached by browsers and hard to take back. Make it permanent once
-       * /work has settled and is the address that should carry the ranking.
-       *
-       * Exact match only: /projects/<slug> is a case study and is untouched.
+       * It redirected here because two indexes of the same projects compete
+       * with each other in search, and the front page is the one that should
+       * carry the ranking. It still is — the index does not repeat the work,
+       * it names it — and the front page stays the canonical home of the
+       * catalogue. Someone who knows which project they want should not have
+       * to scroll the whole of it to reach one.
        */
-      { source: "/projects", destination: "/", permanent: false },
       /**
        * /work was the catalogue and is now the front page. Same reasoning as
        * above: temporary, because the address has been live and a 308 is

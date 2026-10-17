@@ -57,6 +57,7 @@ export function Lightbox({
   prev,
   onPrev,
   began = false,
+  over = false,
 }: {
   shots: Shot[];
   at: number;
@@ -114,6 +115,8 @@ export function Lightbox({
    * other step in here arrives.
    */
   began?: boolean;
+  /** Whether this project came from another project rather than from the page. */
+  over?: boolean;
   /**
    * What the project says about itself. It opens as the same sheet the studio
    * uses, from this bar — the gallery is where a visitor is when they want to
@@ -192,7 +195,7 @@ export function Lightbox({
     };
     const id = window.setTimeout(
       () => setArriving(false),
-      ms("--enter-work", 530) + ms("--in", 460) + 120
+      ms("--enter-work", 960) + ms("--in", 560) + 120
     );
     return () => window.clearTimeout(id);
   }, []);
@@ -241,7 +244,31 @@ export function Lightbox({
     if (!room) return;
     const root = document.documentElement;
     const read = () => {
-      const want = room.scrollHeight;
+      /*
+       * The modules, not the room they are in.
+       *
+       * This read the room's own scrollHeight — and the room's height is
+       * this very value, so the number could never come back smaller than
+       * the one it had last time. Walking from a project with a wide
+       * collaborators module to one without it left the row at the taller
+       * project's height: a hundred and thirteen pixels of empty room
+       * under the writing, held by a block that was not there any more.
+       *
+       * Measured off the modules it holds, the row is only ever as tall as
+       * what is in it. Layout, not paint: offsetTop and offsetHeight ignore
+       * the transforms and clips the modules are carrying while they
+       * arrive, which a bounding rect would read as the real size.
+       */
+      const kids = Array.from(room.querySelectorAll<HTMLElement>(".hbw-info__grid > *"));
+      if (!kids.length) return;
+      let top = Infinity;
+      let foot = 0;
+      for (const kid of kids) {
+        top = Math.min(top, kid.offsetTop);
+        foot = Math.max(foot, kid.offsetTop + kid.offsetHeight);
+      }
+      const below = Number.parseFloat(getComputedStyle(room).paddingBottom) || 0;
+      const want = Math.round(foot - top + below);
       if (!want) return;
       /* Never more than the room can give: the gallery has to stay a
          gallery, so the writing stops at a little over half the screen and
@@ -278,7 +305,7 @@ export function Lightbox({
     }
     setClosing(true);
     setFull(false);
-    staging.current = window.setTimeout(() => setClosing(false), beat("--in", 460));
+    staging.current = window.setTimeout(() => setClosing(false), beat("--in", 560));
   }, [beat, stillness]);
   const pages = useRef<HTMLDivElement>(null);
   /** The handover panel sits one past the last frame. */
@@ -623,13 +650,75 @@ export function Lightbox({
           best = cols;
         }
       }
+      if (box.style.getPropertyValue("--cols") === String(best)) return;
+      /*
+       * A new arrangement is a move, like every other change to this set.
+       *
+       * Opening the writing takes a third of the room away, so the grid
+       * that fitted nineteen frames in six columns needs eight — and the
+       * old answer was simply to write the new number down, which resized
+       * and repositioned every frame between two paints. Measured while
+       * the writing opened: the frames were 238 by 175 on one frame and
+       * 178 by 225 on the next. That is the flash.
+       *
+       * Where each frame was is taken before the change and given back to
+       * it after, and then let go — the same move the band makes when it
+       * becomes the sheet, because it is the same kind of event.
+       */
+      const frames = Array.from(box.querySelectorAll<HTMLElement>(".hbw-lamp__page"));
+      const was = new Map<HTMLElement, DOMRect>();
+      for (const one of frames) was.set(one, one.getBoundingClientRect());
       box.style.setProperty("--cols", String(best));
       box.style.setProperty("--rows", String(Math.ceil(n / best)));
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const moving: HTMLElement[] = [];
+      for (const one of frames) {
+        const before = was.get(one);
+        const after = one.getBoundingClientRect();
+        if (!before || !before.width || !after.width) continue;
+        one.style.transformOrigin = "top left";
+        one.style.transition = "none";
+        one.style.transform =
+          `translate(${before.left - after.left}px, ${before.top - after.top}px)` +
+          ` scale(${before.width / after.width}, ${before.height / after.height})`;
+        moving.push(one);
+      }
+      if (!moving.length) return;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          for (const one of moving) {
+            one.style.transition = "transform var(--in) var(--ease)";
+            one.style.transform = "";
+          }
+        });
+      });
+      window.setTimeout(() => {
+        for (const one of moving) {
+          one.style.transition = "";
+          one.style.transformOrigin = "";
+          one.style.transform = "";
+        }
+      }, 900);
     };
     fit();
-    const watch = new ResizeObserver(fit);
+    /*
+     * And it is worked out for a room that has stopped moving.
+     *
+     * The observer fires on every animated pixel, so while the writing
+     * opened this ran about forty times and changed its mind in the middle
+     * of the move. The arrangement holds until the room has settled.
+     */
+    let settling = 0;
+    const soon = () => {
+      window.clearTimeout(settling);
+      settling = window.setTimeout(fit, 140);
+    };
+    const watch = new ResizeObserver(soon);
     watch.observe(box);
-    return () => watch.disconnect();
+    return () => {
+      watch.disconnect();
+      window.clearTimeout(settling);
+    };
   }, [view, shots.length]);
 
   /*
@@ -826,36 +915,6 @@ export function Lightbox({
     };
   }, [view, full]);
 
-  /*
-   * Whether a project is handing over to the next one.
-   *
-   * Read from the document rather than passed down, because the panel is
-   * keyed on the project: the one leaving is thrown away and a new one built,
-   * so the state has to outlive both.
-   */
-  const [crossing, setCrossing] = useState(() =>
-    /*
-     * Read during the first render, not after it.
-     *
-     * This started false and was corrected by the effect — but the panel is
-     * keyed on the project, so stepping to the next one throws this panel
-     * away and builds another, and the new one's first painted frame had no
-     * cover on it at all: glass, with its pictures still arriving and the
-     * page showing through. Every fix so far was to the panel leaving. The
-     * one arriving has been starting uncovered the whole time.
-     */
-    typeof document === "undefined"
-      ? false
-      : document.documentElement.classList.contains("hbw-crossing")
-  );
-  useEffect(() => {
-    const root = document.documentElement;
-    const read = () => setCrossing(root.classList.contains("hbw-crossing"));
-    read();
-    const eyes = new MutationObserver(read);
-    eyes.observe(root, { attributes: true, attributeFilter: ["class"] });
-    return () => eyes.disconnect();
-  }, []);
 
   if (!shots.length) return null;
 
@@ -871,6 +930,8 @@ export function Lightbox({
       data-full={full ? "true" : undefined}
       /* Opened with a picture already up, so the first one waits for the nav. */
       data-began={began ? "true" : undefined}
+      /* Handed over from another project, so the nav has less to do first. */
+      data-over={over ? "true" : undefined}
       data-arriving={arriving ? "true" : undefined}
       /*
        * The glass, pinned so nothing can switch it off.
@@ -886,77 +947,42 @@ export function Lightbox({
        */
       style={{
         /*
-         * The blur is the ground; there is no fill over it.
+         * The same room, whichever way the work is laid out.
          *
-         * A white at 74% sat between the work and the page behind, so every
-         * gap in a band of staggered pictures was a panel of paper. Taken
-         * away, what shows through those gaps is the page you came from,
-         * softened — which is a texture that belongs to this site rather
-         * than a blank.
+         * Opening a picture put the site behind it blurred and dark, and
+         * that is the thing that made a frame read as something looked at
+         * closely rather than somewhere else you had been taken. One step
+         * out to the rail and the room changed: a white page with the work
+         * on it, with the gaps between staggered pictures showing the
+         * homepage through sixteen pixels of glass. Two rooms, a button
+         * apart.
+         *
+         * It is one room now — the plate's own ground, on the panel — so
+         * the rail, the grid and a frame full bleed are three ways of
+         * laying out the same place, and the site behind is a presence in
+         * all three.
          *
          * Said inline because the leaving state in the stylesheet switches
          * the filter off, and that switch is what rebuilt a GPU layer and
          * flashed the page behind. Held here, it never changes.
          */
-        backdropFilter: "blur(16px) saturate(0.9)",
-        WebkitBackdropFilter: "blur(16px) saturate(0.9)",
-        background: "transparent",
+        backdropFilter: "blur(34px) saturate(0.8)",
+        WebkitBackdropFilter: "blur(34px) saturate(0.8)",
+        background: "rgba(16, 16, 16, 0.74)",
       }}
     >
       {/*
-        The ground that covers the room while the work changes.
-        
-        A negative z-index puts it above the panel's own background and the
-        glass behind it, and below everything in the panel — so the work and
-        the chrome sit on it rather than under it. Fading a plain sheet costs
-        the compositor nothing, where switching the filter itself rebuilt a
-        layer and showed a frame of the page behind.
+        No sheet over the room.
+
+        A white ground was raised for the moment a project handed over to
+        the next, because the panel's own ground was glass and the set
+        leaving took the work off it. Measured frame by frame on a press of
+        Next, that was one wholly white frame on the rail and five in the
+        grid — the flash itself, put there on purpose to hide a different
+        one. The room is the room now: dark, blurred, the same in every
+        view, and it does not need covering because nothing shows through
+        it that was not meant to.
       */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: -1,
-          /*
-           * Placed, though it is out of flow.
-           *
-           * Left on auto it was still counted when the panel's rows were
-           * worked out, and in the grid that produced a fourth row of
-           * nothing — whose gap took two pixels off the field and moved the
-           * feet up by two every time the view changed.
-           */
-          gridRow: "1 / -1",
-          gridColumn: "1 / -1",
-          background: "#ffffff",
-          /*
-           * Only for the hand-over between two projects.
-           *
-           * It was also raised for the whole of a project's arrival, to stop
-           * the catalogue showing through the gallery's glass — and once the
-           * work began waiting for the chrome to finish moving, that was a
-           * white sheet over the entire screen for one and a third seconds.
-           * Measured across a click from the home page, nine frames of it
-           * were a blank window.
-           *
-           * The paper a project stands on belongs to the work, not over it:
-           * it is on the field below, which is the thing that wipes in, so
-           * it arrives with the pictures instead of ahead of them.
-           */
-          opacity: crossing ? 1 : 0,
-          /*
-           * Covers at once, uncovers gently.
-           *
-           * Fading in took 90ms, and the work fades out faster than that — so
-           * for the first two frames of a hand-over the pictures were already
-           * half gone while the sheet was only half there, and the page
-           * showed through the gap. Arriving is instant; only the leaving is
-           * worth watching.
-           */
-          transition: crossing || stillness ? "none" : "opacity 200ms linear",
-          pointerEvents: "none",
-        }}
-      />
       <div className="hbw-lamp__bar">
         {/*
           Where you are, and nothing else on this side.

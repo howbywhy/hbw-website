@@ -18,7 +18,7 @@ export function Bar({
   here,
   says,
 }: {
-  here?: "work" | "practice" | "talk" | "conversations";
+  here?: "work" | "index" | "practice" | "talk" | "conversations";
   /**
    * The page's line for the right-hand slot. The gallery borrows the same slot
    * while it is open, to name the project it is showing.
@@ -271,6 +271,18 @@ export function Bar({
                 rather than the way back out of this one. */}
             Home
           </a>
+          {/*
+            The index, beside the way home.
+            
+            The front page is the work and the mark goes to it, which is right
+            for meeting the work and wrong for finding one piece of it: the
+            only way to know what is there is to scroll all of it. This is the
+            contents page, said in the nav because that is where someone looks
+            for one.
+          */}
+          <a href="/projects" aria-current={here === "index" ? "page" : undefined}>
+            Index
+          </a>
           <a
             href="/practice"
             aria-current={here === "practice" ? "page" : undefined}
@@ -278,7 +290,16 @@ export function Bar({
           >
             {/* In the studio already: the same shoulder is the way back out,
                 rather than a second word for the same place. */}
-            {studio ? "Close" : "Practice"}
+            {/*
+              About, not Practice.
+              
+              Practice is now a page of its own — the long version, reached
+              from the foot of this sheet — and the nav was using the same
+              word for the sheet that opens over the work. One word, two
+              places, and the deeper one unreachable by name. The shoulder
+              says what it opens: the studio, about it.
+            */}
+            {studio ? "Close" : "About"}
           </a>
           {/*
             Contact is not a third way. It is a part of the studio — the sheet
@@ -356,7 +377,7 @@ export function Bar({
       {/* The same shell as a project's information: one way of opening, one
           way of closing, one set of behaviours. */}
       {studio ? (
-        <Sheet label="Practice" onClose={close} panel="hbw-studio-sheet__panel--split" bare going={going}>
+        <Sheet label="About" onClose={close} panel="hbw-studio-sheet__panel--split" bare going={going}>
           <StudioBody start={studio.at} />
         </Sheet>
       ) : null}

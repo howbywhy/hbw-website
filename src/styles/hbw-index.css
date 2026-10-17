@@ -804,8 +804,16 @@ html.hbw-lit .hbw-studio-sheet {
   padding: var(--pill-x) var(--gut) var(--gut);
   font-size: var(--nav);
 }
-.hbw-lamp__foot {
-  color: var(--say);
+/* The word, not the project name beside it: a small label on the foot's own
+   field, so it takes the colour that is set for exactly that.
+
+   Said with the gallery in front of it, because `.hbw-site button` sets
+   colour to inherit and a bare class loses to a class and a type — the
+   plain rule applied and was then overruled by the reset, which is why the
+   foot stayed at the old grey while everything else moved. */
+.hbw-lamp .hbw-lamp__foot,
+.hbw-lamp .hbw-lamp__foot .hbw-m {
+  color: var(--label);
 }
 .hbw-lamp__foot .hbw-m {
   margin-right: 0.45em;
@@ -2088,7 +2096,6 @@ html.hbw-lit .hbw-studio-sheet {
   display: flex;
   gap: 0.8rem;
   align-items: baseline;
-  border-bottom: 1px solid var(--rule);
   padding-bottom: 5px;
   max-width: 24rem;
 }
@@ -2113,7 +2120,6 @@ html.hbw-lit .hbw-studio-sheet {
 }
 
 .hbw-end__field:focus-within {
-  border-bottom-color: var(--ink);
 }
 
 .hbw-end__field button {
@@ -4125,7 +4131,10 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover {
 .hbw-studio__aside .hbw-end {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--pill-h);
+  /* Two pixels, like every other stack of modules on the site. The
+     twenty-four this used to take was the space inside a panel that is no
+     longer there, and it made three groups read as three places. */
+  gap: var(--edge);
 }
 
 .hbw-studio__aside .hbw-end > * {
@@ -4137,9 +4146,18 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover {
 }
 
 .hbw-studio__aside .hbw-end__to {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--pill-x);
+  /*
+   * A column of bubbles, each the width of the column.
+   *
+   * Wrapped flex sized every one to its own words, so Work was a stub, the
+   * phone number twice its length, and the five of them read as odds and
+   * ends rather than as one list. Everything else in this column — the
+   * line, the place, the loop — is a module the width of the column, and
+   * these are the ways out of the sheet, so they are too.
+   */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--edge);
 }
 
 /* The field only: the form also holds a one-pixel trap for bots, and giving
@@ -4314,15 +4332,17 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
    The newsletter field.
 
    It was an underline with a browser's autofill colour behind it and the
-   Join button pressed against the last letter. It is a field: a line it
-   sits inside, room to type, and the button clear of the text.
+   Join button pressed against the last letter. It has no underline now
+   either: the module it sits in is its edge, the way a bubble is the edge
+   of everything else here, and that hairline was the last rule left in
+   this column. Focus is marked by the site's own outline, said further
+   down, so nothing is lost by taking it away.
    ===================================================================== */
 .hbw-end__field {
   display: flex;
   align-items: stretch;
   gap: var(--pill-x);
   border: 0;
-  border-bottom: 1px solid var(--rule);
   padding: 0;
 }
 
@@ -4347,7 +4367,6 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 }
 
 .hbw-end__field:focus-within {
-  border-bottom-color: var(--ink);
 }
 
 /* The browser's own autofill colour is not ours. */
@@ -4359,15 +4378,35 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
   transition: background-color 9999s ease-out;
 }
 
+/* Join is a button, and the site has one of those.
+
+   It was a word at the end of a field with nothing round it, while Make a
+   poster — the same kind of thing, the one action in its block — is a chip.
+   Same chip. */
 .hbw-end__field button {
+  box-sizing: border-box;
   flex: 0 0 auto;
-  height: var(--pill-h);
-  padding: 0;
-  color: var(--say);
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--pill-h);
+  height: auto;
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--chip);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--nav);
   white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--quick) var(--ease),
+    color var(--quick) var(--ease);
 }
 
-.hbw-end__field button:hover {
+.hbw-end__field button:hover,
+.hbw-end__field button:focus-visible {
+  background: var(--chip-on);
   color: var(--ink);
 }
 
@@ -4383,10 +4422,34 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
    Everything here is off entirely for anyone who has asked for less
    motion: the site works the same, it simply arrives already there.
    ===================================================================== */
+/*
+ * Slowed a touch, everywhere at once.
+ *
+ * These three are the site's whole vocabulary of time — everything else is
+ * said in terms of them, and the delays that sequence an arrival are
+ * calculated from them — so the way to slow the site down is here and
+ * nowhere else. About a fifth longer. Enough that a move reads as a thing
+ * travelling rather than a thing appearing, not so much that waiting for
+ * it becomes the experience.
+ */
+/*
+ * The grey for a small label sitting on a module's own field.
+ *
+ * --say is the site's quiet grey, and it is set for text on paper. A label
+ * on a pill is not on paper: the pill is two thirds of a tint over whatever
+ * is behind it, so how light it is depends on the room, and the rooms got
+ * darker. The same colour measured 4.65:1 over the gallery's old white and
+ * 3.02:1 over the one it has now. This is dark enough for either, and still
+ * plainly lighter than the --ink beside it.
+ */
 :root {
-  --in: 460ms;
-  --out: 240ms;
-  --quick: 160ms;
+  --label: #4a4a4a;
+}
+
+:root {
+  --in: 560ms;
+  --out: 300ms;
+  --quick: 200ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* How far a thing travels as it arrives. Small: the distance is a hint. */
   --rise: 14px;
@@ -4522,9 +4585,18 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
   pointer-events: none;
 }
 
+/* The frames leave; the box holding them does not.
+
+   This clipped the whole set away at once, over the top of the staggered
+   departure each frame was already making — two statements of the same
+   move, and the blunter one won. With a front-loaded ease it had the set
+   three quarters gone a third of the way through, which is why the room
+   was empty in the middle of a hand-over with nothing having visibly
+   left. The set goes frame by frame now, which is the thing you can
+   actually follow. */
 .hbw-lamp[data-going="true"] .hbw-lamp__pages {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path var(--out) var(--ease);
+  clip-path: none;
+  transition: none;
 }
 
 
@@ -4816,8 +4888,27 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /* It goes when the gallery goes. */
+/*
+ * The writing goes first, and it goes as modules.
+ *
+ * It did nothing at all on a hand-over: it stood there while the work left
+ * and then vanished with the panel, which is a cut — and it is the biggest
+ * thing on screen when it is open, so the cut is the one you notice. An
+ * arrival here is nav, then work, then writing; a departure is that
+ * backwards. The modules close to the middle the way the studio's blocks
+ * do, one after another, and they are gone before the last frame is.
+ */
 .hbw-lamp[data-going="true"] .hbw-lamp__info {
   animation: none;
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-lamp[data-going="true"] .hbw-lamp__info .hbw-info__grid > * {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 @media (max-width: 760px) {
@@ -5764,7 +5855,7 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
    * small, spaced and upper case as well as grey; the grey was never doing
    * the work on its own.
    */
-  color: #4a4a4a;
+  color: var(--label);
 }
 
 .hbw-lamp[data-reading="true"] .hbw-lamp__info dd {
@@ -7949,7 +8040,17 @@ body:has(.hbw-case-page) .hbw-bar {
    corner, wherever the control happens to be standing.
    ===================================================================== */
 .hbw-lamp {
-  --pill-bg: rgba(240, 240, 236, 0.66);
+  /*
+   * More of the paper in a darker room.
+   *
+   * Two thirds of a tint reads as paper over the site's own white and as a
+   * grey wash over the room the gallery stands in now — measured, the same
+   * pill came out at 219 over the old ground and 165 over this one, which
+   * took every label on it under the contrast small text is owed. The tint
+   * holds its own against the room instead: still glass, still carrying the
+   * work's colour through it, but a sheet rather than a shadow.
+   */
+  --pill-bg: rgba(240, 240, 236, 0.88);
   --pill-on: #ffffff;
 }
 
@@ -8101,7 +8202,8 @@ body:has(.hbw-case-page) .hbw-bar {
  * visitor uses to get out of a project. Same field as everywhere else.
  */
 body:has(.hbw-lamp) .hbw-bar {
-  --pill-bg: rgba(240, 240, 236, 0.66);
+  /* The same sheet as the gallery below it, for the same reason. */
+  --pill-bg: rgba(240, 240, 236, 0.88);
   --pill-on: #ffffff;
 }
 
@@ -9170,18 +9272,62 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    frames you are not on back to 55% carries both and a nine-tenths of a
    second fade with it — which is the fade that was winning, so the set sat
    there at 55% for the whole departure and then vanished with the panel. */
+/*
+ * …and it leaves the way it came.
+ *
+ * This was a fade and a drop — the one departure on the site still doing
+ * what every arrival stopped doing. It read as a blink rather than as a
+ * move, because an ease that front-loads takes a fade most of the way down
+ * in a third of its time: measured on a press of Next, the room was empty
+ * at a hundred and fifty milliseconds and stayed empty until the next
+ * project began painting. A hole in the middle of a hand-over.
+ *
+ * Every frame arrives by uncovering from the top and travelling down into
+ * place, so it leaves by covering back up and travelling the same distance
+ * the other way. Solid the whole time; what you see is the work going,
+ * not the work dimming.
+ *
+ * The stagger is kept — it is the thing that makes the eye follow the set
+ * out of the room — but it is sized so the last frame is gone exactly as
+ * the leaving beat ends, because that is when the panel is replaced and
+ * anything still moving would be cut off mid-move.
+ */
 .hbw-lamp[data-going="true"] .hbw-lamp__field .hbw-lamp__pages .hbw-lamp__page {
-  opacity: 0;
-  transform: translateY(calc(var(--rise, 8px) * 0.9));
-  transition:
-    opacity var(--out) var(--ease),
-    transform var(--out) var(--ease);
-  transition-delay: min(calc(var(--i, 0) * 16ms), 150ms);
+  animation: hbw-out-up calc(var(--out) * 0.6) var(--ease) forwards;
+  animation-delay: calc(var(--out) * 0.2 + min(calc(var(--i, 0) * 10ms), var(--out) * 0.2));
+  transition: none;
 }
 
+@keyframes hbw-out-up {
+  from {
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    transform: translateY(calc(var(--rise, 14px) * -1.4));
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+/*
+ * At rest, a frame does nothing. This is why the work arrived twice.
+ *
+ * Standing still is not a state that should carry an animation, and this
+ * gave one to every frame whenever the panel was not leaving — which is
+ * almost always. While a project arrives the arriving rule is more
+ * specific and wins; the moment that attribute comes off, this one takes
+ * over, and because it is a different animation on an element that was not
+ * running it, the browser starts it from the beginning. Traced frame by
+ * frame on a press of Next: the set uncovered into place by 1172ms, stood
+ * there, and at 1972ms every frame went back to fully clipped and
+ * uncovered a second time. The work disappearing and re-arriving, eight
+ * hundred milliseconds after it had already arrived — the flash.
+ *
+ * An arrival belongs to arriving and a departure to going. In between, the
+ * work is simply there.
+ */
 .hbw-lamp:not([data-going="true"]) .hbw-lamp__field .hbw-lamp__pages .hbw-lamp__page {
-  animation: hbw-arrive var(--in) var(--ease) backwards;
-  animation-delay: min(calc(var(--i, 0) * 16ms), 150ms);
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -9459,6 +9605,27 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   .hbw-studio-doc .hbw-part__say:has(.hbw-part__col:only-child) .hbw-part__col {
     grid-column: span 6;
   }
+
+  /*
+     Talk is not three equal columns.
+
+     The address needs a third of the row like it needs a hat — it is
+     fifteen characters — while the line beside it, "Start a poster, or
+     just email. We'll take it from there.", was breaking across two lines
+     inside its own third. The row reads left to right, so the reading
+     takes the width and the address takes what it needs.
+  */
+  .hbw-studio-doc .hbw-part[data-part="contact"] .hbw-part__say > .hbw-part__col:not(.hbw-part__tool):nth-child(1) {
+    grid-column: span 3;
+  }
+
+  .hbw-studio-doc .hbw-part[data-part="contact"] .hbw-part__say > .hbw-part__col:not(.hbw-part__tool):nth-child(2) {
+    grid-column: span 1;
+  }
+
+  .hbw-studio-doc .hbw-part[data-part="contact"] .hbw-part__say > .hbw-part__col:not(.hbw-part__tool):nth-child(3) {
+    grid-column: span 2;
+  }
 }
 
 
@@ -9497,14 +9664,23 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   margin: 0;
 }
 
+/* The column holds modules; it is not one itself.
+
+   This gave the foot of the aside the site's field, its corner and its
+   blur, and then up to twenty-four pixels of padding inside it — with the
+   line, the place, the loop and the five ways out each carrying the same
+   field again on top. A ground behind a ground, and everything on it held
+   off the column's edge by a padding nothing else on the site uses. The
+   same thing the information row was doing, answered the same way: the
+   container is nothing, the modules are the objects, and they meet the
+   edges on the two pixels everything else meets them on. */
 .hbw-studio-doc .hbw-studio__aside .hbw-foot,
 .hbw-studio-doc .hbw-studio__aside > footer {
   box-sizing: border-box;
-  background: var(--pill-bg);
-  border-radius: var(--pill-r);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  padding: clamp(14px, 1.6vw, 24px);
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  padding: 0;
   margin: 0;
 }
 
@@ -10075,9 +10251,31 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   transition-delay: 180ms;
 }
 
-/* Nothing in a leaving sheet answers the pointer. */
+/* Nothing in a leaving sheet answers the pointer — and the sheet's own
+   ground leaves with it.
+
+   The panel and the scrim faded on the way out and the sheet they sit in
+   kept its white at a half, which is most of what you are looking at. So
+   the reading went and the room behind it did not come back: the screen
+   held its brightness for half a second and then changed in a single frame
+   when the element was thrown away. Measured on Close over a project, a
+   mean of 161 for five hundred and thirty-eight milliseconds and then 66
+   on the next frame. That cut is the flash.
+
+   The ground goes on the same beat as the panel it holds, so the work
+   behind comes back into focus as the sheet leaves, which is what closing
+   this was always meant to look like. */
 .hbw-studio-sheet[data-going="true"] {
   pointer-events: none;
+  background-color: transparent;
+  transition: background-color var(--out) var(--ease);
+  transition-delay: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-sheet[data-going="true"] {
+    transition: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -10865,11 +11063,62 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
  * row no height at all, because the canvas inside it is positioned and so
  * measures as nothing.
  */
-.hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say {
+/*
+ * …and it waits until there is a drawing to fill it.
+ *
+ * The room is asked for the moment you press Make a poster and the tool is
+ * mounted a beat later, so for that beat the block was a one-track grid
+ * with the three columns of Talk still standing in it — the line, the
+ * address and the invitation restacked into a column, ruled off each
+ * other, in a room the size of the sheet. A layout nobody designed, held
+ * long enough to be read, and the first thing you saw after pressing the
+ * button. Said with the tool in front of it, the room keeps Talk's own
+ * three columns until the drawing is actually there to take them.
+ */
+.hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say:has(.hbw-part__tool) {
   grid-template-columns: minmax(0, 1fr);
   grid-auto-rows: minmax(0, 1fr);
   align-content: stretch;
   align-items: stretch;
+}
+
+/*
+ * And in that beat, Talk leaves.
+ *
+ * Cause and effect: you press the button, the three columns go the way
+ * everything on this site goes, and the drawing arrives into the room they
+ * were in. Without this the columns simply stood there until they were
+ * replaced, which is a cut — the one move the sheet does not make.
+ */
+.hbw-studio-doc[data-tool="poster"]
+  .hbw-part[data-tool="poster"]
+  .hbw-part__say:not(:has(.hbw-part__tool))
+  > .hbw-part__col {
+  animation: hbw-block-to-middle var(--out) var(--ease) forwards;
+}
+
+.hbw-studio-doc[data-tool="poster"]
+  .hbw-part[data-tool="poster"]
+  .hbw-part__say:not(:has(.hbw-part__tool))
+  > .hbw-part__col:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.hbw-studio-doc[data-tool="poster"]
+  .hbw-part[data-tool="poster"]
+  .hbw-part__say:not(:has(.hbw-part__tool))
+  > .hbw-part__col:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbw-studio-doc[data-tool="poster"]
+    .hbw-part[data-tool="poster"]
+    .hbw-part__say:not(:has(.hbw-part__tool))
+    > .hbw-part__col {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 .hbw-studio-doc[data-tool="poster"] .hbw-part[data-tool="poster"] .hbw-part__say .hbw-part__tool {
@@ -11283,7 +11532,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    ===================================================================== */
 :root {
   --enter-nav: 0ms;
-  --enter-line: 80ms;
+  --enter-line: 100ms;
   /*
    * The nav leads, always.
    *
@@ -11294,7 +11543,7 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    * work starts.
    */
   --enter-work: calc(var(--enter-type) + var(--in));
-  --enter-step: 70ms;
+  --enter-step: 85ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -11677,8 +11926,8 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    ===================================================================== */
 :root {
   --enter-block: 0ms;
-  --enter-mark: 160ms;
-  --enter-type: 330ms;
+  --enter-mark: 200ms;
+  --enter-type: 400ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -12292,16 +12541,40 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   grid-column: 1 / -1;
 }
 
+/*
+ * And it reads on the row's own tracks.
+ *
+ * It was laying its names out on a rhythm of its own — as many sixteen-rem
+ * columns as would fit, which came to three — directly under four modules
+ * sitting in quarters. Two grids, neither aligned to the other, with the
+ * copy in the lower one starting at thirds. The module keeps its field and
+ * gives up its side padding, and each name takes that padding itself, so a
+ * name begins exactly where the module above it begins.
+ */
 @media (min-width: 761px) {
   .hbw-lamp__info .hbw-info__part--wide {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: var(--pill-x);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--edge);
     align-items: start;
+    padding-inline: 0;
+    padding-block: 0;
+  }
+
+  .hbw-lamp__info .hbw-info__part--wide > * {
+    box-sizing: border-box;
+    padding: var(--pill-x);
   }
 
   .hbw-lamp__info .hbw-info__part--wide h2 {
     grid-column: 1 / -1;
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1100px) {
+  .hbw-lamp__info .hbw-info__part--wide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -12409,16 +12682,16 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
   margin-block: 0;
 }
 
-/* The paper a project stands on, carried by the thing that wipes in.
+/* And no paper under an arriving project either.
 
-   The gallery's ground is glass, so while a project arrives the catalogue
-   it was opened from showed through every gap in the band. The field takes
-   the paper for as long as it is arriving — which means the paper is
-   revealed by the same wipe as the pictures, rather than covering the
-   screen before them. */
-.hbw-lamp[data-arriving="true"] .hbw-lamp__field {
-  background: var(--paper);
-}
+   This put the site's white on the field for as long as a project was
+   arriving, for the same reason the cover existed: the gallery's ground
+   was glass, so the catalogue showed through every gap in the band. With
+   the room dark there is nothing to hide, and the paper was the last
+   bright thing left in the hand-over — measured on a press of Next, the
+   screen went from a mean of 67 to 214 for two frames in the grid, which
+   is the flash you could still see after the cover came out. The field
+   carries nothing; the work arrives on the room. */
 
 /* =====================================================================
    Stepping in the full view travels, like everything else.
@@ -12587,4 +12860,268 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-lamp[data-reading="true"],
 .hbw-lamp:has(.hbw-lamp__field[data-view="grid"]) {
   grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+/* =====================================================================
+   The instrument, built the way the rest of the site is built.
+
+   It was one translucent plate with everything standing on it: icons, a
+   radius, a density, a swatch, a field and a send, separated by hairlines
+   and by space. That is how a drawing application is built, and it is not
+   how this site is built — here a thing that does something is a bubble on
+   a field, two pixels from its neighbour, and a row of them is a row of
+   bubbles.
+
+   So the plate goes, and the groups it was carrying become the modules.
+   Making, settings, sending: three objects over the paper, on the same
+   grid, with the same corner and the same field as the nav above them. The
+   hairlines go with it — the gap is the rule.
+   ===================================================================== */
+.hbw-tool .hbw-poster-toolbar {
+  padding: 0;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  gap: var(--edge);
+}
+
+.hbw-tool .hbw-poster-toolbar__primary,
+.hbw-tool .hbw-poster-toolbar__work,
+.hbw-tool .hbw-poster-toolbar__send,
+.hbw-tool .hbw-poster-toolbar__tray {
+  box-sizing: border-box;
+  padding: var(--pill-gap) var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+
+/* The settings were ruled off the top of the bar and ruled off each other.
+   They are a module of their own now, so neither rule has anything to
+   divide. */
+.hbw-tool .hbw-poster-toolbar__tray {
+  padding-top: var(--pill-gap);
+  border-top: 0;
+  gap: var(--edge);
+}
+
+.hbw-tool .hbw-poster-toolbar__tray > * + * {
+  border-left: 0;
+}
+
+.hbw-tool .hbw-poster-toolbar__send {
+  border-left: 0;
+}
+
+/* =====================================================================
+   A hand-over is not a landing, and should not be timed like one.
+
+   --enter-work is the beat the work waits out while the nav is built: the
+   blocks come in from the edges, the type arrives, and only then does the
+   work land. That is right coming from the page, where the nav really is
+   being assembled in front of you.
+
+   Handing over from one project to the next, none of that happens. The nav
+   is already standing there; what moves is the mark and the count changing
+   inside bubbles that hold their place. The work was waiting out a
+   construction that was not taking place — measured on a press of Next,
+   the set left by three hundred milliseconds and the next one did not
+   begin painting until nine hundred and seventy-six, so the room stood
+   empty for six hundred and twenty. That hole is the thing that reads as
+   a flash: nothing happens for long enough to notice, then everything does.
+
+   The nav still leads. It simply has a word to change rather than a nav to
+   build, so what the work waits out is a couple of steps instead of a
+   whole assembly.
+   ===================================================================== */
+.hbw-lamp[data-over="true"][data-arriving="true"] {
+  --enter-work: calc(var(--enter-step) * 2);
+}
+/*
+ * The writing goes down, one module after another.
+ *
+ * It was closing to the middle — a shutter shutting sideways on each
+ * module — with twelve milliseconds between one and the next. At that
+ * spacing four modules move as one, and a sideways shutter at that speed
+ * is a flash rather than a departure. They travel down and are covered
+ * from the top as they go, which is the way the row came down over the
+ * set in the first place, and far enough apart to be read as a sequence:
+ * the last one starts moving as the first one finishes.
+ */
+@keyframes hbw-block-down {
+  from {
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    transform: translateY(calc(var(--rise, 14px) * 1.6));
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+
+/* =====================================================================
+   The writing goes down, one module after another — said last, and said
+   with the reading in the selector.
+
+   The arrival is written on [data-reading="true"] and the departure was
+   written on [data-going="true"]: the same weight, and the arrival comes
+   later in the stylesheet, so while a project handed over with the writing
+   open the arrival kept winning. The modules never left — they stood there
+   with hbw-arrive still named on them and were thrown away with the panel,
+   which is the flash. Both states are true during a hand-over, so the
+   departure says both.
+   ===================================================================== */
+.hbw-lamp[data-going="true"][data-reading="true"] .hbw-lamp__info .hbw-info__grid > *,
+.hbw-lamp[data-going="true"] .hbw-lamp__info .hbw-info__grid > * {
+  animation: hbw-block-down calc(var(--out) * 0.6) var(--ease) forwards;
+}
+
+.hbw-lamp[data-going="true"][data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(2),
+.hbw-lamp[data-going="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(2) {
+  animation-delay: calc(var(--out) * 0.13);
+}
+
+.hbw-lamp[data-going="true"][data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(3),
+.hbw-lamp[data-going="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(3) {
+  animation-delay: calc(var(--out) * 0.27);
+}
+
+.hbw-lamp[data-going="true"][data-reading="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(n + 4),
+.hbw-lamp[data-going="true"] .hbw-lamp__info .hbw-info__grid > *:nth-child(n + 4) {
+  animation-delay: calc(var(--out) * 0.4);
+}
+
+/* =====================================================================
+   And the gallery's own row waits for the nav to arrive.
+
+   Opening a project from the index, the nav travels from where it sits on
+   the home page to the top of the screen — half a second of it. The
+   gallery's own row, the count and the two views, was simply there from
+   the moment the panel was built, so for that half second there were two
+   bars on screen: the gallery's at twenty-eight pixels and the nav still
+   on its way down from a hundred and twenty-three, one above the other.
+   Measured on a click from the index, the nav left 754ms and landed at
+   1297ms, with the gallery's row parked the whole time.
+
+   The nav leads. The row holds off the length of the nav's own move and
+   comes down after it, which is also the order the work already keeps.
+
+   Not on a hand-over: walking from one project to the next, the nav is
+   already home and this row is meant to stay exactly where it is — the
+   type changes inside it and the boxes adapt, which is the one thing it
+   was asked never to stop doing.
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-lamp[data-arriving="true"]:not([data-over="true"]) .hbw-lamp__bar {
+    animation: hbw-in-down var(--in) var(--ease) var(--in) backwards;
+  }
+}
+
+/* =====================================================================
+   The index: one module per project, and the module is the way in.
+
+   The same board the rest of the site is set on — eight tracks, two
+   pixels, a field and a corner — with the project's own first frame at the
+   top of each module, because a list of names is a filing cabinet and this
+   is meant to be the work.
+
+   The whole module is the link. A name underlined inside a bubble would be
+   a second object inside the first, and everything else on this site that
+   does something is the bubble itself.
+   ===================================================================== */
+.hbw-board__mod--work {
+  display: grid;
+  gap: var(--pill-x);
+  align-content: start;
+  padding: var(--pill-x);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--quick) var(--ease);
+}
+
+.hbw-board__mod--work:hover,
+.hbw-board__mod--work:focus-visible {
+  background: var(--chip-on);
+}
+
+.hbw-board__mod--work:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* One shape for all of them.
+
+   The contact sheet keeps every frame's own proportions, because there the
+   shape of the work is the thing you are looking at. A contents page is not
+   that: set at their natural sizes the cards ran from a hundred and forty
+   pixels tall to six hundred, the rows went ragged and half the board was
+   empty. Same crop, same card, so the eye can run down the names while the
+   pictures say which is which. */
+.hbw-board__mod--work > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  height: auto;
+  object-fit: cover;
+  margin: 0;
+  border-radius: var(--pill-r);
+  background: var(--chip);
+}
+
+/* The page's own opening takes the whole board, at every width: it is the
+   title, not one of the cards. */
+.hbw-board--index > .hbw-board__mod--wide {
+  grid-column: 1 / -1;
+}
+
+.hbw-board__name {
+  margin: 0;
+  font-size: var(--t-mid);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.hbw-board__mod--work > p {
+  margin: 0;
+}
+
+/* The board's own link padding is for a word in a sentence, not for a
+   module that happens to be a link: it would add a touch target inside a
+   target the size of a card. */
+.hbw-board a.hbw-board__mod--work {
+  padding-block: var(--pill-x);
+  margin-block: 0;
+}
+
+/* And the list arrives a few at a time, further down the row than a page
+   of three modules needs. Capped, so a long index does not take four
+   seconds to land. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-board--index .hbw-board__mod {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 5);
+  }
+
+  .hbw-board--index .hbw-board__mod:nth-child(1) {
+    animation-delay: var(--enter-work);
+  }
+
+  .hbw-board--index .hbw-board__mod:nth-child(2) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step));
+  }
+
+  .hbw-board--index .hbw-board__mod:nth-child(3) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 2);
+  }
+
+  .hbw-board--index .hbw-board__mod:nth-child(4) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 3);
+  }
+
+  .hbw-board--index .hbw-board__mod:nth-child(5) {
+    animation-delay: calc(var(--enter-work) + var(--enter-step) * 4);
+  }
 }

@@ -32,6 +32,18 @@ type Open = Run & {
   at: number;
   /** Whether the project opens with its frame already full bleed. */
   full?: boolean;
+  /**
+   * Whether this project arrived from another one rather than from the page.
+   *
+   * It changes what the nav has to do before the work may land. Coming from
+   * the catalogue the nav is built — blocks in from the edges, then the type
+   * — and the work waits all of it out. Handing over, the nav is already
+   * standing there and the only thing that moves is the mark and the count
+   * changing inside bubbles that do not move. Waiting out a construction
+   * that is not happening left the room empty for six hundred milliseconds
+   * between the set that left and the set that came.
+   */
+  over?: boolean;
 };
 
 export type Opening = Open;
@@ -234,117 +246,26 @@ export function Work({
     return job;
   }, []);
 
-  /** Which hold is current, so an older one cannot lift a newer one's ground. */
-  const holding = useRef(0);
-  /**
-   * Whether a project is already up, for the cover to ask.
-   *
-   * A ref rather than the state, because the only reader is a callback that
-   * must not be rebuilt every time the project changes.
-   */
-  const showing = useRef(false);
-  /*
-   * Whether a project is handing over, kept HERE.
-   *
-   * The gallery is keyed on the project, so it is destroyed and rebuilt on
-   * every step — which means nothing inside it can be trusted to know that a
-   * hand-over is already in progress when it is born. This component is not
-   * rebuilt, so the cover it renders is never new.
-   */
-  const [crossing, setCrossing] = useState(false);
-  /* The cover is given its transition inline, out of the stylesheet's
-     reach, so it has to ask about movement itself. */
   const stillness = useStillness();
+  /** Pictures already asked for, so a neighbour is warmed once and not again. */
+  const warmed = useRef<Set<string>>(new Set());
 
   /*
-   * Hold the room solid until the work is in it.
+   * The cover is gone, and so is everything that lifted it.
    *
-   * Every way into a project — Next, Previous, a card on the homepage — puts
-   * a new gallery on screen with an empty band, and the gallery's ground is
-   * glass by design. Only Next was covered, so Previous and opening a project
-   * still showed the page behind for as long as the pictures took. The hold
-   * belongs to showing a project, not to one of the buttons that does it.
+   * A white sheet went up over the panel while a project handed over, and
+   * a watcher held it there until the new set had drawn, its rail was back
+   * at full strength and its writing had landed. All of it existed because
+   * the panel's ground was glass: an empty band meant the homepage showing
+   * through. Measured frame by frame on a press of Next, the sheet itself
+   * was one wholly white frame on the rail and five in the grid — a flash
+   * put there to hide a flash.
+   *
+   * The ground is the plate's own now, dark and blurred in every view, so
+   * an empty band over it is the room rather than a fault. Nothing to
+   * hide, nothing to wait for, and one fewer thing that could decide to
+   * stay up for six seconds on a slow connection.
    */
-  const hold = useCallback(() => {
-    const root = document.documentElement;
-    const mine = ++holding.current;
-    /*
-     * A different flag from the one the stylesheet knows.
-     *
-     * The old one switched the gallery's backdrop-filter off and on. That
-     * filter is a GPU layer, and tearing it down and rebuilding it shows one
-     * unfiltered frame of whatever is behind — the homepage strip. It never
-     * appeared in testing because the computed styles were always right and
-     * headless Chrome composites in software, where the artifact does not
-     * happen. The glass now stays exactly as it is; an opaque sheet inside
-     * the panel fades over it instead.
-     */
-    root.classList.add("hbw-crossing");
-    setCrossing(true);
-    const began = Date.now();
-    const lift = () => {
-      if (holding.current !== mine) return;
-      const lamp = document.querySelector<HTMLElement>(".hbw-lamp");
-      const pages = lamp?.querySelector<HTMLElement>(".hbw-lamp__pages") ?? null;
-      /*
-       * The frames a reader can actually see, not the first four in the set.
-       *
-       * Taking the first four means that opening a project at frame twelve
-       * waits for frames one to four — pictures off the left of the screen
-       * that lazy loading has no reason to fetch — so the white sheet stayed
-       * up until the six second backstop gave in. On a slow connection that
-       * is several seconds of white every time the project changes.
-       *
-       * What has to be on screen is what is on screen.
-       */
-      const all = lamp
-        ? Array.from(lamp.querySelectorAll<HTMLImageElement>(".hbw-lamp__pages img"))
-        : [];
-      const seen = all.filter((shot) => {
-        const box = shot.getBoundingClientRect();
-        return box.width > 2 && box.right > 0 && box.left < window.innerWidth;
-      });
-      const shots = seen.length ? seen : all.slice(0, 2);
-      const loaded = shots.length > 0 && shots.every((shot) => shot.complete && shot.naturalWidth > 0);
-      /*
-       * The work has to be ON SCREEN, not merely downloaded.
-       *
-       * This lifted as soon as the next project's files had arrived, which on
-       * a warm cache is almost at once — while the project you are leaving is
-       * still fading out, its pictures at nothing and the panel's glass
-       * showing the page behind. The sheet cleared on an empty room. Waiting
-       * for the pictures to be drawn again closes that window, because the
-       * rail is only back at full strength once the new set has settled.
-       */
-      const showing = pages ? Number(getComputedStyle(pages).opacity) > 0.9 : false;
-      /*
-       * With the writing open, wait for the writing too.
-       *
-       * Open, the information is most of the screen, and on a new project its
-       * columns arrive one after another — a third of a second of delay
-       * before the last one even starts. The cover was lifting as soon as the
-       * pictures were back, so for the rest of that arrival the page behind
-       * showed through the gaps where the writing had not landed yet. It is
-       * only a hand-over once everything that was leaving has returned.
-       */
-      const info = lamp?.querySelector<HTMLElement>(".hbw-lamp__info") ?? null;
-      const reading = lamp?.dataset.reading === "true";
-      const read = !reading
-        ? true
-        : Boolean(
-            info &&
-              Number(getComputedStyle(info).opacity) > 0.9 &&
-              info.getAnimations({ subtree: true }).every((one) => one.playState !== "running")
-          );
-      if ((loaded && showing && read) || Date.now() - began > 6000) {
-        root.classList.remove("hbw-crossing");
-        setCrossing(false);
-        return;
-      }
-      window.requestAnimationFrame(lift);
-    };
-    window.setTimeout(lift, 80);
-  }, []);
 
   /**
    * The catalogue goes before the project comes.
@@ -369,7 +290,6 @@ export function Work({
    * nothing from the last time you left it.
    */
   useEffect(() => {
-    showing.current = Boolean(open);
     if (open) return;
     for (const one of document.querySelectorAll<HTMLElement>(".hbw-turn")) {
       delete one.dataset.leaving;
@@ -397,7 +317,7 @@ export function Work({
   );
 
   const show = useCallback(
-    async (slug: string, at: number, push = true, began = false) => {
+    async (slug: string, at: number, push = true, began = false, over = false) => {
       const place = () => {
         if (!push) return;
         const where = `/projects/${slug}${at ? `?f=${at + 1}` : ""}`;
@@ -405,24 +325,12 @@ export function Work({
           window.history.pushState(null, "", where);
         }
       };
-      /*
-       * The cover is for a hand-over, not for an arrival.
-       *
-       * It exists because stepping from one project to the next empties the
-       * gallery for as long as the new pictures take, and the gallery's
-       * ground is glass — so you would watch the page behind through it.
-       * Coming from the catalogue there is nothing to hide: the catalogue
-       * is still there, travelling downward, and the project arrives over
-       * it. Raising a white sheet for that was a frame of blank window
-       * between the two, measured at ninety-nine per cent of the screen.
-       */
-      if (showing.current) hold();
       const got = known.current.get(slug) ?? (await learn(slug));
       if (!got) return;
-      setOpen({ slug, at, ...got, full: began });
+      setOpen({ slug, at, ...got, full: began, over });
       place();
     },
-    [learn, hold]
+    [learn]
   );
 
   const close = useCallback(() => {
@@ -543,7 +451,37 @@ export function Work({
     if (!open) return;
     const near = [beside(open.slug, 1), beside(open.slug, -1)];
     const waiting = window.setTimeout(() => {
-      for (const to of near) if (to) void learn(to.slug);
+      for (const to of near) {
+        if (!to) continue;
+        void (async () => {
+          const got = known.current.get(to.slug) ?? (await learn(to.slug));
+          if (!got) return;
+          /*
+           * And the pictures, not only the list of them.
+           *
+           * Learning a neighbour fetched its frames as data and stopped
+           * there, so pressing Next swapped to a project whose every
+           * picture was still unrequested. Measured on a hand-over, none
+           * of the seventeen had loaded by the time the panel was built
+           * and the first arrived around a second later — so the room
+           * stood empty while the work was fetched, which is the hole
+           * the white sheet used to be covering.
+           *
+           * The first ten are warmed as soon as this project settles,
+           * which is a screenful in the grid and the whole of the rail a
+           * reader can reach. Decoded asynchronously and never attached,
+           * so nothing is laid out and nothing competes with the project
+           * actually on screen.
+           */
+          for (const shot of got.shots.slice(0, 10)) {
+            if (!shot.src || warmed.current.has(shot.src)) continue;
+            warmed.current.add(shot.src);
+            const warm = new window.Image();
+            warm.decoding = "async";
+            warm.src = shot.src;
+          }
+        })();
+      }
     }, 400);
     return () => window.clearTimeout(waiting);
   }, [open, beside, learn]);
@@ -960,7 +898,6 @@ export function Work({
       */}
       {open ? (
         <Lightbox
-          data-crossing={crossing ? "true" : undefined}
           /*
            * Keyed on the project, so moving to the next one mounts a new
            * gallery rather than swapping the contents of the old one. The
@@ -969,6 +906,7 @@ export function Work({
            */
           key={open.slug}
           began={open.full}
+          over={open.over}
           shots={open.shots}
           at={open.at}
           onAt={step}
@@ -1039,19 +977,18 @@ export function Work({
              * from the side you are going, with the nav moving first.
              */
             if (lamp.dataset.full === "true") {
-              void show(to.slug, 0, true, true);
+              void show(to.slug, 0, true, true, true);
               return;
             }
             lamp.dataset.going = "true";
             window.setTimeout(() => {
-              hold();
-              void show(to.slug, 0);
+              void show(to.slug, 0, true, false, true);
             }, out);
           }}
           prev={beside(open.slug, -1)}
           onPrev={() => {
             const to = beside(open.slug, -1);
-            if (to) void show(to.slug, 0);
+            if (to) void show(to.slug, 0, true, false, true);
           }}
         />
       ) : null}

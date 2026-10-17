@@ -118,7 +118,7 @@ export function StudioBody({ start }: { start?: string }) {
     staging.current = window.setTimeout(() => {
       setArriving(true);
       setArmed(true);
-    }, beat("--in", 460));
+    }, beat("--in", 560));
   }, []);
 
   /** It leaves the way it came: the tool stands down, then the block closes. */
@@ -130,7 +130,7 @@ export function StudioBody({ start }: { start?: string }) {
       setArriving(false);
       setTool(false);
       setGoing(false);
-    }, beat("--out", 240));
+    }, beat("--out", 300));
   }, []);
 
   /**
@@ -210,6 +210,17 @@ export function StudioBody({ start }: { start?: string }) {
     let cooling = 0;
     let last = 0;
     const onWheel = (event: WheelEvent) => {
+      /*
+       * Narrow, the wheel is nobody's but the reader's.
+       *
+       * Advancing a block at a time is what this sheet does when it fills
+       * the screen and each block is a panel of it. Stacked in a column
+       * that is taller than the window — which is what it is on a phone —
+       * the blocks are a page to be read down, and taking the gesture to
+       * jump between them makes scrolling snap from one to the next
+       * instead of moving. The column scrolls; nothing is intercepted.
+       */
+      if (window.matchMedia("(max-width: 760px)").matches) return;
       /*
        * One owner at a time.
        *
