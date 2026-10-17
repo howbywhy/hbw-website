@@ -20,6 +20,7 @@
  * In colour. The listings are grey so six jobs read as one body of work, but
  * in here there is only one job and the work is the whole subject.
  */
+import { useNavSettled } from "@/components/site/navSettled";
 import { useStillness } from "@/components/site/still";
 import { useView } from "@/components/site/view";
 import { useHeld } from "@/components/site/held";
@@ -174,6 +175,10 @@ export function Lightbox({
    * and the view switch cannot bring it back.
    */
   const [arriving, setArriving] = useState(true);
+  /* And it waits for the nav, the same way a sheet does and by the same
+     means: the gallery is what sends the bar travelling when it opens from
+     the index, so it is the gallery that has to let the bar get there. */
+  const settling = !useNavSettled();
   /**
    * The writing takes the room it needs, and the work gives it up.
    *
@@ -650,7 +655,24 @@ export function Lightbox({
           best = cols;
         }
       }
-      if (box.style.getPropertyValue("--cols") === String(best)) return;
+      const had = box.style.getPropertyValue("--cols");
+      if (had === String(best)) return;
+      /*
+       * The first answer is not a change of mind.
+       *
+       * A new project is laid out from nothing, so there is no previous
+       * arrangement to travel from — and taking the frames' positions
+       * before the columns have been set at all captures them stacked in
+       * one track, which is where the next step then animated every one of
+       * them from. Pressing Next in the grid, that read as the whole set
+       * flying into place from the left edge: the flash. Said once, it is
+       * simply the layout; said again, it is a move.
+       */
+      if (!had) {
+        box.style.setProperty("--cols", String(best));
+        box.style.setProperty("--rows", String(Math.ceil(n / best)));
+        return;
+      }
       /*
        * A new arrangement is a move, like every other change to this set.
        *
@@ -933,6 +955,7 @@ export function Lightbox({
       /* Handed over from another project, so the nav has less to do first. */
       data-over={over ? "true" : undefined}
       data-arriving={arriving ? "true" : undefined}
+      data-settling={settling ? "true" : undefined}
       /*
        * The glass, pinned so nothing can switch it off.
        *

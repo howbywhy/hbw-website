@@ -467,13 +467,15 @@ export function Work({
            * stood empty while the work was fetched, which is the hole
            * the white sheet used to be covering.
            *
-           * The first ten are warmed as soon as this project settles,
-           * which is a screenful in the grid and the whole of the rail a
-           * reader can reach. Decoded asynchronously and never attached,
-           * so nothing is laid out and nothing competes with the project
-           * actually on screen.
+           * All of them, as soon as this project settles. Ten was a
+           * screenful of the rail and most of a grid, and the rest showed:
+           * filmed frame by frame, the next project's grid came in with
+           * holes in it and filled them over the following half second,
+           * which reads as the set assembling itself rather than arriving.
+           * Decoded asynchronously and never attached, so nothing is laid
+           * out and nothing competes with the project actually on screen.
            */
-          for (const shot of got.shots.slice(0, 10)) {
+          for (const shot of got.shots) {
             if (!shot.src || warmed.current.has(shot.src)) continue;
             warmed.current.add(shot.src);
             const warm = new window.Image();
@@ -921,6 +923,26 @@ export function Work({
           onNext={() => {
             const to = beside(open.slug, 1);
             if (!to) return;
+            /*
+             * The nav is told now, not when the next project is built.
+             *
+             * It used to learn the new name from the gallery that replaces
+             * this one, so the order ran: the set leaves, three hundred
+             * milliseconds of nothing, the name turns over, and only then
+             * does the work arrive. Filmed frame by frame, the room was
+             * blank from 368ms to past 1100 — the blink.
+             *
+             * The next project is known the moment you press, so the nav
+             * changes while the set is still leaving. It still leads — it
+             * has finished its move before the work lands — but the move
+             * happens over the departure instead of in a gap after it.
+             */
+            const said = projects.find((one) => one.slug === to.slug);
+            window.dispatchEvent(
+              new CustomEvent("hbw:over", {
+                detail: { name: to.name, says: said?.says ?? "" },
+              })
+            );
             /*
              * Out of this one, then into the next.
              *

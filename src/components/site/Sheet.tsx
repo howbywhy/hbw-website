@@ -8,6 +8,7 @@
  * comes back, and the page underneath does not scroll while it is up.
  */
 import { useHeld } from "@/components/site/held";
+import { useNavSettled } from "@/components/site/navSettled";
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 
 export function Sheet({
@@ -17,6 +18,7 @@ export function Sheet({
   panel: panelClass,
   bare = false,
   going = false,
+  swapping = false,
 }: {
   label: string;
   children: ReactNode;
@@ -41,10 +43,23 @@ export function Sheet({
    * chrome saying almost nothing. Where the bar can carry the way out, it
    * does, and the sheet starts at its content.
    */
+  /**
+   * The body is changing, but the room is not going.
+   *
+   * `going` stands the contents down AND takes the panel, the scrim and
+   * the sheet's own ground with them, which is right for Close and reads
+   * as closing when all that is happening is that About is becoming the
+   * index. This stands the contents down and leaves the room where it is.
+   */
+  swapping?: boolean;
   bare?: boolean;
 }) {
   const panel = useRef<HTMLElement>(null);
   const opener = useRef<HTMLElement | null>(null);
+  /* Nothing in here paints until the nav has stopped moving — the site's
+     one rule about order, kept in one place and asked by everything that
+     arrives. */
+  const settling = !useNavSettled();
 
   // The keyboard stays in here while this is up, as aria-modal promises.
   useHeld(panel);
@@ -76,6 +91,8 @@ export function Sheet({
     <div
       className="hbw-studio-sheet hbw-over"
       data-going={going ? "true" : undefined}
+      data-swapping={swapping ? "true" : undefined}
+      data-settling={settling ? "true" : undefined}
       role="dialog"
       aria-modal="true"
       aria-label={label}

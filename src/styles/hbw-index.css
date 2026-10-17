@@ -10210,7 +10210,8 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    ===================================================================== */
 .hbw-studio-sheet[data-going="true"] .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
-.hbw-studio-sheet[data-going="true"] .hbw-part__name {
+.hbw-studio-sheet[data-going="true"] .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part__name {
   opacity: 0;
   transform: translateY(calc(var(--rise, 8px) * 0.8));
   transition:
@@ -10219,20 +10220,28 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 }
 
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name { transition-delay: 0ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(1) .hbw-part__name { transition-delay: 0ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name { transition-delay: 40ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(2) .hbw-part__name { transition-delay: 40ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name { transition-delay: 80ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(3) .hbw-part__name { transition-delay: 80ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name { transition-delay: 120ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(4) .hbw-part__name { transition-delay: 120ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { transition-delay: 160ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { transition-delay: 160ms; }
 
-.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1) { transition-delay: 100ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2) { transition-delay: 140ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1),
+.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(1) { transition-delay: 100ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2),
+.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(n + 2) { transition-delay: 140ms; }
 
-.hbw-studio-sheet[data-going="true"] .hbw-studio__end {
+.hbw-studio-sheet[data-going="true"] .hbw-studio__end,
+.hbw-studio-sheet[data-swapping="true"] .hbw-studio__end {
   opacity: 0;
   transition: opacity var(--out) var(--ease);
   transition-delay: 0ms;
@@ -11361,25 +11370,33 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
  */
 .hbw-studio-sheet[data-going="true"] .hbw-part__col,
 .hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *,
-.hbw-studio-sheet[data-going="true"] .hbw-part__name {
+.hbw-studio-sheet[data-going="true"] .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part__name {
   opacity: 1;
   transform: none;
   animation: hbw-shut var(--out) var(--ease) forwards;
 }
 
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name { animation-delay: 0ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(1) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(1) .hbw-part__name { animation-delay: 0ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name { animation-delay: 40ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(2) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(2) .hbw-part__name { animation-delay: 40ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name { animation-delay: 80ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(3) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(3) .hbw-part__name { animation-delay: 80ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name { animation-delay: 120ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(4) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(4) .hbw-part__name { animation-delay: 120ms; }
 .hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__col,
-.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { animation-delay: 160ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name,
+.hbw-studio-sheet[data-swapping="true"] .hbw-part:nth-of-type(n + 5) .hbw-part__name { animation-delay: 160ms; }
 
-.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1) { animation-delay: 100ms; }
-.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2) { animation-delay: 140ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(1),
+.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(1) { animation-delay: 100ms; }
+.hbw-studio-sheet[data-going="true"] .hbw-studio__aside > *:nth-child(n + 2),
+.hbw-studio-sheet[data-swapping="true"] .hbw-studio__aside > *:nth-child(n + 2) { animation-delay: 140ms; }
 
 .hbw-part__tool[data-going="true"] {
   opacity: 1;
@@ -12937,7 +12954,16 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
    whole assembly.
    ===================================================================== */
 .hbw-lamp[data-over="true"][data-arriving="true"] {
-  --enter-work: calc(var(--enter-step) * 2);
+  /*
+   * Nothing, because the waiting is done elsewhere now.
+   *
+   * This used to hold the work off by a guess at how long the nav would
+   * take. The gallery asks the bar directly and holds everything until it
+   * is quiet, so a delay on top of that is the same wait counted twice —
+   * and counted from a different moment, which is how the two drifted
+   * apart in the first place. One clock.
+   */
+  --enter-work: 0ms;
 }
 /*
  * The writing goes down, one module after another.
@@ -13123,5 +13149,136 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 
   .hbw-board--index .hbw-board__mod:nth-child(5) {
     animation-delay: calc(var(--enter-work) + var(--enter-step) * 4);
+  }
+}
+
+/* The board does not inset itself inside a sheet.
+
+   It carries two pixels of its own because on a page it is the outermost
+   thing; in a sheet the sheet is already holding it two pixels off the
+   edge, and the two added up to four. One inset, wherever the board
+   happens to be standing. */
+.hbw-studio-sheet .hbw-board {
+  padding: 0;
+}
+
+/* =====================================================================
+   A sheet waits for the nav, then arrives.
+
+   The bar sits part-way down the front page and at the top of everything
+   else, so opening a sheet from the index sends it travelling — 423 pixels
+   over about half a second — and the sheet was in place from the first
+   frame, with the nav sliding up through it afterwards. The nav leads here
+   as it does everywhere else, so the sheet is held clipped out while the
+   bar is still moving, and everything inside it is held with it: the
+   arrivals are paused rather than started early and revealed half-run.
+
+   Then the panel comes down from the top on the site's own open, and the
+   contents run their own order inside it.
+   ===================================================================== */
+.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__panel,
+.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__scrim {
+  clip-path: inset(100% 0 0 0);
+}
+
+.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__panel,
+.hbw-studio-sheet[data-settling="true"] .hbw-studio-sheet__panel * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-studio-sheet:not([data-settling="true"]) .hbw-studio-sheet__panel,
+  .hbw-studio-sheet:not([data-settling="true"]) .hbw-studio-sheet__scrim {
+    animation: hbw-open var(--in) var(--ease);
+  }
+}
+
+/* The gallery waits for the nav too, by the same means as a sheet.
+
+   Opening a project from the index sends the bar travelling and changes
+   the name in it, and the work's own beat was counted from the moment the
+   gallery was built rather than from the moment the nav stopped — two
+   clocks, started at different times, drifting by however far the bar
+   happened to have to go. Nothing is timed against the nav any more; it is
+   asked. Held clipped while the bar is still moving, with everything
+   inside it paused rather than started early and revealed half-run. */
+/* No hard clip on the field. Every frame in it arrives with `backwards`,
+   so it is already holding its own opening frame while it waits — pausing
+   is enough. Clipping the whole field on top of that took the room out in
+   one step and put it back in one step, which is a blink rather than a
+   wait. */
+
+/* Held, and said so it cannot be overruled.
+
+   Every arrival here is written with the `animation` shorthand, and a
+   shorthand resets play-state to running along with everything else it
+   does — so a more specific arrival rule simply started the thing this was
+   trying to hold. Traced on a hand-over: the gate was up, the panel said
+   it was settling, and the band came in at 418ms against a nav that moved
+   until 860. This is not a style, it is a hold; it wins. */
+.hbw-lamp[data-settling="true"] .hbw-lamp__field,
+.hbw-lamp[data-settling="true"] .hbw-lamp__field *,
+.hbw-lamp[data-settling="true"] .hbw-lamp__bar,
+.hbw-lamp[data-settling="true"] .hbw-lamp__bar *,
+.hbw-lamp[data-settling="true"] .hbw-lamp__info,
+.hbw-lamp[data-settling="true"] .hbw-lamp__info * {
+  animation-play-state: paused !important;
+}
+
+/* =====================================================================
+   Handing over, the nav changes at once.
+
+   --enter-type is the beat the type waits while the nav's blocks come in
+   from the edges and build themselves — the landing. Walking from one
+   project to the next, no nav is being built: the bar is standing where it
+   was and a word inside it changes. It was waiting out that four hundred
+   milliseconds anyway, so the nav's own move ran nine hundred, and
+   everything that follows the nav waited nine hundred with it. The room
+   was empty for most of a second between one project and the next, which
+   is the blink.
+
+   Said on the bar while a hand-over is arriving: the name turns over as
+   soon as there is a new name, and what follows it follows it.
+   ===================================================================== */
+body:has(.hbw-lamp[data-over="true"][data-arriving="true"]) .hbw-bar {
+  --enter-type: 0ms;
+}
+
+/* And it changes over the shorter beat.
+
+   --in is the length of an arrival: a thing coming from somewhere into
+   place. The name and the line are not arriving on a hand-over, they are
+   being replaced where they stand, and at an --in that was the slowest
+   thing in the nav — so the work, which waits for the nav, waited five
+   hundred and sixty milliseconds for one word. The room stood empty for
+   most of a second between one project and the next. Said at an --out, the
+   nav still leads and there is far less of nothing to watch. */
+body:has(.hbw-lamp[data-over="true"][data-arriving="true"]) .hbw-bar .hbw-bar__said,
+body:has(.hbw-lamp[data-over="true"][data-arriving="true"]) .hbw-bar__over {
+  animation-duration: var(--out) !important;
+}
+
+/* The index's own modules go down when the body changes, the way the
+   writing in a gallery does — it had no departure at all, because until now
+   nothing ever replaced it in place. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-studio-sheet[data-going="true"] .hbw-board__mod,
+  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod {
+    animation: hbw-block-down calc(var(--out) * 0.6) var(--ease) forwards;
+  }
+
+  .hbw-studio-sheet[data-going="true"] .hbw-board__mod:nth-child(2),
+  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod:nth-child(2) {
+    animation-delay: calc(var(--out) * 0.13);
+  }
+
+  .hbw-studio-sheet[data-going="true"] .hbw-board__mod:nth-child(3),
+  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod:nth-child(3) {
+    animation-delay: calc(var(--out) * 0.27);
+  }
+
+  .hbw-studio-sheet[data-going="true"] .hbw-board__mod:nth-child(n + 4),
+  .hbw-studio-sheet[data-swapping="true"] .hbw-board__mod:nth-child(n + 4) {
+    animation-delay: calc(var(--out) * 0.4);
   }
 }
