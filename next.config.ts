@@ -26,14 +26,21 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react"],
     /*
-     * And the window itself is closed.
+     * And the window is as near closed as Next will allow.
      *
      * Five minutes is the default and it is meant for pages that are
      * expensive to fetch and cheap to be slightly wrong about. These are
      * neither: they are prerendered files, and being wrong about one means
-     * showing work that has been replaced. Nothing is reused without asking.
+     * showing work that has been replaced.
+     *
+     * This said 0, which Next 16 rejects — "Number must be greater than or
+     * equal to 30 at experimental.staleTimes.static" — and a rejected option
+     * is not a strict one, it is no option at all: the whole block was
+     * dropped and the cache ran on its own five-minute default, which is the
+     * behaviour this was written to stop. Thirty seconds is the floor Next
+     * offers, so thirty seconds it is.
      */
-    staleTimes: { static: 0, dynamic: 0 },
+    staleTimes: { static: 30, dynamic: 0 },
   },
   async redirects() {
     return [
