@@ -14,6 +14,23 @@
 import { useRef } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
 
+/**
+ * How much of the strip the page should treat as already in front of someone.
+ *
+ * Eighty-eight cells fit above the fold at 1440x900, so this covers that with
+ * a little headroom. It is a number about a screen, not about a project, and
+ * it is only the difference between fetching now and fetching when scrolled
+ * to — each cell is about thirty kilobytes.
+ */
+const ON_FIRST_SCREEN = 96;
+
+/**
+ * And the handful worth jumping the queue for. `fetchPriority="high"` is a
+ * way of saying "before the others"; saying it about ninety-six things says
+ * nothing at all.
+ */
+const LEAD = 12;
+
 function Cell({
   project,
   frame,
@@ -22,6 +39,8 @@ function Cell({
   echo,
   films,
   eager,
+  first,
+  warm,
 }: {
   project: GalleryProject;
   frame: GalleryProject["frames"][number];
@@ -50,6 +69,10 @@ function Cell({
    * what they were showing anyway behind the blur.
    */
   films?: boolean;
+  /** Among the few at the very top: fetch it before the rest. */
+  first?: boolean;
+  /** The one film that can actually play on landing. */
+  warm?: boolean;
 }) {
   const film = useRef<HTMLVideoElement>(null);
   return (
@@ -83,24 +106,25 @@ function Cell({
         sizes="(max-width: 760px) 25vw, 11vw"
         alt={frame.alt ?? ""}
         loading={eager ? "eager" : "lazy"}
-        fetchPriority={eager ? "high" : undefined}
+        fetchPriority={first ? "high" : undefined}
         decoding="async"
       />
       {frame.video && films ? (
         <video
           ref={film}
           /*
-           * Metadata for the films on the strip the page opens on, nothing
-           * for the rest.
+           * Metadata for the one film that can run, nothing for the rest.
            *
            * Asked to play with no data at all, a film has to fetch before it
-           * can start, and the pass that asks it is long over by then — so
-           * the ones a visitor lands in front of still fetch their metadata.
-           * Every film in the turn doing it meant fourteen video requests
-           * competing with the pictures on a cold connection, and the screen
-           * stayed empty while the films nobody was looking at loaded first.
+           * can start, so the one a visitor lands in front of still fetches
+           * ahead. That used to mean every film of the first project — and
+           * Work only ever runs the first film of the project being read, so
+           * the other three were fetched and never played. On a launch made
+           * mostly of film that was seven and a half megabytes of video on
+           * every page of the site, against a quarter of a megabyte of the
+           * pictures the visitor could actually see.
            */
-          preload={eager ? "metadata" : "none"}
+          preload={warm ? "metadata" : "none"}
           poster={frame.src}
           muted
           loop
@@ -135,9 +159,24 @@ export function Catalogue({
   pass?: number;
 }) {
   const echo = pass > 0;
+  /*
+   * How far down the turn each cell sits, counted across projects.
+   *
+   * The landing screen used to mean "every cell of the first project", which
+   * worked while the first project happened to be a long one. It is now an
+   * eight-frame launch, so eight of the eighty-eight cells a visitor can see
+   * at 1440x900 were loading eagerly and the other eighty arrived late — the
+   * strip filling in under the eye instead of being there.
+   *
+   * Counted properly it does not matter how long the first project is.
+   */
+  let seen = 0;
   return (
     <>
-      {projects.map((project) => (
+      {projects.map((project) => {
+        const from = seen;
+        seen += project.frames.length;
+        return (
         <section
           key={`${pass}-${project.slug}`}
           aria-labelledby={echo ? undefined : `p-${project.slug}`}
@@ -197,13 +236,24 @@ export function Catalogue({
                 onOpen={onOpen}
                 echo={echo}
                 films={pass === 1}
-                /* The middle turn's first project is where the page lands. */
-                eager={pass === 1 && project.slug === projects[0]?.slug}
+                /* The middle turn is where the page lands. */
+                eager={pass === 1 && from + i < ON_FIRST_SCREEN}
+                first={pass === 1 && from + i < LEAD}
+                /*
+                 * Only the first film of the first project can ever run on
+                 * landing — Work plays one film per project, and only for the
+                 * project being read — so it is the only one worth fetching
+                 * ahead. Four of them doing it put seven and a half megabytes
+                 * of video on every page of the site against a quarter of a
+                 * megabyte of the pictures a visitor was actually looking at.
+                 */
+                warm={pass === 1 && project.slug === projects[0]?.slug && i === 0}
               />
             ))}
           </div>
         </section>
-      ))}
+        );
+      })}
     </>
   );
 }
