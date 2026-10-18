@@ -13,5 +13,8 @@ schema.json
 *.log
 .DS_Store
 .cursor
-reference/downloaded
-reference/video-originals
+# The reference material lives in its own repository now:
+# github.com/howbywhy/hbw-website-reference. It was 686MB across 9,926
+# committed files — nine tenths of this repo's pack — and nothing here
+# builds, imports or serves any of it. A clone of the site is the site.
+reference/
