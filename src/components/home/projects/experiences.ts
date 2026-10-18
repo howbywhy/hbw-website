@@ -569,30 +569,30 @@ export const OBR_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "A paper carry bag and a taped box on white tile.",
     }),
-    mv("o11", "portrait", jpg("/projects/our-boy-roy/web/11-full-tall.jpg", 1334, 2000), "system", {
+    mv("o11", "landscape", jpg("/projects/our-boy-roy/web/11-full-wide.jpg", 1920, 1280), "system", {
+      scale: "standard",
+      pace: "pause",
+      alt: "Three yellow takeaway cups on a steel counter against lilac, each carrying a letter of ROY held by a little drawn figure.",
+    }),
+    mv("o12", "portrait", jpg("/projects/our-boy-roy/web/12-full-tall.jpg", 1334, 2000), "system", {
       scale: "standard",
       pace: "normal",
       alt: "The dining room: pink chairs and a houndstooth banquette under striped wall lights, plates set out, a tiled booth through the opening behind.",
     }),
-    mv("o12", "landscape", jpg("/projects/our-boy-roy/web/12-full-wide.jpg", 1920, 1080), "system", {
+    mv("o13", "landscape", jpg("/projects/our-boy-roy/web/13-full-wide.jpg", 1920, 1080), "system", {
       scale: "standard",
       pace: "normal",
       alt: "Three posters on black: Chef Needed, MORNING repeated in orange, and the opening hours.",
     }),
-    mv("o13", "film", film("/projects/our-boy-roy/web/13-tiktok-tall.mp4", 1350, 1688, "/projects/our-boy-roy/web/13-tiktok-tall.jpg"), "system", {
+    mv("o14", "film", film("/projects/our-boy-roy/web/14-tiktok-tall.mp4", 1350, 1688, "/projects/our-boy-roy/web/14-tiktok-tall.jpg"), "system", {
       scale: "detail",
       pace: "pause",
       alt: "MORTADELLA MADNESS on a phone, a mortadella roll above a promise of a new sando each week.",
     }),
-    mv("o14", "landscape", jpg("/projects/our-boy-roy/web/14-full-wide.jpg", 1920, 1280), "system", {
+    mv("o15", "landscape", jpg("/projects/our-boy-roy/web/15-full-wide.jpg", 1920, 1280), "system", {
       scale: "major",
       pace: "pause",
       alt: "The corner shop under a gum tree, its whole side wall painted with checks, bottles, a daisy and produce shapes.",
-    }),
-    mv("o15", "landscape", jpg("/projects/our-boy-roy/web/15-full-wide.jpg", 1920, 1280), "system", {
-      scale: "standard",
-      pace: "pause",
-      alt: "Three yellow takeaway cups on a steel counter against lilac, each carrying a letter of ROY held by a little drawn figure.",
     }),
   ],
 };
