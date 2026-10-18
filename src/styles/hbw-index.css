@@ -13199,3 +13199,175 @@ body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
 .hbw-bar[data-landed="true"] .hbw-bar__what {
   animation-delay: 0ms;
 }
+
+/* =====================================================================
+   Writing.
+
+   The one place on this site that sets a long column. Everything else is
+   a panel, a row or a plate — short blocks a reader scans. An article is
+   read start to finish, so it gets the two things reading needs and the
+   rest of the site has no use for: a measure, and space between
+   paragraphs.
+
+   It takes the site's own tokens for everything else. A piece of writing
+   is not a different website.
+   ===================================================================== */
+
+/* The list on Talk. */
+.hbw-reads {
+  display: grid;
+  gap: var(--edge);
+  margin: var(--pill-x) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hbw-reads__one a {
+  display: grid;
+  gap: 2px;
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--chip, rgba(0, 0, 0, 0.03));
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--quick) var(--ease);
+}
+
+.hbw-reads__one a:hover,
+.hbw-reads__one a:focus-visible {
+  background: var(--chip-on, rgba(0, 0, 0, 0.06));
+}
+
+.hbw-reads__name {
+  font-size: var(--t-mid);
+}
+
+.hbw-reads__say {
+  color: var(--label);
+  /* The reason to read it, not a summary — two lines at most, then it is
+     the article's job. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hbw-reads__say,
+.hbw-reads__when {
+  font-size: var(--meta);
+}
+
+.hbw-reads__when {
+  color: var(--label);
+}
+
+/* The piece itself. */
+.hbw-read {
+  box-sizing: border-box;
+  /*
+   * A measure, which is the whole point.
+   *
+   * Around sixty-five characters at this size. Wider and the eye loses the
+   * start of the next line; the site's other columns are short enough that
+   * it never came up before.
+   */
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: calc(var(--chrome) + var(--pill-x) * 2) var(--pill-x) calc(var(--pill-x) * 6);
+}
+
+.hbw-read__head {
+  margin: 0 0 calc(var(--pill-x) * 4);
+}
+
+.hbw-read__title {
+  margin: 0;
+  font-size: var(--t-mid);
+  font-weight: inherit;
+  /*
+   * The ink, explicitly.
+   *
+   * It inherited a grey from the site's own heading rules and came out
+   * lighter than the paragraphs underneath it — measured at 107 against the
+   * body's 74 — so the one thing on the page that should read first read
+   * last. The site sets everything at one size, so colour is the whole of
+   * the hierarchy here and it has to be the right way round.
+   */
+  color: var(--ink);
+}
+
+.hbw-read__stand {
+  margin: calc(var(--pill-x) * 1.5) 0 0;
+  color: var(--label);
+}
+
+.hbw-read__when {
+  margin: var(--pill-x) 0 0;
+  color: var(--label);
+  font-size: var(--meta);
+}
+
+.hbw-read__body p {
+  /*
+   * Spaced, not indented. The site has no first-line indent anywhere and
+   * this is not the place to introduce one.
+   */
+  margin: 0 0 1.4em;
+  line-height: 1.65;
+}
+
+.hbw-read__body p:last-child {
+  margin-bottom: 0;
+}
+
+.hbw-read__sub {
+  margin: 2.4em 0 1em;
+  font-size: var(--t-mid);
+  font-weight: inherit;
+  /* A subheading is a turn in the argument, not a louder sentence: it is
+     told apart by the space around it and by sitting in the ink while the
+     paragraphs sit slightly off it. */
+  color: var(--ink);
+}
+
+.hbw-read__body {
+  color: var(--label);
+}
+
+.hbw-read__back {
+  margin: calc(var(--pill-x) * 4) 0 0;
+  font-size: var(--meta);
+}
+
+@media (max-width: 760px) {
+  .hbw-read {
+    padding-top: calc(var(--chrome) + var(--pill-x));
+  }
+}
+
+/*
+ * And the writing arrives after the nav, like everything else.
+ *
+ * The article page was built without one, so the column simply existed —
+ * measured, the piece was on screen at 113ms while the bar went on moving
+ * until 1063. Every other page on this site waits; a page that does not is
+ * the one that reads as broken, however good the thing it is showing.
+ *
+ * The head first, then the body, then the way back: the same order the board
+ * uses, on the same beat.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-read__head {
+    animation: hbw-open var(--in) var(--ease) var(--enter-work) backwards;
+  }
+
+  .hbw-read__body {
+    animation: hbw-open var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step)) backwards;
+  }
+
+  .hbw-read__back {
+    animation: hbw-open var(--in) var(--ease)
+      calc(var(--enter-work) + var(--enter-step) * 2) backwards;
+  }
+}

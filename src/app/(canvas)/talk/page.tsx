@@ -6,6 +6,8 @@ import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
 import { PosterLink } from "@/components/site/PosterLink";
 import { liveProjects } from "@/components/home/catalog";
+import { loadArticles } from "@/sanity/load-articles";
+import { readDate } from "@/lib/date";
 import "@/styles/hbw-index.css";
 
 const title = "Talk — How by Why";
@@ -32,8 +34,11 @@ export const metadata: Metadata = {
  * sent to anyone, and this is the one address on the site that people need to
  * be able to send to each other.
  */
-export default function ContactPage() {
+export default async function ContactPage() {
   const projects = liveProjects();
+  /* Writing is an addition to this page, not a dependency of it: no articles,
+     or a CMS that cannot answer, and Talk is the contact page it always was. */
+  const articles = await loadArticles();
   return (
     <main className="hbw-site">
       {/* The one page whose job is the address, and it was the only one
@@ -75,6 +80,35 @@ export default function ContactPage() {
           a contact sheet of pictures here would be the work arguing with
           the ask.
         */}
+        {/*
+          The writing, when there is any.
+
+          Above the work rather than below it: somebody who has come to Talk
+          to read something should not have to pass the whole line of
+          projects first, and somebody who came for the address has it at the
+          top of the page already.
+        */}
+        {articles.length ? (
+          <section className="hbw-board__mod hbw-board__mod--wide hbw-board__mod--read">
+            <h2 className="hbw-m">Writing</h2>
+            <ul className="hbw-reads">
+              {articles.map((article) => (
+                <li key={article.slug} className="hbw-reads__one">
+                  <a href={`/talk/${article.slug}`}>
+                    <span className="hbw-reads__name">{article.title}</span>
+                    {article.standfirst ? (
+                      <span className="hbw-reads__say">{article.standfirst}</span>
+                    ) : null}
+                    <time className="hbw-reads__when" dateTime={article.published}>
+                      {readDate(article.published)}
+                    </time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         {projects.map((project) => (
           <section className="hbw-board__mod" key={project.id}>
             <h2 className="hbw-board__name">
