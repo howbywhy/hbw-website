@@ -19,7 +19,7 @@ export function Bar({
   here,
   says,
 }: {
-  here?: "work" | "practice" | "talk" | "conversations";
+  here?: "work" | "practice";
   /**
    * The page's line for the right-hand slot. The gallery borrows the same slot
    * while it is open, to name the project it is showing.

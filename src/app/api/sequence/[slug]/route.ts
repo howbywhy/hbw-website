@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { liveProjects, PROJECT_SLUGS } from "@/components/home/catalog";
 import { resolveProjectExperience } from "@/lib/project-source";
 import { inkedLogotype } from "@/components/site/Logotype";
+import { shotsOf } from "@/components/site/shots";
 import { infoOf } from "@/components/site/project-info";
 
 /**
@@ -36,18 +37,18 @@ export async function GET(_: Request, { params }: { params: Promise<{ slug: stri
       mark: inkedLogotype(slug),
       // The same shape the project's own page builds, so the two cannot drift.
       info: infoOf(record, experience),
-      frames: experience.movements.map((movement) => {
-        const media = movement.media;
-        const film = media.type === "video";
-        return {
-          id: movement.id,
-          src: film ? media.poster ?? media.src : media.src,
-          video: film ? media.mp4 ?? media.videoSrc ?? media.src : undefined,
-          webm: film ? media.webm : undefined,
-          width: media.width,
-          height: media.height,
-        };
-      }),
+      /*
+       * Built by shotsOf, not by a copy of it.
+       *
+       * This said it was the same shape the page builds and then built its
+       * own, which is how it came to hand the browser twenty-two frames at
+       * whatever size the CMS happened to hold them — a 1920 wide still for
+       * a cell a hundred and eighty across, four and a half megabytes on a
+       * project page before a visitor had moved. The page's own frames had
+       * been given widths; these had not, because they were never the same
+       * code. Now they are.
+       */
+      frames: shotsOf(experience.movements),
     },
     {
       /*

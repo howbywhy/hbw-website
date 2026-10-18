@@ -16,6 +16,16 @@ import type { Movement } from "@/components/home/projects/types";
 export type Shot = {
   id: string;
   src: string;
+  /**
+   * The same frame at the widths a screen might actually draw it.
+   *
+   * Without it the gallery asked the CMS for every frame at its native size
+   * and the browser drew them at a fraction of it: a 1920-wide still fetched
+   * at 314KB to fill a 180 square in the grid, twenty-two of them on one
+   * project, four and a half megabytes before a visitor had moved. The CDN
+   * resizes on request, so the only thing missing was the asking.
+   */
+  srcset?: string;
   video?: string;
   webm?: string;
   alt?: string;
@@ -31,6 +41,24 @@ export type Shot = {
   height?: number;
 };
 
+/**
+ * Local paths are files the repo ships and are returned untouched; anything
+ * from the CMS is asked for at a width. The ladder stops at 1920 because
+ * nothing here is drawn wider than a window, and starts at 320 because the
+ * grid draws these at about a hundred and eighty.
+ */
+const WIDTHS = [320, 480, 720, 1080, 1440, 1920];
+
+function sized(url: string, width: number) {
+  if (!/^https?:\/\//.test(url)) return url;
+  return `${url.split("?")[0]}?w=${width}&q=72&auto=format`;
+}
+
+function setFor(url: string) {
+  if (!/^https?:\/\//.test(url)) return undefined;
+  return WIDTHS.map((w) => `${sized(url, w)} ${w}w`).join(", ");
+}
+
 export function shotsOf(movements: Movement[]): Shot[] {
   const out: Shot[] = [];
   for (const movement of movements) {
@@ -40,7 +68,19 @@ export function shotsOf(movements: Movement[]): Shot[] {
     if (!src) continue;
     out.push({
       id: movement.id,
-      src,
+      /*
+       * Modest, because src is the floor and srcset is the ceiling.
+       *
+       * Everything that fetches a frame without consulting srcset gets this
+       * one: the band renders every frame at once — lazy loading defers
+       * nothing in a rail that is all at the height of the window — and the
+       * preloads ask for src by name. At 1440 that was twenty-two large
+       * pictures per project before a visitor had moved. At 640 it is a
+       * quarter of that, and anything actually drawn larger still picks the
+       * rendition it needs out of srcset below.
+       */
+      src: sized(src, 640),
+      srcset: setFor(src),
       video: film ? media.mp4 ?? media.videoSrc ?? media.src : undefined,
       webm: film ? media.webm : undefined,
       alt: media.alt,

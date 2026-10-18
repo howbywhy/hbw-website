@@ -142,6 +142,7 @@ export function Catalogue({
   projects,
   onOpen,
   pass = 0,
+  behind = false,
 }: {
   projects: GalleryProject[];
   /** Each project's logotype, rendered on the server. */
@@ -157,6 +158,12 @@ export function Catalogue({
    * carry their own ids rather than a second copy of the first's.
    */
   pass?: number;
+  /**
+   * Whether something is standing in front of the whole strip — a project's
+   * gallery, which covers the window. Nothing behind it is being looked at,
+   * so nothing behind it is worth fetching ahead.
+   */
+  behind?: boolean;
 }) {
   const echo = pass > 0;
   /*
@@ -237,8 +244,8 @@ export function Catalogue({
                 echo={echo}
                 films={pass === 1}
                 /* The middle turn is where the page lands. */
-                eager={pass === 1 && from + i < ON_FIRST_SCREEN}
-                first={pass === 1 && from + i < LEAD}
+                eager={!behind && pass === 1 && from + i < ON_FIRST_SCREEN}
+                first={!behind && pass === 1 && from + i < LEAD}
                 /*
                  * Only the first film of the first project can ever run on
                  * landing — Work plays one film per project, and only for the
@@ -247,7 +254,7 @@ export function Catalogue({
                  * of video on every page of the site against a quarter of a
                  * megabyte of the pictures a visitor was actually looking at.
                  */
-                warm={pass === 1 && project.slug === projects[0]?.slug && i === 0}
+                warm={!behind && pass === 1 && project.slug === projects[0]?.slug && i === 0}
               />
             ))}
           </div>

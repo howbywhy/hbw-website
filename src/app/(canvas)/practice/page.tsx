@@ -150,14 +150,6 @@ export default function StudioPage() {
               {project.sectors?.length ? ` · ${project.sectors.join(", ")}` : ""}
             </p>
             <p>{projectDescription(project)}</p>
-            {/*
-              The written half of the project, which had no way in. The name
-              above goes to the gallery — the pictures. The account of the
-              work in words lives at its own address.
-            */}
-            <p className="hbw-read">
-              <a href={`${project.href}/story`}>In depth</a>
-            </p>
           </section>
         ))}
 

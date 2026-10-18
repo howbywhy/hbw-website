@@ -3,7 +3,8 @@
  * Run: npx sanity exec src/sanity/scripts/seed-closed.ts --with-user-token
  * Does not touch the public site. /projects/bar-closed stays local.
  */
-import { createReadStream } from "node:fs";
+import { createHash } from "node:crypto";
+import { createReadStream, readFileSync } from "node:fs";
 import { extname } from "node:path";
 import { getCliClient } from "sanity/cli";
 import { portableBlocks } from "./portable-blocks";
@@ -28,9 +29,26 @@ function fileRef(id: string) {
   return { _type: "file", asset: { _type: "reference", _ref: id } };
 }
 
+/**
+ * The asset already up there under this name, and the bytes it holds.
+ *
+ * The name alone was enough while a file never changed. Re-encoding one
+ * showed the gap: the seed found the old asset by name, reused it, reported
+ * "reuse", and the site went on serving the heavy original from the CDN with
+ * nothing to say the two had diverged. Sanity records a sha1 of every asset,
+ * so the file on disk and the file being served can simply be compared.
+ */
 async function existingAsset(filename: string, kind: "image" | "file") {
   const type = kind === "image" ? "sanity.imageAsset" : "sanity.fileAsset";
-  return client.fetch(`*[_type == $type && originalFilename == $filename][0]._id`, { type, filename });
+  return client.fetch<{ _id: string; sha1hash?: string } | null>(
+    `*[_type == $type && originalFilename == $filename][0]{_id, sha1hash}`,
+    { type, filename }
+  );
+}
+
+/** The same digest Sanity stores, so the two are comparable. */
+function sha1Of(path: string) {
+  return createHash("sha1").update(readFileSync(path)).digest("hex");
 }
 
 /**
@@ -49,9 +67,12 @@ function assetName(path: string) {
 async function upload(path: string, kind: "image" | "file") {
   const filename = assetName(path);
   const found = await existingAsset(filename, kind);
-  if (found) {
-    console.log(`reuse ${kind} ${filename}`);
-    return found as string;
+  if (found?._id) {
+    if (!found.sha1hash || found.sha1hash === sha1Of(path)) {
+      console.log(`reuse ${kind} ${filename}`);
+      return found._id;
+    }
+    console.log(`changed ${kind} ${filename} — uploading the new bytes`);
   }
   const contentType =
     kind === "file"

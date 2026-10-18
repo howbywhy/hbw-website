@@ -13,7 +13,7 @@
  */
 import { BASE, browser, sleep, sheet } from "../lib.mjs";
 
-const SEEDS = ["/", "/practice", "/talk", "/system", "/projects/made-by-madelen"];
+const SEEDS = ["/", "/practice", "/projects/made-by-madelen", "/projects/bar-closed"];
 
 const EMAIL = /^mailto:[^@\s]+@[^@\s.]+\.[^@\s]+$/;
 const TEL = /^tel:\+?[0-9]{6,}$/;

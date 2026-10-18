@@ -1020,6 +1020,15 @@ export function Work({
               projects={projects}
               onOpen={(slug, at) => void leave(slug, at)}
               pass={pass}
+              /*
+               * With a project open the gallery covers the whole window, and
+               * the strip is behind it. It still fetched eighty of its
+               * pictures on a page where not one of them could be seen —
+               * three and a half megabytes of thumbnails competing with the
+               * gallery the visitor was actually waiting for. Behind
+               * something, it waits.
+               */
+              behind={open !== null}
             />
             {/*
               A foot you can scroll past.

@@ -1273,6 +1273,12 @@ export function Lightbox({
                 ) : near ? (
                   <img
                     src={one.src}
+                    srcSet={one.srcset}
+                    /* A frame in the band is a column of the sheet, not the
+                       window. Said plainly, the browser fetches the rendition
+                       it will draw instead of the one the CMS happens to
+                       hold. */
+                    sizes="(max-width: 760px) 92vw, 46vw"
                     alt={i === at ? one.alt ?? "" : ""}
                     /* The frame you are on and the two either side are what
                        a reader sees while the sheet is still up, so they are
@@ -1361,7 +1367,13 @@ export function Lightbox({
                 {one.video ? (
                   <video src={one.video} poster={one.src} autoPlay={!stillness} muted loop playsInline />
                 ) : (
-                  <img src={one.src} alt={one.alt ?? ""} />
+                  <img
+                    src={one.src}
+                    srcSet={one.srcset}
+                    sizes="100vw"
+                    alt={one.alt ?? ""}
+                    decoding="async"
+                  />
                 )}
               </div>
             );

@@ -392,31 +392,13 @@ export function StudioBody({ start }: { start?: string }) {
       */}
       <div className="hbw-studio__said" ref={said}>
         {/*
-          The index, back.
-          
-          A reader in the middle of the writing had no way of knowing what
-          else was here or how much was left — the chrome names the part, but
-          naming one part is not the same as showing the shape of the whole.
-          It holds its place while the writing moves past it.
+          No index above the writing.
+
+          It listed the five parts and marked the one being read, which is a
+          second way of saying what the blocks already say: each carries its
+          own name, and opening one closes the last. Two indicators for one
+          position, three lines apart. The blocks are the index.
         */}
-        <nav className="hbw-studio__index" aria-label="The studio">
-          {PARTS.map((part) => (
-            <a
-              key={part.id}
-              href={`#${part.id}`}
-              aria-current={here === part.id ? "true" : undefined}
-              onClick={(event) => {
-                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-                event.preventDefault();
-                said.current
-                  ?.querySelector<HTMLElement>(`[data-part="${part.id}"]`)
-                  ?.scrollIntoView({ block: "start" });
-              }}
-            >
-              {part.name}
-            </a>
-          ))}
-        </nav>
       <section className="hbw-part" data-part="practice" data-here={here === "practice"} data-open={here === "practice"}>
         {/* The block says its own name, so a closed one is still a way in. */}
         <button

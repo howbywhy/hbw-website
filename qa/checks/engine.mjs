@@ -94,7 +94,6 @@ export default async function run() {
   await scene(b, s, "the next project hands over", "/projects/sub-3?f=3", foot("Next"));
   await scene(b, s, "the writing opens", "/projects/sub-3?f=3", foot("Information"), [".hbw-lamp__info > *"]);
   await scene(b, s, "practice lands", "/practice", null, [...FOLLOW, ".hbw-board__mod", ".hbw-board__facts"]);
-  await scene(b, s, "talk lands", "/talk", null, [...FOLLOW, ".hbw-board__mod", ".hbw-board__facts"]);
 
   await b.close();
   return s;

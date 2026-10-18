@@ -8,7 +8,18 @@
  */
 import { BASE, browser, sleep, sheet } from "../lib.mjs";
 
-const PAGES = ["/", "/practice", "/talk", "/projects/koja", "/projects/chris-sisarich", "/projects/our-boy-roy", "/projects/sck", "/projects/sub-3", "/projects/bar-closed"];
+/* Home, About, and every project. There is nothing else on the site. */
+const PAGES = [
+  "/",
+  "/practice",
+  "/projects/made-by-madelen",
+  "/projects/sck",
+  "/projects/sub-3",
+  "/projects/bar-closed",
+  "/projects/koja",
+  "/projects/chris-sisarich",
+  "/projects/our-boy-roy",
+];
 
 /*
  * Noise a visitor never sees and a developer cannot fix here.

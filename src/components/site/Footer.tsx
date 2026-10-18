@@ -93,7 +93,6 @@ export function Footer() {
       <nav className="hbw-end__to" aria-label="Elsewhere">
         <a href="/">Work</a>
         <a href="/practice">Practice</a>
-        <a href="/talk">Talk</a>
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
       </nav>
