@@ -1,13 +1,22 @@
 /**
- * Confirm the six published projects stay valid under Studio error rules.
+ * Confirm the published projects stay valid under Studio error rules.
  * Warnings are reported but do not fail. Networked. Not part of npm test.
  */
 import assert from "node:assert/strict";
 import type { SanityMovement, SanityProject } from "../adapter/types";
 import { terminalPairMessage, uniqueMovementKeyMessage } from "../schemaTypes/editorRules";
 import { fetchPublishedProjectBySlug } from "./fetch-sck";
+import { CLOSED_MOVEMENTS } from "./closed-content";
 
-const SLUGS = ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"] as const;
+const SLUGS = [
+  "made-by-madelen",
+  "sck",
+  "closed",
+  "koja",
+  "chris-sisarich",
+  "sub-3",
+  "our-boy-roy",
+] as const;
 
 function hasAsset(value: { asset?: unknown } | undefined) {
   return Boolean(value?.asset);
@@ -49,7 +58,13 @@ function byKey(project: SanityProject, key: string) {
 
 function assertClosedProofs(project: SanityProject) {
   assert.equal(project._id, "project-closed");
-  assert.equal(project.movements.length, 22);
+  /*
+   * Counted from the copy the seed writes, not from a number typed here.
+   * This said 22 while CLOSED had 18, so the whole validator threw on the
+   * first project it reached and every project after it went unchecked —
+   * a stale literal taking a working check down with it.
+   */
+  assert.equal(project.movements.length, CLOSED_MOVEMENTS.length);
   const c03 = byKey(project, "c03");
   assert.equal(c03.scale, "major");
   assert.equal(c03.pace, "pause");

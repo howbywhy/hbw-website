@@ -32,11 +32,28 @@ test("every committed mark is keyed by a real route slug", () => {
   }
 });
 
-test("every live project has a mark to fall back on", () => {
+/**
+ * Named, so a project without a logotype is a known gap rather than a silent
+ * one. The row handles a missing mark — IndexDetail falls through to the
+ * entry's own mark and then to nothing — so this is a record of which vectors
+ * the studio still owes itself, not a guard against a crash. Take a project
+ * off this list the moment its mark is committed; never add one to quiet a
+ * failure.
+ */
+const WITHOUT_A_MARK = ["made-by-madelen"];
+
+test("every live project has a mark to fall back on, or is a known gap", () => {
   for (const project of liveProjects()) {
+    if (WITHOUT_A_MARK.includes(project.id)) {
+      assert.ok(
+        !INDEX_MARKS[project.id],
+        `${project.id} has a mark now — take it off WITHOUT_A_MARK`
+      );
+      continue;
+    }
     assert.ok(INDEX_MARKS[project.id], `${project.id} has no committed logotype`);
   }
-  assert.equal(Object.keys(INDEX_MARKS).length, liveProjects().length);
+  assert.equal(Object.keys(INDEX_MARKS).length, liveProjects().length - WITHOUT_A_MARK.length);
 });
 
 test("the span reads the years it is given", () => {

@@ -1,4 +1,4 @@
-/** Six real CMS-backed projects. Routing, source flags, and document identity only. */
+/** The real CMS-backed projects. Routing, source flags, and document identity only. */
 
 export type ProjectSource = "sanity" | "local";
 
@@ -8,7 +8,8 @@ export type CmsSourceEnvKey =
   | "HBW_KOJA_SOURCE"
   | "HBW_CHRIS_SOURCE"
   | "HBW_SUB3_SOURCE"
-  | "HBW_OBR_SOURCE";
+  | "HBW_OBR_SOURCE"
+  | "HBW_MBM_SOURCE";
 
 export type CmsProjectAlias = {
   source: string;
@@ -34,6 +35,18 @@ export type CmsBackedProject = {
 };
 
 export const CMS_BACKED_PROJECTS: readonly CmsBackedProject[] = [
+  {
+    routeSlug: "made-by-madelen",
+    cmsSlug: "made-by-madelen",
+    documentId: "project-made-by-madelen",
+    envKey: "HBW_MBM_SOURCE",
+    label: "Made by Madelen",
+    publicPath: "/projects/made-by-madelen",
+    previewSlug: "made-by-madelen",
+    previewPath: "/preview/made-by-madelen",
+    defaultSource: "sanity",
+    aliases: [],
+  },
   {
     routeSlug: "sck",
     cmsSlug: "sck",

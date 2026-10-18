@@ -31,9 +31,14 @@ export const DISCIPLINES = [
   "Print",
   "Digital Design",
   "Motion",
+  // Added with Made by Madelen, which is a launch rather than an identity.
+  "Launch Strategy",
+  "Content Planning",
+  "Social Content",
+  "Messaging",
 ] as const;
 
-export const SECTORS = ["Sports Nutrition", "FMCG", "Food", "Hospitality", "Photography", "Architecture", "Interior Design"] as const;
+export const SECTORS = ["Sports Nutrition", "FMCG", "Food", "Hospitality", "Photography", "Architecture", "Interior Design", "Fashion"] as const;
 
 export const COLLABORATORS = [
   { id: "the-colour-club", name: "The Colour Club", kind: "studio" },
@@ -55,6 +60,10 @@ export const DISCIPLINE_CREDIT = {
   "Print": "print and digital",
   Motion: "motion",
   "Digital Design": "digital design",
+  "Launch Strategy": "launch strategy",
+  "Content Planning": "content planning",
+  "Social Content": "social content",
+  Messaging: "messaging",
 } as const satisfies Record<Discipline, string>;
 
 /** Sector prose. Acronyms stay capped. Adding a sector without a form is a build error. */
@@ -66,6 +75,7 @@ export const SECTOR_CREDIT = {
   Photography: "photography",
   Architecture: "architecture",
   "Interior Design": "interior design",
+  Fashion: "fashion",
 } as const satisfies Record<Sector, string>;
 
 export type ProjectRecord = {
@@ -123,6 +133,28 @@ export function srcSetFor(src: string, widths: number[], intrinsic: number) {
 
 /** Verified from recovered /projects and / home records. */
 export const PROJECTS: ProjectRecord[] = [
+  {
+    id: "made-by-madelen",
+    href: "/projects/made-by-madelen",
+    name: "Made by Madelen",
+    idea: "From Making to Moment",
+    year: "2026",
+    // The first movement, as everywhere else: the card opens into that frame,
+    // so the still it shows and the still it flies to have to be one picture.
+    // The catalogue card itself is keyArtId below.
+    src: "/projects/made-by-madelen/web/01-full-story.jpg",
+    srcSet: srcSetFor("/projects/made-by-madelen/web/01-full-story.jpg", [], 1080)!,
+    width: 1080,
+    height: 1920,
+    crop: "center 38%",
+    layout: "portrait",
+    keyArtId: "m08",
+    visualSpan: 5,
+    visualStart: 7,
+    sectors: ["Fashion"],
+    disciplines: ["Launch Strategy", "Content Planning", "Social Content", "Motion", "Messaging"],
+    credits: ["Mark Blackler", "Madelen"],
+  },
   {
     id: "sck",
     href: "/projects/sck",
@@ -329,6 +361,8 @@ export function isKnownFilter(dim: string, value: string) {
 }
 
 const PROJECT_DESCRIPTIONS: Record<string, string> = {
+  "made-by-madelen":
+    "Made by Madelen — From Making to Moment. Launch strategy, content planning, motion and social content for a fashion label going to market.",
   sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture and interiors studio.",
   "bar-closed":
     "CLOSED, a Newcastle bar — A Smuggler’s House. Concept, identity, signage and print. The name emerged during the work.",

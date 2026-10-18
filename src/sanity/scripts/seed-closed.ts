@@ -132,12 +132,16 @@ async function main() {
     context: portableBlocks("ctx", CLOSED_COPY.context),
     roles: CLOSED_COPY.roles,
     workingContext: CLOSED_COPY.workingContext,
-    collaborators: CLOSED_COPY.collaborators.map((item, index) => ({
-      _type: "collaborator",
-      _key: `col${index + 1}`,
-      name: item.name,
-      contribution: item.contribution,
-    })),
+    /*
+     * No Collaborators block, deliberately.
+     *
+     * CLOSED's copy names nobody now, and createOrReplace drops what it is
+     * not given — so re-seeding is what actually takes the three names off
+     * the published document. Leaving the field out of the copy alone would
+     * only stop the shipped fallback showing them; Sanity would keep them and
+     * the site reads Sanity. workingContext stays: the studio context is not
+     * a collaborator credit.
+     */
     idea: { _type: "caseStudyBlock", heading: CLOSED_COPY.idea.heading, body: portableBlocks("idea", CLOSED_COPY.idea.body) },
     shift: { _type: "caseStudyBlock", heading: CLOSED_COPY.shift.heading, body: portableBlocks("shift", CLOSED_COPY.shift.body) },
     system: { _type: "caseStudyBlock", heading: CLOSED_COPY.system.heading, body: portableBlocks("sys", CLOSED_COPY.system.body) },

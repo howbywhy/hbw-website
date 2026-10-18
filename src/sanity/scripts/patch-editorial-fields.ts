@@ -236,14 +236,11 @@ async function main() {
       context: portableBlocks("ctx", CLOSED_COPY.context),
       roles: CLOSED_COPY.roles,
       workingContext: CLOSED_COPY.workingContext,
-      collaborators: CLOSED_COPY.collaborators.map((item) => ({
-        _type: "collaborator",
-        name: item.name,
-        contribution: item.contribution,
-      })),
+      // CLOSED credits nobody now; unset rather than rewrite.
       idea: caseStudy(CLOSED_COPY.idea.heading, CLOSED_COPY.idea.body, "idea"),
       shift: caseStudy(CLOSED_COPY.shift.heading, CLOSED_COPY.shift.body, "shift"),
       system: caseStudy(CLOSED_COPY.system.heading, CLOSED_COPY.system.body, "sys"),
+      collaborators: undefined,
     })
     .commit({ autoGenerateArrayKeys: true });
 

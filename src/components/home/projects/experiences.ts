@@ -11,6 +11,7 @@ import { srcSetFor } from "@/components/home/catalog";
 import { CHRIS_COPY } from "@/sanity/scripts/chris-content";
 import { CLOSED_COPY } from "@/sanity/scripts/closed-content";
 import { KOJA_COPY } from "@/sanity/scripts/koja-content";
+import { MBM_COPY } from "@/sanity/scripts/mbm-content";
 import { OBR_COPY } from "@/sanity/scripts/obr-content";
 import { SCK_COPY } from "@/sanity/scripts/sck-content";
 import { SUB3_COPY } from "@/sanity/scripts/sub3-content";
@@ -827,6 +828,63 @@ export const SCK_EXPERIENCE: ProjectExperience = {
   ],
 };
 
+/**
+ * Made by Madelen, shipped so the project has a sequence of its own.
+ *
+ * Every case study here is also the CMS project's fallback: it is what the
+ * page shows if Sanity is unreachable, and it is what the card reads to work
+ * out which frame it is opening into. A project with only a CMS record has
+ * neither, so the open has no destination to fly to.
+ */
+export const MBM_EXPERIENCE: ProjectExperience = {
+  slug: "made-by-madelen",
+  infoSections: infoFromCopy(MBM_COPY),
+  context: MBM_COPY.context,
+  authorship: authorshipFromCopy(MBM_COPY),
+  movements: [
+    mv("m01", "portrait", jpg("/projects/made-by-madelen/web/01-full-story.jpg", 1080, 1920), "idea", {
+      scale: "major",
+      pace: "pause",
+      alt: "The Made by Madelen monogram held in cream over a black-and-white portrait, a sheet of fabric sweeping across the frame.",
+    }),
+    mv("m02", "film", film("/projects/made-by-madelen/web/02-instagram-tall.mp4", 1350, 1688, "/projects/made-by-madelen/web/02-instagram-tall.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A phone playing the first Reel on a near-black ground, captioned Something is coming.",
+    }),
+    mv("m03", "portrait", jpg("/projects/made-by-madelen/web/03-full-tall.jpg", 1350, 1688), "idea", {
+      scale: "standard",
+      pace: "normal",
+      alt: "A black-and-white fragment of two figures turned away, the monogram print rising through the lower half of the frame.",
+    }),
+    mv("m04", "film", film("/projects/made-by-madelen/web/04-row-row.mp4", 1920, 1186, "/projects/made-by-madelen/web/04-row-row.jpg"), "shift", {
+      scale: "standard",
+      pace: "normal",
+      alt: "Two phones side by side: a TikTok reading MADE IN SEQUENCE, CUT-BY-CUT, STITCH BY STITCH, and the Instagram grid filling in beside it.",
+    }),
+    mv("m05", "landscape", jpg("/projects/made-by-madelen/web/05-full-wide.jpg", 1920, 1080), "idea", {
+      scale: "major",
+      pace: "pause",
+      alt: "A portrait in the monogram-print jacket, colour blooming in from the left edge of the frame.",
+    }),
+    mv("m06", "film", film("/projects/made-by-madelen/web/06-full-story.mp4", 1080, 1920, "/projects/made-by-madelen/web/06-full-story.jpg"), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "A close crop of the monogram print in blue across a shoulder and collar, Made the way you are. set in yellow across it.",
+    }),
+    mv("m07", "film", film("/projects/made-by-madelen/web/07-instagram-tall.mp4", 1350, 1688, "/projects/made-by-madelen/web/07-instagram-tall.jpg"), "system", {
+      scale: "standard",
+      pace: "normal",
+      alt: "MADE TO BE WORN running over a Reel and out past the edges of the phone behind it.",
+    }),
+    mv("m08", "portrait", jpg("/projects/made-by-madelen/web/08-full-story.jpg", 1080, 1920), "system", {
+      scale: "major",
+      pace: "pause",
+      alt: "The full red monogram-print suit on a warm ground, Link in stories set across it.",
+    }),
+  ],
+};
+
 export const PROJECT_EXPERIENCES: Record<string, ProjectExperience> = {
   "sub-3": SUB3_EXPERIENCE,
   koja: KOJA_EXPERIENCE,
@@ -835,6 +893,7 @@ export const PROJECT_EXPERIENCES: Record<string, ProjectExperience> = {
   "chris-sisarich": SISARICH_EXPERIENCE,
   "bistro-nido": NIDO_EXPERIENCE,
   sck: SCK_EXPERIENCE,
+  "made-by-madelen": MBM_EXPERIENCE,
 };
 
 export function getExperience(slug: string) {

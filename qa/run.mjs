@@ -17,7 +17,7 @@
  */
 import { BASE, reachable } from "./lib.mjs";
 
-const ALL = ["console", "sequence", "worknav", "engine", "sheetwait", "twice", "roomwait"];
+const ALL = ["console", "links", "sequence", "worknav", "engine", "sheetwait", "said", "onestep", "scrollback", "twice", "roomwait"];
 
 const asked = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const names = asked.length ? asked : ALL;

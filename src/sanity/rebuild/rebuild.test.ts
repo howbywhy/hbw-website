@@ -166,6 +166,7 @@ test("public published loader stays unauthenticated and catalog IDs stay code-ow
   assert.deepEqual(
     CMS_BACKED_PROJECTS.map((project) => project.documentId),
     [
+      "project-made-by-madelen",
       "project-sck",
       "project-closed",
       "project-koja",

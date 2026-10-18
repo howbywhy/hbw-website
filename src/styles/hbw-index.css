@@ -8953,10 +8953,27 @@ body:has(.hbw-lamp) .hbw-bar {
  * a pale band across the picture with nothing underneath it. The middle of
  * the gallery's own row holds the same words and travels cleanly, so it does
  * the carrying and the bar's copy is simply not shown.
+ *
+ * Only while the row is actually there to carry it. Open a sheet over the
+ * gallery and the row is behind it, so the bar takes its own line back: it
+ * has no transform of its own in here, so it simply says the words where it
+ * always says them, and nothing is left unsaid.
  */
-body:has(.hbw-lamp[data-full="true"]) .hbw-bar__what {
+body:has(.hbw-lamp[data-full="true"]):not(:has(.hbw-studio-sheet)) .hbw-bar__what {
   opacity: 0;
   pointer-events: none;
+}
+
+/*
+ * And it fades on the room's own curve, both ways, so the line is handed
+ * over rather than switched on. Nothing in the nav should ever appear at
+ * full strength in a single frame.
+ */
+body:has(.hbw-lamp) .hbw-bar__what {
+  transition:
+    transform var(--in) var(--ease),
+    margin var(--in) var(--ease),
+    opacity var(--in) var(--ease);
 }
 
 /* The heading stays read-but-not-seen; the line beside it does the saying. */

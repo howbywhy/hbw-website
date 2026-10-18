@@ -95,6 +95,25 @@ export function StudioBody({ start }: { start?: string }) {
    */
   const [arriving, setArriving] = useState(false);
   const staging = useRef(0);
+  /**
+   * The gesture outlives the block it opens.
+   *
+   * A flick is one push and a long tail of small ones, so opening a block
+   * has to deafen the wheel for a moment afterwards or the tail opens the
+   * next one too. That pause was kept in the wheel effect's own scope and
+   * the effect was rebuilt whenever the reading moved — so the act of
+   * opening a block threw away the pause meant to protect it, and a single
+   * flick on the first part went straight through the second to the third.
+   *
+   * It is held here instead, where nothing re-runs, and the handler reads
+   * where it is and whether the tool is open from refs rather than from a
+   * closure that has to be rebuilt to stay current.
+   */
+  const gesture = useRef({ carry: 0, cooling: 0, last: 0 });
+  const hereNow = useRef(PARTS[0].id as string);
+  const toolNow = useRef(false);
+  hereNow.current = here;
+  toolNow.current = tool;
 
   useEffect(() => () => window.clearTimeout(staging.current), []);
 
@@ -206,9 +225,6 @@ export function StudioBody({ start }: { start?: string }) {
   useEffect(() => {
     const host = said.current;
     if (!host) return;
-    let carry = 0;
-    let cooling = 0;
-    let last = 0;
     const onWheel = (event: WheelEvent) => {
       /*
        * Narrow, the wheel is nobody's but the reader's.
@@ -228,7 +244,7 @@ export function StudioBody({ start }: { start?: string }) {
        * drawing is panning it or doing nothing, never advancing to the next
        * block. Closing it gives the wheel back to the sequence.
        */
-      if (tool) {
+      if (toolNow.current) {
         event.preventDefault();
         return;
       }
@@ -240,11 +256,11 @@ export function StudioBody({ start }: { start?: string }) {
           : open.scrollTop > 1;
         if (left) return;
       }
-      const at = PARTS.findIndex((part) => part.id === here);
+      const at = PARTS.findIndex((part) => part.id === hereNow.current);
       const next = at + (event.deltaY > 0 ? 1 : -1);
       if (next < 0 || next >= PARTS.length) return;
       event.preventDefault();
-      if (Date.now() < cooling) return;
+      if (Date.now() < gesture.current.cooling) return;
       /*
        * One gesture, one block, then a pause.
        *
@@ -256,17 +272,18 @@ export function StudioBody({ start }: { start?: string }) {
        * have come in before the next push is heard.
        */
       const now = Date.now();
-      if (now - last > 160) carry = 0;
-      last = now;
-      carry += event.deltaY;
-      if (Math.abs(carry) < 140) return;
-      carry = 0;
-      cooling = now + 1100;
+      const run = gesture.current;
+      if (now - run.last > 160) run.carry = 0;
+      run.last = now;
+      run.carry += event.deltaY;
+      if (Math.abs(run.carry) < 140) return;
+      run.carry = 0;
+      run.cooling = now + 1100;
       setHere(PARTS[next].id);
     };
     host.addEventListener("wheel", onWheel, { passive: false });
     return () => host.removeEventListener("wheel", onWheel);
-  }, [here, tool]);
+  }, []);
 
   useEffect(() => {
     const host = said.current;

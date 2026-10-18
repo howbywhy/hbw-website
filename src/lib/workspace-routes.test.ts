@@ -62,19 +62,38 @@ test("CLOSED CMS slug aliases the public catalog id", () => {
   assert.equal(nextProject("closed")?.id, nextProject("bar-closed")?.id);
 });
 
-test("retired Nido is absent from public progression; OBR cycles to SCK", () => {
+test("retired Nido is absent from public progression; the last cycles to the first", () => {
   // Newest year first; within a year, catalog order.
-  assert.deepEqual(PROJECT_SLUGS, ["sck", "sub-3", "bar-closed", "koja", "chris-sisarich", "our-boy-roy"]);
+  assert.deepEqual(PROJECT_SLUGS, [
+    "made-by-madelen",
+    "sck",
+    "sub-3",
+    "bar-closed",
+    "koja",
+    "chris-sisarich",
+    "our-boy-roy",
+  ]);
   assert.deepEqual(
     liveProjects().map((project) => project.year),
     [...liveProjects().map((project) => project.year)].sort((a, b) => Number(b) - Number(a))
   );
-  assert.equal(nextProject("sck")?.id, "sub-3");
-  assert.equal(nextProject("sub-3")?.id, "bar-closed");
-  assert.equal(nextProject("bar-closed")?.id, "koja");
-  assert.equal(nextProject("koja")?.id, "chris-sisarich");
-  assert.equal(nextProject("chris-sisarich")?.id, "our-boy-roy");
-  assert.equal(nextProject("our-boy-roy")?.id, "sck");
+  /*
+   * Walked rather than listed. Spelling out every step meant adding a project
+   * changed six assertions, and the one that mattered — that the walk closes
+   * — was the one most easily left pointing at whoever used to be first.
+   */
+  const walked = [PROJECT_SLUGS[0]];
+  for (let i = 1; i < PROJECT_SLUGS.length; i += 1) {
+    const next = nextProject(walked[walked.length - 1]);
+    assert.ok(next, `${walked[walked.length - 1]} leads nowhere`);
+    walked.push(next.id);
+  }
+  assert.deepEqual(walked, PROJECT_SLUGS, "Next walks the work line in order");
+  assert.equal(
+    nextProject(PROJECT_SLUGS[PROJECT_SLUGS.length - 1])?.id,
+    PROJECT_SLUGS[0],
+    "the last project cycles back to the first"
+  );
   assert.equal(nextProject("bistro-nido"), null);
 });
 

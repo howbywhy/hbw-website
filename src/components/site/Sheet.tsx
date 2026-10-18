@@ -8,6 +8,7 @@
  * comes back, and the page underneath does not scroll while it is up.
  */
 import { useHeld } from "@/components/site/held";
+import { holdScroll } from "@/components/site/scroll-lock";
 import { useNavSettled } from "@/components/site/navSettled";
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 
@@ -57,10 +58,9 @@ export function Sheet({
   useEffect(() => {
     opener.current = document.activeElement as HTMLElement | null;
     panel.current?.focus();
-    const had = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const release = holdScroll();
     return () => {
-      document.body.style.overflow = had;
+      release();
       opener.current?.focus?.();
     };
   }, []);

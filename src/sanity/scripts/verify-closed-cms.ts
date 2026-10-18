@@ -180,9 +180,9 @@ async function main() {
           context: editorial.context === CLOSED_COPY.context,
           roles: editorial.roles.join("|") === CLOSED_COPY.roles.join("|"),
           workingContext: editorial.workingContext === CLOSED_COPY.workingContext,
-          collaborators:
-            editorial.collaborators.map((item) => `${item.name}|${item.contribution}`).join("||") ===
-            CLOSED_COPY.collaborators.map((item) => `${item.name}|${item.contribution}`).join("||"),
+          /* CLOSED credits nobody now; the published document has to agree,
+             or the three old names are still being served from Sanity. */
+          collaboratorsOmitted: editorial.collaborators.length === 0,
           ideaMatchesApproved: editorial.idea === CLOSED_COPY.idea.body,
           shiftMatchesApproved: editorial.shift === CLOSED_COPY.shift.body,
           systemMatchesApproved: editorial.system === CLOSED_COPY.system.body,

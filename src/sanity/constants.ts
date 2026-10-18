@@ -49,6 +49,11 @@ export const PROJECT_DISCIPLINES = [
   "Print",
   "Digital Design",
   "Motion",
+  // Added with Made by Madelen, which is a launch rather than an identity.
+  "Launch Strategy",
+  "Content Planning",
+  "Social Content",
+  "Messaging",
 ] as const;
 
 export const MOVEMENT_SCALES = ["major", "standard", "detail"] as const;

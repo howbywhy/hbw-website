@@ -18,6 +18,7 @@
  * rather than returning you from somewhere.
  */
 import dynamic from "next/dynamic";
+import { holdScroll } from "@/components/site/scroll-lock";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -119,13 +120,12 @@ export function PosterLink() {
     // The nav is not the same height at every width, and the tool stays open
     // across a turn of the phone.
     window.addEventListener("resize", place);
-    const had = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const release = holdScroll();
     setOnOwnLayer(true);
     setHost(layer);
     return () => {
       window.removeEventListener("resize", place);
-      document.body.style.overflow = had;
+      release();
       layer.remove();
       setHost(null);
     };

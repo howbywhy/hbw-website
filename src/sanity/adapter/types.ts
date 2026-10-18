@@ -219,6 +219,7 @@ export const SECTORS: readonly Sector[] = [
   "Photography",
   "Architecture",
   "Interior Design",
+  "Fashion",
 ];
 
 export const DISCIPLINES: readonly Discipline[] = [
@@ -228,7 +229,11 @@ export const DISCIPLINES: readonly Discipline[] = [
   "Packaging",
   "Signage & Wayfinding",
   "Website",
-  "Print", "Digital Design",
-  "Motion",
+  "Print",
   "Digital Design",
+  "Motion",
+  "Launch Strategy",
+  "Content Planning",
+  "Social Content",
+  "Messaging",
 ];

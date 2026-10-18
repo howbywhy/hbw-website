@@ -3,6 +3,8 @@ import { test } from "node:test";
 import { liveProjects, projectById, projectDescription } from "../components/home/catalog";
 
 const EXPECTED: Record<string, string> = {
+  "made-by-madelen":
+    "Made by Madelen — From Making to Moment. Launch strategy, content planning, motion and social content for a fashion label going to market.",
   sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture and interiors studio.",
   "bar-closed":
     "CLOSED, a Newcastle bar — A Smuggler’s House. Concept, identity, signage and print. The name emerged during the work.",
@@ -21,5 +23,17 @@ test("project descriptions stay authored and project-specific", () => {
   assert.deepEqual([...ids].sort(), Object.keys(EXPECTED).sort());
   for (const [id, description] of Object.entries(EXPECTED)) {
     assert.equal(projectDescription(projectById(id)), description);
+  }
+  /*
+   * And nothing falls through to the generic form. A project with no authored
+   * description still returns a string — "Name — HBW." — so a missing one is
+   * invisible until it is read in a search result or a shared link.
+   */
+  for (const id of ids) {
+    assert.notEqual(
+      projectDescription(projectById(id)),
+      `${projectById(id).name} — HBW.`,
+      `${id} has no authored description`
+    );
   }
 });

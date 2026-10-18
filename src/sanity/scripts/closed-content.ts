@@ -36,11 +36,6 @@ export const CLOSED_COPY = {
     "Digital Design",
   ],
   workingContext: "Developed while working with The Colour Club.",
-  collaborators: [
-    { name: "Jordan Lucky / Playstate", contribution: "Mural" },
-    { name: "Rebecca Whan + Afifa Intanjudin / Patternshop", contribution: "Interior & Architecture" },
-    { name: "Stanley House Studio", contribution: "Photography" },
-  ],
   idea: {
     heading: "The idea",
     body: "A Smuggler’s House.\n\nNewcastle’s history of steelworks, docks, the sea and old trade routes became the starting point for an imagined house filled with things accumulated from elsewhere.\n\nCLOSED emerged during that process.\n\nWhat began as an example of how the concept might be expressed became the name of the venue itself.",

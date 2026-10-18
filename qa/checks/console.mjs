@@ -32,6 +32,8 @@ export default async function run() {
     await p.setViewport({ width: 1440, height: 900 });
     const shouts = [];
     const missing = [];
+    /** Media whose range request Chrome cancelled; checked for real afterwards. */
+    const aborted = new Set();
     p.on("console", (m) => {
       if (m.type() !== "error" && m.type() !== "warning") return;
       const text = m.text();
@@ -45,6 +47,20 @@ export default async function run() {
     });
     p.on("requestfailed", (r) => {
       if (IGNORE.some((x) => x.test(r.url()))) return;
+      /*
+       * An aborted media range request is how a video stops, not how it fails.
+       *
+       * A film with preload="metadata" is fetched until Chrome has what it
+       * wants and the rest of the range is then cancelled, which arrives here
+       * as ERR_ABORTED on a request whose element is loaded and error-free.
+       * Counting those called four working films missing on every page of the
+       * site. Anything else that aborts, and every media request that aborts
+       * without the element ending up loaded, still fails below.
+       */
+      if (r.resourceType() === "media" && r.failure()?.errorText === "net::ERR_ABORTED") {
+        aborted.add(r.url());
+        return;
+      }
       missing.push(r.url().replace(BASE, "").slice(0, 90));
     });
     p.on("response", (r) => {
@@ -56,6 +72,23 @@ export default async function run() {
     await sleep(4000);
     const status = res ? res.status() : 0;
     s.ok(path + " answers", status >= 200 && status < 400, "status " + status);
+    /*
+     * Having excused those aborts, prove them: every film the page cancelled
+     * must be sitting there with data and no error. One that aborted and is
+     * genuinely broken joins the missing rather than being waved through.
+     */
+    if (aborted.size) {
+      const broken = await p.evaluate((urls) => {
+        const out = [];
+        for (const v of document.querySelectorAll("video")) {
+          const src = v.currentSrc || v.src || v.querySelector("source")?.src || "";
+          if (!urls.includes(src)) continue;
+          if (v.error || v.readyState < 1) out.push(src + " (readyState " + v.readyState + ")");
+        }
+        return out;
+      }, [...aborted]);
+      for (const one of broken) missing.push(one.slice(0, 90));
+    }
     s.ok(path + " loads everything", missing.length === 0, [...new Set(missing)].slice(0, 3).join("; "));
     s.ok(path + " says nothing", shouts.length === 0, [...new Set(shouts)].slice(0, 2).join("; "));
     await p.close();

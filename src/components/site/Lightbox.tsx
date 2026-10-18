@@ -21,6 +21,7 @@
  * in here there is only one job and the work is the whole subject.
  */
 import { useNavSettled } from "@/components/site/navSettled";
+import { holdScroll } from "@/components/site/scroll-lock";
 import { useStillness } from "@/components/site/still";
 import { useView } from "@/components/site/view";
 import { useHeld } from "@/components/site/held";
@@ -538,10 +539,9 @@ export function Lightbox({
   useEffect(() => {
     opener.current = document.activeElement as HTMLElement | null;
     panel.current?.focus();
-    const had = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const release = holdScroll();
     return () => {
-      document.body.style.overflow = had;
+      release();
       opener.current?.focus?.();
     };
   }, []);
