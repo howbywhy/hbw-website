@@ -157,9 +157,28 @@ async function main() {
   assert.equal(experience.movements.length, 19);
   assert.equal(project.outcome == null, true);
   assert.deepEqual(sectionIds, ["idea", "shift", "system"]);
-  assert.equal(experience.movements[4]?.kind, "graphic");
-  assert.equal(experience.movements[1]?.media.fit, "cover");
-  assert.equal(experience.movements[7]?.media.fit, "cover");
+  /*
+   * The 2026 sequence carries no presentation override at all.
+   *
+   * These three named the old eight: a graphic at index 4, and two website
+   * films set to cover. Nothing in the sequence is a graphic now and every
+   * piece is contained, so the old assertions described a shape the document
+   * cannot have. override.test.ts covers the override mapping itself.
+   */
+  assert.equal(
+    experience.movements.every((movement) => movement.media.fit === "contain"),
+    true
+  );
+  assert.equal(
+    experience.movements.every((movement) => ["film", "portrait", "landscape"].includes(movement.kind)),
+    true
+  );
+  /* idea runs to index 3, shift to 10, system to the end at 18. */
+  assert.equal(experience.movements[3]?.infoHint, "idea");
+  assert.equal(experience.movements[4]?.infoHint, "shift");
+  assert.equal(experience.movements[10]?.infoHint, "shift");
+  assert.equal(experience.movements[11]?.infoHint, "system");
+  assert.equal(experience.movements[18]?.infoHint, "system");
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);
 }
 

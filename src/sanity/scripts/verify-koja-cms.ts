@@ -3,7 +3,7 @@
  * Networked validation only. Not part of npm test.
  *
  * Protects: document id, 8 movements, order/ids/kind/scale/relation/resolved pace,
- * media role identity, k03 1440×810 correction, idea/shift/system, no Outcome,
+ * media role identity, idea/shift/system, no Outcome,
  * no “make healthy simple”, critical Info fields, Sanity CDN host.
  * Surfaces catalog preview filename vs Sanity preview as editorial drift.
  */
@@ -48,14 +48,19 @@ const EXPECTED_HINTS = [
 ] as const;
 
 function expectedMovements(): Movement[] {
-  return KOJA_EXPERIENCE.movements.map((movement, index) => {
-    const next = { ...movement, infoHint: EXPECTED_HINTS[index] };
-    // Local experience lists the logo film as 1920×1080; the shipped file and poster are 1440×810.
-    if (movement.id === "k03") {
-      return { ...next, media: { ...next.media, width: 1440, height: 810 } };
-    }
-    return next;
-  });
+  /*
+   * No corrections any more.
+   *
+   * k03 used to be the logo film, which the local experience listed as
+   * 1920×1080 while the shipped file was 1440×810 — so this put the real
+   * size back before comparing. k03 is a story film now, 1080×1920, and the
+   * repo, the file on disk and the published asset all agree. Left in, the
+   * correction asserted a shape nothing has.
+   */
+  return KOJA_EXPERIENCE.movements.map((movement, index) => ({
+    ...movement,
+    infoHint: EXPECTED_HINTS[index],
+  }));
 }
 
 async function main() {
@@ -143,15 +148,7 @@ async function main() {
           shiftDiffersFromShipped: editorial.shift !== KOJA_EXPERIENCE.infoSections[1].copy,
           systemDiffersFromShipped: editorial.system !== KOJA_EXPERIENCE.infoSections[2].copy,
         },
-        localMetadataCorrections: [
-          {
-            id: "k03",
-            field: "dimensions",
-            local: "1920x1080",
-            actual: "1440x810",
-            reason: "Shipped KOJA-Logo.mp4 and poster are 1440×810. Local experiences.ts overstates the size. Aspect and presentation are unchanged.",
-          },
-        ],
+        localMetadataCorrections: [],
         presentationParity: presentationFail.length === 0,
       },
       null,

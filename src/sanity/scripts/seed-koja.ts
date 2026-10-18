@@ -88,7 +88,16 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId(KOJA_MOVEMENTS[0].still as string, "image");
+  /*
+   * The catalogue's own card, named rather than inferred.
+   *
+   * This read KOJA_MOVEMENTS[0].still, which held while the sequence happened
+   * to open on a still. It now opens on the logotype film, so `still` was
+   * undefined and the cast to string hid that from the compiler until the
+   * seed tried to make a filename out of it. The preview is the picture the
+   * catalogue shows; it should be named in one place and this is it.
+   */
+  const previewId = await assetId("public/projects/koja/web/07-full-tall.jpg", "image");
 
   const movements = [];
   for (const movement of KOJA_MOVEMENTS) {

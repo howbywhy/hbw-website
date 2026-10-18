@@ -166,7 +166,13 @@ async function main() {
     experience.movements.filter((movement) => movement.relation === "pair").map((movement) => movement.id),
     []
   );
-  assert.equal(experience.movements[6]?.infoHint, "system");
+  /* idea runs to index 2, shift to 6, system to the end at 14. Index 6 was
+     read as system while it is the last of the shift. */
+  assert.equal(experience.movements[2]?.infoHint, "idea");
+  assert.equal(experience.movements[3]?.infoHint, "shift");
+  assert.equal(experience.movements[6]?.infoHint, "shift");
+  assert.equal(experience.movements[7]?.infoHint, "system");
+  assert.equal(experience.movements[14]?.infoHint, "system");
   assert.deepEqual(presentationFail, [], `Presentation mismatches:\n${JSON.stringify(presentationFail, null, 2)}`);
 }
 
