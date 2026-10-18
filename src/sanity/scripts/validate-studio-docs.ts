@@ -5,9 +5,10 @@
 import assert from "node:assert/strict";
 import type { SanityMovement, SanityProject } from "../adapter/types";
 import { terminalPairMessage, uniqueMovementKeyMessage } from "../schemaTypes/editorRules";
+import { CMS_SLUGS } from "../../lib/cms-source";
 import { fetchPublishedProjectBySlug } from "./fetch-sck";
 
-const SLUGS = ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"] as const;
+const SLUGS = CMS_SLUGS;
 
 function hasAsset(value: { asset?: unknown } | undefined) {
   return Boolean(value?.asset);

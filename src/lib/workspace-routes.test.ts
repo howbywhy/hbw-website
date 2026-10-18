@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { catalogIdForSlug, PROJECT_SLUGS, projectById } from "../components/home/catalog";
+import { catalogIdForSlug, homePreviewProjects, PROJECT_SLUGS, projectById } from "../components/home/catalog";
 import { nextProject } from "../components/home/sequence";
 import { previewSlugFromPath, projectSlugFromPath, viewSlugFromPath } from "./workspace-routes";
 
@@ -71,4 +71,11 @@ test("retired Nido is absent from public progression; OBR cycles to SCK", () => 
   assert.equal(nextProject("chris-sisarich")?.id, "our-boy-roy");
   assert.equal(nextProject("our-boy-roy")?.id, "sck");
   assert.equal(nextProject("bistro-nido"), null);
+});
+
+test("Home peek is the five homeSelected live projects, not the first five catalog rows", () => {
+  assert.deepEqual(
+    homePreviewProjects().map((project) => project.id),
+    ["sck", "bar-closed", "koja", "sub-3", "chris-sisarich"]
+  );
 });

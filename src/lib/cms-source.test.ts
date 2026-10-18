@@ -9,12 +9,15 @@ import { SUB3_DOCUMENT_ID } from "../sanity/scripts/sub3-content";
 import {
   CMS_BACKED_PROJECTS,
   CMS_PREVIEW_SLUGS,
+  CMS_SLUGS,
   catalogIdForSlug,
   cmsBackedProject,
   cmsProjectByCmsSlug,
   cmsProjectByPreviewSlug,
+  defineCmsProject,
   sourceFlagForProject,
   sourceFlagFromEnv,
+  unknownCmsProjectSlugQuery,
 } from "./cms-source";
 
 test("registry covers the six live CMS projects and no others", () => {
@@ -67,4 +70,26 @@ test("source flags stay independent and default to local", () => {
   assert.equal(sourceFlagForProject(CMS_BACKED_PROJECTS[1], mixed), "sanity");
   assert.equal(sourceFlagForProject(CMS_BACKED_PROJECTS[2], mixed), "local");
   assert.equal(sourceFlagForProject(CMS_BACKED_PROJECTS[5], mixed), "local");
+});
+
+test("defineCmsProject fills public and preview paths from identity", () => {
+  const project = defineCmsProject({
+    routeSlug: "bar-closed",
+    cmsSlug: "closed",
+    documentId: "project-closed",
+    envKey: "HBW_CLOSED_SOURCE",
+    label: "CLOSED",
+    aliases: [{ source: "/projects/closed", destination: "/projects/bar-closed" }],
+  });
+  assert.equal(project.publicPath, "/projects/bar-closed");
+  assert.equal(project.previewSlug, "closed");
+  assert.equal(project.previewPath, "/preview/closed");
+});
+
+test("unknown CMS slug query stays aligned with the registry", () => {
+  assert.deepEqual(CMS_SLUGS, ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"]);
+  assert.equal(
+    unknownCmsProjectSlugQuery(),
+    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"])].slug.current`
+  );
 });

@@ -6,6 +6,7 @@
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
+import { unknownCmsProjectSlugQuery } from "../../lib/cms-source";
 import { portableBlocks } from "./portable-blocks";
 import { SCK_COPY, SCK_DOCUMENT_ID, SCK_IDENTITY, SCK_MOVEMENTS } from "./sck-content";
 
@@ -48,7 +49,7 @@ async function upload(path: string, kind: "image" | "file") {
 
 async function main() {
   const others = await client.fetch<string[]>(
-    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"])].slug.current`
+    unknownCmsProjectSlugQuery()
   );
   if (others.length) {
     throw new Error(`Refusing to seed: dataset already has other projects (${others.join(", ")})`);

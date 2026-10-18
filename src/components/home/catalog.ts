@@ -71,7 +71,7 @@ export type ProjectRecord = {
   visualStart?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   /** Extra space above a Visual cell, in existing space steps. */
   visualBefore?: 3 | 4 | 5;
-  /** Homepage selected-work register. Order among flagged records is catalog order. Max 5 used. */
+  /** Home peek. Catalog order among flagged records. Max 5. Independent of Continue. */
   homeSelected?: boolean;
   sectors?: Sector[];
   disciplines?: Discipline[];
@@ -118,6 +118,7 @@ export const PROJECTS: ProjectRecord[] = [
     layout: "portrait",
     visualSpan: 5,
     visualStart: 8,
+    homeSelected: true,
     sectors: ["Architecture", "Interior Design"],
     disciplines: ["Brand DNA", "Visual Identity", "Motion", "Digital Design"],
     credits: ["Mark Blackler"],
@@ -228,7 +229,6 @@ export const PROJECTS: ProjectRecord[] = [
     layout: "portrait",
     visualSpan: 5,
     visualStart: 8,
-    homeSelected: true,
     sectors: ["Hospitality"],
     disciplines: ["Visual Identity", "Signage/Wayfinding", "Print & Digital Design"],
     collaborators: ["the-colour-club"],
@@ -249,7 +249,7 @@ export function liveProjects() {
 export const PROJECT_SLUGS = liveProjects().map((project) => project.id);
 
 export function homePreviewProjects() {
-  return liveProjects().slice(0, 5);
+  return liveProjects().filter((project) => project.homeSelected).slice(0, 5);
 }
 
 export function projectById(id: string) {

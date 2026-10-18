@@ -1,5 +1,5 @@
 import { projectById } from "@/components/home/catalog";
-import { cmsProjectByCmsSlug } from "@/lib/cms-source";
+import { CMS_BACKED_PROJECTS, cmsProjectByCmsSlug } from "@/lib/cms-source";
 import type { CatalogPresentation } from "@/sanity/adapter/types";
 import { sanityProjectToFrontendProject } from "@/sanity/adapter/map";
 import { fetchPublishedProjectBySlug, sckMediaConfig } from "@/sanity/scripts/fetch-sck";
@@ -25,9 +25,8 @@ export function catalogOwned(routeSlug: string): CatalogPresentation {
 export async function loadPublishedFrontendProject(slug: string) {
   const cms = cmsProjectByCmsSlug(slug);
   if (!cms) {
-    throw new Error(
-      `Published loader only supports sck, closed, koja, chris-sisarich, sub-3, or our-boy-roy (received "${slug}")`
-    );
+    const known = CMS_BACKED_PROJECTS.map((project) => project.cmsSlug).join(", ");
+    throw new Error(`Published loader only supports ${known} (received "${slug}")`);
   }
   const project = await fetchPublishedProjectBySlug(cms.cmsSlug);
   return sanityProjectToFrontendProject(project, catalogOwned(cms.routeSlug), sckMediaConfig());

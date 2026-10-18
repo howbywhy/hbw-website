@@ -6,6 +6,7 @@
 import { createReadStream } from "node:fs";
 import { basename, extname } from "node:path";
 import { getCliClient } from "sanity/cli";
+import { unknownCmsProjectSlugQuery } from "../../lib/cms-source";
 import { portableBlocks } from "./portable-blocks";
 import { KOJA_COPY, KOJA_DOCUMENT_ID, KOJA_IDENTITY, KOJA_MOVEMENTS } from "./koja-content";
 
@@ -54,7 +55,7 @@ async function upload(path: string, kind: "image" | "file") {
 
 async function main() {
   const others = await client.fetch<string[]>(
-    `*[_type == "project" && !(slug.current in ["sck", "closed", "koja", "chris-sisarich", "sub-3", "our-boy-roy"])].slug.current`
+    unknownCmsProjectSlugQuery()
   );
   if (others.length) {
     throw new Error(`Refusing to seed: dataset already has other projects (${others.join(", ")})`);
