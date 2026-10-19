@@ -1366,7 +1366,17 @@ export function Lightbox({
                     muted
                     loop
                     playsInline
-                    preload={Math.abs(i - at) <= 2 ? "metadata" : "none"}
+                    /*
+                     * Metadata for the frame you are on and the one either
+                     * side, because those are the ones a step can reach.
+                     *
+                     * This said two either side, from when two either side
+                     * also played. Only the current one plays now, and
+                     * Chrome's "metadata" on a short film is most of the
+                     * film: Chris Sisarich was pulling two of them, 3.8MB,
+                     * to show one.
+                     */
+                    preload={Math.abs(i - at) <= 1 ? "metadata" : "none"}
                   >
                     {one.webm ? <source src={one.webm} type="video/webm" /> : null}
                     <source src={one.video} type="video/mp4" />
