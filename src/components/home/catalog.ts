@@ -307,9 +307,6 @@ export function liveProjects() {
 /** Live slugs only. Coming Soon filter is intentionally unreached — see liveProjects. */
 export const PROJECT_SLUGS = liveProjects().map((project) => project.id);
 
-export function homePreviewProjects() {
-  return liveProjects().slice(0, 5);
-}
 
 export function projectById(id: string) {
   return PROJECTS.find((p) => p.id === id) ?? PROJECTS.find((p) => p.id === catalogIdForSlug(id)) ?? PROJECTS[0];
@@ -320,34 +317,13 @@ const COLLABORATORS_BY_ID = Object.fromEntries(COLLABORATORS.map((item) => [item
   Collaborator
 >;
 
-export function collaboratorById(id: CollaboratorId) {
-  return COLLABORATORS_BY_ID[id];
-}
 
-export function projectCollaborators(project: ProjectRecord) {
-  return (project.collaborators ?? []).map((id) => COLLABORATORS_BY_ID[id]);
-}
 
 /** Canonical order from the set. Record order is authoring only. */
-export function projectDisciplines(project: ProjectRecord) {
-  return DISCIPLINES.filter((item) => project.disciplines?.includes(item));
-}
 
-export function projectSectors(project: ProjectRecord) {
-  return SECTORS.filter((item) => project.sectors?.includes(item));
-}
 
-export function usedDisciplines() {
-  return DISCIPLINES.filter((item) => PROJECTS.some((project) => project.disciplines?.includes(item)));
-}
 
-export function usedSectors() {
-  return SECTORS.filter((item) => PROJECTS.some((project) => project.sectors?.includes(item)));
-}
 
-export function usedCollaborators() {
-  return COLLABORATORS.filter((item) => PROJECTS.some((project) => project.collaborators?.includes(item.id)));
-}
 
 export function isKnownFilter(dim: string, value: string) {
   if (!value || dim === "all") return true;
@@ -379,20 +355,4 @@ export function projectDescription(project: ProjectRecord) {
   return PROJECT_DESCRIPTIONS[project.id] ?? `${project.name} — HBW.`;
 }
 
-export function matchesFilter(project: ProjectRecord, dim: string, value: string) {
-  if (!value || dim === "all") return true;
-  if (dim === "year") return project.year === value;
-  if (dim === "sector") return Boolean(project.sectors?.some((item) => item === value));
-  if (dim === "discipline") return Boolean(project.disciplines?.some((item) => item === value));
-  if (dim === "collaborator") {
-    return projectCollaborators(project).some((item) => item.name === value || item.id === value);
-  }
-  return true;
-}
 
-export function sortProjects(list: ProjectRecord[], sort: string) {
-  const next = [...list];
-  if (sort === "newest") next.sort((a, b) => b.year.localeCompare(a.year) || a.name.localeCompare(b.name));
-  else if (sort === "az") next.sort((a, b) => a.name.localeCompare(b.name));
-  return next;
-}
