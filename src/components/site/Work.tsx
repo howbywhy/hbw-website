@@ -985,6 +985,12 @@ export function Work({
           onClose={close}
           reading={reading}
           setReading={setReading}
+          /*
+           * A sheet over the gallery means nothing in it can be seen. Work
+           * already watches for one, to hand it the chrome; the gallery
+           * needs to know for the same reason the strip does.
+           */
+          covered={sheet}
           name={open.name}
           says={open.says}
           idea={projects.find((one) => one.slug === open.slug)?.idea}

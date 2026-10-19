@@ -49,6 +49,7 @@ export function Lightbox({
   onAt,
   onClose,
   reading,
+  covered,
   setReading,
   name,
   says,
@@ -71,6 +72,8 @@ export function Lightbox({
    * had the writing open meant to keep it open.
    */
   reading: boolean;
+  /** A sheet is over the whole gallery, so nothing in it can be seen. */
+  covered?: boolean;
   setReading: (to: boolean) => void;
   name: string;
   /** The project's line, set on the gallery's own row of chrome. */
@@ -592,7 +595,13 @@ export function Lightbox({
    * nothing ever paused it.
    */
   /*
-   * One film runs in the band: the one you are on.
+   * One film runs in the band: the one you are on, and only while it can be
+   * seen.
+   *
+   * About opens over the whole gallery, and the film underneath carried on
+   * decoding — ninety frames of 1920x1080 in three seconds, behind an opaque
+   * sheet, for nobody. It is the same rule the work line already follows:
+   * behind something, hold still.
    *
    * It has to be done here rather than by the attribute, in both directions.
    * autoPlay decides whether a film begins and nothing more — turning it off
@@ -617,7 +626,7 @@ export function Lightbox({
         if (!film.paused) film.pause();
         continue;
       }
-      if (stillness) {
+      if (stillness || covered) {
         if (!film.paused) film.pause();
         continue;
       }
@@ -635,7 +644,7 @@ export function Lightbox({
     return () => {
       for (const off of waits) off();
     };
-  }, [at, view, stillness, shots]);
+  }, [at, view, stillness, covered, shots]);
 
   useEffect(() => {
     if (!stillness) return;
@@ -1510,7 +1519,7 @@ export function Lightbox({
                 data-way={way > 0 ? "on" : "back"}
               >
                 {one.video ? (
-                  <video poster={one.src} autoPlay={!stillness} muted loop playsInline>
+                  <video poster={one.src} autoPlay={!stillness && !covered} muted loop playsInline>
                     {one.webm ? <source src={one.webm} type="video/webm" /> : null}
                     <source src={one.video} type="video/mp4" />
                   </video>
