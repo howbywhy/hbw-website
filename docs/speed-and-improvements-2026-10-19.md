@@ -1,5 +1,10 @@
 # The site, what would make it quicker, and what I'd change next
 
+> **Done on 19 October.** Items 1, 2 and 5 shipped. Items 3 and 4 were
+> measured and declined — the reasons are under each, and in both cases my
+> estimate above them was wrong. A project page is now **2.6MB in 56
+> requests**, where this document was written against 4.0MB in 140.
+
 Measured on this Mac in Chrome. Load figures are on a throttled 4 Mb/s
 connection with 80ms latency — a decent phone on mobile data, not café wifi.
 Smoothness figures are from a real GPU at the 2× scale of this screen.
@@ -42,8 +47,8 @@ it is almost entirely one thing.**
 
 ## What would make it quicker, biggest first
 
-**1. Stop loading the work line behind an open gallery.** *Saves roughly 2–3MB
-on every project page — more than half.*
+**1. Stop loading the work line behind an open gallery.** *Done — a project
+page went from 140 requests to 56.*
 
 A project page is the gallery, which covers the whole window. Behind it sits
 the work line: 186 cells, of which about 71 download. Not one of them can be
@@ -56,16 +61,25 @@ and render them as it closes. The care needed is in the closing transition —
 the strip has to be there, with pictures, as the gallery lifts. Half a day,
 and it is the single biggest thing left.
 
-**2. Give the films a WebM.** *Saves roughly 30–40% of video bytes in Chrome
-and Firefox, which is most visitors.*
+**2. Give the films a WebM.** *Done, for 30 of 46 films. The other 16 are
+smaller as MP4 and were left alone.*
 
 Two of fifty films have one. The heaviest file on the site is a 3.5MB MP4.
 VP9 or AV1 at the same quality is meaningfully smaller, and the markup already
 prefers a WebM source when it is there. It is an encode pass and a re-seed,
 no code. Half a day, mostly waiting for ffmpeg.
 
-**3. Print the work line twice instead of three times.** *Saves about a third
-of 186 cells, ~7MB of decoded bitmap and 200 DOM nodes.*
+**3. ~~Print the work line twice instead of three times.~~ Measured and
+declined.** *Saves no bytes at all.*
+
+The 186 cells draw **62 distinct images**: the browser fetches each once and
+the other two turns cost nothing but DOM. Measured on the front page — 62
+distinct URLs, 84 requests, 0.24MB. And the third turn is load-bearing: the
+code records that two turns were tried and that scrolling *up* broke, because
+the top of the document is still the top of the document. So this would
+reintroduce a known, fixed bug to save 124 DOM nodes on a page that already
+drops zero frames. My estimate of "~7MB of decoded bitmap" above was wrong;
+the decode cache is shared across the turns.
 
 Three turns exist so the loop can wrap without a seam. Two may be enough —
 the reader is held on the middle turn, and the third is scenery behind the
@@ -73,16 +87,22 @@ scenery. This touches the one mechanism that makes the endless scroll work,
 so it wants a careful look and a real test rather than a quick edit. Half a
 day, with a meaningful chance the answer is "three is needed".
 
-**4. Serve the strip's thumbnails already grey.** *Saves ~15% on 186 images
-and removes 199 CSS filters.*
+**4. ~~Serve the strip's thumbnails already grey.~~ Measured and declined.**
+*Saves 1%, not 15%.*
+
+I estimated 15% from the usual rule that grey JPEGs are smaller. Measured on a
+real strip image: **9,935 bytes grey against 10,033 colour — 98 bytes, under
+one per cent.** `auto=format` is already serving WebP or AVIF, where chroma
+costs almost nothing at 320 pixels wide. For 2.4KB on the front page it would
+mean two renditions per cell and a swap on hover, or losing hover-to-colour.
+Not worth it.
 
 Sanity can desaturate on request (`sat=-100`). A grey JPEG is smaller than a
 colour one, and the filter disappears with it. The catch: cells go colour on
 hover, so it means two renditions per cell and a swap. Worth doing only if
 we also decide hover-to-colour is worth keeping. A day.
 
-**5. Preload the two frames either side of the gallery's window.** *Fixes a
-visible flaw rather than saving bytes.*
+**5. Preload the frames either side of the gallery's window.** *Done.*
 
 A hard flick through the band can briefly leave a column blank. This is
 pre-existing — identical before and after this week's work — and is load
