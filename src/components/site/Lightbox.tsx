@@ -1398,10 +1398,22 @@ export function Lightbox({
                      * those decodes are twenty-six millisecond tasks landing
                      * in the middle of a scroll.
                      */
+                    /*
+                     * The grid and the band are different widths, and until
+                     * now only the band was being described.
+                     *
+                     * A frame in the band is as wide as its picture is at the
+                     * height of the window — 75vh times its own aspect. In
+                     * the grid it is a cell in a fixed set of columns, about
+                     * a sixth of the window, and it was still claiming the
+                     * band's figure: drawn at 238 pixels, asking for 1080.
+                     */
                     sizes={
-                      one.width && one.height
-                        ? `(max-width: 760px) 92vw, calc(75vh * ${(one.width / one.height).toFixed(3)})`
-                        : "(max-width: 760px) 92vw, 46vw"
+                      view === "grid"
+                        ? "(max-width: 760px) 30vw, 17vw"
+                        : one.width && one.height
+                          ? `(max-width: 760px) 92vw, calc(75vh * ${(one.width / one.height).toFixed(3)})`
+                          : "(max-width: 760px) 92vw, 46vw"
                     }
                     alt={i === at ? one.alt ?? "" : ""}
                     /*

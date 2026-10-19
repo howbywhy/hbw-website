@@ -16,6 +16,8 @@ import type { Movement } from "@/components/home/projects/types";
 export type Shot = {
   id: string;
   src: string;
+  /** A small rendition, for warming a project the reader has not opened yet. */
+  thumb?: string;
   /**
    * The same frame at the widths a screen might actually draw it.
    *
@@ -80,6 +82,16 @@ export function shotsOf(movements: Movement[]): Shot[] {
        * rendition it needs out of srcset below.
        */
       src: sized(src, 640),
+      /*
+       * A small one, for warming the project next door.
+       *
+       * The step into the next project is instant because its pictures are
+       * fetched while this one is being read — but what it arrives into is
+       * the grid, whose cells are about 240 pixels. Warming the 640 was four
+       * times the bytes for a picture that is about to be drawn at a third
+       * of it, and on CLOSED that warm is most of the page's picture weight.
+       */
+      thumb: sized(src, 480),
       srcset: setFor(src),
       video: film ? media.mp4 ?? media.videoSrc ?? media.src : undefined,
       webm: film ? media.webm : undefined,

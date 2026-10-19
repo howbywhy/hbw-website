@@ -213,23 +213,23 @@ export function Work({
         const got: Run = {
           name: run.name,
           says: `${run.name} — ${run.idea}, ${run.year}`,
-        shots: (
-          run.frames as {
-            id: string;
-            src: string;
-            video?: string;
-            webm?: string;
-            width?: number;
-            height?: number;
-          }[]
-        ).map((frame) => ({
-          id: frame.id,
-          src: frame.src,
-          video: frame.video,
-          webm: frame.webm,
-          width: frame.width,
-          height: frame.height,
-        })),
+          /*
+           * Taken as they come, not copied field by field.
+           *
+           * This listed the six fields it knew about and quietly dropped the
+           * rest. The route builds these with shotsOf, the same function the
+           * page uses, and shotsOf had since grown two more: `srcset`, so a
+           * frame can be asked for at the width it is drawn, and `thumb`, so
+           * the project next door can be warmed cheaply. Both were being
+           * published, carried across the network, and thrown away here — so
+           * every project reached by pressing Next rendered its band from a
+           * single 640-wide source with no responsive set at all, and warmed
+           * its neighbour at four times the bytes it needed.
+           *
+           * It is the same mistake the route itself made, in the same words:
+           * a copy of a shape that is maintained somewhere else.
+           */
+          shots: run.frames as Shot[],
           info: run.info,
         };
         known.current.set(slug, got);
@@ -474,13 +474,71 @@ export function Work({
            * Decoded asynchronously and never attached, so nothing is laid
            * out and nothing competes with the project actually on screen.
            */
-          for (const shot of got.shots) {
-            if (!shot.src || warmed.current.has(shot.src)) continue;
-            warmed.current.add(shot.src);
+          /*
+           * And only when the browser has nothing better to do.
+           *
+           * A four hundred millisecond head start is not much on a slow
+           * connection: on CLOSED these are most of the page's picture
+           * weight, and they were being fetched while the project the reader
+           * is actually looking at was still arriving. Idle time is exactly
+           * what this wants — it has until someone presses Next, which is
+           * never in the first second.
+           */
+          const idle =
+            typeof window.requestIdleCallback === "function"
+              ? window.requestIdleCallback
+              : (fn: () => void) => window.setTimeout(fn, 600);
+          idle(() => {
+          for (const [place, shot] of got.shots.entries()) {
+            /*
+             * The frames a hand-over lands on are warmed at the width they
+             * will be drawn; the rest at a thumbnail's.
+             *
+             * Pressing Next opens on the first frame, so that one and its
+             * neighbours have to be the real thing — warmed small, the band
+             * asks for the rendition it needs and the warm was a cache miss,
+             * which is the opposite of the point. The rest are there so the
+             * grid is not full of holes, and the grid draws them at about
+             * 240 pixels.
+             */
+            const lead = place < 3;
+            const want = lead ? shot.src : shot.thumb ?? shot.src;
+            if (!want || warmed.current.has(want)) continue;
+            warmed.current.add(want);
             const warm = new window.Image();
             warm.decoding = "async";
-            warm.src = shot.src;
+            /*
+             * Warmed at the width it will be drawn, which is the only width
+             * worth warming.
+             *
+             * Asking for a small one looked like a saving and was not: the
+             * band then asked for the rendition it actually needed, the warm
+             * was a cache miss, and the hand-over that this whole effect
+             * exists to make instant stopped being instant. Given the same
+             * srcset and the same sizes the band uses, the browser picks the
+             * same file — so what arrives is what gets drawn.
+             */
+            if (lead && shot.srcset) {
+              warm.srcset = shot.srcset;
+              warm.sizes =
+                shot.width && shot.height
+                  ? `(max-width: 760px) 92vw, calc(75vh * ${(shot.width / shot.height).toFixed(3)})`
+                  : "(max-width: 760px) 92vw, 46vw";
+            }
+            /*
+             * Last in the queue, always.
+             *
+             * These are for a project the reader has not asked for yet, and
+             * there are twenty-odd of them — on CLOSED they are most of the
+             * page's picture weight. Fetched at the browser's default
+             * priority they sit in the same queue as the frames actually on
+             * screen. Nothing here is urgent: it only has to be there by the
+             * time someone presses Next.
+             */
+            warm.fetchPriority = "low";
+            warm.src = want;
           }
+          });
         })();
       }
     }, 400);
