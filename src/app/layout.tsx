@@ -1,7 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { CmsPreviewProvider } from "@/components/home/CmsPreviewContext";
-import { HbwMotionSessionProvider } from "@/components/home/HbwMotionSession";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import "@/styles/document.css";
 import "@/styles/hbw-home-prototype.css";
@@ -64,9 +62,16 @@ export default function RootLayout({
         */}
       </head>
       <body className="body" suppressHydrationWarning>
-        <CmsPreviewProvider>
-          <HbwMotionSessionProvider>{children}</HbwMotionSessionProvider>
-        </CmsPreviewProvider>
+        {/*
+          No providers around the page.
+
+          Two of them wrapped every route — one for the CMS preview, one for
+          a motion session carried across route boundaries. Nothing read
+          either: the preview routes have gone, and the motion store was
+          reachable only from its own test. A context that nothing consumes
+          is a render and a re-render on every navigation, for nobody.
+        */}
+        {children}
         {/*
           Page views, referrers, countries and devices, from the host the site
           already runs on. Cookieless, so it needs no consent banner — which is

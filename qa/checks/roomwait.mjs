@@ -61,7 +61,17 @@ export default async function run() {
     navEnd !== null && shown != null ? shown.t >= navEnd - 60 : null,
     "nav ends " + navEnd + "ms, room first shows " + (shown ? shown.t : "never") + "ms"
   );
-  s.ok("and it does come in", L.some((r) => clipped(r.clip) === 0) ? true : null, "never fully revealed");
+  /*
+   * The note used to say "never fully revealed" whatever happened — printed
+   * on rows it had just marked pass, which reads as a contradiction and is
+   * worse than no note: it says the opposite of the verdict beside it.
+   */
+  const open = L.find((r) => clipped(r.clip) === 0);
+  s.ok(
+    "and it does come in",
+    open ? true : null,
+    open ? `fully open at ${open.t}ms` : "never fully revealed in the window watched"
+  );
   await p.close();
 
   p = await b.newPage();

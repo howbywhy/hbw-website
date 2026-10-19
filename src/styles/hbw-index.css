@@ -3563,10 +3563,16 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
    * the fold, a picture lifts fourteen pixels. At that distance 560ms is not
    * considered, it is waiting — and because the arrival ladder is built on
    * this token, everything behind it was waiting too.
+   *
+   * Halved once to 320, and taken down again to 240 after the thing itself
+   * was finally named: the complaint was never a dropped frame, it was the
+   * arrival taking a second and a fifth. The budgets in qa/checks/brisk.mjs
+   * were set above what the site already did, so they passed while it still
+   * felt slow. A budget that records the status quo is not a budget.
    */
-  --in: 320ms;
-  --out: 200ms;
-  --quick: 140ms;
+  --in: 240ms;
+  --out: 160ms;
+  --quick: 120ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* How far a thing travels as it arrives. Small: the distance is a hint. */
   --rise: 14px;
@@ -10088,7 +10094,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
    ===================================================================== */
 :root {
   --enter-nav: 0ms;
-  --enter-line: 60ms;
+  --enter-line: 40ms;
   /*
    * The nav leads, always.
    *
@@ -10098,8 +10104,22 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * step now, so whatever the chrome is doing is finished before the
    * work starts.
    */
-  --enter-work: calc(var(--enter-type) + var(--in));
-  --enter-step: 55ms;
+  /*
+   * Derived from the last piece of the chrome, not from one of them.
+   *
+   * This read --enter-type, which held only while the type was the latest
+   * thing the chrome did. It is not: --enter-mark is, and when --enter-type
+   * was shortened the work began at 340ms over a nav that did not land until
+   * 440. The rule this whole ladder exists for — the chrome settles, then
+   * what it frames — was quietly broken by a number that looked unrelated.
+   * `engine` caught it on the Practice page, where the chrome has the most
+   * to do.
+   *
+   * Named after the thing it actually waits for, so shortening any single
+   * piece cannot break the order again.
+   */
+  --enter-work: calc(var(--enter-mark) + var(--in));
+  --enter-step: 40ms;
   /*
    * And the distance between each piece on the way out.
    *
@@ -10502,10 +10522,13 @@ body:has(.hbw-lamp) .hbw-bar__what {
    ===================================================================== */
 :root {
   --enter-block: 0ms;
-  --enter-mark: 200ms;
+  /* Scaled with the rest. It was 200ms against an --in of 560; left there
+     while --in came down it became the latest thing in the chrome by a
+     margin the ladder below was not expecting. */
+  --enter-mark: 120ms;
   /* The chrome's own move, which the work waits on. Halved with the rest:
      the work used to start 960ms after a press and now starts at 500. */
-  --enter-type: 180ms;
+  --enter-type: 100ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

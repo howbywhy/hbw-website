@@ -68,13 +68,25 @@ async function scene(b, s, label, view, reading) {
       };
       requestAnimationFrame(tick);
       const n = [...document.querySelectorAll("button, a")].find((x) => /Next/.test(x.textContent || ""));
+      const pressed = Boolean(n);
       n && n.click();
       await new Promise((r) => setTimeout(r, 3400));
-      return [...seen.entries()].filter(([, a]) => a.length > 1).map(([k, a]) => k + " at " + a.join("ms and ") + "ms");
+      return {
+        pressed,
+        /* How many arrivals were seen at all. Nothing arriving twice is only
+           good news if something arrived once: with the press removed this
+           watched an empty gallery for three seconds and passed, because an
+           empty list has nothing in it that happened twice. */
+        watched: seen.size,
+        twice: [...seen.entries()].filter(([, a]) => a.length > 1).map(([k, a]) => k + " at " + a.join("ms and ") + "ms"),
+      };
     },
     MOVING
   );
-  s.ok(label, twice.length === 0, twice.join("; "));
+  const note = `${twice.watched} arrivals watched` + (twice.twice.length ? "; " + twice.twice.join("; ") : "");
+  if (!twice.pressed) s.ok(label, null, "no Next to press, so no hand-over happened");
+  else if (!twice.watched) s.ok(label, null, "the hand-over animated nothing — there was nothing to judge");
+  else s.ok(label, twice.twice.length === 0, note);
   await p.close();
 }
 

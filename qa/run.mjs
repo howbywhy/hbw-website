@@ -15,7 +15,7 @@
  * Exit code is non-zero if anything failed OR if anything went unmeasured. A
  * check that measured nothing is not a check that passed.
  */
-import { BASE, reachable } from "./lib.mjs";
+import { BASE, reachable, closeOpenBrowsers } from "./lib.mjs";
 
 const ALL = ["console", "links", "sequence", "worknav", "engine", "sheetwait", "said", "onestep", "scrollback", "twice", "roomwait", "brisk", "smooth"];
 
@@ -50,11 +50,26 @@ for (const name of names) {
   try {
     result = await run();
   } catch (error) {
+    /*
+     * A check that threw left its browser open.
+     *
+     * Every check closes its own browser on the way out, which does not
+     * happen when it throws on the way through — so one failure left a
+     * Chrome behind, the next check started under more pressure, and the
+     * suite began throwing "detached Frame" at whichever check happened to
+     * be running. It moved between runs, which is how it read as the site
+     * being flaky rather than the harness leaking.
+     *
+     * The browsers a check opened are tracked in lib.mjs and shut here, so
+     * one check falling over cannot take the rest of the run with it.
+     */
+    await closeOpenBrowsers();
     console.log(`-- ${name} --\n  FAIL the check itself threw   ::  ${error.message}\n`);
     fail += 1;
     summary.push([name, "threw"]);
     continue;
   }
+  await closeOpenBrowsers();
   const counted = result.report();
   console.log("");
   pass += counted.pass;

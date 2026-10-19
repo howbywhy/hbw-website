@@ -58,9 +58,35 @@ scene where nothing moved did not pass; it failed to look. The runner exits
 non-zero on it, which is the only reason the gap gets noticed.
 
 When you add a check, break the thing it guards and watch it fail before you
-trust it. Each one here has been through that: reverting the `data-over`
-qualifier makes `twice` fail 0/4 naming both timestamps, and removing
-`:not([data-over])` makes `roomwait` fail on the clipped panel.
+trust it. Each one here has been through that — but a proof goes stale, so
+record what you broke and check it still breaks.
+
+Two of these had rotted, found by someone auditing the harness rather than
+the site. `twice` was said to fail when the `data-over` qualifier came off
+the lamp's wipe-in; that rule is no longer what causes a second arrival, so
+the documented break proves nothing now. Worse, with the Next press taken
+out, `twice` watched an empty gallery for three seconds and passed: nothing
+arrived twice because nothing arrived at all. It counts what it watched now
+and reports unmeasured when that is nothing.
+
+`links` had a row whose verdict was the literal `true` — it printed outward
+URLs and passed whatever they were. `sequence` worked from a hand-written
+list of six projects that Made by Madelen had already fallen off, so that
+project's frames went unchecked for a week; it reads the sitemap now.
+
+One more thing the harness was doing to itself. A check closes its own
+browser on the way out, which does not happen when it throws on the way
+through — so one failure left a Chrome behind, the next check started under
+more pressure, and far enough into a thirteen-check run the suite began
+failing with "detached Frame" at whichever check was unlucky. It moved
+between runs, which is exactly how a harness fault disguises itself as a
+flaky site. `lib.mjs` tracks every browser it opens and the runner shuts
+them after each check, so one falling over cannot take the rest with it.
+
+The proofs that currently hold: removing the Next press makes `twice` report
+unmeasured on all four scenes; putting the pre-October durations back makes
+all three `brisk` budgets fail; checking out the gallery as it stood before
+the band was windowed makes `smooth` fail on Made by Madelen at 6.7%.
 
 ## Not here
 

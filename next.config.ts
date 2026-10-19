@@ -46,16 +46,23 @@ const nextConfig: NextConfig = {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
       /*
-       * The studio is the Practice and contact is the Talk.
+       * The studio and contact are both the Practice now.
        *
        * The old addresses are the ones in the wild — in the sitemap search
        * engines already have, in anything anyone has linked — so they keep
        * working. Not permanent: a 308 is cached by browsers in a way that is
        * painful to take back, and these are names, which are the kind of
        * decision that gets revisited.
+       *
+       * /contact pointed at /talk, which was removed with the other pages
+       * that are not home, About or a project — so for a while it was a
+       * redirect to a 404, on production as well as here. Nothing on the
+       * site links to /contact, so the link crawler could not see it: it
+       * only follows what a page points at, and no page points here. The
+       * ways into contact are in the Practice, which is where this goes.
        */
       { source: "/studio", destination: "/practice", permanent: false },
-      { source: "/contact", destination: "/talk", permanent: false },
+      { source: "/contact", destination: "/practice", permanent: false },
       /**
        * The manifesto is in the studio, which is where it was already being
        * read from — the page at this address rendered nothing but its own

@@ -25,7 +25,7 @@
  * fails, because it was the only one that was actually slow. On the code as
  * it ships, every page reports zero.
  */
-import { BASE, browser, sleep, sheet } from "../lib.mjs";
+import { BASE, sleep, sheet, track } from "../lib.mjs";
 
 /*
  * Home and every project. The front page has never been the problem and is
@@ -62,7 +62,10 @@ const MIN_FRAMES = 150;
 /** A real window, on the real GPU. Headless cannot answer this question. */
 async function shownBrowser() {
   const { default: puppeteer } = await import("puppeteer-core");
-  return puppeteer.launch({
+  /* Tracked like the headless ones. A throw in here used to leave a visible
+     Chrome window open for the rest of the run. */
+  return track(
+    puppeteer.launch({
     executablePath:
       process.env.CHROME ??
       process.env.PUPPETEER_EXECUTABLE_PATH ??
@@ -74,8 +77,9 @@ async function shownBrowser() {
       "--window-size=1440,900",
       "--window-position=0,0",
     ],
-    defaultViewport: null,
-  });
+      defaultViewport: null,
+    })
+  );
 }
 
 async function measure(b, path) {

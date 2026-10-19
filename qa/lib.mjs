@@ -28,12 +28,41 @@ function chrome() {
   );
 }
 
+/**
+ * Every browser this run has opened, so the runner can shut them.
+ *
+ * A check closes its own on the way out. One that throws does not, and the
+ * leak compounds: the next check starts with a Chrome still holding memory,
+ * and far enough into a thirteen-check run the suite starts failing with
+ * "detached Frame" at whichever check is unlucky. It moved between runs,
+ * which is exactly how a harness fault disguises itself as a flaky site.
+ */
+const opened = new Set();
+
+export async function closeOpenBrowsers() {
+  for (const b of [...opened]) {
+    opened.delete(b);
+    try {
+      if (b.connected ?? true) await b.close();
+    } catch {
+      /* already gone, which is the outcome we wanted */
+    }
+  }
+}
+
 export async function browser() {
-  return puppeteer.launch({
+  return track(puppeteer.launch({
     executablePath: chrome(),
     headless: "new",
     args: ["--no-sandbox", "--autoplay-policy=no-user-gesture-required"],
-  });
+  }));
+}
+
+/** Remembers a browser so the runner can shut it if a check does not. */
+export async function track(launching) {
+  const b = await launching;
+  opened.add(b);
+  return b;
 }
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

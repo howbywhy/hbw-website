@@ -80,9 +80,30 @@ export default async function run() {
   if (!schemed.size) s.ok("mail and phone links are well formed", null, "none found");
   else s.ok("mail and phone links are well formed", malformed.length === 0, malformed.join("; ") || [...schemed].join(" "));
 
-  /* Not fetched, only named, so a change to where the site points outward is
-     visible in the run rather than discovered by a visitor. */
-  s.ok("outward links, for the record", true, external.size ? [...external].join("  ") : "none");
+  /*
+   * Outward links are checked when there are any, and there are none.
+   *
+   * This row used to pass on the literal `true` — it printed whatever URLs
+   * it found and passed regardless, which is not a check. The site links
+   * nowhere outward at the moment, so the row only runs when that changes;
+   * a row that permanently measures nothing is noise whether it is coloured
+   * green or red.
+   *
+   * Worth knowing while it is quiet: the catalogue holds one outward link
+   * that nothing renders — CLOSED's feature in The Brand Identity. It is
+   * press the studio has and the site does not show, which is a decision
+   * rather than a fault, so it is recorded here and not quietly linked.
+   */
+  if (external.size) {
+    const wrong = [...external].filter(
+      (href) => !/^https:\/\//.test(href) || /hbw\.works/.test(href)
+    );
+    s.ok(
+      `all ${external.size} links out are https and go elsewhere`,
+      wrong.length === 0,
+      wrong.length ? wrong.join("; ") : [...external].join("  ")
+    );
+  }
 
   await b.close();
   return s;
