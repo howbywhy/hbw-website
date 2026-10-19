@@ -10186,6 +10186,86 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* =====================================================================
+   The strip waits until it is a picture, then is uncovered a row at a time.
+
+   The field opened on the ladder and then filled in underneath it: eighty-
+   four pictures landing one at a time between 579 and 1,186 milliseconds,
+   each appearing the moment it arrived. Every other thing on this site
+   waits its turn and lands deliberately; the work — the thing the page is
+   for — was the one part that scattered in. From a chair it reads as the
+   page still loading long after the page has loaded.
+
+   So the rows are held clipped until the pictures on the first screen are
+   actually decoded, and then uncovered in the order they are read, one
+   project behind the next, on the same wipe the chrome arrives on. The
+   squares are laid out the whole time — clip-path takes no room out of the
+   page — so nothing moves and nothing reflows; there is simply nothing in
+   them yet.
+
+   Two things can uncover a row, and the slower one is written here in CSS
+   alone: the animation below runs at --sheet-wait whatever happens, so a
+   picture that never arrives, a hung request, or a page whose script never
+   ran all still end up with the work on screen. The page shortens that
+   wait to nothing the moment it knows the first screen has decoded, which
+   on any real connection is the path actually taken. CSS is the floor;
+   the script is the improvement on it.
+   ===================================================================== */
+:root {
+  /*
+   * The floor, for a page with no script at all — and nothing else.
+   *
+   * This started at nine hundred milliseconds, on the reasoning that it was
+   * about where the pictures land anyway. It is deliberately far out now,
+   * because the two clocks are not the same clock: an animation delay is
+   * counted from the moment the stylesheet resolved, and the script's own
+   * deadline from the navigation. On a four-megabit connection those are
+   * seven hundred milliseconds apart, so the two fired within thirteen
+   * milliseconds of each other and the row changed hands mid-wipe —
+   * measured, a three-frame snap instead of a wipe.
+   *
+   * Pushed past any plausible hydration, it can only ever run when there is
+   * no script to hand over to. The script wins every real visit; this is
+   * what happens when there is no script to win.
+   */
+  --sheet-wait: 2400ms;
+}
+
+/*
+ * Each row a step behind the one above it, capped.
+ *
+ * --r is the project's place in the running order, set on the element. The
+ * cap matters on a phone, where every row is on the first screen: seven
+ * projects at a step each would spend longer assembling than the whole
+ * ladder above it takes.
+ */
+.hbw-sheet {
+  --sheet-in: min(calc(var(--r, 0) * var(--enter-step)), 240ms);
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-sheet {
+    transition: clip-path var(--in) var(--ease) var(--sheet-in);
+  }
+
+  /*
+   * Held, and holding its own way out.
+   *
+   * No `backwards` on this animation, deliberately: through the delay it
+   * fills nothing, so the clip above it is what shows — the row is held.
+   * At --sheet-wait it runs, and `forwards` keeps the end state. When the
+   * page says the pictures are ready, the attribute goes and both this rule
+   * and the clip go with it, leaving the transition to uncover the row from
+   * wherever it had got to. One reveal, two ways of being triggered.
+   */
+  .hbw-turn[data-hold="true"] .hbw-sheet {
+    clip-path: inset(0 0 100% 0);
+    animation: hbw-arrive var(--in) var(--ease)
+      calc(var(--sheet-wait) + var(--sheet-in)) forwards;
+  }
+}
+
+/* =====================================================================
    The writing comes in after the room for it, here as in the studio.
 
    The information takes its room by height — it pushes the work up rather

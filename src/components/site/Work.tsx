@@ -295,6 +295,144 @@ export function Work({
     }
   }, [open]);
 
+  /**
+   * The work is held until it is a picture.
+   *
+   * Everything else on this site waits its turn: the bar, the line, the mark,
+   * then the work the chrome frames. The pictures were the one part that did
+   * not — the field opened on the ladder and then filled in underneath it,
+   * eighty-four of them landing one at a time over six hundred milliseconds,
+   * each appearing the moment it arrived. From a chair that reads as a page
+   * still loading long after the page has loaded.
+   *
+   * So the rows are held clipped — the markup says so, which means a page
+   * that never runs this is held too — and uncovered together, a row behind
+   * a row, once the pictures actually on the first screen have decoded. Only
+   * those: the whole middle turn is fetched eagerly, but two thirds of it is
+   * below the fold, and waiting on work nobody can see is just a longer wait.
+   * The inline script above has already put the scroll on the middle turn by
+   * the time this runs, so a rectangle here is the real one.
+   *
+   * decode() is the honest signal. `load` says the bytes are in; decode()
+   * says the browser could paint it this frame, which is the thing being
+   * waited for. It settles either way on a picture that fails, so a 404
+   * cannot hold the page.
+   *
+   * Held in a ref rather than in state because the release must not re-render
+   * a hundred and eighty-six cells at the exact moment the pictures land —
+   * that is the frame with the least room in it. The attribute is taken off
+   * the three turns by hand, and render agrees with that from then on.
+   */
+  /*
+   * And not at all on a page that opens with a project over it.
+   *
+   * /projects/koja renders this same strip with the gallery already up, so
+   * the strip is behind a full window and carries no sources at all. Holding
+   * and then uncovering it there is a move nobody can see — but `brisk`
+   * counts moves, and it counted this one: a project's arrival went from
+   * 1,197ms to 1,443ms, which is one --in to the millisecond, spent
+   * uncovering empty squares behind a gallery.
+   */
+  const hold = useRef(!opening);
+  useEffect(() => {
+    if (!hold.current) return;
+    const strip = () => {
+      hold.current = false;
+      for (const one of document.querySelectorAll<HTMLElement>(".hbw-turn")) {
+        delete one.dataset.hold;
+      }
+    };
+    /*
+     * And never cut the stylesheet's own reveal in half.
+     *
+     * If the floor below has already begun — a connection slow enough that
+     * hydration lands after it — taking the attribute off mid-wipe drops the
+     * row's clip back to its base value in one frame. The animation is doing
+     * the right thing; it only has to be let finish. Nothing to see at the
+     * hand-over either way, because what it finishes on and what the row
+     * falls back to are the same clip.
+     */
+    const free = () => {
+      if (!hold.current) return;
+      /*
+       * Mid-wipe means mid-wipe, not merely waiting to start.
+       *
+       * playState reads "running" all the way through an animation's delay,
+       * which is nearly all of this one's life — so asking that question
+       * found twenty-one reveals in progress at two hundred milliseconds,
+       * none of which had drawn a frame, and waited out the whole floor for
+       * them. The active phase is the thing: getComputedTiming().progress is
+       * null until the animation is genuinely running, and that is the only
+       * state worth letting finish.
+       */
+      const going = Array.from(document.querySelectorAll<HTMLElement>(".hbw-sheet"))
+        .flatMap((one) => one.getAnimations())
+        .filter((a) => {
+          const timing = a.effect?.getComputedTiming();
+          return timing != null && timing.progress != null;
+        });
+      if (!going.length) {
+        strip();
+        return;
+      }
+      hold.current = false;
+      void Promise.allSettled(going.map((a) => a.finished)).then(strip);
+    };
+    /*
+     * A deadline, so that a hung request cannot hold the page.
+     *
+     * Read from the stylesheet's floor and counted from the navigation, not
+     * from here: this effect does not run until the bundle has arrived and
+     * hydrated, which on a four-megabit connection is already a second in,
+     * so "two and a half seconds from now" would be four from the press.
+     * performance.now() is measured from the navigation, so this is the time
+     * actually left of it.
+     *
+     * With a lower bound, because on a slow connection there is barely any
+     * of it left and the pictures deserve a fair chance of being the thing
+     * that releases the hold rather than the clock. Measured, the clock
+     * almost never wins — which is the point of a safety net.
+     */
+    const token = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--sheet-wait")
+    );
+    const wait = Number.isFinite(token) && token > 0 ? token * (token < 20 ? 1000 : 1) : 2400;
+    const late = window.setTimeout(free, Math.max(400, wait - performance.now()));
+    const done = () => {
+      window.clearTimeout(late);
+      free();
+    };
+
+    const eager = Array.from(
+      document.querySelectorAll<HTMLImageElement>('.hbw-turn .hbw-cell img[loading="eager"]')
+    );
+    /* The ones in front of somebody. Short window, odd layout, no rectangle
+       worth trusting: fall back to the lot rather than to nothing. */
+    const seen = eager.filter((pic) => pic.getBoundingClientRect().top < window.innerHeight);
+    const waiting = seen.length ? seen : eager;
+    if (!waiting.length) {
+      done();
+      return;
+    }
+
+    let left = waiting.length;
+    const one = () => {
+      if (--left > 0) return;
+      done();
+    };
+    for (const pic of waiting) {
+      if (typeof pic.decode === "function") {
+        void pic.decode().then(one, one);
+      } else if (pic.complete) {
+        one();
+      } else {
+        pic.addEventListener("load", one, { once: true });
+        pic.addEventListener("error", one, { once: true });
+      }
+    }
+    return () => window.clearTimeout(late);
+  }, []);
+
   const leave = useCallback(
     (slug: string, at: number) => {
       const turn = document.querySelector<HTMLElement>(".hbw-turn");
@@ -1146,7 +1284,18 @@ export function Work({
       ) : null}
       <div className="hbw-loop" ref={loop} data-turns="3">
         {[0, 1, 2].map((pass) => (
-          <div className="hbw-turn" key={pass}>
+          /*
+           * Held from the markup, released by hand.
+           *
+           * The attribute is here rather than in state so that it is in the
+           * served HTML: the rows are clipped from the first frame, before
+           * any script has run, which is the only way there is nothing to
+           * see rather than something seen and then taken back. The effect
+           * above takes it off the three turns itself; this reads false from
+           * then on and never puts it back, so opening a project does not
+           * hold the strip a second time.
+           */
+          <div className="hbw-turn" key={pass} data-hold={hold.current ? "true" : undefined}>
             <Catalogue
               projects={projects}
               onOpen={(slug, at) => void leave(slug, at)}

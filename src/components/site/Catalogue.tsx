@@ -11,7 +11,7 @@
  * the still showing until it runs. Whole sheets of autoplaying loops are what
  * made the old site pull twenty-six megabytes.
  */
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
 
 /**
@@ -212,7 +212,7 @@ export function Catalogue({
   let seen = 0;
   return (
     <>
-      {projects.map((project) => {
+      {projects.map((project, row) => {
         const from = seen;
         seen += project.frames.length;
         return (
@@ -255,7 +255,16 @@ export function Catalogue({
             </h2>
             <p className="hbw-cat__say">{project.says}</p>
           </div>
-          <div className="hbw-sheet">
+          {/*
+            Its place in the running order, for the stylesheet.
+
+            The rows are held until the first screen has decoded and then
+            uncovered one behind the next, so each needs to know how far
+            down the order it is. Counted here because this is where the
+            order is — a stylesheet can only count siblings, and these are
+            siblings of their own section, not of each other.
+          */}
+          <div className="hbw-sheet" style={{ "--r": row } as CSSProperties}>
             {/*
               No mark at the head of the row.
 
