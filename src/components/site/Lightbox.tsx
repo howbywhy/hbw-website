@@ -1176,16 +1176,36 @@ export function Lightbox({
         >
           {[...shots.map((one, i) => {
             /*
-             * Every frame is laid out, not just the ones near you.
+             * Every frame is laid out. Not every frame holds a picture.
              *
              * A band of natural widths cannot be built from pages that have
              * no width until their picture arrives: the un-drawn ones
              * collapsed, the rail measured short, and the frames jumped
-             * sideways as they loaded. Each page is a column of known width
-             * and the picture fills it; the browser still only fetches what
-             * is close, because the images are lazy.
+             * sideways as they loaded. That is why each page is a column of
+             * known width — `--ar` below, straight off the frame's own
+             * dimensions — and the layout no longer needs the picture at all.
+             *
+             * So the picture goes in only where it can be seen. This said
+             * `true` and every frame in the band carried a full-size image:
+             * two and a half megapixels of drawn media in the rail, ten at
+             * the two-times scale of a retina screen, all of it re-rastered
+             * and re-uploaded as the band moved. Scrolling a project dropped
+             * seventy-one frames in three hundred and seventy-nine, with
+             * spikes to a third of a second, while the front page — whose
+             * cells are a hundred and eighty pixels square — never dropped
+             * one.
+             *
+             * The grid is the cheap case and keeps everything: its thumbnails
+             * are small and all of them are on screen at once. The band keeps
+             * a window.
+             *
+             * Six either side, not four. `at` settles on the snap, so during
+             * a hard flick the window lags the scroll — at four, three
+             * columns could be on screen empty before it caught up. Six
+             * covers the fastest flick the wheel can produce and still leaves
+             * ten of SUB:3's twenty-three undrawn.
              */
-            const near = true;
+            const near = view === "grid" || Math.abs(i - at) <= 6;
             return (
               <div
                 className="hbw-lamp__page"
@@ -1290,11 +1310,24 @@ export function Lightbox({
                   <img
                     src={one.src}
                     srcSet={one.srcset}
-                    /* A frame in the band is a column of the sheet, not the
-                       window. Said plainly, the browser fetches the rendition
-                       it will draw instead of the one the CMS happens to
-                       hold. */
-                    sizes="(max-width: 760px) 92vw, 46vw"
+                    /*
+                     * Each frame says its own width, because each frame has
+                     * its own shape.
+                     *
+                     * The band is a row the height of the window, so a page
+                     * is as wide as its picture is at that height — which is
+                     * 75vh times its aspect, and nothing else. One figure for
+                     * all of them said 46vw, which is 662 pixels on a laptop;
+                     * a portrait is drawn at 240. The browser believed it and
+                     * decoded a 1440-wide rendition for a 240-wide slot, and
+                     * those decodes are twenty-six millisecond tasks landing
+                     * in the middle of a scroll.
+                     */
+                    sizes={
+                      one.width && one.height
+                        ? `(max-width: 760px) 92vw, calc(75vh * ${(one.width / one.height).toFixed(3)})`
+                        : "(max-width: 760px) 92vw, 46vw"
+                    }
                     alt={i === at ? one.alt ?? "" : ""}
                     /* The frame you are on and the two either side are what
                        a reader sees while the sheet is still up, so they are
