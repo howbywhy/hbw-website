@@ -36,6 +36,7 @@ function Cell({
   frame,
   i,
   onOpen,
+  onNear,
   echo,
   films,
   eager,
@@ -47,6 +48,8 @@ function Cell({
   frame: GalleryProject["frames"][number];
   i: number;
   onOpen: (slug: string, at: number) => void;
+  /** A pointer has reached this cell: worth fetching what it opens. */
+  onNear?: (slug: string) => void;
   /** On the loop's second turn: scenery, so nothing in here takes focus. */
   echo?: boolean;
   /**
@@ -95,6 +98,8 @@ function Cell({
       // page of its own for a crawler, a shared link and a middle click.
       href={`/projects/${project.slug}?f=${i + 1}`}
       aria-label={`${project.name} — ${project.idea}`}
+      onPointerEnter={onNear ? () => onNear(project.slug) : undefined}
+      onFocus={onNear ? () => onNear(project.slug) : undefined}
       tabIndex={echo ? -1 : undefined}
       onClick={(event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -165,6 +170,7 @@ function Cell({
 export function Catalogue({
   projects,
   onOpen,
+  onNear,
   pass = 0,
   behind = false,
 }: {
@@ -172,6 +178,8 @@ export function Catalogue({
   /** Each project's logotype, rendered on the server. */
   /** Open this project's gallery over the sheet, on this frame. */
   onOpen: (slug: string, at: number) => void;
+  /** Told when a pointer reaches a cell, so its project can be fetched. */
+  onNear?: (slug: string) => void;
   /**
    * Which turn of the loop this is.
    *
@@ -265,6 +273,7 @@ export function Catalogue({
                 frame={frame}
                 i={i}
                 onOpen={onOpen}
+                onNear={onNear}
                 echo={echo}
                 films={pass === 1}
                 /* The middle turn is where the page lands. */

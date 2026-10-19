@@ -337,74 +337,12 @@
 
 /* ---- The index table ---- */
 
-.hbw-rows {
-  list-style: none;
-  margin: 0 0 clamp(40px, 9vh, 96px);
-  padding: 0;
-}
-
-.hbw-rows > li {
-  border-bottom: 1px solid var(--rule);
-}
-
-.hbw-row {
-  display: grid;
-  grid-template-columns: minmax(7rem, 1.1fr) minmax(0, 1.5fr) minmax(0, 1fr) 3.4rem;
-  gap: var(--gut);
-  align-items: baseline;
-  padding: 9px 0;
-}
-
-.hbw-row__work,
-.hbw-row__year {
-  font-size: var(--meta);
-  letter-spacing: var(--track);
-  color: var(--mute);
-}
-
-.hbw-row__year {
-  text-align: right;
-}
-
-.hbw-row__name {
-  font-size: var(--read);
-}
-
-.hbw-row__idea {
-  color: var(--mute);
-}
-
 /* Only a row that opens something behaves like it does. */
-a.hbw-row:hover,
-a.hbw-row:focus-visible {
-  color: var(--ink);
-  background: var(--chip);
-}
-
-a.hbw-row:hover .hbw-row__idea,
-a.hbw-row:focus-visible .hbw-row__idea {
-  color: var(--ink);
-}
 
 /* The chip bleeds to the gutter, so a hovered row reads as one field. */
-a.hbw-row {
-  border-radius: var(--r);
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-left: -8px;
-  margin-right: -8px;
-}
 
 /* Work done but not yet written up. Quieter, never invisible: it is real
    work, it just has nowhere to go yet. */
-.hbw-row--soon {
-  cursor: default;
-  color: var(--mute);
-}
-
-.hbw-rows--soon .hbw-row__name {
-  color: var(--mute);
-}
 
 /* ---- The catalogue: a dense contact sheet ---- */
 
@@ -471,81 +409,12 @@ a.hbw-row {
 
 /* ---- Reading ---- */
 
-.hbw-read {
-  max-width: 32rem;
-}
-
-.hbw-read p {
-  margin: 0 0 0.7rem;
-}
-
-.hbw-read p.is-mute {
-  color: var(--mute);
-}
-
-.hbw-read a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-
-.hbw-read a:hover {
-  color: var(--ink);
-}
-
-.hbw-steps {
-  list-style: none;
-  margin: 1.1rem 0 0;
-  padding: 0;
-  display: grid;
-  /* Four across a half-width column is four columns too narrow to read. */
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: var(--gut) clamp(14px, 2vw, 28px);
-}
-
-.hbw-steps li {
-  display: grid;
-  gap: 0.25rem;
-  align-content: start;
-  padding-top: 7px;
-  border-top: 1px solid var(--rule);
-}
-
-.hbw-steps p {
-  margin: 0;
-  color: var(--mute);
-}
-
-.hbw-foot {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  margin-top: clamp(44px, 11vh, 120px);
-  padding-top: 8px;
-  border-top: 1px solid var(--rule);
-}
-
-.hbw-foot a:hover,
-.hbw-foot button:hover {
-  color: var(--ink);
-}
-
 @media (max-width: 760px) {
   .hbw-bar {
     grid-template-columns: 1fr auto;
   }
   .hbw-bar__what {
     display: none;
-  }
-  .hbw-row {
-    grid-template-columns: 1fr 3.2rem;
-  }
-  .hbw-row__idea,
-.hbw-row__work {
-    display: none;
-  }
-  .hbw-steps {
-    grid-template-columns: repeat(2, 1fr);
   }
   .hbw-sheet {
     grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
@@ -580,13 +449,6 @@ a.hbw-row {
 
 .hbw-info[open] .hbw-info__shut {
   display: inline;
-}
-
-.hbw-info__body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: var(--gut);
-  padding: 10px 0 clamp(26px, 5vh, 56px);
 }
 
 .hbw-info__facts {
@@ -626,9 +488,6 @@ a.hbw-row {
 }
 
 @media (max-width: 760px) {
-  .hbw-info__body {
-    grid-template-columns: 1fr;
-  }
   .hbw-info__part {
     grid-column: 1;
   }
@@ -642,16 +501,11 @@ a.hbw-row {
  * comes back on the thing being looked at, and on a case study, where the
  * work is the subject rather than one of six.
  */
-.hbw-tile__shot img,
-.hbw-tile__shot video,
 .hbw-cell img,
 .hbw-cell video {
   filter: grayscale(1);
 }
 
-.hbw-tile:hover .hbw-tile__shot img,
-.hbw-tile:focus-visible .hbw-tile__shot img,
-.hbw-tile:hover .hbw-tile__shot video,
 .hbw-cell:hover img,
 .hbw-cell:focus-visible img,
 .hbw-cell:hover video {
@@ -660,57 +514,8 @@ a.hbw-row {
 
 /* ---- The way in ---- */
 
-.hbw-intro {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  display: grid;
-  place-content: center;
-  gap: 0.6rem;
-  text-align: center;
-  background: var(--paper);
-  cursor: pointer;
-}
-
-.hbw-intro.is-going {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.hbw-intro__mark {
-  margin: 0;
-  font-weight: 500;
-  font-size: clamp(2.6rem, 9vw, 7rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.hbw-intro__line {
-  margin: 0;
-  font-size: var(--nav);
-  color: var(--mute);
-}
-
-@media (max-width: 1100px) {
-  .hbw-tiles {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 @media (max-width: 760px) {
-  .hbw-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
   /* Two columns is too few to carry a two-column tile as an accent. */
-  .hbw-tile[data-span="2"] {
-    grid-column: auto;
-  }
-  .hbw-ledger td:nth-child(3),
-.hbw-ledger th:nth-child(3),
-.hbw-ledger td:nth-child(4),
-.hbw-ledger th:nth-child(4) {
-    display: none;
-  }
 }
 
 /*
@@ -718,14 +523,6 @@ a.hbw-row {
  * than shrink — which is how the whole site got a horizontal scrollbar on a
  * phone. It scrolls inside itself instead.
  */
-.hbw-ledger {
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.hbw-ledger table {
-  min-width: 30rem;
-}
 
 /*
  * The gallery sits under the site's own chrome, not over it.
@@ -748,10 +545,6 @@ a.hbw-row {
 /* The slot says one thing at a time: the gallery's project, not the page's. */
 html.hbw-lit .hbw-bar__what > :not(.hbw-bar__now) {
   display: none;
-}
-
-.hbw-bar__now {
-  margin: 0;
 }
 
 html.hbw-lit .hbw-bar,
@@ -1040,35 +833,6 @@ html.hbw-lit .hbw-studio-sheet {
 }
 
 /* Half the screen each. The arrow only shows when a pointer is on that side. */
-.hbw-lamp__step {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  bottom: 0;
-  width: 44%;
-  display: flex;
-  align-items: center;
-  padding: 0 var(--edge);
-  font-size: var(--nav);
-  color: var(--ink);
-}
-
-.hbw-lamp__step.is-back {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%23111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
-}
-
-.hbw-lamp__step.is-on {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%23111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
-}
-
-.hbw-lamp__step span {
-  opacity: 0;
-}
-
-.hbw-lamp__step:hover span,
-.hbw-lamp__step:focus-visible span {
-  opacity: 1;
-}
 
 /* The rail: the whole set, small, scrolling with the picture. */
 /*
@@ -1076,58 +840,9 @@ html.hbw-lit .hbw-studio-sheet {
  * first items past the scroll origin and they cannot be reached; `safe center`
  * falls back to flush-start the moment the strip is wider than the screen.
  */
-.hbw-lamp__rail {
-  display: flex;
-  flex-direction: column;
-  justify-content: safe center;
-  align-items: center;
-  gap: 4px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  padding: 0 var(--pill-x);
-  /* A slider you drag down, so the pointer says so and a drag never selects
-     the thumbnails instead of running the set. */
-  cursor: ns-resize;
-  touch-action: pan-y;
-  user-select: none;
-}
-
-.hbw-lamp__rail::-webkit-scrollbar {
-  display: none;
-}
-
-.hbw-lamp__thumb {
-  flex: 0 0 auto;
-  width: 54px;
-  height: 40px;
-  overflow: hidden;
-  /* Grey and set back, so the strip never competes with the picture above it. */
-  opacity: 0.4;
-  filter: grayscale(1);
-}
-
-.hbw-lamp__thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hbw-lamp__thumb:hover {
-  opacity: 0.8;
-}
-
-.hbw-lamp__thumb[data-here="true"] {
-  opacity: 1;
-  filter: none;
-}
 
 @media (max-width: 760px) {
   /* No hover on a phone, so the arrows simply show. */
-  .hbw-lamp__step span {
-    opacity: 1;
-  }
   /* A page is nearly the whole screen here, with the next one just showing. */
   .hbw-lamp__pages {
     --page: 80vw;
@@ -1136,10 +851,6 @@ html.hbw-lit .hbw-studio-sheet {
   .hbw-lamp__page img,
 .hbw-lamp__page video {
     max-height: 86%;
-  }
-  .hbw-lamp__thumb {
-    width: 44px;
-    height: 33px;
   }
 }
 
@@ -1151,48 +862,9 @@ html.hbw-lit .hbw-studio-sheet {
  * tile to tile. A phone gets a reel of work it can flick through rather than
  * a column it has to scroll past.
  */
-@media (max-width: 760px) {
-  .hbw-tiles {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-left: var(--gut);
-    padding-right: var(--gut);
-  }
-
-  .hbw-tiles::-webkit-scrollbar {
-    display: none;
-  }
-
-  .hbw-tile {
-    flex: 0 0 78%;
-    scroll-snap-align: start;
-  }
-}
-
-.hbw-tile {
-  position: relative;
-}
 
 /* The frame's number, on hover — the same mark the collage uses, so the two
    read as one system. */
-.hbw-tile__no {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  padding: 3px 7px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: var(--meta);
-  opacity: 0;
-}
-
-.hbw-tile:hover .hbw-tile__no {
-  opacity: 1;
-}
 
 /* The bar's right slot, when a page puts its own heading there. */
 .hbw-bar__h1 {
@@ -1220,60 +892,14 @@ html.hbw-lit .hbw-studio-sheet {
 
 /* The heading the canvas is drawing. Present for a crawler and a screen
    reader, never shown — the picture above says it. */
-.hbw-field__said {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 
 /* ---- The reel ---- */
-
-.hbw-reel {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  height: clamp(300px, 62vh, 640px);
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  /* The whole width of the window, no gutter: the reel runs off both edges. */
-  margin: clamp(10px, 3vh, 36px) 0 clamp(18px, 4vh, 48px);
-}
-
-.hbw-reel::-webkit-scrollbar {
-  display: none;
-}
-
-.hbw-reel__job {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
 
 /*
  * The mark holds at the left edge while its own project passes, then the next
  * project's mark arrives and pushes it out. Sticky inside a horizontal
  * scroller does this on its own — no scroll handler, no measuring.
  */
-.hbw-reel__mark {
-  position: sticky;
-  left: 0;
-  z-index: 2;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  width: clamp(180px, 20vw, 320px);
-  height: 100%;
-  padding: 0 var(--edge);
-  background: var(--paper);
-  color: var(--ink);
-}
 
 .hbw-reel__mark .hbw-mark {
   display: block;
@@ -1287,44 +913,7 @@ html.hbw-lit .hbw-studio-sheet {
   height: auto;
 }
 
-.hbw-reel__says {
-  font-size: var(--meta);
-  color: var(--mute);
-}
-
 /* No box, no fill: the picture is the whole tile. */
-.hbw-reel__shot {
-  position: relative;
-  flex: 0 0 auto;
-  height: 100%;
-  margin-right: 10px;
-  overflow: hidden;
-}
-
-.hbw-reel__shot img,
-.hbw-reel__shot video {
-  display: block;
-  height: 100%;
-  width: auto;
-  object-fit: cover;
-  filter: grayscale(1);
-}
-
-.hbw-reel__shot video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  opacity: 0;
-}
-
-.hbw-reel__shot:hover img,
-.hbw-reel__shot:hover video {
-  filter: none;
-}
-
-.hbw-reel__shot:hover video {
-  opacity: 1;
-}
 
 /* ---- The studio sheet ---- */
 
@@ -1435,15 +1024,6 @@ html.hbw-lit .hbw-studio-sheet {
   color: var(--ink);
 }
 
-.hbw-studio-sheet__lead {
-  margin: 0 0 0.8rem;
-  max-width: 34ch;
-  font-size: var(--t-big);
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-}
-
 /* ---- The studio, as a document ---- */
 
 /*
@@ -1500,43 +1080,13 @@ html.hbw-lit .hbw-studio-sheet {
  * The stage: everything you can see, held still while the scroll runs under
  * it. What moves is moved by the scroll's own number, not by being scrolled.
  */
-.hbw-studio-stage {
-  /* What the foot is, and therefore how far the face lifts to make room for
-     it. Declared here because the foot and the face sit in different branches
-     of the stage and both have to read the same number. */
-  --foot-h: clamp(76px, 11vh, 120px);
-  position: sticky;
-  top: 0;
-  /* What the foot rises against. */
-  isolation: isolate;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 
 /* The spacer the scroll actually runs on. */
-.hbw-studio__run {
-  pointer-events: none;
-}
 
 /*
  * The mark's room. It shrinks as the mark does, so what is under it rises to
  * meet the chrome rather than waiting below a gap where a title page was.
  */
-.hbw-studio__head {
-  flex: 0 0 auto;
-  text-align: center;
-  /*
-   * Room for the caps.
-   *
-   * At this size the type's ascenders rise about a sixth of the size above
-   * the line box, so the mark began forty pixels above the top of the sheet
-   * and sat across the nav's own row — "Why" printed over "Close". The room
-   * goes as the mark shrinks, so nothing is left behind once it has.
-   */
-  padding-top: calc(var(--mast-full, 0px) * 0.17 * (1 - var(--mast, 0)));
-}
 
 /*
  * The mark, grown to the width of the sheet.
@@ -1666,36 +1216,8 @@ html.hbw-lit .hbw-studio-sheet {
  * The two that move. Each is run past by its own share of the scroll, one
  * after the other — the practice, then what he believes.
  */
-.hbw-studio__read {
-  transform: translate3d(0, var(--a, 0px), 0);
-}
-
-.hbw-studio__side {
-  transform: translate3d(0, var(--b, 0px), 0);
-}
-
-.hbw-studio__read,
-.hbw-studio__side {
-  align-self: start;
-  padding-bottom: clamp(30px, 5.5vh, 58px);
-  /*
-   * The writing goes out rather than stopping. Clipped flat at the foot of
-   * the sheet a sentence was guillotined mid-word; faded, it reads as more to
-   * come. Only these two: the fade was on the whole body, which meant it was
-   * also fading the face, and the face is not going anywhere.
-   */
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 90px), transparent);
-  /*
-   * As the foot arrives the reading goes soft behind it — it is finished
-   * with, and blurring it is what makes the foot the thing in front.
-   */
-  filter: blur(calc(var(--foot, 0) * 5px));
-}
 
 /* The keys go with the writing they index. */
-.hbw-studio__index {
-  filter: blur(calc(var(--foot, 0) * 5px));
-}
 
 /*
  * The person, pinned into the corners and still for the whole read.
@@ -1705,15 +1227,6 @@ html.hbw-lit .hbw-studio-sheet {
  * arrives as the mark leaves: at full size the mark is the whole sheet and
  * the title page should have nothing else on it.
  */
-.hbw-studio__who {
-  align-self: stretch;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--step);
-  opacity: var(--mast, 0);
-}
 
 /*
  * The foot, arriving last and over the top.
@@ -1723,59 +1236,9 @@ html.hbw-lit .hbw-studio-sheet {
  * past. Over the top it is the last thing, and the fade under it is where the
  * writing goes.
  */
-.hbw-studio__foot {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  box-sizing: border-box;
-  height: var(--foot-h);
-  display: grid;
-  /* The same tracks as the body: the place over the person, the address over
-     the practice, the disciplines over what he believes. */
-  grid-template-columns:
-    clamp(180px, 20vw, 300px)
-    clamp(4.5rem, 6vw, 6rem)
-    minmax(0, 1fr)
-    clamp(4.5rem, 6vw, 6rem)
-    minmax(0, 1fr);
-  column-gap: clamp(14px, 2.2vw, 40px);
-  align-items: end;
-  padding-bottom: clamp(16px, 2.6vh, 30px);
-  /*
-   * No ground of its own. A white box across the foot was the only solid
-   * fill anywhere in the studio, and the one thing it had to sit on is
-   * already blurred by its own arrival — so the hairline is enough to say
-   * where it starts.
-   */
-  background: none;
-  border-top: 1px solid var(--rule);
-  transform: translateY(calc((1 - var(--foot, 0)) * 100%));
-}
-
-.hbw-studio__foot p {
-  margin: 0;
-  padding-top: 12px;
-}
 
 /* The place sits over the person; the address over the practice; the
    disciplines over the beliefs. The two key tracks stay empty. */
-.hbw-studio__foot p:nth-child(1) {
-  grid-column: 1;
-}
-
-.hbw-studio__foot p:nth-child(2) {
-  grid-column: 3;
-}
-
-.hbw-studio__foot p:nth-child(3) {
-  grid-column: 5;
-}
-
-.hbw-studio__foot-say {
-  color: var(--ink);
-}
 
 /*
  * One measure, and everything on it.
@@ -1792,68 +1255,18 @@ html.hbw-lit .hbw-studio-sheet {
  * The key, down the side of the writing it indexes, level with its first
  * line. A margin, not a heading.
  */
-.hbw-studio__index {
-  position: sticky;
-  top: 0;
-  /* Clear of the mark on the way past, so the two never sit on each other. */
-  z-index: 1;
-  align-self: start;
-  display: grid;
-  align-content: start;
-  gap: 2px;
-  font-size: var(--nav);
-  color: var(--mute);
-}
-
-.hbw-studio__index a:hover {
-  color: var(--ink);
-}
 
 /*
  * Where you are, marked the way the old page marked it: a dash in the margin
  * rather than a weight or a rule. It is set in the gutter so the list of words
  * stays a straight edge.
  */
-.hbw-studio__index a[aria-current] {
-  color: var(--ink);
-}
-
-.hbw-studio__index a[aria-current]::before {
-  content: "–";
-  position: absolute;
-  margin-left: -0.75em;
-}
-
-.hbw-studio__index a {
-  position: relative;
-}
-
-.hbw-studio__read > section {
-  /* Clear of the sheet's top edge when the index jumps you to it. */
-  scroll-margin-top: 12px;
-  padding-bottom: var(--step);
-}
-
-
-
-.hbw-studio__read > section + section {
-  border-top: 1px solid var(--rule);
-  padding-top: var(--step);
-}
 
 /*
  * The statement. One sentence at full strength and the rest set back, which
  * is the whole device: the tension is what a visitor recognises, and who
  * answers it belongs a step behind it.
  */
-.hbw-studio__lead {
-  margin: 0 0 var(--step);
-  font-size: var(--t-big);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  text-wrap: pretty;
-}
 
 /* The line a section opens on, a step up from the writing under it. */
 .hbw-studio__said {
@@ -1897,23 +1310,6 @@ html.hbw-lit .hbw-studio-sheet {
  * loudness. Set under the face and set quietly, it reads as what somebody
  * believes rather than a second headline.
  */
-.hbw-studio__side > section + section {
-  border-top: 1px solid var(--rule);
-  padding-top: var(--step);
-}
-
-.hbw-studio__side > section {
-  padding-bottom: var(--step);
-}
-
-.hbw-studio__beliefs p {
-  margin: 0 0 0.85rem;
-  max-width: none;
-  font-size: var(--read);
-  line-height: 1.32;
-  letter-spacing: 0;
-  color: var(--mute);
-}
 
 /* The opening holds full ink; the rest follows it, set back. */
 .hbw-studio__beliefs .hbw-studio__said {
@@ -1924,57 +1320,17 @@ html.hbw-lit .hbw-studio-sheet {
   color: var(--ink);
 }
 
-.hbw-studio__facts {
-  display: grid;
-  gap: 9px;
-  margin: 0 0 var(--step);
-}
-
 /*
  * Nothing in the studio carries a measure of its own: the column is the
  * measure. Every rule, list, paragraph and heading starts and stops on the
  * same two edges, which is the only way four columns read as a grid rather
  * than as four stacks that happen to be side by side.
  */
-.hbw-studio__read > section,
-.hbw-studio__side > section,
-.hbw-studio__read p,
-.hbw-studio__side p,
-.hbw-studio__lead,
-.hbw-studio__said,
-.hbw-studio__list,
-.hbw-studio__facts {
+.hbw-studio__said {
   max-width: none;
 }
 
 /* In a column this narrow the answer goes under its label, not beside it. */
-.hbw-studio__facts div {
-  display: grid;
-  gap: 1px;
-}
-
-.hbw-studio__facts dd {
-  margin: 0;
-}
-
-.hbw-studio__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.hbw-studio__list li {
-  display: grid;
-  gap: 1px;
-  padding-top: 7px;
-  border-top: 1px solid var(--rule);
-}
-
-.hbw-studio__list a:hover {
-  color: var(--mute);
-}
 
 @media (max-width: 1100px) {
   /*
@@ -1986,15 +1342,8 @@ html.hbw-lit .hbw-studio-sheet {
     grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
     align-items: start;
   }
-  .hbw-studio__who {
-    grid-column: 1 / -1;
-    height: auto;
-  }
   .hbw-studio__portrait {
     max-width: 14rem;
-    margin-top: 0;
-  }
-  .hbw-studio__side {
     margin-top: 0;
   }
 }
@@ -2011,59 +1360,11 @@ html.hbw-lit .hbw-studio-sheet {
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;
   }
-  .hbw-studio__side {
-    grid-column: 1;
-    max-width: none;
-  }
-  .hbw-studio__side {
-    grid-column: 1;
-  }
   /* No room for a column beside the writing, so the index becomes a row. */
-  .hbw-studio__index {
-    position: static;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 14px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .hbw-studio__index a[aria-current]::before {
-    content: none;
-  }
   /* No room for a label column beside the answer. */
-  .hbw-studio__facts div {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1px;
-  }
-}
-
-.hbw-studio-sheet__foot {
-  margin-top: 1.4rem;
-}
-
-.hbw-studio-sheet__foot a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-@media (max-width: 760px) {
-  .hbw-reel {
-    height: clamp(240px, 46vh, 400px);
-  }
-  .hbw-reel__mark {
-    width: clamp(130px, 44vw, 200px);
-  }
 }
 
 /* The bar's right slot, when it opens the page's information. */
-.hbw-bar__info {
-  color: var(--mute);
-  text-align: right;
-}
-
-.hbw-bar__info:hover {
-  color: var(--ink);
-}
 
 /* The information's own layout, inside a sheet. */
 .hbw-studio-sheet__body .hbw-info__body {
@@ -2081,17 +1382,8 @@ html.hbw-lit .hbw-studio-sheet {
   }
 }
 
-.hbw-row {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
 @media (max-width: 760px) {
   /* Two to a row on a phone; three would be thumbnails. */
-  .hbw-row {
-    flex-wrap: wrap;
-  }
 }
 
 /* ---- The footer ---- */
@@ -2223,18 +1515,6 @@ html.hbw-lit .hbw-studio-sheet {
  * every rule being rewritten — the chrome, the sheets and the hairlines all
  * read from these, so they come with it.
  */
-.hbw-site--dark {
-  --paper: #111111;
-  --say: #a8a8a8;
-  --ink: #f4f4f4;
-  --mute: rgba(244, 244, 244, 0.45);
-  --rule: rgba(244, 244, 244, 0.16);
-  --chip: rgba(244, 244, 244, 0.08);
-  --chip-on: rgba(244, 244, 244, 0.14);
-  --over: rgba(17, 17, 17, 0.93);
-  color: var(--say);
-  background: var(--paper);
-}
 
 /* ---- The gallery's own cursors ---- */
 
@@ -2247,13 +1527,6 @@ html.hbw-lit .hbw-studio-sheet {
  * The hotspot is the middle of the 34px glyph. A light pair follows, for the
  * gallery opened over a dark project, where ink would disappear.
  */
-.hbw-lamp__step.is-back {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%2523111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
-}
-
-.hbw-lamp__step.is-on {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M5%2017h22M19%209l8%208-8%208%27%20fill%3D%27none%27%20stroke%3D%27%2523111111%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, e-resize;
-}
 
 html.hbw-lit .hbw-lamp__step.is-back {
   cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2734%27%20height%3D%2734%27%20viewBox%3D%270%200%2034%2034%27%3E%3Cpath%20d%3D%27M29%2017H7M15%209l-8%208%208%208%27%20fill%3D%27none%27%20stroke%3D%27%23f4f4f4%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27square%27%20stroke-linejoin%3D%27miter%27%2F%3E%3C%2Fsvg%3E") 17 17, w-resize;
@@ -2264,9 +1537,6 @@ html.hbw-lit .hbw-lamp__step.is-on {
 }
 
 /* With the pointer saying it, the arrows in the corners are noise. */
-.hbw-lamp__step span {
-  display: none;
-}
 
 /*
  * A click leaves focus on the half of the screen it landed on, and the
@@ -2274,32 +1544,8 @@ html.hbw-lit .hbw-lamp__step.is-on {
  * is kept for the keyboard, where it is the only way to tell where you are,
  * and set in the gallery's own ink rather than the browser's blue.
  */
-.hbw-lamp__step:focus {
-  outline: none;
-}
-
-.hbw-lamp__step:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: -1px;
-}
 
 /* ---- The door into the next project ---- */
-
-.hbw-next {
-  display: grid;
-  justify-items: center;
-  gap: 1.1rem;
-  margin: clamp(40px, 9vh, 110px) 0 clamp(30px, 7vh, 80px);
-  padding: clamp(40px, 9vh, 110px) var(--gut);
-  background: var(--ink);
-  color: var(--paper);
-}
-
-.hbw-next__mark {
-  display: block;
-  width: min(42vw, 560px);
-  color: var(--paper);
-}
 
 .hbw-next__mark .hbw-mark,
 .hbw-next__mark .hbw-mark svg {
@@ -2307,21 +1553,6 @@ html.hbw-lit .hbw-lamp__step.is-on {
   width: 100%;
   height: auto;
   color: inherit;
-}
-
-.hbw-next__says {
-  color: inherit;
-  opacity: 0.6;
-}
-
-.hbw-next:hover .hbw-next__says {
-  opacity: 1;
-}
-
-@media (max-width: 760px) {
-  .hbw-next__mark {
-    width: min(68vw, 360px);
-  }
 }
 
 
@@ -2358,31 +1589,6 @@ html.hbw-lit .hbw-lamp__step.is-on {
   outline-offset: -1px;
 }
 
-.hbw-win__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--gut);
-  padding: 10px var(--gut);
-  border-bottom: 1px solid var(--rule);
-}
-
-.hbw-win__top p {
-  margin: 0;
-}
-
-.hbw-win__body {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
-  /*
-   * Positioned, so the tool's own canvas — which is absolute with inset 0 —
-   * is held inside the body. Unpositioned, it climbed to the widget and
-   * painted over the title row and its way out.
-   */
-  position: relative;
-}
-
 
 /* ---- One part, held on its own ---- */
 
@@ -2397,17 +1603,13 @@ html.hbw-lit .hbw-lamp__step.is-on {
 }
 
 .hbw-studio section,
-.hbw-studio__index a,
-.hbw-studio__portrait,
-.hbw-studio__facts {
+.hbw-studio__portrait {
   transition: opacity 180ms cubic-bezier(0.22, 0.7, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hbw-studio section,
-  .hbw-studio__index a,
-  .hbw-studio__portrait,
-  .hbw-studio__facts {
+  .hbw-studio__portrait {
     transition: none;
   }
 }
@@ -2691,8 +1893,7 @@ body:has(.hbw-lamp) .hbw-bar {
   padding-inline-start: var(--pill-x);
 }
 
-.hbw-bar__what > p,
-.hbw-bar__now {
+.hbw-bar__what > p {
   padding-inline-end: var(--pill-x);
 }
 
@@ -3139,14 +2340,6 @@ body:has(.hbw-loop) .hbw-bar {
 }
 
 /* Read aloud, not set. */
-.hbw-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 
 /*
  * The page opens on the middle line and ends on it.
@@ -3283,10 +2476,6 @@ section[data-handed] > .hbw-band {
 /* =====================================================================
    The studio page: the long version, written to be read and to be found.
    ===================================================================== */
-.hbw-studio-page {
-  padding-top: calc(var(--chrome) + var(--pill-h));
-  padding-bottom: clamp(48px, 11vh, 132px);
-}
 
 /* The facts, one per row: label on the left, answer beside it. */
 .hbw-facts {
@@ -3443,12 +2632,6 @@ body:has(.hbw-studio-sheet) .hbw-bar {
 
 .hbw-part__lead .hbw-ink {
   color: var(--ink);
-}
-
-.hbw-part__portrait {
-  display: block;
-  width: 100%;
-  height: auto;
 }
 
 /* In a column of its own, the facts need no rule above the first row. */
@@ -3629,16 +2812,6 @@ body:has(.hbw-studio-sheet) .hbw-bar {
  * reads as the project's own run of pictures. Pressing anywhere on it jumps
  * to that frame and dragging runs the set under your finger.
  */
-.hbw-lamp__thumb {
-  width: 100%;
-  flex: 0 0 auto;
-}
-
-.hbw-lamp__thumb img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
 
 /*
  * The next project, peeping.
@@ -3676,32 +2849,6 @@ body:has(.hbw-studio-sheet) .hbw-bar {
 /* =====================================================================
    How the set is shown. One at a time, as a list, or all of it at once.
    ===================================================================== */
-.hbw-lamp__views {
-  display: flex;
-  gap: var(--pill-gap);
-  padding: var(--pill-gap);
-  box-sizing: border-box;
-  height: var(--pill-h);
-  align-items: stretch;
-  border-radius: var(--pill-r);
-  background: var(--pill-bg);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-}
-
-.hbw-lamp__views button {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 calc(var(--pill-x) - var(--pill-gap));
-  border-radius: calc(var(--pill-r) - var(--pill-gap));
-  white-space: nowrap;
-}
-
-.hbw-lamp__views button:hover,
-.hbw-lamp__views button[aria-pressed="true"] {
-  background: var(--pill-on);
-  color: #f4f4f4;
-}
 
 /* The counter belongs to the one view that has a place in it. */
 .hbw-lamp__bar {
@@ -4231,36 +3378,6 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 /* =====================================================================
    The studio's index, and the writing moved over.
    ===================================================================== */
-.hbw-studio__index {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  display: grid;
-  gap: 2px;
-  padding-bottom: var(--pill-h);
-  /*
-   * No ground.
-   *
-   * It was given solid white so the writing would not show through it while
-   * it holds its place — but a grid item fills its column, so that white was
-   * a box nine hundred and seventy-seven pixels wide sitting over the sheet.
-   * The writing is pushed to the right of this column now, so nothing passes
-   * behind the index and there is nothing to hide.
-   */
-  width: max-content;
-}
-
-.hbw-studio__index a {
-  color: var(--mute);
-  font-size: var(--t-small);
-  letter-spacing: var(--track);
-  width: max-content;
-}
-
-.hbw-studio__index a:hover,
-.hbw-studio__index a[aria-current="true"] {
-  color: var(--ink);
-}
 
 /*
  * The index holds the left margin; the writing starts level with it.
@@ -4276,12 +3393,6 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
   grid-template-columns: clamp(6rem, 10vw, 9rem) 1fr;
   column-gap: clamp(16px, 2.4vw, 40px);
   align-items: start;
-}
-
-.hbw-studio__index {
-  grid-column: 1;
-  grid-row: 1 / -1;
-  padding-bottom: 0;
 }
 
 .hbw-studio__said .hbw-part {
@@ -4309,14 +3420,6 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 @media (max-width: 860px) {
   .hbw-studio__said {
     grid-template-columns: 1fr;
-  }
-  .hbw-studio__index {
-    grid-column: 1;
-    grid-row: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--pill-x);
-    padding-bottom: var(--pill-h);
   }
   .hbw-studio__said .hbw-part {
     grid-column: 1;
@@ -4446,9 +3549,24 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 }
 
 :root {
-  --in: 560ms;
-  --out: 300ms;
-  --quick: 200ms;
+  /*
+   * Halved, because the site was correct and slow.
+   *
+   * Nothing here ever dropped a frame — measured on a real GPU, every move
+   * runs at the full refresh rate. What it did was take too long: a project
+   * opened from the front page was still assembling itself two and nine
+   * tenths of a second after the press, and the nav alone took the better
+   * part of a second to travel.
+   *
+   * 560ms is a duration for something crossing the whole screen. Almost
+   * nothing here does: the nav moves a row's height, a sheet comes up from
+   * the fold, a picture lifts fourteen pixels. At that distance 560ms is not
+   * considered, it is waiting — and because the arrival ladder is built on
+   * this token, everything behind it was waiting too.
+   */
+  --in: 320ms;
+  --out: 200ms;
+  --quick: 140ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* How far a thing travels as it arrives. Small: the distance is a hint. */
   --rise: 14px;
@@ -4468,7 +3586,6 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
 .hbw-bar button,
 .hbw-lamp__ways button,
 .hbw-lamp__foot,
-.hbw-studio__index a,
 .hbw-chip a,
 .hbw-end a,
 .hbw-end button {
@@ -4946,17 +4063,6 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
  * title — and set at the width of the screen, so it is unmissable without
  * being loud. Open, it gives its room to the writing it opens.
  */
-.hbw-lamp__word {
-  display: block;
-  width: 100%;
-  font-size: clamp(56px, 13vw, 190px);
-  line-height: 0.82;
-  letter-spacing: -0.045em;
-  color: var(--ink);
-  opacity: 0.88;
-  white-space: nowrap;
-  transition: opacity var(--quick) var(--ease);
-}
 
 .hbw-lamp__info:hover .hbw-lamp__word {
   opacity: 1;
@@ -5056,13 +4162,6 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
    controls are one height, and the thing that is currently selected is
    unmistakable. Scoped to the window, so the prototype page is untouched.
    ===================================================================== */
-.hbw-win__body {
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 0;
-  padding: 0;
-  min-height: 0;
-}
 
 /* The surface you are working on, stated. */
 .hbw-tool .hbw-poster-field {
@@ -5463,11 +4562,6 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
   height: auto;
   min-height: 0;
   align-self: stretch;
-}
-
-.hbw-win__body {
-  min-height: 0;
-  overflow: hidden;
 }
 
 /* Undo and reset join the row rather than starting a new one. */
@@ -6028,11 +5122,6 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
    several, so the set is still there to be walked while the writing is
    open, rather than a crop of whichever frame you happened to stop on.
    ===================================================================== */
-@media (max-width: 760px) {
-
-
-
-}
 
 /* =====================================================================
    Reading on a phone: the work down the left, the writing beside it.
@@ -6137,10 +5226,6 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
   }
 }
 
-.hbw-studio__index a {
-  font-size: var(--nav);
-}
-
 /* =====================================================================
    The year is a small word with a target around it.
 
@@ -6200,11 +5285,8 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 .hbw-bar__mark button,
 .hbw-end__to a,
 .hbw-end__to button,
-.hbw-studio__index a,
 .hbw-facts dd a,
 .hbw-jobs h2 a,
-.hbw-read a,
-.hbw-read button,
 .hbw-say a,
 .hbw-band .hbw-chip a,
 .hbw-band .hbw-m a {
@@ -6661,18 +5743,6 @@ body:has(.hbw-contact-page) .hbw-bar {
  * all. It gets this layer instead: fixed to the viewport, under the nav as
  * every sheet is.
  */
-.hbw-win-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 35;
-  /*
-   * A veil, only here. In the sheet the window sits on the sheet's own paper;
-   * on the page it was floating over the address and the list of work with
-   * nothing between them, so the two sets of words read as one. The nav stays
-   * above it, as it stays above every sheet.
-   */
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-}
 
 /* =====================================================================
    A project, in words: /projects/<slug>/story.
@@ -6709,222 +5779,19 @@ body:has(.hbw-case-page) .hbw-bar {
   scroll-snap-type: none;
 }
 
-.hbw-case-page {
-  /* The field runs the full twelve modules; each cell carries its own
-     gutter, so the containers sit on the grid and the type sits where the
-     rest of the site's type sits. */
-  padding-inline: 0;
-  padding-top: var(--pill-h);
-  padding-bottom: clamp(40px, 9vh, 104px);
-}
-
-.hbw-case {
-  display: grid;
-  /* Two modules for the index, the writing in the column beside it. */
-  grid-template-columns: calc(var(--module) * 2) minmax(0, 1fr);
-  column-gap: 0;
-  /* Start, not stretch, or the index becomes a box the height of the page
-     and position: sticky has nothing to move inside. */
-  align-items: start;
-}
-
 /* ---- The index, in the margin ---- */
 
-.hbw-case__index {
-  grid-column: 1;
-  grid-row: 1 / -1;
-  position: sticky;
-  /*
-   * Under the chrome, and no lower than the line the writing starts on.
-   *
-   * Set below that line it was pinned there the moment the page loaded, so
-   * the index began eleven pixels under the name it is beside — the one
-   * thing on the page that was not level with anything. This clears the
-   * bar's underside by twenty and sits above the first words, so nothing
-   * steps down while the page is at rest.
-   */
-  top: calc(var(--chrome) - var(--pill-x));
-  display: grid;
-  gap: 2px;
-  /* The gutter is inside the cell, so the column opens on module zero and
-     the words open where the bar's own words open. */
-  padding-inline: var(--gut);
-  width: max-content;
-}
-
-.hbw-case__index a {
-  display: inline-block;
-  width: max-content;
-  color: var(--mute);
-  font-size: var(--nav);
-  letter-spacing: var(--track);
-  text-decoration: none;
-  /* Padded out to the 24px a finger needs and pulled back by the same
-     amount, so the target is bigger and nothing has moved. 1lh, not 1em:
-     the type is set tighter than its own size. */
-  padding-block: max(0px, calc((24px - 1lh) / 2));
-  margin-block: calc(-1 * max(0px, calc((24px - 1lh) / 2)));
-}
-
-.hbw-case__index a:hover,
-.hbw-case__index a[aria-current="true"] {
-  color: var(--ink);
-}
-
 /* The way into the pictures is not one of the three, so a rule says so. */
-.hbw-case__index-work {
-  margin-top: var(--pill-h);
-  padding-top: var(--pill-x);
-  border-top: 1px solid var(--rule);
-}
-
-.hbw-case__index-work:hover {
-  color: var(--ink);
-}
 
 /* ---- The masthead ---- */
 
-.hbw-case__mast,
-.hbw-case__part,
-.hbw-case__to {
-  grid-column: 2;
-}
-
-.hbw-case__mast {
-  /* Opens on the module-two line; the gutter is only on the far side. */
-  padding-inline: 0 var(--gut);
-  padding-bottom: clamp(28px, 6vh, 64px);
-}
-
-.hbw-case__name {
-  margin: 0;
-  font-size: var(--t-mid);
-  font-weight: inherit;
-  line-height: 1.2;
-  letter-spacing: var(--track);
-  color: var(--ink);
-}
-
-.hbw-case__idea {
-  margin: 0;
-  color: var(--ink);
-}
-
-.hbw-case__opening {
-  margin-top: 0.9em;
-  max-width: 34rem;
-}
-
-.hbw-case__opening p {
-  margin: 0 0 0.9em;
-  color: var(--say);
-}
-
-.hbw-case__opening p:last-child {
-  margin-bottom: 0;
-}
-
 /* ---- The facts: a label column of one module, the answer beside it ---- */
 
-.hbw-case__facts {
-  margin: clamp(24px, 5vh, 56px) 0 0;
-  display: grid;
-  gap: 0;
-  /* Seven modules of the twelve, so the table does not run the whole page. */
-  max-width: calc(var(--module) * 7);
-}
-
-.hbw-case__facts > div {
-  display: grid;
-  grid-template-columns: var(--module) minmax(0, 1fr);
-  column-gap: 0;
-  align-items: baseline;
-  padding: var(--pill-x) 0;
-  border-top: 1px solid var(--rule);
-}
-
-.hbw-case__facts dt {
-  margin: 0;
-  /* The label keeps its air without pushing the answer off the line. */
-  padding-inline-end: var(--gut);
-}
-
-.hbw-case__facts dd {
-  margin: 0;
-  color: var(--ink);
-}
-
 /* A collaborator a line, rather than a sentence of commas. */
-.hbw-case__line {
-  display: block;
-}
-
-.hbw-case__facts a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  display: inline-block;
-  padding-block: max(0px, calc((24px - 1lh) / 2));
-  margin-block: calc(-1 * max(0px, calc((24px - 1lh) / 2)));
-}
 
 /* ---- The three parts ---- */
 
-.hbw-case__part {
-  display: grid;
-  grid-template-columns: var(--module) minmax(0, 1fr);
-  column-gap: 0;
-  /* Opens on the module-two line, like the masthead above it. The rule is
-     flush to the right, which is what the catalogue's own row does. */
-  padding-inline: 0;
-  align-items: start;
-  padding-block: var(--pill-h);
-  border-top: 1px solid var(--rule);
-  /* Where a part comes to rest when the index is used: under the chrome,
-     with the same air. */
-  scroll-margin-top: calc(var(--chrome) + var(--pill-h));
-}
-
-.hbw-case__heading {
-  grid-column: 1;
-  margin: 0;
-  padding-inline-end: var(--gut);
-}
-
-.hbw-case__say {
-  grid-column: 2;
-  /* A measure, started on the column line rather than pushed to its far
-     edge — so all three parts open from the same vertical. */
-  justify-self: start;
-  max-width: 34rem;
-  padding-inline-end: var(--gut);
-}
-
-.hbw-case__say p {
-  margin: 0 0 0.9em;
-  color: var(--say);
-}
-
-.hbw-case__say p:last-child {
-  margin-bottom: 0;
-}
-
 /* ---- The way back into the pictures ---- */
-
-.hbw-case__to {
-  margin: clamp(28px, 6vh, 64px) 0 0;
-  padding-inline: 0 var(--gut);
-}
-
-.hbw-case__to a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  display: inline-block;
-  padding-block: max(0px, calc((24px - 1lh) / 2));
-  margin-block: calc(-1 * max(0px, calc((24px - 1lh) / 2)));
-}
 
 /* ---- The phone ---- */
 
@@ -6934,75 +5801,12 @@ body:has(.hbw-case-page) .hbw-bar {
    * label and no margin for an index. Everything stacks, which is what the
    * rest of the site does at this width.
    */
-  .hbw-case {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .hbw-case__index {
-    grid-column: 1;
-    grid-row: auto;
-    position: static;
-    top: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 var(--pill-x);
-    width: auto;
-    padding: 0 var(--gut) var(--pill-h);
-  }
 
   /* In a row, the rule above it would be a rule down the middle of it. */
-  .hbw-case__index-work {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: 0;
-    color: var(--ink);
-  }
-
-  .hbw-case__mast,
-  .hbw-case__part,
-  .hbw-case__to {
-    grid-column: 1;
-    padding-inline: var(--gut);
-  }
-
-  .hbw-case__part {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .hbw-case__heading {
-    grid-column: 1;
-    margin-bottom: 6px;
-    padding-inline-end: 0;
-  }
-
-  .hbw-case__say {
-    grid-column: 1;
-    max-width: none;
-    padding-inline-end: 0;
-  }
-
-  .hbw-case__facts {
-    max-width: none;
-  }
-
-  .hbw-case__facts > div {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
-  }
-
-  .hbw-case__facts dt {
-    padding-inline-end: 0;
-  }
 }
 
 /* The index marks where you are by colour alone, and that is the only thing
    on the page that moves. Said anyway, so it stays true if one is added. */
-@media (prefers-reduced-motion: reduce) {
-  .hbw-case__index a,
-  .hbw-case__to a {
-    transition: none;
-  }
-}
 
 /* =====================================================================
    The poster's second line: what the tool in hand is set to.
@@ -7436,11 +6240,6 @@ body:has(.hbw-case-page) .hbw-bar {
  * chrome rather than the toolbar, so it was measured separately and missed —
  * 38 by 17. It is the control somebody reaches for when they want to stop.
  */
-.hbw-win__top button {
-  min-height: 24px;
-  display: inline-flex;
-  align-items: center;
-}
 
 /* =====================================================================
    The site arrives in order.
@@ -7615,19 +6414,6 @@ body:has(.hbw-case-page) .hbw-bar {
    views behaved like two different places. Same move, more columns — the
    set shrinks to thumbnails and stays scannable while you read.
    ===================================================================== */
-
-
-
-@media (max-width: 1100px) {
-
-
-}
-
-@media (max-width: 760px) {
-
-
-
-}
 
 /*
  * The gallery bar, held to one line.
@@ -8576,12 +7362,6 @@ body:has(.hbw-lamp) .hbw-bar {
    the right. One track per frame and they all come into view, which is what
    the grid does with two rows.
    ===================================================================== */
-@media (min-width: 761px) {
-
-
-
-
-}
 
 /*
  * The phone shows them all by scrolling, not by shrinking.
@@ -8593,11 +7373,6 @@ body:has(.hbw-lamp) .hbw-bar {
  * the end of it the way you reach the end of anything on a phone. The
  * track count is set inline, so the rail has to say so out loud.
  */
-@media (max-width: 760px) {
-
-
-
-}
 
 /* The line under the nav, on the gallery's own row. */
 .hbw-lamp__idea {
@@ -9486,65 +8261,14 @@ body:has(.hbw-lamp) .hbw-bar__what {
    the facts and each section become modules on the same field, two pixels
    apart, and they arrive in the order they are read.
    ===================================================================== */
-.hbw-case__opening,
-.hbw-case__facts,
-.hbw-case__part,
-.hbw-case__to {
-  box-sizing: border-box;
-  background: var(--pill-bg);
-  border-radius: var(--pill-r);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  padding: clamp(14px, 1.6vw, 24px);
-  margin: 0;
-  min-width: 0;
-}
-
-.hbw-case {
-  display: grid;
-  gap: var(--edge);
-}
-
-.hbw-case__mast {
-  display: grid;
-  gap: var(--edge);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hbw-case__opening,
-  .hbw-case__facts,
-  .hbw-case__part,
-  .hbw-case__to {
-    animation: hbw-arrive var(--in) var(--ease) backwards;
-  }
-
-  .hbw-case__opening { animation-delay: 60ms; }
-  .hbw-case__facts { animation-delay: 140ms; }
-  .hbw-case__part:nth-of-type(1) { animation-delay: 220ms; }
-  .hbw-case__part:nth-of-type(2) { animation-delay: 300ms; }
-  .hbw-case__part:nth-of-type(n + 3) { animation-delay: 380ms; }
-  .hbw-case__to { animation-delay: 460ms; }
-}
 
 
 /* The long read sits on the site's edges, and its masthead keeps no air of
    its own under it — that was fifty-four pixels between the facts and the
    first section while everything else on the page sat two apart. */
-.hbw-case-page {
-  padding-inline: var(--edge);
-}
-
-.hbw-case__mast {
-  padding-inline: 0;
-  padding-bottom: 0;
-}
 
 /* On a phone the section index sits between the facts and the first part,
    so its own air is part of the rhythm too. */
-.hbw-case__index {
-  padding-inline: 0;
-  padding-bottom: var(--edge);
-}
 
 
 /* =====================================================================
@@ -10458,150 +9182,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
    documenting: the field, the corner, the two pixels. If it ever stops
    looking like the site, the site has moved and this has not.
    ===================================================================== */
-.hbw-sys {
-  box-sizing: border-box;
-  display: grid;
-  gap: var(--edge);
-  padding: var(--edge);
-  max-width: 100%;
-  color: var(--ink);
-  font-size: var(--t-small, 0.82rem);
-}
-
-.hbw-sys__head,
-.hbw-sys__part {
-  box-sizing: border-box;
-  background: var(--pill-bg);
-  border-radius: var(--pill-r);
-  padding: clamp(14px, 1.6vw, 24px);
-}
-
-.hbw-sys__name {
-  margin: 0 0 0.4em;
-  font-size: var(--t-mid, 1rem);
-  font-weight: 600;
-}
-
-.hbw-sys__says,
-.hbw-sys__label {
-  margin: 0;
-  color: var(--mute);
-  max-width: 60ch;
-}
-
-.hbw-sys__title {
-  margin: 0 0 0.8em;
-  font-size: var(--nav, 0.82rem);
-  font-weight: 600;
-}
-
-.hbw-sys__tokens,
-.hbw-sys__rules {
-  display: grid;
-  gap: var(--edge);
-  margin: 0;
-}
-
-.hbw-sys__tokens {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-}
-
-.hbw-sys__token,
-.hbw-sys__rule {
-  display: grid;
-  gap: 2px;
-  padding: 8px 10px;
-  background: var(--pill-bg);
-  border-radius: var(--pill-r);
-  min-width: 0;
-}
-
-.hbw-sys__token dt,
-.hbw-sys__rule dt {
-  margin: 0;
-  color: var(--mute);
-}
-
-.hbw-sys__token dd,
-.hbw-sys__rule dd {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.hbw-sys__rule dt {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.hbw-sys__rule dd {
-  display: block;
-  color: var(--mute);
-  max-width: 72ch;
-}
-
-.hbw-sys__swatch {
-  flex: 0 0 auto;
-  width: 22px;
-  height: 22px;
-  border-radius: var(--pill-r);
-  outline: 1px solid var(--rule, rgba(51, 51, 51, 0.14));
-  outline-offset: -1px;
-}
-
-.hbw-sys__shelf {
-  display: grid;
-  gap: var(--edge);
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-}
-
-.hbw-sys__case {
-  display: grid;
-  gap: var(--edge);
-  align-content: start;
-}
-
-.hbw-sys__row {
-  display: flex;
-  gap: var(--pill-gap);
-}
-
-.hbw-sys__pill {
-  display: inline-flex;
-  align-items: center;
-  height: var(--pill-h);
-  padding-inline: var(--pill-x);
-  border-radius: var(--pill-r);
-  background: var(--pill-bg);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  color: var(--mute);
-  white-space: nowrap;
-}
-
-.hbw-sys__pill.is-on {
-  color: var(--ink);
-}
-
-.hbw-sys__module {
-  background: var(--pill-bg);
-  border-radius: var(--pill-r);
-  padding: clamp(14px, 1.6vw, 24px);
-}
-
-.hbw-sys__module p {
-  margin: 0;
-  color: var(--mute);
-  max-width: 48ch;
-}
-
-.hbw-sys code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.92em;
-}
 
 
 /* =====================================================================
@@ -10649,56 +9229,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
    from the nav's two pixels above — "Close poster", not a second "Close" —
    because two identical exits stacked on each other is a guess, not a
    choice. */
-.hbw-win__top {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--edge);
-  min-height: var(--pill-h);
-  padding: var(--pill-gap) var(--pill-x);
-  border: 0;
-  border-radius: var(--pill-r);
-  background: var(--pill-bg);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  font-size: var(--nav);
-  color: var(--mute);
-}
-
-.hbw-win__top p {
-  margin: 0;
-  color: var(--ink);
-}
-
-.hbw-win__top button {
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: var(--nav);
-  color: var(--mute);
-  cursor: pointer;
-  transition: color var(--quick) var(--ease);
-}
-
-.hbw-win__top button:hover,
-.hbw-win__top button:focus-visible {
-  color: var(--ink);
-}
-
-.hbw-win__top button:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 2px;
-}
-
-.hbw-win__body {
-  display: grid;
-  grid-template-rows: minmax(0, 1fr);
-  padding: 0;
-  overflow: hidden;
-  min-height: 0;
-}
 
 /* The paper. No frame of its own: the two pixels around it are the frame,
    here as everywhere. */
@@ -10838,9 +9368,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
    the same move run backwards rather than a cut.
    ===================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-win__top {
-    animation: hbw-arrive var(--in) var(--ease) backwards;
-  }
 
   .hbw-tool .hbw-poster-field {
     animation: hbw-arrive var(--in) var(--ease) 60ms backwards;
@@ -11372,15 +9899,8 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* A project's own modules, which read as the same board. */
-.hbw-case__opening,
-.hbw-case__facts,
-.hbw-case__part,
-.hbw-case__to {
-  animation-name: hbw-open;
-}
 
 /* The poster, in the block and in the window. */
-.hbw-win__top,
 .hbw-tool .hbw-poster-field,
 .hbw-tool .hbw-poster-toolbar {
   animation-name: hbw-open;
@@ -11568,7 +10088,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
    ===================================================================== */
 :root {
   --enter-nav: 0ms;
-  --enter-line: 100ms;
+  --enter-line: 60ms;
   /*
    * The nav leads, always.
    *
@@ -11579,7 +10099,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * work starts.
    */
   --enter-work: calc(var(--enter-type) + var(--in));
-  --enter-step: 85ms;
+  --enter-step: 55ms;
   /*
    * And the distance between each piece on the way out.
    *
@@ -11588,7 +10108,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * press, so a stagger as wide as the entrance would still be running
    * when the room it is in stops existing.
    */
-  --leave-step: 24ms;
+  --leave-step: 18ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -11983,7 +10503,9 @@ body:has(.hbw-lamp) .hbw-bar__what {
 :root {
   --enter-block: 0ms;
   --enter-mark: 200ms;
-  --enter-type: 400ms;
+  /* The chrome's own move, which the work waits on. Halved with the rest:
+     the work used to start 960ms after a press and now starts at 500. */
+  --enter-type: 180ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -13137,25 +11659,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
    a second object inside the first, and everything else on this site that
    does something is the bubble itself.
    ===================================================================== */
-.hbw-board__mod--work {
-  display: grid;
-  gap: var(--pill-x);
-  align-content: start;
-  padding: var(--pill-x);
-  color: inherit;
-  text-decoration: none;
-  transition: background-color var(--quick) var(--ease);
-}
-
-.hbw-board__mod--work:hover,
-.hbw-board__mod--work:focus-visible {
-  background: var(--chip-on);
-}
-
-.hbw-board__mod--work:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 2px;
-}
 
 /* =====================================================================
    About arrives like everything else.
@@ -13275,136 +11778,8 @@ body:has(.hbw-lamp) .hbw-bar__what {
    ===================================================================== */
 
 /* The list on Talk. */
-.hbw-reads {
-  display: grid;
-  gap: var(--edge);
-  margin: var(--pill-x) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.hbw-reads__one a {
-  display: grid;
-  gap: 2px;
-  padding: var(--pill-x);
-  border-radius: var(--pill-r);
-  background: var(--chip, rgba(0, 0, 0, 0.03));
-  color: inherit;
-  text-decoration: none;
-  transition: background-color var(--quick) var(--ease);
-}
-
-.hbw-reads__one a:hover,
-.hbw-reads__one a:focus-visible {
-  background: var(--chip-on, rgba(0, 0, 0, 0.06));
-}
-
-.hbw-reads__name {
-  font-size: var(--t-mid);
-}
-
-.hbw-reads__say {
-  color: var(--label);
-  /* The reason to read it, not a summary — two lines at most, then it is
-     the article's job. */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.hbw-reads__say,
-.hbw-reads__when {
-  font-size: var(--meta);
-}
-
-.hbw-reads__when {
-  color: var(--label);
-}
 
 /* The piece itself. */
-.hbw-read {
-  box-sizing: border-box;
-  /*
-   * A measure, which is the whole point.
-   *
-   * Around sixty-five characters at this size. Wider and the eye loses the
-   * start of the next line; the site's other columns are short enough that
-   * it never came up before.
-   */
-  max-width: 34rem;
-  margin: 0 auto;
-  padding: calc(var(--chrome) + var(--pill-x) * 2) var(--pill-x) calc(var(--pill-x) * 6);
-}
-
-.hbw-read__head {
-  margin: 0 0 calc(var(--pill-x) * 4);
-}
-
-.hbw-read__title {
-  margin: 0;
-  font-size: var(--t-mid);
-  font-weight: inherit;
-  /*
-   * The ink, explicitly.
-   *
-   * It inherited a grey from the site's own heading rules and came out
-   * lighter than the paragraphs underneath it — measured at 107 against the
-   * body's 74 — so the one thing on the page that should read first read
-   * last. The site sets everything at one size, so colour is the whole of
-   * the hierarchy here and it has to be the right way round.
-   */
-  color: var(--ink);
-}
-
-.hbw-read__stand {
-  margin: calc(var(--pill-x) * 1.5) 0 0;
-  color: var(--label);
-}
-
-.hbw-read__when {
-  margin: var(--pill-x) 0 0;
-  color: var(--label);
-  font-size: var(--meta);
-}
-
-.hbw-read__body p {
-  /*
-   * Spaced, not indented. The site has no first-line indent anywhere and
-   * this is not the place to introduce one.
-   */
-  margin: 0 0 1.4em;
-  line-height: 1.65;
-}
-
-.hbw-read__body p:last-child {
-  margin-bottom: 0;
-}
-
-.hbw-read__sub {
-  margin: 2.4em 0 1em;
-  font-size: var(--t-mid);
-  font-weight: inherit;
-  /* A subheading is a turn in the argument, not a louder sentence: it is
-     told apart by the space around it and by sitting in the ink while the
-     paragraphs sit slightly off it. */
-  color: var(--ink);
-}
-
-.hbw-read__body {
-  color: var(--label);
-}
-
-.hbw-read__back {
-  margin: calc(var(--pill-x) * 4) 0 0;
-  font-size: var(--meta);
-}
-
-@media (max-width: 760px) {
-  .hbw-read {
-    padding-top: calc(var(--chrome) + var(--pill-x));
-  }
-}
 
 /*
  * And the writing arrives after the nav, like everything else.
@@ -13417,18 +11792,3 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * The head first, then the body, then the way back: the same order the board
  * uses, on the same beat.
  */
-@media (prefers-reduced-motion: no-preference) {
-  .hbw-read__head {
-    animation: hbw-open var(--in) var(--ease) var(--enter-work) backwards;
-  }
-
-  .hbw-read__body {
-    animation: hbw-open var(--in) var(--ease)
-      calc(var(--enter-work) + var(--enter-step)) backwards;
-  }
-
-  .hbw-read__back {
-    animation: hbw-open var(--in) var(--ease)
-      calc(var(--enter-work) + var(--enter-step) * 2) backwards;
-  }
-}

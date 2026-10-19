@@ -306,13 +306,26 @@ export function Work({
         getComputedStyle(document.documentElement).getPropertyValue("--out")
       );
       const ms = Number.isFinite(out) && out > 0 ? out * (out < 20 ? 1000 : 1) : 240;
+      /*
+       * Asked for at the press, not after the cards have gone.
+       *
+       * The sequence was fetched inside show(), which runs when the leaving
+       * animation ends — so the network did not start until the cards were
+       * already off the screen, and the room then waited the whole round
+       * trip. Measured from the front page: the press at nought, the request
+       * at two hundred, the answer at seven hundred, the room at seven-
+       * forty. The leaving move and the fetch have no reason to be in
+       * sequence; they take the longer of the two now rather than the sum.
+       * learn() caches and de-duplicates, so show() finds it waiting.
+       */
+      void learn(slug);
       for (const one of document.querySelectorAll<HTMLElement>(".hbw-turn")) {
         one.dataset.leaving = "true";
       }
       window.setTimeout(() => void show(slug, at), ms);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [stillness]
+    [stillness, learn]
   );
 
   const show = useCallback(
@@ -1078,6 +1091,11 @@ export function Work({
               projects={projects}
               onOpen={(slug, at) => void leave(slug, at)}
               pass={pass}
+              /*
+               * A pointer over a card is intent. The sequence is fetched
+               * then, so the press has nothing left to wait for.
+               */
+              onNear={(slug) => void learn(slug)}
               /*
                * With a project open the gallery covers the whole window, and
                * the strip is behind it. It still fetched eighty of its
