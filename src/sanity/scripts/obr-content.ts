@@ -49,6 +49,7 @@ export type ObrSeedMovement = {
   still?: string;
   video?: string;
   poster?: string;
+  webm?: string;
   alt: string;
   scale: "major" | "standard" | "detail";
   pace: "tight" | "normal" | "pause";
@@ -192,6 +193,7 @@ export const OBR_MOVEMENTS: ObrSeedMovement[] = [
     key: "o14",
     mediaType: "film",
     video: "public/projects/our-boy-roy/web/14-tiktok-tall.mp4",
+    webm: "public/projects/our-boy-roy/web/14-tiktok-tall.webm",
     poster: "public/projects/our-boy-roy/web/14-tiktok-tall.jpg",
     alt: "MORTADELLA MADNESS on a phone, a mortadella roll above a promise of a new sando each week.",
     scale: "detail",

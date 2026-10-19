@@ -162,7 +162,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "A runner in a black SUB:3 tee on a worn road, checking the watch on their wrist.",
     }),
-    mv("s302", "film", film("/projects/sub-3/web/2.mp4", 1600, 970, "/projects/sub-3/web/2.jpg"), "idea", {
+    mv("s302", "film", film("/projects/sub-3/web/2.mp4", 1600, 970, "/projects/sub-3/web/2.jpg", "contain", "/projects/sub-3/web/2.webm"), "idea", {
       scale: "standard",
       pace: "normal",
       alt: "SUB:3 ® RUNNING resolving in white type on black.",
@@ -172,7 +172,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "A PRE-RUN pouch reading 00:00:00 SUB:3, lit against a pink and white gradient.",
     }),
-    mv("s304", "film", film("/projects/sub-3/web/4.mp4", 1200, 1500, "/projects/sub-3/web/4.jpg"), "idea", {
+    mv("s304", "film", film("/projects/sub-3/web/4.mp4", 1200, 1500, "/projects/sub-3/web/4.jpg", "contain", "/projects/sub-3/web/4.webm"), "idea", {
       scale: "standard",
       pace: "normal",
       alt: "A timecode counting across the frame at 01:33:14, over SUB:3 ® RUN TECH.",
@@ -187,7 +187,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "A runner crossing a causeway at dusk, water and sky washed magenta.",
     }),
-    mv("s307", "film", film("/projects/sub-3/web/7.mp4", 1600, 900, "/projects/sub-3/web/7.jpg"), "shift", {
+    mv("s307", "film", film("/projects/sub-3/web/7.mp4", 1600, 900, "/projects/sub-3/web/7.jpg", "contain", "/projects/sub-3/web/7.webm"), "shift", {
       scale: "detail",
       pace: "normal",
       alt: "The typeface stepping through its alphabet in white on black.",
@@ -269,7 +269,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       span: "narrow",
       alt: "A countdown card: 23 DAYS TO GO above CITY2SURF and GOAL 01:40:59, the numerals stretching tall and snapping back.",
     }),
-    mv("s321", "film", film("/projects/sub-3/web/21.mp4", 1080, 1080, "/projects/sub-3/web/21.jpg"), "system", {
+    mv("s321", "film", film("/projects/sub-3/web/21.mp4", 1080, 1080, "/projects/sub-3/web/21.jpg", "contain", "/projects/sub-3/web/21.webm"), "system", {
       scale: "standard",
       pace: "normal",
       alt: "OUTPACE REALITY over a clock running up from 00:00:35 to 02:56:46 — a marathon finishing under three hours.",
@@ -279,7 +279,7 @@ export const SUB3_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "2 SCOOPS. 500ML COLD WATER. WITHIN 30 MIN. — the instruction assembling a line at a time, each phrase stretching as it lands.",
     }),
-    mv("s323", "film", film("/projects/sub-3/web/23.mp4", 1080, 1350, "/projects/sub-3/web/23.jpg"), "system", {
+    mv("s323", "film", film("/projects/sub-3/web/23.mp4", 1080, 1350, "/projects/sub-3/web/23.jpg", "contain", "/projects/sub-3/web/23.webm"), "system", {
       scale: "major",
       pace: "pause",
       alt: "A hand tipping a SUB:3 sachet into a flask in hard sunlight, with RITUAL, SIMPLIFIED. set tall across the frame.",
@@ -298,17 +298,17 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "The KOJA logotype assembling letter by letter, the ground changing colour behind it.",
     }),
-    mv("k02", "film", film("/projects/koja/web/02-full-wide.mp4", 1920, 1080, "/projects/koja/web/02-full-wide.jpg"), "idea", {
+    mv("k02", "film", film("/projects/koja/web/02-full-wide.mp4", 1920, 1080, "/projects/koja/web/02-full-wide.jpg", "contain", "/projects/koja/web/02-full-wide.webm"), "idea", {
       scale: "standard",
       pace: "normal",
       alt: "KOJA bars turning one after another on a pale grey ground.",
     }),
-    mv("k03", "film", film("/projects/koja/web/03-full-story.mp4", 1080, 1920, "/projects/koja/web/03-full-story.jpg"), "idea", {
+    mv("k03", "film", film("/projects/koja/web/03-full-story.mp4", 1080, 1920, "/projects/koja/web/03-full-story.jpg", "contain", "/projects/koja/web/03-full-story.webm"), "idea", {
       scale: "detail",
       pace: "normal",
       alt: "KOJA repeated down the frame in green, Keep it real. written across it.",
     }),
-    mv("k04", "film", film("/projects/koja/web/04-full-square.mp4", 1350, 1350, "/projects/koja/web/04-full-square.jpg"), "idea", {
+    mv("k04", "film", film("/projects/koja/web/04-full-square.mp4", 1350, 1350, "/projects/koja/web/04-full-square.jpg", "contain", "/projects/koja/web/04-full-square.webm"), "idea", {
       scale: "standard",
       pace: "normal",
       alt: "Letters of the KOJA alphabet filling the frame, the ground changing colour behind them.",
@@ -318,7 +318,7 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "The shop page in full: Healthy Made Simple above three cartons, photography and the footer beneath.",
     }),
-    mv("k06", "film", film("/projects/koja/web/06-full-tall.mp4", 1350, 1688, "/projects/koja/web/06-full-tall.jpg"), "idea", {
+    mv("k06", "film", film("/projects/koja/web/06-full-tall.mp4", 1350, 1688, "/projects/koja/web/06-full-tall.jpg", "contain", "/projects/koja/web/06-full-tall.webm"), "idea", {
       scale: "detail",
       pace: "pause",
       alt: "A Plant Based leaf mark in off-white on green.",
@@ -328,12 +328,12 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "A person carrying a KOJA carton along a brick path past a timber screen.",
     }),
-    mv("k08", "film", film("/projects/koja/web/08-full-tall.mp4", 1350, 1688, "/projects/koja/web/08-full-tall.jpg"), "shift", {
+    mv("k08", "film", film("/projects/koja/web/08-full-tall.mp4", 1350, 1688, "/projects/koja/web/08-full-tall.jpg", "contain", "/projects/koja/web/08-full-tall.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "MEET YOUR NEW LUNCHBOX HERO on yellow above a Lemon and Coconut Oat Bar.",
     }),
-    mv("k09", "film", film("/projects/koja/web/09-full-tall.mp4", 1350, 1688, "/projects/koja/web/09-full-tall.jpg"), "shift", {
+    mv("k09", "film", film("/projects/koja/web/09-full-tall.mp4", 1350, 1688, "/projects/koja/web/09-full-tall.jpg", "contain", "/projects/koja/web/09-full-tall.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "The back of a KOJA Oat Bar wrapper in Lemon and Coconut, panels and oat marks on pale yellow.",
@@ -343,7 +343,7 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "Oat Bites cartons turning over a black-and-white halftone ground.",
     }),
-    mv("k11", "film", film("/projects/koja/web/12-full-tall.mp4", 1350, 1688, "/projects/koja/web/12-full-tall.jpg"), "shift", {
+    mv("k11", "film", film("/projects/koja/web/12-full-tall.mp4", 1350, 1688, "/projects/koja/web/12-full-tall.jpg", "contain", "/projects/koja/web/12-full-tall.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "A KOJA Oat Bites Muesli Slice carton on orange.",
@@ -363,12 +363,12 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "40% LESS SUGAR on deep brown above a Choc Brownie Bickie Bites pouch.",
     }),
-    mv("k15", "film", film("/projects/koja/web/16-instagram-tall.mp4", 1350, 1688, "/projects/koja/web/16-instagram-tall.jpg"), "system", {
+    mv("k15", "film", film("/projects/koja/web/16-instagram-tall.mp4", 1350, 1688, "/projects/koja/web/16-instagram-tall.jpg", "contain", "/projects/koja/web/16-instagram-tall.webm"), "system", {
       scale: "detail",
       pace: "normal",
       alt: "An Instagram post on a phone: KOJA Oat Bites Muesli Slice, with slices scattered across orange and the pack claims beneath.",
     }),
-    mv("k16", "film", film("/projects/koja/web/17-full-story.mp4", 1080, 1920, "/projects/koja/web/17-full-story.jpg"), "system", {
+    mv("k16", "film", film("/projects/koja/web/17-full-story.mp4", 1080, 1920, "/projects/koja/web/17-full-story.jpg", "contain", "/projects/koja/web/17-full-story.webm"), "system", {
       scale: "detail",
       pace: "normal",
       alt: "TAKE YOUR PICK on blue above three Bickie Bites pouches.",
@@ -398,7 +398,7 @@ export const KOJA_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "A KOJA Oat Bites poster lit in a street-side digital panel.",
     }),
-    mv("k22", "film", film("/projects/koja/web/23-full-tall.mp4", 1350, 1688, "/projects/koja/web/23-full-tall.jpg"), "system", {
+    mv("k22", "film", film("/projects/koja/web/23-full-tall.mp4", 1350, 1688, "/projects/koja/web/23-full-tall.jpg", "contain", "/projects/koja/web/23-full-tall.webm"), "system", {
       scale: "major",
       pace: "pause",
       alt: "THANKS FOR THE SUPPORT on pale yellow, Keep it real. beneath and the addresses at the foot.",
@@ -585,7 +585,7 @@ export const OBR_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "Three posters on black: Chef Needed, MORNING repeated in orange, and the opening hours.",
     }),
-    mv("o14", "film", film("/projects/our-boy-roy/web/14-tiktok-tall.mp4", 1350, 1688, "/projects/our-boy-roy/web/14-tiktok-tall.jpg"), "system", {
+    mv("o14", "film", film("/projects/our-boy-roy/web/14-tiktok-tall.mp4", 1350, 1688, "/projects/our-boy-roy/web/14-tiktok-tall.jpg", "contain", "/projects/our-boy-roy/web/14-tiktok-tall.webm"), "system", {
       scale: "detail",
       pace: "pause",
       alt: "MORTADELLA MADNESS on a phone, a mortadella roll above a promise of a new sando each week.",
@@ -609,32 +609,32 @@ export const SISARICH_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "Rubble and two blocks of orange-striped stone under a pale sky, a handwritten note pinned above them and a fine blue arc drawn across.",
     }),
-    mv("s02", "film", film("/projects/chris-sisarich/web/02-two-pair.mp4", 1920, 1194, "/projects/chris-sisarich/web/02-two-pair.jpg"), "idea", {
+    mv("s02", "film", film("/projects/chris-sisarich/web/02-two-pair.mp4", 1920, 1194, "/projects/chris-sisarich/web/02-two-pair.jpg", "contain", "/projects/chris-sisarich/web/02-two-pair.webm"), "idea", {
       scale: "standard",
       pace: "normal",
       alt: "A black-and-white portrait beside a page carrying the name over a blurred braid, credits ranged along the foot.",
     }),
-    mv("s03", "film", film("/projects/chris-sisarich/web/03-browser-wide.mp4", 1920, 1080, "/projects/chris-sisarich/web/03-browser-wide.jpg"), "idea", {
+    mv("s03", "film", film("/projects/chris-sisarich/web/03-browser-wide.mp4", 1920, 1080, "/projects/chris-sisarich/web/03-browser-wide.jpg", "contain", "/projects/chris-sisarich/web/03-browser-wide.webm"), "idea", {
       scale: "standard",
       pace: "normal",
       alt: "The site in a browser window, photography scattered across the grid over the ghosted name.",
     }),
-    mv("s04", "film", film("/projects/chris-sisarich/web/04-full-tall.mp4", 1350, 1688, "/projects/chris-sisarich/web/04-full-tall.jpg"), "idea", {
+    mv("s04", "film", film("/projects/chris-sisarich/web/04-full-tall.mp4", 1350, 1688, "/projects/chris-sisarich/web/04-full-tall.jpg", "contain", "/projects/chris-sisarich/web/04-full-tall.webm"), "idea", {
       scale: "detail",
       pace: "pause",
       alt: "A column of navigation dots, the active one stretching into a pill that reads Sports.",
     }),
-    mv("s05", "film", film("/projects/chris-sisarich/web/05-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/05-full-square.jpg"), "shift", {
+    mv("s05", "film", film("/projects/chris-sisarich/web/05-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/05-full-square.jpg", "contain", "/projects/chris-sisarich/web/05-full-square.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "A photograph of two people running through long grass enlarging over the ghosted name.",
     }),
-    mv("s06", "film", film("/projects/chris-sisarich/web/06-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/06-full-square.jpg"), "shift", {
+    mv("s06", "film", film("/projects/chris-sisarich/web/06-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/06-full-square.jpg", "contain", "/projects/chris-sisarich/web/06-full-square.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "A dense block of photography thumbnails settling over the ghosted name.",
     }),
-    mv("s07", "film", film("/projects/chris-sisarich/web/07-iphone-tall.mp4", 1350, 1688, "/projects/chris-sisarich/web/07-iphone-tall.jpg"), "shift", {
+    mv("s07", "film", film("/projects/chris-sisarich/web/07-iphone-tall.mp4", 1350, 1688, "/projects/chris-sisarich/web/07-iphone-tall.jpg", "contain", "/projects/chris-sisarich/web/07-iphone-tall.webm"), "shift", {
       scale: "detail",
       pace: "normal",
       alt: "The site on a phone, Directing and Index pills either side of the photographs over the name.",
@@ -649,7 +649,7 @@ export const SISARICH_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "A red car parked on gravel against a rammed-earth wall.",
     }),
-    mv("s10", "film", film("/projects/chris-sisarich/web/10-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/10-full-square.jpg"), "shift", {
+    mv("s10", "film", film("/projects/chris-sisarich/web/10-full-square.mp4", 1350, 1350, "/projects/chris-sisarich/web/10-full-square.jpg", "contain", "/projects/chris-sisarich/web/10-full-square.webm"), "shift", {
       scale: "standard",
       pace: "pause",
       alt: "A woman in green beside a red car held over the ghosted name, with an invitation to send a postcard beneath.",
@@ -694,7 +694,7 @@ export const SISARICH_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "A lit poster on a concrete street wall under bunting, the name along its foot.",
     }),
-    mv("s19", "film", film("/projects/chris-sisarich/web/19-full-wide.mp4", 1920, 1080, "/projects/chris-sisarich/web/19-full-wide.jpg"), "system", {
+    mv("s19", "film", film("/projects/chris-sisarich/web/19-full-wide.mp4", 1920, 1080, "/projects/chris-sisarich/web/19-full-wide.jpg", "contain", "/projects/chris-sisarich/web/19-full-wide.webm"), "system", {
       scale: "major",
       pace: "pause",
       alt: "The archive spread edge to edge as a loose grid of small photographs on white.",
@@ -798,7 +798,7 @@ export const SCK_EXPERIENCE: ProjectExperience = {
       pace: "tight",
       alt: "A glass and resin coffee table on a pale floor, labelled Coffee_Table, by_Clive_Lonstein, OBJKT_009.",
     }),
-    mv("sk12", "film", film("/projects/sck/web/12.mp4", 1600, 960, "/projects/sck/web/12.jpg"), "system", {
+    mv("sk12", "film", film("/projects/sck/web/12.mp4", 1600, 960, "/projects/sck/web/12.jpg", "contain", "/projects/sck/web/12.webm"), "system", {
       scale: "standard",
       pace: "normal",
       span: "narrow",
@@ -820,7 +820,7 @@ export const SCK_EXPERIENCE: ProjectExperience = {
       pace: "tight",
       alt: "Nine pale sage cards in a grid, each carrying STUDIO CARSON KELLY and a reference number.",
     }),
-    mv("sk16", "film", film("/projects/sck/web/16.mp4", 1600, 912, "/projects/sck/web/16.jpg"), "outcome", {
+    mv("sk16", "film", film("/projects/sck/web/16.mp4", 1600, 912, "/projects/sck/web/16.jpg", "contain", "/projects/sck/web/16.webm"), "outcome", {
       scale: "major",
       pace: "pause",
       alt: "The Studio Carson Kelly website, street footage running beneath a Work, Studio and Resources menu.",
@@ -847,7 +847,7 @@ export const MBM_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "The Made by Madelen monogram held in cream over a black-and-white portrait, a sheet of fabric sweeping across the frame.",
     }),
-    mv("m02", "film", film("/projects/made-by-madelen/web/02-instagram-tall.mp4", 1350, 1688, "/projects/made-by-madelen/web/02-instagram-tall.jpg"), "shift", {
+    mv("m02", "film", film("/projects/made-by-madelen/web/02-instagram-tall.mp4", 1350, 1688, "/projects/made-by-madelen/web/02-instagram-tall.jpg", "contain", "/projects/made-by-madelen/web/02-instagram-tall.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "A phone playing the first Reel on a near-black ground, captioned Something is coming.",
@@ -857,7 +857,7 @@ export const MBM_EXPERIENCE: ProjectExperience = {
       pace: "normal",
       alt: "A black-and-white fragment of two figures turned away, the monogram print rising through the lower half of the frame.",
     }),
-    mv("m04", "film", film("/projects/made-by-madelen/web/04-row-row.mp4", 1920, 1186, "/projects/made-by-madelen/web/04-row-row.jpg"), "shift", {
+    mv("m04", "film", film("/projects/made-by-madelen/web/04-row-row.mp4", 1920, 1186, "/projects/made-by-madelen/web/04-row-row.jpg", "contain", "/projects/made-by-madelen/web/04-row-row.webm"), "shift", {
       scale: "standard",
       pace: "normal",
       alt: "Two phones side by side: a TikTok reading MADE IN SEQUENCE, CUT-BY-CUT, STITCH BY STITCH, and the Instagram grid filling in beside it.",
@@ -867,12 +867,12 @@ export const MBM_EXPERIENCE: ProjectExperience = {
       pace: "pause",
       alt: "A portrait in the monogram-print jacket, colour blooming in from the left edge of the frame.",
     }),
-    mv("m06", "film", film("/projects/made-by-madelen/web/06-full-story.mp4", 1080, 1920, "/projects/made-by-madelen/web/06-full-story.jpg"), "system", {
+    mv("m06", "film", film("/projects/made-by-madelen/web/06-full-story.mp4", 1080, 1920, "/projects/made-by-madelen/web/06-full-story.jpg", "contain", "/projects/made-by-madelen/web/06-full-story.webm"), "system", {
       scale: "major",
       pace: "pause",
       alt: "A close crop of the monogram print in blue across a shoulder and collar, Made the way you are. set in yellow across it.",
     }),
-    mv("m07", "film", film("/projects/made-by-madelen/web/07-instagram-tall.mp4", 1350, 1688, "/projects/made-by-madelen/web/07-instagram-tall.jpg"), "system", {
+    mv("m07", "film", film("/projects/made-by-madelen/web/07-instagram-tall.mp4", 1350, 1688, "/projects/made-by-madelen/web/07-instagram-tall.jpg", "contain", "/projects/made-by-madelen/web/07-instagram-tall.webm"), "system", {
       scale: "standard",
       pace: "normal",
       alt: "MADE TO BE WORN running over a Reel and out past the edges of the phone behind it.",

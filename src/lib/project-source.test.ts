@@ -741,10 +741,19 @@ test("OBR + local flag uses shipped experience and does not fetch", async () => 
     assert.ok(movement.media.srcSet, movement.id);
     assert.ok(movement.media.src.startsWith("/projects/our-boy-roy/web/"), movement.id);
   }
-  assert.equal(
-    resolved.experience?.movements.filter((movement) => movement.media.type === "video").every((movement) => !movement.media.webm),
-    true
-  );
+  /*
+   * A WebM, where there is one, is Our Boy Roy's own.
+   *
+   * This asserted there was none at all, which was true on the day it was
+   * written and stopped being true the moment the project got one — it was
+   * recording a fact, not protecting a rule. The rule worth keeping is the
+   * one the stills above are held to: a film in this sequence serves files
+   * from this project's folder, never borrowed from elsewhere.
+   */
+  for (const movement of resolved.experience?.movements ?? []) {
+    if (movement.media.type !== "video" || !movement.media.webm) continue;
+    assert.ok(movement.media.webm.startsWith("/projects/our-boy-roy/web/"), movement.id);
+  }
   assert.equal(loaded, false);
 });
 
@@ -777,10 +786,19 @@ test("OBR + sanity flag + healthy CMS uses published experience", async () => {
     resolved.experience?.movements.filter((movement) => movement.relation === "pair").map((movement) => movement.id),
     []
   );
-  assert.equal(
-    resolved.experience?.movements.filter((movement) => movement.media.type === "video").every((movement) => !movement.media.webm),
-    true
-  );
+  /*
+   * A WebM, where there is one, is Our Boy Roy's own.
+   *
+   * This asserted there was none at all, which was true on the day it was
+   * written and stopped being true the moment the project got one — it was
+   * recording a fact, not protecting a rule. The rule worth keeping is the
+   * one the stills above are held to: a film in this sequence serves files
+   * from this project's folder, never borrowed from elsewhere.
+   */
+  for (const movement of resolved.experience?.movements ?? []) {
+    if (movement.media.type !== "video" || !movement.media.webm) continue;
+    assert.ok(movement.media.webm.startsWith("/projects/our-boy-roy/web/"), movement.id);
+  }
   assert.deepEqual(
     resolved.experience?.movements.map((movement) => `${movement.id}:${movement.infoHint}`),
     [

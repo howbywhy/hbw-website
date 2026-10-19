@@ -40,6 +40,7 @@ export type ChrisSeedMovement = {
   still?: string;
   video?: string;
   poster?: string;
+  webm?: string;
   alt: string;
   scale: "major" | "standard" | "detail";
   pace: "tight" | "normal" | "pause";
@@ -64,6 +65,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s02",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/02-two-pair.mp4",
+    webm: "public/projects/chris-sisarich/web/02-two-pair.webm",
     poster: "public/projects/chris-sisarich/web/02-two-pair.jpg",
     alt: "A black-and-white portrait beside a page carrying the name over a blurred braid, credits ranged along the foot.",
     scale: "standard",
@@ -75,6 +77,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s03",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/03-browser-wide.mp4",
+    webm: "public/projects/chris-sisarich/web/03-browser-wide.webm",
     poster: "public/projects/chris-sisarich/web/03-browser-wide.jpg",
     alt: "The site in a browser window, photography scattered across the grid over the ghosted name.",
     scale: "standard",
@@ -86,6 +89,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s04",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/04-full-tall.mp4",
+    webm: "public/projects/chris-sisarich/web/04-full-tall.webm",
     poster: "public/projects/chris-sisarich/web/04-full-tall.jpg",
     alt: "A column of navigation dots, the active one stretching into a pill that reads Sports.",
     scale: "detail",
@@ -97,6 +101,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s05",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/05-full-square.mp4",
+    webm: "public/projects/chris-sisarich/web/05-full-square.webm",
     poster: "public/projects/chris-sisarich/web/05-full-square.jpg",
     alt: "A photograph of two people running through long grass enlarging over the ghosted name.",
     scale: "standard",
@@ -108,6 +113,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s06",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/06-full-square.mp4",
+    webm: "public/projects/chris-sisarich/web/06-full-square.webm",
     poster: "public/projects/chris-sisarich/web/06-full-square.jpg",
     alt: "A dense block of photography thumbnails settling over the ghosted name.",
     scale: "standard",
@@ -119,6 +125,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s07",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/07-iphone-tall.mp4",
+    webm: "public/projects/chris-sisarich/web/07-iphone-tall.webm",
     poster: "public/projects/chris-sisarich/web/07-iphone-tall.jpg",
     alt: "The site on a phone, Directing and Index pills either side of the photographs over the name.",
     scale: "detail",
@@ -150,6 +157,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s10",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/10-full-square.mp4",
+    webm: "public/projects/chris-sisarich/web/10-full-square.webm",
     poster: "public/projects/chris-sisarich/web/10-full-square.jpg",
     alt: "A woman in green beside a red car held over the ghosted name, with an invitation to send a postcard beneath.",
     scale: "standard",
@@ -241,6 +249,7 @@ export const CHRIS_MOVEMENTS: ChrisSeedMovement[] = [
     key: "s19",
     mediaType: "film",
     video: "public/projects/chris-sisarich/web/19-full-wide.mp4",
+    webm: "public/projects/chris-sisarich/web/19-full-wide.webm",
     poster: "public/projects/chris-sisarich/web/19-full-wide.jpg",
     alt: "The archive spread edge to edge as a loose grid of small photographs on white.",
     scale: "major",

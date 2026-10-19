@@ -41,6 +41,7 @@ function Cell({
   eager,
   first,
   warm,
+  behind,
 }: {
   project: GalleryProject;
   frame: GalleryProject["frames"][number];
@@ -73,8 +74,20 @@ function Cell({
   first?: boolean;
   /** The one film that can actually play on landing. */
   warm?: boolean;
+  /** Whether a gallery is covering this cell, so it is not worth fetching. */
+  behind?: boolean;
 }) {
   const film = useRef<HTMLVideoElement>(null);
+  /*
+   * A cell that has shown its picture once keeps it.
+   *
+   * Otherwise opening a project would throw away the whole strip a visitor
+   * had just been looking at, and closing it would fetch the lot again.
+   * `behind` is about not starting work, never about undoing it.
+   */
+  const shown = useRef(false);
+  if (!behind) shown.current = true;
+  const carry = shown.current || !behind;
   return (
     <a
       className="hbw-cell"
@@ -99,8 +112,19 @@ function Cell({
        */
     >
       <img
-        src={frame.src}
-        srcSet={frame.srcset}
+        /*
+         * No source while a gallery covers the window.
+         *
+         * A project page is the gallery, which is the full window, and this
+         * strip is behind it. Marking it lazy was not enough: lazy defers
+         * what is far down the page, and these sit at the height of the
+         * window — so about seventy of them came down anyway, two to three
+         * megabytes of pictures nobody could see, competing with the ones
+         * the visitor was waiting for. A cell with no source asks for
+         * nothing. The square is laid out either way, so nothing moves.
+         */
+        src={carry ? frame.src : undefined}
+        srcSet={carry ? frame.srcset : undefined}
         /* A cell is about a ninth of the screen on a sheet, a quarter on a
            phone. The browser picks the width it will actually draw. */
         sizes="(max-width: 760px) 25vw, 11vw"
@@ -109,7 +133,7 @@ function Cell({
         fetchPriority={first ? "high" : undefined}
         decoding="async"
       />
-      {frame.video && films ? (
+      {frame.video && films && carry ? (
         <video
           ref={film}
           /*
@@ -255,6 +279,7 @@ export function Catalogue({
                  * megabyte of the pictures a visitor was actually looking at.
                  */
                 warm={!behind && pass === 1 && project.slug === projects[0]?.slug && i === 0}
+                behind={behind}
               />
             ))}
           </div>

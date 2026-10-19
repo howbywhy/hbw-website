@@ -110,7 +110,19 @@ async function main() {
     return id;
   }
 
-  const previewId = await assetId((CLOSED_MOVEMENTS[0].still || CLOSED_MOVEMENTS[0].poster) as string, "image");
+  /*
+   * The picture the catalogue shows, named rather than inferred.
+   *
+   * This took whatever the first movement happened to carry, which is a
+   * different photograph from the one on the card — so the published preview
+   * and the shipped record disagreed about both the file and its shape, and
+   * said so on every verify run for weeks. KOJA learned this the hard way
+   * when its sequence opened on a film; the answer is the same here.
+   */
+  const previewId = await assetId(
+    "public/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
+    "image"
+  );
 
   const movements = [];
   for (const movement of CLOSED_MOVEMENTS) {

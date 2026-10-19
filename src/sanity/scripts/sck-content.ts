@@ -40,6 +40,7 @@ export type SckSeedMovement = {
   still?: string;
   video?: string;
   poster?: string;
+  webm?: string;
   alt: string;
   scale: "major" | "standard" | "detail";
   pace: "tight" | "normal" | "pause";
@@ -165,6 +166,7 @@ export const SCK_MOVEMENTS: SckSeedMovement[] = [
     key: "sk12",
     mediaType: "film",
     video: "public/projects/sck/web/12.mp4",
+    webm: "public/projects/sck/web/12.webm",
     poster: "public/projects/sck/web/12.jpg",
     alt: "Three phone screens running a Studio Carson Kelly podcast player and episode list.",
     scale: "standard",
@@ -209,6 +211,7 @@ export const SCK_MOVEMENTS: SckSeedMovement[] = [
     key: "sk16",
     mediaType: "film",
     video: "public/projects/sck/web/16.mp4",
+    webm: "public/projects/sck/web/16.webm",
     poster: "public/projects/sck/web/16.jpg",
     alt: "The Studio Carson Kelly website, street footage running beneath a Work, Studio and Resources menu.",
     scale: "major",

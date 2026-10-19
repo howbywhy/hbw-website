@@ -1332,7 +1332,15 @@ export function Lightbox({
                 ) : null}
                 {one.video ? (
                   <video
-                    src={one.video}
+                    /*
+                     * Sources, not a src, so the WebM is offered.
+                     *
+                     * This named the MP4 directly, which meant the thirty
+                     * WebMs beside them were published, carried through the
+                     * sequence, and never asked for by anything. The
+                     * catalogue's cells had been doing it the right way all
+                     * along, which is how the gap went unnoticed.
+                     */
                     poster={one.src}
                     /* Not when the reader has asked for less movement: a
                        looping film with no stop is the one thing they cannot
@@ -1359,7 +1367,10 @@ export function Lightbox({
                     loop
                     playsInline
                     preload={Math.abs(i - at) <= 2 ? "metadata" : "none"}
-                  />
+                  >
+                    {one.webm ? <source src={one.webm} type="video/webm" /> : null}
+                    <source src={one.video} type="video/mp4" />
+                  </video>
                 ) : near ? (
                   <img
                     src={one.src}
@@ -1383,10 +1394,19 @@ export function Lightbox({
                         : "(max-width: 760px) 92vw, 46vw"
                     }
                     alt={i === at ? one.alt ?? "" : ""}
-                    /* The frame you are on and the two either side are what
-                       a reader sees while the sheet is still up, so they are
-                       asked for first and the rest stay lazy. */
-                    loading={Math.abs(i - at) <= 2 ? undefined : "lazy"}
+                    /*
+                     * Fetched to the edge of what is drawn, not to the edge
+                     * of what is seen.
+                     *
+                     * Two either side covered the frames a reader can see,
+                     * which is right until they flick. The band is drawn six
+                     * either side, so a hard flick lands on a page that has
+                     * been laid out and has not been asked for — a blank
+                     * column, for as long as the fetch takes. Everything the
+                     * band bothers to draw is worth asking for; past that it
+                     * stays lazy, which is most of a long project.
+                     */
+                    loading={near ? undefined : "lazy"}
                     fetchPriority={i === at ? "high" : undefined}
                     decoding="async"
                   />
@@ -1468,7 +1488,10 @@ export function Lightbox({
                 data-way={way > 0 ? "on" : "back"}
               >
                 {one.video ? (
-                  <video src={one.video} poster={one.src} autoPlay={!stillness} muted loop playsInline />
+                  <video poster={one.src} autoPlay={!stillness} muted loop playsInline>
+                    {one.webm ? <source src={one.webm} type="video/webm" /> : null}
+                    <source src={one.video} type="video/mp4" />
+                  </video>
                 ) : (
                   <img
                     src={one.src}

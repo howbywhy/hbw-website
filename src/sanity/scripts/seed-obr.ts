@@ -141,6 +141,10 @@ async function main() {
     if (movement.mediaType === "film" && movement.video && movement.poster) {
       row.video = fileRef(await assetId(movement.video, "file"));
       row.poster = imageRef(await assetId(movement.poster, "image"));
+      /* The WebM beside it, where there is one. Three of these seeds never
+         looked, so three projects named a WebM in their copy and published
+         a document that did not mention it. */
+      if (movement.webm) row.webm = fileRef(await assetId(movement.webm, "file"));
     }
     movements.push(row);
   }
