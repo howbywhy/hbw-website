@@ -94,7 +94,20 @@ export default async function run() {
         for (const v of document.querySelectorAll("video")) {
           const src = v.currentSrc || v.src || v.querySelector("source")?.src || "";
           if (!urls.includes(src)) continue;
-          if (v.error || v.readyState < 1) out.push(src + " (readyState " + v.readyState + ")");
+          /*
+           * A film the page decided not to show is allowed to have nothing.
+           *
+           * The gallery runs one film at a time and pauses the rest, which
+           * cancels whatever they had in flight — an abort on a paused film
+           * is the page working, not a file that will not load. What is
+           * never allowed is a decode error, or a film that is running with
+           * no data to run on.
+           */
+          if (v.error) {
+            out.push(src + " (media error " + v.error.code + ")");
+            continue;
+          }
+          if (!v.paused && v.readyState < 1) out.push(src + " (playing with readyState 0)");
         }
         return out;
       }, [...aborted]);

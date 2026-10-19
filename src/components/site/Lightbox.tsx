@@ -591,6 +591,52 @@ export function Lightbox({
    * playing before this reader's preference was even known — and then
    * nothing ever paused it.
    */
+  /*
+   * One film runs in the band: the one you are on.
+   *
+   * It has to be done here rather than by the attribute, in both directions.
+   * autoPlay decides whether a film begins and nothing more — turning it off
+   * does not stop one already running, which is how walking the band left
+   * four streams decoding behind you, and turning it on does not start one
+   * already mounted, which is how the first attempt at this left the frame
+   * you were looking at holding its poster.
+   *
+   * A film that has not loaded yet cannot answer when asked, so it is asked
+   * again the moment it has something to play — the same lesson the work
+   * line learned.
+   */
+  useEffect(() => {
+    const room = panel.current;
+    if (!room) return;
+    const pages = [...room.querySelectorAll<HTMLElement>(".hbw-lamp__page")];
+    const waits: Array<() => void> = [];
+    for (const page of pages) {
+      const film = page.querySelector("video");
+      if (!film) continue;
+      if (page.dataset.here !== "true") {
+        if (!film.paused) film.pause();
+        continue;
+      }
+      if (stillness) {
+        if (!film.paused) film.pause();
+        continue;
+      }
+      const start = () => void film.play().catch(() => {});
+      start();
+      if (film.readyState < 3) {
+        film.addEventListener("canplay", start, { once: true });
+        film.addEventListener("loadeddata", start, { once: true });
+        waits.push(() => {
+          film.removeEventListener("canplay", start);
+          film.removeEventListener("loadeddata", start);
+        });
+      }
+    }
+    return () => {
+      for (const off of waits) off();
+    };
+  }, [at, view, stillness, shots]);
+
   useEffect(() => {
     if (!stillness) return;
     const room = panel.current;
@@ -1292,15 +1338,23 @@ export function Lightbox({
                        looping film with no stop is the one thing they cannot
                        opt out of. The poster is the same frame. */
                     /*
-                     * Only the films you are near.
+                     * The film you are on, and no others.
                      *
-                     * Every frame in the band autoplayed, so opening a
-                     * project downloaded every film in it at once — fifteen
-                     * megabytes on KOJA, most of it for pictures three
-                     * screens away. The ones in reach play and the rest hold
-                     * their poster until you get to them.
+                     * Every frame in the band used to autoplay, which
+                     * downloaded every film in a project at once — fifteen
+                     * megabytes on KOJA for pictures three screens away. Two
+                     * either side fixed the downloading and left five films
+                     * decoding at once, which on a project made mostly of
+                     * motion is what a scroll was competing with: pausing
+                     * them all took Made by Madelen from nineteen dropped
+                     * frames in four hundred and twenty-seven to one in four
+                     * hundred and fifty.
+                     *
+                     * One at a time, then — the same rule the work line
+                     * already follows. The others hold their poster, which is
+                     * the same picture.
                      */
-                    autoPlay={!stillness && Math.abs(i - at) <= 2}
+                    autoPlay={!stillness && i === at}
                     muted
                     loop
                     playsInline
