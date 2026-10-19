@@ -68,3 +68,23 @@ Generic crawls — link reachability across every route, overflow, responsive
 counts across breakpoints — already exist in `HBW-Site-QA`, a separate CLI
 built for exactly that. Its HBW config is stale: it points at the old
 `hbw-website` repo, the old `.hbw-home-strip` selector and port 3000.
+
+## smooth — the one that opens a window
+
+Every other check here runs headless. `smooth` does not, and cannot: headless
+Chrome rasterises in software and skips most of what makes a page feel slow.
+It reported a clean seventeen millisecond frame on a project page that was
+dropping one frame in five on the machine in front of us.
+
+So a Chrome window appears for about a minute when the suite runs. It scrolls
+the front page and all seven projects, counts the gap between frames, and
+fails a page where more than four per cent of frames take longer than 33ms or
+where the ninety-ninth percentile passes 50ms. It reports *unmeasured* — which
+the runner treats as a failure — when nothing scrolled, when there were too
+few frames to judge, or when no window could be opened at all.
+
+Frame rate is machine-dependent, so the budget is loose on purpose: the worst
+page measured 19% before it was fixed and every page measures 0% after.
+Anything in between is worth a morning.
+
+    npm run qa -- smooth
