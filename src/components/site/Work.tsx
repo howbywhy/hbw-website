@@ -752,12 +752,58 @@ export function Work({
      * the page went back as well as on. Held in the middle, there is always
      * work above and work below, whichever way you push.
      */
+    /*
+     * The wrap waits for the scroll to stop, unless it cannot afford to.
+     *
+     * This ran on every scroll event and moved the scroll position by a whole
+     * turn mid-flight. On a mouse that is invisible: a wheel tick is a
+     * discrete jump with nothing in flight to disturb. On a trackpad it is
+     * not — a flick leaves momentum running, and a programmatic scroll during
+     * momentum is the one thing that can cut it short. The front page feels
+     * smooth on a mouse and does not on a trackpad, which is the shape of
+     * exactly this.
+     *
+     * I could not prove it: a real trackpad fling cannot be synthesised, and
+     * Chrome's own touch fling survives the wrap. So this is a change made on
+     * a hypothesis — which is worth saying plainly, and is also why it is
+     * written to cost nothing if the hypothesis is wrong. The page still
+     * wraps, it just waits for a pause to do it, and three turns is a long
+     * way to travel before one is needed.
+     *
+     * The exception is the end of the runway. If a flick is long enough to
+     * reach the last turn, waiting would run the page into the bottom of the
+     * document and stop it there, which is worse than a clipped flick. Then
+     * it wraps immediately, as it always did.
+     */
+    let settled = 0;
+    const wrap = () => {
+      const round = turn();
+      if (round <= 0) return false;
+      const y = window.scrollY;
+      if (y >= round * 2) {
+        window.scrollTo(0, y - round);
+        return true;
+      }
+      if (y < round) {
+        window.scrollTo(0, y + round);
+        return true;
+      }
+      return false;
+    };
+
     const watch = () => {
       const round = turn();
       if (round <= 0) return;
       const y = window.scrollY;
-      if (y >= round * 2) window.scrollTo(0, y - round);
-      else if (y < round) window.scrollTo(0, y + round);
+      const floor = document.documentElement.scrollHeight - window.innerHeight;
+      /* Out of room to coast into: wrap now and accept the interruption. */
+      if (y > floor - window.innerHeight || y < window.innerHeight) {
+        wrap();
+        return;
+      }
+      /* Otherwise let the scroll finish and wrap in the quiet afterwards. */
+      window.clearTimeout(settled);
+      settled = window.setTimeout(wrap, 90);
     };
 
     /*
@@ -867,7 +913,15 @@ export function Work({
     }
 
     window.addEventListener("scroll", watch, { passive: true });
-    return () => window.removeEventListener("scroll", watch);
+    /* Chrome fires this when a scroll — momentum and all — has finished. The
+       timeout above is the fallback for anything that does not. */
+    const rest = () => wrap();
+    window.addEventListener("scrollend", rest);
+    return () => {
+      window.removeEventListener("scroll", watch);
+      window.removeEventListener("scrollend", rest);
+      window.clearTimeout(settled);
+    };
   }, [open]);
 
   /**
