@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { loadArticles } from "@/sanity/load-articles";
 import { liveProjects } from "@/components/home/catalog";
 
 const origin = "https://www.hbw.works";
@@ -15,24 +14,10 @@ const lastModified = new Date();
  * arrangements.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  /*
-   * The writing, each piece at its own address.
-   *
-   * Read from the CMS rather than listed here, so publishing an article puts
-   * it in the sitemap without anyone remembering to. An outage returns none,
-   * which costs a crawl rather than a broken sitemap.
-   */
-  const articles = await loadArticles();
+  /* Home, About, and the work. There is nothing else to crawl. */
   return [
     { url: origin, lastModified, changeFrequency: "monthly", priority: 1 },
     { url: `${origin}/practice`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${origin}/talk`, lastModified, changeFrequency: "yearly", priority: 0.6 },
-    ...articles.map((article) => ({
-      url: `${origin}/talk/${article.slug}`,
-      lastModified: new Date(article.published),
-      changeFrequency: "yearly" as const,
-      priority: 0.7,
-    })),
     ...liveProjects().map((project) => ({
       url: `${origin}${project.href}`,
       lastModified,

@@ -1,6 +1,5 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { previewOnHbwAction } from "./src/sanity/actions/previewOnHbw";
 import { LISTING_FEATURED, LISTING_INDEX } from "./src/sanity/schemaTypes/listing";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 import { studioDataset, studioProjectId } from "./src/sanity/studio-env";
@@ -85,9 +84,5 @@ export default defineConfig({
         value: { listing: LISTING_INDEX },
       },
     ],
-  },
-  document: {
-    actions: (previous, context) =>
-      context.schemaType === "project" ? [...previous, previewOnHbwAction] : previous,
   },
 });

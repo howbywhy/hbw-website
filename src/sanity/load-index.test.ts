@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readFile } from "node:fs/promises";
 import { liveProjects, PROJECT_SLUGS } from "../components/home/catalog";
-import { INDEX_MARKS } from "../components/home/index-marks";
 import { indexSpan, type IndexEntry } from "../components/home/index-entry";
 
 function entry(over: Partial<IndexEntry> = {}): IndexEntry {
@@ -20,41 +19,12 @@ function entry(over: Partial<IndexEntry> = {}): IndexEntry {
   };
 }
 
-test("every committed mark is keyed by a real route slug", () => {
-  // The mark behind a row is looked up by the row's route id. A file named for
-  // the CMS slug instead of the route silently loses its logotype: CLOSED is
-  // "closed" in the CMS and "bar-closed" on the site.
-  for (const id of Object.keys(INDEX_MARKS)) {
-    assert.ok(
-      PROJECT_SLUGS.includes(id),
-      `${id}.svg is not a route slug, so no row will ever find it`
-    );
-  }
-});
-
-/**
- * Named, so a project without a logotype is a known gap rather than a silent
- * one. The row handles a missing mark — IndexDetail falls through to the
- * entry's own mark and then to nothing — so this is a record of which vectors
- * the studio still owes itself, not a guard against a crash. Take a project
- * off this list the moment its mark is committed; never add one to quiet a
- * failure.
+/*
+ * The two tests that lived here guarded the committed logotypes, which were
+ * only ever drawn by the preview's index of the work. That index, the shell
+ * it belonged to and the /preview route it served have all gone, and the
+ * marks went with them — so there is nothing left to keep in step.
  */
-const WITHOUT_A_MARK = ["made-by-madelen"];
-
-test("every live project has a mark to fall back on, or is a known gap", () => {
-  for (const project of liveProjects()) {
-    if (WITHOUT_A_MARK.includes(project.id)) {
-      assert.ok(
-        !INDEX_MARKS[project.id],
-        `${project.id} has a mark now — take it off WITHOUT_A_MARK`
-      );
-      continue;
-    }
-    assert.ok(INDEX_MARKS[project.id], `${project.id} has no committed logotype`);
-  }
-  assert.equal(Object.keys(INDEX_MARKS).length, liveProjects().length - WITHOUT_A_MARK.length);
-});
 
 test("the span reads the years it is given", () => {
   const span = indexSpan([entry({ year: 2018 }), entry({ year: 2026 }), entry({ year: 2024 })]);

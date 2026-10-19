@@ -172,8 +172,21 @@
  * support, and the blur silently did nothing.
  */
 .hbw-over {
+  /*
+   * Ground, not glass — and this is the rule that made it cost what it did.
+   *
+   * Everything that opens over the site carries this, and all three of them
+   * cover the whole window. A backdrop-filter here is the compositor reading
+   * back the entire viewport and blurring it on every frame the overlay is
+   * up — and for the gallery that is every frame of every project page,
+   * because the gallery is what a project page is. Behind it sits the work
+   * line, which scrolls, so the blur could never be cached.
+   *
+   * The veil was always doing most of the work. Carried a little heavier and
+   * flat it reads the same: the page behind is a presence, not a picture,
+   * which is what the note above asks for.
+   */
   background: var(--over, rgba(255, 255, 255, 0.5));
-  backdrop-filter: blur(20px) saturate(0.9);
 }
 
 /* A section label, in the bar's voice. No box: the rule under it does the
@@ -744,7 +757,7 @@ html.hbw-lit .hbw-bar__what > :not(.hbw-bar__now) {
 html.hbw-lit .hbw-bar,
 html.hbw-lit .hbw-lamp,
 html.hbw-lit .hbw-studio-sheet {
-  --over: rgba(17, 17, 17, 0.82);
+  --over: rgba(17, 17, 17, 0.93);
   --say: #a8a8a8;
   --ink: #f4f4f4;
   --mute: rgba(244, 244, 244, 0.45);
@@ -772,8 +785,23 @@ html.hbw-lit .hbw-studio-sheet {
    * of both: the sheet you came from is a presence behind the pictures, and
    * the chrome still has enough ground to be read against.
    */
-  --over: rgba(17, 17, 17, 0.58);
-  backdrop-filter: blur(16px) saturate(0.9);
+  /*
+   * Ground, not glass.
+   *
+   * This blurred the whole window — sixteen pixels across 1440x900, which is
+   * five megapixels on a retina screen — and did it on every frame a project
+   * page drew, from the moment it landed. What it was blurring was the work
+   * line, which scrolls, so the result could never be cached and the
+   * compositor recomputed the lot sixty times a second. It is the single
+   * most expensive thing on the site and it was running all the time.
+   *
+   * The veil is doing nearly all of the work anyway: at 58% over a sixteen
+   * pixel blur the page beneath was already weather rather than content, as
+   * the note above says it should be. Carried a little heavier and flat, it
+   * reads the same and costs nothing.
+   */
+  --over: rgba(17, 17, 17, 0.93);
+  background: var(--over);
   padding-top: var(--chrome);
   display: grid;
   /*
@@ -2203,7 +2231,7 @@ html.hbw-lit .hbw-studio-sheet {
   --rule: rgba(244, 244, 244, 0.16);
   --chip: rgba(244, 244, 244, 0.08);
   --chip-on: rgba(244, 244, 244, 0.14);
-  --over: rgba(17, 17, 17, 0.55);
+  --over: rgba(17, 17, 17, 0.93);
   color: var(--say);
   background: var(--paper);
 }
@@ -4606,7 +4634,7 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
  * keeps the light ink and loses the wall.
  */
 html.hbw-lit .hbw-lamp {
-  --over: rgba(17, 17, 17, 0.58);
+  --over: rgba(17, 17, 17, 0.93);
 }
 
 /* =====================================================================
@@ -4617,11 +4645,11 @@ html.hbw-lit .hbw-lamp {
    is why opening a project felt like arriving somewhere else.
    ===================================================================== */
 .hbw-lamp {
-  --over: rgba(255, 255, 255, 0.74);
+  --over: rgba(255, 255, 255, 0.95);
 }
 
 html.hbw-lit .hbw-lamp {
-  --over: rgba(255, 255, 255, 0.74);
+  --over: rgba(255, 255, 255, 0.95);
 }
 
 /* Light ground, so the chrome takes the page's ink back. */
@@ -7654,9 +7682,15 @@ body:has(.hbw-case-page) .hbw-bar {
    * disappears into the ground. Against this the work is the brightest thing
    * on screen, which is the whole point of opening one.
    */
-  background: rgba(16, 16, 16, 0.92);
-  -webkit-backdrop-filter: blur(22px) saturate(0.86);
-  backdrop-filter: blur(22px) saturate(0.86);
+  /* No blur, and heavier for it.
+   *
+   * The twenty-two pixel backdrop-filter here was not softening the page —
+   * it was softening the grid, which sits between this plate and the room's
+   * own ground. Taken away, those thumbnails came back as legible pictures
+   * arguing with the one being looked at. They are carried under instead,
+   * which is the same reading and costs nothing: the set behind is a
+   * presence, the picture is the only lit thing on screen. */
+  background: rgba(16, 16, 16, 0.96);
   animation: hbw-arrive var(--quick) var(--ease) backwards;
 }
 
@@ -11863,9 +11897,19 @@ body:has(.hbw-lamp) .hbw-bar__what {
    comes back into focus underneath the row that is carrying it.
    ===================================================================== */
 .hbw-lamp__full {
-  background: rgba(16, 16, 16, 0.74);
-  -webkit-backdrop-filter: blur(34px) saturate(0.8);
-  backdrop-filter: blur(34px) saturate(0.8);
+  /*
+   * And the same again, heavier still: thirty-four pixels over the full
+   * window, stacked on top of the one above it. Two full-screen blurs at
+   * once, which is eleven megapixels a frame on a retina screen while a
+   * visitor is trying to look at one picture.
+   *
+   * The note below describes what the blur is for — the set behind resolving
+   * as shape and colour and never as detail. A flat veil at this weight
+   * resolves it as nothing at all, which is the honest version of the same
+   * intention and is what the picture wants: it is the only lit thing on
+   * screen either way.
+   */
+  background: rgba(16, 16, 16, 0.96);
 }
 
 /* =====================================================================

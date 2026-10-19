@@ -985,13 +985,29 @@ export function Lightbox({
          * laying out the same place, and the site behind is a presence in
          * all three.
          *
-         * Said inline because the leaving state in the stylesheet switches
-         * the filter off, and that switch is what rebuilt a GPU layer and
-         * flashed the page behind. Held here, it never changes.
+         * Ground rather than glass, and this is why.
+         *
+         * It was a thirty-four pixel backdrop-filter across the whole
+         * window, set inline so that it never changed — which also meant it
+         * never stopped. Every frame of every project page, the compositor
+         * read back 1440x900 (five megapixels on a retina screen, eleven
+         * while a frame was full bleed and the plate's own blur stacked on
+         * top) and blurred it with a thirty-four pixel kernel. What it was
+         * blurring was the work line, which scrolls, so the result could
+         * never be cached and the whole thing was recomputed sixty times a
+         * second. It was far and away the most expensive thing on the site.
+         *
+         * At seventy-four per cent over that much blur the page beneath was
+         * already shape and colour and never detail. At eighty-eight flat it
+         * is the same read — the picture is the only lit thing on screen
+         * either way, and there is still obviously something behind it to
+         * come back to — and it costs nothing at all to draw.
+         *
+         * Still said inline: the leaving state in the stylesheet used to
+         * switch the filter off, and that switch is what rebuilt a GPU layer
+         * and flashed the page behind. One value, held here, never changing.
          */
-        backdropFilter: "blur(34px) saturate(0.8)",
-        WebkitBackdropFilter: "blur(34px) saturate(0.8)",
-        background: "rgba(16, 16, 16, 0.74)",
+        background: "rgba(16, 16, 16, 0.93)",
       }}
     >
       {/*
