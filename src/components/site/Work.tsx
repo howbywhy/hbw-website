@@ -1050,6 +1050,39 @@ export function Work({
       });
     }
 
+    /*
+     * ?loop=off stops the page wrapping, so the two can be felt side by side.
+     *
+     * The scroll feels wrong on a trackpad and right on a mouse, and I can
+     * measure neither: through a scroll the main thread is idle — nought long
+     * animation frames — raster is fifteen milliseconds across a whole burst,
+     * and taking the grayscale off, or the clip off, moves neither number.
+     * The one thing I cannot drive is the one thing that differs. A macOS
+     * trackpad fling is an OS gesture with a momentum phase the compositor
+     * owns, and nothing I can dispatch reproduces it: every scroll I can
+     * synthesise is a mouse, and a mouse is already smooth.
+     *
+     * What can be stated is mechanical. To run endlessly the page has to move
+     * the scroll position by a whole turn, and a programmatic scroll is the
+     * one thing that can cut a momentum phase short. Measured, it fires about
+     * once per 3,429px travelled — and from where the page lands there are
+     * only 560px of room above before the first one, barely half a screen.
+     *
+     * So rather than guess at a fix a fourth time, this turns the mechanism
+     * off and leaves everything else exactly as it is. If the page feels right
+     * with ?loop=off and wrong without it, the wrap is the cause and the loop
+     * is what has to change. If it feels the same either way, the loop is
+     * innocent and I have been looking in the wrong place. Either answer is
+     * worth more than another hypothesis.
+     */
+    let endless = true;
+    try {
+      endless = new URLSearchParams(window.location.search).get("loop") !== "off";
+    } catch {
+      /* nothing to read: the page loops, as it always has */
+    }
+    if (!endless) return;
+
     window.addEventListener("scroll", watch, { passive: true });
     /* Chrome fires this when a scroll — momentum and all — has finished. The
        timeout above is the fallback for anything that does not. */
