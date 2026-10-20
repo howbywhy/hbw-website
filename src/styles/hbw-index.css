@@ -12289,3 +12289,34 @@ body:has(.hbw-lamp) .hbw-bar__what {
     height: 64vh;
   }
 }
+
+/* =====================================================================
+   The studio reads, whatever it is standing on.
+
+   Opened over a project, the sheet was a 50% white veil and the plates
+   that carry the words were 66% on top of it — so black type was being
+   asked to read through two thirds of nothing onto whatever the work
+   happened to be. Over a dark photograph it was fine; over SUB:3's white
+   packaging, or KOJA's green, it was not, and which of those you got
+   depended entirely on which project you had been looking at. Writing
+   that is legible over some of the work and not the rest is not legible.
+
+   The plates go nearly solid and the veil goes heavier. Both say the same
+   thing they said before — the work is behind this, not gone — but the
+   reading no longer depends on what is behind it. The gaps between the
+   columns are where the project still shows through, which is where it
+   was always doing the most work anyway.
+
+   Said as the token rather than as a colour, because --pill-bg already
+   draws every plate in here: the columns, the rows of the panel, the
+   contact lines. Scoped to the sheet, so the bars above and below keep
+   the lighter plate the chrome is drawn with.
+   ===================================================================== */
+.hbw-studio-sheet {
+  --pill-bg: rgba(240, 240, 236, 0.97);
+  --over: rgba(255, 255, 255, 0.82);
+}
+
+.hbw-studio-doc .hbw-part__col {
+  background: var(--pill-bg);
+}

@@ -207,15 +207,24 @@ function arrange(shots: { width?: number; height?: number }[]): Spot[] {
  * contact sheet, while on a laptop Gallery is the band and Grid is the
  * arranged run. One preference, two readings of it.
  *
- * And the writing overrules both. With the information open the work is
- * always arranged, whatever the reader last chose and whatever they are
- * reading it on, because what is wanted then is the whole project at once
- * beside the words about it rather than one frame of it.
+ * And the writing overrules both. With the information open the work is on
+ * the contact sheet, whatever the reader last chose and whatever they are
+ * reading it on: the whole project at once beside the words, small enough
+ * that the words are the larger half of the screen.
  */
 type Layout = "band" | "arranged" | "grid";
 
 function layoutOf(view: View, narrow: boolean, reading: boolean): Layout {
-  if (reading) return "arranged";
+  /*
+   * The writing puts the work on the contact sheet, from either view.
+   *
+   * It wants the whole project at once beside the words, and small enough
+   * that the words are the larger half of the screen — which is the sheet
+   * with the numbers on it, not the arranged run. The run is a way of
+   * looking at the work; the sheet is a way of finding a frame in it, and
+   * finding a frame is what you are doing when you read about one.
+   */
+  if (reading) return "grid";
   if (narrow) return view === "grid" ? "grid" : "arranged";
   return view === "grid" ? "arranged" : "band";
 }
@@ -565,7 +574,18 @@ export function Lightbox({
     if (layout === "band") {
       host.scrollLeft = kid.offsetLeft + kid.offsetWidth / 2 - host.clientWidth / 2;
     } else {
-      host.scrollTop = Math.max(0, kid.offsetTop - host.clientHeight * 0.12);
+      /*
+       * Flush to the edge, not a tenth of a screen above it.
+       *
+       * A lead-in was meant to say the run continues upward. What it
+       * actually did on arrival was hang the foot of the row before this
+       * one across the top of the window — a sliver of a picture you had
+       * not asked for, which then slid away as soon as anything was
+       * scrolled. offsetTop is measured from the padding edge, so taking
+       * the padding back off lands the row itself on the margin.
+       */
+      const edge = Number.parseFloat(getComputedStyle(host).paddingTop) || 0;
+      host.scrollTop = Math.max(0, kid.offsetTop - edge);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layout]);
