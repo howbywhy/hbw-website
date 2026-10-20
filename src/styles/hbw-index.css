@@ -11994,31 +11994,69 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * this read as too small. The margin is the smallest thing on the page
    * now, and the work is the biggest.
    */
-  padding-inline: var(--band-side, 14px);
-  padding-block: 14px 16vh;
-  gap: var(--band-gap, 14px);
+  /*
+   * Said here, once. Every use below reads these rather than carrying its
+   * own fallback — which had already drifted: the run was gapped at 14px
+   * and the frames were sized as though it were 20, so a row never quite
+   * met the measure.
+   */
+  --band-side: 14px;
+  --band-gap: 14px;
+  --band-across: 3;
+  padding-inline: var(--band-side);
+  padding-block: var(--band-side) 16vh;
+  gap: var(--band-gap);
 }
 
 /*
- * Half the measure, and the picture fills it.
+ * A share of the measure, and the picture fills it.
  *
  * The frame's own proportions set the height, so the page is the shape of
- * its picture and filling it crops nothing; two of them meet the measure
- * exactly, with one gap between and none at the ends. A pair comes out
- * close to the height of the window, which is where both of the galleries
- * this is drawn from sit, and the run scrolls — a frame is allowed to be
- * taller than the screen in a run you scroll, which is the whole reason for
- * turning the band on this axis in the first place.
+ * its picture and filling it crops nothing; a row of them meets the measure
+ * exactly, with gaps between and none at the ends. The run scrolls, so a
+ * frame is allowed to be taller than the screen — which is the whole reason
+ * for turning the band onto this axis.
+ *
+ * Three across, which is TRiC's count rather than SODAA's two. The
+ * difference is what it does to the height: two at this measure puts an
+ * upright at 696 by 870, most of a window, and a project is then read a
+ * pair at a time. Three puts it near 461 by 576 — a row taken in at a
+ * glance with the next already under it, which scaled is TRiC's 323 by 403
+ * at a 1024 window.
+ *
+ * Written as a count rather than a percentage, because the arithmetic is
+ * the sort that comes out wrong the second time it is typed: a frame is the
+ * measure, less the gaps between, shared out. Change the count and the row
+ * follows.
  */
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page {
   box-sizing: border-box;
-  flex: 0 0 calc(50% - var(--band-gap, 20px) / 2);
-  width: calc(50% - var(--band-gap, 20px) / 2);
+  --band-share: calc(
+    (100% - (var(--band-across) - 1) * var(--band-gap)) / var(--band-across)
+  );
+  flex: 0 0 var(--band-share);
+  width: var(--band-share);
   max-width: 100%;
+  /* A flex item will not shrink below its content without this, which is
+     where the run's sixty pixels of hidden horizontal overflow came from. */
+  min-width: 0;
   aspect-ratio: var(--ar, 4 / 3);
   height: auto;
   align-items: stretch;
   justify-content: center;
+}
+
+/*
+ * Two across on a narrow desktop, where three would be stamps.
+ *
+ * Around 1,100px three uprights come out near 350 wide, which is the size
+ * the contact sheet on the front page uses for something meant to be
+ * glanced at rather than read. A project is the reading.
+ */
+@media (max-width: 1180px) and (min-width: 761px) {
+  .hbw-lamp__field .hbw-lamp__pages[data-band="down"] {
+    --band-across: 2;
+  }
 }
 
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page img,
@@ -12101,11 +12139,11 @@ body:has(.hbw-lamp) .hbw-bar__what {
   .hbw-lamp__pages[data-band="down"] {
     --band-side: 8px;
     --band-gap: 8px;
+    --band-across: 1;
   }
 
-  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page {
-    flex-basis: 100%;
-    width: 100%;
+  .hbw-lamp__field .hbw-lamp__pages[data-band="down"] {
+    --band-across: 1;
   }
 
   .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-shape="long"] {
