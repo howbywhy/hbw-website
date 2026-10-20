@@ -12463,21 +12463,21 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /*
- * A set in transit has nowhere to scroll to.
+ * The frames start two pixels under the bar, and two is two.
  *
- * The frames travel on transforms, and a transform still counts towards
- * scrollable overflow even though it moves nothing in layout. Crossing
- * between a band that runs sideways and a run that goes down, that is
- * twenty-two frames briefly reporting themselves thousands of pixels from
- * where they belong — and the container honouring it, which is how
- * switching view once left the run 4,549px wide inside a 1,024px window.
- *
- * clip rather than hidden: hidden makes a scroll container, which is the
- * very thing being avoided, and the run needs its own scrolling back the
- * moment the journey is over.
+ * The lamp already puts a two pixel row-gap between its bar and the work,
+ * which is the site's own edge. The run then added two of its own padding
+ * on top, so the first frame sat four pixels down — twice the gap
+ * everything else in the chrome keeps, and visibly so against a bar that
+ * is itself two from the window. The gap belongs to the lamp; the run
+ * brings none of its own.
  */
-.hbw-lamp__pages[data-moving="true"] {
-  overflow: clip;
+.hbw-lamp__pages {
+  padding-block: 0;
+}
+
+.hbw-lamp__field .hbw-lamp__pages[data-band="down"] {
+  padding-block: 0 16vh;
 }
 
 /*

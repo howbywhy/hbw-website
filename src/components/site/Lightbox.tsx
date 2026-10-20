@@ -33,14 +33,25 @@ import type { Shot } from "@/components/site/shots";
 const NEAR = 2;
 
 /*
- * Which way the band runs.
+ * Which way the run goes — asked of the layout, never of the measurements.
  *
- * Across on a wide screen, down on a phone — the strip follows the shape of
- * the window holding it. Everything that reads the rail or moves it asks
- * this rather than assuming an axis.
+ * This used to be scrollHeight > clientHeight, which is true of a run that
+ * goes down and false of a band that goes across, and wrong of either while
+ * the set is travelling between them. A transform counts towards scrollable
+ * overflow, so for the length of a move the band reports a grid's height and
+ * the grid a band's width, and everything that asked got the wrong axis.
+ *
+ * What it cost: switching back from the grid, the frame nearest the middle
+ * was looked for by offsetTop against a scrollTop of nought, so the answer
+ * was always the first one. The scroll was in the right place and the
+ * counter said 01, and the reader was returned to the start of a project
+ * they were eighteen frames into.
+ *
+ * The layout knows. It is what decides the axis in the first place, it is
+ * already worked out, and nothing in flight can confuse it.
  */
-function runsDown(host: HTMLElement) {
-  return host.scrollHeight > host.clientHeight + 4;
+function goesDown(layout: Layout) {
+  return layout !== "band";
 }
 
 /**
@@ -603,7 +614,7 @@ export function Lightbox({
   const middle = useCallback(() => {
     const host = pages.current;
     if (!host) return at;
-    const down = runsDown(host);
+    const down = goesDown(layout);
     const centre =
       (down ? host.scrollTop : host.scrollLeft) +
       (down ? host.clientHeight : host.clientWidth) / 2;
@@ -621,7 +632,9 @@ export function Lightbox({
       }
     });
     return best;
-  }, [at]);
+  /* layout, because the axis comes from it — without it this keeps the
+     axis it was built with and answers for the wrong one through a move. */
+  }, [at, layout]);
 
   /**
    * Scrolling is the primary way through. What the rail settles on is what
@@ -688,7 +701,7 @@ export function Lightbox({
       // The information sheet is over the gallery, so its wheel is its own.
       if (target instanceof Element && target.closest(".hbw-studio-sheet")) return;
       // Running down, the band is already on the reader's own axis: let it be.
-      if (runsDown(field)) return;
+      if (goesDown(layout)) return;
       const sideways = Math.abs(event.deltaX) > Math.abs(event.deltaY);
       if (sideways && field.contains(target)) return;
       event.preventDefault();
@@ -696,7 +709,7 @@ export function Lightbox({
     };
     host.addEventListener("wheel", roll, { passive: false });
     return () => host.removeEventListener("wheel", roll);
-  }, []);
+  }, [layout]);
 
   /**
    * Coming to the end.
@@ -768,7 +781,7 @@ export function Lightbox({
     if (middle() === at) return;
     const kid = host.children[at] as HTMLElement | undefined;
     if (!kid) return;
-    if (runsDown(host)) {
+    if (goesDown(layout)) {
       host.scrollTop = kid.offsetTop + kid.offsetHeight / 2 - host.clientHeight / 2;
     } else {
       host.scrollLeft = kid.offsetLeft + kid.offsetWidth / 2 - host.clientWidth / 2;
@@ -1201,17 +1214,24 @@ export function Lightbox({
     }
     if (!moving.length) return;
     /*
-     * Nothing a travelling frame does counts as somewhere to scroll.
+     * The journey is not clipped, and must not be.
      *
-     * A transform is visual, but it still contributes to scrollable
-     * overflow — so twenty-two frames crossing the screen from a band to a
-     * run left the container thousands of pixels wide while they were in
-     * flight, and the scroll with somewhere to go that was not the work.
-     * This is why the move was switched off across a change of axis; it is
-     * the overflow that needed fixing, not the move. Clipped for the length
-     * of the journey, the transforms have nowhere to report to.
+     * It was, for a while: transforms count towards scrollable overflow, so
+     * twenty-two frames crossing from a sideways band to a downward run
+     * briefly report themselves thousands of pixels from where they belong.
+     * Clipping that looked like the fix and was the opposite of one.
+     * overflow: clip stops an element being a scroll container at all — so
+     * the scroll put back to hold the reader's place was discarded on the
+     * spot, the band sat at frame one for the whole nine hundred
+     * milliseconds of the move, and the position only reappeared when the
+     * clip lifted and the browser restored what it had remembered.
+     *
+     * It was not buying anything either: scrollWidth still reported the
+     * overflow through it, measured at 14,118px with the clip applied. What
+     * actually fixed the overflow was putting the scroll on the right axis
+     * when the layout changes, which happens above, and the run keeping
+     * overflow-x hidden, which it does. There is nothing left here to clip.
      */
-    box.dataset.moving = "true";
     /* Two frames: one to be put back where it was, one to let go. */
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -1242,7 +1262,6 @@ export function Lightbox({
         one.style.transformOrigin = "";
         one.style.transform = "";
       }
-      delete box.dataset.moving;
     };
     const done = window.setTimeout(clear, 900);
     /* Cleared on the way out too, or a set interrupted mid-journey leaves
@@ -1526,58 +1545,32 @@ export function Lightbox({
           the count stays where it was. The preference is still held — it is
           simply not being asked for here.
         */}
+        {/*
+          One control that changes, not two that take turns.
+          
+          Two buttons side by side, one of them always stood down, is a
+          radio set — a thing you read before you can use. There are only
+          ever two states here, and the one you are not in is the one you
+          would press for: so it is a single button that says where you
+          are, and says somewhere else the moment you press it. The same
+          object, changed, which is what the rest of the chrome does.
+          
+          It still says what pressing will do, for anyone who cannot see
+          the change — the label is the state, the aria-label is the act.
+        */}
         <span
           className="hbw-lamp__ways hbw-lamp__view"
           ref={rowWays}
-          role="group"
-          aria-label="How the work is laid out"
           data-idle={reading ? "true" : undefined}
         >
           <button
             type="button"
-            aria-pressed={view === "band"}
             disabled={reading}
-            onClick={() => move("band")}
+            aria-label={view === "grid" ? "Show the gallery" : "Show the grid"}
+            onClick={() => move(view === "grid" ? "band" : "grid")}
           >
-            Gallery
+            {view === "grid" ? "Grid" : "Gallery"}
           </button>
-          <button
-            type="button"
-            aria-pressed={view === "grid"}
-            disabled={reading}
-            onClick={() => move("grid")}
-          >
-            Grid
-          </button>
-          {/*
-            No Information button.
-            
-            What it opened is set at the foot of the gallery now — small, in
-            three columns, there to be read rather than asked for. A button
-            that opens a panel over the work, to tell you about the work, was
-            a step between a visitor and the thing they are already looking
-            at.
-          */}
-          {/*
-            Close belongs to the information, not to the gallery.
-            
-            Shut, there is nothing to close — the way out of a project is
-            Work or the studio's name, which is where a visitor looks for it
-            anyway. Open, Close means the one thing it can mean.
-          */}
-          {/*
-            One way out at a time.
-            
-            Reading put a Close up here while the foot already held one —
-            two words for the same action, eight hundred pixels apart. The
-            foot's is the one you pressed to open the writing, so it keeps
-            the job; this slot is for the picture plate, which has no other.
-          */}
-          {full ? (
-            <button type="button" onClick={shutFull}>
-              Close
-            </button>
-          ) : null}
         </span>
       </div>
 
@@ -1613,7 +1606,7 @@ export function Lightbox({
            *
            * Down the screen it is an ordinary vertical scroller: the browser
            * owns it, momentum comes back, and the wheel handler stands aside
-           * of its own accord — runsDown() already returns early, and all
+           * of its own accord — the wheel handler returns early, and all
            * three places that measure the band already read both axes.
            *
            * A flag rather than a change, because this is a differently
