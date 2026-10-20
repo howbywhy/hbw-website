@@ -12637,3 +12637,78 @@ body:has(.hbw-lamp) .hbw-bar__what {
       calc(var(--enter-work) + var(--enter-step) * 2) backwards;
   }
 }
+
+/*
+ * A wrapper with nothing in it is not a thing on the row.
+ *
+ * The count is taken out in the grid and with the writing open, but the
+ * element that holds it stayed — nought pixels wide, still a flex child,
+ * still earning the 2px gap after it. So the line began four pixels from
+ * the window instead of two: two of padding, nothing, two of gap. The
+ * smallest possible fault and exactly the kind the eye reads as untidy
+ * without being able to name.
+ *
+ * Hidden on the same terms its contents are, so the two cannot disagree —
+ * and the line told to take the whole row, because this bar is a grid and
+ * not a flex. Hiding two of three children leaves one item in a grid that
+ * then has one column, sized to its contents: the line came out fifteen
+ * pixels wide and the row was empty. Spanning it, the line is the row.
+ */
+.hbw-lamp__field[data-view="grid"] ~ .hbw-lamp__bar .hbw-lamp__left,
+.hbw-lamp:has(.hbw-lamp__field[data-view="grid"]):not([data-full="true"]) .hbw-lamp__left {
+  display: none;
+}
+
+.hbw-lamp__field[data-view="grid"] ~ .hbw-lamp__bar .hbw-lamp__mid,
+.hbw-lamp:has(.hbw-lamp__field[data-view="grid"]):not([data-full="true"]) .hbw-lamp__mid {
+  grid-column: 1 / -1;
+}
+
+/* =====================================================================
+   The next project is an object in the run, not a billboard across it.
+
+   At the end of a run going down it took the whole measure — a green
+   plate with a wordmark on it, half the window tall, reading as an
+   advertisement for the next project rather than as the next project.
+   The run is objects two pixels apart; its ending should be one more of
+   them, not a different kind of thing.
+
+   So it takes a column, like any upright frame, and stands where a new
+   row would start. The foot already says which project is next by name;
+   this only has to show it. A glimpse, which is what it is called and
+   what it was always meant to be — the same idea the band has at the
+   right-hand end of its rail, read the other way round.
+   ===================================================================== */
+.hbw-lamp__field .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+  grid-column: 1;
+  width: auto;
+  /*
+   * The frame's own shape, not a shape imposed on it.
+   *
+   * Given four by five it cropped to fit, and KOJA's glimpse is a wide
+   * green plate with the word across it — so the card showed the middle of
+   * a wordmark with both ends cut off. A project's first frame is whatever
+   * shape it is; the column sets how wide, and the picture sets how tall.
+   */
+  aspect-ratio: auto;
+  height: auto;
+  max-height: none;
+}
+
+.hbw-lamp__field .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next .hbw-lamp__peek {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.hbw-lamp__field .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next button {
+  height: auto;
+  align-items: stretch;
+}
+
+@media (max-width: 760px) {
+  /* One column, so it is the measure like everything else here. */
+  .hbw-lamp__field .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+    grid-column: 1 / -1;
+  }
+}

@@ -1776,7 +1776,21 @@ export function Lightbox({
                 */}
                 {/* In the grid every frame is a way into itself: press one
                     and the band opens on it. */}
-                {reading ? (
+                {/*
+                  The contact sheet is the way into a frame. Nothing else is.
+                  
+                  Looking at the work and going into one piece of it are two
+                  different intentions, so the band and the arranged run have
+                  nothing pressable in them — but the sheet is not a way of
+                  looking, it is a way of finding, and finding a frame is
+                  what you are doing when you press one.
+                  
+                  Which is the same rule said once rather than twice: the
+                  writing opens the sheet, and on a phone Grid is the sheet.
+                  Keyed to the layout, both get it; keyed to the writing, as
+                  it was, a phone could see the sheet and not press it.
+                */}
+                {layout === "grid" ? (
                   <button
                     type="button"
                     className="hbw-lamp__pick"
