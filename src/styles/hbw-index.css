@@ -12877,3 +12877,22 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-lamp__page {
   min-width: 0;
 }
+
+/*
+ * The signup's label is the size of the foot it is in.
+ *
+ * Everything in the foot — the place, the address, the number, the ways
+ * out, and Join at the other end of this same row — is 13.8px at 70% ink.
+ * The label alone was 11px, because it took .hbw-m, which is the site's
+ * small type and right in a facts row where it labels a column. Here it
+ * labels nothing above it: it is the first word of one line that reads
+ * "Stay in the loop / you@company.com / Join", and one of those three words
+ * was set smaller than the other two.
+ *
+ * The class stays, so the colour still follows --mute with everything else;
+ * only the size and the tracking come back to the row they are in.
+ */
+.hbw-end__field .hbw-m {
+  font-size: inherit;
+  letter-spacing: inherit;
+}

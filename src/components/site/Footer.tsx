@@ -116,8 +116,14 @@ export function Footer() {
         Read from the same list, so the two can never drift apart.
       */}
       <nav className="hbw-end__to" aria-label="Elsewhere">
-        <a href="/">Work</a>
-        <a href="/practice">Practice</a>
+        {/*
+          Ways out of the site, not around it.
+          
+          Work and Practice were here as well as in the bar two pixels above,
+          which made a six-item column of which the first two went where the
+          nav already goes. What is left is the four this row is for: the
+          address, the number, and the studio elsewhere.
+        */}
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
         {PROFILES.map((profile) => (
