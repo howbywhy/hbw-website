@@ -25,7 +25,7 @@ import { holdScroll } from "@/components/site/scroll-lock";
 import { useStillness } from "@/components/site/still";
 import { useView } from "@/components/site/view";
 import { useHeld } from "@/components/site/held";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { countOf } from "@/components/site/numbering";
 import type { Shot } from "@/components/site/shots";
 
@@ -84,6 +84,91 @@ function rowKindOf(shot: { width?: number; height?: number }) {
   const shape = shapeOf(shot);
   if (shape !== "upright" || !shot.width || !shot.height) return shape;
   return `upright-${Math.round((shot.width / shot.height) * 8)}`;
+}
+
+/** Where a frame sits in the run: a row of its own, or one edge of a shared one. */
+type Spot = { brk: boolean; place?: "left" | "right" | "alone" };
+
+/**
+ * Which frames start a row, and which two share one across a gap.
+ *
+ * Pairing like with like leaves a frame that matches neither of its
+ * neighbours with a row to itself and two empty columns beside it — a third
+ * of the measure of work and two thirds of nothing, over and over wherever
+ * the sequence changes pace. That is not composition, it is a rule running
+ * out of things to do.
+ *
+ * So two frames that are each alone take opposite edges of the same row and
+ * leave the gap between them. They are not a pair — their feet do not agree
+ * and they are not pretending to — they are two separate things held apart,
+ * which is an arrangement rather than a leftover.
+ *
+ * An odd one at the end of such a run has nobody to face, and putting it at
+ * an edge on its own is the lost frame all over again. It takes more of the
+ * measure instead: a deliberate large single rather than a small stranded
+ * one, which is what both of the galleries this is drawn from do with a
+ * picture that stands by itself.
+ *
+ * Only uprights can be alone in this sense: wide and long frames take the
+ * whole measure, so they are never short of company.
+ */
+function arrange(shots: { width?: number; height?: number }[]): Spot[] {
+  const kinds = shots.map(rowKindOf);
+  /*
+   * The bounds check is not decoration.
+   *
+   * Counting a run of solos asks about the frame past the last one, and
+   * shapeOf() of an absent frame reads .width off undefined. Prerendering
+   * SUB:3 is where that landed: a whole build stopped by a question asked
+   * one frame too far.
+   */
+  const alone = (i: number) =>
+    i >= 0 &&
+    i < shots.length &&
+    shapeOf(shots[i]) === "upright" &&
+    kinds[i] !== kinds[i - 1] &&
+    kinds[i] !== kinds[i + 1];
+
+  /*
+   * A group of four leaves one on a row of its own.
+   *
+   * Three across, four like frames come out three and one — and that last
+   * one, a third of the measure with two thirds of nothing beside it, is
+   * exactly the stranded frame the edges were introduced to cure. It only
+   * arrived by a different road. Broken before its last two the group reads
+   * two and two, which is a composition rather than a remainder.
+   *
+   * Only where the remainder would be one, and only at four or more: at two
+   * across the same break is the split the group would have taken anyway, so
+   * this cannot make a narrower window worse than it already was.
+   */
+  const groupBreaks = new Set<number>();
+  for (let i = 0; i < shots.length; ) {
+    let run = 1;
+    while (i + run < shots.length && kinds[i + run] === kinds[i] && !alone(i + run)) run += 1;
+    if (!alone(i) && run >= 4 && run % 3 === 1) groupBreaks.add(i + run - 2);
+    i += run;
+  }
+
+  const out: Spot[] = [];
+  for (let i = 0; i < shots.length; ) {
+    if (!alone(i)) {
+      out.push({ brk: (i > 0 && kinds[i] !== kinds[i - 1]) || groupBreaks.has(i) });
+      i += 1;
+      continue;
+    }
+    /* How many in a row have nobody to stand beside. They are dealt with
+       together, because whether one takes an edge or the whole measure
+       depends on whether there is another behind it to face. */
+    let run = 1;
+    while (alone(i + run)) run += 1;
+    for (let k = 0; k < run; k += 1) {
+      const paired = k < run - (run % 2);
+      out.push({ brk: false, place: paired ? (k % 2 === 0 ? "left" : "right") : "alone" });
+    }
+    i += run;
+  }
+  return out;
 }
 
 /**
@@ -410,6 +495,10 @@ export function Lightbox({
   }, []);
   /** The handover panel sits one past the last frame. */
   const handover = next ? shots.length : -1;
+  /* Worked out once for the sequence, not once per frame: every frame's
+     place depends on its neighbours', so asking per frame would walk the
+     run from the start again for each one. */
+  const spots = useMemo(() => arrange(shots), [shots]);
   const onHandover = at === handover;
   const count = next ? shots.length + 1 : shots.length;
 
@@ -1414,7 +1503,15 @@ export function Lightbox({
                  * sends anything carrying it to the start of the next row.
                  * The first frame never needs one: it already starts a row.
                  */
-                data-break={i > 0 && rowKindOf(one) !== rowKindOf(shots[i - 1]) ? "true" : undefined}
+                data-break={spots[i]?.brk ? "true" : undefined}
+                /*
+                 * An edge, for a frame that has nothing to stand beside.
+                 *
+                 * Two of them take opposite sides of one row with the gap
+                 * left between, rather than each taking a row and leaving
+                 * two thirds of it empty.
+                 */
+                data-place={spots[i]?.place}
                 /* The page is the shape of its picture, known before it loads,
                    so the band is laid out right from the first paint and
                    nothing has to be cropped to fit a column. */
