@@ -12712,3 +12712,72 @@ body:has(.hbw-lamp) .hbw-bar__what {
     grid-column: 1 / -1;
   }
 }
+
+/* =====================================================================
+   The band's ending matches the run's: a card, not a full-height slab.
+
+   Across the screen the next project was a column the whole height of
+   the band — 420px of somebody else's photograph standing beside the
+   last frame of this one, as tall as the work and as loud. Down the
+   screen it is a card at the width of one column, its own proportions,
+   standing where a new row would start, and that reads as a glimpse
+   rather than an arrival.
+
+   Same idea here, turned back onto the rail: a card at the height of a
+   frame's own rhythm rather than the band's full measure, keeping the
+   picture's proportions, set at the foot where the stagger already puts
+   the shorter frames. The sequence is untouched — it still recedes and
+   comes forward on the same beat, on the delays the ending already
+   carries.
+   ===================================================================== */
+.hbw-lamp__pages:not([data-band="down"]) .hbw-lamp__page--next {
+  /*
+   * A frame's height, and the picture decides the width.
+   *
+   * 62% is one of the stagger's own steps, so the card sits in the rhythm
+   * the rest of the run keeps rather than standing to full height beside
+   * it. Top-aligned like every other frame — the stagger lands on the foot,
+   * which is what makes it a run and not a wall.
+   */
+  --tall: 62%;
+  height: var(--tall);
+  align-self: flex-start;
+  width: auto;
+}
+
+.hbw-lamp__pages:not([data-band="down"]) .hbw-lamp__page--next button {
+  /*
+   * No ratio imposed, no width clamped.
+   *
+   * Given four by five it cropped, and given a clamp it ran past the end of
+   * the band. The glimpse is whatever shape the next project's first frame
+   * is; the height says how big, exactly as it does in the run going down.
+   */
+  height: 100%;
+  width: auto;
+  aspect-ratio: auto;
+  max-width: none;
+}
+
+.hbw-lamp__pages:not([data-band="down"]) .hbw-lamp__page--next .hbw-lamp__peek {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+/*
+ * One horizontal inset in the type, as there is one in the plates.
+ *
+ * Three things still reached for --gut: the small label's trailing space,
+ * the chip's left inset, and the catalogue line's trailing space. None of
+ * them is a gutter between objects — they are space inside a line, which is
+ * why flattening them to 2px would jam the type rather than tidy it — but
+ * 8.64px is not a number this site has anywhere else either. --pill-x is:
+ * it is the 7px every plate on the site is padded by, so the space beside a
+ * word now matches the space beside a word in a button.
+ */
+.hbw-m,
+.hbw-chip,
+.hbw-cat__say {
+  --gut: var(--pill-x);
+}
