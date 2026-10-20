@@ -11046,7 +11046,23 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 .hbw-studio-doc .hbw-facts > div {
   box-sizing: border-box;
-  padding: var(--pill-x);
+  /*
+   * A fact is a plate, and a plate is 2px deep in the type.
+   *
+   * These were padded 7px all round while every other plate in the family —
+   * the part heads, the chips, the fields in the foot — takes 2px top and
+   * bottom and 7px at the sides. One line of type sitting in a row ten
+   * pixels taller than the identical line beside it, three times over.
+   *
+   * The sides keep --pill-x, which is the inset beside a word. The top and
+   * bottom take the 2px the rest of the site is built on, and the row takes
+   * --pill-h, which is what actually makes a plate 24px tall — the part
+   * heads and the fields in the foot both set it, and padding alone left
+   * these three pixels short of the family they sit in.
+   */
+  padding: 2px var(--pill-x);
+  min-height: var(--pill-h);
+  align-content: center;
   border: 0;
   border-radius: var(--pill-r);
   background: var(--pill-bg);
@@ -12805,4 +12821,59 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-chip,
 .hbw-cat__say {
   --gut: var(--pill-x);
+}
+
+/*
+ * The way out fits the screen too, whatever the next project is called.
+ *
+ * The feet are three plates in a row and every one of them says nowrap, so
+ * the row is as wide as its words. Our Boy Roy sits between Chris Sisarich
+ * and Made by Madelen — the two longest names on the site — and on a phone
+ * those three plates came to 425px inside a 390px screen. SCK's neighbours
+ * are shorter by a word and it fitted with eight pixels to spare, which is
+ * how a layout that cannot hold its own content passed for correct.
+ *
+ * It would have broken again on the next project named more than a word or
+ * two, and the registry means those get added without this file being
+ * opened. So the names give way instead of the row: the label stays whole,
+ * because Previous and Next are the part you navigate by, and the name
+ * after it shortens only on a screen too narrow to hold it. Information
+ * keeps its full width — it is the middle of the row and the one plate
+ * here that is a verb.
+ */
+.hbw-lamp__feet > .hbw-lamp__foot:not(.hbw-lamp__foot--info) {
+  min-width: 0;
+}
+
+.hbw-lamp__feet .hbw-lamp__said {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
+ * The work fits the screen it is on.
+ *
+ * Our Boy Roy is the one project shot entirely at 16:9, and on a phone it
+ * ran 425px wide inside a 390px screen: the whole gallery, every frame and
+ * the feet under them, 35px past the right edge. The bar is fixed, so the
+ * page could be dragged sideways underneath it — which is the nav appearing
+ * to jump, though the nav never moves.
+ *
+ * Not the frames. .hbw-lamp__field is a grid item, and a grid item's
+ * automatic minimum size is its min-content width, not zero. A landscape
+ * frame takes its height from the row and derives its width from the
+ * ratio — on a phone that comes out wider than the screen — and because the
+ * field could not be asked to be narrower than its contents, the field grew
+ * instead of the picture fitting. Projects with portraits in them never
+ * reached the width, which is why only this one showed it.
+ *
+ * min-width: 0 lets the track do what minmax(0, 1fr) already says it should.
+ */
+.hbw-lamp__field,
+.hbw-lamp__pages,
+.hbw-lamp__page {
+  min-width: 0;
 }
