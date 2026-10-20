@@ -1441,9 +1441,10 @@ html.hbw-lit .hbw-studio-sheet {
   max-width: 24rem;
 }
 
-.hbw-end__field input {
+.hbw-end__loop > .hbw-end__field > input:not(.hbw-end__trap) {
   flex: 1 1 auto;
   min-width: 0;
+  width: auto;
   font: inherit;
   letter-spacing: inherit;
   color: var(--ink);
@@ -3469,9 +3470,10 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
   padding: 0;
 }
 
-.hbw-end__field input {
+.hbw-end__loop > .hbw-end__field > input:not(.hbw-end__trap) {
   flex: 1 1 auto;
   min-width: 0;
+  width: auto;
   box-sizing: border-box;
   height: var(--pill-h);
   padding: 0;
@@ -12363,4 +12365,110 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-end__to > button {
   padding-block: var(--pill-gap);
   margin-block: 0;
+}
+
+/* =====================================================================
+   The foot's rows are rows, and the sign-up is one of them.
+
+   Both plates in the first column hold a single line, so both are pills —
+   the earlier split kept the deeper padding for "running text" and these
+   were never that. Thirty pixels beside a column of twenty-fours is the
+   difference you see before you can say what it is.
+
+   The sign-up was the louder version of the same fault: a label, a field
+   and a button stacked three deep and sixty-two pixels tall, in a foot
+   made of objects two pixels apart. Across, it is a label, a value and a
+   way to act on it — the shape of the facts in a project and of the ways
+   out beneath it.
+   ===================================================================== */
+.hbw-end__who > p {
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  display: flex;
+  align-items: center;
+}
+
+/*
+ * Said at the weight of the rule it has to beat.
+ *
+ * .hbw-end__loop > form draws the plate and sets the layout, and at a class
+ * and an element it outranks a bare .hbw-end__field — so the row stayed a
+ * stack and came out eighty-six pixels tall, which was worse than the
+ * sixty-two it replaced. Matched and said later, it behaves.
+ */
+.hbw-end__loop > .hbw-end__field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--pill-x);
+  min-height: var(--pill-h);
+  /*
+   * No padding on the block axis, because the field brings its own height.
+   *
+   * A pill is 24 including its padding — the plate is border-box and the
+   * line box inside it is short enough to leave room. An input is not: it
+   * is 24 on its own, so the pill's two pixels sit outside it and the row
+   * comes out 28 beside a column of 24s. The field is the height here and
+   * the row is exactly as tall as it.
+   */
+  padding: 0 var(--pill-x);
+  max-width: none;
+}
+
+/* The label earns its room and no more, so the field takes the rest. */
+.hbw-end__loop > .hbw-end__field > label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.hbw-end__loop > .hbw-end__field > input:not(.hbw-end__trap) {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  /*
+   * Sixteen on a phone, or taking the field zooms the whole page.
+   *
+   * Only where it matters: at this size the row has to grow a little past
+   * the pill to hold it, which is the one place in the family where the
+   * reason to break the rhythm is stronger than the rhythm.
+   */
+}
+
+@media (max-width: 760px) {
+  /*
+   * The one row in the family that is allowed to be taller, and why.
+   *
+   * iOS Safari zooms the whole page when a field smaller than 16px takes
+   * focus, and there is no way to ask it not to — so the input is 16 on a
+   * phone whatever the rest of the foot is set at. Sixteen crammed into a
+   * twenty-four pixel row is what reads as a mistake; sixteen in a row
+   * built to hold it reads as a field. So the row grows to suit the one
+   * thing in it that cannot shrink, and the label and the button come up
+   * with it rather than sitting small beside it.
+   *
+   * The alternative is to set the field at the family's size and let the
+   * page jump every time somebody taps it, which is a worse thing to do to
+   * a reader than a row eight pixels taller than its neighbours.
+   */
+  .hbw-end__loop > .hbw-end__field {
+    min-height: 32px;
+    gap: calc(var(--pill-x) * 0.8);
+  }
+
+  .hbw-end__loop > .hbw-end__field > input:not(.hbw-end__trap) {
+    flex: 1 1 auto;
+    font-size: 16px;
+  }
+
+  .hbw-end__loop > .hbw-end__field > label,
+  .hbw-end__loop > .hbw-end__field > button {
+    font-size: 16px;
+  }
+}
+
+.hbw-end__loop > .hbw-end__field > button {
+  flex: 0 0 auto;
+  width: auto;
+  color: var(--mute);
+  white-space: nowrap;
 }

@@ -51,8 +51,14 @@ export function Footer() {
   return (
     <footer className="hbw-end">
       <div className="hbw-end__who">
-        {/* The footer is a long way from the nav, so it says the whole thing. */}
-        <p>How by Why — clarity for brands at a turning point.</p>
+        {/*
+          The positioning line is not said twice.
+          
+          It was here because the foot is a long way from the nav — but the
+          nav is fixed, so it is never off the screen and never further away
+          than the top of the window. Two statements of the same sentence a
+          few hundred pixels apart is one of them doing nothing.
+        */}
         <p className="is-mute">{STUDIO_PLACE}</p>
       </div>
 
@@ -60,22 +66,32 @@ export function Footer() {
         {state === "done" ? (
           <p className="is-mute">Thank you — you are on the list.</p>
         ) : (
-          <form onSubmit={send}>
-            <label htmlFor={field}>Stay in the loop</label>
-            <div className="hbw-end__field">
-              <input
-                id={field}
-                type="email"
-                required
-                autoComplete="email"
-                placeholder="you@company.com"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-              <button type="submit" disabled={state === "sending"}>
-                {state === "sending" ? "Sending" : "Join"}
-              </button>
-            </div>
+          /*
+            One row, in the shape every other row in here has.
+            
+            It was a label, then a field, then a button, stacked three deep
+            and sixty-two pixels tall beside a column of twenty-four pixel
+            rows — the one thing in the foot that was not an object two
+            pixels from the next. Said across, it is a label and a value and
+            a way to act on it, which is the same shape as the facts in a
+            project and the ways out underneath it.
+          */
+          <form onSubmit={send} className="hbw-end__field">
+            <label htmlFor={field} className="hbw-m">
+              Stay in the loop
+            </label>
+            <input
+              id={field}
+              type="email"
+              required
+              autoComplete="email"
+              placeholder="you@company.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <button type="submit" disabled={state === "sending"}>
+              {state === "sending" ? "Sending" : "Join"}
+            </button>
             {/* Not shown to anyone, and filled in by crude bots. */}
             <input
               className="hbw-end__trap"
