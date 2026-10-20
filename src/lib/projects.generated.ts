@@ -31,7 +31,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Fashion"],
     disciplines: ["Launch Strategy","Content Planning","Social Content","Motion","Messaging"],
     order: 1,
-    card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/b9d1faba549713420d7e0efbb3f149595fe385bb-1080x1920.jpg","width":1080,"height":1920},
+    card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/9d24432fb14260b83d2aba70ac250968658202b7-1600x2000.jpg","width":1600,"height":2000},
   },
   {
     slug: "sck",

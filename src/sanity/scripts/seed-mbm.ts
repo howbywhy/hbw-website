@@ -121,7 +121,7 @@ async function main() {
    * nothing. The preview is the picture the catalogue shows, so it is named
    * in one place and this is it — m08, the one frame entirely in colour.
    */
-  const previewId = await assetId("public/projects/made-by-madelen/web/08-full-story.jpg", "image");
+  const previewId = await assetId("public/projects/made-by-madelen/web/01-full-tall.jpg", "image");
 
   const movements = [];
   for (const movement of MBM_MOVEMENTS) {

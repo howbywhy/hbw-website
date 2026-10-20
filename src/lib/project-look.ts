@@ -50,10 +50,10 @@ export type ProjectLook = Partial<
 
 export const PROJECT_LOOKS: Record<string, ProjectLook> = {
   "made-by-madelen": {
-    src: "/projects/made-by-madelen/web/01-full-story.jpg",
-    srcSet: srcSetFor("/projects/made-by-madelen/web/01-full-story.jpg", [], 1080)!,
-    width: 1080,
-    height: 1920,
+    src: "/projects/made-by-madelen/web/01-full-tall.jpg",
+    srcSet: srcSetFor("/projects/made-by-madelen/web/01-full-tall.jpg", [], 1600)!,
+    width: 1600,
+    height: 2000,
     crop: "center 38%",
     layout: "portrait",
     keyArtId: "m08",
