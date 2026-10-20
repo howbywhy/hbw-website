@@ -1600,14 +1600,32 @@ export function Lightbox({
           ref={rowWays}
           data-idle={reading ? "true" : undefined}
         >
-          <button
-            type="button"
-            disabled={reading}
-            aria-label={view === "grid" ? "Show the gallery" : "Show the grid"}
-            onClick={() => move(view === "grid" ? "band" : "grid")}
-          >
-            {view === "grid" ? "Grid" : "Gallery"}
-          </button>
+          {/*
+            One picture is a different experience, and it has one way out.
+            
+            How the set is laid out is a question about a set. In here there
+            is no set — there is this frame, the ones either side of it, and
+            the way back. Offering Gallery or Grid from a single picture asks
+            the reader to choose between two things neither of which is what
+            they are looking at, and answers a question they did not ask.
+            
+            The same object in the same place, saying the only thing there is
+            to say here.
+          */}
+          {full ? (
+            <button type="button" aria-label="Close this frame" onClick={shutFull}>
+              Close
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={reading}
+              aria-label={view === "grid" ? "Show the gallery" : "Show the grid"}
+              onClick={() => move(view === "grid" ? "band" : "grid")}
+            >
+              {view === "grid" ? "Grid" : "Gallery"}
+            </button>
+          )}
         </span>
       </div>
 

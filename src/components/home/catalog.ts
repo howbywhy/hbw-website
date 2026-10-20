@@ -1,4 +1,9 @@
 import { catalogIdForSlug } from "@/lib/cms-source";
+import { cdnSrcSet, srcSetFor } from "@/lib/srcset";
+import { REGISTERED_PROJECTS } from "@/lib/projects.generated";
+import { lookFor, routeFor } from "@/lib/project-look";
+
+export { srcSetFor };
 
 export { catalogIdForSlug };
 
@@ -140,178 +145,90 @@ export type ProjectRecord = {
   external?: string;
 };
 
-export function srcSetFor(src: string, widths: number[], intrinsic: number) {
-  const ext = src.endsWith(".webp") ? "webp" : src.endsWith(".png") ? "png" : "jpg";
-  if (ext !== "jpg" && ext !== "webp") return undefined;
-  const base = src.replace(/\.(jpg|webp)$/, "");
-  return widths.map((w) => `${base}-p-${w}.${ext} ${w}w`).concat(`${src} ${intrinsic}w`).join(", ");
-}
 
-/** Verified from recovered /projects and / home records. */
-export const PROJECTS: ProjectRecord[] = [
-  {
-    id: "made-by-madelen",
-    href: "/projects/made-by-madelen",
-    name: "Made by Madelen",
-    idea: "From Making to Moment",
-    year: "2026",
-    // The first movement, as everywhere else: the card opens into that frame,
-    // so the still it shows and the still it flies to have to be one picture.
-    // The catalogue card itself is keyArtId below.
-    src: "/projects/made-by-madelen/web/01-full-story.jpg",
-    srcSet: srcSetFor("/projects/made-by-madelen/web/01-full-story.jpg", [], 1080)!,
-    width: 1080,
-    height: 1920,
-    crop: "center 38%",
-    layout: "portrait",
-    keyArtId: "m08",
-    visualSpan: 5,
-    visualStart: 7,
-    sectors: ["Fashion"],
-    disciplines: ["Launch Strategy", "Content Planning", "Social Content", "Motion", "Messaging"],
-    credits: ["Mark Blackler", "Madelen"],
-  },
-  {
-    id: "sck",
-    href: "/projects/sck",
-    name: "SCK",
-    idea: "Intersecting Realities",
-    year: "2025",
-    src: "/projects/sck/1.jpg",
-    srcSet: srcSetFor("/projects/sck/1.jpg", [], 1080)!,
-    width: 1296,
-    height: 1620,
-    crop: "center 32%",
-    layout: "portrait",
-    keyArtId: "sk09",
-    visualSpan: 5,
-    visualStart: 8,
-    sectors: ["Architecture", "Interior Design"],
+/**
+ * Every project, built from what the CMS has and how we have chosen to show it.
+ *
+ * This was a list kept by hand — seven records of twenty-odd fields each,
+ * restating the name, the year, the sectors and the disciplines that the CMS
+ * already held, and drifting from them whenever one was edited and the other
+ * was not. It is derived now: the facts come from the registry, which is
+ * written straight out of the CMS, and the judgements come from the look,
+ * which is the only part that was ever a decision rather than a record.
+ *
+ * Which means a project no longer has to be typed out to exist. Publish it
+ * with a preview and a sequence, let the registry be written, and it is
+ * here — carded with its own preview, cropped centrally, laid out in the
+ * order the CMS gives. Give it a look when the default is not good enough,
+ * which it usually will not be, but not before it is on the site.
+ */
+export const PROJECTS: ProjectRecord[] = REGISTERED_PROJECTS.map((project) => {
+  const look = lookFor(project.slug);
+  const id = routeFor(project.slug);
+  /*
+   * A card by hand, or the project's own preview.
+   *
+   * The seven that were here first each name a still chosen over months —
+   * rarely the first frame, because the frame that opens a sequence and the
+   * frame that sells it are different jobs. A project without that choice
+   * made for it shows the preview it was published with, which is the one
+   * picture it is certain to have.
+   */
+  const card = look.src
+    ? { src: look.src, srcSet: look.srcSet ?? "", width: look.width, height: look.height }
+    : project.card
+      ? {
+          src: project.card.src,
+          srcSet: cdnSrcSet(project.card.src, project.card.width),
+          width: project.card.width,
+          height: project.card.height,
+        }
+      : null;
+  if (!card?.src || !card.width || !card.height) {
+    throw new Error(
+      `${project.slug} has neither a card in project-look.ts nor a preview in the CMS, so there is nothing to show it with.`
+    );
+  }
+  return {
+    id,
+    href: `/projects/${id}`,
+    name: project.name,
+    idea: project.idea,
+    year: project.year,
+    src: card.src,
+    srcSet: card.srcSet,
+    width: card.width,
+    height: card.height,
+    sectors: project.sectors.filter((one): one is Sector =>
+      (SECTORS as readonly string[]).includes(one)
+    ),
+    disciplines: project.disciplines.filter((one): one is Discipline =>
+      (DISCIPLINES as readonly string[]).includes(one)
+    ),
     /*
-     * No Digital Design. Tayte did the whole site.
-     *
-     * It sat here while the row beneath credited the website to somebody
-     * else, so the facts read as a claim and a correction one line apart.
-     * The discipline stays in the vocabulary — KOJA, CLOSED and Our Boy Roy
-     * all earn it — it is only untrue of this project.
+     * The crop and the layout always have an answer, because a card cannot
+     * be drawn without one. The middle of the picture and a portrait cell
+     * are what a frame gets when nobody has looked at it yet — right often
+     * enough to put a project on the site, and the first two things worth
+     * changing once it is there.
      */
-    disciplines: ["Brand Strategy", "Visual Identity", "Motion"],
-    credits: ["Mark Blackler"],
-    partners: [{ contribution: "Website", name: "Tayte", url: "https://www.tayte.co/" }],
-  },
-  {
-    id: "bar-closed",
-    href: "/projects/bar-closed",
-    name: "CLOSED",
-    idea: "A Smuggler’s House",
-    year: "2024",
-    src: "/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg",
-    srcSet: srcSetFor("/projects/bar-closed/670ca0219bf6bccf429b9e5b_HBWxCLOSED-Portfolio25.jpg", [500, 800], 1080)!,
-    width: 1080,
-    height: 1350,
-    crop: "center 42%",
-    layout: "portrait",
-    visualSpan: 6,
-    visualStart: 4,
-    visualBefore: 4,
-    homeSelected: true,
-    sectors: ["Hospitality"],
-    disciplines: [
-      "Brand Strategy",
-      "Naming",
-      "Visual Identity",
-      "Signage & Wayfinding",
-      "Website",
-      "Print",
-    ],
-    features: [
-      {
-        name: "The Brand Identity",
-        url: "https://the-brandidentity.com/project/in-crafting-a-rich-evocative-identity-for-closed-bar-how-by-why-serves-a-lesson-in-worldbuilding",
-      },
-    ],
-    credits: ["Mark Blackler", "Sasha Burger"],
-  },
-  {
-    id: "koja",
-    href: "/projects/koja",
-    name: "KOJA",
-    idea: "Unapologetically Good",
-    year: "2024",
-    src: "/projects/koja/web/07-full-tall.jpg",
-    srcSet: srcSetFor("/projects/koja/web/07-full-tall.jpg", [500, 800, 1080], 1350)!,
-    width: 1350,
-    height: 1688,
-    crop: "center 68%",
-    layout: "contained",
-    visualSpan: 4,
-    visualStart: 9,
-    homeSelected: true,
-    sectors: ["Food", "FMCG"],
-    disciplines: ["Brand Strategy", "Visual Identity", "Packaging", "Print", "Digital Design"],
-    credits: ["Mark Blackler"],
-  },
-  {
-    id: "sub-3",
-    href: "/projects/sub-3",
-    name: "SUB:3",
-    idea: "Bending Time & Space",
-    year: "2025",
-    src: "/projects/sub-3/1.jpg",
-    srcSet: srcSetFor("/projects/sub-3/1.jpg", [], 1600)!,
-    width: 1600,
-    height: 2000,
-    crop: "center 18%",
-    layout: "portrait",
-    visualSpan: 7,
-    visualStart: 1,
-    homeSelected: true,
-    sectors: ["Sports Nutrition", "FMCG"],
-    disciplines: ["Visual Identity", "Packaging"],
-    collaborators: ["the-colour-club"],
-    credits: ["Mark Blackler", "Nick Mitchell", "Matt Cherubino", "Teel Studios"],
-  },
-  {
-    id: "chris-sisarich",
-    href: "/projects/chris-sisarich",
-    name: "Chris Sisarich",
-    idea: "Beauty Amongst The Mundane",
-    year: "2024",
-    src: "/projects/chris-sisarich/web/08-full-tall.jpg",
-    srcSet: srcSetFor("/projects/chris-sisarich/web/08-full-tall.jpg", [500, 800, 1080], 1350)!,
-    width: 1350,
-    height: 1688,
-    crop: "center 48%",
-    layout: "portrait",
-    visualSpan: 7,
-    visualStart: 3,
-    visualBefore: 3,
-    homeSelected: true,
-    sectors: ["Photography"],
-    disciplines: ["Brand Strategy", "Visual Identity", "Website"],
-    credits: ["Mark Blackler"],
-  },
-  {
-    id: "our-boy-roy",
-    href: "/projects/our-boy-roy",
-    name: "Our Boy Roy",
-    idea: "The Friendly Neighbour",
-    year: "2022",
-    src: "/projects/our-boy-roy/web/08-full-tall.jpg",
-    srcSet: srcSetFor("/projects/our-boy-roy/web/08-full-tall.jpg", [500, 800, 1080], 1350)!,
-    width: 1334,
-    height: 2000,
-    crop: "center 36%",
-    layout: "portrait",
-    visualSpan: 5,
-    visualStart: 8,
-    homeSelected: true,
-    sectors: ["Hospitality"],
-    disciplines: ["Visual Identity", "Signage & Wayfinding", "Print"],
-    collaborators: ["the-colour-club"],
-    credits: ["Mark Blackler", "Nick Mitchell"],
-  },
-];
+    crop: look.crop ?? "center",
+    layout: look.layout ?? "portrait",
+    /* The rest are decisions rather than facts, so they only appear where
+       somebody has made one. */
+    ...(look.keyArtId ? { keyArtId: look.keyArtId } : {}),
+    ...(look.visualSpan ? { visualSpan: look.visualSpan } : {}),
+    ...(look.visualStart ? { visualStart: look.visualStart } : {}),
+    ...(look.visualBefore ? { visualBefore: look.visualBefore } : {}),
+    ...(look.homeSelected ? { homeSelected: look.homeSelected } : {}),
+    ...(look.collaborators ? { collaborators: look.collaborators } : {}),
+    ...(look.credits ? { credits: look.credits } : {}),
+    ...(look.partners ? { partners: look.partners } : {}),
+    ...(look.features ? { features: look.features } : {}),
+    ...(look.location ? { location: look.location } : {}),
+    ...(look.status ? { status: look.status } : {}),
+  };
+});
 
 /**
  * The live sequence: newest year first, and within a year the order this file

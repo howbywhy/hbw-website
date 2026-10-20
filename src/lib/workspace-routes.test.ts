@@ -63,7 +63,14 @@ test("CLOSED CMS slug aliases the public catalog id", () => {
 });
 
 test("retired Nido is absent from public progression; the last cycles to the first", () => {
-  // Newest year first; within a year, catalog order.
+  /*
+   * Newest year first; within a year, the order the CMS gives.
+   *
+   * This used to be catalog order, which meant a list kept by hand. The
+   * running order is portfolioOrder in the Studio now, so changing it is
+   * something to do in the CMS rather than something to ask for — and this
+   * assertion is what notices if it changes without anybody meaning it to.
+   */
   assert.deepEqual(PROJECT_SLUGS, [
     "made-by-madelen",
     "sck",

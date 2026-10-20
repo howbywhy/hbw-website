@@ -22,7 +22,9 @@
     "test:sub3-cms": "node --import tsx src/sanity/scripts/verify-sub3-cms.ts",
     "test:obr-cms": "node --import tsx src/sanity/scripts/verify-obr-cms.ts",
     "test:studio-cms": "node --import tsx src/sanity/scripts/validate-studio-docs.ts",
-    "qa": "node qa/run.mjs"
+    "qa": "node qa/run.mjs",
+    "sync:projects": "node --import tsx --env-file-if-exists=.env.local src/sanity/scripts/sync-projects.ts",
+    "prebuild": "npm run sync:projects"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
