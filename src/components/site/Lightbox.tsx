@@ -43,6 +43,42 @@ function runsDown(host: HTMLElement) {
   return host.scrollHeight > host.clientHeight + 4;
 }
 
+/**
+ * Whether the reader asked for the band to run down the screen.
+ *
+ * Read from the address, once, and not during render: the server has no
+ * search string, so asking there would render one thing on the server and
+ * another in the browser and hydration would disagree. It is set after the
+ * first paint instead, which for a flag whose whole purpose is to be felt
+ * rather than measured is soon enough.
+ */
+function askedForDown() {
+  try {
+    /*
+     * Remembered for the session, because the address does not keep it.
+     *
+     * Opening a project pushes /projects/<slug> and nothing else, so the
+     * first press of Next would drop the flag and hand back the horizontal
+     * band halfway through the comparison — which is the one thing that
+     * would make the comparison useless. Asked for once, it holds until the
+     * tab is closed; ?band=across turns it off again.
+     */
+    const asked = new URLSearchParams(window.location.search).get("band");
+    if (asked === "down") {
+      window.sessionStorage?.setItem("hbw-band", "down");
+      return true;
+    }
+    if (asked === "across") {
+      window.sessionStorage?.removeItem("hbw-band");
+      return false;
+    }
+    return window.sessionStorage?.getItem("hbw-band") === "down";
+  } catch {
+    /* no storage and no search string: the band runs the way it always has */
+    return false;
+  }
+}
+
 export function Lightbox({
   shots,
   at,
@@ -317,6 +353,18 @@ export function Lightbox({
     staging.current = window.setTimeout(() => setClosing(false), beat("--in", 560));
   }, [beat, stillness]);
   const pages = useRef<HTMLDivElement>(null);
+  /*
+   * Which way the band runs, when the address has an opinion.
+   *
+   * Undefined on the server and on the first paint, "down" from the effect
+   * on, so the markup the server sent and the markup React hydrates are the
+   * same. Changing it re-runs the measuring effects below, which is what
+   * moves the rail onto its new axis.
+   */
+  const [band, setBand] = useState<"down" | undefined>(undefined);
+  useEffect(() => {
+    if (askedForDown()) setBand("down");
+  }, []);
   /** The handover panel sits one past the last frame. */
   const handover = next ? shots.length : -1;
   const onHandover = at === handover;
@@ -1219,6 +1267,31 @@ export function Lightbox({
         <div
           className="hbw-lamp__pages"
           ref={pages}
+          /*
+           * ?band=down turns the run onto the reader's own axis.
+           *
+           * Across the screen this band is 14,530px wide in a 1,440px window,
+           * and nothing the browser will scroll from a downward push —
+           * measured: with the page's own wheel handler never registered, a
+           * vertical wheel over the gallery moves it nought pixels. So the
+           * page scrolls it itself, in JavaScript, behind a non-passive
+           * listener that calls preventDefault. Two things follow, and
+           * neither shows up as a dropped frame: Chrome cannot scroll
+           * optimistically, because a non-passive listener might cancel the
+           * scroll, so every wheel event waits on the main thread first; and
+           * an assigned scrollLeft gets no compositor momentum, so a flick
+           * applies raw deltas and stops dead rather than gliding.
+           *
+           * Down the screen it is an ordinary vertical scroller: the browser
+           * owns it, momentum comes back, and the wheel handler stands aside
+           * of its own accord — runsDown() already returns early, and all
+           * three places that measure the band already read both axes.
+           *
+           * A flag rather than a change, because this is a differently
+           * shaped gallery and not merely a differently behaving one, which
+           * is a decision about the work rather than about the code.
+           */
+          data-band={band}
           /*
            * The set is laid out one way, whatever is open over it.
            *

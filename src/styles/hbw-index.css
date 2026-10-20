@@ -11916,3 +11916,70 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * The head first, then the body, then the way back: the same order the board
  * uses, on the same beat.
  */
+
+/* =====================================================================
+   ?band=down — the run turned onto the reader's own axis.
+
+   Across the screen the band is fourteen and a half thousand pixels wide
+   in a fourteen hundred pixel window, and a downward push is not something
+   the browser will scroll it with: measured, with the page's own wheel
+   handler never registered, a vertical wheel moves it nought pixels. So
+   the page moves it itself, in JavaScript, behind a listener that has to
+   cancel the browser's own handling in order to do so. Every wheel event
+   therefore waits on the main thread before anything can move, and an
+   assigned scrollLeft has no momentum of its own — a flick applies raw
+   deltas and stops dead rather than gliding. Neither of those is a dropped
+   frame, which is why days of frame-rate measurement called it smooth.
+
+   Down the screen it is an ordinary vertical scroller. The browser owns
+   it, momentum comes back, and the wheel handler stands aside by itself.
+
+   Everything else is kept: each page still takes its picture's own
+   proportions and nothing is cropped. Only the driving edge changes.
+   Across, the height was set and the width followed from the ratio; down,
+   the width is set and the height follows — so the stagger that made a
+   ragged foot now makes a ragged right edge, which is the same idea read
+   the other way round.
+
+   Written last in the file on purpose: the band's own rules are restated
+   in four media queries further up, and this has to outrank all of them.
+   ===================================================================== */
+.hbw-lamp__pages[data-band="down"] {
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-x: auto;
+  overscroll-behavior-y: contain;
+  width: 100%;
+  height: 100%;
+  /*
+   * Room to reach the foot.
+   *
+   * The last frame is shorter than the window, so without this the run
+   * ends with the final picture pinned against the bottom edge and no way
+   * to bring it to the middle — the counter would say the last frame while
+   * the one before it sat in the centre, which is the same disagreement
+   * the horizontal band had at its two ends.
+   */
+  padding-block: 0 18vh;
+}
+
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page {
+  /*
+   * The width is now the side that is set, and the height follows it.
+   *
+   * aspect-ratio keeps each frame's own proportions either way: across, a
+   * height was given and the width came out of the ratio; down, it is the
+   * other way about. Nothing is cropped in either.
+   */
+  height: auto;
+  width: var(--tall, 100%);
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+  width: 100%;
+  height: auto;
+}
