@@ -487,6 +487,27 @@
   text-underline-offset: 3px;
 }
 
+/*
+ * A credit in the facts is the one fact you can follow.
+ *
+ * .hbw-site a strips colour and underline from every link on the site, which
+ * is right where a link is a whole card or a whole row and wrong here: the
+ * facts are a column of flat text, and a studio's name set exactly like the
+ * year above it is not findable as a link at all. Same underline the writing
+ * in this sheet already uses, so the sheet has one treatment and not two.
+ *
+ * And the same tap target the board gives its own links: padding that grows
+ * only as far as the line box falls short of 24px, pulled back by an equal
+ * margin so nothing on the page moves.
+ */
+.hbw-info__facts a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-block;
+  padding-block: max(0px, calc((24px - 1lh) / 2));
+  margin-block: calc(-1 * max(0px, calc((24px - 1lh) / 2)));
+}
+
 @media (max-width: 760px) {
   .hbw-info__part {
     grid-column: 1;

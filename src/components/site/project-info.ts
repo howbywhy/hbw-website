@@ -12,7 +12,15 @@ import { richTextPlainCopy } from "@/components/home/projects/types";
 import type { ProjectRecord } from "@/components/home/catalog";
 
 export type InfoData = {
-  facts: { label: string; value: string }[];
+  /**
+   * `href` sends the reader somewhere else, which only a credit does.
+   *
+   * The rest of the facts are flat text — a year, a sector, a list of
+   * disciplines — and not one of them is a place you could go. A studio that
+   * made part of the work is: naming them and not saying where to find them
+   * is half a credit.
+   */
+  facts: { label: string; value: string; href?: string }[];
   /**
    * `wide` asks for the whole width of the board rather than a module's
    * share of it. A list of names and what each of them did reads across,
@@ -30,6 +38,21 @@ export function infoOf(record: ProjectRecord, experience: ProjectExperience | nu
   if (record.credits?.length) facts.push({ label: "With", value: record.credits.join(", ") });
   const roles = experience?.authorship?.roles;
   if (roles?.length) facts.push({ label: "Role", value: roles.join(", ") });
+  /*
+   * And last, the parts of the work that are somebody else's.
+   *
+   * After Role rather than beside With, because With and Role are one
+   * statement read together — who made this, and what our hand in it was —
+   * and a third party's credit in between breaks the pair. It belongs at the
+   * end: the account of the work, then the acknowledgement.
+   */
+  for (const partner of record.partners ?? []) {
+    facts.push({
+      label: partner.contribution,
+      value: partner.name,
+      ...(partner.url ? { href: partner.url } : {}),
+    });
+  }
 
   const parts: InfoData["parts"] = (experience?.infoSections ?? []).map((section) => ({
     heading: section.heading,

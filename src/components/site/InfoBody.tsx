@@ -20,7 +20,26 @@ export function InfoBody({ data, name }: { data: InfoData; name?: string }) {
           {data.facts.map((fact) => (
             <div key={fact.label}>
               <dt className="hbw-m">{fact.label}</dt>
-              <dd>{fact.value}</dd>
+              <dd>
+                {fact.href ? (
+                  /*
+                   * A new tab, which here is the right answer rather than the
+                   * lazy one.
+                   *
+                   * Every other link on this site moves around inside the
+                   * work. This sheet is open over a project that is itself
+                   * open over the line, so a reader who followed a credit away
+                   * in place would lose the frame they were on, the project,
+                   * and where they had got to — and come back to the top of
+                   * none of it.
+                   */
+                  <a href={fact.href} target="_blank" rel="noreferrer">
+                    {fact.value}
+                  </a>
+                ) : (
+                  fact.value
+                )}
+              </dd>
             </div>
           ))}
         </dl>

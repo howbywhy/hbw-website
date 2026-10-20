@@ -111,6 +111,22 @@ export type ProjectRecord = {
   /** People who made the work. Display only — not a lens. */
   credits?: string[];
   /**
+   * A distinct part of the work made by another studio, and where to find them.
+   *
+   * Not `credits`, which is the line of names under With and says nothing about
+   * who did what — a studio listed there reads as a co-author of the whole
+   * thing. Not `collaborators` either: that is the registry of studios a
+   * project was made with, it is shown as "with …" on the index row, and the
+   * index is no longer part of the site, so anything added to it is a credit
+   * nobody can see.
+   *
+   * This is for the case the other two get wrong: SCK's identity is HBW's, and
+   * its website is Tayte's. One row in the facts, labelled with the part and
+   * naming who made it, which is the only place on a project page where a
+   * credit is both visible and unambiguous. Display only — not a lens.
+   */
+  partners?: { contribution: string; name: string; url?: string }[];
+  /**
    * Intentionally unreached. Retained for a future Coming Soon record.
    * Verified by the Stage 2 KOJA probe and the Amendment B build — do not delete.
    * Absent means live.
@@ -173,6 +189,7 @@ export const PROJECTS: ProjectRecord[] = [
     sectors: ["Architecture", "Interior Design"],
     disciplines: ["Brand Strategy", "Visual Identity", "Motion", "Digital Design"],
     credits: ["Mark Blackler"],
+    partners: [{ contribution: "Website", name: "Tayte", url: "https://www.tayte.co/" }],
   },
   {
     id: "bar-closed",
