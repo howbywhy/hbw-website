@@ -12493,3 +12493,22 @@ body:has(.hbw-lamp) .hbw-bar__what {
   opacity: 0.38;
   pointer-events: none;
 }
+
+/*
+ * The count and the switch are the same object at either end of the row.
+ *
+ * One says where you are and the other says how you are looking, and they
+ * are the only two things on that line — so they read as a pair, and a pair
+ * that is 61 pixels at one end and 40 at the other reads as two unrelated
+ * controls that happen to be opposite each other. Given a width they both
+ * clear, the row has a weight at each end and the line sits between them.
+ *
+ * Wide enough for the longest either carries: "18 / 18" and "Gallery". The
+ * count is centred in it so the figures do not shift as the set is walked.
+ */
+.hbw-lamp__count,
+.hbw-lamp__view button {
+  min-width: var(--lamp-end, 72px);
+  justify-content: center;
+  text-align: center;
+}

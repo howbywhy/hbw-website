@@ -29,7 +29,7 @@
     "@sanity/client": "^7.26.2",
     "@sanity/webhook": "^4.0.4",
     "@vercel/analytics": "^2.0.1",
-    "next": "^16.0.0",
+    "next": "^16.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sanity": "^6.12.0",

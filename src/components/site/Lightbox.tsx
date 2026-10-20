@@ -532,6 +532,43 @@ export function Lightbox({
     [onAt, setReading]
   );
 
+  /**
+   * Whether a press in the full view landed beside the picture rather than on it.
+   *
+   * The two halves cover the whole window, which is right for stepping — the
+   * target is the size of half the screen and you never have to aim. But it
+   * also meant the dark either side of a portrait frame stepped the set, and
+   * there was no way at all to get out by pressing: every press in the view
+   * went further into it.
+   *
+   * Beside the picture is the way out. On it is the way through. Which is
+   * what a reader already expects of a picture opened over something, and
+   * the only part of this view that had no answer.
+   */
+  const outside = useCallback((event: { clientX: number; clientY: number }) => {
+    /*
+     * The picture, not the box it is in.
+     *
+     * .hbw-lamp__shot is a wrapper with no size of its own, so measuring it
+     * gave nought by nought — and the guard below, which refuses to close on
+     * a rectangle it cannot trust, quietly turned every press back into a
+     * step. Which is the right way for this to fail, and the reason it took
+     * a measurement rather than a look to notice.
+     */
+    const shot = document.querySelector<HTMLElement>(
+      ".hbw-lamp__shot img, .hbw-lamp__shot video"
+    );
+    if (!shot) return false;
+    const r = shot.getBoundingClientRect();
+    if (!r.width || !r.height) return false;
+    return (
+      event.clientX < r.left ||
+      event.clientX > r.right ||
+      event.clientY < r.top ||
+      event.clientY > r.bottom
+    );
+  }, []);
+
   const shutFull = useCallback(() => {
     window.clearTimeout(staging.current);
     if (stillness) {
@@ -1590,7 +1627,7 @@ export function Lightbox({
           className="hbw-lamp__pages"
           ref={pages}
           /*
-           * ?band=down turns the run onto the reader's own axis.
+           * Which way the run goes, when it is the arranged one.
            *
            * Across the screen this band is 14,530px wide in a 1,440px window,
            * and nothing the browser will scroll from a downward push —
@@ -1609,9 +1646,8 @@ export function Lightbox({
            * of its own accord — the wheel handler returns early, and all
            * three places that measure the band already read both axes.
            *
-           * A flag rather than a change, because this is a differently
-           * shaped gallery and not merely a differently behaving one, which
-           * is a decision about the work rather than about the code.
+           * It was a flag while it was being judged; it is what Grid
+           * means now, and what Gallery means on a phone.
            */
           data-band={band}
           /*
@@ -1981,13 +2017,13 @@ export function Lightbox({
             type="button"
             className="hbw-lamp__full-step hbw-lamp__full-step--back"
             aria-label="Previous frame"
-            onClick={() => step(-1)}
+            onClick={(event) => (outside(event) ? shutFull() : step(-1))}
           />
           <button
             type="button"
             className="hbw-lamp__full-step hbw-lamp__full-step--on"
             aria-label="Next frame"
-            onClick={() => step(1)}
+            onClick={(event) => (outside(event) ? shutFull() : step(1))}
           />
           {/*
             The end of the set, and the way on from it.
