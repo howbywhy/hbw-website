@@ -44,6 +44,28 @@ function runsDown(host: HTMLElement) {
 }
 
 /**
+ * What shape a frame is, in the only three kinds an arrangement needs.
+ *
+ * The thresholds are the phone grid's own — 1.1 and 0.85 — so a picture is
+ * not one shape in one view and another shape in another. Below 0.6 it stops
+ * being a portrait and becomes a long thing: a tall strip, a stacked set, a
+ * full feed. Those take a row of their own and are held to a height, because
+ * at any width that suits the rest of the run they would be three screens
+ * tall.
+ *
+ * A frame whose proportions are unknown is treated as upright: it is the
+ * forgiving half of the layout, and a pair that turns out to be mismatched
+ * is a smaller fault than a smear across the whole measure.
+ */
+function shapeOf(shot: { width?: number; height?: number }) {
+  if (!shot.width || !shot.height) return "upright";
+  const ar = shot.width / shot.height;
+  if (ar > 1.1) return "wide";
+  if (ar <= 0.6) return "long";
+  return "upright";
+}
+
+/**
  * Whether the reader asked for the band to run down the screen.
  *
  * Read from the address, once, and not during render: the server has no
@@ -1343,6 +1365,23 @@ export function Lightbox({
                 data-frame={i}
                 data-here={i === at}
                 aria-hidden={i === at ? undefined : true}
+                /*
+                 * What shape this frame is, so a run down the screen can
+                 * arrange itself rather than printing everything full width.
+                 *
+                 * Three kinds, from the same ratio the phone grid already
+                 * reads, so the site has one idea of what a shape is and not
+                 * two. Upright frames take half the measure and so fall into
+                 * pairs; wide ones take the whole of it and stand alone,
+                 * because half a landscape is a smear; very long ones stand
+                 * alone too and are held to a height, since at any sensible
+                 * width they would otherwise run off the bottom of the
+                 * screen and be read as a scroll rather than a picture.
+                 *
+                 * The data knows the shape. Whether to use it is the
+                 * stylesheet's business — across the screen this is ignored.
+                 */
+                data-shape={shapeOf(one)}
                 /* The page is the shape of its picture, known before it loads,
                    so the band is laid out right from the first paint and
                    nothing has to be cropped to fit a column. */

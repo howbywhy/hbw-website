@@ -11945,41 +11945,177 @@ body:has(.hbw-lamp) .hbw-bar__what {
    in four media queries further up, and this has to outrank all of them.
    ===================================================================== */
 .hbw-lamp__pages[data-band="down"] {
-  flex-direction: column;
+  /*
+   * A wrapping run, not a single column.
+   *
+   * A column prints every frame at the full measure, which made a phone
+   * mockup taller than the window and turned a gallery into a slideshow you
+   * had to scroll. Wrapped, the arrangement falls out of the shapes
+   * themselves: upright frames take half the measure and so come in pairs,
+   * wide ones take all of it and stand alone, long ones stand alone and are
+   * given more height. Nothing decides the rows — the shapes do, and the
+   * sequence stays in exactly the order it was authored.
+   */
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-x: auto;
   overscroll-behavior-y: contain;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   /*
-   * Room to reach the foot.
+   * A measure, rather than the whole window.
    *
-   * The last frame is shorter than the window, so without this the run
-   * ends with the final picture pinned against the bottom edge and no way
-   * to bring it to the middle — the counter would say the last frame while
-   * the one before it sat in the centre, which is the same disagreement
-   * the horizontal band had at its two ends.
+   * Edge to edge a landscape is 1,440 wide and most of the screen tall: one
+   * picture, one screen, and the run reads as a stack of posters. Inset, the
+   * work has a margin to sit in and a pair comes out at a size you can take
+   * in at a glance, which is what a gallery is for.
    */
-  padding-block: 0 18vh;
+  padding-inline: var(--band-side, 6vw);
+  padding-block: 5vh 18vh;
+  gap: var(--band-gap, 2.4vw);
 }
 
+/*
+ * Every frame is a slot of a known height, with its picture inside it.
+ *
+ * Sized by height rather than by width, which is the whole answer to "the
+ * images are too big": whatever a picture's proportions, it is half a screen
+ * tall and no more, and the width it asks for follows from that. Sized the
+ * other way round, a frame only a little wider than square came out taller
+ * than the window — measured, 1,074px in an 818px view.
+ *
+ * The slot is still half the measure, because that is what makes a pair a
+ * pair; the picture sits in the middle of it at its own proportions. Which
+ * means the aspect-ratio that shapes the band when it runs across has to be
+ * stood down here, or it would set the height all over again from the width.
+ */
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page {
-  /*
-   * The width is now the side that is set, and the height follows it.
-   *
-   * aspect-ratio keeps each frame's own proportions either way: across, a
-   * height was given and the width came out of the ratio; down, it is the
-   * other way about. Nothing is cropped in either.
-   */
-  height: auto;
-  width: var(--tall, 100%);
-  align-items: flex-start;
-  justify-content: flex-start;
+  box-sizing: border-box;
+  flex: 0 0 calc(50% - var(--band-gap, 2.4vw) / 2);
+  width: calc(50% - var(--band-gap, 2.4vw) / 2);
+  max-width: 100%;
+  aspect-ratio: auto;
+  height: var(--band-tall, 52vh);
+  align-items: center;
+  justify-content: center;
 }
 
-.hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+/*
+ * Contained, not cropped.
+ *
+ * Across the screen each page is cut to its picture's own shape, so filling
+ * it crops nothing. Here the page is a slot the picture sits inside, and
+ * filling that would crop every frame to half a measure by half a screen.
+ */
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page img,
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page video {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Wide: the whole measure, alone. Half a landscape is a smear. */
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-shape="wide"] {
+  flex-basis: 100%;
   width: 100%;
-  height: auto;
+}
+
+/*
+ * Long: alone, and taller, because that is the only thing it can be.
+ *
+ * A stacked set or a full feed at half a screen is a postage stamp with
+ * nothing readable in it. Given more height and a row to itself, it reads as
+ * the one long thing it is.
+ */
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-shape="long"] {
+  flex-basis: 100%;
+  width: 100%;
+  height: 74vh;
+}
+
+/*
+ * The next project takes the whole measure at the end of the run.
+ *
+ * min-width and max-width both said, because the panel carries a width of
+ * its own from the horizontal band and a flex item's min-width is auto:
+ * without these it came out 1,436px inside a 1,267px measure and hung off
+ * the right-hand edge of the run.
+ */
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--band-tall, 52vh);
+}
+
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next button {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: 100%;
+}
+
+/*
+ * On a phone there is no room for a pair.
+ *
+ * Half of 390px is a frame the size of a stamp, and the inset that gives the
+ * work room on a laptop is most of the screen here. Everything takes the
+ * measure, and the measure is nearly the window.
+ */
+@media (max-width: 760px) {
+  .hbw-lamp__pages[data-band="down"] {
+    --band-side: 4vw;
+    --band-gap: 3vw;
+    --band-tall: 44vh;
+  }
+
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page {
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-shape="long"] {
+    height: 62vh;
+  }
+}
+
+/*
+ * A cell with nothing in it shows nothing, rather than a broken picture.
+ *
+ * The strip suppresses its sources while a gallery covers the window, which
+ * leaves an <img> with an alt and no src — and Chrome draws that as a broken
+ * icon with the alt beside it. Behind the horizontal band it was never seen,
+ * because the band filled the screen. The arranged run does not fill it, so
+ * a hundred and eighty-six broken icons and their captions read through the
+ * ground. The alt is still on the element for anything reading the page;
+ * there is simply nothing to draw.
+ */
+.hbw-cell img:not([src]) {
+  visibility: hidden;
+}
+
+/*
+ * The arranged run paints its own ground.
+ *
+ * The gallery's is 93% opaque, which was invisible under a band that filled
+ * the screen and is not under a run with air in it: the year, the
+ * description and the cells behind all show faintly through the gaps and
+ * read as dirt on the glass.
+ *
+ * Said on the run itself rather than on the gallery around it. The obvious
+ * way was :has() on the lamp, which matched nothing — the rule never
+ * reached the served stylesheet at all. The run is the element these rules
+ * already reach, it covers the same area, and it needs no help from a
+ * selector that may or may not survive the build.
+ */
+.hbw-lamp__pages[data-band="down"] {
+  background-color: rgb(16, 16, 16);
 }

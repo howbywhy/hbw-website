@@ -22,6 +22,45 @@
  */
 import { useEffect, useState } from "react";
 
+/**
+ * ?lead=overlap — the nav still leads, it just stops having to finish first.
+ *
+ * Measured on a press of About: the bar moves from 18ms to 239ms, the gate
+ * comes off at 281ms, and the sheet first moves at 289ms. So for the better
+ * part of a third of a second after the press, nothing about the thing that
+ * was asked for moves at all — and the only thing that does move is the bar,
+ * through twenty-eight separate changes as its pieces arrive on their own
+ * delays. Read together that is a press with no answer followed by a sheet
+ * arriving all at once: too long, and jumpy with it.
+ *
+ * Overlapping, the gate lifts when the bar's pieces are each half way
+ * through rather than finished. The order is unchanged — the bar still
+ * starts first, and is still the thing the sheet waits on — but the two
+ * share the middle of the move instead of running end to end.
+ *
+ * A flag, because "the chrome settles, then what it frames" is a decision
+ * about the work rather than a detail of the code. ?lead=settle turns it
+ * off; it holds for the session, since opening a project pushes an address
+ * with no query on it.
+ */
+function overlapping() {
+  try {
+    const asked = new URLSearchParams(window.location.search).get("lead");
+    if (asked === "overlap") {
+      window.sessionStorage?.setItem("hbw-lead", "overlap");
+      return true;
+    }
+    if (asked === "settle") {
+      window.sessionStorage?.removeItem("hbw-lead");
+      return false;
+    }
+    return window.sessionStorage?.getItem("hbw-lead") === "overlap";
+  } catch {
+    /* nothing to read: the nav finishes before anything follows it */
+    return false;
+  }
+}
+
 export function useNavSettled() {
   const [settled, setSettled] = useState(false);
 
@@ -62,14 +101,35 @@ export function useNavSettled() {
      * going. So a bar that has moved settles two quiet frames after it
      * stops, and a bar that was never going to move settles after four.
      */
+    const overlap = overlapping();
     let frame = 0;
     let moved = false;
     let calm = 0;
     const watch = () => {
       if (dropped) return;
-      const busy = bar
-        .getAnimations({ subtree: true })
-        .some((one) => one.playState === "running");
+      /*
+       * Finished, or — overlapping — merely past the half way point.
+       *
+       * progress is null outside an animation's active phase, which covers
+       * both a piece still sitting in its delay and one already done. The
+       * first has not started and must still be waited for; the second has
+       * nothing left to wait for. Only a running piece has a progress to
+       * read, so the delayed case is caught by its own test rather than
+       * being quietly counted as finished.
+       */
+      const half = overlap
+        ? bar.getAnimations({ subtree: true }).some((one) => {
+            if (one.playState !== "running") return false;
+            const timing = one.effect?.getComputedTiming();
+            if (!timing) return true;
+            /* Still waiting to begin: the bar has not had its turn yet. */
+            if (timing.progress == null) return true;
+            return timing.progress < 0.5;
+          })
+        : null;
+      const busy =
+        half ??
+        bar.getAnimations({ subtree: true }).some((one) => one.playState === "running");
       if (busy) {
         moved = true;
         calm = 0;
