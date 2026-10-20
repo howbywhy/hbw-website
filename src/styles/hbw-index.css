@@ -10175,9 +10175,34 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* The work, and the two rows that walk it, after the chrome. */
-.hbw-lamp,
-.hbw-studio-sheet {
+.hbw-lamp {
   animation-delay: var(--enter-work);
+}
+
+/*
+ * The sheet does not wait here, because it is already waiting.
+ *
+ * --enter-work is this ladder's way of saying "after the chrome", written
+ * for a page that loads: there is no one to ask, so the delay is counted
+ * out by hand. A sheet has someone to ask. data-settling holds everything
+ * inside it paused until the bar is actually quiet, which is the same wait
+ * measured rather than guessed.
+ *
+ * It was doing both. Pressing About, the gate lifted at 324ms and the
+ * sheet then sat through another 360ms of --enter-work before it began —
+ * the same wait served twice, once by the clock and once by the bar. And
+ * because the delay is on the sheet's own wipe, its contents spent that
+ * second wait arriving underneath a clip that had not opened yet: a
+ * sequence of seven pieces, staggered to be read in order, played where
+ * nobody could see it, and then the whole room uncovered at once. Nothing
+ * moved for 684ms and the thing you pressed for took 924ms to arrive.
+ *
+ * So the gate keeps the waiting and the ladder keeps the order: the room
+ * uncovers the moment the bar stops, and its contents follow on the steps
+ * they always had — which is the first time that stagger has been visible.
+ */
+.hbw-studio-sheet {
+  animation-delay: 0ms;
 }
 
 .hbw-lamp__field {
