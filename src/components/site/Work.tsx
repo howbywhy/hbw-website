@@ -582,7 +582,8 @@ export function Work({
         name: to.name,
         mark: marks[to.slug] ?? to.name,
         peek: peek?.src,
-        peekSet: peek?.srcset,
+        /* The hand-over's own ladder where there is one; a cell's otherwise. */
+        peekSet: peek?.peekset ?? peek?.srcset,
       };
     },
     [projects, marks]

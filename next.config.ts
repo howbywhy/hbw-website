@@ -42,6 +42,59 @@ const nextConfig: NextConfig = {
      */
     staleTimes: { static: 30, dynamic: 0 },
   },
+  /**
+   * What a browser is allowed to load, and who is allowed to frame us.
+   *
+   * The site went out with one security header — HSTS — and no policy at
+   * all. Measured first rather than guessed: across the front page, the
+   * Practice page and a project, every request the site makes is either its
+   * own origin or cdn.sanity.io, which serves the images and the films. So
+   * the policy is that, written down, and anything else a page tries to
+   * reach is refused by the browser rather than by nobody.
+   *
+   * 'unsafe-inline' on scripts and styles is not an oversight. Next inlines
+   * its own bootstrap and its style attributes, and the alternative is a
+   * nonce, which needs middleware on every request and would turn a site
+   * that is entirely static into a site that is rendered per request. The
+   * thing a CSP is actually for here is the origin list: a script from
+   * anywhere but this site cannot run, which is the supply-chain door.
+   *
+   * frame-ancestors 'none' is the one that matters for a studio site —
+   * nobody gets to put hbw.works in a frame and pass it off.
+   */
+  async headers() {
+    const policy = [
+      "default-src 'self'",
+      "base-uri 'self'",
+      "object-src 'none'",
+      "frame-ancestors 'none'",
+      "form-action 'self'",
+      "img-src 'self' data: blob: https://cdn.sanity.io",
+      "media-src 'self' blob: https://cdn.sanity.io",
+      "font-src 'self'",
+      "style-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-inline'",
+      "connect-src 'self' https://cdn.sanity.io",
+      "upgrade-insecure-requests",
+    ].join("; ");
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: policy },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          /* Nothing here asks for a camera, a microphone or a location, so
+             nothing here is allowed to. */
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+          },
+        ],
+      },
+    ];
+  },
+
   async redirects() {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },

@@ -9,10 +9,34 @@
 import { liveProjects, projectSays } from "@/components/home/catalog";
 import { resolveProjectExperience } from "@/lib/project-source";
 
+/*
+ * What a cell is actually drawn at: sizes says 25vw on a phone and 11vw on a
+ * sheet, which is about 100 CSS pixels on a 390 screen and about 280 on a
+ * 2560 one. Three renditions cover every one of those at every pixel ratio
+ * worth serving; the three above them were never picked by a cell.
+ */
+const CELL_WIDTHS = [160, 320, 640];
+
+/** The hand-over panel, which is the height of the window. */
+const PEEK_WIDTHS = [720, 1080, 1440];
+
 export type GalleryFrame = {
   src: string;
   /** The same frame at the sizes a contact-sheet cell actually needs. */
   srcset?: string;
+  /**
+   * And the sizes the hand-over panel needs, on the one frame that is it.
+   *
+   * A cell is drawn between about a hundred and three hundred pixels; the
+   * first frame of a project is also the peep at the end of the band before
+   * it, where it covers a panel the full height of the screen. Those are an
+   * order of magnitude apart, and every frame used to carry the ladder for
+   * both — six renditions each, on sixty-two frames, printed three times
+   * over by the wrap. Two thousand two hundred CDN addresses on the front
+   * page, 268KB of a 409KB document, to draw pictures that between them need
+   * three widths.
+   */
+  peekset?: string;
   width: number;
   height: number;
   video?: string;
@@ -63,12 +87,14 @@ export async function loadGallery(): Promise<GalleryProject[]> {
         const movements = experience?.movements ?? [];
 
         const frames: GalleryFrame[] = [];
+        let firstStill: string | undefined;
         for (const movement of movements) {
           if (frames.length >= PER_PROJECT) break;
           const media = movement.media;
           const film = media.type === "video";
           const still = film ? media.poster : media.src;
           if (!still) continue;
+          if (!frames.length) firstStill = still;
           frames.push({
             /*
              * Sized for the cell, not for a page that no longer exists.
@@ -89,9 +115,7 @@ export async function loadGallery(): Promise<GalleryProject[]> {
              * arrived pixelated. Cells still pick the small ones: sizes says
              * what each place actually draws.
              */
-            srcset: [160, 320, 480, 720, 1080, 1440]
-              .map((w) => `${sized(still, w)} ${w}w`)
-              .join(", "),
+            srcset: CELL_WIDTHS.map((w) => `${sized(still, w)} ${w}w`).join(", "),
             width: media.width || 1200,
             height: media.height || 900,
             video: film ? media.mp4 ?? media.videoSrc ?? media.src : undefined,
@@ -100,6 +124,13 @@ export async function loadGallery(): Promise<GalleryProject[]> {
           });
         }
         if (!frames.length) return null;
+        /* Only the first frame is ever the hand-over, so only the first
+           frame pays for the sizes a hand-over needs. Taken from the still
+           that actually made frames[0] rather than from movements[0], which
+           is not the same thing when a movement has no picture to show. */
+        if (firstStill) {
+          frames[0].peekset = PEEK_WIDTHS.map((w) => `${sized(firstStill, w)} ${w}w`).join(", ");
+        }
 
         return {
           slug: project.id,
