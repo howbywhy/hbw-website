@@ -12320,3 +12320,47 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-studio-doc .hbw-part__col {
   background: var(--pill-bg);
 }
+
+/* =====================================================================
+   One pill, said once.
+
+   The bubble is the identity, so there is one of it and not three. The
+   tokens have been here all along — --pill-h, --pill-x, --pill-gap,
+   --pill-r — and most things use them; the ones that drifted did so by
+   reaching for the wrong one rather than by inventing a number.
+
+   The foot's rows were the clearest case. They share a plate with the
+   paragraphs beside them, and that plate is padded `var(--pill-x)` — the
+   horizontal token, on all four sides. A paragraph wants that room; a row
+   of one line does not. So the ways out came out 30px tall and stepped
+   32px apart while the studio's own parts, which use the tokens properly,
+   came out 24 and stepped 26. Two lists of the same thing, side by side,
+   on two different rhythms — which is what makes them look like two
+   families rather than one.
+
+   A row that holds one line is a pill: --pill-h tall, --pill-gap and
+   --pill-x of padding, --pill-r at the corner. The plates that hold
+   running text keep the deeper padding, because that is a different job
+   and the family was never about making a paragraph the size of a button.
+   ===================================================================== */
+.hbw-end__to > a,
+.hbw-end__to > button {
+  min-height: var(--pill-h);
+  padding: var(--pill-gap) var(--pill-x);
+  display: inline-flex;
+  align-items: center;
+}
+
+/*
+ * And the tap target is already in the height.
+ *
+ * The shared rule above adds padding-block to bring a short line box up to
+ * 24px, which is the same 24px --pill-h is. Left on, it is counted twice:
+ * the pill's own padding, then the target's on top of it, and the row is
+ * taller than the pill it is supposed to be.
+ */
+.hbw-end__to > a,
+.hbw-end__to > button {
+  padding-block: var(--pill-gap);
+  margin-block: 0;
+}
