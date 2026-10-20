@@ -86,41 +86,54 @@ function rowKindOf(shot: { width?: number; height?: number }) {
   return `upright-${Math.round((shot.width / shot.height) * 8)}`;
 }
 
-/** Where a frame sits in the run: a row of its own, or one edge of a shared one. */
-type Spot = { brk: boolean; place?: "left" | "right" | "alone" };
+/**
+ * What a frame is asked to do in a row, at one particular column count.
+ *
+ *   start  begin a row, in the first column
+ *   end    the last column, which the grid puts in the row already begun
+ *   most   two columns of three, for a single given room rather than stranded
+ *   fill   the whole measure
+ */
+type Role = "start" | "end" | "most" | "fill";
+
+/** A frame's role at each count the run is laid out in. */
+type Spot = { at3?: Role; at2?: Role };
 
 /**
- * Which frames start a row, and which two share one across a gap.
+ * Who stands with whom, worked out once per column count.
  *
- * Pairing like with like leaves a frame that matches neither of its
- * neighbours with a row to itself and two empty columns beside it — a third
- * of the measure of work and two thirds of nothing, over and over wherever
- * the sequence changes pace. That is not composition, it is a rule running
- * out of things to do.
+ * Three things have to come out of this, and the third is why it is done per
+ * count rather than once:
  *
- * So two frames that are each alone take opposite edges of the same row and
- * leave the gap between them. They are not a pair — their feet do not agree
- * and they are not pretending to — they are two separate things held apart,
- * which is an arrangement rather than a leftover.
+ *   Like beside like. A row holds frames of one band or none at all.
  *
- * An odd one at the end of such a run has nobody to face, and putting it at
- * an edge on its own is the lost frame all over again. It takes more of the
- * measure instead: a deliberate large single rather than a small stranded
- * one, which is what both of the galleries this is drawn from do with a
- * picture that stands by itself.
+ *   Nobody stranded. A frame alone in a row with two thirds of the measure
+ *   empty beside it is the fault this whole arrangement exists to avoid, and
+ *   it arrives by three separate roads: a frame matching neither neighbour, a
+ *   group whose size does not divide by the count, and the last frame of a
+ *   group whose final row holds one.
  *
- * Only uprights can be alone in this sense: wide and long frames take the
- * whole measure, so they are never short of company.
+ *   The same at every width. The count changes with the window — three on a
+ *   laptop, two on a narrow one, one on a phone — and a split that is even at
+ *   three is lopsided at two. Four like frames are two and two at three
+ *   across and two and two at two across; three like frames are two and one
+ *   however they are cut, so that one takes the whole measure rather than
+ *   half of it. Nothing here can be decided from the sequence alone, so both
+ *   counts are planned and the stylesheet picks by media query.
+ *
+ * Two frames that match neither neighbour take opposite edges with the gap
+ * between — but only where there is a gap to leave. At two across those
+ * edges are adjacent, which is the mismatched pair all over again, so there
+ * each takes the measure instead.
  */
 function arrange(shots: { width?: number; height?: number }[]): Spot[] {
   const kinds = shots.map(rowKindOf);
   /*
    * The bounds check is not decoration.
    *
-   * Counting a run of solos asks about the frame past the last one, and
-   * shapeOf() of an absent frame reads .width off undefined. Prerendering
-   * SUB:3 is where that landed: a whole build stopped by a question asked
-   * one frame too far.
+   * Counting a run asks about the frame past the last one, and shapeOf() of
+   * an absent frame reads .width off undefined. Prerendering SUB:3 is where
+   * that landed: a whole build stopped by a question asked one frame too far.
    */
   const alone = (i: number) =>
     i >= 0 &&
@@ -129,46 +142,54 @@ function arrange(shots: { width?: number; height?: number }[]): Spot[] {
     kinds[i] !== kinds[i - 1] &&
     kinds[i] !== kinds[i + 1];
 
-  /*
-   * A group of four leaves one on a row of its own.
-   *
-   * Three across, four like frames come out three and one — and that last
-   * one, a third of the measure with two thirds of nothing beside it, is
-   * exactly the stranded frame the edges were introduced to cure. It only
-   * arrived by a different road. Broken before its last two the group reads
-   * two and two, which is a composition rather than a remainder.
-   *
-   * Only where the remainder would be one, and only at four or more: at two
-   * across the same break is the split the group would have taken anyway, so
-   * this cannot make a narrower window worse than it already was.
-   */
-  const groupBreaks = new Set<number>();
-  for (let i = 0; i < shots.length; ) {
-    let run = 1;
-    while (i + run < shots.length && kinds[i + run] === kinds[i] && !alone(i + run)) run += 1;
-    if (!alone(i) && run >= 4 && run % 3 === 1) groupBreaks.add(i + run - 2);
-    i += run;
-  }
+  const spots: Spot[] = shots.map(() => ({}));
 
-  const out: Spot[] = [];
-  for (let i = 0; i < shots.length; ) {
-    if (!alone(i)) {
-      out.push({ brk: (i > 0 && kinds[i] !== kinds[i - 1]) || groupBreaks.has(i) });
-      i += 1;
-      continue;
+  const plan = (across: number, key: "at3" | "at2") => {
+    for (let i = 0; i < shots.length; ) {
+      if (alone(i)) {
+        let run = 1;
+        while (alone(i + run)) run += 1;
+        for (let k = 0; k < run; k += 1) {
+          if (across < 3) {
+            spots[i + k][key] = "fill";
+            continue;
+          }
+          const faced = k < run - (run % 2);
+          spots[i + k][key] = faced ? (k % 2 === 0 ? "start" : "end") : "most";
+        }
+        i += run;
+        continue;
+      }
+
+      let run = 1;
+      while (i + run < shots.length && kinds[i + run] === kinds[i] && !alone(i + run)) run += 1;
+
+      /* Wide and long already take the whole measure from their shape, so a
+         group of them is a stack of full rows and there is nothing to plan. */
+      if (shapeOf(shots[i]) !== "upright") {
+        i += run;
+        continue;
+      }
+
+      /* As even as the count allows: the rows that have to carry one more
+         are the first ones, so any short row is at the foot of the group
+         where it reads as the end of a thought rather than a gap in one. */
+      const rows = Math.ceil(run / across);
+      const base = Math.floor(run / rows);
+      const over = run % rows;
+      let at = 0;
+      for (let r = 0; r < rows; r += 1) {
+        const size = base + (r < over ? 1 : 0);
+        spots[i + at][key] = size === 1 ? "fill" : "start";
+        at += size;
+      }
+      i += run;
     }
-    /* How many in a row have nobody to stand beside. They are dealt with
-       together, because whether one takes an edge or the whole measure
-       depends on whether there is another behind it to face. */
-    let run = 1;
-    while (alone(i + run)) run += 1;
-    for (let k = 0; k < run; k += 1) {
-      const paired = k < run - (run % 2);
-      out.push({ brk: false, place: paired ? (k % 2 === 0 ? "left" : "right") : "alone" });
-    }
-    i += run;
-  }
-  return out;
+  };
+
+  plan(3, "at3");
+  plan(2, "at2");
+  return spots;
 }
 
 /**
@@ -1503,15 +1524,18 @@ export function Lightbox({
                  * sends anything carrying it to the start of the next row.
                  * The first frame never needs one: it already starts a row.
                  */
-                data-break={spots[i]?.brk ? "true" : undefined}
                 /*
-                 * An edge, for a frame that has nothing to stand beside.
+                 * What this frame does in a row, at three columns and at two.
                  *
-                 * Two of them take opposite sides of one row with the gap
-                 * left between, rather than each taking a row and leaving
-                 * two thirds of it empty.
+                 * Both are carried because the count follows the window and
+                 * the sequence cannot know it: a split that is even at three
+                 * is lopsided at two, and two frames at opposite edges of a
+                 * two-column row are simply a mismatched pair. The stylesheet
+                 * reads whichever applies and ignores the other; a phone has
+                 * one column and ignores both.
                  */
-                data-place={spots[i]?.place}
+                data-r3={spots[i]?.at3}
+                data-r2={spots[i]?.at2}
                 /* The page is the shape of its picture, known before it loads,
                    so the band is laid out right from the first paint and
                    nothing has to be cropped to fit a column. */

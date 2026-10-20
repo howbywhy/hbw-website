@@ -12084,49 +12084,50 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * filled with something that does not match it. A short row is the honest
  * end of a group; a mismatched one is just untidy.
  */
-.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-break="true"] {
-  grid-column-start: 1;
+/* =====================================================================
+   Where each frame stands, at the count the window is using.
+
+   The planner upstream works out both: at three columns and at two. Only
+   one set is read at a time, and a phone reads neither, because one column
+   makes every frame the measure whatever it was asked to do.
+
+     start  begins a row, in the first column
+     end    the last column, which the grid puts in the row just begun —
+            so two frames with nobody to stand beside face each other
+            across the gap rather than each taking a row alone
+     most   two columns of three: a single given room instead of stranded
+     fill   the whole measure
+   ===================================================================== */
+@media (min-width: 1181px) {
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-r3="start"] {
+    grid-column-start: 1;
+  }
+
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-r3="end"] {
+    grid-column-start: -2;
+  }
+
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-r3="most"] {
+    grid-column: 1 / span 2;
+  }
+
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-r3="fill"] {
+    grid-column: 1 / -1;
+  }
 }
 
-/*
- * And two frames that have nothing to stand beside take opposite edges.
- *
- * The first is sent to the first column, which starts a row; the second to
- * the last, which the grid puts in that same row because the columns
- * between are still free. What is left is the gap between them — on
- * purpose, rather than because a rule ran out of frames to place.
- *
- * -2 is the last column line whatever the count is, so this follows the
- * three, two and one across without being told any of them.
- */
-.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-place="left"] {
-  grid-column-start: 1;
-}
+@media (min-width: 761px) and (max-width: 1180px) {
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-r2="start"] {
+    grid-column-start: 1;
+  }
 
-.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-place="right"] {
-  grid-column-start: -2;
+  /* No "end" and no "most" at two across: the two edges are adjacent, so
+     facing each other across a gap is just standing next to each other,
+     and two of three columns is the whole measure anyway. */
+  .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-r2="fill"] {
+    grid-column: 1 / -1;
+  }
 }
-
-/*
- * And one with nobody to face takes more of the measure instead.
- *
- * At a third, on its own, it is the lost frame the edges were meant to cure.
- * Two thirds reads as a picture given room rather than a rule running out of
- * things to place — which is what both galleries this is drawn from do with
- * a single. The span is a token so the phone, which has one column, can say
- * one and not conjure a second.
- */
-.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-place="alone"] {
-  grid-column: 1 / span var(--band-solo, 2);
-}
-
-/*
- * Except where there is only one column, which is a phone.
- *
- * Left and right are the same place when the measure holds one frame, and
- * -2 on a single-column grid is still column one — so the alternation
- * quietly becomes a stack, which is what it should be.
- */
 
 /*
  * Two across on a narrow desktop, where three would be stamps.
@@ -12257,15 +12258,16 @@ body:has(.hbw-lamp) .hbw-bar__what {
   /*
    * All three said together, and said once.
    *
-   * The count was set here twice and the solo span not at all, so a frame
-   * with nobody to face still asked for two columns — and a grid given a
-   * span wider than it has columns simply makes another. Measured at 390:
-   * one explicit column of 359px and an implicit one of 25, every row half
-   * off the screen. One column means one of everything.
+   * One column, and nothing asked to span more than one.
+   *
+   * Neither set of row roles applies below 761px, so every frame simply
+   * flows into the single column and takes the measure. That is deliberate:
+   * a grid given a span wider than it has columns makes another one, which
+   * is how a phone once came out with a 359px column and a 25px column
+   * beside it and every row half off the screen.
    */
   .hbw-lamp__field .hbw-lamp__pages[data-band="down"] {
     --band-across: 1;
-    --band-solo: 1;
     --band-hand: 30vh;
   }
 
