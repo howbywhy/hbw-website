@@ -4,17 +4,27 @@ import { liveProjects, projectById, projectDescription } from "../components/hom
 
 const EXPECTED: Record<string, string> = {
   "made-by-madelen":
-    "Made by Madelen — From Making to Moment. Launch strategy, content planning, motion and social content for a fashion label going to market.",
-  sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture and interiors studio.",
+    "Made by Madelen — From Making to Moment. Launch strategy, content planning, motion and social content for a fashion label. HBW, Blue Mountains.",
+  sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture studio. HBW, Blue Mountains.",
   "bar-closed":
-    "CLOSED, a Newcastle bar — A Smuggler’s House. Concept, identity, signage and print. The name emerged during the work.",
-  koja: "KOJA — Unapologetically Good. Brand strategy, visual identity and packaging for an established food brand.",
-  "sub-3": "SUB:3 — Bending Time & Space. Identity, packaging and motion for a new performance nutrition brand.",
+    "CLOSED, a Newcastle bar — A Smuggler\u2019s House. Concept, identity, signage and print. The name emerged in the work. HBW, Blue Mountains.",
+  koja: "KOJA — Unapologetically Good. Brand strategy, visual identity and packaging for an established food brand. HBW, Blue Mountains.",
+  "sub-3":
+    "SUB:3 — Bending Time & Space. Identity, packaging and motion for a new performance nutrition brand. HBW, Blue Mountains.",
   "chris-sisarich":
-    "Chris Sisarich — Beauty Amongst The Mundane. Identity and website for a photographer, built to stay behind the pictures.",
+    "Chris Sisarich — Beauty Amongst The Mundane. Identity and website for a photographer, built to stay behind the pictures. HBW, Blue Mountains.",
   "our-boy-roy":
-    "Our Boy Roy — a hospitality identity organised around Roy, a changing character. Visual identity, signage, print and social.",
+    "Our Boy Roy — a hospitality identity built around Roy, a changing character. Visual identity, signage and print. HBW, Blue Mountains.",
 };
+
+/*
+ * Google shows about 155 characters of a description and cuts the rest. The
+ * clause naming the studio and its place goes on the end, which is exactly
+ * where a long line loses it — eight of the nine descriptions on the site ran
+ * to the end without ever saying where the work was made. Measured here so
+ * the next line written cannot quietly spend the room.
+ */
+const SHOWN = 155;
 
 test("project descriptions stay authored and project-specific", () => {
   // Every live project has an authored description, and nothing is authored
@@ -35,5 +45,15 @@ test("project descriptions stay authored and project-specific", () => {
       `${projectById(id).name} — HBW.`,
       `${id} has no authored description`
     );
+  }
+
+  /* Short enough to be read whole, and every one of them says where. */
+  for (const id of ids) {
+    const said = projectDescription(projectById(id));
+    assert.ok(
+      said.length <= SHOWN,
+      `${id} description is ${said.length} characters; Google shows ${SHOWN}`
+    );
+    assert.ok(said.includes("Blue Mountains"), `${id} description does not say where`);
   }
 });

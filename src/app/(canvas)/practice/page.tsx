@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
+import { OG_SITE } from "@/lib/site-meta";
 import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, founderNode, studioNode } from "@/lib/structured-data";
 import { MANIFESTO_COPY, STUDIO_COPY } from "@/components/home/studio-copy";
 import { liveProjects, projectDescription } from "@/components/home/catalog";
-import { CONTACT_EMAIL, STUDIO_PLACE } from "@/lib/contact";
+import { CONTACT_EMAIL, CONTACT_WAYS, STUDIO_PLACE } from "@/lib/contact";
+import { PRACTICE_DESCRIPTION, PRACTICE_TITLE } from "@/lib/site-meta";
 import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
 import "@/styles/hbw-index.css";
 
-const title = "Practice — How by Why";
-const description =
-  "How by Why is an independent brand and design practice led by Mark Blackler, working with founders and leadership teams at moments of change.";
+const title = PRACTICE_TITLE;
+const description = PRACTICE_DESCRIPTION;
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/practice" },
-  openGraph: { title, description, type: "website", url: "/practice" },
+  openGraph: { title, description, type: "website", url: "/practice", ...OG_SITE },
   /*
    * Said here, not left to the root layout.
    *
@@ -170,6 +171,25 @@ export default function StudioPage() {
             ))}
             <p className="hbw-ink">{MANIFESTO_COPY.close.join(" ")}</p>
           </div>
+        </section>
+
+        {/*
+          The other way in, offered where people actually land.
+          
+          This page is what a search result points at, and it offered an email
+          address and nothing else — while the poster, which exists precisely
+          for the person who would rather not write a paragraph, sat behind a
+          button inside a sheet on another page. Same tool, same inbox, now
+          reachable from the page that gets the visitors.
+        */}
+        <section className="hbw-board__mod hbw-board__mod--all">
+          <h2 className="hbw-m">{CONTACT_WAYS.draw.name}</h2>
+          <p>{CONTACT_WAYS.draw.copy}</p>
+          <p>
+            <a className="hbw-part__start" href="/#poster">
+              Make a poster
+            </a>
+          </p>
         </section>
 
         <section className="hbw-board__mod hbw-board__mod--all">

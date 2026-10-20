@@ -82,6 +82,17 @@ export function studioNode(): Node {
     legalName: STUDIO_LEGAL_NAME,
     alternateName: STUDIO_LEGAL_NAME,
     url: SITE_ORIGIN,
+    /*
+     * The mark, which this had never carried.
+     *
+     * logo is the one property Google names as required on an Organization,
+     * and it is what a knowledge panel and a rich result draw: without it the
+     * studio was fully described — address, founder, phone, the lot — and had
+     * no face. image goes with it, because several consumers read that and
+     * not logo.
+     */
+    logo: `${SITE_ORIGIN}/logo-512.png`,
+    image: `${SITE_ORIGIN}/logo-512.png`,
     email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE_E164,
     description:

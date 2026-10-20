@@ -234,15 +234,18 @@ export function Catalogue({
               <a
                 href={`/projects/${project.slug}`}
                 /*
-                 * The name first, then the year.
+                 * The name, then the year, and both of them visible.
                  *
-                 * The year is what is set on the page, and the name was a
-                 * hidden word after it — so every link on the front page was
-                 * announced as "2025 SCK", six of them, each led by a number.
-                 * Read aloud it is the project and its year, in that order;
-                 * seen, it is still just the year.
+                 * This was the year alone, with the name carried in an
+                 * aria-label — so the front page of a design studio named
+                 * not one of the seven projects on it in readable text, and
+                 * its seven headings each said a number. A reader scrolling
+                 * the catalogue could see the work and the writing about it
+                 * and had no way to learn what any of it was called.
+                 *
+                 * The label goes with it: the link says its own name now, so
+                 * a second one in an attribute is the same words twice.
                  */
-                aria-label={`${project.name} — ${project.year}`}
                 tabIndex={echo ? -1 : undefined}
                 onClick={(event) => {
                   if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -250,7 +253,7 @@ export function Catalogue({
                   onOpen(project.slug, 0);
                 }}
               >
-                {project.year}
+                {project.name} — {project.year}
               </a>
             </h2>
             <p className="hbw-cat__say">{project.says}</p>

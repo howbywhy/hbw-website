@@ -2,6 +2,7 @@ import { catalogIdForSlug } from "@/lib/cms-source";
 import { cdnSrcSet, srcSetFor } from "@/lib/srcset";
 import { REGISTERED_PROJECTS } from "@/lib/projects.generated";
 import { lookFor, routeFor } from "@/lib/project-look";
+import { STUDIO_CLAUSE, STUDIO_SIGNATURE } from "@/lib/site-meta";
 
 export { srcSetFor };
 
@@ -63,6 +64,30 @@ export const DISCIPLINE_CREDIT = {
   "Signage & Wayfinding": "signage and wayfinding",
   Website: "website design",
   "Print": "print and digital",
+  Motion: "motion",
+  "Digital Design": "digital design",
+  "Launch Strategy": "launch strategy",
+  "Content Planning": "content planning",
+  "Social Content": "social content",
+  Messaging: "messaging",
+} as const satisfies Record<Discipline, string>;
+
+/**
+ * The same disciplines, short enough for a title.
+ *
+ * DISCIPLINE_CREDIT above is prose for a sentence — "brand DNA", "signage and
+ * wayfinding" — which is right in a credit and too long in a search result.
+ * Adding a discipline without a short form is a build error, so a title can
+ * never quietly lose the thing the project was.
+ */
+export const TITLE_WHAT = {
+  "Brand Strategy": "brand strategy",
+  "Naming": "naming",
+  "Visual Identity": "visual identity",
+  Packaging: "packaging",
+  "Signage & Wayfinding": "signage",
+  Website: "website",
+  "Print": "print",
   Motion: "motion",
   "Digital Design": "digital design",
   "Launch Strategy": "launch strategy",
@@ -278,23 +303,72 @@ export function isKnownFilter(dim: string, value: string) {
   return false;
 }
 
+/*
+ * Trimmed so the studio and its place still fit.
+ *
+ * Google shows about 155 characters and every one of these ended before
+ * saying where the work was made — so eight of the nine descriptions on the
+ * site named a discipline and a sector and never named a city. The clause
+ * goes on in projectDescription rather than being typed into each line, so a
+ * project added to the registry tomorrow gets it without this file being
+ * opened; these lines are shortened to leave room for it.
+ */
 const PROJECT_DESCRIPTIONS: Record<string, string> = {
   "made-by-madelen":
-    "Made by Madelen — From Making to Moment. Launch strategy, content planning, motion and social content for a fashion label going to market.",
-  sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture and interiors studio.",
+    "Made by Madelen — From Making to Moment. Launch strategy, content planning, motion and social content for a fashion label.",
+  sck: "SCK (Studio Carson Kelly) — Intersecting Realities. Brand strategy, creative direction and visual identity for an architecture studio.",
   "bar-closed":
-    "CLOSED, a Newcastle bar — A Smuggler’s House. Concept, identity, signage and print. The name emerged during the work.",
+    "CLOSED, a Newcastle bar — A Smuggler’s House. Concept, identity, signage and print. The name emerged in the work.",
   koja: "KOJA — Unapologetically Good. Brand strategy, visual identity and packaging for an established food brand.",
   "sub-3": "SUB:3 — Bending Time & Space. Identity, packaging and motion for a new performance nutrition brand.",
   "chris-sisarich":
     "Chris Sisarich — Beauty Amongst The Mundane. Identity and website for a photographer, built to stay behind the pictures.",
   "our-boy-roy":
-    "Our Boy Roy — a hospitality identity organised around Roy, a changing character. Visual identity, signage, print and social.",
+    "Our Boy Roy — a hospitality identity built around Roy, a changing character. Visual identity, signage and print.",
 };
 
 /** Public search description. Authored from approved case-study contribution, not lens lists. */
 export function projectDescription(project: ProjectRecord) {
-  return PROJECT_DESCRIPTIONS[project.id] ?? `${project.name} — HBW.`;
+  return `${projectSays(project)} ${STUDIO_CLAUSE}`;
+}
+
+/**
+ * The same line, as it is read on the page.
+ *
+ * projectDescription ends with the studio and its place, which is there for a
+ * search result and is noise in front of somebody already on the site — the
+ * catalogue prints this line under every project, and for one build it read
+ * "...for a fashion label. HBW, Blue Mountains." to a reader who could see the
+ * mark at the top of the page. One sentence, two jobs, two forms.
+ */
+export function projectSays(project: ProjectRecord) {
+  return PROJECT_DESCRIPTIONS[project.id] ?? `${project.name}.`;
+}
+
+/**
+ * What a project was, in two words, for its title.
+ *
+ * Built from the disciplines the CMS already holds rather than written out
+ * again, so a project added to the registry has a title that says what it is
+ * without anybody choosing one. Two disciplines where they fit and one where
+ * they do not: a title runs to about 65 characters in a search result, and
+ * Chris Sisarich and Made by Madelen are long enough names to spend it.
+ */
+export function projectWhat(project: ProjectRecord) {
+  const said = (project.disciplines ?? []).map((one) => TITLE_WHAT[one]).filter(Boolean);
+  if (!said.length) return "";
+  const both = said.slice(0, 2).join(" and ");
+  const long = `${project.name} — ${both} — ${STUDIO_SIGNATURE}`;
+  const phrase = long.length <= 65 ? both : said[0];
+  return phrase.charAt(0).toUpperCase() + phrase.slice(1);
+}
+
+/** A project's full search title: what it is, what it was, and where it was made. */
+export function projectTitle(project: ProjectRecord) {
+  const what = projectWhat(project);
+  return what
+    ? `${project.name} — ${what} — ${STUDIO_SIGNATURE}`
+    : `${project.name} — ${STUDIO_SIGNATURE}`;
 }
 
 

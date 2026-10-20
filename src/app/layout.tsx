@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
+import { OG_SITE, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import "@/styles/document.css";
 import "@/styles/hbw-home-prototype.css";
 import "@/styles/hbw-rail.css";
@@ -15,15 +15,38 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description,
+  /*
+   * Icons big enough to be used, drawn from the mark itself.
+   *
+   * This was a 32px favicon and, for the home screen, a 256px JPEG named
+   * HBW-Brand-Partner — a photograph-format file standing in for a logo, at a
+   * size iOS has to resample, with no 192 or 512 for Android or a browser
+   * wanting a larger one. The mark is a vector and always was: these are
+   * rendered from public/identity/hbw-mark.svg onto the site's own paper, so
+   * the icon and the logotype on the page are the same drawing.
+   */
   icons: {
-    icon: "/identity/667c032fa556e88548bbe621_favicon-32x32.png",
-    apple: "/identity/691abe1b2fa84bbebe7f3095_HBW-Brand-Partner.jpg",
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
   },
+  manifest: "/manifest.webmanifest",
+  /*
+   * siteName and locale, which every preview was going out without.
+   *
+   * og:title, description, image and url were all being set; what was missing
+   * is the part that says whose page this is and what language it is in — so
+   * a link shared anywhere showed the title and the picture with no studio
+   * name above them, on every one of the nine pages.
+   */
   openGraph: {
     title,
     description,
     type: "website",
     url: "/",
+    ...OG_SITE,
   },
   twitter: {
     card: "summary_large_image",

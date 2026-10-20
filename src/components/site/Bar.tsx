@@ -40,6 +40,16 @@ export function Bar({
       const hash = window.location.hash;
       if (hash === "#studio") setStudio({});
       else if (hash === "#contact") setStudio({ at: "contact" });
+      /*
+       * The poster has an address of its own.
+       *
+       * It was reachable from one place — a button inside the studio sheet,
+       * two presses from anywhere and none of them obvious — so the Practice
+       * page, which is where a search visitor actually lands, offered an
+       * email and nothing else. A tool built to be the other way in cannot be
+       * the other way in if it cannot be linked to.
+       */
+      else if (hash === "#poster") setStudio({ at: "poster" });
       else setStudio(null);
     };
     look();
@@ -133,7 +143,7 @@ export function Bar({
       leaving.current = 0;
       setGoing(false);
       setStudio(null);
-      if (window.location.hash === "#studio" || window.location.hash === "#contact") history.back();
+      if (["#studio", "#contact", "#poster"].includes(window.location.hash)) history.back();
       then?.();
     }, ms + 220);
   }, []);

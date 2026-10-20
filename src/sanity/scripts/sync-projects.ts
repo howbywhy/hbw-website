@@ -51,6 +51,7 @@ const QUERY = `*[_type == "project"
   && count(movements) > 0
 ] | order(coalesce(portfolioOrder, 99) asc, year desc) {
   _id,
+  _updatedAt,
   title,
   "slug": slug.current,
   proposition,
@@ -66,6 +67,7 @@ const QUERY = `*[_type == "project"
 
 type Row = {
   _id: string;
+  _updatedAt?: string;
   title?: string;
   slug?: string;
   proposition?: string;
@@ -132,6 +134,7 @@ async function main() {
         `    sectors: ${JSON.stringify(row.sectors ?? [])},`,
         `    disciplines: ${JSON.stringify(row.disciplines ?? [])},`,
         `    order: ${row.portfolioOrder ?? 99},`,
+        `    updated: ${JSON.stringify(row._updatedAt ?? "")},`,
         `    card: ${JSON.stringify(cardOf(row))},`,
         "  },",
       ].join("\n")
@@ -157,6 +160,8 @@ export type RegisteredProject = {
   sectors: string[];
   disciplines: string[];
   order: number;
+  /** When the CMS document was last written. The sitemap's lastmod. */
+  updated: string;
   /** The CMS preview, for a project that has not been given a card by hand. */
   card: { src: string; width: number; height: number } | null;
 };

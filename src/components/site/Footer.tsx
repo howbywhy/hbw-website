@@ -15,6 +15,7 @@
  */
 import { useId, useState } from "react";
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_E164, STUDIO_PLACE } from "@/lib/contact";
+import { PROFILES } from "@/lib/structured-data";
 
 type State = "rest" | "sending" | "done" | { error: string };
 
@@ -106,11 +107,24 @@ export function Footer() {
         )}
       </div>
 
+      {/*
+        The studio elsewhere, linked rather than only declared.
+        
+        Both profiles were already in the structured data's sameAs, which is a
+        machine-readable claim that these accounts are the same studio — and a
+        claim is all it was: neither was reachable from any page on the site.
+        Read from the same list, so the two can never drift apart.
+      */}
       <nav className="hbw-end__to" aria-label="Elsewhere">
         <a href="/">Work</a>
         <a href="/practice">Practice</a>
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
+        {PROFILES.map((profile) => (
+          <a key={profile.url} href={profile.url} rel="me noopener" target="_blank">
+            {profile.name}
+          </a>
+        ))}
       </nav>
     </footer>
   );

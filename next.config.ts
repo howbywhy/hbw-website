@@ -46,6 +46,21 @@ const nextConfig: NextConfig = {
     return [
       { source: "/projects/closed", destination: "/projects/bar-closed", permanent: true },
       /*
+       * Retired for good, and said so.
+       *
+       * These were all 307s, deliberately: a 308 is cached hard by browsers
+       * and these were names that might be revisited. They have not been —
+       * /studio and /contact became the Practice, /manifesto moved into it,
+       * and /work and /projects became the front page, and all of that is
+       * what the site is now being replaced as. A temporary redirect asks a
+       * search engine to keep the old address indexed and to pass nothing on
+       * to the new one, so five addresses have been quietly holding on to
+       * whatever standing they had instead of handing it over.
+       *
+       * /update stays temporary below: it points at a Studio hosted
+       * elsewhere, and if that is ever embedded here it becomes a real route.
+       */
+      /*
        * The studio and contact are both the Practice now.
        *
        * The old addresses are the ones in the wild — in the sitemap search
@@ -61,8 +76,8 @@ const nextConfig: NextConfig = {
        * only follows what a page points at, and no page points here. The
        * ways into contact are in the Practice, which is where this goes.
        */
-      { source: "/studio", destination: "/practice", permanent: false },
-      { source: "/contact", destination: "/practice", permanent: false },
+      { source: "/studio", destination: "/practice", permanent: true },
+      { source: "/contact", destination: "/practice", permanent: true },
       /**
        * The manifesto is in the studio, which is where it was already being
        * read from — the page at this address rendered nothing but its own
@@ -73,7 +88,7 @@ const nextConfig: NextConfig = {
        * an editorial decision about where the words live, and a 308 is cached
        * by browsers in a way that is painful to take back.
        */
-      { source: "/manifesto", destination: "/practice", permanent: false },
+      { source: "/manifesto", destination: "/practice", permanent: true },
       /**
        * /projects is the front page.
        *
@@ -84,13 +99,13 @@ const nextConfig: NextConfig = {
        *
        * Exact match only: /projects/<slug> is a case study and is untouched.
        */
-      { source: "/projects", destination: "/", permanent: false },
+      { source: "/projects", destination: "/", permanent: true },
       /**
        * /work was the catalogue and is now the front page. Same reasoning as
        * above: temporary, because the address has been live and a 308 is
        * cached and hard to take back.
        */
-      { source: "/work", destination: "/", permanent: false },
+      { source: "/work", destination: "/", permanent: true },
       /**
        * The CMS, on an address that is easy to remember and type.
        *

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_SITE } from "@/lib/site-meta";
 import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
 import { liveProjects } from "@/components/home/catalog";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   title,
   description,
   robots: { index: false, follow: true },
-  openGraph: { title, description, type: "website" },
+  openGraph: { title, description, type: "website", ...OG_SITE },
   twitter: { card: "summary_large_image", title, description },
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_SITE } from "@/lib/site-meta";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
 import { loadSheets } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/" },
-  openGraph: { title, description, type: "website", url: "/" },
+  openGraph: { title, description, type: "website", url: "/", ...OG_SITE },
 };
 
 /**

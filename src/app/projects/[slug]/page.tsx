@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { OG_SITE } from "@/lib/site-meta";
 import { notFound } from "next/navigation";
-import { liveProjects, PROJECT_SLUGS, projectDescription } from "@/components/home/catalog";
+import { liveProjects, PROJECT_SLUGS, projectDescription, projectTitle
+} from "@/components/home/catalog";
 import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, projectNode, studioNode } from "@/lib/structured-data";
 import { loadExperiences } from "@/sanity/load-experiences";
@@ -26,13 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const record = liveProjects().find((project) => project.id === slug);
   if (!record) notFound();
-  const title = `${record.name} — How by Why`;
+  const title = projectTitle(record);
   const description = projectDescription(record);
   return {
     title,
     description,
     alternates: { canonical: record.href },
-    openGraph: { title, description, type: "website", url: record.href },
+    openGraph: { title, description, type: "website", url: record.href, ...OG_SITE },
     twitter: { card: "summary_large_image", title, description },
   };
 }

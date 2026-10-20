@@ -133,6 +133,17 @@ export function StudioBody({ start }: { start?: string }) {
   const openTool = useCallback(() => {
     window.clearTimeout(staging.current);
     setGoing(false);
+    /*
+     * Talk is the block the drawing belongs to, so asking for it goes there.
+     *
+     * Leaving a block puts the drawing away — "you have left it" — and the
+     * sheet opens on Practice. So pressing Make a poster from anywhere but
+     * Talk set the tool and had it shut again in the same commit, by the
+     * effect watching `here`. Visible and pressable from the moment the sheet
+     * opened, and it did nothing at all: the poster could only be reached by
+     * somebody who happened to press Talk first.
+     */
+    setHere("contact");
     setTool(true);
     staging.current = window.setTimeout(() => {
       setArriving(true);
@@ -373,11 +384,18 @@ export function StudioBody({ start }: { start?: string }) {
    */
   useEffect(() => {
     if (!start || landed.current) return;
+    /* Asked for by address rather than by part: the poster is a state of
+       Contact, so it opens there rather than scrolling to a section. */
+    if (start === "poster") {
+      landed.current = true;
+      openTool();
+      return;
+    }
     const part = said.current?.querySelector<HTMLElement>(`[data-part="${start}"]`);
     if (!part) return;
     landed.current = true;
     part.scrollIntoView({ block: "start" });
-  }, [start]);
+  }, [start, openTool]);
 
   return (
     <div className="hbw-studio-doc" ref={doc} data-tool={tool ? "poster" : undefined}>

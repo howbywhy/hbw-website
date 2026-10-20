@@ -17,6 +17,8 @@ export type RegisteredProject = {
   sectors: string[];
   disciplines: string[];
   order: number;
+  /** When the CMS document was last written. The sitemap's lastmod. */
+  updated: string;
   /** The CMS preview, for a project that has not been given a card by hand. */
   card: { src: string; width: number; height: number } | null;
 };
@@ -31,6 +33,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Fashion"],
     disciplines: ["Launch Strategy","Content Planning","Social Content","Motion","Messaging"],
     order: 1,
+    updated: "2026-10-20T09:29:17Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/9d24432fb14260b83d2aba70ac250968658202b7-1600x2000.jpg","width":1600,"height":2000},
   },
   {
@@ -42,6 +45,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Architecture","Interior Design"],
     disciplines: ["Brand Strategy","Visual Identity","Motion"],
     order: 1,
+    updated: "2026-10-20T00:24:31Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/e2992aab0955660aa5af285ed335d91ca05c34e6-1296x1620.jpg","width":1296,"height":1620},
   },
   {
@@ -53,6 +57,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Sports Nutrition","FMCG"],
     disciplines: ["Visual Identity","Packaging"],
     order: 2,
+    updated: "2026-10-19T03:40:22Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/cddcc30b27ab336cc6df446a212e10726121978f-1600x2000.jpg","width":1600,"height":2000},
   },
   {
@@ -64,6 +69,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Hospitality"],
     disciplines: ["Brand Strategy","Naming","Visual Identity","Signage & Wayfinding","Website","Print"],
     order: 3,
+    updated: "2026-10-20T09:03:56Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/704d8a5aa8ac05af2d8345c20dcb905a5b91c543-1080x1350.jpg","width":1080,"height":1350},
   },
   {
@@ -75,6 +81,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Food","FMCG"],
     disciplines: ["Brand Strategy","Visual Identity","Packaging","Print","Digital Design"],
     order: 4,
+    updated: "2026-10-20T09:03:57Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/7ee19f9211acc2a47e842e551172b85b1d819643-1350x1688.jpg","width":1350,"height":1688},
   },
   {
@@ -86,6 +93,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Photography"],
     disciplines: ["Brand Strategy","Visual Identity","Website"],
     order: 5,
+    updated: "2026-10-19T03:41:56Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/cd5cead2f553375bf5f01251641f5c417aee3b8f-1350x1688.jpg","width":1350,"height":1688},
   },
   {
@@ -97,6 +105,7 @@ export const REGISTERED_PROJECTS: readonly RegisteredProject[] = [
     sectors: ["Hospitality"],
     disciplines: ["Visual Identity","Signage & Wayfinding","Print"],
     order: 6,
+    updated: "2026-10-19T04:04:26Z",
     card: {"src":"https://cdn.sanity.io/images/aagd1kcy/production/663a5101616f4ce1cc084b6dab55f9474acd7a15-1334x2000.jpg","width":1334,"height":2000},
   },
 ];

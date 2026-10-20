@@ -6,7 +6,7 @@
  * frames in its own order, with the shape of each one, because the shape is
  * what makes the grid worth looking at.
  */
-import { liveProjects, projectDescription } from "@/components/home/catalog";
+import { liveProjects, projectSays } from "@/components/home/catalog";
 import { resolveProjectExperience } from "@/lib/project-source";
 
 export type GalleryFrame = {
@@ -107,7 +107,7 @@ export async function loadGallery(): Promise<GalleryProject[]> {
           idea: project.idea,
           year: project.year,
           disciplines: [...(project.disciplines ?? [])],
-          says: trimmed(projectDescription(project)),
+          says: trimmed(projectSays(project)),
           frames,
         };
     })
