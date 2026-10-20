@@ -1091,61 +1091,75 @@ export function Lightbox({
   const places = useRef<Map<string, DOMRect>>(new Map());
   const held = useRef(false);
 
+  /**
+   * Remember where every frame is, before anything moves it.
+   *
+   * Taken at the press, because by the time React has re-rendered the only
+   * places left to read are the new ones. Whatever changes the layout calls
+   * this first — the view switch and the writing both — so the set travels
+   * from where it was to where it is going rather than being replaced.
+   */
+  const capture = useCallback(() => {
+    const box = pages.current;
+    if (!box || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const was = new Map<string, DOMRect>();
+    box.querySelectorAll<HTMLElement>(".hbw-lamp__page").forEach((one, i) => {
+      /*
+       * Every frame travels, and none of them travels far.
+       *
+       * Taking only the ones on screen meant half a sheet simply appeared
+       * while the rest moved, which reads as two different things
+       * happening. Taking all of them as they were meant the frames three
+       * thousand pixels off the left of a scrolled band spent the whole
+       * move flying in, with the sheet empty behind them. So every frame
+       * moves, and a frame that was off the screen starts from just beyond
+       * the edge it was off.
+       */
+      const where = one.getBoundingClientRect();
+      const reach = window.innerWidth * 0.6;
+      const drop = window.innerHeight * 0.6;
+      was.set(
+        one.dataset.frame ?? String(i),
+        new DOMRect(
+          Math.min(Math.max(where.left, -reach), window.innerWidth + reach),
+          Math.min(Math.max(where.top, -drop), window.innerHeight + drop),
+          where.width,
+          where.height,
+        ),
+      );
+    });
+    places.current = was;
+    held.current = true;
+  }, []);
+
   const move = useCallback(
     (next: "band" | "grid") => {
       if (next === view) return;
-      const box = pages.current;
-      /*
-       * Only where the two layouts run the same way.
-       *
-       * This move was written when the two arrangements were a row and a
-       * sheet, both read downwards, and each frame had a short journey from
-       * one to the other. The band runs across and the arranged run runs
-       * down, so between those two it is twenty-two frames crossing the
-       * whole screen at once — and the transforms it leaves in flight are
-       * scrollable overflow while they last, which is how switching view
-       * left the run thousands of pixels wide and the scroll with nowhere
-       * to go. Across a change of axis the set simply changes.
-       */
-      const sameAxis =
-        layoutOf(view, narrow, reading) !== "band" && layoutOf(next, narrow, reading) !== "band";
-      if (box && sameAxis && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const was = new Map<string, DOMRect>();
-        box.querySelectorAll<HTMLElement>(".hbw-lamp__page").forEach((one, i) => {
-          /*
-           * Every frame travels, and none of them travels far.
-           *
-           * Taking only the ones on screen meant half a sheet simply
-           * appeared while the rest moved, which reads as two different
-           * things happening. Taking all of them as they were meant the
-           * frames three thousand pixels off the left of a scrolled band
-           * spent the whole move flying in, with the sheet empty behind
-           * them. So every frame moves, and a frame that was off the screen
-           * starts from just beyond the edge it was off — the journey is
-           * bounded, the sheet is full the moment it arrives, and nothing
-           * stands still while its neighbours move.
-           */
-          const where = one.getBoundingClientRect();
-          const reach = window.innerWidth * 0.6;
-          const drop = window.innerHeight * 0.6;
-          const from = new DOMRect(
-            Math.min(Math.max(where.left, -reach), window.innerWidth + reach),
-            Math.min(Math.max(where.top, -drop), window.innerHeight + drop),
-            where.width,
-            where.height,
-          );
-          was.set(one.dataset.frame ?? String(i), from);
-        });
-        places.current = was;
-        held.current = true;
-      }
+      capture();
       /* A different layout is a different way of looking at the set, so the
          one frame held over it goes away with the layout it was opened from. */
       setFull(false);
       setClosing(false);
       setView(next);
     },
-    [view, setView, narrow, reading],
+    [view, setView, capture],
+  );
+
+  /**
+   * The writing moves the work rather than replacing it.
+   *
+   * Opening the information changes the layout as surely as the switch does
+   * — the band or the arranged run becomes the contact sheet — so it is the
+   * same move, measured the same way. Without this the set was swapped in
+   * one frame underneath a panel that was itself easing open, which is two
+   * things happening at two speeds.
+   */
+  const read = useCallback(
+    (to: boolean) => {
+      capture();
+      setReading(to);
+    },
+    [capture, setReading],
   );
 
   useLayoutEffect(() => {
@@ -1186,25 +1200,68 @@ export function Lightbox({
       moving.push(one);
     }
     if (!moving.length) return;
+    /*
+     * Nothing a travelling frame does counts as somewhere to scroll.
+     *
+     * A transform is visual, but it still contributes to scrollable
+     * overflow — so twenty-two frames crossing the screen from a band to a
+     * run left the container thousands of pixels wide while they were in
+     * flight, and the scroll with somewhere to go that was not the work.
+     * This is why the move was switched off across a change of axis; it is
+     * the overflow that needed fixing, not the move. Clipped for the length
+     * of the journey, the transforms have nowhere to report to.
+     */
+    box.dataset.moving = "true";
     /* Two frames: one to be put back where it was, one to let go. */
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        for (const one of moving) {
+        /*
+         * They leave in the order they are read, not all at once.
+         *
+         * Everything else on this site arrives in sequence — the bar, the
+         * line, the mark, then the work — and a set that rearranges itself
+         * in one movement is the one place that did not. Each frame goes a
+         * beat after the one before it, on the same step the catalogue
+         * assembles with, capped so a project of twenty-three does not take
+         * half a second longer to rearrange than one of eight.
+         *
+         * --i is already on every frame for exactly this; the band uses it
+         * to come in. Here it is the same idea read the other way round.
+         */
+        moving.forEach((one, i) => {
           one.style.transition = "transform var(--in) var(--ease)";
+          one.style.transitionDelay = `${Math.min(i * 12, 180)}ms`;
           one.style.transform = "";
-        }
+        });
       });
     });
     const clear = () => {
       for (const one of moving) {
         one.style.transition = "";
+        one.style.transitionDelay = "";
         one.style.transformOrigin = "";
         one.style.transform = "";
       }
+      delete box.dataset.moving;
     };
     const done = window.setTimeout(clear, 900);
-    return () => window.clearTimeout(done);
-  }, [view]);
+    /* Cleared on the way out too, or a set interrupted mid-journey leaves
+       the run clipped and the reader with nothing to scroll. */
+    return () => {
+      window.clearTimeout(done);
+      clear();
+    };
+    /*
+     * Watched on the layout, not on the preference.
+     *
+     * The writing changes what the work is laid out as without touching
+     * which view was chosen, so keyed to the view this never ran for it:
+     * the snapshot taken at the press sat unused until the next switch,
+     * which then animated the set from somewhere it had not been. Opening
+     * the information moved nothing and closing it moved nothing twice.
+     */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layout]);
 
   const rowLeft = useRef<HTMLSpanElement>(null);
   const rowWays = useRef<HTMLSpanElement>(null);
@@ -1456,11 +1513,40 @@ export function Lightbox({
         </span>
         {/* The count moved across to balance the switch: one thing at each
             end of the row, with the project's name holding the middle. */}
-        <span className="hbw-lamp__ways hbw-lamp__view" ref={rowWays} role="group" aria-label="How the work is laid out">
-          <button type="button" aria-pressed={view === "band"} onClick={() => move("band")}>
+        {/*
+          The switch stands down while the writing is open.
+          
+          With the information up the work is on the contact sheet whichever
+          view was chosen, so the two buttons are a control over nothing:
+          pressing either changes what you will see when you close the
+          writing, and nothing at all while it is open. A live-looking
+          control that does nothing you can see is worse than no control.
+          
+          Stood down rather than taken away, so the row keeps its shape and
+          the count stays where it was. The preference is still held — it is
+          simply not being asked for here.
+        */}
+        <span
+          className="hbw-lamp__ways hbw-lamp__view"
+          ref={rowWays}
+          role="group"
+          aria-label="How the work is laid out"
+          data-idle={reading ? "true" : undefined}
+        >
+          <button
+            type="button"
+            aria-pressed={view === "band"}
+            disabled={reading}
+            onClick={() => move("band")}
+          >
             Gallery
           </button>
-          <button type="button" aria-pressed={view === "grid"} onClick={() => move("grid")}>
+          <button
+            type="button"
+            aria-pressed={view === "grid"}
+            disabled={reading}
+            onClick={() => move("grid")}
+          >
             Grid
           </button>
           {/*
@@ -1946,7 +2032,7 @@ export function Lightbox({
               type="button"
               className="hbw-lamp__foot hbw-lamp__foot--info"
               aria-expanded={reading}
-              onClick={() => setReading(!reading)}
+              onClick={() => read(!reading)}
             >
               {reading ? "Close" : "Information"}
             </button>

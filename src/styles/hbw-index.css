@@ -12436,32 +12436,21 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 @media (max-width: 760px) {
   /*
-   * The one row in the family that is allowed to be taller, and why.
+   * The family, and the jump.
    *
-   * iOS Safari zooms the whole page when a field smaller than 16px takes
-   * focus, and there is no way to ask it not to — so the input is 16 on a
-   * phone whatever the rest of the foot is set at. Sixteen crammed into a
-   * twenty-four pixel row is what reads as a mistake; sixteen in a row
-   * built to hold it reads as a field. So the row grows to suit the one
-   * thing in it that cannot shrink, and the label and the button come up
-   * with it rather than sitting small beside it.
-   *
-   * The alternative is to set the field at the family's size and let the
-   * page jump every time somebody taps it, which is a worse thing to do to
-   * a reader than a row eight pixels taller than its neighbours.
+   * iOS Safari zooms the page when a field under 16px takes focus and will
+   * not be asked not to, so this row can have the rhythm or it can have no
+   * jump, and it cannot have both. It keeps the rhythm: one row the size of
+   * every other row, and a zoom on the few taps that reach it. A row eight
+   * pixels taller than its neighbours is visible every time the foot is
+   * looked at; the zoom happens once, to somebody who has already decided
+   * to type.
    */
-  .hbw-end__loop > .hbw-end__field {
-    min-height: 32px;
-    gap: calc(var(--pill-x) * 0.8);
-  }
-
   .hbw-end__loop > .hbw-end__field > input:not(.hbw-end__trap) {
     flex: 1 1 auto;
-    font-size: 16px;
   }
 
-  .hbw-end__loop > .hbw-end__field > label,
-  .hbw-end__loop > .hbw-end__field > button {
+.hbw-end__loop > .hbw-end__field > button {
     font-size: 16px;
   }
 }
@@ -12471,4 +12460,36 @@ body:has(.hbw-lamp) .hbw-bar__what {
   width: auto;
   color: var(--mute);
   white-space: nowrap;
+}
+
+/*
+ * A set in transit has nowhere to scroll to.
+ *
+ * The frames travel on transforms, and a transform still counts towards
+ * scrollable overflow even though it moves nothing in layout. Crossing
+ * between a band that runs sideways and a run that goes down, that is
+ * twenty-two frames briefly reporting themselves thousands of pixels from
+ * where they belong — and the container honouring it, which is how
+ * switching view once left the run 4,549px wide inside a 1,024px window.
+ *
+ * clip rather than hidden: hidden makes a scroll container, which is the
+ * very thing being avoided, and the run needs its own scrolling back the
+ * moment the journey is over.
+ */
+.hbw-lamp__pages[data-moving="true"] {
+  overflow: clip;
+}
+
+/*
+ * The switch, stood down while the writing is open.
+ *
+ * It keeps its plate and its place — the row's shape does not change, and
+ * the count stays where it was — but it reads as something not currently
+ * being asked for rather than as something you may press. Which is the
+ * truth of it: with the information up the work is on the contact sheet
+ * whichever view was chosen.
+ */
+.hbw-lamp__view[data-idle="true"] button {
+  opacity: 0.38;
+  pointer-events: none;
 }
