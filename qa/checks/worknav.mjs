@@ -25,7 +25,28 @@ export default async function run() {
   s.ok("the index arrangement is gone", (await p.$$(".hbw-spread")).length === 0);
   s.ok("the loop keeps its three turns", (await p.$eval(".hbw-loop", (e) => e.dataset.turns)) === "3");
   s.ok("no mark box at the head of a row", (await p.$$(".hbw-cell--mark")).length === 0);
-  s.ok("no foot on the front page", (await p.$$(".hbw-end__to")).length === 0);
+  /*
+   * A foot on the front page, once per turn.
+   *
+   * This asserted the opposite, which was right while the argument held:
+   * the nav carries the two moves the page needs and the foot's contents
+   * live in About. It did not hold. The newsletter existed nowhere a
+   * visitor would meet it, and the front page was the one page on the site
+   * with no way to get in touch on it.
+   *
+   * Three, because the turns have to stay identical for the loop to wrap
+   * without a jump — two would mean one turn is short and the wrap shows.
+   */
+  const feet = await p.$$(".hbw-end__to");
+  s.ok("a foot in every turn", feet.length === 3, `${feet.length} feet`);
+  s.ok(
+    "and a way to get in touch in it",
+    (await p.$$('footer a[href^="mailto:"]')).length === 3
+  );
+  s.ok(
+    "and the signup, which lives nowhere else",
+    (await p.$$("footer .hbw-end__field")).length === 3
+  );
 
   await p.goto(BASE + "/#index", { waitUntil: "domcontentloaded" });
   await sleep(2000);

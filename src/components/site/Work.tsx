@@ -20,6 +20,7 @@ import type { GalleryProject } from "@/sanity/load-gallery";
 import { useStillness } from "@/components/site/still";
 import type { InfoData } from "@/components/site/project-info";
 import { Catalogue } from "@/components/site/Catalogue";
+import { Footer } from "@/components/site/Footer";
 import { Lightbox } from "@/components/site/Lightbox";
 import type { Shot } from "@/components/site/shots";
 import { InfoBody } from "@/components/site/InfoBody";
@@ -1360,15 +1361,22 @@ export function Work({
               carries it.
             */}
             {/*
-              No foot on the front page.
+              And it is back, because About was not enough.
 
-              The work is the page, and the foot was a second set of ways out
-              underneath it — the studio's name, its addresses and a
-              newsletter field, repeated once per turn of a loop that prints
-              the catalogue three times. The nav carries the only two moves
-              the front page needs, and everything the foot said lives in
-              About, which is one of them.
+              It was taken out on the argument that the nav carries the only
+              two moves the front page needs and the foot's contents live in
+              About. True of the addresses; not true of the newsletter, which
+              existed nowhere a visitor would meet it, and not true in
+              practice of contact either — the front page was the one page on
+              the site with no way to get in touch on it at all.
+
+              Three copies, because the turns have to stay identical for the
+              loop to wrap without a jump, and all three live, because the
+              reader lands on the middle turn and the foot they reach has to
+              work. The signup's field id comes from useId, so the three
+              forms do not collide.
             */}
+            <Footer />
           </div>
         ))}
       </div>
