@@ -11965,11 +11965,21 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * the rows — the shapes do, and the sequence stays in the order it was
    * authored.
    */
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: center;
+  /*
+   * A grid, because a wrapping flex row cannot be told where to break.
+   *
+   * Flex fills each line until it runs out of room and has no opinion about
+   * what it sets beside what, so a square ended up next to a tall portrait
+   * and every row had a ragged foot. A grid can be told: a frame that starts
+   * a new kind of thing is sent to the first column, and the row it was going
+   * to join is simply left short. Same measure, same count, same gaps — only
+   * now the rows are level.
+   */
+  display: grid;
+  grid-template-columns: repeat(var(--band-across), minmax(0, 1fr));
+  grid-auto-flow: row;
+  align-items: start;
+  justify-items: stretch;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-x: auto;
@@ -12031,19 +12041,34 @@ body:has(.hbw-lamp) .hbw-bar__what {
  */
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page {
   box-sizing: border-box;
-  --band-share: calc(
-    (100% - (var(--band-across) - 1) * var(--band-gap)) / var(--band-across)
-  );
-  flex: 0 0 var(--band-share);
-  width: var(--band-share);
+  /*
+   * The column gives the width now, so the share is no longer worked out
+   * here: grid-template-columns already divides the measure by the count
+   * and takes the gaps out, which is the same arithmetic said once by the
+   * layout instead of twice by hand.
+   */
+  width: auto;
   max-width: 100%;
-  /* A flex item will not shrink below its content without this, which is
-     where the run's sixty pixels of hidden horizontal overflow came from. */
+  /* minmax(0, 1fr) above and this below: a grid item will not shrink past
+     its content otherwise, which is where the run's sixty pixels of hidden
+     horizontal overflow came from. */
   min-width: 0;
   aspect-ratio: var(--ar, 4 / 3);
   height: auto;
   align-items: stretch;
   justify-content: center;
+}
+
+/*
+ * And a frame that begins a new kind of thing begins a new row.
+ *
+ * Sent to the first column, which in a grid means the next row that has one
+ * free — so the row it would otherwise have joined is left short rather than
+ * filled with something that does not match it. A short row is the honest
+ * end of a group; a mismatched one is just untidy.
+ */
+.hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-break="true"] {
+  grid-column-start: 1;
 }
 
 /*
@@ -12068,8 +12093,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 /* Wide: the whole measure, alone. Half a landscape is a smear. */
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-shape="wide"] {
-  flex-basis: 100%;
-  width: 100%;
+  grid-column: 1 / -1;
 }
 
 /*
@@ -12089,8 +12113,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * frame came out the whole measure with its ratio ignored. The slot is the
    * measure; the picture inside it is what gets the height.
    */
-  flex-basis: 100%;
-  width: 100%;
+  grid-column: 1 / -1;
   aspect-ratio: auto;
   height: var(--band-long, 76vh);
 }
@@ -12113,8 +12136,8 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * right-hand edge of the run.
  */
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
-  flex: 0 0 100%;
-  width: 100%;
+  grid-column: 1 / -1;
+  width: auto;
   min-width: 0;
   max-width: 100%;
   aspect-ratio: 16 / 9;

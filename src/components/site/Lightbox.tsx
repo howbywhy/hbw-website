@@ -66,6 +66,27 @@ function shapeOf(shot: { width?: number; height?: number }) {
 }
 
 /**
+ * Which frames are alike enough to stand in a row together.
+ *
+ * Shape alone is too coarse. Upright covers everything from 0.6 to 1.1, so a
+ * square and a tall portrait counted as the same kind of thing and a row came
+ * out 461 by 461 beside 461 by 705 — a ragged foot on every row, which is the
+ * one thing the two galleries this is drawn from never do. They only ever put
+ * like beside like, and their rows are level because of it.
+ *
+ * So uprights are banded by their proportion, rounded to an eighth. Two
+ * frames in the same band are within a sixteenth of each other, which at this
+ * measure is a difference of a few per cent in height — level enough to read
+ * as a row rather than as a mistake. Wide and long each stand alone, so their
+ * own band is simply the shape.
+ */
+function rowKindOf(shot: { width?: number; height?: number }) {
+  const shape = shapeOf(shot);
+  if (shape !== "upright" || !shot.width || !shot.height) return shape;
+  return `upright-${Math.round((shot.width / shot.height) * 8)}`;
+}
+
+/**
  * Whether the reader asked for the band to run down the screen.
  *
  * Read from the address, once, and not during render: the server has no
@@ -1382,6 +1403,18 @@ export function Lightbox({
                  * stylesheet's business — across the screen this is ignored.
                  */
                 data-shape={shapeOf(one)}
+                /*
+                 * Starts a row, because the frame before it was a different
+                 * kind of thing.
+                 *
+                 * The run cannot work this out for itself — a wrapping layout
+                 * fills each line until it runs out of room, and has no
+                 * opinion about what it is putting beside what. So the break
+                 * is decided here, where the order is, and the stylesheet
+                 * sends anything carrying it to the start of the next row.
+                 * The first frame never needs one: it already starts a row.
+                 */
+                data-break={i > 0 && rowKindOf(one) !== rowKindOf(shots[i - 1]) ? "true" : undefined}
                 /* The page is the shape of its picture, known before it loads,
                    so the band is laid out right from the first paint and
                    nothing has to be cropped to fit a column. */
