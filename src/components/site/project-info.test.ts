@@ -89,6 +89,26 @@ test("no partners means no extra rows at all", () => {
   );
 });
 
+/*
+ * The claim and the credit have to agree.
+ *
+ * Work listed Digital Design while the row directly beneath it credited the
+ * website to Tayte — a claim and a correction one line apart. Tayte made the
+ * whole site, so the discipline is simply not SCK's. It stays in the
+ * vocabulary because KOJA, CLOSED and Our Boy Roy all earn it, which is
+ * exactly why this needs asserting: nothing else would stop it coming back.
+ */
+test("SCK does not claim Digital Design, having not done the site", () => {
+  const sck = projectById("sck");
+  assert.equal(
+    (sck.disciplines ?? []).includes("Digital Design"),
+    false,
+    "SCK claims Digital Design while crediting its website to Tayte"
+  );
+  /* And the discipline is still real elsewhere — this is not a vocabulary cut. */
+  assert.equal((projectById("koja").disciplines ?? []).includes("Digital Design"), true);
+});
+
 /* And the real record, so the credit cannot quietly go missing. */
 test("SCK credits Tayte for the website, and links to them", () => {
   const sck = projectById("sck");

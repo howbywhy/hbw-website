@@ -187,7 +187,15 @@ export const PROJECTS: ProjectRecord[] = [
     visualSpan: 5,
     visualStart: 8,
     sectors: ["Architecture", "Interior Design"],
-    disciplines: ["Brand Strategy", "Visual Identity", "Motion", "Digital Design"],
+    /*
+     * No Digital Design. Tayte did the whole site.
+     *
+     * It sat here while the row beneath credited the website to somebody
+     * else, so the facts read as a claim and a correction one line apart.
+     * The discipline stays in the vocabulary — KOJA, CLOSED and Our Boy Roy
+     * all earn it — it is only untrue of this project.
+     */
+    disciplines: ["Brand Strategy", "Visual Identity", "Motion"],
     credits: ["Mark Blackler"],
     partners: [{ contribution: "Website", name: "Tayte", url: "https://www.tayte.co/" }],
   },

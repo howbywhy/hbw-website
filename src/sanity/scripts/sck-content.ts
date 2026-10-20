@@ -8,11 +8,12 @@ export const SCK_IDENTITY = {
   proposition: "Intersecting Realities",
   year: "2025",
   sectors: ["Architecture", "Interior Design"],
-  disciplines: ["Brand Strategy", "Visual Identity", "Motion", "Digital Design"],
+  /* No Digital Design: Tayte made the whole site, and are credited for it. */
+  disciplines: ["Brand Strategy", "Visual Identity", "Motion"],
   portfolioOrder: 1,
   editorialPurpose: "Definition / Future",
   contributionNotes:
-    "Brand strategy, creative direction and visual identity. The SCK website was developed independently of HBW’s identity work. SCK’s interest in objects and furniture existed before this work; the identity recognised that ambition rather than creating it. No evidenced Outcome.",
+    "Brand strategy, creative direction and visual identity. The SCK website was designed and built by Tayte (tayte.co), independently of HBW’s identity work — Digital Design is not claimed on this project. SCK’s interest in objects and furniture existed before this work; the identity recognised that ambition rather than creating it. No evidenced Outcome.",
   replacementPriority: 8,
 };
 
