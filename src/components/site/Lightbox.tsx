@@ -23,7 +23,7 @@
 import { useNavSettled } from "@/components/site/navSettled";
 import { holdScroll } from "@/components/site/scroll-lock";
 import { useStillness } from "@/components/site/still";
-import { useView } from "@/components/site/view";
+import { useView, type View } from "@/components/site/view";
 import { useHeld } from "@/components/site/held";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { countOf } from "@/components/site/numbering";
@@ -193,39 +193,51 @@ function arrange(shots: { width?: number; height?: number }[]): Spot[] {
 }
 
 /**
- * Whether the reader asked for the band to run down the screen.
+ * Which of the three layouts the work is actually in.
  *
- * Read from the address, once, and not during render: the server has no
- * search string, so asking there would render one thing on the server and
- * another in the browser and hydration would disagree. It is set after the
- * first paint instead, which for a flag whose whole purpose is to be felt
- * rather than measured is soon enough.
+ *   band      the run across the screen, one frame at a time
+ *   arranged  the run down it, frames set in rows by their shape
+ *   grid      the contact sheet, every frame at thumbnail size
+ *
+ * Not the same thing as the view the reader chose. The switch says Gallery
+ * or Grid and that preference is kept; what each of those means depends on
+ * the window it is read in. A band running sideways is the whole point on a
+ * laptop and unusable on a phone, where a downward push is the only gesture
+ * there is — so on a phone Gallery is the arranged run and Grid is the
+ * contact sheet, while on a laptop Gallery is the band and Grid is the
+ * arranged run. One preference, two readings of it.
+ *
+ * And the writing overrules both. With the information open the work is
+ * always arranged, whatever the reader last chose and whatever they are
+ * reading it on, because what is wanted then is the whole project at once
+ * beside the words about it rather than one frame of it.
  */
-function askedForDown() {
-  try {
-    /*
-     * Remembered for the session, because the address does not keep it.
-     *
-     * Opening a project pushes /projects/<slug> and nothing else, so the
-     * first press of Next would drop the flag and hand back the horizontal
-     * band halfway through the comparison — which is the one thing that
-     * would make the comparison useless. Asked for once, it holds until the
-     * tab is closed; ?band=across turns it off again.
-     */
-    const asked = new URLSearchParams(window.location.search).get("band");
-    if (asked === "down") {
-      window.sessionStorage?.setItem("hbw-band", "down");
-      return true;
-    }
-    if (asked === "across") {
-      window.sessionStorage?.removeItem("hbw-band");
-      return false;
-    }
-    return window.sessionStorage?.getItem("hbw-band") === "down";
-  } catch {
-    /* no storage and no search string: the band runs the way it always has */
-    return false;
-  }
+type Layout = "band" | "arranged" | "grid";
+
+function layoutOf(view: View, narrow: boolean, reading: boolean): Layout {
+  if (reading) return "arranged";
+  if (narrow) return view === "grid" ? "grid" : "arranged";
+  return view === "grid" ? "arranged" : "band";
+}
+
+/**
+ * Whether this is a window a sideways band cannot be read in.
+ *
+ * False until the browser has had a say, like the view it sits beside: the
+ * server cannot know the width any more than it can know the preference, so
+ * both settle a frame after hydration rather than guessing and being wrong
+ * in the markup.
+ */
+function useNarrow() {
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const ask = window.matchMedia("(max-width: 760px)");
+    const heard = () => setNarrow(ask.matches);
+    heard();
+    ask.addEventListener("change", heard);
+    return () => ask.removeEventListener("change", heard);
+  }, []);
+  return narrow;
 }
 
 export function Lightbox({
@@ -485,9 +497,19 @@ export function Lightbox({
     (i: number) => {
       window.clearTimeout(staging.current);
       onAt?.(i);
+      /*
+       * And the writing closes behind it.
+       *
+       * Pressing a frame while the information is open is a decision to stop
+       * reading and go and look — so the sheet stays open over the frame
+       * only if nobody says otherwise, and the reader comes back from the
+       * full view to a project still holding the words they had left. It
+       * closes with the press, which is what the press meant.
+       */
+      setReading?.(false);
       setFull(true);
     },
-    [onAt]
+    [onAt, setReading]
   );
 
   const shutFull = useCallback(() => {
@@ -503,17 +525,24 @@ export function Lightbox({
   }, [beat, stillness]);
   const pages = useRef<HTMLDivElement>(null);
   /*
-   * Which way the band runs, when the address has an opinion.
+   * Which layout the work is actually in, as against which the reader chose.
    *
-   * Undefined on the server and on the first paint, "down" from the effect
-   * on, so the markup the server sent and the markup React hydrates are the
-   * same. Changing it re-runs the measuring effects below, which is what
-   * moves the rail onto its new axis.
+   * Everything downstream asks this rather than the preference: the band
+   * only runs across on a wide window, the arranged run is both Grid there
+   * and Gallery on a phone, and the writing overrules both.
    */
-  const [band, setBand] = useState<"down" | undefined>(undefined);
-  useEffect(() => {
-    if (askedForDown()) setBand("down");
-  }, []);
+  const narrow = useNarrow();
+  const layout = layoutOf(view, narrow, reading);
+  const band = layout === "arranged" ? "down" : undefined;
+  /*
+   * And what the stylesheet's older rules should think the view is.
+   *
+   * They were written when there were two layouts and the preference named
+   * them directly. The arranged run is a third, and it is built on top of
+   * the band's own rules rather than beside them — so it says "band" here
+   * and overrides what it needs to, which is what data-band is for.
+   */
+  const shown: View = layout === "grid" ? "grid" : "band";
   /** The handover panel sits one past the last frame. */
   const handover = next ? shots.length : -1;
   /* Worked out once for the sequence, not once per frame: every frame's
@@ -891,7 +920,7 @@ export function Lightbox({
      measures where each frame ended up. */
   useLayoutEffect(() => {
     const box = field.current;
-    if (!box || view !== "grid") return;
+    if (!box || layout !== "grid") return;
     const fit = () => {
       const w = box.clientWidth;
       const h = box.clientHeight;
@@ -1413,7 +1442,7 @@ export function Lightbox({
       */}
       <div
         className="hbw-lamp__field"
-        data-view={view}
+        data-view={shown}
         ref={field}
       >
         {/* One rail carrying every frame as a page, scrolled and snapped. */}
@@ -1486,7 +1515,7 @@ export function Lightbox({
              * covers the fastest flick the wheel can produce and still leaves
              * ten of SUB:3's twenty-three undrawn.
              */
-            const near = view === "grid" || Math.abs(i - at) <= 6;
+            const near = layout !== "band" || Math.abs(i - at) <= 6;
             return (
               <div
                 className="hbw-lamp__page"
@@ -1578,7 +1607,7 @@ export function Lightbox({
                 */}
                 {/* In the grid every frame is a way into itself: press one
                     and the band opens on it. */}
-                {view === "grid" ? (
+                {layout !== "band" ? (
                   <button
                     type="button"
                     className="hbw-lamp__pick"
@@ -1684,7 +1713,7 @@ export function Lightbox({
                      * band's figure: drawn at 238 pixels, asking for 1080.
                      */
                     sizes={
-                      view === "grid"
+                      layout === "grid"
                         ? "(max-width: 760px) 30vw, 17vw"
                         : one.width && one.height
                           ? `(max-width: 760px) 92vw, calc(75vh * ${(one.width / one.height).toFixed(3)})`
