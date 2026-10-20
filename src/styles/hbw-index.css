@@ -12009,12 +12009,29 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * own fallback — which had already drifted: the run was gapped at 14px
    * and the frames were sized as though it were 20, so a row never quite
    * met the measure.
+   *
+   * And the edge is the site's own --edge, which is 2px, not the 14 the two
+   * reference galleries use. Their margin is their own; this site already
+   * has a rule about how close a thing sits to the edge of the window, and
+   * every bar, every row of the contact sheet and the band running across
+   * all keep it. A gallery that kept somebody else's margin instead would
+   * be the one element on the site that did not line up with the chrome
+   * above and below it.
    */
-  --band-side: 14px;
-  --band-gap: 14px;
+  --band-side: var(--edge);
+  --band-gap: var(--edge);
   --band-across: 3;
   padding-inline: var(--band-side);
-  padding-block: var(--band-side) 16vh;
+  /*
+   * And the run ends where the handover does.
+   *
+   * There was 16vh of room under the last frame, put there so it could be
+   * brought to the middle of the screen. The handover is 38vh of its own and
+   * does that job — so all the padding did at the end was float the next
+   * project above a hand's depth of nothing, which read as the page having
+   * run out rather than handed over. The edge is the edge, top and bottom.
+   */
+  padding-block: var(--band-side);
   gap: var(--band-gap);
 }
 
@@ -12135,13 +12152,51 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * without these it came out 1,436px inside the measure and hung off the
  * right-hand edge of the run.
  */
-.hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+/*
+ * The next project surfaces at the foot, the way it surfaces at the right.
+ *
+ * Across the screen it is a narrow column at the end of the rail — a
+ * glimpse of the next project's own first frame, arriving at the edge you
+ * are travelling towards. Given the whole measure at sixteen by nine it
+ * stopped being a glimpse and became a slab: eight hundred pixels of
+ * somebody else's photograph, the largest thing in a project that is not
+ * the project.
+ *
+ * Turned onto this axis the edge you are travelling towards is the foot, so
+ * it is a band across it — the full measure, and shallow enough that the
+ * work it follows is still in the room with it.
+ */
+.hbw-lamp__field .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
   grid-column: 1 / -1;
   width: auto;
   min-width: 0;
   max-width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
+  aspect-ratio: auto;
+  height: var(--band-hand, 38vh);
+  /*
+   * And no margin of its own.
+   *
+   * The band carries margin-left: 8vw on this panel, which on the rail is
+   * the gap between the last frame and the glimpse beyond it. Spanning the
+   * measure, that margin is just an indent: the panel began 120px in and
+   * the run no longer lined up with itself.
+   */
+  margin: 0;
+}
+
+/*
+ * And it comes up rather than across.
+ *
+ * The arrival is a translate, and the axis was the rail's: translateX, which
+ * on a run going down is a sideways nudge from nowhere towards nothing. It
+ * travels the way the reader is travelling.
+ */
+.hbw-lamp:not([data-ending="true"]) .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+  transform: translateY(var(--rise, 14px));
+}
+
+.hbw-lamp[data-ending="true"] .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next {
+  transform: translateY(0);
 }
 
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page--next button {
@@ -12160,8 +12215,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
  */
 @media (max-width: 760px) {
   .hbw-lamp__pages[data-band="down"] {
-    --band-side: 8px;
-    --band-gap: 8px;
     --band-across: 1;
   }
 
