@@ -12149,6 +12149,19 @@ body:has(.hbw-lamp) .hbw-bar__what {
   object-fit: cover;
 }
 
+/*
+ * And nothing in the run reaches past the area it was given.
+ *
+ * A backstop rather than a rule: the band sizes several things by the
+ * window rather than by their place in it — the handover panel most of
+ * all — and a grid item wider than its own area is scrollable overflow on
+ * an axis this run does not scroll. 100% of a grid item is its own area,
+ * so a frame spanning two columns still gets both of them.
+ */
+.hbw-lamp__pages[data-band="down"] > * {
+  max-width: 100%;
+}
+
 /* Wide: the whole measure, alone. Half a landscape is a smear. */
 .hbw-lamp__pages[data-band="down"] .hbw-lamp__page[data-shape="wide"] {
   grid-column: 1 / -1;

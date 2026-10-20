@@ -543,6 +543,33 @@ export function Lightbox({
    * and overrides what it needs to, which is what data-band is for.
    */
   const shown: View = layout === "grid" ? "grid" : "band";
+  /*
+   * When the layout changes, the scroll changes axis with it.
+   *
+   * The band is scrolled sideways and the arranged run downwards, and a
+   * position on one axis means nothing on the other: switching left the run
+   * holding a scrollLeft of three thousand that it could no longer reach,
+   * and the reader at the top of a project they had been halfway through.
+   * The unused axis is put back to nought, and the frame they were on is
+   * brought back into view on the axis that now carries it — a little below
+   * the top edge rather than flush to it, so there is something above to
+   * say the run continues upward.
+   */
+  useLayoutEffect(() => {
+    const host = pages.current;
+    if (!host) return;
+    if (layout === "band") host.scrollTop = 0;
+    else host.scrollLeft = 0;
+    const kid = host.children[at] as HTMLElement | undefined;
+    if (!kid) return;
+    if (layout === "band") {
+      host.scrollLeft = kid.offsetLeft + kid.offsetWidth / 2 - host.clientWidth / 2;
+    } else {
+      host.scrollTop = Math.max(0, kid.offsetTop - host.clientHeight * 0.12);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layout]);
+
   /** The handover panel sits one past the last frame. */
   const handover = next ? shots.length : -1;
   /* Worked out once for the sequence, not once per frame: every frame's
@@ -1026,7 +1053,7 @@ export function Lightbox({
       watch.disconnect();
       window.clearTimeout(settling);
     };
-  }, [view, shots.length]);
+  }, [layout, shots.length]);
 
   /*
    * Changing view is a move, not a cut.
@@ -1048,7 +1075,21 @@ export function Lightbox({
     (next: "band" | "grid") => {
       if (next === view) return;
       const box = pages.current;
-      if (box && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      /*
+       * Only where the two layouts run the same way.
+       *
+       * This move was written when the two arrangements were a row and a
+       * sheet, both read downwards, and each frame had a short journey from
+       * one to the other. The band runs across and the arranged run runs
+       * down, so between those two it is twenty-two frames crossing the
+       * whole screen at once — and the transforms it leaves in flight are
+       * scrollable overflow while they last, which is how switching view
+       * left the run thousands of pixels wide and the scroll with nowhere
+       * to go. Across a change of axis the set simply changes.
+       */
+      const sameAxis =
+        layoutOf(view, narrow, reading) !== "band" && layoutOf(next, narrow, reading) !== "band";
+      if (box && sameAxis && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         const was = new Map<string, DOMRect>();
         box.querySelectorAll<HTMLElement>(".hbw-lamp__page").forEach((one, i) => {
           /*
@@ -1084,7 +1125,7 @@ export function Lightbox({
       setClosing(false);
       setView(next);
     },
-    [view, setView],
+    [view, setView, narrow, reading],
   );
 
   useLayoutEffect(() => {
@@ -1607,7 +1648,7 @@ export function Lightbox({
                 */}
                 {/* In the grid every frame is a way into itself: press one
                     and the band opens on it. */}
-                {layout !== "band" ? (
+                {reading ? (
                   <button
                     type="button"
                     className="hbw-lamp__pick"

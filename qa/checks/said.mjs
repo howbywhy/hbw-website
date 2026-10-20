@@ -76,20 +76,31 @@ export default async function run() {
   await p.goto(BASE + "/projects/sck", { waitUntil: "domcontentloaded" });
   await sleep(5000);
 
-  /* Into the grid, then a real click on a frame to reach full bleed. */
+  /*
+   * Open the information, then a real click on a frame to reach full bleed.
+   *
+   * This used to press Grid, because that was where a frame was a way into
+   * itself. Pressing a frame now belongs to the writing and nowhere else —
+   * looking at the work and going into one piece of it are two different
+   * intentions, and only one of them is a press. So the check follows the
+   * behaviour to where it lives rather than being relaxed to suit its own
+   * old setup: it still reaches full bleed by a real click on a real frame.
+   */
   await p.evaluate(() => {
-    const g = [...document.querySelectorAll("button, a")].find((x) => x.textContent.trim() === "Grid");
+    const g = [...document.querySelectorAll("button, a")].find(
+      (x) => x.textContent.trim() === "Information"
+    );
     g && g.click();
   });
   await sleep(2200);
   const box = await p.evaluate(() => {
-    const e = document.querySelector(".hbw-lamp__page");
+    const e = document.querySelector(".hbw-lamp__pick") ?? document.querySelector(".hbw-lamp__page");
     if (!e) return null;
     const r = e.getBoundingClientRect();
     return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
   });
   if (!box) {
-    s.ok("a frame to open", null, "no .hbw-lamp__page in the grid");
+    s.ok("a frame to open", null, "nothing pickable with the writing open");
     await b.close();
     return s;
   }
