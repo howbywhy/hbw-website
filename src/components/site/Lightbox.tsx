@@ -1820,6 +1820,24 @@ export function Lightbox({
                 {one.video ? (
                   <video
                     /*
+                     * A film is a picture that moves, and is described like one.
+                     *
+                     * The stills beside these have carried the sequence's alt
+                     * text all along; the films carried nothing — no alt, no
+                     * label, no track — so KOJA, which is nineteen films and
+                     * four stills, was a gallery with four described frames
+                     * out of twenty-three. The writing was in the CMS the
+                     * whole time, against the film, unread.
+                     *
+                     * role="img" because that is what one of these is: muted,
+                     * looping, no controls, nothing to play or pause. Named
+                     * only when it is the frame being read, exactly as the
+                     * stills are — a rail that announces all twenty-three at
+                     * once is not more accessible, it is unusable.
+                     */
+                    role="img"
+                    aria-label={i === at ? one.alt || undefined : undefined}
+                    /*
                      * Sources, not a src, so the WebM is offered.
                      *
                      * This named the MP4 directly, which meant the thirty
@@ -1997,7 +2015,15 @@ export function Lightbox({
                 data-way={way > 0 ? "on" : "back"}
               >
                 {one.video ? (
-                  <video poster={one.src} autoPlay={!stillness && !covered} muted loop playsInline>
+                  <video
+                    role="img"
+                    aria-label={one.alt || undefined}
+                    poster={one.src}
+                    autoPlay={!stillness && !covered}
+                    muted
+                    loop
+                    playsInline
+                  >
                     {one.webm ? <source src={one.webm} type="video/webm" /> : null}
                     <source src={one.video} type="video/mp4" />
                   </video>
