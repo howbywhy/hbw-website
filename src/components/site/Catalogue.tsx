@@ -97,7 +97,9 @@ function Cell({
       // Still a real address: the gallery opens here, but the project has a
       // page of its own for a crawler, a shared link and a middle click.
       href={`/projects/${project.slug}?f=${i + 1}`}
-      aria-label={`${project.name} — ${project.idea}`}
+      /* No label of its own: the picture inside says what this is, and a
+         link with an image in it takes its name from that image. Two names
+         would be the same thing announced twice. */
       onPointerEnter={onNear ? () => onNear(project.slug) : undefined}
       onFocus={onNear ? () => onNear(project.slug) : undefined}
       tabIndex={echo ? -1 : undefined}
@@ -133,7 +135,15 @@ function Cell({
         /* A cell is about a ninth of the screen on a sheet, a quarter on a
            phone. The browser picks the width it will actually draw. */
         sizes="(max-width: 760px) 25vw, 11vw"
-        alt={frame.alt ?? ""}
+        /*
+         * What this picture is, from the sequence it belongs to.
+         *
+         * Falls back to the project and its idea, which is what the link
+         * used to carry: a frame published without an alt still has a name,
+         * so a cell can never end up unreachable by someone who cannot see
+         * it.
+         */
+        alt={frame.alt?.trim() || `${project.name} — ${project.idea}`}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={first ? "high" : undefined}
         decoding="async"

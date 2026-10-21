@@ -221,21 +221,24 @@ export async function loadReel(): Promise<ReelJob[]> {
 }
 
 /**
- * The catalogue, without the writing.
+ * The catalogue, with the writing after all.
  *
- * A frame's alt text is the case study's own prose, and the repo's payload
- * guard watches for exactly those strings on any page that is not that
- * project's own — correctly, because shipping a case study's writing to the
- * front page is how the page got heavy the last two times.
+ * This stripped every frame's alt on the argument that a cell is a link
+ * already labelled with the project and its idea, which makes the thumbnail
+ * decorative — and a decorative image correctly takes an empty alt. The
+ * reasoning holds and the outcome was still wrong: 63 distinct pictures
+ * across the site, five of them described, on a site whose subject is
+ * pictures. For a design practice the images are the work, and a label
+ * saying which project they belong to is not a description of them.
  *
- * The sheet does not need it: every cell is a link labelled with the project
- * and its idea, which makes the thumbnails decorative, and a decorative image
- * takes an empty alt rather than a description.
+ * So the description goes on the image and the link takes its name from it,
+ * which is the ordinary way a thumbnail that links somewhere is written.
+ * Nothing is announced twice, because the aria-label it replaces is gone.
+ *
+ * It costs what it costs — the alts are the case study's own prose, and
+ * this is the page that carries them three times over. Measured before and
+ * after rather than argued about.
  */
 export async function loadSheets(): Promise<GalleryProject[]> {
-  const gallery = await loadGallery();
-  return gallery.map((project) => ({
-    ...project,
-    frames: project.frames.map(({ alt, ...frame }) => frame),
-  }));
+  return loadGallery();
 }
