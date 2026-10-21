@@ -22,30 +22,57 @@ export default async function run() {
   s.ok("they read Work then About", nav[0] === "Work" && nav[1] === "About", JSON.stringify(nav));
   s.ok("Work points at the front page", (await p.$eval(".hbw-bar__nav a", (a) => a.getAttribute("href"))) === "/");
 
-  s.ok("the index arrangement is gone", (await p.$$(".hbw-spread")).length === 0);
-  s.ok("the loop keeps its three turns", (await p.$eval(".hbw-loop", (e) => e.dataset.turns)) === "3");
+  s.ok("the old spread arrangement is gone", (await p.$$(".hbw-spread")).length === 0);
   s.ok("no mark box at the head of a row", (await p.$$(".hbw-cell--mark")).length === 0);
+
   /*
-   * A foot on the front page, once per turn.
+   * The front page is the index: one column of bars, one picture.
    *
-   * This asserted the opposite, which was right while the argument held:
-   * the nav carries the two moves the page needs and the foot's contents
-   * live in About. It did not hold. The newsletter existed nowhere a
-   * visitor would meet it, and the front page was the one page on the site
-   * with no way to get in touch on it.
-   *
-   * Three, because the turns have to stay identical for the loop to wrap
-   * without a jump — two would mean one turn is short and the wrap shows.
+   * It was the loop — three identical turns of a scrolling field, wrapping
+   * so the wrap never showed — and this asserted all three were there. The
+   * loop is not rendered anywhere now; the front page is the arrangement
+   * that used to live at /try/index.
    */
-  const feet = await p.$$(".hbw-end__to");
-  s.ok("a foot in every turn", feet.length === 3, `${feet.length} feet`);
+  s.ok("the front page runs one arrangement, not a loop", (await p.$$(".hbw-ind")).length === 1);
   s.ok(
-    "and a way to get in touch in it",
-    (await p.$$('footer a[href^="mailto:"]')).length === 3
+    "and the loop is down to a single pass",
+    (await p.$eval(".hbw-loop", (e) => e.dataset.turns)) === "1"
   );
+  s.ok("a bar for every project", (await p.$$(".hbw-ind__bars li a")).length >= 5);
+
+  /*
+   * A way to get in touch on the front page, and the signup.
+   *
+   * This counted three feet, three addresses and three signup fields: one
+   * per turn of the loop. The reason behind the count outlived the loop,
+   * and it is written down here because it has now been lost twice.
+   *
+   * The front page once had no foot at all, on the argument that the nav
+   * carries the two moves the page needs and the rest lives in About. That
+   * was wrong in a specific way: the newsletter existed nowhere a visitor
+   * would meet it, and the front page was the one page on the site with no
+   * way to get in touch on it. So a foot went into every turn.
+   *
+   * The index has no foot under it by design — the foot was a row saying
+   * the same four things, and the last bar opens to say them instead. But
+   * that bar was built from the foot's line mode, which omitted the
+   * address on the same argument as before (About is a press away), and
+   * the front page quietly lost its address a second time. The bar is not
+   * a foot: it is the row a reader opens *because* they want to reach the
+   * studio. Both live in it now, and this checks the bar, not the foot.
+   */
+  s.ok("the way out is the last bar", (await p.$$('.hbw-ind__bars li[data-talk] button')).length === 1);
+  await p.$eval('.hbw-ind__bars li[data-talk] button', (b) => b.click());
+  await sleep(1800);
+  const talk = await p.evaluate(() => ({
+    mail: document.querySelectorAll('.hbw-ind__talk a[href^="mailto:"]').length,
+    field: document.querySelectorAll(".hbw-ind__talk .hbw-end__field").length,
+  }));
+  s.ok("opened, it carries a way to get in touch", talk.mail >= 1, `${talk.mail} addresses`);
   s.ok(
     "and the signup, which lives nowhere else",
-    (await p.$$("footer .hbw-end__field")).length === 3
+    talk.field === 1,
+    `${talk.field} signup fields`
   );
 
   await p.goto(BASE + "/#index", { waitUntil: "domcontentloaded" });

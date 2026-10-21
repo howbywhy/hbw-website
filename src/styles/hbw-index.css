@@ -13123,7 +13123,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    it is. */
 /* The turn is the window, and the index is all of it: the way to get in
    touch is the last bar rather than a foot underneath. */
-.hbw-loop--try:has(.hbw-ind) .hbw-turn {
+.hbw-loop--one:has(.hbw-ind) .hbw-turn {
   display: grid;
   grid-template-rows: minmax(0, 1fr);
   grid-template-columns: minmax(0, 1fr);
@@ -13206,6 +13206,40 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   background: var(--pill-bg);
   color: var(--mute);
   text-decoration: none;
+}
+
+/*
+ * The mark that says where you are.
+ *
+ * This column held 01 to 07, which is a number a reader has to count
+ * against a list they can already see. A rule that fills on the one you
+ * are on says the same thing without being read — and the column keeps
+ * its width either way, so the type beside it never moves.
+ */
+.hbw-ind__no {
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--pill-r);
+  background: currentColor;
+  opacity: 0.2;
+  transform: scaleX(0.3);
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind__no {
+    transition:
+      transform var(--in) var(--ease),
+      opacity var(--in) var(--ease);
+  }
+}
+
+.hbw-ind__bars li[data-here="true"] .hbw-ind__no {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .hbw-ind__did {
@@ -13445,6 +13479,9 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  */
 .hbw-ind__view {
   position: absolute;
+  /* Above the seam light, which is the plate's own ::after and would
+     otherwise paint over the one piece of type on it. */
+  z-index: 2;
   top: var(--edge);
   left: var(--edge);
   /* Border-box, or the 2px above and below is added to the 24 and this
@@ -13524,14 +13561,252 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  * the next, which is the one move this site does not make: everything
  * here arrives on the same wipe. The element is keyed to the project, so
  * changing project remounts it and the wipe plays.
+ *
+ * ---- The seam ----
+ *
+ * The wipe was hbw-arrive, the same top-to-bottom clip every other arrival
+ * on this site uses. It is a seam of its own here: a hard horizontal ruler
+ * dragged down a picture that fills half the window, which reads as a
+ * blind coming down rather than one frame becoming another.
+ *
+ * What runs here instead is the studio's own transition, drawn in fxlab
+ * and carried over by its parameters. Right to left; an edge soft enough
+ * to have no ruler in it; a light on the seam; and the incoming frame
+ * pulled a little by the wipe so the picture arrives moving rather than
+ * sitting still behind a mask.
+ *
+ * Every number below is one of that file's, and they are the only things
+ * worth changing — the geometry underneath them is fixed by how a mask
+ * three times the width of its box has to be positioned to travel across
+ * it, and is explained where it happens.
+ *
+ * One part of the drawing is NOT here, and should not be read into it:
+ * the edge does not yet linger where the two pictures differ. That term
+ * needs the outgoing and incoming frames compared to each other, which is
+ * a canvas reading two images, not a stylesheet. The seam is even. The
+ * character of the move — direction, softness, light, pull, curve — is
+ * the drawing's.
+ *
+ * Front page only. These rules are under .hbw-ind__shot, which exists on
+ * no other page, so nothing else on the site changes.
  */
+.hbw-ind__shot {
+  /*
+   * The curves, which are meant to be swapped.
+   *
+   * --seam-curve is the one the wipe runs on and --seam-pull-curve the one
+   * the picture settles on. They are separate on purpose: a seam that
+   * decelerates hard and a picture that drifts to a stop are the two
+   * halves of the move, and tying them to one curve flattens it.
+   *
+   * The three below are the ones worth having. Swap a name into the two
+   * properties above them and the whole transition changes character —
+   * there is nothing else to edit.
+   */
+  --seam-sharp: cubic-bezier(0.16, 1, 0.3, 1); /* the studio's own: leaves fast, lands soft */
+  --seam-even: cubic-bezier(0.65, 0, 0.35, 1); /* ease in-out cubic, the file's timeline curve */
+  --seam-lean: cubic-bezier(0.22, 0.61, 0.36, 1); /* --ease, what the rest of the site moves on */
+  --seam-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoots and comes back */
+  --seam-drift: cubic-bezier(0.33, 0, 0.1, 1); /* barely starts, then runs */
+
+  /*
+   * The seam runs on the file's own timeline curve and the picture settles
+   * on the studio's.
+   *
+   * They were the other way round, and the move had no middle: the sharp
+   * curve is so front-loaded that the seam was thirty per cent across
+   * eighteen milliseconds in and eighty per cent across at eighty-five,
+   * then crawled the last fifth for a quarter of a second nobody could
+   * see. A wipe you cannot watch travel is a cut with a smear on it.
+   *
+   * Ease in-out cubic is what the transition was drawn and previewed on,
+   * and it is the one that gives the edge a middle — slow away, quick
+   * across, soft into the far side. The picture keeps the sharp curve
+   * underneath it, so the frame is already settling while the seam is
+   * still crossing, and the two halves of the move pull against each
+   * other instead of arriving together.
+   */
+  --seam-curve: var(--seam-even);
+  --seam-pull-curve: var(--seam-sharp);
+
+  /*
+   * Softness 0.200, as a share of the picture's own width — the file's
+   * number, meaning what it says there: the seam is a fifth of the frame
+   * wide, which at this size is a hand's breadth of gradient and no
+   * visible edge anywhere in it.
+   *
+   * The two below are worked out from it and are not separate taste; the
+   * arithmetic is in the note on the mask.
+   */
+  --seam-soft: 0.2;
+  --seam-span: calc(200% + var(--seam-soft) * 100%);
+  --seam-a: calc(100% / (2 + var(--seam-soft)));
+  --seam-b: calc(100% * (1 + var(--seam-soft)) / (2 + var(--seam-soft)));
+
+  /* Content pull 8.00. How far the incoming frame is carried by the wipe
+     before it settles. Literally the file's eight. */
+  --seam-pull: 8px;
+
+  /* Seam light 1.000. Nought takes the light off without touching
+     anything else. */
+  --seam-light: 1;
+
+  /*
+   * How much of the plate the light covers, as a share of it.
+   *
+   * A bare number rather than a width, because the light has to cross the
+   * whole plate and a transform's percentages are of the element's own
+   * width — so the travel is 100% divided by this. Keeping it as a number
+   * is what lets the two stay in step when it is changed.
+   */
+  --seam-light-span: 0.26;
+
+
+  /* How long the move takes, and the beat before it starts. After the bar,
+     not with it: the bar moving is what tells you the project changed, and
+     the picture answering it a beat later is the order this site does
+     everything in. */
+  --seam-run: calc(var(--in) * 2);
+  --seam-wait: calc(var(--in) * 0.75);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .hbw-ind__shot img,
   .hbw-ind__shot video {
-    /* After the bar, not with it: the bar moving is what tells you the
-       project changed, and the picture answering it a beat later is the
-       order this site does everything in. */
-    animation: hbw-arrive calc(var(--in) * 1.5) var(--ease) calc(var(--in) * 0.75) both;
+    /*
+     * A mask wider than the picture, travelling across it. This is the
+     * whole trick, and the only part of it that is arithmetic rather than
+     * taste.
+     *
+     * The picture is a window on the mask. At mask-position 0% the window
+     * sits at the mask's left end, at 100% at its right end, so over the
+     * animation the window travels right and the mask appears to travel
+     * left under it — which is the right-to-left of direction 3. The mask
+     * is clear on the left and solid on the right with the seam between
+     * them, so the solid side enters the window from its right edge and
+     * the picture is uncovered right to left.
+     *
+     * How wide the mask is decides everything. The seam has to cross the
+     * window exactly once: start at its right edge, finish at its left.
+     * The window travels (mask width − picture width), so for the seam to
+     * sweep one picture width the mask must be two of them, plus the seam
+     * itself so there is somewhere for it to sit at each end without
+     * showing. Hence 200% + the softness, and the two stops at one and at
+     * (1 + soft) picture widths along it.
+     *
+     * At 300% the travel was twice what the seam needed: the picture was
+     * fully uncovered three fifths of the way through and the last two
+     * fifths of every step moved nothing at all. The curve was blamed for
+     * that first, and was only half of it.
+     *
+     * To send it the other way, swap the two mask-positions in the
+     * keyframes.
+     */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent var(--seam-a),
+      #000 var(--seam-b)
+    );
+    mask-image: linear-gradient(to right, transparent var(--seam-a), #000 var(--seam-b));
+    -webkit-mask-size: var(--seam-span) 100%;
+    mask-size: var(--seam-span) 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    /*
+     * Two animations, not one: the seam crossing and the picture settling.
+     *
+     * They are the same length and start together but run on different
+     * curves, which is the thing a single animation cannot do and the
+     * reason the move has any character.
+     */
+    animation:
+      hbw-seam var(--seam-run) var(--seam-curve) var(--seam-wait) both,
+      hbw-seam-pull var(--seam-run) var(--seam-pull-curve) var(--seam-wait) both;
+  }
+
+  /*
+   * The light on the seam.
+   *
+   * A picture cannot carry a pseudo-element, so the plate carries it: a
+   * narrow upright gradient travelling the same path on the same clock. It
+   * is a light and not a line — no hard edges in it anywhere — so what a
+   * reader sees is the picture brightening where it is being uncovered
+   * rather than a bar moving across it.
+   */
+  .hbw-ind__shot::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* Narrow, and wider than the ramp it rides so the two never show an
+       edge against each other. Held as a bare number because the travel
+       below is derived from it. */
+    width: calc(var(--seam-light-span) * 100%);
+    /* Out of the way of the press: the plate is a link. */
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      transparent 0,
+      rgb(255 255 255 / calc(0.5 * var(--seam-light))) 50%,
+      transparent 100%
+    );
+    animation: hbw-seam-light var(--seam-run) var(--seam-curve) var(--seam-wait) both;
+  }
+
+  /* Nothing to light when there is no picture under it. */
+  .hbw-ind__shot--talk::after {
+    content: none;
+  }
+}
+
+/* The window travels across the mask; see the note above. */
+@keyframes hbw-seam {
+  from {
+    -webkit-mask-position: 0% 0%;
+    mask-position: 0% 0%;
+  }
+  to {
+    -webkit-mask-position: 100% 0%;
+    mask-position: 100% 0%;
+  }
+}
+
+/* Content pull: carried by the wipe, then let go. */
+@keyframes hbw-seam-pull {
+  from {
+    transform: translateX(var(--seam-pull));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/*
+ * The light crosses with the seam and goes out at the end.
+ *
+ * It starts a plate's width to the right of the plate and ends a light's
+ * width past its left edge, so it is never parked at either end: 100%
+ * over the share it covers is the plate measured in lights, which is why
+ * that share is a number.
+ *
+ * It fades rather than stopping. A light still at full strength when it
+ * reaches the edge reads as a bar leaving the picture, which is the ruler
+ * this move exists to get rid of.
+ */
+@keyframes hbw-seam-light {
+  from {
+    transform: translateX(calc(100% / var(--seam-light-span)));
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
   }
 }
 
@@ -13658,7 +13933,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  * in the middle of, and a screen of nothing at the top of a page you land
  * at the top of.
  */
-.hbw-loop--try .hbw-turn {
+.hbw-loop--one .hbw-turn {
   padding-top: 0;
 }
 
@@ -13684,7 +13959,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  */
 /* Zero, not 2px: the arrangement inside carries the gutter, and both
    together made it 4. */
-.hbw-site:has(.hbw-loop--try) {
+.hbw-site:has(.hbw-loop--one) {
   padding-top: 0;
 }
 

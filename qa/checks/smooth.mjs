@@ -28,9 +28,9 @@
 import { BASE, sleep, sheet, track } from "../lib.mjs";
 
 /*
- * Home and every project. The front page has never been the problem and is
- * here as the control: if it fails too, the cause is the machine or the
- * build, not the page.
+ * Home and every project. The front page was the control — it had never been
+ * the problem — and it is still useful as one, though it is now the index
+ * and is driven differently from the rest; see the note in measure().
  */
 const PAGES = [
   "/",
@@ -95,6 +95,13 @@ async function measure(b, path) {
    */
   await p.evaluate(() => {
     window.__before = window.scrollY;
+    /* Which project the index is on, so a page that steps instead of
+       scrolling still reports what it moved. */
+    const at = () => [...document.querySelectorAll(".hbw-ind__bars li")].findIndex(
+      (li) => li.dataset.here === "true"
+    );
+    window.__atBefore = at();
+    window.__at = at;
     /* Every scroller, not the first one found. The gallery's band is well
        down the document, so taking the first match measured a container that
        never moves and reported that nothing had happened. */
@@ -116,10 +123,32 @@ async function measure(b, path) {
     requestAnimationFrame(tick);
   });
 
+  /*
+   * How the page is driven depends on what it does with a wheel.
+   *
+   * Everywhere else a wheel scrolls, and sixty of them forty-five
+   * milliseconds apart is a flick with its tail. The front page does not
+   * scroll: it steps, one project per gesture, and it tells a gesture from
+   * its tail by waiting for the wheel to go quiet. Driven at forty-five
+   * milliseconds it reads the whole run as one gesture, steps once, and
+   * reports a perfect frame rate for a page that moved almost nothing —
+   * which is the check that can only pass, in a new costume.
+   *
+   * So the index is driven in separate gestures, far enough apart to be
+   * separate, and what moved is counted in steps rather than pixels.
+   */
+  const steps = await p.evaluate(() => !!document.querySelector(".hbw-ind"));
   await p.mouse.move(700, 500);
-  for (let i = 0; i < 60; i += 1) {
-    await p.mouse.wheel({ deltaY: 110 });
-    await sleep(45);
+  if (steps) {
+    for (let i = 0; i < 14; i += 1) {
+      await p.mouse.wheel({ deltaY: 110 });
+      await sleep(230);
+    }
+  } else {
+    for (let i = 0; i < 60; i += 1) {
+      await p.mouse.wheel({ deltaY: 110 });
+      await sleep(45);
+    }
   }
   await sleep(400);
 
@@ -132,13 +161,18 @@ async function measure(b, path) {
     for (const [el, top, left] of window.__boxes) {
       movedBox += Math.abs(el.scrollTop - top) + Math.abs(el.scrollLeft - left);
     }
+    /* A step counts as movement. Scaled to pixels only so the two can be
+       added — the number in the note is "something happened", not a
+       distance. */
+    const movedSteps =
+      window.__atBefore === undefined ? 0 : Math.abs(window.__at() - window.__atBefore) * 100;
     return {
       frames: f.length,
       median: Number(q(0.5).toFixed(1)),
       p99: Number(q(0.99).toFixed(1)),
       worst: Number((f[f.length - 1] ?? 0).toFixed(0)),
       janky: f.filter((x) => x > 33).length,
-      moved: Math.round(movedWindow + movedBox),
+      moved: Math.round(movedWindow + movedBox + movedSteps),
     };
   });
   await p.close();

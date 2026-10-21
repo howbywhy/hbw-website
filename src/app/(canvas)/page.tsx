@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * The front page: the work, as a contact sheet per project.
+ * The front page: the work as an index, one project at a time.
  *
  * It was /work, and everything that used to sit in front of it — a title
  * card, a field of marks, a horizontal reel — has gone. None of it was the
@@ -44,6 +44,7 @@ export default async function HomePage() {
       <div className="hbw-wrap">
         <Work
           projects={projects}
+          shape="index"
           marks={Object.fromEntries(
             projects.map((project) => [
               project.slug,

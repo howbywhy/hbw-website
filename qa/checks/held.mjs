@@ -1,43 +1,46 @@
 /**
- * The work is held until it is a picture, and then uncovered — three ways.
+ * Work is never cut to, and never left invisible.
  *
  * The front page used to open its field on the ladder and then fill in
  * underneath it: eighty-four pictures landing one at a time over six hundred
- * milliseconds, each appearing the moment it arrived. The rows are clipped
- * from the served markup now and uncovered together, a row behind a row, once
- * the pictures actually on the first screen have decoded.
+ * milliseconds, each appearing the moment it arrived. The rows were clipped
+ * from the served markup and uncovered together, a row behind a row, once the
+ * pictures on the first screen had decoded — and that hold is what this file
+ * was written to guard.
  *
- * Three things have to be true, and only the first is obvious:
+ * That field is gone. The front page is the index now: one column of bars and
+ * one picture, which has nothing to hold. The hold was not loosened or
+ * broken, it stopped having a subject, and a check whose subject has gone is
+ * worse than no check — it goes green on a page it is no longer looking at.
  *
- *   1. With script, the rows are held and then uncovered — none left covered.
- *   2. WITHOUT script, they are uncovered too. The hold is in the HTML, so a
- *      page that never hydrates is a page of invisible work unless the
- *      stylesheet can finish the job on its own. That floor is the reason
- *      --sheet-wait exists and the reason it sits past any hydration.
- *   3. The reveal is a wipe, not a cut. Asking only whether a row ended up
- *      visible is satisfied by a row that snapped there in one frame, which
- *      is the fault this whole mechanism exists to remove — so this counts
- *      the distinct clip values the row passes through on the way. Verified
- *      by taking the transition off .hbw-sheet: sixteen clips become two and
- *      this row fails.
+ * So this now guards the two things that outlived the field, which are the
+ * two faults the hold existed to prevent in the first place:
  *
- *      What it does NOT guard, said plainly so nobody reads more into a
- *      green run than is in it: the two clocks colliding. The script and the
- *      stylesheet can each uncover a row, and while that hand-over was
- *      mishandled they once fired thirteen milliseconds apart and the row
- *      jumped to its end in three frames. That is fixed in the page — the
- *      script lets a running reveal finish rather than cutting it — but the
- *      collision is a race that could not be provoked on demand, so this
- *      check has never seen it. The fix is reasoned, not covered.
+ *   1. Work is never cut to. The front page's picture changes every time a
+ *      reader steps, and it is uncovered by a seam travelling across it. A
+ *      cut is the one move this site does not make. Counting whether the
+ *      picture ended up visible is satisfied by a picture that snapped there
+ *      in one frame, so this counts the distinct mask positions it passes
+ *      through on the way — the same argument the clip count made.
  *
- * And a project page must not hold at all: there the strip is behind a full
- * window carrying no sources, so uncovering it is a move nobody can see that
- * `brisk` nonetheless charges to the project's arrival.
+ *      Verified by taking the animation off: twenty-odd positions become one
+ *      and this row fails.
+ *
+ *   2. Work is never left invisible. A project page still serves its strip as
+ *      rows, and they must be uncovered with script and without — the floor
+ *      that --sheet-wait exists for, and the reason a page that never
+ *      hydrates is not a page of invisible work.
+ *
+ * What it does NOT guard, said plainly so nobody reads more into a green run
+ * than is in it: the two clocks colliding. While the field existed the script
+ * and the stylesheet could each uncover a row, and a mishandled hand-over
+ * once fired them thirteen milliseconds apart. That race could never be
+ * provoked on demand and has never been seen by this file.
  */
 import { BASE, browser, track, sleep, sheet } from "../lib.mjs";
 import puppeteer from "puppeteer-core";
 
-/** A wipe passes through intermediate clips; a cut does not. */
+/** A wipe passes through intermediate positions; a cut does not. */
 const STEPS = 5;
 
 function chrome() {
@@ -56,7 +59,7 @@ function chrome() {
  * here — this measures clip values and attributes, not frames drawn — but the
  * throttle is not optional.
  */
-async function land({ mbit, noJs = false }) {
+async function land({ mbit, noJs = false, path = "" }) {
   const b = await track(
     puppeteer.launch({
       executablePath: chrome(),
@@ -109,7 +112,7 @@ async function land({ mbit, noJs = false }) {
     });
   }
 
-  await p.goto(BASE, { waitUntil: "load" });
+  await p.goto(BASE + path, { waitUntil: "load" });
   await sleep(4200);
 
   const out = await p.evaluate(() => {
@@ -130,49 +133,62 @@ async function land({ mbit, noJs = false }) {
 }
 
 export default async function run() {
-  const s = sheet("the work is held, then uncovered");
+  const s = sheet("work is never cut to, nor left invisible");
 
-  /* 1. Served held. If it is not, there is nothing to measure after this. */
-  const served = await fetch(BASE).then((r) => r.text());
-  const turns = served.match(/data-hold="true"/g)?.length ?? 0;
-  s.ok("the front page is served with its rows held", turns === 3, `${turns} of 3 turns held in the HTML`);
-
-  const run1 = await land({ mbit: 4 });
-  if (!run1.rows) {
-    s.ok("the rows are uncovered", null, "no .hbw-sheet found — nothing after this was measured");
-    return s;
-  }
-
+  /*
+   * 1. The front page holds nothing, because it has nothing to hold.
+   *
+   * Stated rather than assumed: if a field of rows ever comes back to the
+   * front page it will arrive unheld, and this is the row that says so.
+   */
+  const front = await fetch(BASE).then((r) => r.text());
+  const turns = front.match(/data-hold="true"/g)?.length ?? 0;
   s.ok(
-    "and the script lets them go",
-    run1.gone !== null,
-    run1.gone === null ? "data-hold was never removed" : `released at ${Math.round(run1.gone)}ms`
+    "the front page holds nothing, having one picture and not a field",
+    turns === 0,
+    `${turns} turns held in the HTML`
+  );
+
+  /* 2. And its picture is uncovered by a seam, not cut to. */
+  const seam = await seamSteps();
+  s.ok(
+    "stepping a project uncovers the next picture, it does not cut to it",
+    seam.steps >= STEPS,
+    seam.steps === null
+      ? "no picture found to watch"
+      : `the picture passed through ${seam.steps} mask positions (a cut shows 1 or 2)`
   );
   s.ok(
-    "nothing is left covered",
+    "and the seam crosses right to left",
+    seam.first !== null && seam.last !== null && seam.first < seam.last,
+    `${seam.first}% to ${seam.last}%`
+  );
+
+  /*
+   * 3. A project page's rows are uncovered — with script and without.
+   *
+   * The floor. The strip is served as rows, and a reader whose script never
+   * runs must still get the work rather than a page of empty plates.
+   */
+  const run1 = await land({ mbit: 4, path: "/projects/koja" });
+  if (!run1.rows) {
+    s.ok("a project's rows are uncovered", null, "no .hbw-sheet found — nothing after this was measured");
+    return s;
+  }
+  s.ok(
+    "a project's rows are not left covered",
     run1.covered === 0,
     `${run1.rows} rows, ${run1.covered} still clipped`
   );
 
-  /* 3. A wipe, not a cut. */
-  const steps = run1.seen?.length ?? 0;
-  s.ok(
-    "and it is a wipe, not a cut",
-    steps >= STEPS,
-    run1.seen === null
-      ? "no clips recorded"
-      : `the first row passed through ${steps} clips (a cut shows 2 or 3)`
-  );
-
-  /* 2. The floor: no script at all. */
-  const bare = await land({ mbit: 4, noJs: true });
+  const bare = await land({ mbit: 4, noJs: true, path: "/projects/koja" });
   s.ok(
     "with no script, the stylesheet uncovers them anyway",
     bare.rows > 0 && bare.covered === 0,
-    bare.rows ? `${bare.rows} rows, ${bare.covered} still clipped, data-hold still "${bare.held}"` : "no rows found"
+    bare.rows ? `${bare.rows} rows, ${bare.covered} still clipped` : "no rows found"
   );
 
-  /* And a project page holds nothing. */
+  /* And it holds nothing either, having nothing to show behind the window. */
   const koja = await fetch(`${BASE}/projects/koja`).then((r) => r.text());
   const kojaHeld = koja.match(/data-hold="true"/g)?.length ?? 0;
   s.ok(
@@ -182,4 +198,60 @@ export default async function run() {
   );
 
   return s;
+}
+
+/**
+ * Step the front page once and watch the picture arrive.
+ *
+ * Unthrottled and with a real frame clock: this measures how the picture is
+ * uncovered, not how fast it is fetched.
+ */
+async function seamSteps() {
+  const b = await track(
+    puppeteer.launch({
+      executablePath: chrome(),
+      headless: "new",
+      args: ["--no-sandbox", "--autoplay-policy=no-user-gesture-required"],
+    })
+  );
+  const p = await b.newPage();
+  await p.setViewport({ width: 1440, height: 900 });
+  await p.goto(BASE, { waitUntil: "domcontentloaded" });
+  await sleep(3800);
+
+  const shot = ".hbw-ind__shot img, .hbw-ind__shot video";
+  const found = await p.$(shot);
+  if (!found) {
+    await b.close();
+    return { steps: null, first: null, last: null };
+  }
+
+  await p.evaluate((sel) => {
+    window.__seen = [];
+    const t0 = performance.now();
+    const tick = () => {
+      const el = document.querySelector(sel);
+      if (el) {
+        const c = getComputedStyle(el);
+        const v = c.maskPosition || c.webkitMaskPosition;
+        if (window.__seen[window.__seen.length - 1] !== v) window.__seen.push(v);
+      }
+      if (performance.now() - t0 < 1400) requestAnimationFrame(tick);
+    };
+    /* The wheel is what the page listens to; a scroll would do nothing,
+       because the front page does not scroll. */
+    document
+      .querySelector(".hbw-ind")
+      ?.dispatchEvent(new WheelEvent("wheel", { deltaY: 120, bubbles: true, cancelable: true }));
+    requestAnimationFrame(tick);
+  }, shot);
+  await sleep(1600);
+
+  const seen = await p.evaluate(() => window.__seen ?? []);
+  await b.close();
+  const num = (v) => {
+    const m = /^(-?[\d.]+)%/.exec(v ?? "");
+    return m ? Math.round(Number(m[1])) : null;
+  };
+  return { steps: seen.length, first: num(seen[0]), last: num(seen[seen.length - 1]) };
 }

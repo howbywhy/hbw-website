@@ -40,9 +40,18 @@ const barClick = (text) => async (p) => {
   return found;
 };
 
+/*
+ * Into the first project.
+ *
+ * This looked for .hbw-cell, which was a tile in the loop's field. The front
+ * page is the index now and its work is a column of bars, so the selector
+ * found nothing and every walk that starts here reported unmeasured — six
+ * routes silently stopped being checked. Both are named, so this keeps
+ * working whichever arrangement a page is built from.
+ */
 const openProject = async (p) => {
   const found = await p.evaluate(() => {
-    const a = document.querySelector(".hbw-cell a, a.hbw-cell");
+    const a = document.querySelector(".hbw-ind__bars li a, .hbw-cell a, a.hbw-cell");
     if (!a) return false;
     a.click();
     return true;

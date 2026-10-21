@@ -415,12 +415,36 @@ export function IndexWork({
     >
       <a
         href={`/projects/${project.slug}`}
-        onPointerEnter={() => {
+        aria-current={i === at ? "true" : undefined}
+        /*
+         * A pointer chooses on arrival; a thumb chooses on a press.
+         *
+         * Touch fires pointerenter too, so a tap would open the bar and
+         * then its own click would read as a press on the already open one
+         * and go straight to the project — a reader on a phone would never
+         * get the step where the picture changes and the line lights. On
+         * touch this does nothing, and the two taps mean what they say.
+         */
+        onPointerEnter={(event) => {
+          if (event.pointerType === "touch") return;
           if (!stirred.current) return;
           touched.current = true;
           setAt(i);
         }}
-        onFocus={() => setAt(i)}
+        /*
+         * Keyboard focus, not the focus a tap leaves behind.
+         *
+         * Tapping a bar focuses it, and this opened it — so by the time the
+         * same tap's click arrived the bar was already the open one and it
+         * went straight through to the project. A reader on a phone never
+         * saw the step where the picture changes. :focus-visible is the
+         * browser's own answer to "did they mean to focus this", and it is
+         * false for a tap and true for a Tab.
+         */
+        onFocus={(event) => {
+          if (!(event.target as HTMLElement).matches(":focus-visible")) return;
+          setAt(i);
+        }}
         onClick={(event) => {
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
           event.preventDefault();
@@ -434,7 +458,10 @@ export function IndexWork({
       >
         {/* Two sizes on this page and no others: the number is the small
             one, what the work was and the year are the reading one. */}
-        <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
+        {/* Where you are, rather than which number this is. A reader
+            counting to seven learns nothing; a mark that moves tells them
+            the one thing the column is for. */}
+        <span className="hbw-ind__no" aria-hidden="true" />
         <span className="hbw-ind__did">{didOf(project)}</span>
         <span className="hbw-ind__year">{project.year}</span>
         {/* The nav is saying the name. A link still has to say where it goes

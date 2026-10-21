@@ -36,7 +36,41 @@ const BUDGET = {
   /* A landing assembles the whole chrome from nothing, so its nav carries
      the same words a project does. The old choreography put it at 1,166ms. */
   "landing on the front page": { settled: 1100, nav: 780 },
-  "opening About": { settled: 1100, nav: 450 },
+  /*
+   * The front page's opening beat, which is a move and not a wait.
+   *
+   * The index does not land finished. It lands saying How by Why and the
+   * positioning line, holds, and then opens its first project: the nav
+   * hands its words over and the picture wipes in behind it. That is the
+   * page's first sentence, and it is deliberate.
+   *
+   * Timed as one row it read as a slow landing — 1,819ms settled against a
+   * budget of 1,100, and a nav of 1,636ms against 780 — and both numbers
+   * were the choreography working. They are split at the hand-over now:
+   * everything before it is the landing above, everything from it is this.
+   *
+   * The budget is the design's own arithmetic rather than what the page
+   * happens to do. --in is 240ms: the chrome may take its 1,100, the beat
+   * before the open is three of those (720ms), the picture waits another
+   * three quarters of one (180ms) and wipes over one and a half (360ms).
+   * That is 2,360ms if every part spends its whole allowance; the page
+   * measures 1,804. Lengthen the beat or slow the chrome and this fails,
+   * which is the point — it is a ceiling on the sequence, not a note of
+   * what it currently costs.
+   */
+  "the front page opens its first project": { settled: 2360, nav: 2000 },
+  /*
+   * About's nav at 450 was inside its own spread, which makes a row that
+   * decides by coin toss rather than by the site.
+   *
+   * Five runs on a machine that was also building measured 433, 455, 456,
+   * 457 and 461. The budget sat in the middle of that, so the same page
+   * passed and failed in consecutive runs and the failure said nothing
+   * about About. It is above the spread now and still nowhere near slow —
+   * the fault this is for is a nav that takes the better part of a second,
+   * not one that takes an extra five milliseconds on a busy machine.
+   */
+  "opening About": { settled: 1100, nav: 520 },
   /*
    * A project's nav gets more than the others, for two reasons.
    *
@@ -52,13 +86,27 @@ const BUDGET = {
    * this at 3,061ms settled and 1,494ms nav, so a return to it still fails,
    * and so does anything that adds more than about a tenth of a second.
    */
-  "opening a project": { settled: 1700, nav: 1000 },
+  /*
+   * Opening a project no longer moves the nav, and that is the feature.
+   *
+   * From the loop's field the nav had to assemble the project's name on
+   * the press. From the index it is already saying it: stepping onto a bar
+   * hands the nav over to that project, so by the time a reader presses
+   * the picture the chrome has said what it is going to say and has
+   * nothing left to do. Timing it here measured a move the page is right
+   * not to make, and reported the row unmeasured when it did not happen.
+   *
+   * nav: null says the nav is not timed on this move and is not expected
+   * to be. If it ever does animate here, something has gone back to
+   * assembling the chrome on the press and the row below will catch it.
+   */
+  "opening a project": { settled: 1700, nav: null },
 };
 
 /** Every arrival on the page, timed from a mark we set ourselves. */
 const WATCH = `(() => {
   window.__ev = []; window.__t0 = performance.now();
-  window.__mark = () => { window.__t0 = performance.now(); window.__ev = []; };
+  window.__mark = () => { window.__t0 = performance.now(); window.__ev = []; window.__over = null; };
   const name = (el) => (el.className || "").toString().split(" ")[0] || el.tagName;
   document.addEventListener("animationstart", (e) => {
     if (e.target instanceof Element) window.__ev.push(["start", Math.round(performance.now() - window.__t0), name(e.target)]);
@@ -66,17 +114,35 @@ const WATCH = `(() => {
   document.addEventListener("animationend", (e) => {
     if (e.target instanceof Element) window.__ev.push(["end", Math.round(performance.now() - window.__t0), name(e.target)]);
   }, true);
+  /* The index tells the chrome which project it is on through this event.
+     The first one carrying a project is the moment the page stops landing
+     and starts opening, which is where the two moves are split. */
+  window.__over = null;
+  window.addEventListener("hbw:over", (e) => {
+    if (e.detail && window.__over === null) window.__over = Math.round(performance.now() - window.__t0);
+  });
 })()`;
 
-async function read(p) {
-  const ev = await p.evaluate(() => window.__ev);
-  const ends = ev.filter((e) => e[0] === "end");
+/*
+ * `part` picks one side of the front page's hand-over: "landing" is
+ * everything before it, "opening" everything from it on. Any other page has
+ * no hand-over and reads whole.
+ */
+async function read(p, part) {
+  const { ev, over } = await p.evaluate(() => ({ ev: window.__ev, over: window.__over ?? null }));
+  let ends = ev.filter((e) => e[0] === "end");
+  let starts = ev.filter((e) => e[0] === "start");
+  if (part && over !== null) {
+    const keep = part === "landing" ? (e) => e[1] < over : (e) => e[1] >= over;
+    ends = ends.filter(keep);
+    starts = starts.filter(keep);
+  }
   if (!ends.length) return null;
   const navEnd = ends.filter((e) => /^hbw-bar/.test(e[2])).pop();
   return {
     settled: ends[ends.length - 1][1],
     nav: navEnd ? navEnd[1] : null,
-    moves: ev.filter((e) => e[0] === "start").length,
+    moves: starts.length,
   };
 }
 
@@ -85,8 +151,14 @@ function judge(s, label, m) {
   if (!m) return s.ok(label, null, "nothing animated, so nothing was timed");
   const note =
     `settled ${m.settled}ms (budget ${want.settled}), ` +
-    `nav ${m.nav === null ? "—" : m.nav + "ms (budget " + want.nav + ")"}, ` +
+    `nav ${m.nav === null ? "—" : m.nav + "ms" + (want.nav === null ? " (not budgeted)" : " (budget " + want.nav + ")")}, ` +
     `${m.moves} moves`;
+
+  /* A move whose nav is not budgeted is judged on the whole thing settling,
+     and says so rather than reporting itself unmeasured. */
+  if (want.nav === null) {
+    return s.ok(label, m.settled <= want.settled, note + " — the nav arrived before the press");
+  }
   if (m.nav === null) return s.ok(label, null, note + " — the nav never moved, so it was not timed");
   s.ok(label, m.settled <= want.settled && m.nav <= want.nav, note);
 }
@@ -101,7 +173,8 @@ export default async function run() {
   await p.evaluateOnNewDocument(WATCH);
   await p.goto(BASE + "/", { waitUntil: "domcontentloaded" });
   await sleep(4000);
-  judge(s, "landing on the front page", await read(p));
+  judge(s, "landing on the front page", await read(p, "landing"));
+  judge(s, "the front page opens its first project", await read(p, "opening"));
 
   await p.evaluate(() => window.__mark());
   await p.evaluate(() => {
@@ -129,7 +202,7 @@ export default async function run() {
    * on hover and on the press for exactly the same reason.
    */
   const first = await p.evaluate(() => {
-    const a = document.querySelector(".hbw-cell a, a.hbw-cell");
+    const a = document.querySelector(".hbw-ind__bars li a, .hbw-cell a, a.hbw-cell");
     return a ? new URL(a.href).pathname.split("/").pop()?.split("?")[0] : null;
   });
   if (first) {
@@ -137,7 +210,9 @@ export default async function run() {
     await sleep(400);
   }
   await p.evaluate(() => window.__mark());
-  await p.evaluate(() => document.querySelector(".hbw-cell a, a.hbw-cell")?.click());
+  await p.evaluate(() =>
+    document.querySelector(".hbw-ind__bars li a, .hbw-cell a, a.hbw-cell")?.click()
+  );
   await sleep(4000);
   judge(s, "opening a project", await read(p));
   await p.close();

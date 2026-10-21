@@ -1338,7 +1338,7 @@ export function Work({
          * opens, the foot — so what is being compared is the arrangement
          * and not a different site.
          */
-        <div className="hbw-loop hbw-loop--try" data-turns="1">
+        <div className="hbw-loop hbw-loop--one" data-turns="1">
           <div className="hbw-turn">
             {shape === "large" ? (
               <LargeWork

@@ -125,19 +125,21 @@ export function Footer({ line = false }: { line?: boolean }) {
           address, the number, and the studio elsewhere.
         */}
         {/*
-          In a line, the two profiles only.
+          In a line, the address and the two profiles; the number stays in
+          About.
           
-          A foot that is one row across the bottom of a page that does not
-          scroll has room for the place, the list and where else the studio
-          is — and the address and the number are both a press away in
-          About, which is in the nav above it.
+          This dropped the address as well, on the argument that both it and
+          the number are a press away in About. That argument held while the
+          line was the foot of a page. It is not a foot any more: it is the
+          inside of the Talk bar, the one row a reader opens *because* they
+          want to reach the studio. Leaving the address out of it meant the
+          front page had no way to get in touch anywhere on it — the exact
+          fault the foot was added to fix, returned by a different door. The
+          number is still a press away, and a telephone is not what this row
+          is for.
         */}
-        {line ? null : (
-          <>
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-            <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
-          </>
-        )}
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        {line ? null : <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>}
         {PROFILES.map((profile) => (
           <a key={profile.url} href={profile.url} rel="me noopener" target="_blank">
             {profile.name}
