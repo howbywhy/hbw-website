@@ -13,6 +13,7 @@
  * project's gallery exactly as it does now. Nothing here is a mock.
  */
 import type { CSSProperties, ReactNode } from "react";
+import { Footer } from "@/components/site/Footer";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /** The site's gutter, in pixels, for the arithmetic that places the bars. */
@@ -154,7 +155,9 @@ export function IndexWork({
   const [at, setAt] = useState<number | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const bars = useRef<HTMLOListElement>(null);
-  const open = at === null ? null : projects[at];
+  const open = at === null ? null : (projects[at] ?? null);
+  /** The last bar: not a project, but the way to get in touch. */
+  const talking = at === projects.length;
 
   /*
    * Which frame, decided once a load.
@@ -191,7 +194,9 @@ export function IndexWork({
         if (was === null) return way > 0 ? 0 : null;
         const next = was + way;
         if (next < 0) return null;
-        if (next >= projects.length) return projects.length - 1;
+        /* One past the last project is the way to get in touch, which is
+           the last bar rather than a foot under them all. */
+        if (next > projects.length) return projects.length;
         return next;
       });
     },
@@ -281,8 +286,9 @@ export function IndexWork({
   }, []);
 
   /* Passed bars stack from the top; the rest wait at the foot in order. */
+  const count = projects.length + 1;
   const placeOf = (i: number) =>
-    at !== null && i <= at ? i * row : box - (projects.length - i) * row;
+    at !== null && i <= at ? i * row : box - (count - i) * row;
 
   const bar = (project: GalleryProject, i: number) => (
     <li
@@ -325,13 +331,39 @@ export function IndexWork({
   );
 
   return (
-    <div className="hbw-ind" ref={root} data-open={open ? "true" : "false"}>
+    <div className="hbw-ind" ref={root} data-open={open || talking ? "true" : "false"}>
       <ol className="hbw-ind__bars" ref={bars}>
         {projects.map((project, i) => bar(project, i))}
+        {/* No number and no year: it is not one of the seven, it is the
+            way out of them. */}
+        <li
+          key="talk"
+          data-here={talking ? "true" : undefined}
+          data-talk="true"
+          style={
+            {
+              "--y": `${Math.round(placeOf(projects.length))}px`,
+              "--wait": `${Math.min(Math.abs(projects.length - (at ?? projects.length + 1)) * 18, 140)}ms`,
+            } as CSSProperties
+          }
+        >
+          <button type="button" onClick={() => setAt(talking ? null : projects.length)}>
+            <span className="hbw-ind__did">Talk</span>
+          </button>
+        </li>
       </ol>
 
-      {/* The room the work is shown in. Decorative: the nav says what it is,
-          and pressing the bar opens the project properly. */}
+      {/*
+        The room. A project puts its work in here; the last bar puts the
+        way to get in touch in here, which is why this page has no foot
+        under it — the foot was a row saying the same four things, and a
+        bar that opens is where they belong.
+      */}
+      {talking ? (
+        <div className="hbw-ind__shot hbw-ind__shot--talk">
+          <Footer line />
+        </div>
+      ) : (
       <div className="hbw-ind__shot" aria-hidden="true">
         {frame ? (
           frame.video ? (
@@ -351,6 +383,7 @@ export function IndexWork({
           )
         ) : null}
       </div>
+      )}
     </div>
   );
 }

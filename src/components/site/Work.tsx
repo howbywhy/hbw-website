@@ -1354,9 +1354,9 @@ export function Work({
                 onNear={(slug) => void learn(slug)}
               />
             )}
-            {/* The index is one screen with nothing below it, so its foot
-                is a single line across the bottom rather than a board. */}
-            <Footer line={shape === "index"} />
+            {/* The index has no foot: its last bar opens the way to get in
+                touch, which is the same four things a foot was saying. */}
+            {shape === "index" ? null : <Footer />}
           </div>
         </div>
       ) : (

@@ -13081,11 +13081,12 @@ body:has(.hbw-lamp) .hbw-bar__what {
    only rows still has a column, and an implicit column is auto — which is
    max-content, which is wider than the screen as soon as anything inside
    it is. */
+/* The turn is the window, and the index is all of it: the way to get in
+   touch is the last bar rather than a foot underneath. */
 .hbw-loop--try:has(.hbw-ind) .hbw-turn {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr);
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--edge);
   height: 100svh;
   overflow: hidden;
 }
@@ -13133,8 +13134,10 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* Each bar is the number, what the work was, and the year. The name and
-   the idea are in the nav. */
-.hbw-ind__bars a {
+   the idea are in the nav. The last one is a button rather than a link —
+   it goes nowhere, it opens. */
+.hbw-ind__bars a,
+.hbw-ind__bars button {
   display: grid;
   grid-template-columns: var(--module) minmax(0, 1fr) auto;
   align-items: baseline;
@@ -13161,9 +13164,77 @@ body:has(.hbw-lamp) .hbw-bar__what {
 /* The one you are on takes the ink. One thing is important at a time,
    which is the rule the whole site is set by. */
 .hbw-ind__bars li[data-here="true"] a,
+.hbw-ind__bars li[data-here="true"] button,
 .hbw-ind__bars a:hover,
-.hbw-ind__bars a:focus-visible {
+.hbw-ind__bars button:hover,
+.hbw-ind__bars a:focus-visible,
+.hbw-ind__bars button:focus-visible {
   color: var(--ink);
+}
+
+/* The way out says one word, so it starts where the work does rather than
+   keeping an empty column for a number it does not have. */
+.hbw-ind__bars button {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hbw-ind__bars li[data-talk="true"] .hbw-ind__did {
+  grid-column: 1 / -1;
+  padding-left: var(--module);
+}
+
+/*
+ * The same room, holding the way to get in touch.
+ *
+ * A picture fills this plate; the contact does not — it is four things
+ * read down the side of it, at the top, in the space a frame would have
+ * had. The foot that used to say them has gone: it was a row along the
+ * bottom saying exactly this, under a page that already ends.
+ */
+.hbw-ind__shot--talk {
+  display: grid;
+  align-content: start;
+  padding: var(--pill-x);
+}
+
+/* One column, explicitly: .hbw-end carries a three-column template for
+   the board it used to be, and saying display: grid here let that
+   template back in — the place, the list and the profiles side by side
+   in a half-width panel, with the address overlapping itself. */
+.hbw-ind__shot--talk .hbw-end--line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--edge);
+  margin: 0;
+  padding: 0;
+}
+
+.hbw-ind__shot--talk .hbw-end--line .hbw-end__who p,
+.hbw-ind__shot--talk .hbw-end--line .hbw-end__field {
+  padding: 2px var(--pill-x);
+  min-height: var(--pill-h);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+}
+
+.hbw-ind__shot--talk .hbw-end--line > * {
+  min-width: 0;
+}
+
+/* Left, with the two above them. The board's version of this row sits at
+   the right of a three-column foot; there is one column here. */
+.hbw-ind__shot--talk .hbw-end__to {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: start;
+  justify-self: start;
+  gap: var(--edge);
 }
 
 /*
