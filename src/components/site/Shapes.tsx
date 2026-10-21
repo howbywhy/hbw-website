@@ -134,37 +134,10 @@ export function IndexWork({
   onNear?: (slug: string) => void;
 }) {
   const [here, setHere] = useState(projects[0]?.slug ?? "");
-  const [at, setAt] = useState(0);
   const list = useRef<HTMLOListElement>(null);
   const shown = projects.find((project) => project.slug === here) ?? projects[0];
   const frames = shown?.frames ?? [];
 
-  /* A new row starts at that project's first frame, which is the one chosen
-     to open its sequence. */
-  useEffect(() => {
-    setAt(0);
-  }, [here]);
-
-  /*
-   * The row you are on shows its work, not one still of it.
-   *
-   * A single frame per project says there is a project; nine of them say
-   * what it was. They turn over while you are on the row and stop the
-   * moment you leave it, so only ever one project's pictures are being
-   * fetched.
-   *
-   * Not when the reader has asked for less movement: then it is the first
-   * frame and nothing moves, which is the same answer the rest of the site
-   * gives.
-   */
-  useEffect(() => {
-    if (frames.length < 2) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const turn = window.setInterval(() => {
-      setAt((was) => (was + 1) % frames.length);
-    }, 1800);
-    return () => window.clearInterval(turn);
-  }, [here, frames.length]);
 
   /*
    * Where there is no pointer, the page walks the work itself.
@@ -188,16 +161,36 @@ export function IndexWork({
     if (window.matchMedia("(hover: hover)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (projects.length < 2) return;
+    /*
+     * And it stops as soon as the reader does something.
+     *
+     * The frames are a column you scroll now, so a page that kept changing
+     * the project underneath you would be moving the thing you are reading.
+     * It shows the work on arrival and gets out of the way.
+     */
+    let walking = true;
+    const stop = () => {
+      walking = false;
+      window.clearInterval(walk);
+    };
     const walk = window.setInterval(() => {
+      if (!walking) return;
       setHere((was) => {
         const i = projects.findIndex((project) => project.slug === was);
         return projects[(i + 1) % projects.length]!.slug;
       });
     }, 1800 * 3);
-    return () => window.clearInterval(walk);
+    for (const name of ["scroll", "touchstart", "pointerdown"]) {
+      window.addEventListener(name, stop, { passive: true, once: true });
+    }
+    return () => {
+      window.clearInterval(walk);
+      for (const name of ["scroll", "touchstart", "pointerdown"]) {
+        window.removeEventListener(name, stop);
+      }
+    };
   }, [projects]);
 
-  const frame = frames[at] ?? frames[0];
   return (
     <div className="hbw-ind">
       <ol className="hbw-ind__list" ref={list}>
@@ -235,19 +228,32 @@ export function IndexWork({
           </li>
         ))}
       </ol>
-      {/* The pictures of the line you are on. Decorative: the line beside
-          them already says what it is, and they turn over on their own. */}
+      {/*
+        The project you are on, as a column you scroll.
+        
+        One picture at a time said which project this was and never what it
+        held. All of its frames are here, at the shape each one actually is
+        — a logotype is wide and a garment is tall, and cropping both into
+        one box threw away the half of a frame that was the work. The
+        column scrolls on its own, the way the studio sheet does.
+        
+        Decorative: the line beside it already says what it is.
+      */}
       <div className="hbw-ind__shot" aria-hidden="true">
-        {frame ? (
+        {frames.map((one, i) => (
           <img
-            key={`${shown?.slug}-${at}`}
-            src={frame.src}
-            srcSet={frame.peekset ?? frame.srcset}
+            key={`${shown?.slug}-${i}`}
+            src={one.src}
+            srcSet={one.peekset ?? one.srcset}
             sizes="(max-width: 760px) 100vw, 46vw"
+            /* Its own shape, so nothing moves as the column fills. */
+            width={one.width}
+            height={one.height}
             alt=""
+            loading={i < 2 ? "eager" : "lazy"}
             decoding="async"
           />
-        ) : null}
+        ))}
       </div>
     </div>
   );

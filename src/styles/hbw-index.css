@@ -13134,32 +13134,40 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 .hbw-ind__shot {
+  /*
+   * The project, as a column of its own that scrolls.
+   *
+   * The studio sheet scrolls its own contents rather than the page, and
+   * this is the same thing: the names stay where they are while the work
+   * beside them is read through. The height is the window less the gutter
+   * at each end, so the column meets the top and the bottom on 2px like
+   * everything else.
+   */
   position: sticky;
   top: var(--edge);
-  line-height: 0;
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+  height: calc(100svh - var(--edge) * 2);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   min-width: 0;
+  line-height: 0;
 }
 
 /*
- * A box the pictures turn over inside.
+ * Each frame at the shape it actually is.
  *
- * The frames of one project are not one shape — a logotype is wide, a
- * garment is tall — so a box that takes its height from the picture moves
- * every time the picture changes, and this one changes every 1.8 seconds.
- * The box is fixed and the picture fills it.
+ * These were cropped to one fixed box, so a logotype laid out across a
+ * wide frame and a garment shot tall were both squared off and half of
+ * each was thrown away — on a page whose whole subject is how the work
+ * looks. width and height come from the file, so the column has its shape
+ * before the picture arrives and nothing moves as it fills.
  */
 .hbw-ind__shot img {
   width: 100%;
-  height: 86vh;
-  object-fit: cover;
+  height: auto;
   border-radius: var(--pill-r);
-}
-
-/* Uncovered rather than faded, like everything else here. */
-@media (prefers-reduced-motion: no-preference) {
-  .hbw-ind__shot img {
-    animation: hbw-arrive var(--in) var(--ease) both;
-  }
 }
 
 @media (max-width: 760px) {
@@ -13180,8 +13188,12 @@ body:has(.hbw-lamp) .hbw-bar__what {
     position: static;
   }
 
-  .hbw-ind__shot img {
-    height: 52vh;
+  /* On a phone the column is part of the page rather than a scroller of
+     its own: there is no second column for it to sit beside. */
+  .hbw-ind__shot {
+    position: static;
+    height: auto;
+    overflow: visible;
   }
 
   /* On a phone the idea drops: a name and a number is the whole line,
@@ -13232,4 +13244,18 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 .hbw-big .hbw-chip {
   white-space: nowrap;
+}
+
+/*
+ * A try page meets the top of the screen.
+ *
+ * .hbw-site is padded 52px at the top for the chrome, which on these pages
+ * floats in the middle of the window and is not at the top at all — so the
+ * page opened on seventy pixels of nothing above the first line. The gutter
+ * here is the same 2px as everything else on the site.
+ */
+/* Zero, not 2px: the arrangement inside carries the gutter, and both
+   together made it 4. */
+.hbw-site:has(.hbw-loop--try) {
+  padding-top: 0;
 }
