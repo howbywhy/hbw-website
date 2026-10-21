@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { loadSheets } from "@/sanity/load-gallery";
+import { SITE_TAGLINE } from "@/lib/site-meta";
 import { Bar } from "@/components/site/Bar";
 import { Work } from "@/components/site/Work";
 import { Logotype } from "@/components/site/Logotype";
@@ -32,7 +33,9 @@ const SHAPES = {
   index: {
     shape: "index" as const,
     name: "The index",
-    says: "The names first, the picture on the one you are on.",
+    /* The studio's own line, because the nav is the studio until a
+       project is scrolled to and then it is the project. */
+    says: SITE_TAGLINE,
   },
 };
 

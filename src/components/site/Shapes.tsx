@@ -125,18 +125,22 @@ export function LargeWork({
  * the picture belongs to whichever line you are on.
  */
 /**
- * The work as an index: the lines on one side, the project on the other.
+ * The work as an index: the nav says where you are, one picture shows it.
  *
- * A split, which is what it was: the bars down the left and the gallery
- * down the right. Scrolling over the lines moves through the projects and
- * the pictures beside them change; scrolling over the pictures reads
- * through that project, the way the studio sheet scrolls its own contents
- * rather than the page. The page itself does not move — there is nothing
- * below the fold and the foot is the last row of the screen.
+ * The page opens as the studio — the mark and the positioning in the nav at
+ * the top, one frame of the work under it, and the seven projects as lines
+ * along the bottom. A scroll walks the projects: the nav gives up the
+ * studio's name for the project's and the positioning for its idea, and the
+ * picture changes with it.
  *
- * A line says the number, the name, what the work was and the year. The
- * proposition has gone from it: with one project open the frames are
- * saying that, and a line that says everything is a paragraph.
+ * One picture, not a column of them. A different one each time the page is
+ * loaded, drawn from that project's own sequence, so the work is never
+ * represented by the same still twice running — but only ever one, because
+ * this is an index and the project's page is where its sequence lives.
+ *
+ * A line is the number, what the work was, and the year. The name is not in
+ * it: the nav is saying the name, and a page that says it twice in two
+ * places a few hundred pixels apart has one of them doing nothing.
  */
 export function IndexWork({
   projects,
@@ -147,18 +151,34 @@ export function IndexWork({
   onOpen: (slug: string, at: number) => void;
   onNear?: (slug: string) => void;
 }) {
-  const [at, setAt] = useState(0);
+  /** null until the reader moves: at rest this page is the studio, not a project. */
+  const [at, setAt] = useState<number | null>(null);
   const bars = useRef<HTMLOListElement>(null);
-  const open = projects[at];
-  const frames = open?.frames ?? [];
+  const open = at === null ? null : projects[at];
+
+  /*
+   * Which frame, decided once a load.
+   *
+   * Picked after mount rather than during the render, because a random
+   * number on the server and a different one in the browser is a hydration
+   * mismatch — and because "on refresh" is exactly what mounting is.
+   */
+  const [seed, setSeed] = useState(0);
+  useEffect(() => {
+    setSeed(Math.floor(Math.random() * 10_000) + 1);
+  }, []);
+
+  /* At rest, one frame of the studio's work rather than an empty room:
+     a project picked by the same seed, so the page opens on something. */
+  const showing = open ?? (seed ? projects[seed % projects.length] : projects[0]);
+  const frames = showing?.frames ?? [];
+  const frame = frames.length ? frames[seed % frames.length] : undefined;
 
   /*
    * One project per gesture, however hard the gesture was.
    *
-   * A trackpad sends a flick as thirty or forty wheel events, so stepping
-   * on each one would run the whole index past in a quarter of a second.
-   * The step is taken on the first of them and the rest are the same flick
-   * until it has had time to land.
+   * A trackpad sends a flick as thirty or forty wheel events, so stepping on
+   * each one would run the whole index past in a quarter of a second.
    */
   const since = useRef(0);
   const step = useCallback(
@@ -166,22 +186,21 @@ export function IndexWork({
       const now = Date.now();
       if (now < since.current) return;
       since.current = now + 420;
-      setAt((was) => (was + way + projects.length) % projects.length);
+      setAt((was) => {
+        if (was === null) return way > 0 ? 0 : projects.length - 1;
+        return (was + way + projects.length) % projects.length;
+      });
     },
     [projects.length]
   );
 
-  /* Over the lines, a scroll moves through the work. Over the pictures it
-     is an ordinary scroll of that project, which the column handles
-     itself. */
   useEffect(() => {
     const el = bars.current;
     if (!el) return;
     const wheel = (event: WheelEvent) => {
       if (Math.abs(event.deltaY) < 2) return;
       /* Only when the lines have nowhere of their own to go: a list longer
-         than its column scrolls, as the studio sheet does, and steps only
-         once it has reached an end. */
+         than its row scrolls first, as the studio sheet does. */
       const room = el.scrollHeight - el.clientHeight;
       if (room > 1) {
         const atTop = el.scrollTop <= 0;
@@ -202,36 +221,72 @@ export function IndexWork({
       step(now < from ? 1 : -1);
       from = now;
     };
-    el.addEventListener("wheel", wheel, { passive: false });
-    el.addEventListener("touchstart", down, { passive: true });
-    el.addEventListener("touchmove", move, { passive: false });
-    return () => {
-      el.removeEventListener("wheel", wheel);
-      el.removeEventListener("touchstart", down);
-      el.removeEventListener("touchmove", move);
-    };
-  }, [step]);
-
-  /* Arrow keys walk it too, for a reader who is not using a pointer. */
-  useEffect(() => {
     const key = (event: KeyboardEvent) => {
       if (event.key === "ArrowDown") step(1);
       else if (event.key === "ArrowUp") step(-1);
       else return;
       event.preventDefault();
     };
+    el.addEventListener("wheel", wheel, { passive: false });
+    el.addEventListener("touchstart", down, { passive: true });
+    el.addEventListener("touchmove", move, { passive: false });
     window.addEventListener("keydown", key);
-    return () => window.removeEventListener("keydown", key);
+    return () => {
+      el.removeEventListener("wheel", wheel);
+      el.removeEventListener("touchstart", down);
+      el.removeEventListener("touchmove", move);
+      window.removeEventListener("keydown", key);
+    };
   }, [step]);
 
-  /* The one that is open is fetched ahead, so pressing it has nothing left
-     to wait for. */
+  /*
+   * The nav says which project this is, through the same event the gallery
+   * uses — so the chrome reads the same here as it does anywhere else on
+   * the site, and nothing new had to be taught to the bar.
+   */
   useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("hbw:over", {
+        detail: open ? { name: open.name, says: open.idea } : null,
+      })
+    );
     if (open) onNear?.(open.slug);
+    return () => {
+      window.dispatchEvent(new CustomEvent("hbw:over", { detail: null }));
+    };
   }, [open, onNear]);
 
   return (
     <div className="hbw-ind">
+      {/* The room the work is shown in, whether or not there is a picture
+          in it yet. Decorative: the nav above says what it is. */}
+      <div className="hbw-ind__shot" aria-hidden="true">
+        {frame ? (
+          frame.video ? (
+            <video
+              key={`${showing?.slug}-${seed}`}
+              poster={frame.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
+              <source src={frame.video} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              key={`${showing?.slug}-${seed}`}
+              src={frame.src}
+              srcSet={frame.peekset ?? frame.srcset}
+              sizes="100vw"
+              alt=""
+              decoding="async"
+            />
+          )
+        ) : null}
+      </div>
+
       <ol className="hbw-ind__list" ref={bars}>
         {projects.map((project, i) => (
           <li key={project.slug} data-here={i === at ? "true" : undefined}>
@@ -252,32 +307,15 @@ export function IndexWork({
               }}
             >
               <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
-              <span className="hbw-ind__name">{project.name}</span>
-              <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
+              <span className="hbw-ind__did">{didOf(project)}</span>
               <span className="hbw-ind__year hbw-m">{project.year}</span>
+              {/* The name is in the nav, and a link still has to say where
+                  it goes to anyone who cannot see which line is lit. */}
+              <span className="hbw-sr">{project.name}</span>
             </a>
           </li>
         ))}
       </ol>
-
-      {/* The project beside them, read through on its own. Decorative: the
-          line it belongs to says what it is, and pressing that line opens
-          it properly. */}
-      <div className="hbw-ind__shot" aria-hidden="true">
-        {frames.map((one, i) => (
-          <img
-            key={`${open?.slug}-${i}`}
-            src={one.src}
-            srcSet={one.peekset ?? one.srcset}
-            sizes="(max-width: 760px) 100vw, 46vw"
-            width={one.width}
-            height={one.height}
-            alt=""
-            loading={i < 2 ? "eager" : "lazy"}
-            decoding="async"
-          />
-        ))}
-      </div>
     </div>
   );
 }
