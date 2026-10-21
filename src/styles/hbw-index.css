@@ -13668,6 +13668,13 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
      everything in. */
   --seam-run: calc(var(--in) * 2);
   --seam-wait: calc(var(--in) * 0.75);
+
+  /*
+   * Direction 3, right to left. hbw-seam-ltr sends it the other way, and
+   * the pull should be negated with it so the picture is still carried by
+   * the seam rather than against it.
+   */
+  --seam-move: hbw-seam;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13721,7 +13728,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
      * reason the move has any character.
      */
     animation:
-      hbw-seam var(--seam-run) var(--seam-curve) var(--seam-wait) both,
+      var(--seam-move) var(--seam-run) var(--seam-curve) var(--seam-wait) both,
       hbw-seam-pull var(--seam-run) var(--seam-pull-curve) var(--seam-wait) both;
   }
 
@@ -13771,6 +13778,19 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   to {
     -webkit-mask-position: 100% 0%;
     mask-position: 100% 0%;
+  }
+}
+
+/* The same move the other way: left to right. Set --seam-move to this and
+   --seam-pull to a negative number. */
+@keyframes hbw-seam-ltr {
+  from {
+    -webkit-mask-position: 100% 0%;
+    mask-position: 100% 0%;
+  }
+  to {
+    -webkit-mask-position: 0% 0%;
+    mask-position: 0% 0%;
   }
 }
 
