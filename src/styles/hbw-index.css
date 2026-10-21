@@ -13053,18 +13053,15 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* =====================================================================
-   The work as an index: the nav says where you are, one picture shows it.
+   The work as an index: the tabs on the left, one picture on the right.
 
-   The nav at the top, one frame of the work under it, the seven
-   projects as lines along the bottom, and the foot as the last row of
-   the window. The screen is the page: a scroll walks the projects
-   rather than moving anything.
+   It behaves the way the studio sheet does — every project is a tab,
+   the one you are on opens and takes its name and its idea with it, and
+   the tabs move up and down the column as the open one changes. The
+   screen is the page: the foot is its last row and nothing scrolls.
    ===================================================================== */
 
-/* Said by anything that reads, seen by nothing. Not the honeypot's rule
-   above — that one is opacity 0 and pointer-events none, which hides it
-   from a screen reader as well, and the whole point of this is to be
-   read aloud. */
+/* Said by anything that reads, seen by nothing. */
 .hbw-sr {
   position: absolute;
   width: 1px;
@@ -13077,23 +13074,14 @@ body:has(.hbw-lamp) .hbw-bar__what {
   clip-path: inset(50%);
 }
 
-/*
- * The chrome goes back to the top here.
- *
- * The middle line belongs to the loop — a page the work runs past, where
- * the nav sits in the travel. This page does not run past anything: it is
- * one screen with the work in the middle of it, and a nav through the
- * middle of that is a nav through the middle of the picture.
- */
-body:has(.hbw-ind) .hbw-bar {
-  top: 0;
-  transform: none;
-}
+/* The chrome keeps the middle line it has everywhere the work is, and it
+   says which project you are on — which is why a tab below it does not
+   have to. */
 
-/* The turn is the window, and the foot is the last row in it. A grid
-   given only rows still has a column, and an implicit column is auto —
-   which is max-content, which is wider than the screen as soon as
-   anything inside it is. */
+/* The turn is the window, and the foot is the last row in it. A grid given
+   only rows still has a column, and an implicit column is auto — which is
+   max-content, which is wider than the screen as soon as anything inside
+   it is. */
 .hbw-loop--try:has(.hbw-ind) .hbw-turn {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -13105,8 +13093,7 @@ body:has(.hbw-ind) .hbw-bar {
 
 .hbw-ind {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--edge);
   /* Clear of the nav, which is fixed over the top of this. */
   padding: calc(var(--chrome) + var(--edge)) var(--edge) 0;
@@ -13114,26 +13101,61 @@ body:has(.hbw-ind) .hbw-bar {
   min-width: 0;
 }
 
+.hbw-ind__list {
+  display: grid;
+  gap: var(--edge);
+  align-content: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+  min-height: 0;
+}
+
+.hbw-ind__list a {
+  display: grid;
+  grid-template-columns: var(--module) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0 var(--pill-x);
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  color: var(--mute);
+  text-decoration: none;
+}
+
+/* Every tab the same: the number, what the work was, and the year. The
+   name and the idea are in the nav. */
+.hbw-ind__did {
+  grid-column: 2;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.hbw-ind__year {
+  grid-column: 3;
+}
+
+/* The one you are on takes the ink. One thing is important at a time,
+   which is the rule the whole site is set by. */
+.hbw-ind__list li[data-here="true"] a,
+.hbw-ind__list a:hover,
+.hbw-ind__list a:focus-visible {
+  color: var(--ink);
+}
+
 /*
  * The room the work is shown in.
  *
- * A plate, like everything else here, and the picture sits inside it at
- * its own shape rather than being cropped to fill it — a logotype laid
- * across a wide frame and a garment shot tall are not the same rectangle,
- * and the plate is what makes them one object on the page.
+ * A plate, like everything else here, with the picture laid into it
+ * absolutely: max-height: 100% needs a definite height to resolve against
+ * and a grid item does not reliably give one — the frame came out 1795px
+ * tall inside a 558px plate once, and what showed through was the middle
+ * band of a pale photograph, which looks exactly like an empty box.
  */
 .hbw-ind__shot {
-  /*
-   * Relative, and the picture laid into it absolutely.
-   *
-   * max-height: 100% was the obvious way and it does not hold: a
-   * percentage needs a definite height to resolve against, and a grid item
-   * centred in a 1fr track does not reliably give one — the frame came out
-   * 1795px tall inside a 558px plate, centred, with the middle band of a
-   * pale photograph showing through and reading as an empty box. Laid in
-   * absolutely there is nothing to resolve: the picture is the plate, and
-   * object-fit decides what happens inside it.
-   */
   position: relative;
   min-width: 0;
   min-height: 0;
@@ -13151,53 +13173,6 @@ body:has(.hbw-ind) .hbw-bar {
   height: 100%;
   /* Its own shape, inside the plate, rather than cropped to fill it. */
   object-fit: contain;
-}
-
-/* The lines along the bottom. */
-.hbw-ind__list {
-  display: grid;
-  gap: var(--edge);
-  align-content: end;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  min-width: 0;
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-
-/* The number, what the work was, and the year. The name is in the nav. */
-.hbw-ind__list a {
-  display: grid;
-  grid-template-columns: var(--module) minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: var(--pill-x);
-  padding: var(--pill-x);
-  border-radius: var(--pill-r);
-  background: var(--pill-bg);
-  color: var(--mute);
-  text-decoration: none;
-}
-
-/* The one you are on takes the ink. One thing is important at a time,
-   which is the rule the whole site is set by. */
-.hbw-ind__list li[data-here="true"] a,
-.hbw-ind__list a:hover,
-.hbw-ind__list a:focus-visible {
-  color: var(--ink);
-}
-
-.hbw-ind__did {
-  grid-column: 2;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.hbw-ind__year {
-  grid-column: 3;
 }
 
 /* One line across the bottom: the place, the list, and where else the
@@ -13252,8 +13227,38 @@ body:has(.hbw-ind) .hbw-bar {
 
 @media (max-width: 760px) {
   /*
-   * The same arrangement, narrower. Nothing needs to move: the picture is
-   * already above the lines and the lines are already one row each.
+   * On a phone there is no beside, so the tabs go under the picture and
+   * walk up it: the open one is three lines and the rest are one, so the
+   * column grows upward from the foot as you move through the work.
+   */
+  /*
+   * Placed, not left to source order.
+   *
+   * The list comes first in the markup — it is the thing being navigated —
+   * so with rows of "1fr auto" it took the flexible one and the picture
+   * got what was left, which was nothing: a plate 0px tall under a column
+   * of tabs. The picture takes the room and the tabs sit under it.
+   */
+  .hbw-ind {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .hbw-ind__shot {
+    grid-row: 1;
+  }
+
+  .hbw-ind__list {
+    grid-row: 2;
+    align-content: end;
+  }
+
+  /*
+   * One clean line is a sheet's answer, not a phone's.
+   *
+   * The place, the list and the two profiles come to 417px of content in a
+   * 390px screen, so the one line squeezed the field down to "you@c" — a
+   * signup you cannot read the shape of is not a signup.
    */
   .hbw-end--line .hbw-end__who,
   .hbw-end--line .hbw-end__loop,

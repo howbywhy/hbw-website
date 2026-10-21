@@ -125,22 +125,18 @@ export function LargeWork({
  * the picture belongs to whichever line you are on.
  */
 /**
- * The work as an index: the nav says where you are, one picture shows it.
+ * The work as an index: the tabs on the left, one picture on the right.
  *
- * The page opens as the studio — the mark and the positioning in the nav at
- * the top, one frame of the work under it, and the seven projects as lines
- * along the bottom. A scroll walks the projects: the nav gives up the
- * studio's name for the project's and the positioning for its idea, and the
- * picture changes with it.
+ * It behaves the way the studio sheet does. Every project is a tab; the one
+ * you are on opens — taking its name and its idea with it — and the others
+ * stay as a number, what the work was, and a year. So the tabs move up and
+ * down the column as you scroll, because the open one is taller than the
+ * rest, and the picture beside them changes with it.
  *
- * One picture, not a column of them. A different one each time the page is
- * loaded, drawn from that project's own sequence, so the work is never
+ * One picture, not a sequence. A different one each time the page is
+ * loaded, drawn from that project's own frames, so the work is never
  * represented by the same still twice running — but only ever one, because
  * this is an index and the project's page is where its sequence lives.
- *
- * A line is the number, what the work was, and the year. The name is not in
- * it: the nav is saying the name, and a page that says it twice in two
- * places a few hundred pixels apart has one of them doing nothing.
  */
 export function IndexWork({
   projects,
@@ -151,10 +147,9 @@ export function IndexWork({
   onOpen: (slug: string, at: number) => void;
   onNear?: (slug: string) => void;
 }) {
-  /** null until the reader moves: at rest this page is the studio, not a project. */
-  const [at, setAt] = useState<number | null>(null);
-  const bars = useRef<HTMLOListElement>(null);
-  const open = at === null ? null : projects[at];
+  const [at, setAt] = useState(0);
+  const root = useRef<HTMLDivElement>(null);
+  const open = projects[at];
 
   /*
    * Which frame, decided once a load.
@@ -167,11 +162,7 @@ export function IndexWork({
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 10_000) + 1);
   }, []);
-
-  /* At rest, one frame of the studio's work rather than an empty room:
-     a project picked by the same seed, so the page opens on something. */
-  const showing = open ?? (seed ? projects[seed % projects.length] : projects[0]);
-  const frames = showing?.frames ?? [];
+  const frames = open?.frames ?? [];
   const frame = frames.length ? frames[seed % frames.length] : undefined;
 
   /*
@@ -186,27 +177,18 @@ export function IndexWork({
       const now = Date.now();
       if (now < since.current) return;
       since.current = now + 420;
-      setAt((was) => {
-        if (was === null) return way > 0 ? 0 : projects.length - 1;
-        return (was + way + projects.length) % projects.length;
-      });
+      setAt((was) => (was + way + projects.length) % projects.length);
     },
     [projects.length]
   );
 
   useEffect(() => {
-    const el = bars.current;
+    const el = root.current;
     if (!el) return;
+    /* Not passive: the page has nowhere to scroll and the browser should
+       not spend a frame finding that out. */
     const wheel = (event: WheelEvent) => {
       if (Math.abs(event.deltaY) < 2) return;
-      /* Only when the lines have nowhere of their own to go: a list longer
-         than its row scrolls first, as the studio sheet does. */
-      const room = el.scrollHeight - el.clientHeight;
-      if (room > 1) {
-        const atTop = el.scrollTop <= 0;
-        const atFoot = el.scrollTop >= room - 1;
-        if (!(event.deltaY > 0 ? atFoot : atTop)) return;
-      }
       event.preventDefault();
       step(event.deltaY > 0 ? 1 : -1);
     };
@@ -240,9 +222,13 @@ export function IndexWork({
   }, [step]);
 
   /*
-   * The nav says which project this is, through the same event the gallery
-   * uses — so the chrome reads the same here as it does anywhere else on
-   * the site, and nothing new had to be taught to the bar.
+   * The nav says which project this is, and so the tab does not have to.
+   *
+   * Through the same hbw:over event the gallery already uses, so the chrome
+   * reads the same here as anywhere else on the site and nothing new had to
+   * be taught to the bar. With the name and the idea up there, a tab is the
+   * number, what the work was, and the year — which is all an index line
+   * was ever for.
    */
   useEffect(() => {
     window.dispatchEvent(
@@ -257,37 +243,8 @@ export function IndexWork({
   }, [open, onNear]);
 
   return (
-    <div className="hbw-ind">
-      {/* The room the work is shown in, whether or not there is a picture
-          in it yet. Decorative: the nav above says what it is. */}
-      <div className="hbw-ind__shot" aria-hidden="true">
-        {frame ? (
-          frame.video ? (
-            <video
-              key={`${showing?.slug}-${seed}`}
-              poster={frame.src}
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
-              <source src={frame.video} type="video/mp4" />
-            </video>
-          ) : (
-            <img
-              key={`${showing?.slug}-${seed}`}
-              src={frame.src}
-              srcSet={frame.peekset ?? frame.srcset}
-              sizes="100vw"
-              alt=""
-              decoding="async"
-            />
-          )
-        ) : null}
-      </div>
-
-      <ol className="hbw-ind__list" ref={bars}>
+    <div className="hbw-ind" ref={root}>
+      <ol className="hbw-ind__list">
         {projects.map((project, i) => (
           <li key={project.slug} data-here={i === at ? "true" : undefined}>
             <a
@@ -297,8 +254,8 @@ export function IndexWork({
               onClick={(event) => {
                 if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
                 event.preventDefault();
-                /* A line you are not on becomes the one you are on; the one
-                   you are on opens the project. */
+                /* A tab you are not on opens; the one you are on opens the
+                   project. */
                 if (i !== at) {
                   setAt(i);
                   return;
@@ -307,15 +264,37 @@ export function IndexWork({
               }}
             >
               <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
-              <span className="hbw-ind__did">{didOf(project)}</span>
+              <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
               <span className="hbw-ind__year hbw-m">{project.year}</span>
-              {/* The name is in the nav, and a link still has to say where
-                  it goes to anyone who cannot see which line is lit. */}
+              {/* The nav is saying the name. A link still has to say where
+                  it goes to anyone who cannot see which tab is lit. */}
               <span className="hbw-sr">{project.name}</span>
             </a>
           </li>
         ))}
       </ol>
+
+      {/* The room the work is shown in. Decorative: the tab beside it says
+          what it is, and pressing that tab opens it properly. */}
+      <div className="hbw-ind__shot" aria-hidden="true">
+        {frame ? (
+          frame.video ? (
+            <video key={`${open?.slug}-${seed}`} poster={frame.src} autoPlay muted loop playsInline>
+              {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
+              <source src={frame.video} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              key={`${open?.slug}-${seed}`}
+              src={frame.src}
+              srcSet={frame.peekset ?? frame.srcset}
+              sizes="(max-width: 760px) 100vw, 50vw"
+              alt=""
+              decoding="async"
+            />
+          )
+        ) : null}
+      </div>
     </div>
   );
 }
