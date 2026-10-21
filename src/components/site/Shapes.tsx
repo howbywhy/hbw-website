@@ -170,21 +170,18 @@ export function IndexWork({
   const talking = at === projects.length;
 
   /*
-   * Which frame, decided once a load.
+   * The frame a project leads with.
    *
-   * Picked after mount rather than during the render, because a random
-   * number on the server and a different one in the browser is a hydration
-   * mismatch — and because "on refresh" is exactly what mounting is.
+   * It was a different one each load, drawn from the sequence. The first
+   * one is the frame chosen to open that project — picked over months, and
+   * the one the project's own page opens on — so the index and the gallery
+   * now show a reader the same picture, and the page is the same page
+   * twice running.
    */
-  const [seed, setSeed] = useState(0);
-  useEffect(() => {
-    setSeed(Math.floor(Math.random() * 10_000) + 1);
-  }, []);
 
   /* Nothing in the gallery until a project is open — and with nothing in
      it there is no gallery, so the bars take the whole width. */
-  const frames = open?.frames ?? [];
-  const frame = frames.length ? frames[seed % frames.length] : undefined;
+  const frame = open?.frames?.[0];
 
   /*
    * One project per gesture, however hard the gesture was.
@@ -412,13 +409,13 @@ export function IndexWork({
       <div className="hbw-ind__shot" aria-hidden="true">
         {frame ? (
           frame.video ? (
-            <video key={`${open?.slug}-${seed}`} poster={frame.src} autoPlay muted loop playsInline>
+            <video key={open?.slug} poster={frame.src} autoPlay muted loop playsInline>
               {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
               <source src={frame.video} type="video/mp4" />
             </video>
           ) : (
             <img
-              key={`${open?.slug}-${seed}`}
+              key={open?.slug}
               src={frame.src}
               srcSet={frame.peekset ?? frame.srcset}
               sizes="(max-width: 760px) 100vw, 50vw"

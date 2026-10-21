@@ -13211,22 +13211,20 @@ body:has(.hbw-lamp) .hbw-bar__what {
 /*
  * And the bar itself is the contact.
  *
- * The place, the list and where else the studio is, in the row rather
- * than under a page that already ends. It wears the plate the shut bar
- * wore, so opening it is the same object growing rather than a different
- * one appearing.
+ * No plate of its own: the place, the field and the two profiles are each
+ * a plate already, and a plate holding plates is the muddle it looked
+ * like — three pale shades on top of each other, three different heights,
+ * and the profiles stretched to 148px apiece because nothing told them
+ * not to. They are objects two pixels apart here, like everything else on
+ * the site, and they are all the one height.
  */
-.hbw-ind__talk {
-  padding: var(--pill-x);
-  border-radius: var(--pill-r);
-  background: var(--pill-bg);
-  color: var(--ink);
-}
-
 .hbw-ind__talk .hbw-end--line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  /* Tops, not stretch: the three groups are different heights only
+     because one of them wraps a form, and a row whose items each find
+     their own baseline is the raggedness this looked like. */
+  align-items: start;
   gap: var(--edge);
   margin: 0;
   padding: 0;
@@ -13238,23 +13236,56 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 .hbw-ind__talk .hbw-end__who {
-  flex: 0 0 auto;
+  grid-column: 1;
 }
 
 .hbw-ind__talk .hbw-end__loop {
-  flex: 1 1 14rem;
+  grid-column: 2;
+  display: grid;
+  margin: 0;
+  padding: 0;
 }
 
+/* The two profiles sit on their own line, at the width of their words. */
 .hbw-ind__talk .hbw-end__to {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  flex: 0 0 auto;
+  justify-content: start;
+  /* Start, not stretch: a grid item spans its column unless told, and the
+     two profiles were sitting at the far right of a row they share with
+     nothing. */
+  justify-self: start;
   gap: var(--edge);
 }
 
 .hbw-ind__talk .hbw-end__to a {
+  flex: 0 0 auto;
   white-space: nowrap;
+}
+
+/* One plate, one height, for every one of them. */
+.hbw-ind__talk .hbw-end__who p,
+.hbw-ind__talk .hbw-end__field,
+.hbw-ind__talk .hbw-end__to a {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--pill-h);
+  margin: 0;
+  padding: 2px var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+}
+
+/* The field holds a 24px input, so 2px above and below it makes 28 and
+   the row it shares stops being a row. Its height is the input's.
+   Named through .hbw-end--line because that is where the 2px comes
+   from, and a shorter selector loses to it. */
+.hbw-ind__talk .hbw-end--line .hbw-end__loop .hbw-end__field {
+  padding-block: 0;
+  min-height: var(--pill-h);
 }
 
 /*
@@ -13309,8 +13340,15 @@ body:has(.hbw-lamp) .hbw-bar__what {
   inset: 0;
   width: 100%;
   height: 100%;
-  /* Its own shape, inside the plate, rather than cropped to fill it. */
-  object-fit: contain;
+  /*
+   * Full bleed.
+   *
+   * Contained, the frame kept its own shape and the plate showed around
+   * it — pale bands down either side of a picture, which reads as a
+   * picture that did not fit rather than a room it was put in. It fills
+   * the room now.
+   */
+  object-fit: cover;
 }
 
 /* One line across the bottom: the place, the list, and where else the
