@@ -137,7 +137,17 @@ export function founderNode(): Node {
     jobTitle: "Brand consultant and designer",
     email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE_E164,
-    url: `${SITE_ORIGIN}/studio`,
+    /*
+     * /practice, which is where this actually is.
+     *
+     * This said /studio, and /studio has not been a page since the studio
+     * became the Practice — it is a redirect, and now a permanent one. A URL
+     * in structured data is a claim about where a thing can be read; naming
+     * an address that answers 308 makes Google take the extra hop to find
+     * out, and it is the founder's own page, which is the one URL here most
+     * worth getting right.
+     */
+    url: `${SITE_ORIGIN}/practice`,
     worksFor: { "@id": ORG_ID },
     sameAs: PROFILES.map((profile) => profile.url),
     subjectOf: PRESS.map((item) => ({
