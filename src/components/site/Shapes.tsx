@@ -12,8 +12,11 @@
  * Both take the same callbacks as the catalogue, so a press opens the
  * project's gallery exactly as it does now. Nothing here is a mock.
  */
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+/** The site's gutter, in pixels, for the arithmetic that places the bars. */
+const EDGE = 2;
 import type { GalleryProject } from "@/sanity/load-gallery";
 import { TITLE_WHAT } from "@/components/home/catalog";
 
@@ -150,6 +153,7 @@ export function IndexWork({
   /** null until the reader moves: at rest this page is the studio. */
   const [at, setAt] = useState<number | null>(null);
   const root = useRef<HTMLDivElement>(null);
+  const bars = useRef<HTMLOListElement>(null);
   const open = at === null ? null : projects[at];
 
   /*
@@ -164,9 +168,9 @@ export function IndexWork({
     setSeed(Math.floor(Math.random() * 10_000) + 1);
   }, []);
 
-  /* At rest, one frame of the studio's work rather than an empty room. */
-  const showing = open ?? (seed ? projects[seed % projects.length] : projects[0]);
-  const frames = showing?.frames ?? [];
+  /* Nothing in the gallery until a project is open — and with nothing in
+     it there is no gallery, so the bars take the whole width. */
+  const frames = open?.frames ?? [];
   const frame = frames.length ? frames[seed % frames.length] : undefined;
 
   /*
@@ -250,8 +254,49 @@ export function IndexWork({
     };
   }, [open, onNear]);
 
+  /*
+   * Where each bar sits, in pixels, so moving between the stacks is a
+   * transform rather than a re-parenting.
+   *
+   * Taking a bar out of one list and putting it in another is what made
+   * this jump: the browser has no way to know the element at the foot of
+   * the column and the one at its head are the same thing, so there is
+   * nothing to animate between. One list, every bar placed, and the move
+   * is a change of number.
+   */
+  const [box, setBox] = useState(0);
+  const [row, setRow] = useState(0);
+  useEffect(() => {
+    const el = bars.current;
+    if (!el) return;
+    const measure = () => {
+      const one = el.querySelector("li");
+      setBox(el.clientHeight);
+      setRow(one ? one.getBoundingClientRect().height + EDGE : 0);
+    };
+    measure();
+    const watch = new ResizeObserver(measure);
+    watch.observe(el);
+    return () => watch.disconnect();
+  }, []);
+
+  /* Passed bars stack from the top; the rest wait at the foot in order. */
+  const placeOf = (i: number) =>
+    at !== null && i <= at ? i * row : box - (projects.length - i) * row;
+
   const bar = (project: GalleryProject, i: number) => (
-    <li key={project.slug} data-here={i === at ? "true" : undefined}>
+    <li
+      key={project.slug}
+      data-here={i === at ? "true" : undefined}
+      style={
+        {
+          "--y": `${Math.round(placeOf(i))}px`,
+          /* The one that moves leads and the rest follow it, rather than
+             the whole column setting off together. */
+          "--wait": `${Math.min(Math.abs(i - (at ?? projects.length)) * 18, 140)}ms`,
+        } as CSSProperties
+      }
+    >
       <a
         href={`/projects/${project.slug}`}
         onPointerEnter={() => setAt(i)}
@@ -267,9 +312,11 @@ export function IndexWork({
           onOpen(project.slug, 0);
         }}
       >
+        {/* Two sizes on this page and no others: the number is the small
+            one, what the work was and the year are the reading one. */}
         <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
-        <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
-        <span className="hbw-ind__year hbw-m">{project.year}</span>
+        <span className="hbw-ind__did">{didOf(project)}</span>
+        <span className="hbw-ind__year">{project.year}</span>
         {/* The nav is saying the name. A link still has to say where it goes
             to anyone who cannot see which bar is lit. */}
         <span className="hbw-sr">{project.name}</span>
@@ -277,31 +324,24 @@ export function IndexWork({
     </li>
   );
 
-  /* Passed, and still to come. The open one is the last of the first. */
-  const over = at === null ? [] : projects.slice(0, at + 1);
-  const under = at === null ? projects : projects.slice(at + 1);
-
   return (
-    <div className="hbw-ind" ref={root}>
-      <div className="hbw-ind__bars">
-        <ol className="hbw-ind__over">{over.map((project, i) => bar(project, i))}</ol>
-        <ol className="hbw-ind__under">
-          {under.map((project, i) => bar(project, (at === null ? 0 : at + 1) + i))}
-        </ol>
-      </div>
+    <div className="hbw-ind" ref={root} data-open={open ? "true" : "false"}>
+      <ol className="hbw-ind__bars" ref={bars}>
+        {projects.map((project, i) => bar(project, i))}
+      </ol>
 
       {/* The room the work is shown in. Decorative: the nav says what it is,
           and pressing the bar opens the project properly. */}
       <div className="hbw-ind__shot" aria-hidden="true">
         {frame ? (
           frame.video ? (
-            <video key={`${showing?.slug}-${seed}`} poster={frame.src} autoPlay muted loop playsInline>
+            <video key={`${open?.slug}-${seed}`} poster={frame.src} autoPlay muted loop playsInline>
               {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
               <source src={frame.video} type="video/mp4" />
             </video>
           ) : (
             <img
-              key={`${showing?.slug}-${seed}`}
+              key={`${open?.slug}-${seed}`}
               src={frame.src}
               srcSet={frame.peekset ?? frame.srcset}
               sizes="(max-width: 760px) 100vw, 50vw"

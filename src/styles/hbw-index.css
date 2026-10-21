@@ -13092,7 +13092,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 .hbw-ind {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--edge);
   padding: var(--edge);
   min-height: 0;
@@ -13100,43 +13099,42 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /*
- * The two stacks, with the room between them.
+ * One column of bars, each placed, so a move is a transform.
  *
- * Passed at the top, still to come at the bottom, and the gap is whatever
- * is left — so opening a project moves one bar from the foot of the column
- * to the head of it and everything else slides by exactly its height.
+ * They were two lists — passed and to come — and moving a project between
+ * them re-parented its bar, which the browser cannot animate: the element
+ * at the foot of the column and the one at its head are not the same box
+ * as far as it is concerned, so it cut. One list, every bar given its
+ * place in pixels, and the move is a change of number that transitions.
  */
 .hbw-ind__bars {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  min-width: 0;
-  min-height: 0;
-}
-
-.hbw-ind__over,
-.hbw-ind__under {
-  display: grid;
-  gap: var(--edge);
+  position: relative;
   margin: 0;
   padding: 0;
   list-style: none;
   min-width: 0;
+  min-height: 0;
 }
 
-.hbw-ind__over {
-  grid-row: 1;
-  align-content: start;
+.hbw-ind__bars li {
+  position: absolute;
+  left: 0;
+  right: 0;
+  transform: translateY(var(--y, 0));
 }
 
-.hbw-ind__under {
-  grid-row: 3;
-  align-content: end;
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind__bars li {
+    transition: transform var(--in) var(--ease);
+    /* The one that moves leads and the rest follow it, rather than the
+       whole column setting off at once. */
+    transition-delay: var(--wait, 0ms);
+  }
 }
 
 /* Each bar is the number, what the work was, and the year. The name and
    the idea are in the nav. */
-.hbw-ind__over a,
-.hbw-ind__under a {
+.hbw-ind__bars a {
   display: grid;
   grid-template-columns: var(--module) minmax(0, 1fr) auto;
   align-items: baseline;
@@ -13166,6 +13164,33 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-ind__bars a:hover,
 .hbw-ind__bars a:focus-visible {
   color: var(--ink);
+}
+
+/*
+ * With nothing open there is no gallery, so the bars have the width.
+ *
+ * An empty plate down half the screen is a room with nothing in it; the
+ * index is the page until a project is asked for, and then the work
+ * arrives beside it.
+ *
+ * Written as two percentage tracks rather than 1fr, because the opening
+ * has to be a move and not a cut: a grid can interpolate 100%/0% to
+ * 50%/50%, and cannot interpolate one track into two. display: none
+ * cannot be transitioned at all, so the plate is always there and is
+ * simply nothing wide.
+ */
+.hbw-ind {
+  grid-template-columns: calc(100% - var(--edge)) 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind {
+    transition: grid-template-columns var(--in) var(--ease);
+  }
+}
+
+.hbw-ind[data-open="true"] {
+  grid-template-columns: calc(50% - var(--edge) / 2) calc(50% - var(--edge) / 2);
 }
 
 /*
@@ -13268,18 +13293,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
   .hbw-ind__bars {
     grid-row: 2;
     grid-template-rows: auto;
-  }
-
-  /* No room to hold them apart on a phone: the two stacks read as one
-     column, which is what seven bars at this width are anyway. */
-  .hbw-ind__over {
-    grid-row: 1;
-  }
-
-  .hbw-ind__under {
-    grid-row: 2;
-    align-content: start;
-    margin-top: var(--edge);
   }
 
   /*
