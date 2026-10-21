@@ -20,6 +20,7 @@ import type { GalleryProject } from "@/sanity/load-gallery";
 import { useStillness } from "@/components/site/still";
 import type { InfoData } from "@/components/site/project-info";
 import { Catalogue } from "@/components/site/Catalogue";
+import { IndexWork, LargeWork } from "@/components/site/Shapes";
 import { Footer } from "@/components/site/Footer";
 import { Lightbox } from "@/components/site/Lightbox";
 import type { Shot } from "@/components/site/shots";
@@ -74,11 +75,21 @@ export function Work({
   projects,
   marks,
   opening = null,
+  shape = "loop",
 }: {
   projects: GalleryProject[];
   marks: Record<string, ReactNode>;
   /** Set when the address already names a project, so it opens on arrival. */
   opening?: Opening | null;
+  /**
+   * How the front page arranges the work.
+   *
+   * "loop" is the site: the catalogue printed three times so it can wrap
+   * without a seam. The other three are under /try, for looking at — they
+   * change the arrangement and nothing else, so a press still opens the
+   * gallery and the nav still leads.
+   */
+  shape?: "loop" | "end" | "large" | "index";
 }) {
   const [open, setOpen] = useState<Open | null>(opening);
   const [bar, setBar] = useState<HTMLElement | null>(null);
@@ -1317,8 +1328,38 @@ export function Work({
           }}
         />
       ) : null}
-      <div className="hbw-loop" ref={loop} data-turns="3">
-        {[0, 1, 2].map((pass) => (
+      {shape === "large" || shape === "index" ? (
+        /*
+         * An arrangement with no catalogue in it.
+         *
+         * The loop below prints the work three times and is most of what a
+         * page here weighs; these print one picture per project. Everything
+         * else on the page is unchanged — the bar, the gallery a press
+         * opens, the foot — so what is being compared is the arrangement
+         * and not a different site.
+         */
+        <div className="hbw-loop hbw-loop--try" data-turns="1">
+          <div className="hbw-turn">
+            {shape === "large" ? (
+              <LargeWork
+                projects={projects}
+                marks={marks}
+                onOpen={(slug, at) => void leave(slug, at)}
+                onNear={(slug) => void learn(slug)}
+              />
+            ) : (
+              <IndexWork
+                projects={projects}
+                onOpen={(slug, at) => void leave(slug, at)}
+                onNear={(slug) => void learn(slug)}
+              />
+            )}
+            <Footer />
+          </div>
+        </div>
+      ) : (
+      <div className="hbw-loop" ref={loop} data-turns={shape === "loop" ? "3" : "1"}>
+        {(shape === "loop" ? [0, 1, 2] : [0]).map((pass) => (
           /*
            * Held from the markup, released by hand.
            *
@@ -1380,6 +1421,7 @@ export function Work({
           </div>
         ))}
       </div>
+      )}
 
       {/*
         The page is placed before the bundle arrives.
@@ -1395,6 +1437,9 @@ export function Work({
         then, again when the document is ready and again on load, and stands
         down for good the first time the reader touches the page.
       */}
+      {/* Only the wrapping loop has a join to be placed on. The others
+          start at the top, which is where the browser already puts them. */}
+      {shape !== "loop" ? null : (
       <script
         dangerouslySetInnerHTML={{
           __html: `(function(){try{
@@ -1416,6 +1461,7 @@ window.addEventListener('load',go,{once:true});
 }catch(e){}})();`,
         }}
       />
+      )}
     </>
   );
 }

@@ -13011,3 +13011,174 @@ body:has(.hbw-lamp) .hbw-bar__what {
   display: flex;
   align-items: center;
 }
+
+/* =====================================================================
+   Two front pages to try, under /try.
+
+   Neither prints the catalogue, which is where the weight and the
+   sameness both come from. They use the plates and the gutters the rest
+   of the site uses, so what is being judged is the arrangement.
+   ===================================================================== */
+
+/* One picture per project, the width of the page. */
+.hbw-big {
+  display: grid;
+  gap: calc(var(--pill-h) * 2);
+  padding: var(--edge);
+}
+
+.hbw-big__one {
+  display: grid;
+  gap: var(--edge);
+}
+
+.hbw-big__shot {
+  display: block;
+  line-height: 0;
+}
+
+.hbw-big__shot img {
+  width: 100%;
+  height: auto;
+  /* Tall frames would otherwise be a screen and a half each; the picture
+     keeps its shape and stops at the height of the window. */
+  max-height: 86vh;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--pill-r);
+}
+
+.hbw-big__mark {
+  display: none;
+}
+
+/* The work as an index: names first, the picture on the one you are on. */
+.hbw-ind {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--edge);
+  padding: var(--edge);
+  align-items: start;
+}
+
+.hbw-ind__list {
+  display: grid;
+  gap: var(--edge);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+}
+
+.hbw-ind__list a {
+  display: grid;
+  /*
+   * One line per project, not two.
+   *
+   * The name and the idea stacked made each row 78px, seven of them 550,
+   * and the last of them sat under the bar — which floats in the middle of
+   * the window and is translucent. Over pictures that reads as the site's
+   * own language; over a line of type it is just unreadable. An index is a
+   * list of lines anyway.
+   */
+  grid-template-columns: var(--module) auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--pill-x);
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  color: var(--mute);
+  text-decoration: none;
+}
+
+/* The line you are on takes the ink; the rest stay quiet. One thing is
+   important at a time, which is the rule the whole site is set by. */
+.hbw-ind__list li[data-here="true"] a,
+.hbw-ind__list a:hover,
+.hbw-ind__list a:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-ind__name {
+  grid-column: 2;
+}
+
+.hbw-ind__idea {
+  grid-column: 3;
+  padding-left: var(--pill-x);
+  color: var(--mute);
+}
+
+.hbw-ind__year {
+  grid-column: 4;
+}
+
+.hbw-ind__shot {
+  position: sticky;
+  top: var(--edge);
+  line-height: 0;
+  min-width: 0;
+}
+
+.hbw-ind__shot img {
+  width: 100%;
+  height: auto;
+  max-height: 92vh;
+  object-fit: cover;
+  border-radius: var(--pill-r);
+}
+
+@media (max-width: 760px) {
+  /* The picture goes above the list rather than beside it, and stops
+     being sticky — on a phone a column of names is the page. */
+  .hbw-ind {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hbw-ind__shot {
+    position: static;
+    order: -1;
+  }
+
+  /* On a phone the idea drops: a name and a number is the whole line,
+     and the two together do not fit one. */
+  .hbw-ind__list a {
+    grid-template-columns: var(--module) minmax(0, 1fr) auto;
+  }
+
+  .hbw-ind__idea {
+    display: none;
+  }
+
+  .hbw-big {
+    gap: var(--pill-h);
+  }
+
+  .hbw-big__shot img {
+    max-height: none;
+  }
+}
+
+/*
+ * A try page starts where the page starts.
+ *
+ * .hbw-turn is padded 486px at the top so the catalogue's first row clears
+ * the bar sitting in the middle of the window — right for a loop you land
+ * in the middle of, and a screen of nothing at the top of a page you land
+ * at the top of.
+ */
+.hbw-loop--try .hbw-turn {
+  padding-top: 0;
+}
+
+/* The name sets its own width here: there is one row per project rather
+   than a column of them, so there is no second column to line up with, and
+   "Made by Madelen — 2026" in a 120px module wraps onto two lines. */
+.hbw-big .hbw-band,
+.hbw-ind .hbw-band {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.hbw-big .hbw-chip {
+  white-space: nowrap;
+}

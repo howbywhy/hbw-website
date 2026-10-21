@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/preview", "/update"],
+      disallow: ["/preview", "/update", "/try"],
     },
     sitemap: "https://www.hbw.works/sitemap.xml",
   };
