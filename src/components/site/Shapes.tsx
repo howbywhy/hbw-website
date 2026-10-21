@@ -125,17 +125,18 @@ export function LargeWork({
  * the picture belongs to whichever line you are on.
  */
 /**
- * The work as an index that does not scroll.
+ * The work as an index: the lines on one side, the project on the other.
  *
- * One project is open: its line at the top, its frames across the middle,
- * and every other project's line stacked at the foot of the screen waiting
- * its turn. A scroll does not move the page — there is nowhere for it to go
- * — it opens the next project, whose line rises to the top as the pictures
- * change under it.
+ * A split, which is what it was: the bars down the left and the gallery
+ * down the right. Scrolling over the lines moves through the projects and
+ * the pictures beside them change; scrolling over the pictures reads
+ * through that project, the way the studio sheet scrolls its own contents
+ * rather than the page. The page itself does not move — there is nothing
+ * below the fold and the foot is the last row of the screen.
  *
  * A line says the number, the name, what the work was and the year. The
- * proposition has gone from it: with one project open at a time the frames
- * are saying that, and a line that says everything is a paragraph.
+ * proposition has gone from it: with one project open the frames are
+ * saying that, and a line that says everything is a paragraph.
  */
 export function IndexWork({
   projects,
@@ -147,7 +148,7 @@ export function IndexWork({
   onNear?: (slug: string) => void;
 }) {
   const [at, setAt] = useState(0);
-  const root = useRef<HTMLDivElement>(null);
+  const bars = useRef<HTMLOListElement>(null);
   const open = projects[at];
   const frames = open?.frames ?? [];
 
@@ -170,13 +171,23 @@ export function IndexWork({
     [projects.length]
   );
 
+  /* Over the lines, a scroll moves through the work. Over the pictures it
+     is an ordinary scroll of that project, which the column handles
+     itself. */
   useEffect(() => {
-    const el = root.current;
+    const el = bars.current;
     if (!el) return;
-    /* Not passive: the page has nowhere to scroll and the browser should
-       not spend a frame finding that out. */
     const wheel = (event: WheelEvent) => {
       if (Math.abs(event.deltaY) < 2) return;
+      /* Only when the lines have nowhere of their own to go: a list longer
+         than its column scrolls, as the studio sheet does, and steps only
+         once it has reached an end. */
+      const room = el.scrollHeight - el.clientHeight;
+      if (room > 1) {
+        const atTop = el.scrollTop <= 0;
+        const atFoot = el.scrollTop >= room - 1;
+        if (!(event.deltaY > 0 ? atFoot : atTop)) return;
+      }
       event.preventDefault();
       step(event.deltaY > 0 ? 1 : -1);
     };
@@ -191,22 +202,26 @@ export function IndexWork({
       step(now < from ? 1 : -1);
       from = now;
     };
-    const key = (event: KeyboardEvent) => {
-      if (event.key === "ArrowDown" || event.key === "PageDown") step(1);
-      else if (event.key === "ArrowUp" || event.key === "PageUp") step(-1);
-      else return;
-      event.preventDefault();
-    };
     el.addEventListener("wheel", wheel, { passive: false });
     el.addEventListener("touchstart", down, { passive: true });
     el.addEventListener("touchmove", move, { passive: false });
-    window.addEventListener("keydown", key);
     return () => {
       el.removeEventListener("wheel", wheel);
       el.removeEventListener("touchstart", down);
       el.removeEventListener("touchmove", move);
-      window.removeEventListener("keydown", key);
     };
+  }, [step]);
+
+  /* Arrow keys walk it too, for a reader who is not using a pointer. */
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      if (event.key === "ArrowDown") step(1);
+      else if (event.key === "ArrowUp") step(-1);
+      else return;
+      event.preventDefault();
+    };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
   }, [step]);
 
   /* The one that is open is fetched ahead, so pressing it has nothing left
@@ -215,59 +230,54 @@ export function IndexWork({
     if (open) onNear?.(open.slug);
   }, [open, onNear]);
 
-  const line = (project: GalleryProject, i: number, isOpen: boolean) => (
-    <a
-      href={`/projects/${project.slug}`}
-      onPointerEnter={isOpen ? undefined : () => setAt(i)}
-      onFocus={isOpen ? undefined : () => setAt(i)}
-      onClick={(event) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-        event.preventDefault();
-        /* A line that is not open opens; the open one opens the project. */
-        if (!isOpen) {
-          setAt(i);
-          return;
-        }
-        onOpen(project.slug, 0);
-      }}
-    >
-      <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
-      <span className="hbw-ind__name">{project.name}</span>
-      <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
-      <span className="hbw-ind__year hbw-m">{project.year}</span>
-    </a>
-  );
-
   return (
-    <div className="hbw-ind" ref={root}>
-      <p className="hbw-ind__open">{open ? line(open, at, true) : null}</p>
+    <div className="hbw-ind">
+      <ol className="hbw-ind__list" ref={bars}>
+        {projects.map((project, i) => (
+          <li key={project.slug} data-here={i === at ? "true" : undefined}>
+            <a
+              href={`/projects/${project.slug}`}
+              onPointerEnter={() => setAt(i)}
+              onFocus={() => setAt(i)}
+              onClick={(event) => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+                event.preventDefault();
+                /* A line you are not on becomes the one you are on; the one
+                   you are on opens the project. */
+                if (i !== at) {
+                  setAt(i);
+                  return;
+                }
+                onOpen(project.slug, 0);
+              }}
+            >
+              <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
+              <span className="hbw-ind__name">{project.name}</span>
+              <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
+              <span className="hbw-ind__year hbw-m">{project.year}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
 
-      {/* The project, across the middle. Decorative: the line above it
-          says what it is, and pressing that line opens it properly. */}
+      {/* The project beside them, read through on its own. Decorative: the
+          line it belongs to says what it is, and pressing that line opens
+          it properly. */}
       <div className="hbw-ind__shot" aria-hidden="true">
         {frames.map((one, i) => (
           <img
             key={`${open?.slug}-${i}`}
             src={one.src}
             srcSet={one.peekset ?? one.srcset}
-            sizes="46vw"
+            sizes="(max-width: 760px) 100vw, 46vw"
             width={one.width}
             height={one.height}
             alt=""
-            loading={i < 3 ? "eager" : "lazy"}
+            loading={i < 2 ? "eager" : "lazy"}
             decoding="async"
           />
         ))}
       </div>
-
-      {/* Everything else, waiting at the foot of the screen in its order. */}
-      <ol className="hbw-ind__list">
-        {projects.map((project, i) =>
-          i === at ? null : (
-            <li key={project.slug}>{line(project, i, false)}</li>
-          )
-        )}
-      </ol>
     </div>
   );
 }

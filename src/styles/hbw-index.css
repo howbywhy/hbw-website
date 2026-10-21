@@ -13053,25 +13053,17 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* =====================================================================
-   The work as an index that does not scroll.
+   The work as an index: the lines on one side, the project on the other.
 
-   One project open: its line at the top, its frames across the middle,
-   and the rest of the lines stacked at the foot of the screen. The
-   screen is the page — there is nothing below the fold, so a scroll
-   opens the next project rather than moving anything.
+   The screen is the page. The bars run down the left and the project
+   runs down the right, each scrolling its own contents the way the
+   studio sheet does, and the foot is the last row of the window.
    ===================================================================== */
 
-/* The turn is the window, and the foot is the last row in it. */
-/*
- * Rows are named and so is the column.
- *
- * A grid given only grid-template-rows still has a column, and an implicit
- * column is auto — which means max-content, which means wider than the
- * screen as soon as anything inside is. On a phone that put the year and
- * the second profile past the right edge, where the overflow: hidden here
- * quietly cut them off: a layout fault wearing the costume of a design.
- * The third time this exact thing has been found on this site.
- */
+/* The turn is the window, and the foot is the last row in it. A grid
+   given only rows still has a column, and an implicit column is auto —
+   which is max-content, which is wider than the screen as soon as
+   anything inside it is. */
 .hbw-loop--try:has(.hbw-ind) .hbw-turn {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -13083,30 +13075,29 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 .hbw-ind {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--edge);
   padding: var(--edge) var(--edge) 0;
   min-height: 0;
   min-width: 0;
 }
 
-.hbw-ind__open {
-  margin: 0;
-}
-
+/* The bars. Their own scroller, so a list longer than the window reads
+   through rather than pushing the page down — and until it is that long,
+   a scroll over them moves through the work instead. */
 .hbw-ind__list {
   display: grid;
   gap: var(--edge);
+  align-content: start;
   margin: 0;
   padding: 0;
   list-style: none;
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-/* One shape for every line, open or waiting, so the one that rises to
-   the top is the same object that was at the bottom. */
-.hbw-ind__open a,
 .hbw-ind__list a {
   display: grid;
   grid-template-columns: var(--module) auto minmax(0, 1fr) auto;
@@ -13119,12 +13110,9 @@ body:has(.hbw-lamp) .hbw-bar__what {
   text-decoration: none;
 }
 
-/* The open one takes the ink. One thing is important at a time, which is
-   the rule the whole site is set by. */
-.hbw-ind__open a {
-  color: var(--ink);
-}
-
+/* The one you are on takes the ink. One thing is important at a time,
+   which is the rule the whole site is set by. */
+.hbw-ind__list li[data-here="true"] a,
 .hbw-ind__list a:hover,
 .hbw-ind__list a:focus-visible {
   color: var(--ink);
@@ -13149,26 +13137,27 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /*
- * The project, across the middle, at the shape each frame actually is.
+ * The project, down the right, at the shape each frame actually is.
  *
- * A row rather than a column: the height is whatever the window has left
- * after the lines and the foot, and each picture is as wide as it is at
- * that height. What does not fit is simply not on screen — there are six
- * more projects waiting at the bottom and no page to scroll.
+ * A logotype is wide and a garment is tall; cropping both into one box
+ * throws away the half of a frame that was the work. width and height
+ * come from the file, so the column has its shape before the picture
+ * lands and nothing moves as it fills.
  */
 .hbw-ind__shot {
-  display: flex;
+  display: grid;
   gap: var(--edge);
+  align-content: start;
+  min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   line-height: 0;
 }
 
 .hbw-ind__shot img {
-  height: 100%;
-  width: auto;
-  flex: 0 0 auto;
-  object-fit: cover;
+  width: 100%;
+  height: auto;
   border-radius: var(--pill-r);
 }
 
@@ -13224,14 +13213,21 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 @media (max-width: 760px) {
   /*
-   * The same arrangement, narrower.
+   * On a phone there is no beside: the lines go above the project.
    *
-   * The lines drop what they cannot fit — a name and a year is the whole
-   * of one at 390px — and the frames take whatever height is left after
-   * seven lines and the foot, which is not much. It is still the work
-   * across the middle with the names around it.
+   * Both keep their own scroller — the lines take the height seven of them
+   * need and the pictures take the rest — so the page is still one screen
+   * and still does not move.
    */
-  .hbw-ind__open a,
+  .hbw-ind {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .hbw-ind__list {
+    overflow-y: visible;
+  }
+
   .hbw-ind__list a {
     grid-template-columns: var(--module) minmax(0, 1fr) auto;
   }
@@ -13247,18 +13243,11 @@ body:has(.hbw-lamp) .hbw-bar__what {
   /*
    * One clean line is a sheet's answer, not a phone's.
    *
-   * The place, the list and the two profiles came to 417px of content in a
-   * 390px screen, so the field they share a row with was squeezed down to
-   * "you@c" — a signup you cannot read the shape of is not a signup. Each
-   * takes its own row here: three rows of 31px at the bottom of a screen
-   * that does not scroll, and nothing is crushed.
+   * The place, the list and the two profiles come to 417px of content in a
+   * 390px screen, so the one line squeezed the field down to "you@c" — a
+   * signup you cannot read the shape of is not a signup. Each takes its
+   * own row here, and nothing is crushed.
    */
-  .hbw-end--line {
-    gap: var(--edge);
-  }
-
-  /* Named one by one, because .hbw-end--line .hbw-end__loop outranks a
-     child selector and would keep its 14rem basis. */
   .hbw-end--line .hbw-end__who,
   .hbw-end--line .hbw-end__loop,
   .hbw-end--line .hbw-end__to {
