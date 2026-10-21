@@ -13126,8 +13126,15 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 @media (prefers-reduced-motion: no-preference) {
   .hbw-ind__bars li {
+    /*
+     * Twice the usual beat, because this is twice the usual distance: a
+     * bar leaving the foot of the column for its head crosses most of the
+     * window, and 240ms over 640px is three pixels a millisecond — which
+     * arrives before the eye has found it and reads as a jump rather than
+     * a move.
+     */
     transition:
-      transform var(--in) var(--ease),
+      transform calc(var(--in) * 2) var(--ease),
       opacity var(--in) var(--ease);
     /* The one that moves leads and the rest follow it, rather than the
        whole column setting off at once. */
@@ -13408,9 +13415,14 @@ body:has(.hbw-lamp) .hbw-bar__what {
   pointer-events: none;
 }
 
+/*
+ * The label only. Listing the bars here as well set their transition
+ * shorthand to opacity alone, which quietly threw away the transform
+ * they move on — so every bar has been snapping from the foot of the
+ * column to its head ever since, with nothing in between.
+ */
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-ind__view,
-  .hbw-ind__bars li {
+  .hbw-ind__view {
     transition: opacity var(--in) var(--ease);
   }
 }
@@ -13453,6 +13465,21 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * the room now.
    */
   object-fit: cover;
+}
+
+/*
+ * A new frame is uncovered, not cut to.
+ *
+ * Stepping to the next project replaced the picture between one frame and
+ * the next, which is the one move this site does not make: everything
+ * here arrives on the same wipe. The element is keyed to the project, so
+ * changing project remounts it and the wipe plays.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind__shot img,
+  .hbw-ind__shot video {
+    animation: hbw-arrive calc(var(--in) * 1.5) var(--ease) both;
+  }
 }
 
 /* One line across the bottom: the place, the list, and where else the
