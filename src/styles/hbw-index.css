@@ -1520,7 +1520,21 @@ html.hbw-lit .hbw-studio-sheet {
 
 @media (max-width: 760px) {
   .hbw-end {
-    grid-template-columns: 1fr;
+    /*
+     * minmax(0, 1fr), not 1fr.
+     *
+     * A 1fr track's floor is min-content, so a row inside it that cannot
+     * fit makes the column wider than the footer instead of making itself
+     * narrower. The signup is that row — label, address, Join — and it had
+     * been fitting a 390px phone by about four pixels. Setting the label to
+     * the size of the rest of the foot spent those four and twenty more:
+     * the column went to 402 inside 378 and took the whole document with
+     * it, which is a 390px screen scrolling sideways because one word grew.
+     *
+     * The track is told it may be zero now, so the row shortens and the
+     * footer stays the width of the phone whatever is put in it.
+     */
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.6rem;
   }
   .hbw-end__to {
@@ -12895,4 +12909,61 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-end__field .hbw-m {
   font-size: inherit;
   letter-spacing: inherit;
+}
+
+/*
+ * The signup reads as one line, so the email is the word it turns on.
+ *
+ * "Stay in the loop", the address and "Join" were all --mute, and the
+ * address — the only part of the line that is the thing being asked for —
+ * was a placeholder, which browsers draw lighter again. Three greys and a
+ * box, rather than a sentence.
+ *
+ * The address takes the ink now, in both of its states: the placeholder
+ * that shows the shape of what to type, and the value once it is typed.
+ * The two words either side stay quiet, which is what makes it read as one
+ * line with a subject rather than three labels in a row.
+ */
+.hbw-end__field input,
+.hbw-end__field input::placeholder {
+  color: var(--ink);
+  opacity: 1;
+}
+
+/*
+ * On a phone the whole site is set at sixteen pixels.
+ *
+ * Every type size here comes off --t-mid, whose clamp floor put a phone at
+ * 11.9px. Two things followed from that. iOS zooms the page whenever a
+ * field is focused below 16px and cannot be asked not to, so tapping the
+ * signup threw the layout about; and the one place the site could not be
+ * small — the field you type an address into — was the same size as a
+ * label, so the line read as chrome rather than as copy.
+ *
+ * Raising the floor fixes both at once and keeps every relationship in the
+ * scale, because the small size is a fraction of this one: nothing is
+ * special-cased, the field simply is not small any more, and the page never
+ * zooms because there is nothing left under sixteen to zoom for.
+ */
+@media (max-width: 760px) {
+  /*
+   * Measured, and it does not fit.
+   *
+   * Taking the whole scale to 16px on a phone is the right idea and the
+   * site cannot hold it: the document went 410px wide inside a 390px
+   * screen on every page, with the bar, the project line, the gallery's
+   * own bar and the feet all over the edge — 66 elements on Our Boy Roy.
+   * The mobile layout is tuned for twelve-pixel type, and sixteen is a
+   * third more of it in rows that are already full.
+   *
+   * So it is the signup alone, which is the one row with a reason: it is
+   * the only thing on the site you type into, and below 16px iOS zooms the
+   * page on focus and cannot be asked not to. The row keeps its own
+   * relationships — the label, the address and Join are one size, as they
+   * are everywhere — and the page never zooms, because the only field on
+   * it is no longer small.
+   */
+  .hbw-end__field {
+    font-size: 1rem;
+  }
 }
