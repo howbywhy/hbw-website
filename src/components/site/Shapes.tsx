@@ -399,10 +399,18 @@ export function IndexWork({
         bar that opens is where they belong.
       */}
       {talking ? (
-        /* The drawing, which is the other way in: it exists for the person
-           who would rather not write a paragraph, and it has never had a
-           place on a front page. */
-        <div className="hbw-ind__shot hbw-ind__shot--talk">
+        /*
+         * The drawing, which is the other way in: it exists for the person
+         * who would rather not write a paragraph, and it has never had a
+         * place on a front page.
+         *
+         * hbw-tool, because that is where the poster's hundred and
+         * forty-eight rules live. Without it the tool renders its own bare
+         * default — a bordered box of stacked rows in a corner — which is
+         * why it felt like a different tool. It is the same tool; it was
+         * just standing outside the room its clothes are in.
+         */
+        <div className="hbw-ind__shot hbw-ind__shot--talk hbw-tool">
           <PosterTool />
         </div>
       ) : (

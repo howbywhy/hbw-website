@@ -13220,9 +13220,18 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * not to. They are objects two pixels apart here, like everything else on
  * the site, and they are all the one height.
  */
+/*
+ * One per row, now the column is the narrower of the two.
+ *
+ * The place and the field shared a line while the bars had half the
+ * window. They have 38% of it now, and the field was being given what was
+ * left after a 301px address — which is not enough for a label, an
+ * address and a button, so "you@company.com" ran out past the column.
+ * Each takes a row; nothing is squeezed.
+ */
 .hbw-ind__talk .hbw-end--line {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   /* Tops, not stretch: the three groups are different heights only
      because one of them wraps a form, and a row whose items each find
      their own baseline is the raggedness this looked like. */
@@ -13237,20 +13246,14 @@ body:has(.hbw-lamp) .hbw-bar__what {
   min-width: 0;
 }
 
-.hbw-ind__talk .hbw-end__who {
-  grid-column: 1;
-}
-
 .hbw-ind__talk .hbw-end__loop {
-  grid-column: 2;
   display: grid;
   margin: 0;
   padding: 0;
 }
 
-/* The two profiles sit on their own line, at the width of their words. */
+/* The two profiles sit at the width of their words, not the row's. */
 .hbw-ind__talk .hbw-end__to {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
