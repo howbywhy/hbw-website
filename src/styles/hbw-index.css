@@ -13129,15 +13129,25 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 @media (max-width: 760px) {
-  /* The picture goes above the list rather than beside it, and stops
-     being sticky — on a phone a column of names is the page. */
+  /*
+   * The names first, which on a phone has to mean first.
+   *
+   * The picture was put above the list and given the height it had on a
+   * sheet: 686px of a 844px screen, so the page opened on one photograph
+   * with every name below the fold — which is the one thing this
+   * arrangement exists not to do. The list leads and the picture follows
+   * it, at a height that leaves both on screen at once.
+   */
   .hbw-ind {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .hbw-ind__shot {
     position: static;
-    order: -1;
+  }
+
+  .hbw-ind__shot img {
+    max-height: 52vh;
   }
 
   /* On a phone the idea drops: a name and a number is the whole line,
