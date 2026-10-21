@@ -13126,7 +13126,9 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 @media (prefers-reduced-motion: no-preference) {
   .hbw-ind__bars li {
-    transition: transform var(--in) var(--ease);
+    transition:
+      transform var(--in) var(--ease),
+      opacity var(--in) var(--ease);
     /* The one that moves leads and the rest follow it, rather than the
        whole column setting off at once. */
     transition-delay: var(--wait, 0ms);
@@ -13404,23 +13406,33 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-ind__shot img,
-  .hbw-ind__shot video,
-  .hbw-ind__view {
+  .hbw-ind__view,
+  .hbw-ind__bars li {
     transition: opacity var(--in) var(--ease);
   }
-}
-
-.hbw-ind__shot:hover img,
-.hbw-ind__shot:hover video,
-.hbw-ind__shot:focus-visible img,
-.hbw-ind__shot:focus-visible video {
-  opacity: 0.08;
 }
 
 .hbw-ind__shot:hover .hbw-ind__view,
 .hbw-ind__shot:focus-visible .hbw-ind__view {
   opacity: 1;
+}
+
+/*
+ * Hovering the work quiets everything that is not it.
+ *
+ * It was the other way round — the picture faded and the label arrived
+ * over it — which put the thing being offered behind a veil at the exact
+ * moment somebody reached for it. The picture holds, its own bar holds,
+ * and the nav holds, because those three are what you are looking at and
+ * what tells you where you are. The other six bars and the way out stand
+ * down.
+ *
+ * :has, because the bars come before the room in the markup and a sibling
+ * cannot be styled from a later one any other way.
+ */
+.hbw-ind:has(.hbw-ind__shot:hover) .hbw-ind__bars li:not([data-here="true"]),
+.hbw-ind:has(.hbw-ind__shot:focus-visible) .hbw-ind__bars li:not([data-here="true"]) {
+  opacity: 0.12;
 }
 
 .hbw-ind__shot img,
