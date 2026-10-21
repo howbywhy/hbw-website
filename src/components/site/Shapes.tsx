@@ -125,18 +125,18 @@ export function LargeWork({
  * the picture belongs to whichever line you are on.
  */
 /**
- * The work as an index: the tabs on the left, one picture on the right.
+ * The work as an index, behaving the way the studio sheet does.
  *
- * It behaves the way the studio sheet does. Every project is a tab; the one
- * you are on opens — taking its name and its idea with it — and the others
- * stay as a number, what the work was, and a year. So the tabs move up and
- * down the column as you scroll, because the open one is taller than the
- * rest, and the picture beside them changes with it.
+ * Every project is a bar. The ones you have passed stack at the top of the
+ * column, the ones you have not wait at the bottom, and the one you are on
+ * is the last of the top stack — which is exactly how the parts of the
+ * studio sheet sit around whichever one is open. What the sheet puts
+ * between them is the part's writing; what this puts there is the work,
+ * in the column beside it.
  *
- * One picture, not a sequence. A different one each time the page is
- * loaded, drawn from that project's own frames, so the work is never
- * represented by the same still twice running — but only ever one, because
- * this is an index and the project's page is where its sequence lives.
+ * At rest nothing is open: all seven wait at the bottom, the nav is the
+ * studio, and the picture is one frame of the work. The first scroll opens
+ * 01, and scrolling back up closes it again.
  */
 export function IndexWork({
   projects,
@@ -147,9 +147,10 @@ export function IndexWork({
   onOpen: (slug: string, at: number) => void;
   onNear?: (slug: string) => void;
 }) {
-  const [at, setAt] = useState(0);
+  /** null until the reader moves: at rest this page is the studio. */
+  const [at, setAt] = useState<number | null>(null);
   const root = useRef<HTMLDivElement>(null);
-  const open = projects[at];
+  const open = at === null ? null : projects[at];
 
   /*
    * Which frame, decided once a load.
@@ -162,7 +163,10 @@ export function IndexWork({
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 10_000) + 1);
   }, []);
-  const frames = open?.frames ?? [];
+
+  /* At rest, one frame of the studio's work rather than an empty room. */
+  const showing = open ?? (seed ? projects[seed % projects.length] : projects[0]);
+  const frames = showing?.frames ?? [];
   const frame = frames.length ? frames[seed % frames.length] : undefined;
 
   /*
@@ -177,7 +181,15 @@ export function IndexWork({
       const now = Date.now();
       if (now < since.current) return;
       since.current = now + 420;
-      setAt((was) => (was + way + projects.length) % projects.length);
+      setAt((was) => {
+        /* Down from nothing opens the first; up from the first closes it
+           again, so the studio is always one gesture back. */
+        if (was === null) return way > 0 ? 0 : null;
+        const next = was + way;
+        if (next < 0) return null;
+        if (next >= projects.length) return projects.length - 1;
+        return next;
+      });
     },
     [projects.length]
   );
@@ -222,13 +234,9 @@ export function IndexWork({
   }, [step]);
 
   /*
-   * The nav says which project this is, and so the tab does not have to.
-   *
-   * Through the same hbw:over event the gallery already uses, so the chrome
-   * reads the same here as anywhere else on the site and nothing new had to
-   * be taught to the bar. With the name and the idea up there, a tab is the
-   * number, what the work was, and the year — which is all an index line
-   * was ever for.
+   * The nav says which project this is, through the same hbw:over event the
+   * gallery already uses — so the chrome reads the same here as anywhere
+   * else on the site, and a bar below it does not have to say the name.
    */
   useEffect(() => {
     window.dispatchEvent(
@@ -242,50 +250,58 @@ export function IndexWork({
     };
   }, [open, onNear]);
 
+  const bar = (project: GalleryProject, i: number) => (
+    <li key={project.slug} data-here={i === at ? "true" : undefined}>
+      <a
+        href={`/projects/${project.slug}`}
+        onPointerEnter={() => setAt(i)}
+        onFocus={() => setAt(i)}
+        onClick={(event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+          event.preventDefault();
+          /* A bar you are not on opens; the one you are on opens the project. */
+          if (i !== at) {
+            setAt(i);
+            return;
+          }
+          onOpen(project.slug, 0);
+        }}
+      >
+        <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
+        <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
+        <span className="hbw-ind__year hbw-m">{project.year}</span>
+        {/* The nav is saying the name. A link still has to say where it goes
+            to anyone who cannot see which bar is lit. */}
+        <span className="hbw-sr">{project.name}</span>
+      </a>
+    </li>
+  );
+
+  /* Passed, and still to come. The open one is the last of the first. */
+  const over = at === null ? [] : projects.slice(0, at + 1);
+  const under = at === null ? projects : projects.slice(at + 1);
+
   return (
     <div className="hbw-ind" ref={root}>
-      <ol className="hbw-ind__list">
-        {projects.map((project, i) => (
-          <li key={project.slug} data-here={i === at ? "true" : undefined}>
-            <a
-              href={`/projects/${project.slug}`}
-              onPointerEnter={() => setAt(i)}
-              onFocus={() => setAt(i)}
-              onClick={(event) => {
-                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-                event.preventDefault();
-                /* A tab you are not on opens; the one you are on opens the
-                   project. */
-                if (i !== at) {
-                  setAt(i);
-                  return;
-                }
-                onOpen(project.slug, 0);
-              }}
-            >
-              <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
-              <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
-              <span className="hbw-ind__year hbw-m">{project.year}</span>
-              {/* The nav is saying the name. A link still has to say where
-                  it goes to anyone who cannot see which tab is lit. */}
-              <span className="hbw-sr">{project.name}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
+      <div className="hbw-ind__bars">
+        <ol className="hbw-ind__over">{over.map((project, i) => bar(project, i))}</ol>
+        <ol className="hbw-ind__under">
+          {under.map((project, i) => bar(project, (at === null ? 0 : at + 1) + i))}
+        </ol>
+      </div>
 
-      {/* The room the work is shown in. Decorative: the tab beside it says
-          what it is, and pressing that tab opens it properly. */}
+      {/* The room the work is shown in. Decorative: the nav says what it is,
+          and pressing the bar opens the project properly. */}
       <div className="hbw-ind__shot" aria-hidden="true">
         {frame ? (
           frame.video ? (
-            <video key={`${open?.slug}-${seed}`} poster={frame.src} autoPlay muted loop playsInline>
+            <video key={`${showing?.slug}-${seed}`} poster={frame.src} autoPlay muted loop playsInline>
               {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
               <source src={frame.video} type="video/mp4" />
             </video>
           ) : (
             <img
-              key={`${open?.slug}-${seed}`}
+              key={`${showing?.slug}-${seed}`}
               src={frame.src}
               srcSet={frame.peekset ?? frame.srcset}
               sizes="(max-width: 760px) 100vw, 50vw"

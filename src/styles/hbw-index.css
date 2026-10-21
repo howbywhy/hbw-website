@@ -13053,12 +13053,12 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* =====================================================================
-   The work as an index: the tabs on the left, one picture on the right.
+   The work as an index, sitting the way the studio sheet's parts do.
 
-   It behaves the way the studio sheet does — every project is a tab,
-   the one you are on opens and takes its name and its idea with it, and
-   the tabs move up and down the column as the open one changes. The
-   screen is the page: the foot is its last row and nothing scrolls.
+   Every project is a bar. The ones passed stack at the top of the
+   column, the ones to come wait at the bottom, and the one you are on
+   is the last of the top stack. The work is in the column beside them.
+   The screen is the page: the foot is its last row and nothing scrolls.
    ===================================================================== */
 
 /* Said by anything that reads, seen by nothing. */
@@ -13075,8 +13075,7 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* The chrome keeps the middle line it has everywhere the work is, and it
-   says which project you are on — which is why a tab below it does not
-   have to. */
+   says which project you are on — which is why a bar does not have to. */
 
 /* The turn is the window, and the foot is the last row in it. A grid given
    only rows still has a column, and an implicit column is auto — which is
@@ -13095,28 +13094,53 @@ body:has(.hbw-lamp) .hbw-bar__what {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--edge);
-  /* Clear of the nav, which is fixed over the top of this. */
-  padding: calc(var(--chrome) + var(--edge)) var(--edge) 0;
+  padding: var(--edge);
   min-height: 0;
   min-width: 0;
 }
 
-.hbw-ind__list {
+/*
+ * The two stacks, with the room between them.
+ *
+ * Passed at the top, still to come at the bottom, and the gap is whatever
+ * is left — so opening a project moves one bar from the foot of the column
+ * to the head of it and everything else slides by exactly its height.
+ */
+.hbw-ind__bars {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.hbw-ind__over,
+.hbw-ind__under {
   display: grid;
   gap: var(--edge);
-  align-content: start;
   margin: 0;
   padding: 0;
   list-style: none;
   min-width: 0;
-  min-height: 0;
 }
 
-.hbw-ind__list a {
+.hbw-ind__over {
+  grid-row: 1;
+  align-content: start;
+}
+
+.hbw-ind__under {
+  grid-row: 3;
+  align-content: end;
+}
+
+/* Each bar is the number, what the work was, and the year. The name and
+   the idea are in the nav. */
+.hbw-ind__over a,
+.hbw-ind__under a {
   display: grid;
   grid-template-columns: var(--module) minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: 0 var(--pill-x);
+  gap: var(--pill-x);
   padding: var(--pill-x);
   border-radius: var(--pill-r);
   background: var(--pill-bg);
@@ -13124,8 +13148,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
   text-decoration: none;
 }
 
-/* Every tab the same: the number, what the work was, and the year. The
-   name and the idea are in the nav. */
 .hbw-ind__did {
   grid-column: 2;
   min-width: 0;
@@ -13140,9 +13162,9 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 /* The one you are on takes the ink. One thing is important at a time,
    which is the rule the whole site is set by. */
-.hbw-ind__list li[data-here="true"] a,
-.hbw-ind__list a:hover,
-.hbw-ind__list a:focus-visible {
+.hbw-ind__bars li[data-here="true"] a,
+.hbw-ind__bars a:hover,
+.hbw-ind__bars a:focus-visible {
   color: var(--ink);
 }
 
@@ -13227,17 +13249,12 @@ body:has(.hbw-lamp) .hbw-bar__what {
 
 @media (max-width: 760px) {
   /*
-   * On a phone there is no beside, so the tabs go under the picture and
-   * walk up it: the open one is three lines and the rest are one, so the
-   * column grows upward from the foot as you move through the work.
-   */
-  /*
-   * Placed, not left to source order.
+   * On a phone there is no beside, so the picture takes the room and the
+   * bars sit under it — still two stacks, still moving one at a time.
    *
-   * The list comes first in the markup — it is the thing being navigated —
-   * so with rows of "1fr auto" it took the flexible one and the picture
-   * got what was left, which was nothing: a plate 0px tall under a column
-   * of tabs. The picture takes the room and the tabs sit under it.
+   * Placed explicitly rather than left to source order: the bars come
+   * first in the markup, so with rows of "1fr auto" they took the
+   * flexible row and the plate got what was left, which was nothing.
    */
   .hbw-ind {
     grid-template-columns: minmax(0, 1fr);
@@ -13248,17 +13265,27 @@ body:has(.hbw-lamp) .hbw-bar__what {
     grid-row: 1;
   }
 
-  .hbw-ind__list {
+  .hbw-ind__bars {
     grid-row: 2;
-    align-content: end;
+    grid-template-rows: auto;
+  }
+
+  /* No room to hold them apart on a phone: the two stacks read as one
+     column, which is what seven bars at this width are anyway. */
+  .hbw-ind__over {
+    grid-row: 1;
+  }
+
+  .hbw-ind__under {
+    grid-row: 2;
+    align-content: start;
+    margin-top: var(--edge);
   }
 
   /*
-   * One clean line is a sheet's answer, not a phone's.
-   *
-   * The place, the list and the two profiles come to 417px of content in a
-   * 390px screen, so the one line squeezed the field down to "you@c" — a
-   * signup you cannot read the shape of is not a signup.
+   * One clean line is a sheet's answer, not a phone's: the place, the list
+   * and the two profiles come to 417px of content in a 390px screen, and
+   * the one line squeezed the field down to "you@c".
    */
   .hbw-end--line .hbw-end__who,
   .hbw-end--line .hbw-end__loop,
