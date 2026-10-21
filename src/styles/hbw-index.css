@@ -12967,3 +12967,47 @@ body:has(.hbw-lamp) .hbw-bar__what {
     font-size: 1rem;
   }
 }
+
+/*
+ * One baseline across the signup.
+ *
+ * The row is three different boxes: the label is a line of type as tall as
+ * its line-height, the field is a 24px input whose text the browser centres
+ * inside it, and Join is a 24px plate with 2px of padding. Aligned to their
+ * tops, the three pieces of text landed on three different baselines —
+ * measured, the label's and Join's were 2.7px apart, which is exactly the
+ * amount that reads as "not quite right" without looking like anything in
+ * particular.
+ *
+ * So all three are given the same box and their text is centred in it. Same
+ * height, same font, same line-height, centred the same way: the baselines
+ * coincide because there is nothing left for them to differ by.
+ */
+.hbw-end__loop > .hbw-end__field {
+  align-items: center;
+}
+
+.hbw-end__loop > .hbw-end__field > label,
+.hbw-end__loop > .hbw-end__field > button,
+.hbw-end__loop > .hbw-end__field > input:not(.hbw-end__trap) {
+  box-sizing: border-box;
+  height: var(--pill-h);
+  /*
+   * And no margin, which is what was actually doing it.
+   *
+   * The label kept a 6.4px bottom margin from the general type, so its
+   * margin box was 30.4px against the other two at 24 — the tallest thing
+   * in the row. The row grew to fit it, the field and Join centred
+   * themselves in a row 6.4px taller than they are, and the label stayed at
+   * the top of it. Three equal boxes, centred, and the text lines up.
+   */
+  margin: 0;
+}
+
+/* The two that hold their own text centre it; the input is centred by the
+   browser inside the same height. */
+.hbw-end__loop > .hbw-end__field > label,
+.hbw-end__loop > .hbw-end__field > button {
+  display: flex;
+  align-items: center;
+}
