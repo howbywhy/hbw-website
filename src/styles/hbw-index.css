@@ -13189,52 +13189,72 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /*
- * The same room, holding the way to get in touch.
+ * The same room, holding the drawing.
  *
- * A picture fills this plate; the contact does not — it is four things
- * read down the side of it, at the top, in the space a frame would have
- * had. The foot that used to say them has gone: it was a row along the
- * bottom saying exactly this, under a page that already ends.
+ * A picture fills this plate when a project is open; the poster fills it
+ * when the last bar is. It is the other way in — built for the person who
+ * would rather not write a paragraph — and until now it lived behind a
+ * button inside a sheet on another page.
  */
 .hbw-ind__shot--talk {
   display: grid;
-  align-content: start;
-  padding: var(--pill-x);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
 }
 
-/* One column, explicitly: .hbw-end carries a three-column template for
-   the board it used to be, and saying display: grid here let that
-   template back in — the place, the list and the profiles side by side
-   in a half-width panel, with the address overlapping itself. */
-.hbw-ind__shot--talk .hbw-end--line {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+.hbw-ind__shot--talk > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+/*
+ * And the bar itself is the contact.
+ *
+ * The place, the list and where else the studio is, in the row rather
+ * than under a page that already ends. It wears the plate the shut bar
+ * wore, so opening it is the same object growing rather than a different
+ * one appearing.
+ */
+.hbw-ind__talk {
+  padding: var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  color: var(--ink);
+}
+
+.hbw-ind__talk .hbw-end--line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--edge);
   margin: 0;
   padding: 0;
 }
 
-.hbw-ind__shot--talk .hbw-end--line .hbw-end__who p,
-.hbw-ind__shot--talk .hbw-end--line .hbw-end__field {
-  padding: 2px var(--pill-x);
-  min-height: var(--pill-h);
-  border-radius: var(--pill-r);
-  background: var(--pill-bg);
-}
-
-.hbw-ind__shot--talk .hbw-end--line > * {
+.hbw-ind__talk .hbw-end--line > * {
+  margin: 0;
   min-width: 0;
 }
 
-/* Left, with the two above them. The board's version of this row sits at
-   the right of a three-column foot; there is one column here. */
-.hbw-ind__shot--talk .hbw-end__to {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  justify-content: start;
-  justify-self: start;
+.hbw-ind__talk .hbw-end__who {
+  flex: 0 0 auto;
+}
+
+.hbw-ind__talk .hbw-end__loop {
+  flex: 1 1 14rem;
+}
+
+.hbw-ind__talk .hbw-end__to {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
   gap: var(--edge);
+}
+
+.hbw-ind__talk .hbw-end__to a {
+  white-space: nowrap;
 }
 
 /*

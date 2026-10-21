@@ -13,7 +13,17 @@
  * project's gallery exactly as it does now. Nothing here is a mock.
  */
 import type { CSSProperties, ReactNode } from "react";
+import dynamic from "next/dynamic";
 import { Footer } from "@/components/site/Footer";
+
+/*
+ * Seventeen hundred lines of editor has no business in the bundle of a
+ * front page. It loads when the last bar is opened.
+ */
+const PosterTool = dynamic(
+  () => import("@/components/home/PosterTool").then((m) => m.PosterTool),
+  { ssr: false }
+);
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /** The site's gutter, in pixels, for the arithmetic that places the bars. */
@@ -182,12 +192,33 @@ export function IndexWork({
    * A trackpad sends a flick as thirty or forty wheel events, so stepping on
    * each one would run the whole index past in a quarter of a second.
    */
+  /*
+   * A pointer only chooses when it has actually moved.
+   *
+   * Every bar opens on pointerenter, and a scroll moves the bars under a
+   * cursor that is sitting still — so stepping down slid a bar beneath the
+   * pointer, which fired enter and set the project back to it. Going up
+   * past Our Boy Roy was impossible: the bar arriving under the cursor
+   * kept re-opening itself, and the column stuck. The pointer is only
+   * listened to after a real pointermove, and a step stops listening until
+   * the next one.
+   */
+  const stirred = useRef(false);
+  useEffect(() => {
+    const moved = () => {
+      stirred.current = true;
+    };
+    window.addEventListener("pointermove", moved, { passive: true });
+    return () => window.removeEventListener("pointermove", moved);
+  }, []);
+
   const since = useRef(0);
   const step = useCallback(
     (way: number) => {
       const now = Date.now();
       if (now < since.current) return;
       since.current = now + 420;
+      stirred.current = false;
       setAt((was) => {
         /* Down from nothing opens the first; up from the first closes it
            again, so the studio is always one gesture back. */
@@ -305,7 +336,9 @@ export function IndexWork({
     >
       <a
         href={`/projects/${project.slug}`}
-        onPointerEnter={() => setAt(i)}
+        onPointerEnter={() => {
+          if (stirred.current) setAt(i);
+        }}
         onFocus={() => setAt(i)}
         onClick={(event) => {
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -347,9 +380,18 @@ export function IndexWork({
             } as CSSProperties
           }
         >
-          <button type="button" onClick={() => setAt(talking ? null : projects.length)}>
-            <span className="hbw-ind__did">Talk</span>
-          </button>
+          {talking ? (
+            /* Open, the bar is the contact: the place, the list and where
+               else the studio is, in the row itself rather than under a
+               page that already ends. */
+            <div className="hbw-ind__talk">
+              <Footer line />
+            </div>
+          ) : (
+            <button type="button" onClick={() => setAt(projects.length)}>
+              <span className="hbw-ind__did">Talk</span>
+            </button>
+          )}
         </li>
       </ol>
 
@@ -360,8 +402,11 @@ export function IndexWork({
         bar that opens is where they belong.
       */}
       {talking ? (
+        /* The drawing, which is the other way in: it exists for the person
+           who would rather not write a paragraph, and it has never had a
+           place on a front page. */
         <div className="hbw-ind__shot hbw-ind__shot--talk">
-          <Footer line />
+          <PosterTool />
         </div>
       ) : (
       <div className="hbw-ind__shot" aria-hidden="true">
