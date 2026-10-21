@@ -51,6 +51,16 @@ function didOf(project: GalleryProject) {
   return line.charAt(0).toUpperCase() + line.slice(1);
 }
 
+/** A duration token in milliseconds, however it happens to be written. */
+function beat(name: string, fallback: number) {
+  if (typeof window === "undefined") return fallback;
+  const raw = Number.parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue(name)
+  );
+  if (!Number.isFinite(raw) || raw <= 0) return fallback;
+  return name.endsWith("s") || raw > 20 ? raw : raw * 1000;
+}
+
 /** The frame a project leads with: its first, which is the one chosen to open the sequence. */
 function lead(project: GalleryProject) {
   return project.frames[0];
@@ -214,9 +224,18 @@ export function IndexWork({
     if (!settled || landed.current) return;
     landed.current = true;
     if (touched.current) return;
+    /*
+     * Held, so the studio is read rather than glimpsed.
+     *
+     * 120ms after the bar stopped was not a hold, it was a stutter: the
+     * positioning arrived and the work came up over it before anybody had
+     * finished the line. Three beats of the site's own --in gives it the
+     * length of a sentence, and the work follows that rather than
+     * interrupting it.
+     */
     const open = window.setTimeout(() => {
       if (!touched.current) setAt(0);
-    }, 120);
+    }, beat("--in", 240) * 3);
     return () => window.clearTimeout(open);
   }, [settled]);
 
@@ -395,7 +414,14 @@ export function IndexWork({
   );
 
   return (
-    <div className="hbw-ind" ref={root} data-open={open || talking ? "true" : "false"}>
+    <div
+      className="hbw-ind"
+      ref={root}
+      data-open={open || talking ? "true" : "false"}
+      /* The foot of the index is the way out, and the nav is not part of
+         it — said here so the chrome can stand down from the stylesheet. */
+      data-talk={talking ? "true" : undefined}
+    >
       <ol className="hbw-ind__bars" ref={bars}>
         {projects.map((project, i) => bar(project, i))}
         {/* No number and no year: it is not one of the seven, it is the

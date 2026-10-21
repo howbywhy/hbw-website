@@ -13077,6 +13077,31 @@ body:has(.hbw-lamp) .hbw-bar__what {
 /* The chrome keeps the middle line it has everywhere the work is, and it
    says which project you are on — which is why a bar does not have to. */
 
+/*
+ * And it stands down at the foot of the index.
+ *
+ * The last bar is the way out: the contact in the row and the poster in
+ * the room. The nav is the way around the work, and there is no work on
+ * screen at that point — a line through the middle of a drawing saying
+ * the name of a studio you have just finished reading about is the one
+ * thing there is no use for. It leaves the way everything here leaves,
+ * on --out, and comes back when a project does.
+ */
+.hbw-ind[data-talk="true"] ~ * .hbw-bar,
+body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
+  opacity: 0;
+  transform: translateY(calc(var(--rise) * -1));
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body:has(.hbw-ind) .hbw-bar {
+    transition:
+      opacity var(--out) var(--ease),
+      transform var(--out) var(--ease);
+  }
+}
+
 /* The turn is the window, and the foot is the last row in it. A grid given
    only rows still has a column, and an implicit column is auto — which is
    max-content, which is wider than the screen as soon as anything inside
@@ -13488,7 +13513,10 @@ body:has(.hbw-lamp) .hbw-bar__what {
 @media (prefers-reduced-motion: no-preference) {
   .hbw-ind__shot img,
   .hbw-ind__shot video {
-    animation: hbw-arrive calc(var(--in) * 1.5) var(--ease) both;
+    /* After the bar, not with it: the bar moving is what tells you the
+       project changed, and the picture answering it a beat later is the
+       order this site does everything in. */
+    animation: hbw-arrive calc(var(--in) * 1.5) var(--ease) calc(var(--in) * 0.75) both;
   }
 }
 
