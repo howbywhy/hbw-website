@@ -406,7 +406,24 @@ export function IndexWork({
           <PosterTool />
         </div>
       ) : (
-      <div className="hbw-ind__shot" aria-hidden="true">
+      /*
+       * The room is the way in.
+       *
+       * A reader looking at a project's picture and wanting to see the
+       * project had to go back to the bar to press it. The picture is the
+       * obvious thing to press, so it is: on a pointer it fades to the
+       * type that says what pressing it does, and the cursor says so too.
+       */
+      <a
+        className="hbw-ind__shot"
+        href={open ? `/projects/${open.slug}` : undefined}
+        onClick={(event) => {
+          if (!open) return;
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+          event.preventDefault();
+          onOpen(open.slug, 0);
+        }}
+      >
         {frame ? (
           frame.video ? (
             <video key={open?.slug} poster={frame.src} autoPlay muted loop playsInline>
@@ -424,7 +441,11 @@ export function IndexWork({
             />
           )
         ) : null}
-      </div>
+        {/* The link's name, and the thing that appears when it is hovered.
+            One span doing both, so there is never a name on screen that a
+            reader using a pointer cannot see. */}
+        <span className="hbw-ind__view">View project</span>
+      </a>
       )}
     </div>
   );

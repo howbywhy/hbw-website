@@ -13334,6 +13334,71 @@ body:has(.hbw-lamp) .hbw-bar__what {
   line-height: 0;
 }
 
+/*
+ * Hovered, the picture gives way to what pressing it does.
+ *
+ * The room is a link now — a reader looking at a project's picture and
+ * wanting to see the project had to go back to the bar to press it — so
+ * the cursor already says it can be pressed; this says what for. The
+ * frame fades nearly out and one line of type arrives over the plate it
+ * leaves behind, which is the same quiet the rest of the site uses when
+ * it wants one thing to be important at a time.
+ */
+.hbw-ind__shot {
+  display: block;
+  cursor: pointer;
+}
+
+/*
+ * A plate in the corner, not a line through the middle.
+ *
+ * Centred, it landed exactly behind the nav — which floats at the middle
+ * of the window on every page the work is on — so the one word the hover
+ * exists to say was the one thing covered up. It sits where a label sits
+ * on this site: top left, 2px in, on a plate.
+ */
+.hbw-ind__view {
+  position: absolute;
+  top: var(--edge);
+  left: var(--edge);
+  /* Border-box, or the 2px above and below is added to the 24 and this
+     plate is 28 while every other plate on the page is 24. */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--pill-h);
+  padding: 2px var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  /* The small size, which is the only other one on this page. */
+  font-size: var(--t-small);
+  letter-spacing: var(--track);
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind__shot img,
+  .hbw-ind__shot video,
+  .hbw-ind__view {
+    transition: opacity var(--in) var(--ease);
+  }
+}
+
+.hbw-ind__shot:hover img,
+.hbw-ind__shot:hover video,
+.hbw-ind__shot:focus-visible img,
+.hbw-ind__shot:focus-visible video {
+  opacity: 0.08;
+}
+
+.hbw-ind__shot:hover .hbw-ind__view,
+.hbw-ind__shot:focus-visible .hbw-ind__view {
+  opacity: 1;
+}
+
 .hbw-ind__shot img,
 .hbw-ind__shot video {
   position: absolute;
