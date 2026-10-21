@@ -13052,13 +13052,47 @@ body:has(.hbw-lamp) .hbw-bar__what {
   display: none;
 }
 
-/* The work as an index: names first, the picture on the one you are on. */
+/* =====================================================================
+   The work as an index that does not scroll.
+
+   One project open: its line at the top, its frames across the middle,
+   and the rest of the lines stacked at the foot of the screen. The
+   screen is the page — there is nothing below the fold, so a scroll
+   opens the next project rather than moving anything.
+   ===================================================================== */
+
+/* The turn is the window, and the foot is the last row in it. */
+/*
+ * Rows are named and so is the column.
+ *
+ * A grid given only grid-template-rows still has a column, and an implicit
+ * column is auto — which means max-content, which means wider than the
+ * screen as soon as anything inside is. On a phone that put the year and
+ * the second profile past the right edge, where the overflow: hidden here
+ * quietly cut them off: a layout fault wearing the costume of a design.
+ * The third time this exact thing has been found on this site.
+ */
+.hbw-loop--try:has(.hbw-ind) .hbw-turn {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--edge);
+  height: 100svh;
+  overflow: hidden;
+}
+
 .hbw-ind {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--edge);
-  padding: var(--edge);
-  align-items: start;
+  padding: var(--edge) var(--edge) 0;
+  min-height: 0;
+  min-width: 0;
+}
+
+.hbw-ind__open {
+  margin: 0;
 }
 
 .hbw-ind__list {
@@ -13070,27 +13104,12 @@ body:has(.hbw-lamp) .hbw-bar__what {
   min-width: 0;
 }
 
+/* One shape for every line, open or waiting, so the one that rises to
+   the top is the same object that was at the bottom. */
+.hbw-ind__open a,
 .hbw-ind__list a {
   display: grid;
-  /*
-   * One line per project, not two.
-   *
-   * The name and the idea stacked made each row 78px, seven of them 550,
-   * and the last of them sat under the bar — which floats in the middle of
-   * the window and is translucent. Over pictures that reads as the site's
-   * own language; over a line of type it is just unreadable. An index is a
-   * list of lines anyway.
-   */
-  /*
-   * The name and the idea keep their line; the disciplines give way.
-   *
-   * With the idea on the flexible column, "From Making to Moment" wrapped
-   * and made the first row a line taller than the six under it — a list
-   * whose rows are not the same height is not a list. What a row can afford
-   * to lose, in order: the disciplines first, which are a caption, then the
-   * idea, then nothing.
-   */
-  grid-template-columns: var(--module) auto auto minmax(0, 1fr) auto;
+  grid-template-columns: var(--module) auto minmax(0, 1fr) auto;
   align-items: baseline;
   gap: var(--pill-x);
   padding: var(--pill-x);
@@ -13100,9 +13119,12 @@ body:has(.hbw-lamp) .hbw-bar__what {
   text-decoration: none;
 }
 
-/* The line you are on takes the ink; the rest stay quiet. One thing is
-   important at a time, which is the rule the whole site is set by. */
-.hbw-ind__list li[data-here="true"] a,
+/* The open one takes the ink. One thing is important at a time, which is
+   the rule the whole site is set by. */
+.hbw-ind__open a {
+  color: var(--ink);
+}
+
 .hbw-ind__list a:hover,
 .hbw-ind__list a:focus-visible {
   color: var(--ink);
@@ -13112,105 +13134,136 @@ body:has(.hbw-lamp) .hbw-bar__what {
   grid-column: 2;
 }
 
-.hbw-ind__idea {
-  grid-column: 3;
-  padding-left: var(--pill-x);
-  white-space: nowrap;
-  color: var(--mute);
-}
-
 .hbw-ind__did {
-  grid-column: 4;
+  grid-column: 3;
   min-width: 0;
-  padding-right: var(--pill-x);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   text-align: right;
+  padding-right: var(--pill-x);
 }
 
 .hbw-ind__year {
-  grid-column: 5;
-}
-
-.hbw-ind__shot {
-  /*
-   * The project, as a column of its own that scrolls.
-   *
-   * The studio sheet scrolls its own contents rather than the page, and
-   * this is the same thing: the names stay where they are while the work
-   * beside them is read through. The height is the window less the gutter
-   * at each end, so the column meets the top and the bottom on 2px like
-   * everything else.
-   */
-  position: sticky;
-  top: var(--edge);
-  display: grid;
-  gap: var(--edge);
-  align-content: start;
-  height: calc(100svh - var(--edge) * 2);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  min-width: 0;
-  line-height: 0;
+  grid-column: 4;
 }
 
 /*
- * Each frame at the shape it actually is.
+ * The project, across the middle, at the shape each frame actually is.
  *
- * These were cropped to one fixed box, so a logotype laid out across a
- * wide frame and a garment shot tall were both squared off and half of
- * each was thrown away — on a page whose whole subject is how the work
- * looks. width and height come from the file, so the column has its shape
- * before the picture arrives and nothing moves as it fills.
+ * A row rather than a column: the height is whatever the window has left
+ * after the lines and the foot, and each picture is as wide as it is at
+ * that height. What does not fit is simply not on screen — there are six
+ * more projects waiting at the bottom and no page to scroll.
  */
+.hbw-ind__shot {
+  display: flex;
+  gap: var(--edge);
+  min-height: 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
 .hbw-ind__shot img {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+  object-fit: cover;
   border-radius: var(--pill-r);
+}
+
+/* One line across the bottom: the place, the list, and where else the
+   studio is. */
+/* No room above it: the foot of a page that is one screen is the last row
+   of that screen, not a thing set apart from what came before. The board
+   version's 108px would be a tenth of the window. */
+.hbw-end--line {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--edge);
+  padding: 0 var(--edge) var(--edge);
+}
+
+.hbw-end--line > * {
+  margin: 0;
+}
+
+.hbw-end--line .hbw-end__who {
+  flex: 0 0 auto;
+}
+
+.hbw-end--line .hbw-end__who p,
+.hbw-end--line .hbw-end__loop .hbw-end__field {
+  padding: 2px var(--pill-x);
+  min-height: var(--pill-h);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+}
+
+.hbw-end--line .hbw-end__loop {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+/* Side by side, and staying that way: the board's version of this row is
+   a column of six, and a column of two at the end of a single line is the
+   same rule applying where it should not. */
+.hbw-end--line .hbw-end__to {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: var(--edge);
+  flex: 0 0 auto;
+}
+
+.hbw-end--line .hbw-end__to a {
+  white-space: nowrap;
 }
 
 @media (max-width: 760px) {
   /*
-   * The names first, which on a phone has to mean first.
+   * The same arrangement, narrower.
    *
-   * The picture was put above the list and given the height it had on a
-   * sheet: 686px of a 844px screen, so the page opened on one photograph
-   * with every name below the fold — which is the one thing this
-   * arrangement exists not to do. The list leads and the picture follows
-   * it, at a height that leaves both on screen at once.
+   * The lines drop what they cannot fit — a name and a year is the whole
+   * of one at 390px — and the frames take whatever height is left after
+   * seven lines and the foot, which is not much. It is still the work
+   * across the middle with the names around it.
    */
-  .hbw-ind {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .hbw-ind__shot {
-    position: static;
-  }
-
-  /* On a phone the column is part of the page rather than a scroller of
-     its own: there is no second column for it to sit beside. */
-  .hbw-ind__shot {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
-
-  /* On a phone the idea drops: a name and a number is the whole line,
-     and the two together do not fit one. */
-  /* On a phone a name and a year is the whole line. The idea and the
-     disciplines are what the row drops first. */
+  .hbw-ind__open a,
   .hbw-ind__list a {
     grid-template-columns: var(--module) minmax(0, 1fr) auto;
   }
 
-  .hbw-ind__idea,
   .hbw-ind__did {
     display: none;
   }
 
   .hbw-ind__year {
     grid-column: 3;
+  }
+
+  /*
+   * One clean line is a sheet's answer, not a phone's.
+   *
+   * The place, the list and the two profiles came to 417px of content in a
+   * 390px screen, so the field they share a row with was squeezed down to
+   * "you@c" — a signup you cannot read the shape of is not a signup. Each
+   * takes its own row here: three rows of 31px at the bottom of a screen
+   * that does not scroll, and nothing is crushed.
+   */
+  .hbw-end--line {
+    gap: var(--edge);
+  }
+
+  /* Named one by one, because .hbw-end--line .hbw-end__loop outranks a
+     child selector and would keep its 14rem basis. */
+  .hbw-end--line .hbw-end__who,
+  .hbw-end--line .hbw-end__loop,
+  .hbw-end--line .hbw-end__to {
+    flex: 1 1 100%;
+    min-width: 0;
   }
 
   .hbw-big {
@@ -13258,4 +13311,17 @@ body:has(.hbw-lamp) .hbw-bar__what {
    together made it 4. */
 .hbw-site:has(.hbw-loop--try) {
   padding-top: 0;
+}
+
+/*
+ * And the index is exactly one screen.
+ *
+ * .hbw-site carries a bottom padding and a min-height for pages that run
+ * on; this one does not run on, and that padding was 126px of page below a
+ * foot already sitting on the bottom of the window — a page that should
+ * not scroll, scrolling, to show nothing.
+ */
+.hbw-site:has(.hbw-ind) {
+  padding-bottom: 0;
+  min-height: 0;
 }

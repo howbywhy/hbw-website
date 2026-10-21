@@ -1354,7 +1354,9 @@ export function Work({
                 onNear={(slug) => void learn(slug)}
               />
             )}
-            <Footer />
+            {/* The index is one screen with nothing below it, so its foot
+                is a single line across the bottom rather than a board. */}
+            <Footer line={shape === "index"} />
           </div>
         </div>
       ) : (

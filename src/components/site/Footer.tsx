@@ -19,7 +19,7 @@ import { PROFILES } from "@/lib/structured-data";
 
 type State = "rest" | "sending" | "done" | { error: string };
 
-export function Footer() {
+export function Footer({ line = false }: { line?: boolean }) {
   /*
    * A field of its own, so there can be more than one foot on a page.
    *
@@ -50,7 +50,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="hbw-end">
+    <footer className={line ? "hbw-end hbw-end--line" : "hbw-end"}>
       <div className="hbw-end__who">
         {/*
           The positioning line is not said twice.
@@ -124,8 +124,20 @@ export function Footer() {
           nav already goes. What is left is the four this row is for: the
           address, the number, and the studio elsewhere.
         */}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-        <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
+        {/*
+          In a line, the two profiles only.
+          
+          A foot that is one row across the bottom of a page that does not
+          scroll has room for the place, the list and where else the studio
+          is — and the address and the number are both a press away in
+          About, which is in the nav above it.
+        */}
+        {line ? null : (
+          <>
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>
+          </>
+        )}
         {PROFILES.map((profile) => (
           <a key={profile.url} href={profile.url} rel="me noopener" target="_blank">
             {profile.name}

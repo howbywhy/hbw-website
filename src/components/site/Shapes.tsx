@@ -13,7 +13,7 @@
  * project's gallery exactly as it does now. Nothing here is a mock.
  */
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
 import { TITLE_WHAT } from "@/components/home/catalog";
 
@@ -124,6 +124,19 @@ export function LargeWork({
  * names are the page, set as type and readable by anything that reads, and
  * the picture belongs to whichever line you are on.
  */
+/**
+ * The work as an index that does not scroll.
+ *
+ * One project is open: its line at the top, its frames across the middle,
+ * and every other project's line stacked at the foot of the screen waiting
+ * its turn. A scroll does not move the page — there is nowhere for it to go
+ * — it opens the next project, whose line rises to the top as the pictures
+ * change under it.
+ *
+ * A line says the number, the name, what the work was and the year. The
+ * proposition has gone from it: with one project open at a time the frames
+ * are saying that, and a line that says everything is a paragraph.
+ */
 export function IndexWork({
   projects,
   onOpen,
@@ -133,128 +146,128 @@ export function IndexWork({
   onOpen: (slug: string, at: number) => void;
   onNear?: (slug: string) => void;
 }) {
-  const [here, setHere] = useState(projects[0]?.slug ?? "");
-  const list = useRef<HTMLOListElement>(null);
-  const shown = projects.find((project) => project.slug === here) ?? projects[0];
-  const frames = shown?.frames ?? [];
-
+  const [at, setAt] = useState(0);
+  const root = useRef<HTMLDivElement>(null);
+  const open = projects[at];
+  const frames = open?.frames ?? [];
 
   /*
-   * Where there is no pointer, the page walks the work itself.
+   * One project per gesture, however hard the gesture was.
    *
-   * "The picture on the one you are on" is a hover, and a phone has none.
-   * The first answer was to take the row nearest the middle of the screen
-   * as you scroll — measured, it does not work here and could not: the
-   * list is 210px on a phone and sits entirely above the middle, so the
-   * nearest row was the last one at every scroll position, including the
-   * top, and a page this short barely scrolls at all. Seven rows that are
-   * all on screen at once have no "one you are on" for a scroll to find.
-   *
-   * So where there is nothing to hover with, the page moves instead: each
-   * project holds the picture for three of its frames and then hands on to
-   * the next, and its row lights as it goes. Every name is readable the
-   * whole time and the work shows itself, which is what the hover does for
-   * a reader who has a pointer.
+   * A trackpad sends a flick as thirty or forty wheel events, so stepping
+   * on each one would run the whole index past in a quarter of a second.
+   * The step is taken on the first of them and the rest are the same flick
+   * until it has had time to land.
    */
+  const since = useRef(0);
+  const step = useCallback(
+    (way: number) => {
+      const now = Date.now();
+      if (now < since.current) return;
+      since.current = now + 420;
+      setAt((was) => (was + way + projects.length) % projects.length);
+    },
+    [projects.length]
+  );
+
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(hover: hover)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (projects.length < 2) return;
-    /*
-     * And it stops as soon as the reader does something.
-     *
-     * The frames are a column you scroll now, so a page that kept changing
-     * the project underneath you would be moving the thing you are reading.
-     * It shows the work on arrival and gets out of the way.
-     */
-    let walking = true;
-    const stop = () => {
-      walking = false;
-      window.clearInterval(walk);
+    const el = root.current;
+    if (!el) return;
+    /* Not passive: the page has nowhere to scroll and the browser should
+       not spend a frame finding that out. */
+    const wheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaY) < 2) return;
+      event.preventDefault();
+      step(event.deltaY > 0 ? 1 : -1);
     };
-    const walk = window.setInterval(() => {
-      if (!walking) return;
-      setHere((was) => {
-        const i = projects.findIndex((project) => project.slug === was);
-        return projects[(i + 1) % projects.length]!.slug;
-      });
-    }, 1800 * 3);
-    for (const name of ["scroll", "touchstart", "pointerdown"]) {
-      window.addEventListener(name, stop, { passive: true, once: true });
-    }
+    let from = 0;
+    const down = (event: TouchEvent) => {
+      from = event.touches[0]?.clientY ?? 0;
+    };
+    const move = (event: TouchEvent) => {
+      const now = event.touches[0]?.clientY ?? 0;
+      if (Math.abs(now - from) < 36) return;
+      event.preventDefault();
+      step(now < from ? 1 : -1);
+      from = now;
+    };
+    const key = (event: KeyboardEvent) => {
+      if (event.key === "ArrowDown" || event.key === "PageDown") step(1);
+      else if (event.key === "ArrowUp" || event.key === "PageUp") step(-1);
+      else return;
+      event.preventDefault();
+    };
+    el.addEventListener("wheel", wheel, { passive: false });
+    el.addEventListener("touchstart", down, { passive: true });
+    el.addEventListener("touchmove", move, { passive: false });
+    window.addEventListener("keydown", key);
     return () => {
-      window.clearInterval(walk);
-      for (const name of ["scroll", "touchstart", "pointerdown"]) {
-        window.removeEventListener(name, stop);
-      }
+      el.removeEventListener("wheel", wheel);
+      el.removeEventListener("touchstart", down);
+      el.removeEventListener("touchmove", move);
+      window.removeEventListener("keydown", key);
     };
-  }, [projects]);
+  }, [step]);
+
+  /* The one that is open is fetched ahead, so pressing it has nothing left
+     to wait for. */
+  useEffect(() => {
+    if (open) onNear?.(open.slug);
+  }, [open, onNear]);
+
+  const line = (project: GalleryProject, i: number, isOpen: boolean) => (
+    <a
+      href={`/projects/${project.slug}`}
+      onPointerEnter={isOpen ? undefined : () => setAt(i)}
+      onFocus={isOpen ? undefined : () => setAt(i)}
+      onClick={(event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+        event.preventDefault();
+        /* A line that is not open opens; the open one opens the project. */
+        if (!isOpen) {
+          setAt(i);
+          return;
+        }
+        onOpen(project.slug, 0);
+      }}
+    >
+      <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
+      <span className="hbw-ind__name">{project.name}</span>
+      <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
+      <span className="hbw-ind__year hbw-m">{project.year}</span>
+    </a>
+  );
 
   return (
-    <div className="hbw-ind">
-      <ol className="hbw-ind__list" ref={list}>
-        {projects.map((project, i) => (
-          <li
-            key={project.slug}
-            data-slug={project.slug}
-            data-here={project.slug === here ? "true" : undefined}
-          >
-            <a
-              href={`/projects/${project.slug}`}
-              onPointerEnter={() => {
-                setHere(project.slug);
-                onNear?.(project.slug);
-              }}
-              onFocus={() => {
-                setHere(project.slug);
-                onNear?.(project.slug);
-              }}
-              onClick={(event) => {
-                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-                event.preventDefault();
-                onOpen(project.slug, 0);
-              }}
-            >
-              <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
-              <span className="hbw-ind__name">{project.name}</span>
-              <span className="hbw-ind__idea">{project.idea}</span>
-              {/* What the work was. The disciplines are the words somebody
-                  searching for this kind of practice actually types, and the
-                  front page had none of them on it. */}
-              <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
-              <span className="hbw-ind__year hbw-m">{project.year}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-      {/*
-        The project you are on, as a column you scroll.
-        
-        One picture at a time said which project this was and never what it
-        held. All of its frames are here, at the shape each one actually is
-        — a logotype is wide and a garment is tall, and cropping both into
-        one box threw away the half of a frame that was the work. The
-        column scrolls on its own, the way the studio sheet does.
-        
-        Decorative: the line beside it already says what it is.
-      */}
+    <div className="hbw-ind" ref={root}>
+      <p className="hbw-ind__open">{open ? line(open, at, true) : null}</p>
+
+      {/* The project, across the middle. Decorative: the line above it
+          says what it is, and pressing that line opens it properly. */}
       <div className="hbw-ind__shot" aria-hidden="true">
         {frames.map((one, i) => (
           <img
-            key={`${shown?.slug}-${i}`}
+            key={`${open?.slug}-${i}`}
             src={one.src}
             srcSet={one.peekset ?? one.srcset}
-            sizes="(max-width: 760px) 100vw, 46vw"
-            /* Its own shape, so nothing moves as the column fills. */
+            sizes="46vw"
             width={one.width}
             height={one.height}
             alt=""
-            loading={i < 2 ? "eager" : "lazy"}
+            loading={i < 3 ? "eager" : "lazy"}
             decoding="async"
           />
         ))}
       </div>
+
+      {/* Everything else, waiting at the foot of the screen in its order. */}
+      <ol className="hbw-ind__list">
+        {projects.map((project, i) =>
+          i === at ? null : (
+            <li key={project.slug}>{line(project, i, false)}</li>
+          )
+        )}
+      </ol>
     </div>
   );
 }

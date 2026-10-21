@@ -49,10 +49,28 @@ export default async function run() {
       await sleep(2600);
       const found = await p.evaluate(() => {
         const vw = document.documentElement.clientWidth;
+        /*
+         * Past the edge only counts when it can be reached.
+         *
+         * A row of frames inside a box that clips them is wider than the
+         * screen and cannot be scrolled to — that is a gallery, not a
+         * fault. What matters is whether anything makes the document
+         * itself scroll sideways, so an element with a clipping ancestor
+         * is not one of them.
+         */
+        const clipped = (e) => {
+          for (let up = e.parentElement; up; up = up.parentElement) {
+            const how = getComputedStyle(up).overflowX;
+            if (how === "hidden" || how === "clip" || how === "auto" || how === "scroll") return true;
+          }
+          return false;
+        };
         const over = [...document.querySelectorAll("*")]
           .filter((e) => {
             const r = e.getBoundingClientRect();
-            return r.width > 0 && r.right > vw + 1 && !String(e.className).includes("trap");
+            if (!(r.width > 0 && r.right > vw + 1)) return false;
+            if (String(e.className).includes("trap")) return false;
+            return !clipped(e);
           })
           .map((e) => `${e.tagName.toLowerCase()}.${String(e.className?.baseVal ?? e.className).split(" ")[0]}`);
         return { docW: document.documentElement.scrollWidth, vw, over: [...new Set(over)].slice(0, 3) };
