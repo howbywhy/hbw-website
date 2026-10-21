@@ -13145,13 +13145,23 @@ body:has(.hbw-lamp) .hbw-bar__what {
 /* Each bar is the number, what the work was, and the year. The name and
    the idea are in the nav. The last one is a button rather than a link —
    it goes nowhere, it opens. */
+/*
+ * Every bar the same plate: 24px, 2px in from the top and bottom.
+ *
+ * These were padded 7px all round, which made them 31px tall, while the
+ * place, the field and the two profiles in the Talk bar were the family's
+ * 24. The type is the same size in all of them — it always was — so what
+ * read as two type sizes was two heights.
+ */
 .hbw-ind__bars a,
 .hbw-ind__bars button {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: var(--module) minmax(0, 1fr) auto;
-  align-items: baseline;
+  align-items: center;
   gap: var(--pill-x);
-  padding: var(--pill-x);
+  min-height: var(--pill-h);
+  padding: 2px var(--pill-x);
   border-radius: var(--pill-r);
   background: var(--pill-bg);
   color: var(--mute);

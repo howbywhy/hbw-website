@@ -15,6 +15,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { Footer } from "@/components/site/Footer";
+import { useNavSettled } from "@/components/site/navSettled";
 
 /*
  * Seventeen hundred lines of editor has no business in the bundle of a
@@ -190,6 +191,36 @@ export function IndexWork({
    * each one would run the whole index past in a quarter of a second.
    */
   /*
+   * The page arrives as the studio, then opens the first project.
+   *
+   * Nothing open was never a state anybody chose — it is what "null until
+   * the reader moves" looks like, and it put seven grey bars along the foot
+   * of an empty screen in front of whoever arrived. The studio still gets
+   * its moment: the nav says How by Why and the positioning, and only once
+   * the bar has stopped moving does the work come up behind it.
+   *
+   * Once, and then it stops. Stepping on from here would make this a
+   * carousel, which is a different kind of page and would spend the rest
+   * of the visit arguing with the scroll.
+   *
+   * useNavSettled is the same gate everything else on this site arrives
+   * on, so the order is the site's order rather than a number guessed
+   * here — and a reader who has already scrolled is left where they are.
+   */
+  const settled = useNavSettled();
+  const landed = useRef(false);
+  const touched = useRef(false);
+  useEffect(() => {
+    if (!settled || landed.current) return;
+    landed.current = true;
+    if (touched.current) return;
+    const open = window.setTimeout(() => {
+      if (!touched.current) setAt(0);
+    }, 120);
+    return () => window.clearTimeout(open);
+  }, [settled]);
+
+  /*
    * A pointer only chooses when it has actually moved.
    *
    * Every bar opens on pointerenter, and a scroll moves the bars under a
@@ -216,6 +247,7 @@ export function IndexWork({
       if (now < since.current) return;
       since.current = now + 420;
       stirred.current = false;
+      touched.current = true;
       setAt((was) => {
         /* Down from nothing opens the first; up from the first closes it
            again, so the studio is always one gesture back. */
@@ -334,7 +366,9 @@ export function IndexWork({
       <a
         href={`/projects/${project.slug}`}
         onPointerEnter={() => {
-          if (stirred.current) setAt(i);
+          if (!stirred.current) return;
+          touched.current = true;
+          setAt(i);
         }}
         onFocus={() => setAt(i)}
         onClick={(event) => {
