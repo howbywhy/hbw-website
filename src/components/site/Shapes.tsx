@@ -264,7 +264,9 @@ export function IndexWork({
     (way: number) => {
       const now = Date.now();
       if (now < since.current) return;
-      since.current = now + 420;
+      /* Short, because the gesture itself is gated below. This only stops
+         a key held down from running the index past. */
+      since.current = now + 150;
       stirred.current = false;
       touched.current = true;
       setAt((was) => {
@@ -287,21 +289,48 @@ export function IndexWork({
     if (!el) return;
     /* Not passive: the page has nowhere to scroll and the browser should
        not spend a frame finding that out. */
+    /*
+     * One project per gesture, and a gesture is longer than it feels.
+     *
+     * A cooldown was the wrong instrument. A trackpad flick is not a burst
+     * of events, it is a burst followed by a long momentum tail — often a
+     * second or more — so a fixed 420ms window simply let the second and
+     * third step through from the same flick, and the index went past two
+     * or three at a time.
+     *
+     * The gate is quiet rather than elapsed: every event pushes the next
+     * opening further out, so no amount of tail can reach it. The step is
+     * taken on the first event of a gesture, and the next one cannot come
+     * until the wheel has actually stopped.
+     */
+    let quiet = 0;
     const wheel = (event: WheelEvent) => {
       if (Math.abs(event.deltaY) < 2) return;
       event.preventDefault();
-      step(event.deltaY > 0 ? 1 : -1);
+      const now = Date.now();
+      const resting = now >= quiet;
+      quiet = now + 160;
+      if (resting) step(event.deltaY > 0 ? 1 : -1);
     };
+    /* The same rule for a thumb: one project per swipe, however far the
+       swipe goes, decided when it passes 36px and not again until it is
+       lifted. */
     let from = 0;
+    let swiped = false;
     const down = (event: TouchEvent) => {
       from = event.touches[0]?.clientY ?? 0;
+      swiped = false;
     };
     const move = (event: TouchEvent) => {
       const now = event.touches[0]?.clientY ?? 0;
       if (Math.abs(now - from) < 36) return;
       event.preventDefault();
+      if (swiped) return;
+      swiped = true;
       step(now < from ? 1 : -1);
-      from = now;
+    };
+    const up = () => {
+      swiped = false;
     };
     const key = (event: KeyboardEvent) => {
       if (event.key === "ArrowDown") step(1);
@@ -312,11 +341,13 @@ export function IndexWork({
     el.addEventListener("wheel", wheel, { passive: false });
     el.addEventListener("touchstart", down, { passive: true });
     el.addEventListener("touchmove", move, { passive: false });
+    el.addEventListener("touchend", up, { passive: true });
     window.addEventListener("keydown", key);
     return () => {
       el.removeEventListener("wheel", wheel);
       el.removeEventListener("touchstart", down);
       el.removeEventListener("touchmove", move);
+      el.removeEventListener("touchend", up);
       window.removeEventListener("keydown", key);
     };
   }, [step]);
@@ -422,7 +453,14 @@ export function IndexWork({
          it — said here so the chrome can stand down from the stylesheet. */
       data-talk={talking ? "true" : undefined}
     >
-      <ol className="hbw-ind__bars" ref={bars}>
+      <ol
+        className="hbw-ind__bars"
+        ref={bars}
+        /* How many bars there are, for the one place that needs to know in
+           CSS: a phone, where the column has to be told its height because
+           every bar in it is positioned. */
+        style={{ "--bars": count } as CSSProperties}
+      >
         {projects.map((project, i) => bar(project, i))}
         {/* No number and no year: it is not one of the seven, it is the
             way out of them. */}
