@@ -13311,8 +13311,32 @@ body:has(.hbw-lamp) .hbw-bar__what {
   }
 }
 
+/*
+ * Open, the work takes the larger share.
+ *
+ * Half and half gave the index and the work the same weight, and they do
+ * not have the same weight: the bars are how you move, the picture is
+ * what you came for. The lines still have the room they need — the
+ * longest of them is "Launch strategy, content planning, social content"
+ * and a year — and everything past that is the project.
+ */
 .hbw-ind[data-open="true"] {
-  grid-template-columns: calc(50% - var(--edge) / 2) calc(50% - var(--edge) / 2);
+  grid-template-columns: calc(38% - var(--edge) / 2) calc(62% - var(--edge) / 2);
+}
+
+/*
+ * A little more room for the lines on a smaller screen.
+ *
+ * 38% of 1440 leaves the longest line — "Launch strategy, content
+ * planning, social content" and a year — with 362px for 330px of type.
+ * 38% of 1280 leaves 312, and it ellipses. The share moves rather than
+ * the type shrinking: the work is still most of the window, and the
+ * index still reads whole.
+ */
+@media (max-width: 1400px) {
+  .hbw-ind[data-open="true"] {
+    grid-template-columns: calc(44% - var(--edge) / 2) calc(56% - var(--edge) / 2);
+  }
 }
 
 /*
