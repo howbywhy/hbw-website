@@ -13081,7 +13081,16 @@ body:has(.hbw-lamp) .hbw-bar__what {
    * own language; over a line of type it is just unreadable. An index is a
    * list of lines anyway.
    */
-  grid-template-columns: var(--module) auto minmax(0, 1fr) auto;
+  /*
+   * The name and the idea keep their line; the disciplines give way.
+   *
+   * With the idea on the flexible column, "From Making to Moment" wrapped
+   * and made the first row a line taller than the six under it — a list
+   * whose rows are not the same height is not a list. What a row can afford
+   * to lose, in order: the disciplines first, which are a caption, then the
+   * idea, then nothing.
+   */
+  grid-template-columns: var(--module) auto auto minmax(0, 1fr) auto;
   align-items: baseline;
   gap: var(--pill-x);
   padding: var(--pill-x);
@@ -13106,11 +13115,22 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-ind__idea {
   grid-column: 3;
   padding-left: var(--pill-x);
+  white-space: nowrap;
   color: var(--mute);
 }
 
-.hbw-ind__year {
+.hbw-ind__did {
   grid-column: 4;
+  min-width: 0;
+  padding-right: var(--pill-x);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+.hbw-ind__year {
+  grid-column: 5;
 }
 
 .hbw-ind__shot {
@@ -13120,12 +13140,26 @@ body:has(.hbw-lamp) .hbw-bar__what {
   min-width: 0;
 }
 
+/*
+ * A box the pictures turn over inside.
+ *
+ * The frames of one project are not one shape — a logotype is wide, a
+ * garment is tall — so a box that takes its height from the picture moves
+ * every time the picture changes, and this one changes every 1.8 seconds.
+ * The box is fixed and the picture fills it.
+ */
 .hbw-ind__shot img {
   width: 100%;
-  height: auto;
-  max-height: 92vh;
+  height: 86vh;
   object-fit: cover;
   border-radius: var(--pill-r);
+}
+
+/* Uncovered rather than faded, like everything else here. */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind__shot img {
+    animation: hbw-arrive var(--in) var(--ease) both;
+  }
 }
 
 @media (max-width: 760px) {
@@ -13147,17 +13181,24 @@ body:has(.hbw-lamp) .hbw-bar__what {
   }
 
   .hbw-ind__shot img {
-    max-height: 52vh;
+    height: 52vh;
   }
 
   /* On a phone the idea drops: a name and a number is the whole line,
      and the two together do not fit one. */
+  /* On a phone a name and a year is the whole line. The idea and the
+     disciplines are what the row drops first. */
   .hbw-ind__list a {
     grid-template-columns: var(--module) minmax(0, 1fr) auto;
   }
 
-  .hbw-ind__idea {
+  .hbw-ind__idea,
+  .hbw-ind__did {
     display: none;
+  }
+
+  .hbw-ind__year {
+    grid-column: 3;
   }
 
   .hbw-big {

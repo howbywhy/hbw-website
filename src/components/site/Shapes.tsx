@@ -13,8 +13,28 @@
  * project's gallery exactly as it does now. Nothing here is a mock.
  */
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { GalleryProject } from "@/sanity/load-gallery";
+import { TITLE_WHAT } from "@/components/home/catalog";
+
+/**
+ * What the work was, in the site's own words.
+ *
+ * The CMS holds disciplines in title case — "Launch Strategy", "Content
+ * Planning" — which is right in a credit and shouts in a caption. TITLE_WHAT
+ * is the same list written for a line of type, and it is the same one the
+ * project titles are built from, so a discipline cannot read one way in a
+ * search result and another here.
+ */
+function didOf(project: GalleryProject) {
+  const said = project.disciplines
+    .map((one) => TITLE_WHAT[one as keyof typeof TITLE_WHAT])
+    .filter(Boolean)
+    .slice(0, 3);
+  if (!said.length) return "";
+  const line = said.join(", ");
+  return line.charAt(0).toUpperCase() + line.slice(1);
+}
 
 /** The frame a project leads with: its first, which is the one chosen to open the sequence. */
 function lead(project: GalleryProject) {
@@ -114,13 +134,79 @@ export function IndexWork({
   onNear?: (slug: string) => void;
 }) {
   const [here, setHere] = useState(projects[0]?.slug ?? "");
+  const [at, setAt] = useState(0);
+  const list = useRef<HTMLOListElement>(null);
   const shown = projects.find((project) => project.slug === here) ?? projects[0];
-  const frame = shown ? lead(shown) : undefined;
+  const frames = shown?.frames ?? [];
+
+  /* A new row starts at that project's first frame, which is the one chosen
+     to open its sequence. */
+  useEffect(() => {
+    setAt(0);
+  }, [here]);
+
+  /*
+   * The row you are on shows its work, not one still of it.
+   *
+   * A single frame per project says there is a project; nine of them say
+   * what it was. They turn over while you are on the row and stop the
+   * moment you leave it, so only ever one project's pictures are being
+   * fetched.
+   *
+   * Not when the reader has asked for less movement: then it is the first
+   * frame and nothing moves, which is the same answer the rest of the site
+   * gives.
+   */
+  useEffect(() => {
+    if (frames.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const turn = window.setInterval(() => {
+      setAt((was) => (was + 1) % frames.length);
+    }, 1800);
+    return () => window.clearInterval(turn);
+  }, [here, frames.length]);
+
+  /*
+   * Where there is no pointer, the page walks the work itself.
+   *
+   * "The picture on the one you are on" is a hover, and a phone has none.
+   * The first answer was to take the row nearest the middle of the screen
+   * as you scroll — measured, it does not work here and could not: the
+   * list is 210px on a phone and sits entirely above the middle, so the
+   * nearest row was the last one at every scroll position, including the
+   * top, and a page this short barely scrolls at all. Seven rows that are
+   * all on screen at once have no "one you are on" for a scroll to find.
+   *
+   * So where there is nothing to hover with, the page moves instead: each
+   * project holds the picture for three of its frames and then hands on to
+   * the next, and its row lights as it goes. Every name is readable the
+   * whole time and the work shows itself, which is what the hover does for
+   * a reader who has a pointer.
+   */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(hover: hover)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (projects.length < 2) return;
+    const walk = window.setInterval(() => {
+      setHere((was) => {
+        const i = projects.findIndex((project) => project.slug === was);
+        return projects[(i + 1) % projects.length]!.slug;
+      });
+    }, 1800 * 3);
+    return () => window.clearInterval(walk);
+  }, [projects]);
+
+  const frame = frames[at] ?? frames[0];
   return (
     <div className="hbw-ind">
-      <ol className="hbw-ind__list">
+      <ol className="hbw-ind__list" ref={list}>
         {projects.map((project, i) => (
-          <li key={project.slug} data-here={project.slug === here ? "true" : undefined}>
+          <li
+            key={project.slug}
+            data-slug={project.slug}
+            data-here={project.slug === here ? "true" : undefined}
+          >
             <a
               href={`/projects/${project.slug}`}
               onPointerEnter={() => {
@@ -140,17 +226,21 @@ export function IndexWork({
               <span className="hbw-ind__no hbw-m">{String(i + 1).padStart(2, "0")}</span>
               <span className="hbw-ind__name">{project.name}</span>
               <span className="hbw-ind__idea">{project.idea}</span>
+              {/* What the work was. The disciplines are the words somebody
+                  searching for this kind of practice actually types, and the
+                  front page had none of them on it. */}
+              <span className="hbw-ind__did hbw-m">{didOf(project)}</span>
               <span className="hbw-ind__year hbw-m">{project.year}</span>
             </a>
           </li>
         ))}
       </ol>
-      {/* The picture of the line you are on. Decorative: the line beside it
-          already says what it is, and it changes as the pointer moves. */}
+      {/* The pictures of the line you are on. Decorative: the line beside
+          them already says what it is, and they turn over on their own. */}
       <div className="hbw-ind__shot" aria-hidden="true">
         {frame ? (
           <img
-            key={shown?.slug}
+            key={`${shown?.slug}-${at}`}
             src={frame.src}
             srcSet={frame.peekset ?? frame.srcset}
             sizes="(max-width: 760px) 100vw, 46vw"
