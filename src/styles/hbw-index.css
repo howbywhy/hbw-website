@@ -13053,46 +13053,6 @@ body:has(.hbw-lamp) .hbw-bar__what {
 }
 
 /* =====================================================================
-   Two front pages to try, under /try.
-
-   Neither prints the catalogue, which is where the weight and the
-   sameness both come from. They use the plates and the gutters the rest
-   of the site uses, so what is being judged is the arrangement.
-   ===================================================================== */
-
-/* One picture per project, the width of the page. */
-.hbw-big {
-  display: grid;
-  gap: calc(var(--pill-h) * 2);
-  padding: var(--edge);
-}
-
-.hbw-big__one {
-  display: grid;
-  gap: var(--edge);
-}
-
-.hbw-big__shot {
-  display: block;
-  line-height: 0;
-}
-
-.hbw-big__shot img {
-  width: 100%;
-  height: auto;
-  /* Tall frames would otherwise be a screen and a half each; the picture
-     keeps its shape and stops at the height of the window. */
-  max-height: 86vh;
-  object-fit: cover;
-  object-position: center;
-  border-radius: var(--pill-r);
-}
-
-.hbw-big__mark {
-  display: none;
-}
-
-/* =====================================================================
    The work as an index, sitting the way the studio sheet's parts do.
 
    Every project is a bar. The ones passed stack at the top of the
@@ -13720,9 +13680,24 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    * what the tuner prints and what is pasted here is what runs. The whole
    * mask sits inside prefers-reduced-motion: no-preference, so there is
    * nothing for --in's zero to switch off that is not already off.
+   *
+   * Why these two numbers and not the rounder 180 and 480 they were.
+   *
+   * A step is three things moving: the nav takes the new project's name,
+   * the bars slide, the picture changes. Timed, they finished at 382ms,
+   * 482ms and 665ms — so the move looked over, and then the picture went
+   * on arriving for another fifth of a second on its own. A straggler
+   * reads as a mistake even when nothing is wrong, which is what "the
+   * sequencing is slightly off" was.
+   *
+   * 120 and 340 land the picture at 460ms, just inside the bars at 482.
+   * The beat before it is still there — the bar moving is what tells you
+   * the project changed and the picture answers it — but the answer now
+   * finishes within the question. The bars settle last, which is right:
+   * they are the thing under the reader's hand.
    */
-  --seam-run: 480ms;
-  --seam-wait: 180ms;
+  --seam-run: 340ms;
+  --seam-wait: 120ms;
 
   /*
    * Direction 3, right to left. hbw-seam-ltr sends it the other way, and
@@ -14018,13 +13993,6 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
     min-width: 0;
   }
 
-  .hbw-big {
-    gap: var(--pill-h);
-  }
-
-  .hbw-big__shot img {
-    max-height: none;
-  }
 }
 
 /*
@@ -14042,13 +14010,8 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 /* The name sets its own width here: there is one row per project rather
    than a column of them, so there is no second column to line up with, and
    "Made by Madelen — 2026" in a 120px module wraps onto two lines. */
-.hbw-big .hbw-band,
 .hbw-ind .hbw-band {
   grid-template-columns: auto minmax(0, 1fr);
-}
-
-.hbw-big .hbw-chip {
-  white-space: nowrap;
 }
 
 /*

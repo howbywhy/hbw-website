@@ -20,7 +20,7 @@ import type { GalleryProject } from "@/sanity/load-gallery";
 import { useStillness } from "@/components/site/still";
 import type { InfoData } from "@/components/site/project-info";
 import { Catalogue } from "@/components/site/Catalogue";
-import { IndexWork, LargeWork } from "@/components/site/Shapes";
+import { IndexWork } from "@/components/site/Shapes";
 import { Footer } from "@/components/site/Footer";
 import { Lightbox } from "@/components/site/Lightbox";
 import type { Shot } from "@/components/site/shots";
@@ -82,14 +82,20 @@ export function Work({
   /** Set when the address already names a project, so it opens on arrival. */
   opening?: Opening | null;
   /**
-   * How the front page arranges the work.
+   * How a page arranges the work. Two, where there were four.
    *
-   * "loop" is the site: the catalogue printed three times so it can wrap
-   * without a seam. The other three are under /try, for looking at — they
-   * change the arrangement and nothing else, so a press still opens the
-   * gallery and the nav still leads.
+   * "index" is the front page: a column of bars and one picture, which
+   * changes on a seam as a reader steps. "loop" is the catalogue printed
+   * three times so it can wrap without a join, which is what sits behind
+   * a project while its gallery is open.
+   *
+   * The other two were arrangements tried under /try and not chosen —
+   * "large", a picture per project the width of the page, and "end", a
+   * single pass of the loop that nothing ever asked for. Both were
+   * reachable only by passing a word no caller passed. They have gone
+   * along with the route that served them.
    */
-  shape?: "loop" | "end" | "large" | "index";
+  shape?: "loop" | "index";
 }) {
   const [open, setOpen] = useState<Open | null>(opening);
   const [bar, setBar] = useState<HTMLElement | null>(null);
@@ -1328,35 +1334,26 @@ export function Work({
           }}
         />
       ) : null}
-      {shape === "large" || shape === "index" ? (
+      {shape === "index" ? (
         /*
          * An arrangement with no catalogue in it.
          *
          * The loop below prints the work three times and is most of what a
-         * page here weighs; these print one picture per project. Everything
+         * page here weighs; this prints one picture at a time. Everything
          * else on the page is unchanged — the bar, the gallery a press
-         * opens, the foot — so what is being compared is the arrangement
-         * and not a different site.
+         * opens — so what differs is the arrangement and not a different
+         * site.
+         *
+         * And no foot: the index's last bar opens the way to get in touch,
+         * which is the same four things a foot was saying.
          */
         <div className="hbw-loop hbw-loop--one" data-turns="1">
           <div className="hbw-turn">
-            {shape === "large" ? (
-              <LargeWork
-                projects={projects}
-                marks={marks}
-                onOpen={(slug, at) => void leave(slug, at)}
-                onNear={(slug) => void learn(slug)}
-              />
-            ) : (
-              <IndexWork
-                projects={projects}
-                onOpen={(slug, at) => void leave(slug, at)}
-                onNear={(slug) => void learn(slug)}
-              />
-            )}
-            {/* The index has no foot: its last bar opens the way to get in
-                touch, which is the same four things a foot was saying. */}
-            {shape === "index" ? null : <Footer />}
+            <IndexWork
+              projects={projects}
+              onOpen={(slug, at) => void leave(slug, at)}
+              onNear={(slug) => void learn(slug)}
+            />
           </div>
         </div>
       ) : (
