@@ -106,5 +106,32 @@ export default async function run() {
   }
 
   await b.close();
+  /*
+   * The studio elsewhere, said the same way twice.
+   *
+   * The two profiles are a link in the foot and a sameAs claim in the
+   * structured data — the machine-readable statement that these accounts
+   * are this studio. They are read from one list so they cannot drift,
+   * and this is what says so: a claim that points somewhere the page does
+   * not is worse than no claim, because nothing on the page looks wrong.
+   */
+  {
+    const page = await fetch(BASE + "/").then((r) => r.text());
+    const said = [...page.matchAll(/"sameAs":\[([^\]]*)\]/g)]
+      .flatMap((m) => m[1].split(",").map((one) => one.trim().replace(/^\\?"|\\?"$/g, "")))
+      .filter((one) => /instagram|linkedin/i.test(one));
+    const shown = [...new Set(
+      [...page.matchAll(/https:\/\/www\.(?:instagram|linkedin)\.com\/[^"\\]+/g)].map((m) => m[0])
+    )];
+    const missing = shown.filter((one) => !said.includes(one));
+    s.ok(
+      "the profiles linked are the profiles claimed",
+      shown.length >= 2 && said.length >= 2 && missing.length === 0,
+      missing.length
+        ? "linked but not claimed: " + missing.join(", ")
+        : shown.join(" ")
+    );
+  }
+
   return s;
 }

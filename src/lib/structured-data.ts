@@ -55,9 +55,21 @@ export const PRESS = [
  * entity's scattered profiles together. Only URLs that have been checked go in
  * here — a wrong one claims a profile that is not yours.
  */
+/*
+ * The studio elsewhere, as Mark gives them.
+ *
+ * Both are also the sameAs claim in the structured data — the
+ * machine-readable statement that these accounts are this studio — so the
+ * two must never drift apart, and the link in the foot and the claim in
+ * the head are read from this one list.
+ *
+ * The addresses were right before this and differed only by a trailing
+ * slash, in opposite directions on the two; neither form redirects. These
+ * are the ones he wrote down.
+ */
 export const PROFILES = [
-  { name: "Instagram", url: "https://www.instagram.com/howbywhy" },
-  { name: "LinkedIn", url: "https://www.linkedin.com/in/markblackler/" },
+  { name: "Instagram", url: "https://www.instagram.com/howbywhy/" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/markblackler" },
 ];
 
 type Node = Record<string, unknown>;

@@ -141,7 +141,20 @@ export function Footer({ line = false }: { line?: boolean }) {
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         {line ? null : <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE}</a>}
         {PROFILES.map((profile) => (
-          <a key={profile.url} href={profile.url} rel="me noopener" target="_blank">
+          /*
+           * noreferrer as well as noopener.
+           *
+           * LinkedIn reads the referer on the way in and stamps it into
+           * the sign-in wall it shows a logged-out visitor —
+           * original_referer=https://www.hbw.works/ — so a press on the
+           * studio's own profile announced where it came from and then
+           * asked the reader to sign in. The wall is LinkedIn's own
+           * behaviour and not something a link can refuse, but telling it
+           * nothing is the part that is ours. rel="me" still stands: it is
+           * the claim that this profile is this studio, which is also what
+           * sameAs says in the structured data.
+           */
+          <a key={profile.url} href={profile.url} rel="me noopener noreferrer" target="_blank">
             {profile.name}
           </a>
         ))}
