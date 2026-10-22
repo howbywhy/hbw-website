@@ -307,7 +307,15 @@ async function seamSteps() {
   await p.goto(BASE, { waitUntil: "domcontentloaded" });
   await sleep(4400);
 
-  const shot = ".hbw-ind__shot img, .hbw-ind__shot video";
+  /*
+   * The arriving layer, not whatever picture is first in the plate.
+   *
+   * There are two now — the one being left, plainly, and the one arriving
+   * with the seam cut into it — and this used to take the first match,
+   * which is the one underneath and carries no mask at all. It would have
+   * reported a cut on a page that wipes perfectly well.
+   */
+  const shot = ".hbw-ind__over";
   const found = await p.$(shot);
   if (!found) {
     await b.close();

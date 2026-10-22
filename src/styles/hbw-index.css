@@ -13569,6 +13569,8 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 .hbw-ind__shot video {
   position: absolute;
   inset: 0;
+  /* The one being left sits under the one arriving, which is the only
+     stacking this plate needs: DOM order does the rest. */
   width: 100%;
   height: 100%;
   /*
@@ -13723,8 +13725,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-ind__shot img,
-  .hbw-ind__shot video {
+  .hbw-ind__over {
     /*
      * A mask wider than the picture, travelling across it. This is the
      * whole trick, and the only part of it that is arithmetic rather than

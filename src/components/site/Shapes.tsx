@@ -30,7 +30,7 @@ import { seamMask, type SeamFrame, type SeamLook } from "@/components/site/seam"
 
 /** The site's gutter, in pixels, for the arithmetic that places the bars. */
 const EDGE = 2;
-import type { GalleryProject } from "@/sanity/load-gallery";
+import type { GalleryFrame, GalleryProject } from "@/sanity/load-gallery";
 import { TITLE_WHAT } from "@/components/home/catalog";
 
 /**
@@ -191,9 +191,6 @@ export function IndexWork({
    * twice running.
    */
 
-  /* Nothing in the gallery until a project is open — and with nothing in
-     it there is no gallery, so the bars take the whole width. */
-  const frame = open?.frames?.[0];
 
   /*
    * One project per gesture, however hard the gesture was.
@@ -372,6 +369,33 @@ export function IndexWork({
   }, [open, onNear]);
 
   /*
+   * The picture being left, kept underneath the one arriving.
+   *
+   * The frame was keyed to the project, so stepping unmounted it and
+   * mounted the next — and the seam, which is a mask on the arriving
+   * frame, had nothing behind it but the plate. What a reader saw was the
+   * new picture wiping in over an empty grey field, which is a reveal and
+   * not a change: the whole point of an edge that hides in what two
+   * pictures share is that both of them are there to share anything.
+   *
+   * So the one being left stays, plainly, underneath, until the next step
+   * replaces it. Worked out during the render rather than in an effect: an
+   * effect runs after the arriving frame has mounted and started moving,
+   * which puts the picture underneath it one frame late — and one frame of
+   * grey is exactly the fault being fixed.
+   */
+  /* Nothing in the gallery until a project is open — and with nothing in
+     it there is no gallery, so the bars take the whole width. */
+  const over = open && lead(open) ? { slug: open.slug, frame: lead(open)! } : null;
+  const shown = useRef<{ slug: string; frame: GalleryFrame } | null>(null);
+  const beneath = useRef<{ slug: string; frame: GalleryFrame } | null>(null);
+  if ((shown.current?.slug ?? null) !== (over?.slug ?? null)) {
+    beneath.current = shown.current;
+    shown.current = over;
+  }
+  const under = beneath.current;
+
+  /*
    * The seam, bent to where these two pictures differ.
    *
    * Both frames arrive already reduced to sixty-four row brightnesses, so
@@ -470,6 +494,25 @@ export function IndexWork({
   const count = projects.length + 1;
   const placeOf = (i: number) =>
     at !== null && i <= at ? i * row : box - (count - i) * row;
+
+  /* One frame, drawn the same way whichever layer it is on. */
+  const pic = (one: GalleryFrame, slug: string, where: string) =>
+    one.video ? (
+      <video key={`${where}-${slug}`} className={where} poster={one.src} autoPlay muted loop playsInline>
+        {one.webm ? <source src={one.webm} type="video/webm" /> : null}
+        <source src={one.video} type="video/mp4" />
+      </video>
+    ) : (
+      <img
+        key={`${where}-${slug}`}
+        className={where}
+        src={one.src}
+        srcSet={one.peekset ?? one.srcset}
+        sizes="(max-width: 760px) 100vw, 50vw"
+        alt=""
+        decoding="async"
+      />
+    );
 
   const bar = (project: GalleryProject, i: number) => (
     <li
@@ -629,23 +672,10 @@ export function IndexWork({
           onOpen(open.slug, 0);
         }}
       >
-        {frame ? (
-          frame.video ? (
-            <video key={open?.slug} poster={frame.src} autoPlay muted loop playsInline>
-              {frame.webm ? <source src={frame.webm} type="video/webm" /> : null}
-              <source src={frame.video} type="video/mp4" />
-            </video>
-          ) : (
-            <img
-              key={open?.slug}
-              src={frame.src}
-              srcSet={frame.peekset ?? frame.srcset}
-              sizes="(max-width: 760px) 100vw, 50vw"
-              alt=""
-              decoding="async"
-            />
-          )
-        ) : null}
+        {/* The one being left, still there to be wiped off. */}
+        {under ? pic(under.frame, under.slug, "hbw-ind__under") : null}
+        {/* And the one arriving, which is the layer the seam is cut into. */}
+        {over ? pic(over.frame, over.slug, "hbw-ind__over") : null}
         {/* The link's name, and the thing that appears when it is hovered.
             One span doing both, so there is never a name on screen that a
             reader using a pointer cannot see. */}
