@@ -54,15 +54,16 @@ const BUDGET = {
    * is --hold, and then the picture waits three quarters of a beat (180ms)
    * and wipes over two of them (480ms).
    *
-   * --hold is the reading time for the positioning line and has been
-   * raised twice — 120ms, then 720ms, now 2,000ms — because at each of
-   * those the work came up before the line had been read. So this number
-   * moves with it by design, and it is the one budget here that is mostly
-   * a deliberate pause rather than work being done. What it still catches
-   * is the rest: a chrome that takes longer to assemble, or a wipe that
-   * grows, both of which would push past it without touching the hold.
+   * --hold is the reading time for the positioning line and has moved in
+   * both directions — 120ms, 720ms, 2,000ms, now 1,400ms — because it was
+   * first too short to read the line and then long enough to feel like
+   * waiting. So this number follows it by design, and it is the one
+   * budget here that is mostly a deliberate pause rather than work being
+   * done. What it still catches is the rest: a chrome that takes longer
+   * to assemble, or a wipe that grows, both of which would push past it
+   * without touching the hold.
    */
-  "the front page opens its first project": { settled: 3760, nav: 3400 },
+  "the front page opens its first project": { settled: 2960, nav: 2600 },
   /*
    * About's nav at 450 was inside its own spread, which makes a row that
    * decides by coin toss rather than by the site.

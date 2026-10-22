@@ -170,7 +170,7 @@ export function IndexWork({
      */
     const open = window.setTimeout(() => {
       if (!touched.current) setAt(0);
-    }, beat("--hold", 2000));
+    }, beat("--hold", 1400));
     return () => window.clearTimeout(open);
   }, [settled]);
 

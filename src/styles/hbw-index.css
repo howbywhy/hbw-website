@@ -3621,15 +3621,20 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
    * nav over to the first project. Whatever this is, is how long a reader
    * has to take that line in.
    *
-   * It was 120ms, which was a stutter rather than a hold; then three beats
-   * of --in, 720ms, which is still less than the line takes to read. The
-   * positioning is seven words. At the pace anybody actually reads a line
-   * they did not ask for, that is the better part of two seconds, and it
-   * arrives after the mark rather than with it. So: two seconds, which is
-   * long enough to finish the sentence and be ready for the work rather
-   * than interrupted by it.
+   * Measured rather than guessed: the line finishes arriving at about
+   * 400ms and the hold starts within a few frames of that, so whatever
+   * this is, is very nearly how long the line is on screen.
+   *
+   * It has been wrong in both directions. 120ms was a stutter. 720ms was
+   * three beats of --in, which sounds like a sentence and is not — the
+   * work came up before the line had been read. Two seconds fixed that
+   * and overshot: seven words held for two full seconds is reading-aloud
+   * pace, and a page that has finished speaking and goes on holding reads
+   * as waiting rather than as composure.
+   *
+   * 1,400ms is a glance and a read with nothing left over.
    */
-  --hold: 2000ms;
+  --hold: 1400ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3639,13 +3644,17 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
     --quick: 0ms;
     --rise: 0px;
     /*
-     * Shorter, but not nothing.
+     * The same, because this one is not a movement.
      *
-     * Reduced motion asks for less movement, not less reading time — and
-     * with the moves gone the hand-over is a cut, which is quicker to miss
-     * than a sequence, not slower.
+     * It was shorter here, on the reasoning that a sequence takes longer
+     * to watch than a cut. That reasoning does not survive contact with
+     * what the number is: the hold is how long a line of type stays on
+     * screen, and how fast somebody reads seven words does not change
+     * with their motion preference. The only thing that differs is that
+     * the line arrives instantly rather than over a beat, which the hold
+     * starting from the same moment already accounts for.
      */
-    --hold: 1200ms;
+    --hold: 1400ms;
   }
 }
 
