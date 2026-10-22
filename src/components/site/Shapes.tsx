@@ -26,6 +26,7 @@ const PosterTool = dynamic(
   { ssr: false }
 );
 import { useCallback, useEffect, useRef, useState } from "react";
+import { seamMask, type SeamFrame, type SeamLook } from "@/components/site/seam";
 
 /** The site's gutter, in pixels, for the arithmetic that places the bars. */
 const EDGE = 2;
@@ -370,6 +371,75 @@ export function IndexWork({
   }, [open, onNear]);
 
   /*
+   * The seam, bent to where these two pictures differ.
+   *
+   * Both frames arrive already reduced to sixty-four row brightnesses, so
+   * this is arithmetic on a hundred and twenty-eight numbers and a canvas
+   * the size of a postage stamp — no picture is loaded, decoded or read
+   * here. That is why it can be done on the spot: the wipe does not start
+   * for three quarters of a beat after the frame mounts, and this is
+   * finished long before then.
+   *
+   * Everything it needs to know is read from the stylesheet, so the block
+   * of tokens on .hbw-ind__shot stays the only place the move is tuned.
+   */
+  const plate = useRef<HTMLAnchorElement>(null);
+  const wasFrame = useRef<{ slug: string; frame: SeamFrame } | null>(null);
+  const masks = useRef(new Map<string, { map: string; span: string } | null>());
+  useEffect(() => {
+    const el = plate.current;
+    if (!el) return;
+    const clear = () => {
+      el.style.removeProperty("--seam-map");
+      el.style.removeProperty("--seam-span");
+    };
+
+    const lead = open?.frames?.[0];
+    const now =
+      open && lead?.rows?.length
+        ? {
+            slug: open.slug,
+            frame: { rows: lead.rows, width: lead.width, height: lead.height },
+          }
+        : null;
+    const before = wasFrame.current;
+    wasFrame.current = now ?? before;
+
+    /* The first picture has nothing to differ from, and the way out has no
+       picture at all. Both get the even seam. */
+    if (!before || !now || before.slug === now.slug) return clear();
+
+    const box = el.getBoundingClientRect();
+    if (!(box.width > 0) || !(box.height > 0)) return clear();
+    const shape = box.width / box.height;
+
+    const style = getComputedStyle(el);
+    const number = (name: string, fallback: number) => {
+      const value = Number.parseFloat(style.getPropertyValue(name));
+      return Number.isFinite(value) ? value : fallback;
+    };
+    const look: SeamLook = {
+      soft: number("--seam-soft", 0.2),
+      linger: number("--seam-linger", 0.35),
+      where: style.getPropertyValue("--seam-where").trim() === "agree" ? "agree" : "differ",
+    };
+    if (look.linger <= 0) return clear();
+
+    /* Keyed by the pair and the plate's shape, because the crop depends on
+       the shape and a reader who resizes should get a seam cut for the
+       plate they are actually looking at. */
+    const key = `${before.slug}>${now.slug}@${Math.round(shape * 20)}@${look.where}`;
+    let built = masks.current.get(key);
+    if (built === undefined) {
+      built = seamMask(before.frame, now.frame, shape, look);
+      masks.current.set(key, built);
+    }
+    if (!built) return clear();
+    el.style.setProperty("--seam-map", built.map);
+    el.style.setProperty("--seam-span", built.span);
+  }, [open]);
+
+  /*
    * Where each bar sits, in pixels, so moving between the stacks is a
    * transform rather than a re-parenting.
    *
@@ -549,6 +619,7 @@ export function IndexWork({
        */
       <a
         className="hbw-ind__shot"
+        ref={plate}
         href={open ? `/projects/${open.slug}` : undefined}
         onClick={(event) => {
           if (!open) return;

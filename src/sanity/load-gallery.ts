@@ -8,6 +8,7 @@
  */
 import { liveProjects, projectSays } from "@/components/home/catalog";
 import { resolveProjectExperience } from "@/lib/project-source";
+import { rowProfile } from "@/sanity/row-profile";
 
 /*
  * What a cell is actually drawn at: sizes says 25vw on a phone and 11vw on a
@@ -19,6 +20,9 @@ const CELL_WIDTHS = [160, 320, 640];
 
 /** The hand-over panel, which is the height of the window. */
 const PEEK_WIDTHS = [720, 1080, 1440];
+
+/** Read for its row profile and nothing else, so: as small as Sanity serves. */
+const PROFILE_WIDTH = 64;
 
 export type GalleryFrame = {
   src: string;
@@ -42,6 +46,14 @@ export type GalleryFrame = {
   video?: string;
   webm?: string;
   alt?: string;
+  /**
+   * The picture's brightness row by row, 0–255, top to bottom.
+   *
+   * Only ever on the lead frame, because only the lead frame is the one the
+   * front page uncovers. Read at build; see row-profile for why it cannot
+   * be read in the browser.
+   */
+  rows?: number[];
 };
 
 export type GalleryProject = {
@@ -130,6 +142,13 @@ export async function loadGallery(): Promise<GalleryProject[]> {
            is not the same thing when a movement has no picture to show. */
         if (firstStill) {
           frames[0].peekset = PEEK_WIDTHS.map((w) => `${sized(firstStill, w)} ${w}w`).join(", ");
+          /*
+           * And the same frame's row profile, for the seam on the front
+           * page. Read from the smallest rendition there is — this is
+           * sixty-four averages, not a picture, and asking for a wider one
+           * would only be throwing pixels away more slowly.
+           */
+          frames[0].rows = await rowProfile(sized(firstStill, PROFILE_WIDTH));
         }
 
         return {

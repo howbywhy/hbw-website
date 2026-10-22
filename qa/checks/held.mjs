@@ -165,6 +165,28 @@ export default async function run() {
   );
 
   /*
+   * And the seam bends to the two pictures rather than ruling straight.
+   *
+   * This is the least-difference edge, and it is the one part of the move
+   * that can fail silently: lose the row profiles, lose the canvas, lose
+   * --seam-linger, and the page still wipes correctly on the even gradient.
+   * It would look fine and be a different transition.
+   *
+   * So the built mask is read back — it is a data URI, so a canvas may draw
+   * it — and each row's turnover point found. An even seam turns over at the
+   * same place in every row; a bent one does not.
+   */
+  const bend = await seamBend();
+  s.ok(
+    "and it bends to where the two pictures differ",
+    bend.spread !== null && bend.spread >= 12,
+    bend.spread === null
+      ? bend.why
+      : `rows turn over across ${bend.spread} of ${bend.width} mask pixels` +
+        ` (an even seam spreads 0)`
+  );
+
+  /*
    * 3. A project page's rows are uncovered — with script and without.
    *
    * The floor. The strip is served as rows, and a reader whose script never
@@ -198,6 +220,72 @@ export default async function run() {
   );
 
   return s;
+}
+
+/**
+ * Read the built mask back and measure how far its rows disagree.
+ *
+ * Returns spread: null with a reason when there is no mask to read, which is
+ * a fault here — by this point the page has stepped between two projects.
+ */
+async function seamBend() {
+  const b = await track(
+    puppeteer.launch({
+      executablePath: chrome(),
+      headless: "new",
+      args: ["--no-sandbox", "--autoplay-policy=no-user-gesture-required"],
+    })
+  );
+  const p = await b.newPage();
+  await p.setViewport({ width: 1440, height: 900 });
+  await p.goto(BASE, { waitUntil: "domcontentloaded" });
+  await sleep(3800);
+  await p.evaluate(() =>
+    document
+      .querySelector(".hbw-ind")
+      ?.dispatchEvent(new WheelEvent("wheel", { deltaY: 120, bubbles: true, cancelable: true }))
+  );
+  await sleep(500);
+
+  const out = await p.evaluate(async () => {
+    const plate = document.querySelector(".hbw-ind__shot");
+    if (!plate) return { spread: null, why: "no plate" };
+    const map = plate.style.getPropertyValue("--seam-map");
+    if (!map) return { spread: null, why: "no --seam-map was built for the step" };
+    const src = /url\("?([^")]+)"?\)/.exec(map);
+    if (!src) return { spread: null, why: "--seam-map is not a url()" };
+
+    const img = new Image();
+    img.src = src[1];
+    try {
+      await img.decode();
+    } catch {
+      return { spread: null, why: "the mask would not decode" };
+    }
+    const c = document.createElement("canvas");
+    c.width = img.naturalWidth;
+    c.height = img.naturalHeight;
+    const ctx = c.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    const px = ctx.getImageData(0, 0, c.width, c.height).data;
+
+    /* Where each row crosses half-opaque, which is the seam's own line. */
+    const edges = [];
+    for (let y = 0; y < c.height; y += 1) {
+      for (let x = 0; x < c.width; x += 1) {
+        if (px[(y * c.width + x) * 4 + 3] >= 128) { edges.push(x); break; }
+      }
+    }
+    if (!edges.length) return { spread: null, why: "no row ever turns over" };
+    return {
+      spread: Math.max(...edges) - Math.min(...edges),
+      width: c.width,
+      why: null,
+    };
+  });
+
+  await b.close();
+  return out;
 }
 
 /**

@@ -13639,6 +13639,23 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    * arithmetic is in the note on the mask.
    */
   --seam-soft: 0.2;
+
+  /*
+   * How far a row may lag the rest of the seam, as a share of the picture's
+   * width, and which rows do the lagging.
+   *
+   * This is the least-difference edge. The page reads both pictures row by
+   * row and bends the seam: at `differ` the edge hangs back where the two
+   * frames have least in common and runs across where they agree, so the
+   * join happens where there is least to see. `agree` inverts it. Nought
+   * takes the bend out and leaves the even seam.
+   *
+   * Only the rows can bend — see components/site/seam for why columns
+   * cannot, at any price.
+   */
+  --seam-linger: 0.35;
+  --seam-where: differ;
+
   --seam-span: calc(200% + var(--seam-soft) * 100%);
   --seam-a: calc(100% / (2 + var(--seam-soft)));
   --seam-b: calc(100% * (1 + var(--seam-soft)) / (2 + var(--seam-soft)));
@@ -13709,12 +13726,24 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
      * To send it the other way, swap the two mask-positions in the
      * keyframes.
      */
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent var(--seam-a),
-      #000 var(--seam-b)
+    /*
+     * The built mask if there is one, the even ramp if there is not.
+     *
+     * --seam-map is a picture of the seam, drawn by the page from the two
+     * frames' row profiles, and --seam-span is widened with it to make room
+     * for the lag. Both are set together or not at all: a step whose
+     * profiles are missing, whose pictures do not differ enough to bend an
+     * edge, or that happened before the drawing was ready, falls through to
+     * the gradient here and is a plain seam. It is never a missing picture.
+     */
+    -webkit-mask-image: var(
+      --seam-map,
+      linear-gradient(to right, transparent var(--seam-a), #000 var(--seam-b))
     );
-    mask-image: linear-gradient(to right, transparent var(--seam-a), #000 var(--seam-b));
+    mask-image: var(
+      --seam-map,
+      linear-gradient(to right, transparent var(--seam-a), #000 var(--seam-b))
+    );
     -webkit-mask-size: var(--seam-span) 100%;
     mask-size: var(--seam-span) 100%;
     -webkit-mask-repeat: no-repeat;
