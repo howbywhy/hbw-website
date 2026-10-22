@@ -261,3 +261,54 @@ export async function loadReel(): Promise<ReelJob[]> {
 export async function loadSheets(): Promise<GalleryProject[]> {
   return loadGallery();
 }
+
+/*
+ * What a page sends to the browser, as against what it draws.
+ *
+ * Every page was handed the whole catalogue — seven projects, nine frames
+ * each, every one carrying the three-rendition ladder a contact-sheet cell
+ * needs. That is sixty-three ladders, and no page on the site draws one:
+ * the front page is the index and prints no catalogue at all, and a project
+ * page prints the strip behind a gallery that covers the window and cannot
+ * be shut, where every cell is deliberately given no source.
+ *
+ * It still all arrived, because a prop handed to a client component is
+ * serialised into the payload whether or not anything renders it. Thirty-
+ * four kilobytes of addresses for pictures that are never asked for.
+ *
+ * Two trims, each named for what the page actually does with the work.
+ */
+
+/**
+ * Only the frame each project leads with.
+ *
+ * For a page that shows one picture at a time and never prints the
+ * catalogue — which is the front page. Everything that reads these on the
+ * index reads frames[0]: the picture in the room, its row profile for the
+ * seam, and the hand-over's peek.
+ */
+export function leadFrames(projects: GalleryProject[]): GalleryProject[] {
+  return projects.map((project) => ({
+    ...project,
+    frames: project.frames.slice(0, 1),
+  }));
+}
+
+/**
+ * Every frame, without the ladders.
+ *
+ * For a page that prints the strip but never shows it. The cells still have
+ * to exist — they are what the leaving animation plays on, and the count is
+ * what the numbering reads — so the frames stay, with their shape and their
+ * description. What goes is the srcset on every frame but the first, which
+ * is the part only a visible cell would ever ask for. The first keeps its
+ * ladder because the hand-over's peek falls back to it.
+ */
+export function stripFrames(projects: GalleryProject[]): GalleryProject[] {
+  return projects.map((project) => ({
+    ...project,
+    frames: project.frames.map((frame, i) =>
+      i === 0 ? frame : { ...frame, srcset: undefined }
+    ),
+  }));
+}

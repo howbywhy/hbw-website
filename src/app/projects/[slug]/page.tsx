@@ -6,7 +6,7 @@ import { liveProjects, PROJECT_SLUGS, projectDescription, projectTitle
 import { StructuredData } from "@/components/StructuredData";
 import { breadcrumbNode, projectNode, studioNode } from "@/lib/structured-data";
 import { loadExperiences } from "@/sanity/load-experiences";
-import { loadSheets } from "@/sanity/load-gallery";
+import { loadSheets, stripFrames } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
 import { Footer } from "@/components/site/Footer";
 import { Work } from "@/components/site/Work";
@@ -60,7 +60,9 @@ export default async function ProjectPage({ params }: Props) {
 
   const experiences = await loadExperiences([slug]);
   const experience = experiences[slug] ?? null;
-  const projects = await loadSheets();
+  /* The strip is printed behind a gallery that cannot be shut, so its
+     cells never ask for a picture; they are sent without the ladders. */
+  const projects = stripFrames(await loadSheets());
   const shots = shotsOf(experience?.movements ?? []);
 
   return (

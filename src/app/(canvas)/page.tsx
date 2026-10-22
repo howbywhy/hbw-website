@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { OG_SITE } from "@/lib/site-meta";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site-meta";
-import { loadSheets } from "@/sanity/load-gallery";
+import { leadFrames, loadSheets } from "@/sanity/load-gallery";
 import { Bar } from "@/components/site/Bar";
 import { Work } from "@/components/site/Work";
 import { Logotype } from "@/components/site/Logotype";
@@ -30,7 +30,9 @@ export const metadata: Metadata = {
  * sheet rather than as a page of its own.
  */
 export default async function HomePage() {
-  const projects = await loadSheets();
+  /* The index draws one picture at a time and prints no catalogue, so it
+     is sent one frame per project rather than all nine. */
+  const projects = leadFrames(await loadSheets());
   return (
     <main className="hbw-site">
       <StructuredData nodes={[studioNode(), founderNode(), websiteNode(), workListNode()]} />
