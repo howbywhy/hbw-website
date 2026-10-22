@@ -53,15 +53,15 @@ export function Say() {
 
   if (state === "done") {
     return (
-      <p className="hbw-say__done is-mute">
+      <p className="hbw-write__done is-mute">
         Thank you — that is with the studio, and the reply will come to {email}.
       </p>
     );
   }
 
   return (
-    <form onSubmit={send} className="hbw-say">
-      <div className="hbw-say__row">
+    <form onSubmit={send} className="hbw-write">
+      <div className="hbw-write__row">
         <label htmlFor={`${field}-name`} className="hbw-m">
           Your name
         </label>
@@ -75,7 +75,7 @@ export function Say() {
         />
       </div>
 
-      <div className="hbw-say__row">
+      <div className="hbw-write__row">
         <label htmlFor={`${field}-email`} className="hbw-m">
           Your email
         </label>
@@ -90,7 +90,7 @@ export function Say() {
         />
       </div>
 
-      <div className="hbw-say__row hbw-say__row--say">
+      <div className="hbw-write__row hbw-write__row--say">
         <label htmlFor={`${field}-say`} className="hbw-m">
           What you need
         </label>
@@ -109,13 +109,13 @@ export function Say() {
           say is a sentence and an address, and in a column beside a
           control it wrapped to three lines and read as damage. */}
       {typeof state === "object" ? (
-        <p className="hbw-say__said" role="alert">
+        <p className="hbw-write__said" role="alert">
           {state.error}{" "}
           {state.write ? <a href={`mailto:${state.write}`}>{state.write}</a> : null}
         </p>
       ) : null}
 
-      <div className="hbw-say__foot">
+      <div className="hbw-write__foot">
         <button type="submit" disabled={state === "sending"}>
           {state === "sending" ? "Sending" : "Send"}
         </button>

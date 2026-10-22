@@ -67,9 +67,9 @@ export default async function run() {
   const talk = await p.evaluate(() => ({
     mail: document.querySelectorAll('.hbw-ind__talk a[href^="mailto:"]').length,
     field: document.querySelectorAll(".hbw-ind__talk .hbw-end__field").length,
-    form: Boolean(document.querySelector(".hbw-ind__talk form.hbw-say")),
-    wrote: Boolean(document.querySelector(".hbw-say textarea")),
-    sends: Boolean(document.querySelector('.hbw-say__foot button[type="submit"]')),
+    form: Boolean(document.querySelector(".hbw-ind__talk form.hbw-write")),
+    wrote: Boolean(document.querySelector(".hbw-write textarea")),
+    sends: Boolean(document.querySelector('.hbw-write__foot button[type="submit"]')),
   }));
   s.ok("opened, it carries a way to get in touch", talk.mail >= 1, `${talk.mail} addresses`);
   /*

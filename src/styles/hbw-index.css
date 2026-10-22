@@ -13886,6 +13886,15 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    of that screen, not a thing set apart from what came before. The board
    version's 108px would be a tenth of the window. */
 .hbw-end--line {
+  /*
+   * No rule above it.
+   *
+   * .hbw-end draws a line across the top because it is the foot of a
+   * page and the line is what separates it from the page. This one is
+   * not a foot: it is the last rows of the Talk module, two pixels under
+   * the form, and a rule there cuts the module in half.
+   */
+  border-top: 0;
   margin: 0;
   display: flex;
   flex-wrap: wrap;
@@ -14111,14 +14120,14 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   min-width: 0;
 }
 
-.hbw-say {
+.hbw-write {
   display: grid;
   gap: var(--edge);
   min-width: 0;
   margin: 0;
 }
 
-.hbw-say__row {
+.hbw-write__row {
   box-sizing: border-box;
   display: grid;
   grid-template-columns: var(--module) minmax(0, 1fr);
@@ -14132,17 +14141,17 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 
 /* The one row that is a paragraph: its label sits at the first line
    rather than in the middle of a field three lines deep. */
-.hbw-say__row--say {
+.hbw-write__row--say {
   align-items: start;
   padding-block: 4px;
 }
 
-.hbw-say__row label {
+.hbw-write__row label {
   color: var(--mute);
 }
 
-.hbw-say input,
-.hbw-say textarea {
+.hbw-write input,
+.hbw-write textarea {
   min-width: 0;
   width: 100%;
   margin: 0;
@@ -14154,7 +14163,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   letter-spacing: inherit;
 }
 
-.hbw-say textarea {
+.hbw-write textarea {
   line-height: 1.45;
   /* The row is as tall as the rows asked for and no taller: a handle that
      drags one plate out of line with every other plate on the page is a
@@ -14162,28 +14171,38 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   resize: none;
 }
 
-.hbw-say input::placeholder,
-.hbw-say textarea::placeholder {
+.hbw-write input::placeholder,
+.hbw-write textarea::placeholder {
   color: var(--mute);
 }
 
-.hbw-say input:focus,
-.hbw-say textarea:focus {
+.hbw-write input:focus,
+.hbw-write textarea:focus {
   outline: none;
 }
 
-.hbw-say__row:focus-within {
+.hbw-write__row:focus-within {
   background: var(--pill-on, var(--pill-bg));
 }
 
 /* The button sits at the end of the form, at the width of its word. */
-.hbw-say__foot {
+.hbw-write__foot {
   display: flex;
   justify-content: flex-end;
   min-height: var(--pill-h);
 }
 
-.hbw-say__foot button {
+/*
+ * Named through the column, because .hbw-ind__bars button gives every
+ * control in here the full width of a bar — which made Send a plate the
+ * width of the module with its word at the far left, reading as one more
+ * field rather than as the thing that sends them.
+ */
+.hbw-ind__bars .hbw-write__foot button {
+  width: auto;
+}
+
+.hbw-write__foot button {
   box-sizing: border-box;
   min-height: var(--pill-h);
   padding: 2px var(--pill-x);
@@ -14196,19 +14215,19 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   cursor: pointer;
 }
 
-.hbw-say__foot button:hover,
-.hbw-say__foot button:focus-visible {
+.hbw-write__foot button:hover,
+.hbw-write__foot button:focus-visible {
   color: var(--ink);
 }
 
-.hbw-say__foot button[disabled] {
+.hbw-write__foot button[disabled] {
   cursor: default;
 }
 
 /* What went wrong, and the address to use instead — on one plate, because
    a failure that is not as legible as the form is a failure twice. */
-.hbw-say__said,
-.hbw-say__done {
+.hbw-write__said,
+.hbw-write__done {
   box-sizing: border-box;
   /*
    * A block, not a flex row.
@@ -14239,12 +14258,12 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  * for it, and the row stays one plate high.
  */
 @media (max-width: 760px) {
-  .hbw-say__row {
+  .hbw-write__row {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
   }
 
-  .hbw-say__row label {
+  .hbw-write__row label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -14258,7 +14277,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   /* Two lines of writing, not three: the bar has to end above the foot of
      the screen and the reader can scroll inside the field if they write
      more. */
-  .hbw-say__row--say textarea {
+  .hbw-write__row--say textarea {
     max-height: 2.9em;
     overflow-y: auto;
   }
@@ -14277,16 +14296,16 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    * the block edges, exactly as the signup's does, so 16px of type sits in
    * a 24px plate and the 2px between the plates is still 2px.
    */
-  .hbw-say input,
-  .hbw-say textarea {
+  .hbw-write input,
+  .hbw-write textarea {
     font-size: 16px;
   }
 
-  .hbw-say__row {
+  .hbw-write__row {
     padding-block: 0;
   }
 
-  .hbw-say__row--say {
+  .hbw-write__row--say {
     padding-block: 4px;
   }
 }
