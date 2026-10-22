@@ -253,6 +253,20 @@ export function IndexWork({
      * The short gate that remains is for the ramp, where one flick's
      * first few events do all rise.
      */
+    /*
+     * Where a gesture belongs to what it lands on, not to the index.
+     *
+     * The column listens to the whole arrangement so that a swipe
+     * anywhere steps. Inside the room that holds the drawing, and inside
+     * the Talk module, a drag is the thing itself: on an iPad a downward
+     * stroke across the poster was read as a swipe, which stepped off
+     * Talk and opened the project before it — going to paint opened a
+     * project. A stroke there is a stroke.
+     */
+    const OWN = ".hbw-ind__shot--talk, .hbw-ind__talk";
+    const theirs = (target: EventTarget | null) =>
+      target instanceof Element && Boolean(target.closest(OWN));
+
     const GAP = 200;
     const FALLS = 3;
     let quiet = 0;
@@ -260,6 +274,8 @@ export function IndexWork({
     let falling = 0;
     let at = 0;
     const wheel = (event: WheelEvent) => {
+      /* Not prevented either, so anything in there that can scroll, does. */
+      if (theirs(event.target)) return;
       const push = Math.abs(event.deltaY);
       if (push < 2) return;
       event.preventDefault();
@@ -282,11 +298,17 @@ export function IndexWork({
        lifted. */
     let from = 0;
     let swiped = false;
+    let painting = false;
     const down = (event: TouchEvent) => {
+      /* Decided where the finger lands, not where it ends up: a stroke
+         that starts on the drawing stays the drawing's for its whole
+         length. */
+      painting = theirs(event.target);
       from = event.touches[0]?.clientY ?? 0;
       swiped = false;
     };
     const move = (event: TouchEvent) => {
+      if (painting) return;
       const now = event.touches[0]?.clientY ?? 0;
       if (Math.abs(now - from) < 36) return;
       event.preventDefault();
