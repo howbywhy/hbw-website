@@ -161,7 +161,7 @@ export function Bar({
    * sheet is the whole of it.
    */
   const home = useCallback(
-    (event: { preventDefault: () => void }) => {
+    (event: React.MouseEvent) => {
       if (studio) {
         event.preventDefault();
         close(() => {
@@ -183,8 +183,24 @@ export function Bar({
        * never told about those until it is already going — so this is the
        * way to ask for the whole sequence on purpose.
        */
-      if (window.location.pathname !== "/") return;
-      if (outro(() => window.location.reload())) event.preventDefault();
+      /*
+       * Away from home, it leaves properly rather than being let go.
+       *
+       * This returned here and left the bare <a href="/"> to do the rest,
+       * which it never did: the press was taken somewhere else, the
+       * gallery shut, the address became / — and what was left on screen
+       * was the project page's own catalogue strip behind where the
+       * gallery had been. It read exactly like the old front page,
+       * because it is the thing the old front page was made of, and the
+       * index was never asked for at all.
+       *
+       * Same as Work, which never had this fault: play the site's leaving
+       * and then actually go.
+       */
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+      const away = window.location.pathname !== "/";
+      const then = () => (away ? window.location.assign("/") : window.location.reload());
+      if (outro(then)) event.preventDefault();
     },
     [close, outro, studio]
   );

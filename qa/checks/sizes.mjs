@@ -83,7 +83,7 @@ export default async function run() {
 
     /* Open Talk, by the row on a phone or the bar everywhere else. */
     await p.evaluate(() =>
-      document.querySelector('.hbw-ind__bars li[data-talk] button')?.click()
+      document.querySelector('.hbw-ind__bars li[data-talk] > button')?.click()
     );
     await sleep(1800);
     /* On a phone the drawing waits behind a row; press it so there is

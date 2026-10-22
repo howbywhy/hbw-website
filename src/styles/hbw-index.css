@@ -14114,6 +14114,21 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    above it. A form in here is more of the same object, not a form dropped
    into a page of plates.
    ===================================================================== */
+/*
+ * [hidden] has to win here, twice.
+ *
+ * The browser's own rule for it is display: none at the weakest possible
+ * weight, and this column lays its own controls out — .hbw-ind__bars
+ * button is display: grid, .hbw-ind__talk is display: grid — so both beat
+ * it and both things were on screen at once: the module open underneath
+ * the button that opens it, each saying Talk.
+ */
+.hbw-ind__talk[hidden],
+.hbw-ind__bars a[hidden],
+.hbw-ind__bars button[hidden] {
+  display: none;
+}
+
 .hbw-ind__talk {
   display: grid;
   gap: var(--edge);

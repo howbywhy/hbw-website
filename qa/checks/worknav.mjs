@@ -61,8 +61,16 @@ export default async function run() {
    * a foot: it is the row a reader opens *because* they want to reach the
    * studio. Both live in it now, and this checks the bar, not the foot.
    */
-  s.ok("the way out is the last bar", (await p.$$('.hbw-ind__bars li[data-talk] button')).length === 1);
-  await p.$eval('.hbw-ind__bars li[data-talk] button', (b) => b.click());
+  /*
+   * The bar's own button, not any button inside it.
+   *
+   * The module the bar opens has a button of its own now — the row that
+   * fetches the drawing on a phone — so counting every button in the li
+   * counted two and called the way out broken. The opener is the li's
+   * own child; everything else lives inside the module under it.
+   */
+  s.ok("the way out is the last bar", (await p.$$('.hbw-ind__bars li[data-talk] > button')).length === 1);
+  await p.$eval('.hbw-ind__bars li[data-talk] > button', (b) => b.click());
   await sleep(1800);
   const talk = await p.evaluate(() => ({
     mail: document.querySelectorAll('.hbw-ind__talk a[href^="mailto:"]').length,
@@ -115,6 +123,44 @@ export default async function run() {
   await sleep(2600);
   s.ok("and it lands back at the start", new URL(p.url()).pathname === "/", p.url());
 
+  /*
+   * And the mark goes home to the index, not to what the old one was.
+   *
+   * Pressing the studio's name from inside a project put / in the address
+   * bar and left the project page's own catalogue strip on screen where
+   * the gallery had been — which reads exactly like the front page the
+   * site used to have, because it is the thing that page was made of.
+   * The handler returned early when it was away from home and left a bare
+   * anchor to do the navigating, and the navigation never happened.
+   *
+   * Checked by what is on screen rather than by the address: the address
+   * was right the whole time it was wrong.
+   */
+  await p.goto(BASE + "/projects/koja", { waitUntil: "domcontentloaded" });
+  await sleep(4000);
+  const mark = await p.evaluate(() => {
+    const a = [...document.querySelectorAll(".hbw-bar a")].find(
+      (one) => one.getAttribute("href") === "/"
+    );
+    if (!a) return null;
+    const r = a.getBoundingClientRect();
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+  });
+  if (mark) await p.mouse.click(mark.x, mark.y);
+  await sleep(3600);
+  const landed = await p.evaluate(() => ({
+    url: location.pathname,
+    index: Boolean(document.querySelector(".hbw-ind")),
+    cells: document.querySelectorAll(".hbw-cell").length,
+  }));
+  s.ok(
+    "the mark goes home to the index, not to the page it replaced",
+    landed.url === "/" && landed.index && landed.cells === 0,
+    `${landed.url}, index ${landed.index}, ${landed.cells} catalogue cells`
+  );
+
+  await p.goto(BASE + "/", { waitUntil: "domcontentloaded" });
+  await sleep(4000);
   await sleep(1500);
   const about = await p.$$(".hbw-bar__nav a");
   await about[1].click();

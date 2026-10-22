@@ -1391,8 +1391,27 @@ export function Work({
           </div>
         </div>
       ) : (
-      <div className="hbw-loop" ref={loop} data-turns={shape === "loop" ? "3" : "1"}>
-        {(shape === "loop" ? [0, 1, 2] : [0]).map((pass) => (
+      /*
+       * Three passes, unless the page opens into a gallery that cannot be
+       * shut — then one.
+       *
+       * The catalogue is printed three times so it can wrap without a
+       * join, which is worth its weight on a page a reader scrolls. A
+       * project page is not that page: it opens straight into the gallery,
+       * the gallery is fixed over the whole window, and it has no close —
+       * Work, About, Next and Previous are the only ways out. Measured on
+       * /projects/koja: 189 cells in the markup, 27 of them inside the
+       * viewport, and none of them the topmost thing at their own centre.
+       * Not one was ever seen.
+       *
+       * So the wrap has nothing to be seamless for, and two of the three
+       * passes were a hundred kilobytes of HTML per project page for a
+       * picture nobody can look at. One pass stays, because the strip is
+       * still what the leaving animation plays on and what a reader lands
+       * on if they ever get a way back to it.
+       */
+      <div className="hbw-loop" ref={loop} data-turns={shape === "loop" && !opening ? "3" : "1"}>
+        {(shape === "loop" && !opening ? [0, 1, 2] : [0]).map((pass) => (
           /*
            * Held from the markup, released by hand.
            *
@@ -1422,7 +1441,19 @@ export function Work({
                * gallery the visitor was actually waiting for. Behind
                * something, it waits.
                */
-              behind={open !== null}
+              /*
+               * Known at the first render, not at the second.
+               *
+               * This was `open !== null`, and `open` is set by show() after
+               * the page has mounted — so on the server it was false, the
+               * strip shipped every one of its addresses, and only then did
+               * the gallery come over the top of it. A page that is handed
+               * `opening` is a project page: it opens into a gallery that
+               * covers the window and has no way to be shut, so the strip
+               * is behind something from the very first frame and there is
+               * no moment at which asking for those pictures is useful.
+               */
+              behind={open !== null || Boolean(opening)}
             />
             {/*
               A foot you can scroll past.

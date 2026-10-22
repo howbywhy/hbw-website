@@ -113,7 +113,7 @@ export default async function run() {
   await q.goto(BASE + "/", { waitUntil: "networkidle2" });
   await sleep(4400);
   await q.evaluate(() =>
-    document.querySelector('.hbw-ind__bars li[data-talk] button')?.click()
+    document.querySelector('.hbw-ind__bars li[data-talk] > button')?.click()
   );
   await sleep(1800);
   /*
@@ -191,7 +191,7 @@ export default async function run() {
   await w.setViewport({ width: 1440, height: 900 });
   await w.goto(BASE + "/", { waitUntil: "networkidle2" });
   await sleep(4400);
-  await w.evaluate(() => document.querySelector('.hbw-ind__bars li[data-talk] button')?.click());
+  await w.evaluate(() => document.querySelector('.hbw-ind__bars li[data-talk] > button')?.click());
   await sleep(1800);
   const wide = await w.evaluate(() => {
     const d = document.querySelector(".hbw-ind__draw");

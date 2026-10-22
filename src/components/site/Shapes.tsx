@@ -640,11 +640,30 @@ export function IndexWork({
             } as CSSProperties
           }
         >
-          {talking ? (
-            /* Open, the bar is the contact: the place, the list and where
-               else the studio is, in the row itself rather than under a
-               page that already ends. */
-            <div className="hbw-ind__talk">
+          {/*
+            Both, always, with one of them put away.
+            
+            This rendered the button or the module, never both, so until
+            somebody pressed Talk the front page contained no address, no
+            signup and no form — and the audit was right to say the front
+            page offered no way to get in touch, because in the document it
+            did not. A reader could always find it; a crawler, a reader
+            saving the page, and anything reading the HTML could not.
+            
+            `hidden` rather than a class, so it is in the document and out
+            of the accessibility tree at the same time: there is nothing to
+            tab into and nothing read out until it is opened, which is what
+            a disclosure should do.
+          */}
+          <button
+            type="button"
+            aria-expanded={talking}
+            hidden={talking}
+            onClick={() => setAt(projects.length)}
+          >
+            <span className="hbw-ind__did">Talk</span>
+          </button>
+          <div className="hbw-ind__talk" hidden={!talking}>
               {/*
                 The bar keeps its name when it opens.
                 
@@ -678,12 +697,7 @@ export function IndexWork({
                 {drawing ? "Put the drawing away" : "Or draw something instead"}
               </button>
               <Footer line />
-            </div>
-          ) : (
-            <button type="button" onClick={() => setAt(projects.length)}>
-              <span className="hbw-ind__did">Talk</span>
-            </button>
-          )}
+          </div>
         </li>
       </ol>
 
