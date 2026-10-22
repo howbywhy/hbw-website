@@ -149,7 +149,64 @@ export default async function run() {
       ? small.map((e) => `${e.what} ${e.px}px`).join(", ")
       : `${counted} fields, all 16px or more`
   );
+
+  /*
+   * And the drawing is behind a press here, as everything else is.
+   *
+   * The poster had the top half of a phone whether anybody wanted it or
+   * not — a blank sheet with the instrument floating on it, above the
+   * form somebody opened Talk to use. It waits behind a row now.
+   *
+   * Both halves are checked, because the first attempt got the second one
+   * wrong: .hbw-ind__bars button lays out every control in that column
+   * and outranks a bare class, so "display: none" did nothing and the row
+   * appeared on sheets too — a button offering to reveal something that
+   * was already in plain sight.
+   */
+  const door = await q.evaluate(() => {
+    const d = document.querySelector(".hbw-ind__draw");
+    const room = document.querySelector(".hbw-ind__shot--talk");
+    return {
+      shown: d ? getComputedStyle(d).display !== "none" : false,
+      away: room ? room.getBoundingClientRect().height === 0 : null,
+    };
+  });
+  s.ok(
+    "on a phone the drawing waits behind a row",
+    door.shown && door.away === true,
+    `row ${door.shown ? "shown" : "missing"}, poster ${door.away ? "away" : "open"}`
+  );
+
+  await q.evaluate(() => document.querySelector(".hbw-ind__draw")?.click());
+  await sleep(1200);
+  const out = await q.evaluate(() => {
+    const room = document.querySelector(".hbw-ind__shot--talk");
+    return room ? Math.round(room.getBoundingClientRect().height) : 0;
+  });
+  s.ok("and pressing it brings the drawing out", out > 100, `${out}px of sheet`);
   await q.close();
+
+  /* On a sheet there is no row, because the poster is already in the room. */
+  const w = await b.newPage();
+  await w.setViewport({ width: 1440, height: 900 });
+  await w.goto(BASE + "/", { waitUntil: "networkidle2" });
+  await sleep(4400);
+  await w.evaluate(() => document.querySelector('.hbw-ind__bars li[data-talk] button')?.click());
+  await sleep(1800);
+  const wide = await w.evaluate(() => {
+    const d = document.querySelector(".hbw-ind__draw");
+    const room = document.querySelector(".hbw-ind__shot--talk");
+    return {
+      shown: d ? getComputedStyle(d).display !== "none" : false,
+      room: room ? Math.round(room.getBoundingClientRect().height) : 0,
+    };
+  });
+  s.ok(
+    "and on a sheet there is no row, the poster being in the room already",
+    !wide.shown && wide.room > 100,
+    `row ${wide.shown ? "shown" : "hidden"}, poster ${wide.room}px`
+  );
+  await w.close();
 
   await b.close();
   return s;

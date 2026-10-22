@@ -14344,3 +14344,62 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   background: var(--pill-bg);
   border-radius: var(--pill-r);
 }
+
+/* =====================================================================
+   On a phone the drawing is behind a press, like everything else here.
+
+   The poster had the top half of the screen whether or not anybody wanted
+   it: four hundred and fifteen pixels of blank white sheet with the
+   instrument floating on it, above the form a reader opened Talk to use.
+   An empty canvas is not a picture — it is a tool left out — and it read
+   as the page being broken rather than as something offered.
+
+   Away, the room closes and the page's own ground is what is above the
+   module. That is still space, but it is page rather than an abandoned
+   sheet, and the writing sits where a thumb is.
+
+   The row that opens it exists only here. On a sheet the poster is in the
+   room beside the bars and visible already, so a button to reveal it
+   would be a control that does nothing.
+   ===================================================================== */
+/*
+ * Named through the column, because the bar it sits in is a button too.
+ *
+ * .hbw-ind__bars button lays every control in this column out as the
+ * three-track plate a bar is, and a bare .hbw-ind__draw loses to it — so
+ * "display: none" did nothing and the row appeared on sheets as well,
+ * where it is a button to reveal something already in plain sight.
+ */
+.hbw-ind__bars .hbw-ind__draw {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  /* One plate, like every row around it. No module column: the word is a
+     thing to press, not a field with a name beside it. */
+  .hbw-ind__bars .hbw-ind__draw {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: var(--pill-h);
+    padding: 2px var(--pill-x);
+    border: 0;
+    border-radius: var(--pill-r);
+    background: var(--pill-bg);
+    color: var(--mute);
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .hbw-ind__bars .hbw-ind__draw:hover,
+  .hbw-ind__bars .hbw-ind__draw:focus-visible {
+    color: var(--ink);
+  }
+
+  .hbw-ind[data-talk="true"]:not([data-drawing="true"]) .hbw-ind__shot--talk {
+    display: none;
+  }
+}

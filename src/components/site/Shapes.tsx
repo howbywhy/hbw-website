@@ -101,6 +101,16 @@ export function IndexWork({
 }) {
   /** null until the reader moves: at rest this page is the studio. */
   const [at, setAt] = useState<number | null>(null);
+  /*
+   * Whether the drawing is out, which only a phone asks.
+   *
+   * On a sheet the poster has the room beside the bars and is simply
+   * there. On a phone it was there too — four hundred and fifteen pixels
+   * of blank white sheet with an instrument floating on it, half the
+   * screen, above the form somebody opened Talk to use. Every other thing
+   * on this page is behind a press; that was not.
+   */
+  const [drawing, setDrawing] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const bars = useRef<HTMLOListElement>(null);
   const open = at === null ? null : (projects[at] ?? null);
@@ -553,6 +563,7 @@ export function IndexWork({
       /* The foot of the index is the way out, and the nav is not part of
          it — said here so the chrome can stand down from the stylesheet. */
       data-talk={talking ? "true" : undefined}
+      data-drawing={talking && drawing ? "true" : undefined}
     >
       <ol
         className="hbw-ind__bars"
@@ -600,6 +611,20 @@ export function IndexWork({
               {/* The one way of reaching the studio that is not somewhere
                   else, above the ones that are. */}
               <Say />
+              {/*
+                The way to the drawing, for the screen that cannot simply
+                show it. Hidden above 760px, where the poster is already
+                in the room and a button to reveal what is visible would
+                be a control that does nothing.
+              */}
+              <button
+                type="button"
+                className="hbw-ind__draw"
+                aria-expanded={drawing}
+                onClick={() => setDrawing((was) => !was)}
+              >
+                {drawing ? "Put the drawing away" : "Or draw something instead"}
+              </button>
               <Footer line />
             </div>
           ) : (
