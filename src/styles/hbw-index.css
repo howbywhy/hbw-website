@@ -13219,7 +13219,8 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  * read as two type sizes was two heights.
  */
 .hbw-ind__bars a,
-.hbw-ind__bars button {
+.hbw-ind__bars button,
+.hbw-ind__talk-head {
   box-sizing: border-box;
   display: grid;
   grid-template-columns: var(--module) minmax(0, 1fr) auto;
@@ -13709,12 +13710,19 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   --seam-light-span: 0.26;
 
 
-  /* How long the move takes, and the beat before it starts. After the bar,
-     not with it: the bar moving is what tells you the project changed, and
-     the picture answering it a beat later is the order this site does
-     everything in. */
-  --seam-run: calc(var(--in) * 2);
-  --seam-wait: calc(var(--in) * 0.75);
+  /*
+   * How long the move takes, and the beat before it starts. After the bar,
+   * not with it: the bar moving is what tells you the project changed, and
+   * the picture answering it a beat later is the order this site does
+   * everything in.
+   *
+   * Written out rather than as multiples of --in, so this block is exactly
+   * what the tuner prints and what is pasted here is what runs. The whole
+   * mask sits inside prefers-reduced-motion: no-preference, so there is
+   * nothing for --in's zero to switch off that is not already off.
+   */
+  --seam-run: 480ms;
+  --seam-wait: 180ms;
 
   /*
    * Direction 3, right to left. hbw-seam-ltr sends it the other way, and
@@ -14329,4 +14337,47 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   .hbw-tool .hbw-poster-toolbar .hbw-poster-input {
     font-size: 16px;
   }
+}
+
+/* =====================================================================
+   The Talk bar, opened: a module under its own head.
+
+   It wears the bar above it — the same plate from the same rule — and it
+   is inked, because on this page and in the studio's blocks the open one
+   is told apart by its ink and never by a field of its own. Under it the
+   form, and under that the foot, two pixels apart like everything else.
+   ===================================================================== */
+.hbw-ind__talk-head {
+  margin: 0;
+  color: var(--ink);
+}
+
+/*
+ * The foot of the module is a foot.
+ *
+ * The place, the list and the profiles sat at the weight of the form above
+ * them, so the row that is a newsletter read as a second offer beside the
+ * one that is a conversation. It is quiet now and goes to full ink when it
+ * is reached for, which is what every other quiet thing on this site does.
+ */
+.hbw-ind__talk .hbw-end--line {
+  color: var(--mute);
+}
+
+.hbw-ind__talk .hbw-end--line:hover,
+.hbw-ind__talk .hbw-end--line:focus-within {
+  color: var(--ink);
+}
+
+/*
+ * The drawing fills the room it is given.
+ *
+ * In the room the poster ran edge to edge as bare white with its
+ * instrument pinned to the bottom corner — a void with a toolbar on it,
+ * rather than a thing on a plate. It sits on the page's own field now,
+ * inset by the same two pixels as everything else.
+ */
+.hbw-ind__shot--talk {
+  background: var(--pill-bg);
+  border-radius: var(--pill-r);
 }

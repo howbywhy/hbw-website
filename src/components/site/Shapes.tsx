@@ -496,9 +496,18 @@ export function IndexWork({
    *
    * Every other bar is a row high whether it is open or not — the picture
    * is what changes. The last one has no picture: it opens into itself,
-   * and with a form in it that is several rows rather than one. Placed at
-   * a row's height from the top like the rest, it would hang off the foot
-   * of the column, so an open one is placed by its own bottom edge.
+   * and with a form in it that is several rows rather than one.
+   *
+   * It is still placed by the same rule as every other bar: open, it sits
+   * directly under the one above it. Pinning it to the foot of the column
+   * instead — which is what "it will overflow" argues for — put seven bars
+   * at the top of the screen, the form at the bottom, and six hundred
+   * pixels of nothing between them. The column is the stack; a bar that
+   * leaves it is not a bar any more.
+   *
+   * What the height is for is the one place that cannot work it out: a
+   * phone, where the column must be told how tall it is because every bar
+   * in it is positioned.
    */
   const talkBar = useRef<HTMLLIElement>(null);
   const [talkH, setTalkH] = useState(0);
@@ -638,9 +647,7 @@ export function IndexWork({
           data-talk="true"
           style={
             {
-              "--y": `${Math.round(
-                talking && talkH > 0 ? Math.max(0, box - talkH) : placeOf(projects.length)
-              )}px`,
+              "--y": `${Math.round(placeOf(projects.length))}px`,
               "--wait": `${Math.min(Math.abs(projects.length - (at ?? projects.length + 1)) * 18, 140)}ms`,
             } as CSSProperties
           }
@@ -650,6 +657,21 @@ export function IndexWork({
                else the studio is, in the row itself rather than under a
                page that already ends. */
             <div className="hbw-ind__talk">
+              {/*
+                The bar keeps its name when it opens.
+                
+                It did not: opening swapped the whole bar for its contents,
+                so the one row that said Talk vanished at the moment it was
+                pressed and what was left read as a column of loose fields
+                where a bar used to be. Every other bar on this page keeps
+                its name and its mark and changes what is beside it. This
+                one has nothing beside it, so it keeps them above instead,
+                and the form is a module under its own head.
+              */}
+              <p className="hbw-ind__talk-head">
+                <span className="hbw-ind__no" aria-hidden="true" />
+                <span className="hbw-ind__did">Talk</span>
+              </p>
               {/* The one way of reaching the studio that is not somewhere
                   else, above the ones that are. */}
               <Say />

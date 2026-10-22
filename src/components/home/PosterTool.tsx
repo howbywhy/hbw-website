@@ -1982,6 +1982,18 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               </button>
             </div>
           ) : null}
+          {/*
+            Nothing to send until something has been made.
+            
+            The address and the send sat on the bar from the moment the tool
+            appeared, which on the front page meant the first field a reader
+            met inside Talk was one that sends a drawing they have not drawn
+            — above the form that sends what they came to say. They arrive
+            when there is a poster to go with them, which is also the only
+            moment either of them does anything.
+          */}
+          {hasWork ? (
+          <>
           <input
             className={`hbw-poster-input${emailError ? " is-invalid" : ""}`}
             type="email"
@@ -2016,6 +2028,8 @@ export const PosterTool = memo(function PosterTool({ dormant = false, hidden = f
               <span>Send to HBW</span>
             </button>
           </div>
+          </>
+          ) : null}
           {emailError || emailStatus ? (
             <p
               id="hbw-send-status"
