@@ -84,10 +84,17 @@ export default async function run() {
   }
 
   /*
-   * And the one field you type into is not small.
+   * And no field you type into is small.
    *
    * iOS zooms the page on focus below 16px and cannot be asked not to, which
    * throws the layout about and leaves the reader to pinch back.
+   *
+   * This measured one field, on one page, by its class. The front page then
+   * grew a form of its own inside the Talk bar, whose fields came out at
+   * just under twelve pixels and would have zoomed on every tap — the exact
+   * fault this row exists for, missed because the row was looking at a
+   * named element rather than at the question. It asks the question now:
+   * every field a reader can type into, wherever it is.
    */
   const p = await b.newPage();
   await p.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
@@ -99,6 +106,50 @@ export default async function run() {
   });
   s.ok("the signup field is 16px, so nothing zooms", fs !== null && fs >= 16, `${fs}px`);
   await p.close();
+
+  /* And every field on the front page, Talk opened so the form is there. */
+  const q = await b.newPage();
+  await q.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+  await q.goto(BASE + "/", { waitUntil: "networkidle2" });
+  await sleep(4400);
+  await q.evaluate(() =>
+    document.querySelector('.hbw-ind__bars li[data-talk] button')?.click()
+  );
+  await sleep(1800);
+  /*
+   * Fields that raise a keyboard, which are the only ones that zoom.
+   *
+   * A colour swatch opens a picker and a checkbox opens nothing, so their
+   * type size is a matter of looks rather than of the page being thrown
+   * about. Counting them here would have meant either a failing row about
+   * nothing or a reason to loosen the one that matters.
+   */
+  const TYPED = "text,email,tel,url,search,password,number,date,datetime-local,month,time,week";
+  const small = await q.evaluate((kinds) =>
+    [...document.querySelectorAll("input, textarea")]
+      .filter((e) => e.tagName === "TEXTAREA" || kinds.split(",").includes(e.type))
+      .filter((e) => !String(e.className).includes("trap") && e.offsetParent !== null)
+      .map((e) => ({
+        what: e.tagName.toLowerCase() + (e.type ? ":" + e.type : ""),
+        px: parseFloat(getComputedStyle(e).fontSize),
+      }))
+      .filter((e) => e.px < 16)
+  , TYPED);
+  const counted = await q.evaluate(
+    (kinds) =>
+      [...document.querySelectorAll("input, textarea")]
+        .filter((e) => e.tagName === "TEXTAREA" || kinds.split(",").includes(e.type))
+        .filter((e) => !String(e.className).includes("trap") && e.offsetParent !== null).length,
+    TYPED
+  );
+  s.ok(
+    "and so is every field you can type into on the front page",
+    counted > 0 && small.length === 0,
+    small.length
+      ? small.map((e) => `${e.what} ${e.px}px`).join(", ")
+      : `${counted} fields, all 16px or more`
+  );
+  await q.close();
 
   await b.close();
   return s;

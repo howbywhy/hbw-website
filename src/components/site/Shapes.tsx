@@ -15,6 +15,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { Footer } from "@/components/site/Footer";
+import { Say } from "@/components/site/Say";
 import { useNavSettled } from "@/components/site/navSettled";
 
 /*
@@ -490,6 +491,27 @@ export function IndexWork({
     return () => watch.disconnect();
   }, []);
 
+  /*
+   * How tall the last bar is, which is the only one that is not a row.
+   *
+   * Every other bar is a row high whether it is open or not — the picture
+   * is what changes. The last one has no picture: it opens into itself,
+   * and with a form in it that is several rows rather than one. Placed at
+   * a row's height from the top like the rest, it would hang off the foot
+   * of the column, so an open one is placed by its own bottom edge.
+   */
+  const talkBar = useRef<HTMLLIElement>(null);
+  const [talkH, setTalkH] = useState(0);
+  useEffect(() => {
+    const el = talkBar.current;
+    if (!el) return;
+    const measure = () => setTalkH(el.getBoundingClientRect().height);
+    measure();
+    const watch = new ResizeObserver(measure);
+    watch.observe(el);
+    return () => watch.disconnect();
+  }, [talking]);
+
   /* Passed bars stack from the top; the rest wait at the foot in order. */
   const count = projects.length + 1;
   const placeOf = (i: number) =>
@@ -589,6 +611,10 @@ export function IndexWork({
     <div
       className="hbw-ind"
       ref={root}
+      /* How tall the last bar actually is, for the one place that cannot
+         work it out: a phone, where the column is told its height because
+         every bar in it is positioned. */
+      style={talking && talkH > 0 ? ({ "--talk-h": `${Math.round(talkH)}px` } as CSSProperties) : undefined}
       data-open={open || talking ? "true" : "false"}
       /* The foot of the index is the way out, and the nav is not part of
          it — said here so the chrome can stand down from the stylesheet. */
@@ -607,11 +633,14 @@ export function IndexWork({
             way out of them. */}
         <li
           key="talk"
+          ref={talkBar}
           data-here={talking ? "true" : undefined}
           data-talk="true"
           style={
             {
-              "--y": `${Math.round(placeOf(projects.length))}px`,
+              "--y": `${Math.round(
+                talking && talkH > 0 ? Math.max(0, box - talkH) : placeOf(projects.length)
+              )}px`,
               "--wait": `${Math.min(Math.abs(projects.length - (at ?? projects.length + 1)) * 18, 140)}ms`,
             } as CSSProperties
           }
@@ -621,6 +650,9 @@ export function IndexWork({
                else the studio is, in the row itself rather than under a
                page that already ends. */
             <div className="hbw-ind__talk">
+              {/* The one way of reaching the studio that is not somewhere
+                  else, above the ones that are. */}
+              <Say />
               <Footer line />
             </div>
           ) : (

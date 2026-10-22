@@ -67,8 +67,24 @@ export default async function run() {
   const talk = await p.evaluate(() => ({
     mail: document.querySelectorAll('.hbw-ind__talk a[href^="mailto:"]').length,
     field: document.querySelectorAll(".hbw-ind__talk .hbw-end__field").length,
+    form: Boolean(document.querySelector(".hbw-ind__talk form.hbw-say")),
+    wrote: Boolean(document.querySelector(".hbw-say textarea")),
+    sends: Boolean(document.querySelector('.hbw-say__foot button[type="submit"]')),
   }));
   s.ok("opened, it carries a way to get in touch", talk.mail >= 1, `${talk.mail} addresses`);
+  /*
+   * And a form, which is the only one of them that is not somewhere else.
+   *
+   * An address is a thing to copy into another application; this is the
+   * way in that happens here. Checked for its parts rather than its
+   * presence, because a form missing the field somebody writes in is a
+   * form that looks finished and is not.
+   */
+  s.ok(
+    "and a form to write in, with somewhere to write",
+    talk.form && talk.wrote && talk.sends,
+    `form ${talk.form}, message field ${talk.wrote}, send ${talk.sends}`
+  );
   s.ok(
     "and the signup, which lives nowhere else",
     talk.field === 1,

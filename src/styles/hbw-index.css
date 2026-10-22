@@ -13983,6 +13983,22 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   }
 
   /*
+   * Except when the last bar is open, which is the one that is not a row.
+   *
+   * The height above is eight bars at one row each, which is every bar on
+   * this page but one: the last opens into a form several rows deep, and
+   * in a column sized for rows it ran off the bottom of the screen. Seven
+   * rows and then whatever the last one actually measures — --talk-h,
+   * which the page sets because a column of positioned bars cannot work
+   * its own height out. The picture above gives up the difference.
+   */
+  .hbw-ind[data-talk="true"] .hbw-ind__bars {
+    height: calc(
+      (var(--bars) - 1) * (var(--pill-h) + var(--edge)) + var(--talk-h, var(--pill-h))
+    );
+  }
+
+  /*
    * One clean line is a sheet's answer, not a phone's: the place, the list
    * and the two profiles come to 417px of content in a 390px screen, and
    * the one line squeezed the field down to "you@c".
@@ -14092,5 +14108,225 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 @media (max-width: 760px) {
   .hbw-studio-doc .hbw-part__name {
     grid-template-columns: calc(var(--module) / 2) minmax(0, 1fr);
+  }
+}
+
+/* =====================================================================
+   Writing to the studio, in the bar that says Talk.
+
+   The last bar opened to the ways of reaching the studio and every one of
+   them was somewhere else: an address to copy, a list that is not a
+   conversation, two profiles. The form is the one that is not, so it goes
+   above them.
+
+   Its rows are the plates the rest of the bar is made of — the same 24px,
+   the same 2px by 7px, the same field — on the same module the bars and
+   the studio's blocks use, so the label column lines up with the mark
+   above it. A form in here is more of the same object, not a form dropped
+   into a page of plates.
+   ===================================================================== */
+.hbw-ind__talk {
+  display: grid;
+  gap: var(--edge);
+  min-width: 0;
+}
+
+.hbw-say {
+  display: grid;
+  gap: var(--edge);
+  min-width: 0;
+  margin: 0;
+}
+
+.hbw-say__row {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: var(--module) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--pill-x);
+  min-height: var(--pill-h);
+  padding: 2px var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+}
+
+/* The one row that is a paragraph: its label sits at the first line
+   rather than in the middle of a field three lines deep. */
+.hbw-say__row--say {
+  align-items: start;
+  padding-block: 4px;
+}
+
+.hbw-say__row label {
+  color: var(--mute);
+}
+
+.hbw-say input,
+.hbw-say textarea {
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.hbw-say textarea {
+  line-height: 1.45;
+  /* The row is as tall as the rows asked for and no taller: a handle that
+     drags one plate out of line with every other plate on the page is a
+     control nobody wants and this page cannot absorb. */
+  resize: none;
+}
+
+.hbw-say input::placeholder,
+.hbw-say textarea::placeholder {
+  color: var(--mute);
+}
+
+.hbw-say input:focus,
+.hbw-say textarea:focus {
+  outline: none;
+}
+
+.hbw-say__row:focus-within {
+  background: var(--pill-on, var(--pill-bg));
+}
+
+/* The button sits at the end of the form, at the width of its word. */
+.hbw-say__foot {
+  display: flex;
+  justify-content: flex-end;
+  min-height: var(--pill-h);
+}
+
+.hbw-say__foot button {
+  box-sizing: border-box;
+  min-height: var(--pill-h);
+  padding: 2px var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  color: var(--mute);
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.hbw-say__foot button:hover,
+.hbw-say__foot button:focus-visible {
+  color: var(--ink);
+}
+
+.hbw-say__foot button[disabled] {
+  cursor: default;
+}
+
+/* What went wrong, and the address to use instead — on one plate, because
+   a failure that is not as legible as the form is a failure twice. */
+.hbw-say__said,
+.hbw-say__done {
+  box-sizing: border-box;
+  /*
+   * A block, not a flex row.
+   *
+   * As a row the sentence and the address were two items that would not
+   * shrink, so on a phone the address was simply cut off at the edge of
+   * the plate — which is the one piece of writing here that has to
+   * survive, because it is what to do instead. Flowed, it wraps.
+   */
+  display: block;
+  min-height: var(--pill-h);
+  margin: 0;
+  padding: 2px var(--pill-x);
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  color: var(--ink);
+}
+
+/*
+ * A phone has no module to spare beside a label — and no room to stack one
+ * over it either.
+ *
+ * Stacking was the first answer and it is the wrong one twice: it makes
+ * every row two lines instead of one, which is the rhythm this page is
+ * built on broken in the one bar that opens, and it made the whole thing
+ * seventy-eight pixels taller than the column it lives in. The label stays
+ * in the document for anyone who cannot see the placeholder standing in
+ * for it, and the row stays one plate high.
+ */
+@media (max-width: 760px) {
+  .hbw-say__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .hbw-say__row label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Two lines of writing, not three: the bar has to end above the foot of
+     the screen and the reader can scroll inside the field if they write
+     more. */
+  .hbw-say__row--say textarea {
+    max-height: 2.9em;
+    overflow-y: auto;
+  }
+
+  /*
+   * 16px, or the phone zooms the page when a field takes focus.
+   *
+   * The signup two rows below made this trade the other way round once and
+   * came back to it: iOS will not be asked not to zoom, and a zoom cannot
+   * be undone by the page, so a reader who taps a field is left looking at
+   * a magnified fragment of a layout built to be one screen. This is the
+   * form somebody writes a paragraph into, so it is the worst place on the
+   * site for that to happen.
+   *
+   * The rhythm survives it: the row stays 24px with the padding taken off
+   * the block edges, exactly as the signup's does, so 16px of type sits in
+   * a 24px plate and the 2px between the plates is still 2px.
+   */
+  .hbw-say input,
+  .hbw-say textarea {
+    font-size: 16px;
+  }
+
+  .hbw-say__row {
+    padding-block: 0;
+  }
+
+  .hbw-say__row--say {
+    padding-block: 4px;
+  }
+}
+
+/* =====================================================================
+   The poster's address field is 16px on a phone, and stays 16px.
+
+   It was already told to be, at the top of the tool's own mobile block —
+   and then told to be --nav again, eleven and nine tenths of a pixel, by a
+   later rule with the same specificity that was only trying to set the
+   width and the field. Later wins, so the anti-zoom rule has been losing
+   silently ever since: tapping the address on a phone zoomed the page, on
+   a layout built to be one screen, and nothing said so.
+
+   The check that found it now asks the question of every field a reader
+   can type into rather than of one element by name, which is why this
+   turned up at all.
+   ===================================================================== */
+@media (max-width: 760px) {
+  .hbw-tool .hbw-poster-toolbar .hbw-poster-input {
+    font-size: 16px;
   }
 }
