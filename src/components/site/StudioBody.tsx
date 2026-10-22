@@ -425,7 +425,10 @@ export function StudioBody({ start }: { start?: string }) {
           aria-expanded={here === "practice"}
           onClick={() => setHere("practice")}
         >
-          Practice
+          {/* The same mark the front page uses, doing the same job:
+              where you are, rather than which number this is. */}
+          <span className="hbw-part__no" aria-hidden="true" />
+          <span className="hbw-part__did">Practice</span>
         </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
@@ -457,7 +460,10 @@ export function StudioBody({ start }: { start?: string }) {
           aria-expanded={here === "approach"}
           onClick={() => setHere("approach")}
         >
-          Approach
+          {/* The same mark the front page uses, doing the same job:
+              where you are, rather than which number this is. */}
+          <span className="hbw-part__no" aria-hidden="true" />
+          <span className="hbw-part__did">Approach</span>
         </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
@@ -480,7 +486,10 @@ export function StudioBody({ start }: { start?: string }) {
           aria-expanded={here === "process"}
           onClick={() => setHere("process")}
         >
-          Process
+          {/* The same mark the front page uses, doing the same job:
+              where you are, rather than which number this is. */}
+          <span className="hbw-part__no" aria-hidden="true" />
+          <span className="hbw-part__did">Process</span>
         </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
@@ -520,7 +529,10 @@ export function StudioBody({ start }: { start?: string }) {
           aria-expanded={here === "manifesto"}
           onClick={() => setHere("manifesto")}
         >
-          Manifesto
+          {/* The same mark the front page uses, doing the same job:
+              where you are, rather than which number this is. */}
+          <span className="hbw-part__no" aria-hidden="true" />
+          <span className="hbw-part__did">Manifesto</span>
         </button>
         <div className="hbw-part__say">
           <div className="hbw-part__col">
@@ -571,7 +583,10 @@ export function StudioBody({ start }: { start?: string }) {
             aria-expanded={here === "contact"}
             onClick={() => setHere("contact")}
           >
-            Talk
+            {/* The same mark the front page uses, doing the same job:
+                where you are, rather than which number this is. */}
+            <span className="hbw-part__no" aria-hidden="true" />
+            <span className="hbw-part__did">Talk</span>
           </button>
           {tool ? (
             <button type="button" className="hbw-part__exit" onClick={shutTool}>

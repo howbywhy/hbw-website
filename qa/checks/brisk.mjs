@@ -50,15 +50,19 @@ const BUDGET = {
    * everything before it is the landing above, everything from it is this.
    *
    * The budget is the design's own arithmetic rather than what the page
-   * happens to do. --in is 240ms: the chrome may take its 1,100, the beat
-   * before the open is three of those (720ms), the picture waits another
-   * three quarters of one (180ms) and wipes over one and a half (360ms).
-   * That is 2,360ms if every part spends its whole allowance; the page
-   * measures 1,804. Lengthen the beat or slow the chrome and this fails,
-   * which is the point — it is a ceiling on the sequence, not a note of
-   * what it currently costs.
+   * happens to do: the chrome may take its 1,100, the hold before the open
+   * is --hold, and then the picture waits three quarters of a beat (180ms)
+   * and wipes over two of them (480ms).
+   *
+   * --hold is the reading time for the positioning line and has been
+   * raised twice — 120ms, then 720ms, now 2,000ms — because at each of
+   * those the work came up before the line had been read. So this number
+   * moves with it by design, and it is the one budget here that is mostly
+   * a deliberate pause rather than work being done. What it still catches
+   * is the rest: a chrome that takes longer to assemble, or a wipe that
+   * grows, both of which would push past it without touching the hold.
    */
-  "the front page opens its first project": { settled: 2360, nav: 2000 },
+  "the front page opens its first project": { settled: 3760, nav: 3400 },
   /*
    * About's nav at 450 was inside its own spread, which makes a row that
    * decides by coin toss rather than by the site.
@@ -172,7 +176,9 @@ export default async function run() {
   await p.setViewport({ width: 1440, height: 900 });
   await p.evaluateOnNewDocument(WATCH);
   await p.goto(BASE + "/", { waitUntil: "domcontentloaded" });
-  await sleep(4000);
+  /* Past the hold and the wipe that follows it, or the opening half is
+     measured while it is still happening. */
+  await sleep(5200);
   judge(s, "landing on the front page", await read(p, "landing"));
   judge(s, "the front page opens its first project", await read(p, "opening"));
 
@@ -189,7 +195,7 @@ export default async function run() {
   await p.setViewport({ width: 1440, height: 900 });
   await p.evaluateOnNewDocument(WATCH);
   await p.goto(BASE + "/", { waitUntil: "domcontentloaded" });
-  await sleep(5000);
+  await sleep(5200);
   /*
    * The sequence is fetched first, so this times the choreography and not
    * the server.

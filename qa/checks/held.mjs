@@ -239,7 +239,7 @@ async function seamBend() {
   const p = await b.newPage();
   await p.setViewport({ width: 1440, height: 900 });
   await p.goto(BASE, { waitUntil: "domcontentloaded" });
-  await sleep(3800);
+  await sleep(4400);
   await p.evaluate(() =>
     document
       .querySelector(".hbw-ind")
@@ -305,7 +305,7 @@ async function seamSteps() {
   const p = await b.newPage();
   await p.setViewport({ width: 1440, height: 900 });
   await p.goto(BASE, { waitUntil: "domcontentloaded" });
-  await sleep(3800);
+  await sleep(4400);
 
   const shot = ".hbw-ind__shot img, .hbw-ind__shot video";
   const found = await p.$(shot);

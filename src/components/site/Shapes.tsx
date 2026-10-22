@@ -228,15 +228,16 @@ export function IndexWork({
     /*
      * Held, so the studio is read rather than glimpsed.
      *
-     * 120ms after the bar stopped was not a hold, it was a stutter: the
-     * positioning arrived and the work came up over it before anybody had
-     * finished the line. Three beats of the site's own --in gives it the
-     * length of a sentence, and the work follows that rather than
-     * interrupting it.
+     * The length of the hold is --hold, in the stylesheet beside the rest
+     * of the site's timing, because it is a reading time and not a
+     * transition — the note there says how it was arrived at. It has been
+     * raised twice: 120ms was a stutter, and 720ms was still shorter than
+     * the positioning line takes to read, so the work came up over it
+     * before anybody had finished.
      */
     const open = window.setTimeout(() => {
       if (!touched.current) setAt(0);
-    }, beat("--in", 240) * 3);
+    }, beat("--hold", 2000));
     return () => window.clearTimeout(open);
   }, [settled]);
 

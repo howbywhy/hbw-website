@@ -3613,6 +3613,23 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* How far a thing travels as it arrives. Small: the distance is a hint. */
   --rise: 14px;
+  /*
+   * How long the front page holds on the studio before it opens the work.
+   *
+   * Not a transition — a pause, and the only one on the site. The index
+   * lands saying How by Why and the positioning line, and then hands the
+   * nav over to the first project. Whatever this is, is how long a reader
+   * has to take that line in.
+   *
+   * It was 120ms, which was a stutter rather than a hold; then three beats
+   * of --in, 720ms, which is still less than the line takes to read. The
+   * positioning is seven words. At the pace anybody actually reads a line
+   * they did not ask for, that is the better part of two seconds, and it
+   * arrives after the mark rather than with it. So: two seconds, which is
+   * long enough to finish the sentence and be ready for the work rather
+   * than interrupted by it.
+   */
+  --hold: 2000ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3621,6 +3638,14 @@ body:has(.hbw-loop):not(:has(.hbw-lamp)):not(:has(.hbw-studio-sheet)) {
     --out: 0ms;
     --quick: 0ms;
     --rise: 0px;
+    /*
+     * Shorter, but not nothing.
+     *
+     * Reduced motion asks for less movement, not less reading time — and
+     * with the moves gone the hand-over is a cut, which is quicker to miss
+     * than a sequence, not slower.
+     */
+    --hold: 1200ms;
   }
 }
 
@@ -13216,7 +13241,8 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
  * are on says the same thing without being read — and the column keeps
  * its width either way, so the type beside it never moves.
  */
-.hbw-ind__no {
+.hbw-ind__no,
+.hbw-part__no {
   grid-column: 1;
   justify-self: start;
   align-self: center;
@@ -13230,14 +13256,16 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hbw-ind__no {
+  .hbw-ind__no,
+  .hbw-part__no {
     transition:
       transform var(--in) var(--ease),
       opacity var(--in) var(--ease);
   }
 }
 
-.hbw-ind__bars li[data-here="true"] .hbw-ind__no {
+.hbw-ind__bars li[data-here="true"] .hbw-ind__no,
+.hbw-studio-doc .hbw-part[data-open="true"] .hbw-part__no {
   opacity: 1;
   transform: scaleX(1);
 }
@@ -14023,4 +14051,45 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 .hbw-site:has(.hbw-ind) {
   padding-bottom: 0;
   min-height: 0;
+}
+
+/* =====================================================================
+   The studio's blocks are the front page's bars.
+
+   They already agreed on everything a stylesheet usually gets wrong — the
+   same 24px height, the same 2px by 7px, the same radius, the same type at
+   the same size, the same ink on the one that is open. What they did not
+   share was the one thing that says anything: the mark that fills on the
+   block you are on. The front page had it and the studio counted on the
+   reader noticing a field change instead.
+
+   So the block is laid out the way a bar is, on the same module, and the
+   mark is the same rule rather than a second one that looks like it — both
+   are styled together above, so neither can drift.
+
+   The ground stays as it was. A bar on the front page sits over a
+   photograph and is two thirds opaque so the work reads through it; a block
+   sits on the sheet, where that would be a smear rather than a window.
+   ===================================================================== */
+.hbw-studio-doc .hbw-part__name {
+  display: grid;
+  grid-template-columns: var(--module) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--pill-x);
+}
+
+.hbw-part__did {
+  grid-column: 2;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* A phone has no room for a module's worth of rule beside four letters, and
+   the front page drops it there for the same reason. */
+@media (max-width: 760px) {
+  .hbw-studio-doc .hbw-part__name {
+    grid-template-columns: calc(var(--module) / 2) minmax(0, 1fr);
+  }
 }
