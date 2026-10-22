@@ -82,10 +82,58 @@ async function shownBrowser() {
   );
 }
 
+/**
+ * Measure one page, and always put its tab away.
+ *
+ * The work is in watch() so that this can wrap it in a finally without
+ * indenting sixty lines. That finally is the point: when watch() threw,
+ * the close below it never ran, so a failed page stayed open for the rest
+ * of the run — and eight pages into a browser already struggling is how
+ * one bad measurement turned into four.
+ */
 async function measure(b, path) {
   const p = await b.newPage();
+  try {
+    return await watch(p, path);
+  } finally {
+    await p.close().catch(() => {});
+  }
+}
+
+async function watch(p, path) {
   await p.goto(BASE + path, { waitUntil: "domcontentloaded" });
   await sleep(6500);
+
+  /*
+   * Whether the page left while it was being measured.
+   *
+   * A scroll that reaches the end of a project's gallery can hand over to
+   * the next one, which is a navigation in the middle of the run: the
+   * frame detaches and whatever is mid-flight comes back as "Attempted to
+   * use detached Frame", or the wheel lands on a closed target. That is a
+   * real thing to know about and an unreadable way to be told it, so it
+   * is watched for and said plainly. Attached after the landing, so the
+   * arrival itself is not mistaken for leaving.
+   */
+  let left = null;
+  const here = new URL(p.url()).pathname;
+  p.on("framenavigated", (frame) => {
+    if (frame !== p.mainFrame()) return;
+    /*
+     * By path, not by the whole address.
+     *
+     * A project page writes a frame into its own query string as the
+     * gallery moves, which is the same page still — compared whole, every
+     * project reported that it had left for itself.
+     */
+    let gone;
+    try {
+      gone = new URL(frame.url()).pathname;
+    } catch {
+      return;
+    }
+    if (gone !== here) left = gone;
+  });
 
   /*
    * What moves is recorded as well as how smoothly.
@@ -175,12 +223,40 @@ async function measure(b, path) {
       moved: Math.round(movedWindow + movedBox + movedSteps),
     };
   });
-  await p.close();
+  if (left) {
+    throw new Error(`the page left for ${left} while it was being measured`);
+  }
   return out;
 }
 
 export default async function run() {
   const s = sheet("the site holds its frame rate while you scroll");
+
+  /*
+   * Only when asked, because this one takes the screen.
+   *
+   * It needs a real window on a real GPU — headless answers this question
+   * with a perfect frame rate on a page that is dropping them — and a
+   * real window means Chrome opening over whatever you were doing, eight
+   * times, for about a minute. Run during ordinary work that is both an
+   * interruption and a worse measurement: a window competing for the
+   * compositor with everything else on the screen is exactly the
+   * condition that produced "detached Frame" and "Target closed" through
+   * most of a day's runs.
+   *
+   * So it is off unless QA_SHOWN is set, and says so in one line rather
+   * than reporting eight pages unmeasured. It is not reported as passing:
+   * a check that did not run has not passed.
+   */
+  if (!process.env.QA_SHOWN) {
+    s.ok(
+      "measured in a real window",
+      null,
+      "not run — it opens Chrome over your work. QA_SHOWN=1 to measure"
+    );
+    return s;
+  }
+
   let b;
   try {
     b = await shownBrowser();
@@ -193,10 +269,48 @@ export default async function run() {
 
   for (const path of PAGES) {
     let m;
-    try {
-      m = await measure(b, path);
-    } catch (error) {
-      s.ok(path, null, "could not measure: " + error.message.slice(0, 60));
+    let why = null;
+    /*
+     * Twice at most, in a clean window the second time.
+     *
+     * The failures here are not the page failing — they are the harness
+     * losing its grip on a real Chrome under load: a target closed, a
+     * frame detached, a navigation aborted. A browser that has just done
+     * one of those is not a browser the next page should be measured in
+     * either, so it is replaced rather than reused; before that was done,
+     * one bad page reported four.
+     *
+     * The second attempt is for the hiccup, not for the result. Nothing
+     * here retries a measurement that came back and did not like what it
+     * found — a page over budget is reported the first time and every
+     * time. This only takes a second run at a page that never produced a
+     * number at all.
+     */
+    for (let go = 0; go < 2 && !m; go += 1) {
+      if (go > 0) {
+        await b.close().catch(() => {});
+        try {
+          b = await shownBrowser();
+        } catch (again) {
+          s.ok("a window for the pages that are left", null, again.message.slice(0, 80));
+          return s;
+        }
+      }
+      try {
+        m = await measure(b, path);
+      } catch (error) {
+        why = error.message.slice(0, 70);
+      }
+    }
+    if (!m) {
+      s.ok(path, null, "could not measure, twice over: " + why);
+      await b.close().catch(() => {});
+      try {
+        b = await shownBrowser();
+      } catch (again) {
+        s.ok("a window for the pages that are left", null, again.message.slice(0, 80));
+        return s;
+      }
       continue;
     }
     const share = m.frames ? m.janky / m.frames : 0;

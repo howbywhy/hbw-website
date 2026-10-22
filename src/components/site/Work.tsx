@@ -453,6 +453,30 @@ export function Work({
 
   const leave = useCallback(
     (slug: string, at: number) => {
+      /*
+       * The nav is told at the press, before anything else moves.
+       *
+       * It used to be told by the effect that watches `open`, which does
+       * not run until show() has set it — and show() runs after the
+       * leaving animation, so the order on the front page was: the work
+       * departs, the gallery lifts, and only then does the chrome say
+       * where you are. The one rule this site is sequenced by is that the
+       * nav leads and what follows waits, and on the press that matters
+       * most it was arriving third.
+       *
+       * Said here, it moves on the press and the gallery comes up behind
+       * it. The effect still says the same thing when `open` lands, which
+       * is the same words with the same standing, so the line is not
+       * remounted twice and nothing arrives again.
+       */
+      const into = projects.find((one) => one.slug === slug);
+      if (into) {
+        window.dispatchEvent(
+          new CustomEvent("hbw:over", {
+            detail: { name: into.name, says: into.idea, into: true },
+          })
+        );
+      }
       const turn = document.querySelector<HTMLElement>(".hbw-turn");
       if (!turn || stillness) {
         void show(slug, at);
@@ -481,7 +505,7 @@ export function Work({
       window.setTimeout(() => void show(slug, at), ms);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [stillness, learn]
+    [stillness, learn, projects]
   );
 
   const show = useCallback(
@@ -724,7 +748,7 @@ export function Work({
    * positioning line get their own place back at the top of the page.
    */
   useEffect(() => {
-    const say = (detail: { name: string; says: string } | null) =>
+    const say = (detail: { name: string; says: string; into?: boolean } | null) =>
       window.dispatchEvent(new CustomEvent("hbw:over", { detail }));
     /*
      * A project open is a project you are standing in.
@@ -744,7 +768,17 @@ export function Work({
        * idea beneath.
        */
       const here = projects.find((one) => one.slug === open.slug);
-      say({ name: open.name, says: here?.idea ?? open.says });
+      /*
+       * into: the project is open, not merely the one being stood on.
+       *
+       * The front page hands the chrome over as a reader steps, so by the
+       * time they press, the bar is already saying this project's name
+       * and this project's line — and telling it the same thing again
+       * changed nothing, so the nav sat still while the gallery came up
+       * on its own. This is the same words with a different standing, and
+       * the bar arrives on it.
+       */
+      say({ name: open.name, says: here?.idea ?? open.says, into: true });
       return;
     }
     let waiting = 0;

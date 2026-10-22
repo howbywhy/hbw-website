@@ -233,19 +233,49 @@ export function IndexWork({
      * third step through from the same flick, and the index went past two
      * or three at a time.
      *
-     * The gate is quiet rather than elapsed: every event pushes the next
-     * opening further out, so no amount of tail can reach it. The step is
-     * taken on the first event of a gesture, and the next one cannot come
-     * until the wheel has actually stopped.
+     * So the gate was made quiet rather than elapsed: every event pushed
+     * the next opening further out, and the step was taken on the first
+     * event of a gesture. That stopped the index running past — and the
+     * sentence it was written with gives away what it cost: the next step
+     * could not come until the wheel had actually stopped. On a trackpad
+     * the wheel does not stop for a second or more after the hand has
+     * left it, so a second flick inside that tail did nothing at all, and
+     * a third did nothing, and the page felt stuck.
+     *
+     * A tail can be told from a hand without timing it. Momentum only
+     * decays: once it is falling it keeps falling until it dies. A hand
+     * pushing again is a rise. So the deltas are watched rather than the
+     * clock — three in a row that do not grow is momentum, and momentum
+     * neither takes a step nor holds the gate shut. The gate then opens a
+     * sixth of a second after the hand stopped pushing, rather than a
+     * second or more after the hardware stopped reporting.
+     *
+     * The short gate that remains is for the ramp, where one flick's
+     * first few events do all rise.
      */
+    const GAP = 200;
+    const FALLS = 3;
     let quiet = 0;
+    let last = 0;
+    let falling = 0;
+    let at = 0;
     const wheel = (event: WheelEvent) => {
-      if (Math.abs(event.deltaY) < 2) return;
+      const push = Math.abs(event.deltaY);
+      if (push < 2) return;
       event.preventDefault();
       const now = Date.now();
-      const resting = now >= quiet;
-      quiet = now + 160;
-      if (resting) step(event.deltaY > 0 ? 1 : -1);
+      /* A gap this long is a new gesture, whatever the last one was
+         doing when it stopped being reported. */
+      if (now - at > GAP) {
+        falling = 0;
+        last = 0;
+      }
+      at = now;
+      falling = push <= last ? falling + 1 : 0;
+      last = push;
+      if (falling >= FALLS) return;
+      if (now >= quiet) step(event.deltaY > 0 ? 1 : -1);
+      quiet = now + 170;
     };
     /* The same rule for a thumb: one project per swipe, however far the
        swipe goes, decided when it passes 36px and not again until it is

@@ -226,7 +226,12 @@ export function Bar({
    * order of the work and the bar does not, so the page says so and this
    * listens — no wiring between two components that never meet.
    */
-  const [over, setOver] = useState<null | { name: string; says: string }>(null);
+  /*
+   * `into` says whether the project is open or only the one being stood
+   * on, which the index and an open gallery would otherwise tell the bar
+   * in identical words — see the key on the line below.
+   */
+  const [over, setOver] = useState<null | { name: string; says: string; into?: boolean }>(null);
 
 
   /*
@@ -439,9 +444,18 @@ export function Bar({
                 Keyed on the project, so each line is a new element and can
                 arrive. Without it React edits the text of the one that is
                 already there, which is a swap with nothing to animate.
+
+                And on whether it is open, because on the front page the
+                nav has already said the project's name before anybody
+                presses it: standing on a bar hands the chrome over, so
+                the press that opened the work told the bar exactly what
+                it was already saying and nothing arrived at all. The one
+                move on this site that leads everything else did not
+                happen on the one press that most needed it — the gallery
+                came up on its own and the chrome sat still through it.
               */}
               {over && !sheet ? (
-                <p key={over.name} className="hbw-bar__over">
+                <p key={`${over.name}${over.into ? ":in" : ""}`} className="hbw-bar__over">
                   {over.says}
                 </p>
               ) : null}
