@@ -105,6 +105,45 @@ export default async function run() {
     await p.close();
   }
 
+  /*
+   * And Talk takes the room back.
+   *
+   * The last bar stands the chrome down — there is no work on screen at
+   * that point and the nav has nothing to say. The reserve did not know
+   * that, so Talk opened with 58px of nothing across the top holding a
+   * place for a nav that had deliberately left. Nothing in the suite was
+   * looking: every check that opens Talk is about gestures, and every
+   * check about the nav's place leaves Talk shut.
+   */
+  const t = await b.newPage();
+  await t.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 });
+  await t.goto(BASE + "/", { waitUntil: "domcontentloaded" });
+  await sleep(4600);
+  await t.evaluate(() => document.querySelector('.hbw-ind__bars li[data-talk] > button')?.click());
+  await sleep(2200);
+  const talk = await t.evaluate(() => {
+    const bar = document.querySelector(".hbw-bar");
+    const ind = document.querySelector(".hbw-ind");
+    const bars = document.querySelector(".hbw-ind__bars");
+    return {
+      open: document.querySelector(".hbw-ind")?.dataset.talk === "true",
+      navGone: getComputedStyle(bar).opacity === "0",
+      pad: Math.round(parseFloat(getComputedStyle(ind).paddingTop)),
+      top: Math.round(bars.getBoundingClientRect().top),
+    };
+  });
+  await t.close();
+
+  if (!talk.open) {
+    s.ok("Talk takes the room back when the nav stands down", null, "Talk never opened");
+  } else {
+    s.ok(
+      "Talk takes the room back when the nav stands down",
+      talk.navGone && talk.pad <= 4 && talk.top <= 4,
+      `nav hidden ${talk.navGone}, reserve ${talk.pad}px, the bars start at ${talk.top}px`
+    );
+  }
+
   await b.close();
   return s;
 }

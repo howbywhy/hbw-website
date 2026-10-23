@@ -32,6 +32,17 @@ const PAGES = ["/", "/projects/bar-closed", "/projects/koja", "/practice"];
 
 /* Rows that span the window and so must paint all of it. */
 const SOLID = [".hbw-lamp__feet", ".hbw-lamp__bar"];
+
+/*
+ * Grids whose gutter is asked of the declaration, not of the pixels.
+ *
+ * The contact sheet's rows come out fractional — 55.78, 55.80, 53.86 —
+ * so the browser snaps their edges to device pixels and the rendered gaps
+ * read 1.67 to 2.45 while every one of them is a 2px gap. Measuring the
+ * positions here would report a fault that is only rounding; measuring
+ * the declaration holds the rule without inventing one.
+ */
+const GRIDS = [".hbw-lamp__pages"];
 const SIZES = [
   { name: "a phone", width: 390, height: 844, touch: true },
   { name: "a laptop", width: 1440, height: 900, touch: false },
@@ -121,6 +132,17 @@ const holes = (rows) => {
   return found;
 };
 
+/** A grid's own gutter, as declared rather than as rounded. */
+const declared = (sels) =>
+  sels
+    .map((sel) => {
+      const e = document.querySelector(sel);
+      if (!e) return null;
+      const cs = getComputedStyle(e);
+      return { sel, row: cs.rowGap, column: cs.columnGap };
+    })
+    .filter(Boolean);
+
 export default async function run() {
   const b = await browser();
   const s = sheet("two plates that read as a pair are two pixels apart");
@@ -139,6 +161,30 @@ export default async function run() {
       await sleep(4600);
       const pairs = await p.evaluate(measure, NEAR);
       const gaps = await p.evaluate(holes, SOLID);
+
+      /*
+       * And again with the writing open, which nothing was looking at.
+       * The reading panel and the contact sheet only exist in that state,
+       * so every gutter in them went unmeasured until a phone screenshot
+       * put them side by side with the rest.
+       */
+      const opened = await p.evaluate(() => {
+        const b = [...document.querySelectorAll("button")].find(
+          (x) => x.textContent.trim() === "Information"
+        );
+        if (!b) return false;
+        b.click();
+        return true;
+      });
+      let reading = null;
+      if (opened) {
+        await sleep(2000);
+        reading = {
+          pairs: await p.evaluate(measure, NEAR),
+          gaps: await p.evaluate(holes, SOLID),
+          grids: await p.evaluate(declared, GRIDS),
+        };
+      }
       await p.close();
 
       if (pairs.length === 0) {
@@ -165,6 +211,30 @@ export default async function run() {
         gaps.length === 0,
         gaps.length ? gaps.slice(0, 4).join(", ") : "no unpainted runs"
       );
+
+      if (reading) {
+        const off = reading.pairs.filter((one) => Math.abs(one.gap - GUTTER) > 0.5);
+        s.ok(
+          `${size.name} ${path}: and with the writing open`,
+          off.length === 0 && reading.gaps.length === 0,
+          off.length || reading.gaps.length
+            ? [...off.map((o) => `${o.a}|${o.b} ${o.gap}px`), ...reading.gaps].slice(0, 5).join(", ")
+            : `${reading.pairs.length} pairs, no unpainted runs`
+        );
+
+        if (reading.grids.length === 0) {
+          s.ok(`${size.name} ${path}: the contact sheet declares the gutter`, null, "no grid found");
+        } else {
+          const bad = reading.grids.filter((g) => g.row !== `${GUTTER}px` || g.column !== `${GUTTER}px`);
+          s.ok(
+            `${size.name} ${path}: the contact sheet declares the gutter`,
+            bad.length === 0,
+            bad.length
+              ? bad.map((g) => `${g.sel} ${g.row}/${g.column}`).join(", ")
+              : reading.grids.map((g) => `${g.sel} ${g.row}`).join(", ")
+          );
+        }
+      }
     }
   }
 

@@ -14550,3 +14550,28 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 .hbw-ind {
   padding-top: calc(var(--bar-h, 54px) + var(--edge) * 2);
 }
+
+/*
+ * Except on Talk, where the nav has gone and the room goes with it.
+ *
+ * The last bar stands the chrome down — there is no work on screen at
+ * that point, and a line through the middle of a drawing saying the name
+ * of a studio you have just finished reading about is the one thing there
+ * is no use for. The reserve above did not know that, so Talk opened with
+ * fifty-eight pixels of nothing at the top of the window, holding a place
+ * for a nav that had deliberately left.
+ *
+ * It closes on --out, the same beat the nav leaves on, so the room goes
+ * with the thing it was for rather than snapping shut behind it.
+ */
+.hbw-ind[data-talk="true"] {
+  padding-top: var(--edge);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-ind {
+    transition:
+      grid-template-columns var(--in) var(--ease),
+      padding-top var(--out) var(--ease);
+  }
+}
