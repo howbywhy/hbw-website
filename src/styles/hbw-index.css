@@ -2353,40 +2353,24 @@ section[data-handed] > .hbw-band {
 }
 
 /* =====================================================================
-   The chrome in the middle of the screen, the work running past it.
+   The chrome was in the middle of the screen, and is not any more.
 
-   The nav stops being a lid on the page and becomes the place you read
-   from: it sits on the middle line, the projects pass above and below it,
-   and the gap between two projects is where it has clear air to sit in.
-   What it says is where you are — the studio's name and positioning until
-   you are in a project, that project's from then on.
+   The index used to lift the nav to the middle line and run the work
+   past it, on the argument that the nav stops being a lid and becomes
+   the place you read from. It was the one surface that did this; every
+   other one wore the nav as a lid.
+
+   It went because someone was watched using the site and could not tell
+   what the middle row was. Named, measured and compared side by side
+   behind ?nav=top, the top row won. The rule that lifted it is gone
+   rather than switched off: the base .hbw-bar is already fixed to the
+   top of the window, so the index now does what every other page does,
+   and there is one less surface with a nav of its own.
+
+   What the middle line was right about is kept — the nav still says
+   where you are, the studio's name until you are in a project and the
+   project's from then on. That was never the part that confused anybody.
    ===================================================================== */
-/*
- * Only the page the work runs past lifts the chrome to the middle.
- *
- * Written as "centred everywhere, except the gallery and except the sheet",
- * it quietly centred the studio page and the contact page too — printing the
- * nav through their opening lines. Every surface that is a document gets a
- * lid; the one surface that is a loop gets the middle line. Stated this way
- * round, a new page cannot be forgotten.
- */
-/*
- * Through two variables, so the top-row variant is a change of value.
- *
- * Someone was watched reading this row as a heading for the project rather
- * than as the way around the site, and the question left over is whether
- * the middle line is part of why. Overriding this rule from a more
- * specific one meant restating `transform`, which the Talk hide also
- * sets — the variant would have quietly lost the lift the nav leaves on.
- * Named, the rule stays the only place either property is written and the
- * variant sets two numbers.
- *
- * The defaults are the middle line, so nothing changes without the flag.
- */
-body:has(.hbw-loop) .hbw-bar {
-  top: var(--bar-top, 50%);
-  transform: translateY(var(--bar-lift, -50%));
-}
 
 /* Read aloud, not set. */
 
@@ -12003,7 +11987,11 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-bar[data-landed="true"] .hbw-bar__nav a .hbw-bar__said,
 .hbw-bar[data-landed="true"] .hbw-bar__mark .hbw-bar__said,
 .hbw-bar[data-landed="true"] .hbw-bar__what .hbw-bar__said,
-.hbw-bar[data-landed="true"] .hbw-bar__what {
+.hbw-bar[data-landed="true"] .hbw-bar__what,
+/* Information comes and goes with the project, so it mounts far more
+   often than it lands. Left out of this, every step onto a project would
+   have replayed the landing beat before the button appeared. */
+.hbw-bar[data-landed="true"] .hbw-bar__info {
   animation-delay: 0ms;
 }
 
@@ -14475,7 +14463,19 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 .hbw-bar .hbw-bar__info {
   box-sizing: border-box;
   min-height: var(--pill-h);
-  margin-left: var(--pill-x);
+  /*
+   * The family's gutter, not a pill's padding.
+   *
+   * This was --pill-x, which is 7px because that is how far a pill's own
+   * type sits from its edge — a measurement about the inside of a plate,
+   * borrowed for the space between two. Every other gap in this row is
+   * --pill-gap, and the one plate added last sat two and a half times
+   * further from its neighbour than anything else on the page.
+   *
+   * Reinstated once, deliberately, to prove the check that now guards it
+   * names the pair and the number rather than merely going red.
+   */
+  margin-left: var(--pill-gap);
   padding: 2px var(--pill-x);
   border: 0;
   border-radius: var(--pill-r);
@@ -14494,48 +14494,46 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   color: var(--ink);
 }
 
-/* =====================================================================
-   The top-row variant, behind a flag.
-
-   Measuring the middle line said everything structural about it is
-   already right: it sits at exactly 50% at every size from 390 to 1920,
-   it does not move when the work steps, it is inside the first screen,
-   and it is first in the keyboard order. The one thing that came back
-   indistinguishable was its material — a nav control and a project bar
-   match on all eight properties a reader could tell them apart by:
-   24px tall, same type size, same weight, same ink, same translucent
-   plate, same 2px radius, same letter-spacing, same case.
-
-   So this is not a fix. It is the comparison, so the question can be put
-   to a person rather than argued about: ?nav=top moves the chrome to the
-   top of the window and gives the work the room back, ?nav=centre
-   returns it. Nothing here is reachable without the flag.
-
-   Only the index needs the second half. Every other surface already
-   wears the nav as a lid, and the gallery and the sheet were never
-   centred.
-   ===================================================================== */
-
-:root[data-nav="top"] {
-  --bar-top: 0px;
-  --bar-lift: 0px;
+/*
+ * And it arrives on the beat the rest of the row's writing does.
+ *
+ * It was in none of the entrance rules. Sitting inside the mark, it was
+ * swept in by the mark's own clip — so the row built itself shoulders
+ * first, the mark opened from the middle carrying a finished Information
+ * beside it, and only then did the project's name fade in. The one plate
+ * that is about the project arrived ahead of the project.
+ *
+ * hbw-open rather than the mark's from-middle wipe: this is a plate in a
+ * row, like the line under it, not the thing the row opens out from.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .hbw-bar__info {
+    animation: hbw-open var(--in) var(--ease) var(--enter-type) backwards;
+  }
 }
 
-/*
- * The work starts under the chrome rather than behind it.
- *
- * On the middle line the column owns the whole window: the project you
- * are on sits two pixels off the top, which is exactly where the nav
- * lands once it stops being centred. The room is taken from the index
- * rather than from the column, because the column measures its own
- * clientHeight to place the stack waiting at the foot — and clientHeight
- * counts padding, so padding the column would have moved the bars and
- * then told the maths they had not moved.
- *
- * --bar-h is measured and published by the bar itself, since what the
- * nav is worth in pixels is three rows on a desk and more on a phone,
- * where the shoulders wrap. The fallback is the desk's.
- */
-:root[data-nav="top"] .hbw-ind {
+/* =====================================================================
+   The work starts under the chrome rather than behind it.
+
+   On the middle line the column owned the whole window, and the project
+   you are on sat two pixels off the top — which is exactly where the nav
+   lands now that it is not centred. So the index reserves the nav's
+   height.
+
+   The room is taken from .hbw-ind rather than from the bar column,
+   because the column measures its own clientHeight to place the stack
+   waiting at the foot — and clientHeight counts padding, so padding the
+   column would have moved the bars and then told the maths they had not
+   moved.
+
+   --bar-h is measured and published by the bar itself, because what the
+   nav is worth in pixels is three rows on a desk and more on a phone
+   where the shoulders wrap, and it changes again when a project's name
+   is longer than the one before it. The fallback is what it measures at
+   every size the suite checks, so the first paint is right and the
+   observer only has to hold it right.
+   ===================================================================== */
+
+.hbw-ind {
   padding-top: calc(var(--bar-h, 54px) + var(--edge) * 2);
 }

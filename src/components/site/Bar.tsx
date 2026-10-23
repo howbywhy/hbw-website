@@ -281,22 +281,21 @@ export function Bar({
   const markWidth = useRef(0);
 
   /**
-   * What the nav is worth in pixels, for the top-row variant only.
+   * What the nav is worth in pixels, so the index can start under it.
    *
-   * On the index the work owns the whole window and the project you are on
-   * sits two pixels off the top — which is where the nav lands once it
-   * stops being centred. So the variant has to reserve the nav's height,
-   * and that height is not a constant: three rows on a desk, more on a
-   * phone where the shoulders wrap, and it changes again when a project's
-   * name is longer than the one before it.
+   * The index reserves this height: the work used to run past a centred
+   * nav and now starts below a nav at the top, and the project you are on
+   * sits exactly where the chrome lands otherwise.
    *
-   * Hence measured rather than written as a sum of tokens. The observer
-   * only runs behind the flag, so the site everyone else sees does not
-   * gain a ResizeObserver to support a comparison.
+   * Measured rather than written as a sum of tokens, because the height is
+   * not a constant — three rows on a desk, more on a phone where the
+   * shoulders wrap, and different again when a project's name is longer
+   * than the one before it. Laid out rather than merely effected, so the
+   * first paint after a name changes is already the right height instead
+   * of a frame of the old one.
    */
   const barRef = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (document.documentElement.dataset.nav !== "top") return;
+  useLayoutEffect(() => {
     const el = barRef.current;
     if (!el) return;
     const measure = () =>

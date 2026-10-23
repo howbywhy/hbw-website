@@ -83,25 +83,12 @@ export default function RootLayout({
           and a turn could play over them; with no entrance and no turn, the
           page simply paints what it is.
 
-          The one below holds nothing back — it reads a flag and sets an
-          attribute, which is why it is allowed to be here when those two
-          were not. It has to run before paint all the same: the flag moves
-          the nav, and applied after the first frame it would be a jump.
-
-          ?nav=top puts the chrome at the top of the window and remembers it,
-          so it survives the walk from the index into a project; ?nav=centre
-          forgets it again. Any other value is left alone rather than
-          treated as off, so a stray ?nav= in a shared link cannot silently
-          turn the comparison off halfway through.
+          A third sat here briefly, reading ?nav=top so the top row and the
+          middle line could be put side by side on the real site. The top row
+          won and is simply the nav now, so the flag that chose it is gone
+          too — a flag kept past its decision is a second way for the site to
+          behave that nobody is testing.
         */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              '(function(){try{var k="hbw:nav",q=new URL(location.href).searchParams.get("nav");' +
-              'if(q==="top")localStorage.setItem(k,"top");else if(q==="centre")localStorage.removeItem(k);' +
-              'if(localStorage.getItem(k)==="top")document.documentElement.dataset.nav="top";}catch(e){}})()',
-          }}
-        />
       </head>
       <body className="body" suppressHydrationWarning>
         {/*
