@@ -43,14 +43,23 @@ import { TITLE_WHAT } from "@/components/home/catalog";
  * project titles are built from, so a discipline cannot read one way in a
  * search result and another here.
  */
+/**
+ * What a project was, as a list rather than a line.
+ *
+ * It used to come back joined, which left the phone no way to shorten it
+ * except by cutting a word in half. Set at one size a phone has room for
+ * two of these, not three, and the third always met the ellipsis — so the
+ * list is handed over whole and the stylesheet decides how much of it a
+ * screen can hold. The separators are drawn by CSS between the items
+ * that remain, so dropping one takes its comma with it.
+ */
 function didOf(project: GalleryProject) {
   const said = project.disciplines
     .map((one) => TITLE_WHAT[one as keyof typeof TITLE_WHAT])
     .filter(Boolean)
     .slice(0, 3);
-  if (!said.length) return "";
-  const line = said.join(", ");
-  return line.charAt(0).toUpperCase() + line.slice(1);
+  if (!said.length) return [];
+  return said.map((one, i) => (i === 0 ? one.charAt(0).toUpperCase() + one.slice(1) : one));
 }
 
 /** A duration token in milliseconds, however it happens to be written. */
@@ -594,11 +603,30 @@ export function IndexWork({
             counting to seven learns nothing; a mark that moves tells them
             the one thing the column is for. */}
         <span className="hbw-ind__no" aria-hidden="true" />
-        <span className="hbw-ind__did">{didOf(project)}</span>
+        <span className="hbw-ind__did">
+          {didOf(project).map((one) => (
+            <span key={one} className="hbw-ind__one">
+              {one}
+            </span>
+          ))}
+        </span>
         <span className="hbw-ind__year">{project.year}</span>
-        {/* The nav is saying the name. A link still has to say where it goes
-            to anyone who cannot see which bar is lit. */}
-        <span className="hbw-sr">{project.name}</span>
+        {/*
+          The name. Said aloud everywhere, and shown on a phone.
+
+          The nav says the name of the bar you are on, so on a desk the
+          other six are told apart by what they were — which works while
+          there is room for three disciplines. There is not, on a phone at
+          one size: cut to two, KOJA and Chris Sisarich both read "Brand
+          strategy, visual identity, 2024" and the column had two rows a
+          reader could not tell apart. Measured, not guessed — seven
+          distinct lines became five.
+
+          So the phone shows the one thing that is never ambiguous. It was
+          already in the markup for anyone who cannot see which bar is
+          lit; below 760px it stops being only said and is printed.
+        */}
+        <span className="hbw-ind__name">{project.name}</span>
       </a>
     </li>
   );

@@ -14575,3 +14575,152 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
       padding-top var(--out) var(--ease);
   }
 }
+
+/* =====================================================================
+   One type size on a phone.
+
+   The site is set in two sizes — the reading size and a small one for
+   what labels it — and on a desk that reads as one voice with its
+   captions. On a phone it did not, because a third size was forced in
+   underneath them: iOS zooms the page whenever a reader taps a field set
+   below 16px, and cannot be asked not to. So every field, and the buttons
+   beside them, stood at 16 while the work they sat under was at 11.9 and
+   the labels at 9.52. Three sizes on one screen, and the only one a
+   reader could not miss was the form.
+
+   The 16 is the immovable one. So on a phone it stops being the
+   exception and becomes the size: --t-mid and --t-small both resolve to
+   it, and nothing on the screen is bigger or smaller than anything else.
+   Hierarchy falls back on what the rest of the site already uses — ink
+   against mute, where a thing sits, and what is not next to it.
+
+   This costs room, and the room has to come from somewhere. What it
+   costs is paid for below rather than by letting the type shrink again.
+   ===================================================================== */
+/* On .hbw-site, where the scale is declared, and not on :root. The tokens
+   live on the main element; set on the document they are shadowed for
+   everything inside it by the closer definition, and the page keeps the
+   size it had while the token at the top reads as changed. */
+@media (max-width: 760px) {
+  .hbw-site {
+    --t-mid: 1rem;
+    --t-small: 1rem;
+    --t-big: 1rem;
+  }
+}
+
+/*
+ * The disciplines, as a list the screen can shorten.
+ *
+ * The commas are drawn here rather than written into the text, so when a
+ * phone drops the third item the separator goes with it instead of
+ * trailing off the end of the second.
+ */
+.hbw-ind__one + .hbw-ind__one::before {
+  content: ", ";
+}
+
+@media (max-width: 760px) {
+  /*
+   * Two, not three.
+   *
+   * At one size a phone has room for two of these beside the year, and
+   * the third always met the ellipsis. A list cut mid-word reads worse
+   * than a shorter list — it looks like a fault rather than a choice.
+   */
+  .hbw-ind__one:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+/*
+ * The name is said everywhere and shown on a phone.
+ *
+ * Above the phone it keeps the same treatment .hbw-sr has — present for
+ * anything that reads the page, taking no room and drawing nothing —
+ * because the bars are told apart by their disciplines there and the nav
+ * is already saying the name of the one you are on.
+ */
+.hbw-ind__name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 760px) {
+  /*
+   * Below it, the name takes the row and the disciplines stand down.
+   *
+   * Two of them was all there was room for and two was not enough to tell
+   * seven projects apart. The name always is, it is shorter than any of
+   * the lists, and it is the thing a reader is actually looking for.
+   */
+  .hbw-ind__name {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    clip-path: none;
+    /*
+     * Row as well as column.
+     *
+     * Auto-placement is sparse: once the year is placed in column three
+     * the cursor cannot go back, so a name asking only for column two
+     * landed on a second row underneath it and every bar stood two lines
+     * tall. Both numbers given, it sits where the disciplines did.
+     */
+    grid-column: 2;
+    grid-row: 1;
+    /* The same treatment the disciplines had, so a long name ends in an
+       ellipsis rather than pushing the year off the plate. */
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /*
+   * The project bars only.
+   *
+   * The last bar says Talk in this same class, inside a button rather
+   * than a link — so hiding the class outright left the way to the
+   * contact form as a blank plate with a rule on it.
+   */
+  .hbw-ind__bars a .hbw-ind__did {
+    display: none;
+  }
+}
+
+/*
+ * The newsletter row, given a column it can be narrower than.
+ *
+ * .hbw-end__loop is a grid with rows and no columns, so its one column was
+ * implicit — and an implicit column is auto, which is max-content, which
+ * is wider than the screen as soon as anything inside it is. The same trap
+ * the turn fell into, written down further up this file.
+ *
+ * It was latent while the phone was set at 11.9px: the label, the field
+ * and Join happened to add up to less than the screen. At one size they
+ * add up to 404 inside 386, so the column grew and Join hung nine pixels
+ * off the right edge at 390 and thirty-nine at 360. The type did not break
+ * this; it stopped hiding it.
+ *
+ * minmax(0, 1fr) lets the column be narrower than its contents, and
+ * min-width on the form lets the form be narrower than its own — a flex
+ * item will not shrink past min-content without being told it may. The
+ * field inside already had flex and a zero minimum, and could never use
+ * them while everything above it refused to shrink.
+ */
+.hbw-end__loop {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.hbw-end__loop > .hbw-end__field {
+  min-width: 0;
+}
