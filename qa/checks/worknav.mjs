@@ -19,7 +19,17 @@ export default async function run() {
   await sleep(4500);
   const nav = await p.$$eval(".hbw-bar__nav a", (a) => a.map((x) => x.textContent.trim()));
   s.ok("two shoulders, no more", nav.length === 2, JSON.stringify(nav));
-  s.ok("they read Work then About", nav[0] === "Work" && nav[1] === "About", JSON.stringify(nav));
+  /*
+   * Studio, not About.
+   *
+   * The mark between the two shoulders turns over to say the project a
+   * reader is standing on, so "Work · KOJA · About" read as that
+   * project's own header and About took KOJA as its subject — somebody
+   * was watched pressing it for KOJA's information and getting the
+   * studio. A word that names a place cannot be read as a property of
+   * the word before it.
+   */
+  s.ok("they read Work then Studio", nav[0] === "Work" && nav[1] === "Studio", JSON.stringify(nav));
   s.ok("Work points at the front page", (await p.$eval(".hbw-bar__nav a", (a) => a.getAttribute("href"))) === "/");
 
   s.ok("the old spread arrangement is gone", (await p.$$(".hbw-spread")).length === 0);

@@ -247,7 +247,9 @@ export function Bar({
    * on, which the index and an open gallery would otherwise tell the bar
    * in identical words — see the key on the line below.
    */
-  const [over, setOver] = useState<null | { name: string; says: string; into?: boolean }>(null);
+  const [over, setOver] = useState<
+    null | { name: string; says: string; into?: boolean; reading?: boolean }
+  >(null);
 
 
   /*
@@ -359,6 +361,31 @@ export function Bar({
               {sheet || !over ? "How by Why" : over.name}
             </span>
           </a>
+          {/*
+            The project's own information, beside the project's own name.
+            
+            It was a button in the gallery's foot called Information, while
+            the shoulder on the right said About and opened the studio —
+            and the mark between them was saying the project. Read across,
+            the row offered the studio as the obvious thing to press for
+            KOJA, and somebody did. Here it sits next to the word it is
+            about, and the shoulder that is not about the project now
+            names the place it goes.
+          */}
+          {over && !sheet && over.into ? (
+            <button
+              type="button"
+              className="hbw-bar__info"
+              aria-expanded={Boolean(over.reading)}
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent("hbw:read", { detail: !over.reading })
+                )
+              }
+            >
+              {over.reading ? "Close" : "Information"}
+            </button>
+          ) : null}
         </p>
         <nav className="hbw-bar__nav" aria-label="Site">
           {/*
@@ -388,15 +415,22 @@ export function Bar({
             {/* In the studio already: the same shoulder is the way back out,
                 rather than a second word for the same place. */}
             {/*
-              About, not Practice.
+              Studio, not About, and not Practice.
               
-              Practice is now a page of its own — the long version, reached
-              from the foot of this sheet — and the nav was using the same
-              word for the sheet that opens over the work. One word, two
-              places, and the deeper one unreachable by name. The shoulder
-              says what it opens: the studio, about it.
+              Not Practice, for the reason this shoulder has always had:
+              Practice is a page of its own — the long version, reached
+              from the foot of this sheet — and one word in two places
+              leaves the deeper one unreachable by name.
+              
+              Not About, because of what it sits beside. This row reads
+              left to right, and the middle of it is the mark, which turns
+              over to say the project you are standing on. "Work · KOJA ·
+              About" parses as a project's own header, so About takes KOJA
+              as its subject: somebody watched pressing it expecting KOJA's
+              information and getting the studio. A word that names a place
+              cannot be read as a property of the word before it.
             */}
-            {studio ? "Close" : "About"}
+            {studio ? "Close" : "Studio"}
           </a>
           {/*
             Contact is not a third way. It is a part of the studio — the sheet
@@ -493,7 +527,7 @@ export function Bar({
       */}
       {studio ? (
         <Sheet
-          label="About"
+          label="Studio"
           onClose={close}
           panel="hbw-studio-sheet__panel--split"
           bare

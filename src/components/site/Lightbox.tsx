@@ -2089,18 +2089,15 @@ export function Lightbox({
           ) : (
             <span />
           )}
-          {info ? (
-            <button
-              type="button"
-              className="hbw-lamp__foot hbw-lamp__foot--info"
-              aria-expanded={reading}
-              onClick={() => read(!reading)}
-            >
-              {reading ? "Close" : "Information"}
-            </button>
-          ) : (
-            <span />
-          )}
+          {/*
+            The way into the writing is in the nav now, beside the name it
+            belongs to — see the note in Work. Two controls for one thing
+            is what made this confusing: the prominent one said About and
+            opened the studio, and this one said Information and opened
+            the project. The foot keeps Previous and Next, which are the
+            moves that belong to it.
+          */}
+          <span />
           {next ? (
             <button type="button" className="hbw-lamp__foot is-on" onClick={() => onNext?.()}>
               <span key={next.name} className="hbw-lamp__said">

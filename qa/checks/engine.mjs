@@ -88,9 +88,9 @@ export default async function run() {
   const foot = (word) =>
     `(() => { const n = [...document.querySelectorAll("button, a")].find(x => new RegExp("${word}").test(x.textContent || "")); n && n.click(); })()`;
 
-  await scene(b, s, "about opens over the front page", "/", press("About"));
+  await scene(b, s, "the studio opens over the front page", "/", press("Studio"));
   await scene(b, s, "a project opens from the front page", "/", `(() => document.querySelector('a[href*="/projects/"]').click())()`);
-  await scene(b, s, "about opens over a project", "/projects/sub-3?f=3", press("About"));
+  await scene(b, s, "the studio opens over a project", "/projects/sub-3?f=3", press("Studio"));
   await scene(b, s, "the next project hands over", "/projects/sub-3?f=3", foot("Next"));
   await scene(b, s, "the writing opens", "/projects/sub-3?f=3", foot("Information"), [".hbw-lamp__info > *"]);
   await scene(b, s, "practice lands", "/practice", null, [...FOLLOW, ".hbw-board__mod", ".hbw-board__facts"]);

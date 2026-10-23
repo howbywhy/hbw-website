@@ -37,7 +37,7 @@ async function from(b, s, label, path) {
         if (performance.now() - t0 < 2400) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
-      const a = [...document.querySelectorAll(".hbw-bar nav a")].find((x) => x.textContent.trim() === "About");
+      const a = [...document.querySelectorAll(".hbw-bar nav a")].find((x) => x.textContent.trim() === "Studio");
       a && a.click();
       await new Promise((r) => setTimeout(r, 2800));
       return out;

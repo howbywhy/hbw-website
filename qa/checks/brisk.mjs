@@ -185,7 +185,7 @@ export default async function run() {
 
   await p.evaluate(() => window.__mark());
   await p.evaluate(() => {
-    const a = [...document.querySelectorAll(".hbw-bar a, .hbw-bar button")].find((x) => x.textContent.trim() === "About");
+    const a = [...document.querySelectorAll(".hbw-bar a, .hbw-bar button")].find((x) => x.textContent.trim() === "Studio");
     a && a.click();
   });
   await sleep(3500);

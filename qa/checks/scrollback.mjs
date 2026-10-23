@@ -76,10 +76,10 @@ const logo = async (p) => {
 
 const WALKS = [
   ["nothing touched", []],
-  ["About, then Close", [barClick("About"), barClick("Close")]],
+  ["About, then Close", [barClick("Studio"), barClick("Close")]],
   ["into a project, then home by the logo", [openProject, logo]],
-  ["a project, About, then Close", [openProject, barClick("About"), barClick("Close")]],
-  ["a project, About, then home by the logo", [openProject, barClick("About"), logo]],
+  ["a project, About, then Close", [openProject, barClick("Studio"), barClick("Close")]],
+  ["a project, About, then home by the logo", [openProject, barClick("Studio"), logo]],
   ["a project, then Work", [openProject, barClick("Work")]],
 ];
 

@@ -124,7 +124,7 @@ export default async function run() {
   const open = await step(p, () =>
     p.evaluate(() => {
       const a = [...document.querySelectorAll(".hbw-bar nav a, .hbw-bar nav button")].find(
-        (x) => x.textContent.trim() === "About"
+        (x) => x.textContent.trim() === "Studio"
       );
       a && a.click();
     })

@@ -69,7 +69,7 @@ export default async function run() {
   await sleep(5000);
   await p.evaluate(() => {
     const a = [...document.querySelectorAll(".hbw-bar nav a, .hbw-bar nav button")].find(
-      (x) => x.textContent.trim() === "About"
+      (x) => x.textContent.trim() === "Studio"
     );
     a && a.click();
   });

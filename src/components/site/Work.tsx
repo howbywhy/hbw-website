@@ -747,8 +747,33 @@ export function Work({
    * looking at. Above the first, nobody is — which is how the mark and the
    * positioning line get their own place back at the top of the page.
    */
+  /*
+   * The chrome can ask for the project's writing.
+   *
+   * The control for it lived in the gallery's foot, called Information,
+   * while the shoulder in the nav said About and opened the studio. The
+   * more prominent of the two pointed at the less expected place, and the
+   * mark between them was saying the project's name — so somebody
+   * pressing About for KOJA's information got the studio instead.
+   *
+   * It is one row now: Work, then the project and its information, then
+   * the studio. The bar asks through an event rather than a prop because
+   * the two components never meet, which is how the nav already learns
+   * which project it is standing on.
+   */
   useEffect(() => {
-    const say = (detail: { name: string; says: string; into?: boolean } | null) =>
+    const asked = (event: Event) => {
+      const want = (event as CustomEvent<boolean | undefined>).detail;
+      setReading((was) => (typeof want === "boolean" ? want : !was));
+    };
+    window.addEventListener("hbw:read", asked);
+    return () => window.removeEventListener("hbw:read", asked);
+  }, []);
+
+  useEffect(() => {
+    const say = (
+      detail: { name: string; says: string; into?: boolean; reading?: boolean } | null
+    ) =>
       window.dispatchEvent(new CustomEvent("hbw:over", { detail }));
     /*
      * A project open is a project you are standing in.
@@ -778,7 +803,9 @@ export function Work({
        * on its own. This is the same words with a different standing, and
        * the bar arrives on it.
        */
-      say({ name: open.name, says: here?.idea ?? open.says, into: true });
+      /* reading travels with it, so the bar's own control can say whether
+         the writing is open without being handed a second prop. */
+      say({ name: open.name, says: here?.idea ?? open.says, into: true, reading });
       return;
     }
     let waiting = 0;
@@ -918,7 +945,7 @@ export function Work({
       if (waiting) cancelAnimationFrame(waiting);
       say(null);
     };
-  }, [open, projects]);
+  }, [open, projects, reading]);
 
   /**
    * The seam.

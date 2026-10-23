@@ -35,7 +35,7 @@ export default async function run() {
        until it is opened, so open it on every seed that has it. */
     await p.evaluate(() => {
       const a = [...document.querySelectorAll(".hbw-bar a, .hbw-bar button")].find(
-        (x) => x.textContent.trim() === "About"
+        (x) => x.textContent.trim() === "Studio"
       );
       a && a.click();
     });

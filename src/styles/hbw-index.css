@@ -14446,3 +14446,37 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
     display: none;
   }
 }
+
+/* =====================================================================
+   The project's information, beside the project's name.
+
+   It wears the shoulders' own clothes — the same plate, the same ink on
+   hover — because it is the same kind of move in the same row, and the
+   row is only legible if the things in it look like each other. Set
+   against the mark rather than at an edge, so the pair reads as one
+   thing: this project, and what there is to read about it.
+   ===================================================================== */
+/* Named through the bar, because the bar styles its own controls by
+   element — .hbw-bar a, .hbw-bar button — and a bare class loses to that.
+   This is the third control this session to need its plate said twice. */
+.hbw-bar .hbw-bar__info {
+  box-sizing: border-box;
+  min-height: var(--pill-h);
+  margin-left: var(--pill-x);
+  padding: 2px var(--pill-x);
+  border: 0;
+  border-radius: var(--pill-r);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  color: var(--mute);
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hbw-bar .hbw-bar__info:hover,
+.hbw-bar .hbw-bar__info:focus-visible {
+  color: var(--ink);
+}
