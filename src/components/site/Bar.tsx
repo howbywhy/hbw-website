@@ -279,6 +279,39 @@ export function Bar({
   const landed = useNavSettled();
   const markRef = useRef<HTMLAnchorElement>(null);
   const markWidth = useRef(0);
+
+  /**
+   * What the nav is worth in pixels, for the top-row variant only.
+   *
+   * On the index the work owns the whole window and the project you are on
+   * sits two pixels off the top — which is where the nav lands once it
+   * stops being centred. So the variant has to reserve the nav's height,
+   * and that height is not a constant: three rows on a desk, more on a
+   * phone where the shoulders wrap, and it changes again when a project's
+   * name is longer than the one before it.
+   *
+   * Hence measured rather than written as a sum of tokens. The observer
+   * only runs behind the flag, so the site everyone else sees does not
+   * gain a ResizeObserver to support a comparison.
+   */
+  const barRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (document.documentElement.dataset.nav !== "top") return;
+    const el = barRef.current;
+    if (!el) return;
+    const measure = () =>
+      document.documentElement.style.setProperty(
+        "--bar-h",
+        `${Math.round(el.getBoundingClientRect().height)}px`
+      );
+    measure();
+    const watch = new ResizeObserver(measure);
+    watch.observe(el);
+    return () => {
+      watch.disconnect();
+      document.documentElement.style.removeProperty("--bar-h");
+    };
+  }, []);
   /**
    * A sheet is up.
    *
@@ -332,7 +365,7 @@ export function Bar({
 
   return (
     <>
-      <header className="hbw-bar" data-landed={landed ? "true" : undefined}>
+      <header className="hbw-bar" ref={barRef} data-landed={landed ? "true" : undefined}>
         {/* The studio grows its own mark across the sheet; this one steps
             aside rather than saying the name twice, one under the other. */}
         {/*

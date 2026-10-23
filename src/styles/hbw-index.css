@@ -2370,9 +2370,22 @@ section[data-handed] > .hbw-band {
  * lid; the one surface that is a loop gets the middle line. Stated this way
  * round, a new page cannot be forgotten.
  */
+/*
+ * Through two variables, so the top-row variant is a change of value.
+ *
+ * Someone was watched reading this row as a heading for the project rather
+ * than as the way around the site, and the question left over is whether
+ * the middle line is part of why. Overriding this rule from a more
+ * specific one meant restating `transform`, which the Talk hide also
+ * sets — the variant would have quietly lost the lift the nav leaves on.
+ * Named, the rule stays the only place either property is written and the
+ * variant sets two numbers.
+ *
+ * The defaults are the middle line, so nothing changes without the flag.
+ */
 body:has(.hbw-loop) .hbw-bar {
-  top: 50%;
-  transform: translateY(-50%);
+  top: var(--bar-top, 50%);
+  transform: translateY(var(--bar-lift, -50%));
 }
 
 /* Read aloud, not set. */
@@ -14479,4 +14492,50 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
 .hbw-bar .hbw-bar__info:hover,
 .hbw-bar .hbw-bar__info:focus-visible {
   color: var(--ink);
+}
+
+/* =====================================================================
+   The top-row variant, behind a flag.
+
+   Measuring the middle line said everything structural about it is
+   already right: it sits at exactly 50% at every size from 390 to 1920,
+   it does not move when the work steps, it is inside the first screen,
+   and it is first in the keyboard order. The one thing that came back
+   indistinguishable was its material — a nav control and a project bar
+   match on all eight properties a reader could tell them apart by:
+   24px tall, same type size, same weight, same ink, same translucent
+   plate, same 2px radius, same letter-spacing, same case.
+
+   So this is not a fix. It is the comparison, so the question can be put
+   to a person rather than argued about: ?nav=top moves the chrome to the
+   top of the window and gives the work the room back, ?nav=centre
+   returns it. Nothing here is reachable without the flag.
+
+   Only the index needs the second half. Every other surface already
+   wears the nav as a lid, and the gallery and the sheet were never
+   centred.
+   ===================================================================== */
+
+:root[data-nav="top"] {
+  --bar-top: 0px;
+  --bar-lift: 0px;
+}
+
+/*
+ * The work starts under the chrome rather than behind it.
+ *
+ * On the middle line the column owns the whole window: the project you
+ * are on sits two pixels off the top, which is exactly where the nav
+ * lands once it stops being centred. The room is taken from the index
+ * rather than from the column, because the column measures its own
+ * clientHeight to place the stack waiting at the foot — and clientHeight
+ * counts padding, so padding the column would have moved the bars and
+ * then told the maths they had not moved.
+ *
+ * --bar-h is measured and published by the bar itself, since what the
+ * nav is worth in pixels is three rows on a desk and more on a phone,
+ * where the shoulders wrap. The fallback is the desk's.
+ */
+:root[data-nav="top"] .hbw-ind {
+  padding-top: calc(var(--bar-h, 54px) + var(--edge) * 2);
 }

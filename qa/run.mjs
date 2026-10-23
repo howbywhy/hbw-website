@@ -17,7 +17,7 @@
  */
 import { BASE, reachable, closeOpenBrowsers } from "./lib.mjs";
 
-const ALL = ["console", "links", "sequence", "worknav", "engine", "sheetwait", "said", "onestep", "scrollback", "twice", "roomwait", "held", "brisk", "smooth", "narrow", "sizes", "weight"];
+const ALL = ["console", "links", "sequence", "worknav", "engine", "sheetwait", "said", "onestep", "scrollback", "twice", "roomwait", "held", "brisk", "smooth", "narrow", "sizes", "weight", "navflag"];
 
 const asked = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const names = asked.length ? asked : ALL;
