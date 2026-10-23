@@ -2096,8 +2096,13 @@ export function Lightbox({
             opened the studio, and this one said Information and opened
             the project. The foot keeps Previous and Next, which are the
             moves that belong to it.
+
+            Its slot is gone with it, rather than left standing empty. A
+            bare span here held the middle of the row at 7.2rem and painted
+            nothing, so the reading behind the foot showed through a
+            hundred-and-fifteen-pixel hole between Previous and Next. The
+            two moves meet in the middle now, on the gutter.
           */}
-          <span />
           {next ? (
             <button type="button" className="hbw-lamp__foot is-on" onClick={() => onNext?.()}>
               <span key={next.name} className="hbw-lamp__said">

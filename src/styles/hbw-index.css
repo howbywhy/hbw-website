@@ -4655,21 +4655,24 @@ body:has(.hbw-lamp) .hbw-bar__mark a:hover,
 }
 
 /* =====================================================================
-   Information, beside Previous and Next.
+   Previous and Next, meeting in the middle.
 
-   Three controls on one row, and when the writing is up all three move with
-   it: the thumbnails take the top, the ways through sit under them, and the
+   This was three controls on one row, with Information centred between
+   the two moves, and when the writing was up all three travelled with it:
+   the thumbnails take the top, the ways through sit under them, and the
    writing takes the rest. Nothing jumps to a new place — the row you were
-   using is the row that moves.
+   using is the row that moves. That is still true of the two that are
+   left.
+
+   Two columns, not three with the middle one left standing. The template
+   was `1fr auto 1fr`, and with the middle child gone Next would have
+   landed in the auto column and shrunk to its own text, sitting just left
+   of centre with a third of the row empty beside it.
    ===================================================================== */
 .hbw-lamp__feet {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-}
-
-.hbw-lamp__foot--info {
-  justify-self: center;
 }
 
 /* Shut: the work, then the row. Open: the work shrinks, the row follows it
@@ -7949,11 +7952,18 @@ body:has(.hbw-lamp) .hbw-bar__what {
   align-items: center;
 }
 
-.hbw-lamp__feet > *:nth-child(2) {
-  min-width: 7.2rem;
-  justify-content: center;
-  text-align: center;
-}
+/*
+ * The middle of the foot was a slot, and is not one any more.
+ *
+ * This held the Information button at 7.2rem, centred between Previous
+ * and Next. Information moved up beside the project's name and the slot
+ * stayed — an empty span painting nothing, so the row had a 115px hole in
+ * it and the writing behind the foot read straight through the gap.
+ *
+ * Removed rather than filled: a plate whose only job is to be blank is a
+ * thing to keep in step for no reason. With two children, nth-child(2) is
+ * Next, which does not want a minimum width or centred text.
+ */
 
 
 /* =====================================================================
@@ -12905,7 +12915,10 @@ body:has(.hbw-lamp) .hbw-bar__what {
  * keeps its full width — it is the middle of the row and the one plate
  * here that is a verb.
  */
-.hbw-lamp__feet > .hbw-lamp__foot:not(.hbw-lamp__foot--info) {
+/* The --info modifier this used to exempt went with the button. A :not()
+   for a class nothing carries matches everything and reads as a rule with
+   an exception, which is worse than no exception at all. */
+.hbw-lamp__feet > .hbw-lamp__foot {
   min-width: 0;
 }
 

@@ -29,6 +29,9 @@ const NEAR = 40;
 const GUTTER = 2;
 
 const PAGES = ["/", "/projects/bar-closed", "/projects/koja", "/practice"];
+
+/* Rows that span the window and so must paint all of it. */
+const SOLID = [".hbw-lamp__feet", ".hbw-lamp__bar"];
 const SIZES = [
   { name: "a phone", width: 390, height: 844, touch: true },
   { name: "a laptop", width: 1440, height: 900, touch: false },
@@ -81,6 +84,43 @@ const measure = (near) => {
   return pairs;
 };
 
+/** Any stretch of a full-width chrome row that paints nothing. */
+const holes = (rows) => {
+  const paints = (e) => {
+    const cs = getComputedStyle(e);
+    return (
+      cs.backgroundColor !== "rgba(0, 0, 0, 0)" &&
+      cs.backgroundColor !== "transparent" &&
+      cs.visibility !== "hidden" &&
+      cs.opacity !== "0"
+    );
+  };
+  const found = [];
+  for (const sel of rows) {
+    const root = document.querySelector(sel);
+    if (!root) continue;
+    const rr = root.getBoundingClientRect();
+    if (!(rr.width > 10 && rr.height > 6)) continue;
+    const plates = [...root.querySelectorAll("*")]
+      .filter(paints)
+      .map((e) => e.getBoundingClientRect())
+      .filter((r) => r.width > 6 && r.height > 6);
+    if (plates.length === 0) continue;
+    const lines = {};
+    for (const r of plates) (lines[Math.round(r.top)] ||= []).push(r);
+    for (const [top, rs] of Object.entries(lines)) {
+      rs.sort((a, b) => a.left - b.left);
+      let cur = rr.left;
+      for (const r of rs) {
+        if (r.left - cur > 3) found.push(`${sel}@${top} ${Math.round(r.left - cur)}px`);
+        cur = Math.max(cur, r.right);
+      }
+      if (rr.right - cur > 3) found.push(`${sel}@${top} ${Math.round(rr.right - cur)}px at the end`);
+    }
+  }
+  return found;
+};
+
 export default async function run() {
   const b = await browser();
   const s = sheet("two plates that read as a pair are two pixels apart");
@@ -98,6 +138,7 @@ export default async function run() {
       await p.goto(BASE + path, { waitUntil: "domcontentloaded" });
       await sleep(4600);
       const pairs = await p.evaluate(measure, NEAR);
+      const gaps = await p.evaluate(holes, SOLID);
       await p.close();
 
       if (pairs.length === 0) {
@@ -117,6 +158,12 @@ export default async function run() {
         wrong.length
           ? wrong.map((one) => `${one.a}|${one.b} ${one.gap}px`).slice(0, 6).join(", ")
           : `${pairs.length} neighbouring pairs, all ${GUTTER}px`
+      );
+
+      s.ok(
+        `${size.name} ${path}: a row that spans the window paints all of it`,
+        gaps.length === 0,
+        gaps.length ? gaps.slice(0, 4).join(", ") : "no unpainted runs"
       );
     }
   }
