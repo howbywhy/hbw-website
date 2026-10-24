@@ -11430,7 +11430,20 @@ body:has(.hbw-lamp) .hbw-bar__what {
 .hbw-board__facts > div {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: clamp(5rem, 8vw, 7rem) 1fr;
+  /*
+   * The floor holds the longest label, measured rather than guessed.
+   *
+   * It was 5rem, which is 80px, and that fitted every label while the
+   * small size was 9.52px. At one size on a touch screen the labels are
+   * 16px and the longest of them want 87 and 86 — "Works with" wrapped to
+   * two lines and "Disciplines", being one word with nowhere to break,
+   * was cut five pixels short of its last letter on every phone and
+   * every iPad.
+   *
+   * 5.5rem is 88px, which is the widest label plus one. A longer label
+   * added later would clip again, so a check now measures this row.
+   */
+  grid-template-columns: clamp(5.5rem, 8vw, 7rem) 1fr;
   gap: var(--pill-x);
   padding: var(--pill-x);
   border-radius: var(--pill-r);
@@ -14601,7 +14614,23 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
    live on the main element; set on the document they are shadowed for
    everything inside it by the closer definition, and the page keeps the
    size it had while the token at the top reads as changed. */
-@media (max-width: 760px) {
+/*
+ * And on a tablet, which is the same iOS with a wider screen.
+ *
+ * The floor is a property of the operating system, not of the screen: iOS
+ * zooms a sub-16px field on an iPad exactly as it does on an iPhone. Held
+ * at 760px, every field on the site came out between 12.3 and 13.09px at
+ * 768, 820 and 1024 — so the whole reason this rule exists was missing on
+ * every iPad. Nothing was looking: the check that asks the question only
+ * ever asked it at 390.
+ *
+ * Coarse pointer and up to 1024, rather than simply a wider breakpoint,
+ * because it is touch that zooms. A 1024px window on a desk keeps the
+ * scale it had; a tablet gets the phone's single size, and with it the
+ * phone's shorter bars, so the two stay consistent instead of a tablet
+ * wearing big type against a three-item list.
+ */
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   .hbw-site {
     --t-mid: 1rem;
     --t-small: 1rem;
@@ -14620,7 +14649,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   content: ", ";
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   /*
    * Two, not three.
    *
@@ -14653,7 +14682,7 @@ body:has(.hbw-ind[data-talk="true"]) .hbw-bar {
   clip-path: inset(50%);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   /*
    * Below it, the name takes the row and the disciplines stand down.
    *

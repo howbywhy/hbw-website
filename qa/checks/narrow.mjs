@@ -31,6 +31,9 @@ const PATHS = [
   "/projects/bar-closed",
   "/projects/chris-sisarich",
   "/projects/made-by-madelen",
+  /* A reader lands here from a dead link or an old address, and until now
+     no check had ever opened it. */
+  "/no-such-page",
 ];
 
 /* 390 is an iPhone; 360 is the narrowest Android worth drawing for. */
@@ -80,7 +83,13 @@ export default async function run() {
       }
       await p.close();
     }
-    s.ok(`at ${width}px, every page is ${width}px wide`, wide.length === 0, wide.join(" | ") || "all nine");
+    /* Counted, not written: it said "all nine" while the list had ten in
+       it, which is the same rot as a check that stops looking. */
+    s.ok(
+      `at ${width}px, every page is ${width}px wide`,
+      wide.length === 0,
+      wide.join(" | ") || `all ${PATHS.length}`
+    );
   }
 
   /*
@@ -207,6 +216,114 @@ export default async function run() {
     `row ${wide.shown ? "shown" : "hidden"}, poster ${wide.room}px`
   );
   await w.close();
+
+  /*
+   * Every field, at every width iOS runs at.
+   *
+   * The row above asks the right question at one width. The 16px floor is
+   * a property of the operating system rather than of the screen: iOS
+   * zooms a sub-16px field on an iPad exactly as it does on an iPhone, and
+   * the rule that raises them stopped at 760px while an iPad starts at
+   * 768. So every field on the site sat between 12.3 and 13.09px at 768,
+   * 820 and 1024, and the whole reason for the rule was missing on every
+   * tablet. Nothing caught it because nothing had looked above 390.
+   *
+   * A wireframe drawn from the real boxes found it, which is a poor
+   * substitute for a check. This is the check.
+   */
+  const KINDS = "text,email,tel,url,search,password,number,date,datetime-local,month,time,week";
+  const fieldsOn = (kinds) =>
+    [...document.querySelectorAll("input, textarea")]
+      .filter((e) => e.tagName === "TEXTAREA" || kinds.split(",").includes(e.type))
+      .filter((e) => !String(e.className).includes("trap") && e.offsetParent !== null)
+      .map((e) => ({
+        what: e.tagName.toLowerCase() + (e.type ? ":" + e.type : ""),
+        px: Math.round(parseFloat(getComputedStyle(e).fontSize) * 100) / 100,
+      }));
+
+  /* A phone, both iPads, and the largest width iOS reports. */
+  for (const width of [390, 768, 820, 1024]) {
+    const t = await b.newPage();
+    await t.setViewport({ width, height: 1180, isMobile: width < 760, hasTouch: true, deviceScaleFactor: 2 });
+    const found = [];
+    const under = [];
+    for (const [where, path, open] of [
+      ["Talk", "/", () => document.querySelector('.hbw-ind__bars li[data-talk] > button')?.click()],
+      ["practice", "/practice", null],
+      ["the 404", "/no-such-page", null],
+    ]) {
+      await t.goto(BASE + path, { waitUntil: "domcontentloaded" });
+      await sleep(3800);
+      if (open) {
+        await t.evaluate(open);
+        await sleep(1800);
+      }
+      const fields = await t.evaluate(fieldsOn, KINDS);
+      for (const f of fields) {
+        found.push(f);
+        if (f.px < 16) under.push(`${where} ${f.what} ${f.px}px`);
+      }
+    }
+    await t.close();
+
+    if (found.length === 0) {
+      /* No field found is not a pass: the selector may have gone stale. */
+      s.ok(`at ${width}px there are fields to measure`, null, "no typeable field found on any of the three");
+      continue;
+    }
+    s.ok(
+      `at ${width}px every field you can type into is 16px or more`,
+      under.length === 0,
+      under.length ? under.slice(0, 5).join(", ") : `${found.length} fields across Talk, practice and the 404`
+    );
+  }
+
+  /*
+   * And nothing is cut off mid-word at those widths.
+   *
+   * The same change that raised the type found the facts list on practice
+   * clipping: its label column had a 5rem floor, written when the small
+   * size was 9.52px, and at 16px "Disciplines" is one word 86px wide with
+   * nowhere to break. It was cut five pixels short of its last letter on
+   * every phone and every iPad, and no check was looking at that page for
+   * clipping at all.
+   */
+  const clipped = () => {
+    const cut = [];
+    for (const e of document.querySelectorAll("body *")) {
+      const r = e.getBoundingClientRect();
+      if (!(r.width > 2 && r.height > 2)) continue;
+      const cs = getComputedStyle(e);
+      if (cs.visibility === "hidden" || cs.opacity === "0") continue;
+      if (String(e.className).includes("trap")) continue;
+      /* Only elements printing words of their own; a scrolling container
+         is meant to be wider than its box. */
+      const own = [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 1);
+      if (!own) continue;
+      if (cs.overflowX === "auto" || cs.overflowX === "scroll") continue;
+      if (e.scrollWidth > e.clientWidth + 1) {
+        cut.push(`${String(e.className).split(" ")[0] || e.tagName} +${e.scrollWidth - e.clientWidth} "${(e.textContent || "").trim().slice(0, 18)}"`);
+      }
+    }
+    return [...new Set(cut)];
+  };
+
+  for (const width of [390, 820]) {
+    const c = await b.newPage();
+    await c.setViewport({ width, height: 1180, isMobile: width < 760, hasTouch: true, deviceScaleFactor: 2 });
+    const all = [];
+    for (const path of ["/practice", "/no-such-page"]) {
+      await c.goto(BASE + path, { waitUntil: "domcontentloaded" });
+      await sleep(3600);
+      for (const one of await c.evaluate(clipped)) all.push(`${path} ${one}`);
+    }
+    await c.close();
+    s.ok(
+      `at ${width}px nothing on practice or the 404 is cut off mid-word`,
+      all.length === 0,
+      all.length ? all.slice(0, 5).join(", ") : "nothing clipped"
+    );
+  }
 
   await b.close();
   return s;
